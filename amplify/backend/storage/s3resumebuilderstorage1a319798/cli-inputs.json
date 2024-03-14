@@ -1,0 +1,15 @@
+{
+  "resourceName": "s3resumebuilderstorage1a319798",
+  "bucketName": "resume-builder-storage-1a319798",
+  "policyUUID": "70d4735d",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

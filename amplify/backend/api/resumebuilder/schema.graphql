@@ -1,0 +1,111 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = {allow: public}
+}
+
+type Reference @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  phone: String
+  email: String
+  contactinformationID: ID! @index(name: "byContactInformation")
+}
+
+type ContactInformation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  References: [Reference] @hasMany(indexName: "byContactInformation", fields: ["id"])
+}
+
+type Resume @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Summary: Summary @hasOne
+  Skills: [Skill] @hasMany(indexName: "byResume", fields: ["id"])
+  Education: Education @hasOne
+  Experience: Experience @hasOne
+  ContactInformation: ContactInformation @hasOne
+  title: String
+}
+
+type Education @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  summary: String
+  Schools: [School] @hasMany(indexName: "byEducation", fields: ["id"])
+}
+
+type Degree @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  major: String
+  startYear: AWSDate
+  endYear: AWSDate
+  schoolID: ID @index(name: "bySchool")
+  School: School @belongsTo(fields: ["schoolID"])
+}
+
+type Company @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  role: String
+  startDate: AWSDate
+  endDate: AWSDate
+  historyID: ID @index(name: "byExperience")
+  Engagements: [Engagement] @hasMany(indexName: "byCompany", fields: ["id"])
+  Accomplishments: [Accomplishment] @hasMany(indexName: "byCompany", fields: ["id"])
+  Skills: [Skill] @hasMany(indexName: "byCompany", fields: ["id"])
+  title: String
+  gptResponse: String
+}
+
+type Accomplishment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  description: String
+  link: String
+  engagementID: ID @index(name: "byEngagement")
+  companyID: ID @index(name: "byCompany")
+  Skills: [Skill] @hasMany(indexName: "byAccomplishment", fields: ["id"])
+}
+
+type School @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  Degrees: [Degree] @hasMany(indexName: "bySchool", fields: ["id"])
+  educationID: ID @index(name: "byEducation")
+}
+
+type Experience @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  text: String
+  Companies: [Company] @hasMany(indexName: "byExperience", fields: ["id"])
+  gptResponse: String
+}
+
+type Skill @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  link: String
+  resumeID: ID @index(name: "byResume")
+  companyID: ID @index(name: "byCompany")
+  accomplishmentID: ID @index(name: "byAccomplishment")
+}
+
+type Engagement @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  client: String
+  startDate: AWSDate
+  endDate: AWSDate
+  companyID: ID @index(name: "byCompany")
+  Accomplishments: [Accomplishment] @hasMany(indexName: "byEngagement", fields: ["id"])
+  gptResponse: String
+}
+
+type Summary @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  goals: String
+  persona: String
+  url: String
+  headshot: String
+  gptResponse: String
+} 

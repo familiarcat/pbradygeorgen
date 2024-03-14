@@ -1,0 +1,13 @@
+// .eslintrc.js
+module.exports = {
+  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  extends: [
+    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    "prettier", // Enables eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    "plugin:prettier/recommended", // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+  ],
+  rules: {
+    // Define additional or override existing rules here
+    "@typescript-eslint/no-unused-vars": "warn", // Example rule: turning unused vars into warnings
+  },
+}
