@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Platform, TouchableOpacity, View, StyleSheet } from "react-native"
 import LottieView from "lottie-react-native"
-// import AnimatedLottieView from "lottie-react-native"
 import { Player } from "@lottiefiles/react-lottie-player"
 import { colors, typography } from "app/theme"
 import hexToRgba from "hex-to-rgba"
@@ -47,62 +46,50 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     }
   }
   // Recursive function to change colors
-  function changeLayerColors(layers: any[], newColor?: string) {
-    newColor = hexToRgba("000") // [255, 0, 255, 0.5]
-    console.log("layers; ", layers)
-    return
+  function changeLayerColors(layers: any[], newColor: string) {
+    // console.log("changing layer colors", newColor)
+    newColor = hexToRgba("#777") || hexToRgba(newColor) // [255, 0, 255, 0.5]
+    console.log("newColor: " + newColor)
+    const rgbaToArray = (newColor: any): string => {
+      const newColorArrayString = newColor
+        .slice(5, -1)
+        .split(",")
+        .map((num: any) => parseInt(num.trim()))
+      return `[${newColorArrayString}]`
+    }
+
+    // console.log("numbers: ", rgbaToArray(newColor))
+    // console.log("layers; ", layers)
     layers.forEach((layer) => {
       if (layer.ty === "sh" || layer.ty === 4) {
         // Shape layers or precomps
         if (layer.shapes) {
           layer.shapes.forEach((shape: any) => {
             if (shape.it) {
-              changeLayerColors(shape.it, newColor) // Recurse into shapes
+              // console.log("shape.it ", shape.it)
+              const fills = shape.it.map((item: any) => {
+                // console.log("shape array item", item)
+                item.ty === "fl" && console.log("we got a fill! " + item.ty, "\n", item.c.k)
+                return item
+              })
+              console.log("fills: ", fills)
+              // changeLayerColors(shape.it, newColor) // Recurse into shapes
             }
           })
         }
       } else if (layer.ty === "gr") {
         // Group items
-        changeLayerColors(layer.it, newColor)
+        console.log("changing group colors", rgbaToArray(newColor))
+        changeLayerColors(layer.it, rgbaToArray(newColor))
       }
 
       if (layer.c && layer.c.k) {
         // If layer has a color property
-        layer.c.k = newColor // Convert RGB to RGBA
+        console.log("changing layer color property: ", rgbaToArray(newColor))
+        layer.c.k = rgbaToArray(newColor) // Convert RGB to RGBA
       }
     })
   }
-
-  // function updateAllFillColors(animationData: any) {
-  //   // Recursively search for fill objects and update their color
-  //   const rgbaArrayColor = hexToRgba("000") // [255, 0, 255, 0.5]
-  //   console.log("hex to rgba color", rgbaArrayColor) //
-  //   const searchAndUpdate = (obj: any) => {
-  //     if (Array.isArray(obj)) {
-  //       obj.forEach((item) => searchAndUpdate(item))
-  //     } else if (obj && typeof obj === "object") {
-  //       // Check for fill property and update color
-  //       if (obj.ty === "fl" && obj.c) {
-  //         // console.log("obj.c", obj.c) //
-  //         // console.log("\n\n\nc.k = ", obj.c.k)
-
-  //         obj.c.k = rgbaArrayColor // Assuming newColor is an RGBA array, e.g., [1, 0, 0, 1] for red
-  //       }
-  //       // Continue searching in child objects
-  //       Object.values(obj).forEach((val) => {
-  //         if (typeof val === "object") {
-  //           searchAndUpdate(val)
-  //         }
-  //       })
-  //     }
-  //   }
-
-  //   // Clone the original JSON to avoid mutating the input
-  //   const clonedData = JSON.parse(JSON.stringify(animationData))
-  //   clonedData.layers.forEach((layer: any) => searchAndUpdate(layer))
-  //   console.log("clonedData", clonedData) //
-  //   return clonedData
-  // }
 
   const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
 
@@ -121,7 +108,8 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
             }
           })
         }
-        changeLayerColors(json)
+        // console.log("modifyLayers, ", layers)
+        changeLayerColors(layers, "#777")
 
         if (layer.layers) {
           modifyLayers(layer.layers) // Recursively modify sublayers
@@ -140,7 +128,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   const [modifiedAnimationData, setModifiedAnimationData] = useState<any>(null)
   useEffect(() => {
     const animationDataCopy = JSON.parse(JSON.stringify(animationSource)) // Deep copy to prevent direct mutation
-    const updatedAnimationData = modifyFontFamilyInLottieJson(animationSource)
+    const updatedAnimationData = modifyFontFamilyInLottieJson(animationDataCopy)
     setModifiedAnimationData(updatedAnimationData)
   }, [animationSource, dynamicText, colors, typography])
 
