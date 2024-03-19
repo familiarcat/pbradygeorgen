@@ -45,78 +45,111 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
       }
     }
   }
-  // Recursive function to change colors
-  function changeLayerColors(layers: any[], newColor: string) {
-    // console.log("changing layer colors", newColor)
-    newColor = hexToRgba("#777") || hexToRgba(newColor) // [255, 0, 255, 0.5]
-    console.log("newColor: " + newColor)
-    const rgbaToArray = (newColor: any): string => {
-      const newColorArrayString = newColor
-        .slice(5, -1)
-        .split(",")
-        .map((num: any) => parseInt(num.trim()))
-      return `[${newColorArrayString}]`
-    }
+  const rgbaToArray = (color: string): number[] => {
+    console.log("color in rgba: ", hexToRgba(color))
 
-    // console.log("numbers: ", rgbaToArray(newColor))
-    // console.log("layers; ", layers)
+    return color
+      .slice(5, -1)
+      .split(",")
+      .map((num: string, index: number) => {
+        console.log("color index: ", index)
+        return index !== 3 ? parseFloat(num.trim()) / 255 : parseFloat(num)
+      })
+  }
+
+  const newColor = hexToRgba("#888") || hexToRgba(colors.palette.neutral500) // [255, 0, 255, 0.5]
+  // Recursive function to change colors
+  // function changeLayerColors(layers: any[], newColor: string) {
+  //   console.log("changing layer colors", newColor)
+  //   // newColor = hexToRgba("#777") || hexToRgba(newColor) // [255, 0, 255, 0.5]
+  //   // newColor = hexToRgba("#777") || hexToRgba(newColor) // Assuming this returns something like "rgba(255, 0, 255, 0.5)"
+
+  //   const rgbaToArray = (color: string): number[] => {
+  //     console.log("color in rgba: ", hexToRgba(color))
+
+  //     return color
+  //       .slice(5, -1)
+  //       .split(",")
+  //       .map((num: string) => parseFloat(num.trim()))
+  //   }
+
+  //   const updateLayers = (layers: any[]): any[] => {
+  //     return layers.map((layer) => {
+  //       if (layer.ty === "sh" || layer.ty === 4) {
+  //         if (layer.shapes) {
+  //           layer.shapes.forEach((shape: any) => {
+  //             if (shape.it) {
+  //               shape.it.forEach((item: any) => {
+  //                 if (item.ty === "fl" && item.c && item.c.k) {
+  //                   // console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
+  //                   item.c.k = [255, 0, 0, 1] //rgbaToArray(newColor)
+  //                 }
+  //               })
+  //             }
+  //           })
+  //         }
+  //       } else if (layer.ty === "gr") {
+  //         console.log("got a group shape")
+  //         layer.it = updateLayers(layer.it)
+  //       }
+
+  //       if (layer.c && layer.c.k) {
+  //         console.log("got a layer with color")
+  //         layer.c.k = rgbaToArray(newColor)
+  //       }
+
+  //       return layer
+  //     })
+  //   }
+  //   return updateLayers(layers)
+  // }
+
+  const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
+  const modifyLayers = (layers: any[]) => {
     layers.forEach((layer) => {
+      if (layer.t && layer.t.d && layer.t.d.k) {
+        // Found a text layer
+        if (layer.nm === "text" && dynamicText) {
+          layer.t.d.k[0].s.t = dynamicText
+        }
+        layer.t.d.k.forEach((textData: any) => {
+          if (textData.s) {
+            textData.s.f = defaultFontFamily // Change font family
+            // console.log("setting to default font family: " + textData.s.f)
+          }
+        })
+      }
       if (layer.ty === "sh" || layer.ty === 4) {
-        // Shape layers or precomps
         if (layer.shapes) {
           layer.shapes.forEach((shape: any) => {
             if (shape.it) {
-              // console.log("shape.it ", shape.it)
-              const fills = shape.it.map((item: any) => {
-                // console.log("shape array item", item)
-                item.ty === "fl" && console.log("we got a fill! " + item.ty, "\n", item.c.k)
-                return item
+              shape.it.forEach((item: any) => {
+                if (item.ty === "fl" && item.c && item.c.k) {
+                  console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
+                  item.c.k = [100 / 255, 119 / 255, 119 / 255, 1] //rgbaToArray(newColor)
+                }
               })
-              console.log("fills: ", fills)
-              // changeLayerColors(shape.it, newColor) // Recurse into shapes
             }
           })
         }
       } else if (layer.ty === "gr") {
-        // Group items
-        console.log("changing group colors", rgbaToArray(newColor))
-        changeLayerColors(layer.it, rgbaToArray(newColor))
+        console.log("got a group shape")
+        // layer.it = updateLayers(layer.it)
       }
 
       if (layer.c && layer.c.k) {
-        // If layer has a color property
-        console.log("changing layer color property: ", rgbaToArray(newColor))
-        layer.c.k = rgbaToArray(newColor) // Convert RGB to RGBA
+        console.log("got a layer with color")
+        // layer.c.k = rgbaToArray(newColor)
+      }
+
+      // console.log("modifyLayers, ", layers)
+
+      if (layer.layers) {
+        modifyLayers(layer.layers) // Recursively modify sublayers
       }
     })
   }
-
-  const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
-
-  function modifyFontFamilyInLottieJson(json: any): any {
-    const modifyLayers = (layers: any[]) => {
-      layers.forEach((layer) => {
-        if (layer.t && layer.t.d && layer.t.d.k) {
-          // Found a text layer
-          if (layer.nm === "text" && dynamicText) {
-            layer.t.d.k[0].s.t = dynamicText
-          }
-          layer.t.d.k.forEach((textData: any) => {
-            if (textData.s) {
-              textData.s.f = defaultFontFamily // Change font family
-              console.log("setting to default font family: " + textData.s.f)
-            }
-          })
-        }
-        // console.log("modifyLayers, ", layers)
-        changeLayerColors(layers, "#777")
-
-        if (layer.layers) {
-          modifyLayers(layer.layers) // Recursively modify sublayers
-        }
-      })
-    }
-
+  function applyPropsToLottie(json: any): any {
     const modifiedJson = JSON.parse(JSON.stringify(json)) // Deep clone to avoid mutating the original
     if (modifiedJson.layers) {
       modifyLayers(modifiedJson.layers)
@@ -128,7 +161,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   const [modifiedAnimationData, setModifiedAnimationData] = useState<any>(null)
   useEffect(() => {
     const animationDataCopy = JSON.parse(JSON.stringify(animationSource)) // Deep copy to prevent direct mutation
-    const updatedAnimationData = modifyFontFamilyInLottieJson(animationDataCopy)
+    let updatedAnimationData = applyPropsToLottie(animationDataCopy)
     setModifiedAnimationData(updatedAnimationData)
   }, [animationSource, dynamicText, colors, typography])
 
