@@ -5,10 +5,12 @@ import {
   PressableStateCallbackType,
   StyleProp,
   TextStyle,
+  View,
   ViewStyle,
 } from "react-native"
 import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
+import { AnimatedButton } from "./AnimatedButton"
 
 type Presets = keyof typeof $viewPresets
 
@@ -79,6 +81,8 @@ export interface ButtonProps extends PressableProps {
    * An optional style override for the disabled state
    */
   disabledStyle?: StyleProp<ViewStyle>
+
+  animatedContent?: any
 }
 
 /**
@@ -102,6 +106,7 @@ export function Button(props: ButtonProps) {
     LeftAccessory,
     disabled,
     disabledStyle: $disabledViewStyleOverride,
+    animatedContent,
     ...rest
   } = props
 
@@ -137,9 +142,21 @@ export function Button(props: ButtonProps) {
             <LeftAccessory style={$leftAccessoryStyle} pressableState={state} disabled={disabled} />
           )}
 
-          <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
-            {children}
-          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {!!animatedContent ? (
+              <AnimatedButton
+                dynamicText={text}
+                onPress={() => {
+                  console.log("pressed at the top button level")
+                }}
+                animationSource={animatedContent}
+              />
+            ) : (
+              <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
+                {children}
+              </Text>
+            )}
+          </View>
 
           {!!RightAccessory && (
             <RightAccessory

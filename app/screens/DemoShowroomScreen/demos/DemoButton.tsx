@@ -46,7 +46,12 @@ export const DemoButton: Demo = {
         }}
         animationSource={require("../../../components/AnimatedButton/AnimatedButton.json")}
       />
-      <Button>Default - Laboris In Labore</Button>
+      <Button
+        text="From Props"
+        animatedContent={require("../../../components/AnimatedButton/AnimatedButton.json")}
+      >
+        Default - Laboris In Labore
+      </Button>
       <DemoDivider />
 
       <Button preset="filled">Filled - Laboris Ex</Button>

@@ -142,7 +142,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
 
   if (Platform.OS === "web") {
     return (
-      <TouchableOpacity onPress={handlePress} style={{ width: width }}>
+      <TouchableOpacity onPress={handlePress}>
         {/* Set a specific size for the animation container */}
         <View>
           <Player
@@ -159,9 +159,9 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   // console.log("playerRef", playerRef)
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.button}>
+    <TouchableOpacity onPress={handlePress}>
       {/* Set a specific size for the animation container */}
-      <View>
+      <View style={{ width: 100 }}>
         <LottieView
           ref={lottieRef}
           source={modifiedAnimationData} // Adjust the path as necessary
