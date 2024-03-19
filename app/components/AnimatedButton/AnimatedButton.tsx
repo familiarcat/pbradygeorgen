@@ -4,6 +4,8 @@ import LottieView from "lottie-react-native"
 import { Player } from "@lottiefiles/react-lottie-player"
 import { colors, typography } from "app/theme"
 import hexToRgba from "hex-to-rgba"
+import _ from "lodash"
+
 import tinycolor from "tinycolor2"
 
 interface AnimatedButton {
@@ -47,7 +49,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     }
   }
   const rgbaToArray = (color: string): number[] => {
-    console.log("color in rgba: ", color)
     const colorArray = color
       .slice(5, -1)
       .split(",")
@@ -57,7 +58,9 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     return colorArray
   }
 
-  const newColor = hexToRgba(colors.palette.primary200) // [255, 0, 255, 0.5]
+  const backgroundColor = hexToRgba(colors.palette.primary200)
+  const textColor = hexToRgba(colors.palette.neutral600)
+  const accentColor = hexToRgba(colors.palette.accent500)
 
   const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
   const modifyLayers = (layers: any[]) => {
@@ -66,13 +69,30 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
         // Found a text layer
         if (layer.nm === "text" && dynamicText) {
           layer.t.d.k[0].s.t = dynamicText
+          layer.t.d.k[0].s.fc = rgbaToArray(textColor)
+          // Set dynamic font
+          layer.t.d.k.forEach((textData: any) => {
+            if (textData.s) {
+              textData.s.f = defaultFontFamily // Change font family
+              console.log("setting to default font family: " + textData.s.f)
+            }
+          })
         }
-        layer.t.d.k.forEach((textData: any) => {
-          if (textData.s) {
-            textData.s.f = defaultFontFamily // Change font family
-            // console.log("setting to default font family: " + textData.s.f)
-          }
+      }
+      if (layer.nm === "button_shape") {
+        console.log("button shapes", layer.shapes)
+        // _.find(myArray, { ty: 'fl' })
+        layer.shapes.forEach((shape: any) => {
+          console.log("shape: ", shape.it)
+          const shapeToFill = _.find(shape?.it, { ty: "fl" })
+          const strokeToFill = _.find(shape?.it, { ty: "st" })
+          console.log("strokeToFill: ", strokeToFill)
+          console.log("shapeToFill.c.k: ", shapeToFill.c.k)
+          shapeToFill.c.k = rgbaToArray(backgroundColor)
+          strokeToFill.c.k = rgbaToArray(accentColor)
+          // console.log("shapeToFill.c.k: ", shapeToFill.c.k)
         })
+        //found a button shape layer
       }
       if (layer.ty === "sh" || layer.ty === 4) {
         if (layer.shapes) {
@@ -80,8 +100,8 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
             if (shape.it) {
               shape.it.forEach((item: any) => {
                 if (item.ty === "fl" && item.c && item.c.k) {
-                  console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
-                  item.c.k = rgbaToArray(newColor)
+                  // console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
+                  item.c.k = rgbaToArray(backgroundColor)
                 }
               })
             }
