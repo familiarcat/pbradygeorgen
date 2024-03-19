@@ -186,7 +186,7 @@ export function Card(props: CardProps) {
     LeftComponent && { marginStart: spacing.md },
     RightComponent && { marginEnd: spacing.md },
   ]
-
+  console.log("Card Container: ", $containerStyle)
   return (
     <Wrapper
       style={$containerStyle}

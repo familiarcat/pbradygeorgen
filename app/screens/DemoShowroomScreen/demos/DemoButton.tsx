@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
 import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Text } from "../../../components"
+import { AnimatedButton, Button, Icon, Text } from "../../../components"
 import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
@@ -39,6 +39,13 @@ export const DemoButton: Demo = {
     "A component that allows users to take actions and make choices. Wraps the Text component with a Pressable component.",
   data: [
     <DemoUseCase name="Presets" description="There are a few presets that are preconfigured.">
+      <AnimatedButton
+        dynamicText="Animated Button"
+        onPress={() => {
+          console.log("pressed at the top button level")
+        }}
+        animationSource={require("../../../components/AnimatedButton/AnimatedButton.json")}
+      />
       <Button>Default - Laboris In Labore</Button>
       <DemoDivider />
 

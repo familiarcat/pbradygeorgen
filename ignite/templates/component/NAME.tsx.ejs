@@ -7,8 +7,9 @@ patch:
 import * as React from "react"
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { colors, typography } from "app/theme"
-import { Text } from "app/components/Text"
+import { colors, typography } from "../theme"
+import { Text } from "./Text"
+import { fireEvent, userEvent, render, screen } from "@testing-library/react-native"
 
 export interface <%= props.pascalCaseName %>Props {
   /**
@@ -40,3 +41,4 @@ const $text: TextStyle = {
   fontSize: 14,
   color: colors.palette.primary500,
 }
+
