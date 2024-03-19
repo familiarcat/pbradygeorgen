@@ -54,56 +54,10 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
       .map((num: string, index: number) =>
         index < 3 ? parseInt(num.trim()) / 255 : parseInt(num.trim()),
       )
-    console.log("colorArray: ", colorArray)
     return colorArray
   }
 
   const newColor = hexToRgba(colors.palette.primary200) // [255, 0, 255, 0.5]
-  // Recursive function to change colors
-  // function changeLayerColors(layers: any[], newColor: string) {
-  //   console.log("changing layer colors", newColor)
-  //   // newColor = hexToRgba("#777") || hexToRgba(newColor) // [255, 0, 255, 0.5]
-  //   // newColor = hexToRgba("#777") || hexToRgba(newColor) // Assuming this returns something like "rgba(255, 0, 255, 0.5)"
-
-  //   const rgbaToArray = (color: string): number[] => {
-  //     console.log("color in rgba: ", hexToRgba(color))
-
-  //     return color
-  //       .slice(5, -1)
-  //       .split(",")
-  //       .map((num: string) => parseFloat(num.trim()))
-  //   }
-
-  //   const updateLayers = (layers: any[]): any[] => {
-  //     return layers.map((layer) => {
-  //       if (layer.ty === "sh" || layer.ty === 4) {
-  //         if (layer.shapes) {
-  //           layer.shapes.forEach((shape: any) => {
-  //             if (shape.it) {
-  //               shape.it.forEach((item: any) => {
-  //                 if (item.ty === "fl" && item.c && item.c.k) {
-  //                   // console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
-  //                   item.c.k = [255, 0, 0, 1] //rgbaToArray(newColor)
-  //                 }
-  //               })
-  //             }
-  //           })
-  //         }
-  //       } else if (layer.ty === "gr") {
-  //         console.log("got a group shape")
-  //         layer.it = updateLayers(layer.it)
-  //       }
-
-  //       if (layer.c && layer.c.k) {
-  //         console.log("got a layer with color")
-  //         layer.c.k = rgbaToArray(newColor)
-  //       }
-
-  //       return layer
-  //     })
-  //   }
-  //   return updateLayers(layers)
-  // }
 
   const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
   const modifyLayers = (layers: any[]) => {
