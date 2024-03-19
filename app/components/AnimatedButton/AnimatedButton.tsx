@@ -4,6 +4,7 @@ import LottieView from "lottie-react-native"
 import { Player } from "@lottiefiles/react-lottie-player"
 import { colors, typography } from "app/theme"
 import hexToRgba from "hex-to-rgba"
+import tinycolor from "tinycolor2"
 
 interface AnimatedButton {
   animationSource: any // Adjust based on how you import Lottie files
@@ -46,18 +47,18 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     }
   }
   const rgbaToArray = (color: string): number[] => {
-    console.log("color in rgba: ", hexToRgba(color))
-
-    return color
+    console.log("color in rgba: ", color)
+    const colorArray = color
       .slice(5, -1)
       .split(",")
-      .map((num: string, index: number) => {
-        console.log("color index: ", index)
-        return index !== 3 ? parseFloat(num.trim()) / 255 : parseFloat(num)
-      })
+      .map((num: string, index: number) =>
+        index < 3 ? parseInt(num.trim()) / 255 : parseInt(num.trim()),
+      )
+    console.log("colorArray: ", colorArray)
+    return colorArray
   }
 
-  const newColor = hexToRgba("#888") || hexToRgba(colors.palette.neutral500) // [255, 0, 255, 0.5]
+  const newColor = hexToRgba(colors.palette.primary200) // [255, 0, 255, 0.5]
   // Recursive function to change colors
   // function changeLayerColors(layers: any[], newColor: string) {
   //   console.log("changing layer colors", newColor)
@@ -126,7 +127,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
               shape.it.forEach((item: any) => {
                 if (item.ty === "fl" && item.c && item.c.k) {
                   console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
-                  item.c.k = [100 / 255, 119 / 255, 119 / 255, 1] //rgbaToArray(newColor)
+                  item.c.k = rgbaToArray(newColor)
                 }
               })
             }
