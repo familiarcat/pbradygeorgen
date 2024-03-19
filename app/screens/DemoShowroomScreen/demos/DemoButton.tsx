@@ -40,7 +40,7 @@ export const DemoButton: Demo = {
   data: [
     <DemoUseCase name="Presets" description="There are a few presets that are preconfigured.">
       <AnimatedButton
-        dynamicText="Animated Button"
+        dynamicText="Dynamic Text"
         onPress={() => {
           console.log("pressed at the top button level")
         }}

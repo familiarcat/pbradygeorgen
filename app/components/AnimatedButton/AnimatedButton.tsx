@@ -59,7 +59,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   }
 
   const backgroundColor = hexToRgba(colors.palette.primary200)
-  const textColor = hexToRgba(colors.palette.neutral600)
+  const textColor = hexToRgba(colors.palette.neutral500)
   const accentColor = hexToRgba(colors.palette.accent500)
 
   const defaultFontFamily = typography.fonts.spaceGrotesk.bold // Example default font
@@ -84,11 +84,11 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
         // _.find(myArray, { ty: 'fl' })
         layer.shapes.forEach((shape: any) => {
           console.log("shape: ", shape.it)
-          const shapeToFill = _.find(shape?.it, { ty: "fl" })
+          // const shapeToFill = _.find(shape?.it, { ty: "fl" })
           const strokeToFill = _.find(shape?.it, { ty: "st" })
           console.log("strokeToFill: ", strokeToFill)
-          console.log("shapeToFill.c.k: ", shapeToFill.c.k)
-          shapeToFill.c.k = rgbaToArray(backgroundColor)
+          // console.log("shapeToFill.c.k: ", shapeToFill.c.k)
+          // shapeToFill.c.k = rgbaToArray(backgroundColor)
           strokeToFill.c.k = rgbaToArray(accentColor)
           // console.log("shapeToFill.c.k: ", shapeToFill.c.k)
         })
