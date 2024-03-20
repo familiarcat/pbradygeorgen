@@ -10,7 +10,7 @@ import tinycolor from "tinycolor2"
 
 interface AnimatedButton {
   animationSource: any // Adjust based on how you import Lottie files
-  onPress: () => void
+  onPress?: any
   dynamicText?: string // Text to inject dynamically
   width?: number // Optional width
   height?: number // Optional height
@@ -26,6 +26,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   const playerRef = useRef<Player>(null)
   const lottieRef = useRef<LottieView>(null)
   dynamicText = dynamicText || "Default Text"
+  onPress = onPress || _.noop // Default to a no-op function if no onPress prop is provided
   animationSource = require("./AnimatedButton.json") // Adjust the path as necessary
   const handlePress = () => {
     // Play the animation once upon pressing the button

@@ -109,7 +109,6 @@ export function Button(props: ButtonProps) {
     animatedContent,
     ...rest
   } = props
-
   const preset: Presets = props.preset ?? "default"
   function $viewStyle({ pressed }: PressableStateCallbackType) {
     return [
@@ -127,7 +126,9 @@ export function Button(props: ButtonProps) {
       !!disabled && $disabledTextStyleOverride,
     ]
   }
-
+  if (!!animatedContent) {
+    console.log("we have animated content in the button state")
+  }
   return (
     <Pressable
       style={$viewStyle}
@@ -146,10 +147,8 @@ export function Button(props: ButtonProps) {
             {!!animatedContent ? (
               <AnimatedButton
                 dynamicText={text}
-                onPress={() => {
-                  console.log("pressed at the top button level")
-                }}
                 animationSource={animatedContent}
+                onPress={props.onPress}
               />
             ) : (
               <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>

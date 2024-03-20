@@ -38,16 +38,16 @@ export const DemoButton: Demo = {
   description:
     "A component that allows users to take actions and make choices. Wraps the Text component with a Pressable component.",
   data: [
-    <DemoUseCase name="Presets" description="There are a few presets that are preconfigured.">
-      <AnimatedButton
-        dynamicText="Dynamic Text"
-        onPress={() => {
-          console.log("pressed at the top button level")
-        }}
-        animationSource={require("../../../components/AnimatedButton/AnimatedButton.json")}
-      />
+    <DemoUseCase
+      name="Presets"
+      layout="row"
+      description="There are a few presets that are preconfigured."
+    >
       <Button
         text="From Props"
+        onPress={() => {
+          console.log("pressed at the button level")
+        }}
         animatedContent={require("../../../components/AnimatedButton/AnimatedButton.json")}
       >
         Default - Laboris In Labore
