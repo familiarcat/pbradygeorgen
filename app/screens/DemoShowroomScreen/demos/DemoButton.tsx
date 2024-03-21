@@ -1,14 +1,19 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
 import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { AnimatedButton, Button, Icon, Text } from "../../../components"
+import { Button, Icon, Text } from "../../../components"
 import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
-const $customButtonStyle: ViewStyle = { backgroundColor: colors.error, height: 100 }
+const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
+const $customAnimatedButtonStyle: ViewStyle = {
+  backgroundColor: colors.background,
+  width: "auto",
+  height: "auto",
+}
 const $customButtonPressedStyle: ViewStyle = { backgroundColor: colors.error }
 const $customButtonTextStyle: TextStyle = {
   color: colors.error,
@@ -49,6 +54,7 @@ export const DemoButton: Demo = {
           console.log("pressed at the button level")
         }}
         animatedContent={require("../../../components/AnimatedButton/AnimatedButton.json")}
+        style={{ width: 200 }}
       >
         Default - Laboris In Labore
       </Button>
@@ -85,6 +91,19 @@ export const DemoButton: Demo = {
 
       <Button
         preset="filled"
+        LeftAccessory={(props) => (
+          <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
+        )}
+      >
+        LeftAccessory - Duis Proident
+      </Button>
+      <DemoDivider />
+
+      <Button
+        preset="filled"
+        style={$customButtonStyle}
+        animatedContent={require("../../../components/AnimatedButton/AnimatedButton.json")}
+        text="Animated Button"
         LeftAccessory={(props) => (
           <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
         )}

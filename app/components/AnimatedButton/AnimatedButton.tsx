@@ -81,17 +81,9 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
         }
       }
       if (layer.nm === "button_shape") {
-        console.log("button shapes", layer.shapes)
-        // _.find(myArray, { ty: 'fl' })
         layer.shapes.forEach((shape: any) => {
-          console.log("shape: ", shape.it)
-          // const shapeToFill = _.find(shape?.it, { ty: "fl" })
           const strokeToFill = _.find(shape?.it, { ty: "st" })
-          console.log("strokeToFill: ", strokeToFill)
-          // console.log("shapeToFill.c.k: ", shapeToFill.c.k)
-          // shapeToFill.c.k = rgbaToArray(backgroundColor)
           strokeToFill.c.k = rgbaToArray(accentColor)
-          // console.log("shapeToFill.c.k: ", shapeToFill.c.k)
         })
         //found a button shape layer
       }
@@ -118,8 +110,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
         // layer.c.k = rgbaToArray(newColor)
       }
 
-      // console.log("modifyLayers, ", layers)
-
       if (layer.layers) {
         modifyLayers(layer.layers) // Recursively modify sublayers
       }
@@ -130,7 +120,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     if (modifiedJson.layers) {
       modifyLayers(modifiedJson.layers)
     }
-    // console.log("modified json: " + JSON.stringify(modifiedJson, null, 2))
     return modifiedJson
   }
 
@@ -145,7 +134,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     return (
       <TouchableOpacity onPress={handlePress}>
         {/* Set a specific size for the animation container */}
-        <View>
+        <View style={[styles.button, { width: width, height: height }]}>
           <Player
             ref={playerRef}
             autoplay={false}
@@ -162,30 +151,30 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   return (
     <TouchableOpacity onPress={handlePress}>
       {/* Set a specific size for the animation container */}
-      <View style={{ width: 100 }}>
-        <LottieView
-          ref={lottieRef}
-          source={modifiedAnimationData} // Adjust the path as necessary
-          autoPlay={false}
-          loop={false}
-        />
-      </View>
+      <LottieView
+        ref={lottieRef}
+        source={modifiedAnimationData} // Adjust the path as necessary
+        autoPlay={false}
+        loop={false}
+      />
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
+    flex: 1,
+    margin: -10,
     justifyContent: "center",
     alignItems: "center",
-    overflow: "hidden",
   },
 
   nativeAnimation: {
     width: "auto", // Make the LottieView component fill the container
   },
   webAnimation: {
-    width: "auto", // Make the Player component fill the container
+    width: "100%", // Adjust according to your needs
+    height: "auto", // Adjust according to your needs
   },
 })
 

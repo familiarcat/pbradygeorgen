@@ -81,7 +81,9 @@ export interface ButtonProps extends PressableProps {
    * An optional style override for the disabled state
    */
   disabledStyle?: StyleProp<ViewStyle>
-
+  /**
+   * An optional override for lottie animated content
+   */
   animatedContent?: any
 }
 
@@ -126,9 +128,8 @@ export function Button(props: ButtonProps) {
       !!disabled && $disabledTextStyleOverride,
     ]
   }
-  if (!!animatedContent) {
-    console.log("we have animated content in the button state")
-  }
+
+  props.style && console.log("style", props.style)
   return (
     <Pressable
       style={$viewStyle}
@@ -142,13 +143,14 @@ export function Button(props: ButtonProps) {
           {!!LeftAccessory && (
             <LeftAccessory style={$leftAccessoryStyle} pressableState={state} disabled={disabled} />
           )}
-
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             {!!animatedContent ? (
               <AnimatedButton
                 dynamicText={text}
                 animationSource={animatedContent}
                 onPress={props.onPress}
+                width={100}
+                height={100}
               />
             ) : (
               <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
@@ -156,7 +158,6 @@ export function Button(props: ButtonProps) {
               </Text>
             )}
           </View>
-
           {!!RightAccessory && (
             <RightAccessory
               style={$rightAccessoryStyle}
