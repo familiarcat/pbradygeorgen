@@ -132,13 +132,14 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
 
   if (Platform.OS === "web") {
     return (
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={handlePress} style={styles.button}>
         {/* Set a specific size for the animation container */}
-        <View style={[styles.button, { width: width, height: height }]}>
+        <View style={[styles.button, { overflow: "visible" }]}>
           <Player
             ref={playerRef}
             autoplay={false}
             loop={false}
+            renderer={"svg"}
             src={modifiedAnimationData} // Adjust the path as necessary
             style={styles.webAnimation} // Adjust scaling via CSS for web
           />
@@ -164,17 +165,30 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: -10,
+    margin: "-3%",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
+    // flexGrow: 3,
+    // minHeight: 56,
+    // borderRadius: 4,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // flexDirection: "column",
+    // /* padding: 12px; */
+    // overflow: "hidden",
+    // borderWidth: 1,
   },
 
   nativeAnimation: {
     width: "auto", // Make the LottieView component fill the container
   },
   webAnimation: {
-    width: "100%", // Adjust according to your needs
-    height: "auto", // Adjust according to your needs
+    // width: "100%", // Adjust according to your needs
+    // height: "auto", // Adjust according to your needs
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 })
 

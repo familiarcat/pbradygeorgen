@@ -108,7 +108,7 @@ export const DemoButton: Demo = {
           <Icon containerStyle={props.style} style={$iconStyle} icon="ladybug" />
         )}
       >
-        LeftAccessory - Duis Proident
+        LeftAccessory - DONE AFFIXED
       </Button>
       <DemoDivider />
 
