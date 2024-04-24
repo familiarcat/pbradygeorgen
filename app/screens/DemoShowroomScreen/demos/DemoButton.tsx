@@ -6,6 +6,7 @@ import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
+import LottieView from "lottie-react-native"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -48,8 +49,12 @@ export const DemoButton: Demo = {
       layout="row"
       description="There are a few presets that are pre-configured."
     >
+      <View>
+        <Text>Hello</Text>
+        {/* <LottieView source={require("assets/animations/spinning_pyramid.json")} /> */}
+      </View>
       <LottieAnimation
-        animationSource={require("assets/animations/Animation - 1713947862202.json")}
+        animationSource={require("assets/animations/spinning_pyramid.json")}
         onPress={() => console.log("pressed at the lottie level")}
       />
       <Button

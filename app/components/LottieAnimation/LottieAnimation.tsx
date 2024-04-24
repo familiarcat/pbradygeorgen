@@ -27,38 +27,34 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   }
 
   if (Platform.OS === "web") {
+    console.log("loading Web Lottie Animation")
     return (
       <TouchableOpacity onPress={handlePress} style={styles.button}>
         <Player
-          autoplay={true}
-          loop={false}
+          autoplay
+          loop={true}
           renderer="svg"
           src={animationData}
           style={styles.webAnimation}
           keepLastFrame={true}
-          onEvent={(event: any) => {
-            if (event === "complete") {
-              console.log("Animation Completed on Web")
-            }
-          }}
         />
       </TouchableOpacity>
     )
+  } else {
+    console.log("loading Native Lottie Animation", animationData)
+    return null
+    // <TouchableOpacity onPress={handlePress} style={styles.button}>
+    //   <LottieView
+    //     source={animationData}
+    //     autoPlay={true}
+    //     loop={false}
+    //     style={styles.nativeAnimation}
+    //     onAnimationFinish={() => {
+    //       console.log("Animation Completed on Native")
+    //     }}
+    //   />
+    // </TouchableOpacity>
   }
-
-  return (
-    <TouchableOpacity onPress={handlePress} style={styles.button}>
-      <LottieView
-        source={animationData}
-        autoPlay={true}
-        loop={false}
-        style={styles.nativeAnimation}
-        onAnimationFinish={() => {
-          console.log("Animation Completed on Native")
-        }}
-      />
-    </TouchableOpacity>
-  )
 }
 
 const styles = StyleSheet.create({

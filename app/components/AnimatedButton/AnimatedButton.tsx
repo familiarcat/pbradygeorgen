@@ -151,12 +151,12 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   return (
     <TouchableOpacity onPress={handlePress}>
       {/* Set a specific size for the animation container */}
-      <LottieView
+      {/* <LottieView
         ref={lottieRef}
         source={modifiedAnimationData} // Adjust the path as necessary
         autoPlay={false}
         loop={false}
-      />
+      /> */}
     </TouchableOpacity>
   )
 }
