@@ -178,7 +178,7 @@ export const DemoListItem: Demo = {
       <ListItem
         topSeparator
         textStyle={{ color: colors.palette.neutral100 }}
-        style={$customTouchableStyle}
+        // style={$customTouchableStyle}
         containerStyle={$customContainerStyle}
       >
         Styled Container (separators)

@@ -6,9 +6,7 @@ import { colors, typography } from "app/theme"
 import hexToRgba from "hex-to-rgba"
 import _ from "lodash"
 
-import tinycolor from "tinycolor2"
-
-interface AnimatedButton {
+interface LottieAnimation {
   animationSource: any // Adjust based on how you import Lottie files
   onPress?: any
   dynamicText?: string // Text to inject dynamically
@@ -16,18 +14,18 @@ interface AnimatedButton {
   height?: number // Optional height
 }
 
-export const AnimatedButton: React.FC<AnimatedButton> = ({
+export const LottieAnimation: React.FC<LottieAnimation> = ({
   animationSource,
   onPress,
   dynamicText,
-  width,
-  height,
 }) => {
   const playerRef = useRef<Player>(null)
   const lottieRef = useRef<LottieView>(null)
   dynamicText = dynamicText || "Default Text"
   onPress = onPress || _.noop // Default to a no-op function if no onPress prop is provided
-  animationSource = require("./AnimatedButton.json") // Adjust the path as necessary
+  animationSource = animationSource
+  console.log("animationSource", animationSource)
+
   const handlePress = () => {
     // Play the animation once upon pressing the button
     if (Platform.OS === "web") {
@@ -80,7 +78,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
             if (shape.it) {
               shape.it.forEach((item: any) => {
                 if (item.ty === "fl" && item.c && item.c.k) {
-                  // console.log("got a fill layer, trying to fill with: ", rgbaToArray(newColor))
                   item.c.k = rgbaToArray(backgroundColor)
                 }
               })
@@ -134,15 +131,16 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
-
-        <Player
-          ref={playerRef}
-          autoplay={false}
-          loop={false}
-          renderer={"svg"}
-          src={modifiedAnimationData} // Adjust the path as necessary
-          style={styles.webAnimation} // Adjust scaling via CSS for web
-        />
+        <View style={[styles.button, { borderRadius: 5 }]}>
+          <Player
+            ref={playerRef}
+            autoplay={false}
+            loop={false}
+            renderer={"svg"}
+            src={modifiedAnimationData} // Adjust the path as necessary
+            style={styles.webAnimation} // Adjust scaling via CSS for web
+          />
+        </View>
       </TouchableOpacity>
     )
   }
@@ -151,12 +149,14 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   return (
     <TouchableOpacity onPress={handlePress}>
       {/* Set a specific size for the animation container */}
-      <LottieView
-        ref={lottieRef}
-        source={modifiedAnimationData} // Adjust the path as necessary
-        autoPlay={false}
-        loop={false}
-      />
+      <View style={[{ borderRadius: 5 }]}>
+        <LottieView
+          ref={lottieRef}
+          source={modifiedAnimationData} // Adjust the path as necessary
+          autoPlay={false}
+          loop={false}
+        />
+      </View>
     </TouchableOpacity>
   )
 }
@@ -164,17 +164,11 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: "-5%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     minHeight: 56,
     borderRadius: 0,
-    // justifyContent: "center",
-    // alignItems: "center",
-    // flexDirection: "column",
-    // /* padding: 12px; */
-    // overflow: "hidden",
     borderWidth: 0,
   },
 
@@ -182,12 +176,13 @@ const styles = StyleSheet.create({
     width: "auto", // Make the LottieView component fill the container
   },
   webAnimation: {
-    // width: "100%", // Adjust according to your needs
-    // height: "auto", // Adjust according to your needs
     flex: 1,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%", // Adjust according to your needs
+    height: "auto", // Adjust according to your needs
   },
 })
 
-export default AnimatedButton
+export default LottieAnimation

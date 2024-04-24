@@ -37,12 +37,18 @@ export const DemoToggle: Demo = {
         label="`checkbox` variant"
         helper="This can be used for a single on/off input."
       />
+      <ControlledToggle
+        variant="checkbox"
+        label="`checkbox` variant"
+        helper="This can be used for a single on/off input."
+      />
       <DemoDivider size={24} />
       <ControlledToggle
         variant="radio"
         label="`radio` variant"
         helper="Use this when you have multiple options."
       />
+
       <DemoDivider size={24} />
       <ControlledToggle
         variant="switch"

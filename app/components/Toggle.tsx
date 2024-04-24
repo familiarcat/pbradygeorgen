@@ -268,7 +268,7 @@ function Checkbox(props: ToggleInputProps) {
     disabled && colors.palette.neutral400,
     status === "error" && colors.error,
     !on && colors.palette.neutral800,
-    colors.palette.secondary500,
+    colors.border,
   ].filter(Boolean)[0]
 
   const onBackgroundColor = [
@@ -278,7 +278,7 @@ function Checkbox(props: ToggleInputProps) {
   ].filter(Boolean)[0]
 
   const iconTintColor = [
-    disabled && colors.palette.neutral600,
+    disabled && colors.palette.neutral900,
     status === "error" && colors.error,
     colors.palette.accent100,
   ].filter(Boolean)[0]

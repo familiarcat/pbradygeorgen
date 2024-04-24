@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
 import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Text } from "../../../components"
+import { Button, Icon, LottieAnimation, Text } from "../../../components"
 import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
@@ -46,8 +46,9 @@ export const DemoButton: Demo = {
     <DemoUseCase
       name="Presets"
       layout="row"
-      description="There are a few presets that are preconfigured."
+      description="There are a few presets that are pre-configured."
     >
+      <LottieAnimation animationSource={require("assets/animations/camera_icon_build.json")} />
       <Button
         text="From Props"
         onPress={() => {

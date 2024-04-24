@@ -1,62 +1,74 @@
 // TODO: write documentation for colors and palette in own markdown file and add links from here
 
-// /* Color Theme Swatches in Hex */
-// .color-theme_Art_of_Ashley_Wood_128-1-hex { color: #809FA6; }
-// .color-theme_Art_of_Ashley_Wood_128-2-hex { color: #A69580; }
-// .color-theme_Art_of_Ashley_Wood_128-3-hex { color: #D9BBA9; }
-// .color-theme_Art_of_Ashley_Wood_128-4-hex { color: #733F34; }
-// .color-theme_Art_of_Ashley_Wood_128-5-hex { color: #A63B32; }
-
-// /* Color Theme Swatches in RGBA */
-// .color-theme_Art_of_Ashley_Wood_128-1-rgba { color: rgba(128, 159, 166, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-2-rgba { color: rgba(166, 149, 128, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-3-rgba { color: rgba(217, 187, 169, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-4-rgba { color: rgba(115, 63, 52, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-5-rgba { color: rgba(166, 59, 50, 1); }
-
-// /* Color Theme Swatches in HSLA */
-// .color-theme_Art_of_Ashley_Wood_128-1-hsla { color: hsla(191, 17, 57, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-2-hsla { color: hsla(33, 17, 57, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-3-hsla { color: hsla(22, 38, 75, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-4-hsla { color: hsla(10, 37, 32, 1); }
-// .color-theme_Art_of_Ashley_Wood_128-5-hsla { color: hsla(4, 53, 42, 1); }
-
 const palette = {
-  neutral100: "#FFFFFF",
-  neutral200: "#F4F2F1",
-  neutral300: "#D7CEC9",
-  neutral400: "#B6ACA6",
-  neutral500: "#978F8A",
-  neutral600: "#564E4A",
-  neutral700: "#3C3836",
-  neutral800: "#191015",
-  neutral900: "#000000",
+  neutral100: "#D4C8BA",
+  neutral200: "#cabeb2",
+  neutral300: "#9c9ea2",
+  neutral400: "#A49D9A",
+  neutral500: "#928C7A",
+  neutral600: "#797e76",
+  neutral700: "#78888e",
+  neutral800: "#3a4436", // Body Type
+  neutral900: "#243020",
 
-  primary100: "#809FA6",
-  primary200: "#A69580",
-  primary300: "#D9BBA9",
-  primary400: "#733F34",
-  primary500: "#69788C", //icon color
-  primary600: "#59504A",
+  primary100: "#88c3ea", // Retained as a muted primary color for image borders
+  primary300: "#7ca1ae", // Retained as original primary color for text color
+  primary400: "#753611",
+  primary500: "#6287a1",
+  primary600: "#6B5244",
 
-  secondary100: "#DCDDE9",
-  secondary200: "#BCC0D6",
-  secondary300: "#9196B9",
-  secondary400: "#626894",
-  secondary500: "#41476E",
+  secondary100: "#7dc1dc", // Adjusted vibrant blue for lighter secondary elements
+  secondary200: "#6a946b", // Adjusted vibrant blue for secondary variation
+  secondary300: "#816750", // Warm, unique secondary
+  secondary400: "#747338", // Rich, darker tone for secondary emphasis
+  secondary500: "#5599b4", // Repeat of a warm primary for strong secondary actions
 
-  accent100: "#CEBEAF",
-  accent200: "#D9CDC1",
-  accent300: "#FBDDB9",
-  accent400: "#DCBE98",
-  accent500: "#F2E6D8",
+  accent100: "#D4C8BA",
+  accent200: "#BC9C7B",
+  accent300: "#A49D9A",
+  accent500: "#969388",
 
-  angry100: "#F2D6CD",
-  angry500: "#730202",
+  angry100: "#4c393d", // Chosen for a standout but not traditional "angry" look
+  angry500: "#a07a7e", // Strong, noticeable color for errors
 
-  overlay20: "rgba(25, 16, 21, 0.2)",
-  overlay50: "rgba(25, 16, 21, 0.5)",
+  overlay20: "rgba(48, 38, 32, 0.2)",
+  overlay50: "rgba(85, 35, 39, 0.5)",
 } as const
+
+// const palette = {
+//   neutral100: "#D4C8BA", // Lightest neutral, suitable for backgrounds
+//   neutral200: "#C5AE99", // Light neutral
+//   neutral300: "#BC9C7B", // Mid-light neutral
+//   neutral400: "#A49D9A", // Mid-neutral for borders and separators
+//   neutral500: "#928C7A", // Mid-dark neutral
+//   neutral600: "#7E7976", // Dark neutral for secondary text
+//   neutral700: "#676054", // Darker neutral for primary text
+//   neutral800: "#2d2724", // Very dark neutral for headings
+//   neutral900: "#0b0a0a", // Darkest, for body text or dark mode backgrounds
+
+//   primary100: "#5C6C7C", // Cool, light for primary lighter elements
+//   primary300: "#446470", // Unique, standout primary color
+//   primary400: "#7F5137", // Warm, deep for primary buttons or icons
+//   primary500: "#8C6752", // Warm mid-tone for main tinting color
+//   primary600: "#6B5244", // Dark, rich for important primary elements
+
+//   secondary100: "#A38673", // Light, warm secondary elements
+//   secondary200: "#9F815F", // Warm tone for secondary variation
+//   secondary300: "#816750", // Warm, unique secondary
+//   secondary400: "#67392C", // Rich, darker tone for secondary emphasis
+//   secondary500: "#7F5137", // Repeat of a warm primary for strong secondary actions
+
+//   accent100: "#D4C8BA", // Lightest, for subtle accents
+//   accent200: "#BC9C7B", // Light warm tone for gentle accentuation
+//   accent300: "#A49D9A", // Soft, neutral accent
+//   accent500: "#928C7A", // Neutral for noticeable accents
+
+//   angry100: "#BC9C7B", // Chosen for a standout but not traditional "angry" look
+//   angry500: "#8C6752", // Strong, noticeable color for errors
+
+//   overlay20: "rgba(48, 38, 32, 0.2)", // Based on darkest neutral for overlay
+//   overlay50: "rgba(48, 38, 32, 0.5)", // Dark base for stronger overlay effect
+// } as const
 
 export const colors = {
   /**
