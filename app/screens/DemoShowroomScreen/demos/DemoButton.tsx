@@ -48,7 +48,10 @@ export const DemoButton: Demo = {
       layout="row"
       description="There are a few presets that are pre-configured."
     >
-      <LottieAnimation animationSource={require("assets/animations/camera_icon_build.json")} />
+      <LottieAnimation
+        animationSource={require("assets/animations/Animation - 1713947862202.json")}
+        onPress={() => console.log("pressed at the lottie level")}
+      />
       <Button
         text="From Props"
         onPress={() => {
