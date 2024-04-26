@@ -40,6 +40,7 @@
     "@react-navigation/native-stack": "^6.0.2",
     "@shopify/flash-list": "1.4.3",
     "@testing-library/react-native": "^12.4.3",
+    "@types/aws-lambda": "^8.10.137",
     "@types/lodash": "^4.17.0",
     "@types/tinycolor2": "^1.4.6",
     "apisauce": "3.0.1",
