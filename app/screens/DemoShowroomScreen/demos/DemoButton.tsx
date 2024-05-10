@@ -50,7 +50,7 @@ export const DemoButton: Demo = {
       description="There are a few presets that are pre-configured."
     >
       <LottieAnimation
-        animationSource={require("assets/animations/spinning_pyramid.json")}
+        animationSource={require("assets/icons/instagram_animated_icon.json")}
         onPress={() => console.log("pressed at the lottie level")}
       />
       <Button

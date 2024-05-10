@@ -153,7 +153,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
         <LottieView
-          style={{ width: "100%" }}
           ref={lottieRef}
           source={modifiedAnimationData} // Adjust the path as necessary
           autoPlay={false}
@@ -183,6 +182,9 @@ const styles = StyleSheet.create({
 
   nativeAnimation: {
     width: "auto", // Make the LottieView component fill the container
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   webAnimation: {
     // width: "100%", // Adjust according to your needs

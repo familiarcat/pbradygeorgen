@@ -58,14 +58,15 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   } else if (animationData) {
     console.log("Native animation in button", animationData)
     return (
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
         <LottieView
-          style={{ width: "100%" }}
+          style={styles.nativeAnimation}
           ref={lottieRef}
           source={animationData} // Adjust the path as necessary
           autoPlay={true}
           loop={true}
+          resizeMode="contain"
         />
       </TouchableOpacity>
     )
@@ -75,22 +76,19 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: "-5%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     minHeight: 56,
     borderRadius: 0,
-    // justifyContent: "center",
-    // alignItems: "center",
-    // flexDirection: "column",
-    // /* padding: 12px; */
-    // overflow: "hidden",
     borderWidth: 0,
   },
 
   nativeAnimation: {
     width: "auto", // Make the LottieView component fill the container
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   webAnimation: {
     // width: "100%", // Adjust according to your needs
