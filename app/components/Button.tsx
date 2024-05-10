@@ -143,21 +143,19 @@ export function Button(props: ButtonProps) {
           {!!LeftAccessory && (
             <LeftAccessory style={$leftAccessoryStyle} pressableState={state} disabled={disabled} />
           )}
-          <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-            {!!animatedContent ? (
-              <AnimatedButton
-                dynamicText={text}
-                animationSource={animatedContent}
-                onPress={props.onPress}
-                width={100}
-                height={100}
-              />
-            ) : (
-              <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
-                {children}
-              </Text>
-            )}
-          </View>
+          {!!animatedContent ? (
+            <AnimatedButton
+              dynamicText={text}
+              animationSource={animatedContent}
+              onPress={props.onPress}
+              width={100}
+              height={100}
+            />
+          ) : (
+            <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)}>
+              {children}
+            </Text>
+          )}
           {!!RightAccessory && (
             <RightAccessory
               style={$rightAccessoryStyle}

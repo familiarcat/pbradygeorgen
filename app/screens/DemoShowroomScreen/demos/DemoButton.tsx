@@ -49,10 +49,6 @@ export const DemoButton: Demo = {
       layout="row"
       description="There are a few presets that are pre-configured."
     >
-      <View>
-        <Text>Hello</Text>
-        {/* <LottieView source={require("assets/animations/spinning_pyramid.json")} /> */}
-      </View>
       <LottieAnimation
         animationSource={require("assets/animations/spinning_pyramid.json")}
         onPress={() => console.log("pressed at the lottie level")}

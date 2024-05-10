@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Platform, TouchableOpacity, View, StyleSheet } from "react-native"
+import { Text } from "../../components"
 import LottieView from "lottie-react-native"
 import { Player } from "@lottiefiles/react-lottie-player"
 import { colors, typography } from "app/theme"
@@ -7,6 +8,7 @@ import hexToRgba from "hex-to-rgba"
 import _ from "lodash"
 
 import tinycolor from "tinycolor2"
+import LottieAnimation from "../LottieAnimation/LottieAnimation"
 
 interface AnimatedButton {
   animationSource: any // Adjust based on how you import Lottie files
@@ -130,11 +132,11 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
     setModifiedAnimationData(updatedAnimationData)
   }, [animationSource, dynamicText, colors, typography])
 
-  if (Platform.OS === "web") {
+  if (Platform.OS === "web" && !!modifiedAnimationData) {
+    console.log("Web animation in button", modifiedAnimationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
-
         <Player
           ref={playerRef}
           autoplay={false}
@@ -145,20 +147,21 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
         />
       </TouchableOpacity>
     )
+  } else if (modifiedAnimationData) {
+    console.log("Native animation in button", modifiedAnimationData)
+    return (
+      <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
+        {/* Set a specific size for the animation container */}
+        <LottieView
+          style={{ width: "100%" }}
+          ref={lottieRef}
+          source={modifiedAnimationData} // Adjust the path as necessary
+          autoPlay={false}
+          loop={false}
+        />
+      </TouchableOpacity>
+    )
   }
-  // console.log("playerRef", playerRef)
-
-  return (
-    <TouchableOpacity onPress={handlePress}>
-      {/* Set a specific size for the animation container */}
-      {/* <LottieView
-        ref={lottieRef}
-        source={modifiedAnimationData} // Adjust the path as necessary
-        autoPlay={false}
-        loop={false}
-      /> */}
-    </TouchableOpacity>
-  )
 }
 
 const styles = StyleSheet.create({
