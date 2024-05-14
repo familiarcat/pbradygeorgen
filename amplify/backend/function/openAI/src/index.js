@@ -25,6 +25,7 @@ const {
 
 exports.handler = async (event) => {
   Amplify.configure(awsConfig.default)
+  console.log("handling Lambda request", event)
   const consoleColors = {
     Reset: "\x1b[0m",
     Cyan: "\x1b[36m",
