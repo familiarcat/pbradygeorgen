@@ -142,7 +142,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
           autoplay={false}
           loop={false}
           renderer={"svg"}
-          src={modifiedAnimationData} // Adjust the path as necessary
+          src={modifiedAnimationData}
           style={styles.webAnimation} // Adjust scaling via CSS for web
         />
       </TouchableOpacity>

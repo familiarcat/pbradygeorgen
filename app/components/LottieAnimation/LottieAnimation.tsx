@@ -48,7 +48,7 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
         <Player
           ref={playerRef}
           autoplay={true}
-          loop={loop}
+          loop={true}
           renderer={"svg"}
           src={animationData} // Adjust the path as necessary
           style={styles.webAnimation} // Adjust scaling via CSS for web
