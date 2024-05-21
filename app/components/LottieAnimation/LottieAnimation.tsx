@@ -39,16 +39,16 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       console.warn("onPress has no passed value")
     }
   }
-
+  ;<View></View>
   if (Platform.OS === "web" && !!animationData) {
-    console.log("Web animation in button", animationData)
+    console.log("Web animation in lottie animation", animationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
         <Player
           ref={playerRef}
           autoplay={true}
-          loop={true}
+          loop={loop}
           renderer={"svg"}
           src={animationData} // Adjust the path as necessary
           style={styles.webAnimation} // Adjust scaling via CSS for web
@@ -56,17 +56,16 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       </TouchableOpacity>
     )
   } else if (animationData) {
-    console.log("Native animation in button", animationData)
+    console.log("Native animation in animated lottie animation")
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
         <LottieView
-          style={styles.nativeAnimation}
           ref={lottieRef}
-          source={animationData} // Adjust the path as necessary
           autoPlay={true}
           loop={true}
-          resizeMode="contain"
+          source={animationData} // Adjust the path as necessary
+          style={styles.nativeAnimation}
         />
       </TouchableOpacity>
     )
@@ -77,22 +76,17 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     flexDirection: "column",
-    minHeight: 56,
-    borderRadius: 0,
-    borderWidth: 0,
   },
 
   nativeAnimation: {
     width: "auto", // Make the LottieView component fill the container
+    height: "auto", // Adjust according to your needs
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   webAnimation: {
-    // width: "100%", // Adjust according to your needs
-    // height: "auto", // Adjust according to your needs
+    height: "auto", // Adjust according to your needs
+    width: "auto", //
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

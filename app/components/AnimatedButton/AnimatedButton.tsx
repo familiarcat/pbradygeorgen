@@ -133,7 +133,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   }, [animationSource, dynamicText, colors, typography])
 
   if (Platform.OS === "web" && !!modifiedAnimationData) {
-    console.log("Web animation in button", modifiedAnimationData)
+    console.log("Web Platform in AnimatedButton", modifiedAnimationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
@@ -148,7 +148,7 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
       </TouchableOpacity>
     )
   } else if (modifiedAnimationData) {
-    console.log("Native animation in button", modifiedAnimationData)
+    console.log("Native animation in button")
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
@@ -166,12 +166,9 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    margin: "-5%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    minHeight: 56,
-    borderRadius: 0,
     // justifyContent: "center",
     // alignItems: "center",
     // flexDirection: "column",
@@ -189,6 +186,7 @@ const styles = StyleSheet.create({
   webAnimation: {
     // width: "100%", // Adjust according to your needs
     // height: "auto", // Adjust according to your needs
+    width: "auto", //"
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

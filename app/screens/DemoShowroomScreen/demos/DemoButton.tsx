@@ -50,7 +50,7 @@ export const DemoButton: Demo = {
       description="There are a few presets that are pre-configured."
     >
       <LottieAnimation
-        animationSource={require("assets/animations/camera_icon_build.json")}
+        animationSource={require("assets/animations/gradient_square.json")}
         onPress={() => console.log("pressed at the lottie level")}
       />
       <Button

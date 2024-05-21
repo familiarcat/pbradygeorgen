@@ -197,7 +197,6 @@ const $viewPresets = {
   default: [
     $baseViewStyle,
     {
-      borderWidth: 1,
       borderColor: colors.palette.neutral400,
       backgroundColor: colors.palette.neutral100,
     },
