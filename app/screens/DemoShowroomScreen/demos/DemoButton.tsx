@@ -52,6 +52,7 @@ export const DemoButton: Demo = {
       <LottieAnimation
         animationSource={require("assets/animations/gradient_square.json")}
         onPress={() => console.log("pressed at the lottie level")}
+        speed={0.125}
       />
       <Button
         text="From Props"

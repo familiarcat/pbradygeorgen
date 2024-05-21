@@ -11,6 +11,7 @@ interface LottieAnimationProps {
   onPress?: () => void
   loop?: boolean | false
   autoPlay?: boolean | true
+  speed?: number | 1
   dynamicText?: string // Text to inject dynamically
 }
 
@@ -19,18 +20,17 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   onPress,
   loop,
   autoPlay,
-  dynamicText = "Default Text",
+  speed,
 }) => {
   const playerRef = useRef<Player>(null)
   const lottieRef = useRef<LottieView>(null)
-  dynamicText = dynamicText || "Default Text"
   onPress = onPress || _.noop // Default to a no-op function if no onPress prop is provided
 
   const [animationData, setAnimationData] = useState<any>(null)
 
   useEffect(() => {
     setAnimationData(animationSource)
-  }, [animationSource, dynamicText])
+  }, [animationSource])
 
   const handlePress = () => {
     if (onPress) {
@@ -39,7 +39,6 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       console.warn("onPress has no passed value")
     }
   }
-  ;<View></View>
   if (Platform.OS === "web" && !!animationData) {
     console.log("Web animation in lottie animation", animationData)
     return (
@@ -50,13 +49,14 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
           autoplay={true}
           loop={true}
           renderer={"svg"}
+          speed={speed}
           src={animationData} // Adjust the path as necessary
           style={styles.webAnimation} // Adjust scaling via CSS for web
         />
       </TouchableOpacity>
     )
   } else if (animationData) {
-    console.log("Native animation in animated lottie animation")
+    console.log("Native animation in animated lottie animation playing")
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
@@ -64,6 +64,7 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
           ref={lottieRef}
           autoPlay={true}
           loop={true}
+          speed={speed}
           source={animationData} // Adjust the path as necessary
           style={styles.nativeAnimation}
         />
