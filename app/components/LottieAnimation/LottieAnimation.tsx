@@ -74,6 +74,7 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
 
 const styles = StyleSheet.create({
   button: {
+    minWidth: 100,
     flex: 1,
     justifyContent: "center",
     flexDirection: "column",

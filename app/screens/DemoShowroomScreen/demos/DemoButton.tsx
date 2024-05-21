@@ -46,7 +46,7 @@ export const DemoButton: Demo = {
   data: [
     <DemoUseCase
       name="Presets"
-      layout="row"
+      layout="column"
       description="There are a few presets that are pre-configured."
     >
       <LottieAnimation
