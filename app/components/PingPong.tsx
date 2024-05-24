@@ -1,44 +1,52 @@
-import React, { useRef, useEffect } from "react"
-import { View, StyleSheet } from "react-native"
-import LottieView from "lottie-react-native"
+import React, { useRef, useEffect, useState } from "react"
+import { Player } from "@lottiefiles/react-lottie-player"
 
-const PingPongAnimation = () => {
-  const animation = useRef<LottieView>(null)
-  let direction = useRef(1)
-
-  useEffect(() => {
-    const handleAnimationComplete = () => {
-      direction.current *= -1 // Reverse direction
-      animation.current?.setDirection(direction.current)
-      animation.current?.play()
-    }
-
-    animation.current?.play()
-    animation.current?.addListener("end", handleAnimationComplete)
-
-    return () => {
-      animation.current?.removeListener("end", handleAnimationComplete)
-    }
-  }, [])
-
-  return (
-    <View style={styles.container}>
-      <LottieView
-        ref={animation}
-        source={require("./path/to/your/data.json")}
-        autoPlay
-        loop={false}
-      />
-    </View>
-  )
+interface PingPongAnimationProps {
+  animationData: object
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-})
+const PingPongAnimation: React.FC<PingPongAnimationProps> = ({ animationData }) => {
+  const playerRef = useRef<Player | null>(null)
+  const [isForward, setIsForward] = useState(true)
+
+  const player = playerRef.current
+  const handleComplete = () => {
+    setIsForward(!isForward)
+    // console.log("handleComplete", player)
+    player?.setPlayerDirection(isForward ? 1 : -1)
+    player?.play()
+  }
+  useEffect(() => {
+    if (player) {
+      const handleComplete = () => {
+        setIsForward(!isForward)
+        player.setPlayerDirection(isForward ? 1 : -1)
+        player.play()
+      }
+
+      // player.addEventListener("complete", handleComplete)
+      return () => {
+        // player.removeEventListener("complete", handleComplete)
+      }
+    }
+  }, [isForward])
+
+  return (
+    <Player
+      ref={playerRef}
+      autoplay
+      loop={false}
+      onEvent={(e) => {
+        if (e === "complete") {
+          setIsForward(!isForward)
+          handleComplete()
+          // console.log("player complete", player)
+        }
+      }}
+      src={animationData}
+      style={{ height: "300px", width: "300px" }}
+    />
+  )
+}
 
 export default PingPongAnimation

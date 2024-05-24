@@ -7,6 +7,7 @@ import { Demo } from "../DemoShowroomScreen"
 import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 import LottieView from "lottie-react-native"
+import PingPongAnimation from "app/components/PingPong"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -50,10 +51,12 @@ export const DemoButton: Demo = {
       description="There are a few presets that are pre-configured."
     >
       <LottieAnimation
-        animationSource={require("assets/animations/gradient_square.json")}
+        animationSource={require("assets/animations/phone_orientation.json")}
         onPress={() => console.log("pressed at the lottie level")}
-        speed={0.125}
+        speed={1}
+        pingPong={true}
       />
+      {/* <PingPongAnimation animationData={require("assets/animations/gradient_square.json")} /> */}
       <Button
         text="From Props"
         onPress={() => {

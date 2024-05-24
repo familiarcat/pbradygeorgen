@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Platform, TouchableOpacity, View, StyleSheet } from "react-native"
 import LottieView from "lottie-react-native"
-import { Player } from "@lottiefiles/react-lottie-player"
+import { Player, PlayerEvent, PlayerState, PlayerDirection } from "@lottiefiles/react-lottie-player"
 import { colors } from "app/theme"
 import hexToRgba from "hex-to-rgba"
 import _ from "lodash"
@@ -9,9 +9,11 @@ import _ from "lodash"
 interface LottieAnimationProps {
   animationSource: any // Adjust based on how you import Lottie files
   onPress?: () => void
-  loop?: boolean | false
-  autoPlay?: boolean | true
-  speed?: number | 1
+  loop?: boolean
+  autoPlay?: boolean
+  speed?: number
+  pingPong?: boolean
+  direction?: 1 | -1
   dynamicText?: string // Text to inject dynamically
 }
 
@@ -21,16 +23,31 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
   loop,
   autoPlay,
   speed,
+  pingPong,
+  direction,
 }) => {
+  onPress = onPress || _.noop // Default to a no-op function if no onPress prop is provided
+  loop = loop || false
+  autoPlay = autoPlay || true
+  speed = speed || 1
+  pingPong = pingPong || false
+  direction = direction || 1
+
   const playerRef = useRef<Player>(null)
   const lottieRef = useRef<LottieView>(null)
-  onPress = onPress || _.noop // Default to a no-op function if no onPress prop is provided
-
   const [animationData, setAnimationData] = useState<any>(null)
+  const [isForward, setIsForward] = useState(true)
 
   useEffect(() => {
-    setAnimationData(animationSource)
-  }, [animationSource])
+    !animationData ? setAnimationData(animationSource) : _.noop
+    console.log("loop" + loop)
+    const player = playerRef.current
+    if (player && pingPong) {
+      console.log("player in useEffect to ping pong", player)
+      player.setPlayerDirection(isForward ? 1 : -1)
+      player.play()
+    }
+  }, [animationData, isForward])
 
   const handlePress = () => {
     if (onPress) {
@@ -39,19 +56,36 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       console.warn("onPress has no passed value")
     }
   }
+
+  const [playerLottie, setPlayerLottie] = useState<any>()
   if (Platform.OS === "web" && !!animationData) {
-    console.log("Web animation in lottie animation", animationData)
+    // console.log("Web animationData in lottie animation", animationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
         <Player
+          lottieRef={(instance) => (!instance ? setPlayerLottie(instance) : playerLottie)}
           ref={playerRef}
-          autoplay={true}
-          loop={true}
+          autoplay={autoPlay}
+          loop={loop}
           renderer={"svg"}
           speed={speed}
+          direction={direction}
+          keepLastFrame={true}
           src={animationData} // Adjust the path as necessary
-          style={styles.webAnimation} // Adjust scaling via CSS for web
+          style={styles.webAnimation}
+          onEvent={(e: PlayerEvent) => {
+            if (e === "complete") {
+              console.log("animation complete")
+              setIsForward(!isForward)
+              // let tempLottie = JSON.parse(JSON.stringify(playerLottie))
+              // playerRef.current?.setPlayerDirection(-1)
+              // console.log("direction", playerRef.current)
+              // playerLottie?.setDirection(-1)
+              // tempLottie.goToAndPlay(40)
+              // playerLottie?.goToAndPlay(0)
+            }
+          }}
         />
       </TouchableOpacity>
     )
@@ -71,6 +105,7 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       </TouchableOpacity>
     )
   }
+  return null
 }
 
 const styles = StyleSheet.create({
