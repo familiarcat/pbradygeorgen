@@ -35,41 +35,50 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
 
   const playerRef = useRef<Player>(null)
   const lottieRef = useRef<LottieView>(null)
+  const AnimatedLottieView = Animated.createAnimatedComponent(LottieView)
+  const animationProgress = useRef(new Animated.Value(0))
   const [animationData, setAnimationData] = useState<any>(null)
   const [isForward, setIsForward] = useState(true)
-
-  useEffect(() => {
-    !animationData ? setAnimationData(animationSource) : _.noop
-    console.log("loop" + loop)
-    const player = playerRef.current
-    if (player && pingPong) {
-      console.log("player in useEffect to ping pong", player)
-      player.setPlayerDirection(isForward ? 1 : -1)
-      player.play()
-    }
-    const lottie = lottieRef.current
-    if (lottie && pingPong) {
-      console.log("lottie in useEffect to ping pong", lottie)
-      lottie.play()
-    }
-  }, [animationData, isForward])
 
   const handlePress = () => {
     if (onPress) {
       onPress()
     } else {
-      console.warn("onPress has no passed value")
+      console.warn("onPress has no passed value in LottieAnimation")
     }
   }
 
-  const [playerLottie, setPlayerLottie] = useState<any>()
+  useEffect(() => {
+    !animationData ? setAnimationData(animationSource) : _.noop
+    console.log("first use effect called")
+  }, [])
+
+  useEffect(() => {
+    //Web Player
+    const player = playerRef.current
+    if (player && pingPong) {
+      player.setPlayerDirection(isForward ? 1 : -1)
+      player.play()
+    }
+    // Native LottieView
+    const lottie = lottieRef.current
+    if (lottie && pingPong) {
+      console.log("isForward in Lottie useEffect to ping pong", isForward)
+      Animated.timing(animationProgress.current, {
+        toValue: 1,
+        duration: 5000,
+        easing: Easing.linear,
+        useNativeDriver: false,
+      }).start()
+    }
+  }, [isForward])
+
+  const [lottieWebPlayer, setLottieWebPlayer] = useState<any>()
   if (Platform.OS === "web" && !!animationData) {
-    // console.log("Web animationData in lottie animation", animationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
-        {/* Set a specific size for the animation container */}
         <Player
-          lottieRef={(instance) => (!instance ? setPlayerLottie(instance) : playerLottie)}
+          lottieRef={(instance) => (!instance ? setLottieWebPlayer(instance) : lottieWebPlayer)}
           ref={playerRef}
           autoplay={autoPlay}
           loop={loop}
@@ -81,29 +90,24 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
           style={styles.webAnimation}
           onEvent={(e: PlayerEvent) => {
             if (e === "complete") {
-              console.log("animation complete")
               setIsForward(!isForward)
-              // let tempLottie = JSON.parse(JSON.stringify(playerLottie))
-              // playerRef.current?.setPlayerDirection(-1)
-              // console.log("direction", playerRef.current)
-              // playerLottie?.setDirection(-1)
-              // tempLottie.goToAndPlay(40)
-              // playerLottie?.goToAndPlay(0)
             }
           }}
         />
       </TouchableOpacity>
     )
   } else if (animationData) {
-    console.log("Native animation in animated lottie animation playing")
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
-        {/* Set a specific size for the animation container */}
         <LottieView
           ref={lottieRef}
           autoPlay={autoPlay}
           loop={loop}
           speed={speed}
+          onAnimationFinish={() => {
+            console.log("animation finished in Native")
+            setIsForward(!isForward)
+          }}
           //direction={direction}
           source={animationData} // Adjust the path as necessary
           style={styles.nativeAnimation}

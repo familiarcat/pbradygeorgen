@@ -129,7 +129,6 @@ export function Button(props: ButtonProps) {
     ]
   }
 
-  props.style && console.log("style", props.style)
   return (
     <Pressable
       style={$viewStyle}

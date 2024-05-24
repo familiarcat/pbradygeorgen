@@ -64,7 +64,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
           layer.t.d.k.forEach((textData: any) => {
             if (textData.s) {
               textData.s.f = defaultFontFamily // Change font family
-              console.log("setting to default font family: " + textData.s.f)
             }
           })
         }
@@ -133,7 +132,6 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
   }, [animationSource, dynamicText, colors, typography])
 
   if (Platform.OS === "web" && !!modifiedAnimationData) {
-    console.log("Web animation in button", modifiedAnimationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
@@ -148,16 +146,10 @@ export const AnimatedButton: React.FC<AnimatedButton> = ({
       </TouchableOpacity>
     )
   } else if (modifiedAnimationData) {
-    console.log("Native animation in button", modifiedAnimationData)
     return (
       <TouchableOpacity onPress={handlePress} style={[styles.button, { borderRadius: 0 }]}>
         {/* Set a specific size for the animation container */}
-        <LottieView
-          ref={lottieRef}
-          source={modifiedAnimationData} // Adjust the path as necessary
-          autoPlay={false}
-          loop={false}
-        />
+        <LottieView ref={lottieRef} source={modifiedAnimationData} autoPlay={false} loop={false} />
       </TouchableOpacity>
     )
   }
@@ -172,11 +164,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     minHeight: 56,
     borderRadius: 0,
-    // justifyContent: "center",
-    // alignItems: "center",
-    // flexDirection: "column",
-    // /* padding: 12px; */
-    // overflow: "hidden",
     borderWidth: 0,
   },
 
