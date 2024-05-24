@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Platform, TouchableOpacity, View, StyleSheet } from "react-native"
-import LottieView from "lottie-react-native"
+import { Platform, TouchableOpacity, View, StyleSheet, Animated, Easing } from "react-native"
 import { Player, PlayerEvent, PlayerState, PlayerDirection } from "@lottiefiles/react-lottie-player"
+import LottieView from "lottie-react-native"
 import { colors } from "app/theme"
 import hexToRgba from "hex-to-rgba"
 import _ from "lodash"
@@ -46,6 +46,11 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
       console.log("player in useEffect to ping pong", player)
       player.setPlayerDirection(isForward ? 1 : -1)
       player.play()
+    }
+    const lottie = lottieRef.current
+    if (lottie && pingPong) {
+      console.log("lottie in useEffect to ping pong", lottie)
+      lottie.play()
     }
   }, [animationData, isForward])
 
@@ -96,9 +101,10 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
         {/* Set a specific size for the animation container */}
         <LottieView
           ref={lottieRef}
-          autoPlay={true}
-          loop={true}
+          autoPlay={autoPlay}
+          loop={loop}
           speed={speed}
+          //direction={direction}
           source={animationData} // Adjust the path as necessary
           style={styles.nativeAnimation}
         />
