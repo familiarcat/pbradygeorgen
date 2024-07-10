@@ -63,13 +63,22 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
     // Native LottieView
     const lottie = lottieRef.current
     if (lottie && pingPong) {
-      console.log("isForward in Lottie useEffect to ping pong", isForward)
-      Animated.timing(animationProgress.current, {
-        toValue: 1,
-        duration: 5000,
-        easing: Easing.linear,
-        useNativeDriver: false,
-      }).start()
+      console.log("ping pong", isForward)
+      //animationProgress
+      // Animated.loop(
+      //   Animated.sequence([
+      //     Animated.timing(animationProgress.current, {
+      //       toValue: 1,
+
+      //       useNativeDriver: false,
+      //     }),
+      //     Animated.timing(animationProgress.current, {
+      //       toValue: 200,
+      //       duration: 5000,
+      //       useNativeDriver: false,
+      //     }),
+      //   ]),
+      // ).start()
     }
   }, [isForward])
 
