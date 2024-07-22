@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
-import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { ImageStyle, ScrollView, TextStyle, View, ViewStyle, StyleSheet } from "react-native"
 import { Button, Icon, LottieAnimation, Text } from "../../../components"
 import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
@@ -8,6 +8,9 @@ import { DemoDivider } from "../DemoDivider"
 import { DemoUseCase } from "../DemoUseCase"
 import LottieView from "lottie-react-native"
 import PingPongAnimation from "app/components/PingPong"
+import CardComponentOnCanvas from "app/components/CardComponentOnCanvas"
+import Standardcard from "app/components/StandardCard"
+import Actioncard from "app/components/ActionCard"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -40,6 +43,19 @@ const $disabledButtonTextStyle: TextStyle = {
   textDecorationColor: colors.palette.neutral100,
 }
 
+const styles = StyleSheet.create({
+  gridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  gridItem: {
+    flexBasis: "48%", // Adjust the width as needed
+    marginBottom: 10,
+  },
+})
+
 export const DemoButton: Demo = {
   name: "Button",
   description:
@@ -56,6 +72,18 @@ export const DemoButton: Demo = {
         speed={1}
         pingPong={true}
       />
+      <ScrollView contentContainerStyle={styles.gridContainer}>
+        <View style={styles.gridItem}>
+          <CardComponentOnCanvas />
+        </View>
+        <View style={styles.gridItem}>
+          <Standardcard />
+        </View>
+        <View style={styles.gridItem}>
+          <Actioncard />
+        </View>
+        {/* Add more grid items here */}
+      </ScrollView>
       {/* <PingPongAnimation animationData={require("assets/animations/gradient_square.json")} /> */}
       <Button
         text="From Props"
@@ -73,6 +101,7 @@ export const DemoButton: Demo = {
       <DemoDivider />
 
       <Button preset="reversed">Reversed - Ad Ipsum</Button>
+      <CardComponentOnCanvas />
     </DemoUseCase>,
 
     <DemoUseCase
