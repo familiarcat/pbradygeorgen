@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: 320,
     height: 635,
+    borderRadius: 8,
     backgroundColor: "rgba(255,255,255,1)",
   },
   image: {

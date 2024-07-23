@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start", // Items float left
     padding: 5, // Minimum gutter
   },
   gridItem: {
@@ -80,12 +80,9 @@ const ResponsiveGrid = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.gridContainer}>
-      <LottieAnimation
-        animationSource={require("assets/animations/paintRoller.json")}
-        onPress={() => console.log("pressed at the lottie level")}
-        speed={1}
-        pingPong={true}
-      />
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <CardComponentOnCanvas />
+      </View>
       <View style={[styles.gridItem, { width: itemWidth }]}>
         <Standardcard />
       </View>
@@ -101,10 +98,6 @@ const ResponsiveGrid = () => {
       <View style={[styles.gridItem, { width: itemWidth }]}>
         <Reviewcard />
       </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <CardComponentOnCanvas />
-      </View>
-
       {/* Add more grid items here */}
     </ScrollView>
   )
@@ -121,6 +114,12 @@ export const DemoButton: Demo = {
       description="There are a few presets that are pre-configured."
     >
       <ResponsiveGrid />
+      <LottieAnimation
+        animationSource={require("assets/animations/waves.json")}
+        onPress={() => console.log("pressed at the lottie level")}
+        speed={1}
+        pingPong={true}
+      />
       <Button
         text="From Props"
         onPress={() => {
