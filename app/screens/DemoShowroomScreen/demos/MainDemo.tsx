@@ -79,27 +79,15 @@ const ResponsiveGrid = () => {
   const itemWidth = calculateItemWidth(columns)
 
   return (
-    <ScrollView contentContainerStyle={styles.gridContainer}>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <CardComponentOnCanvas />
-      </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <Standardcard />
-      </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <Actioncard />
-      </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <Itemcard />
-      </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <Productcard />
-      </View>
-      <View style={[styles.gridItem, { width: itemWidth }]}>
-        <Reviewcard />
-      </View>
-      {/* Add more grid items here */}
-    </ScrollView>
+    <View style={styles.gridContainer}>
+      <CardComponentOnCanvas />
+      <Standardcard />
+      <Actioncard />
+      <Itemcard />
+      <Productcard />
+      <Reviewcard />
+      {/* Add more child components as needed */}
+    </View>
   )
 }
 

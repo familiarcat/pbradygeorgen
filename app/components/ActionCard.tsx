@@ -21,6 +21,7 @@ export default function Actioncard() {
             uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
           }}
         />
+        <Text>Hello</Text>
         <Text style={styles.priceText}>$99 USD</Text>
         <View style={styles.button}>
           <Text style={styles.buttonLabel}>Button</Text>
@@ -37,7 +38,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: 320,
     height: 635,
-    borderRadius: 8,
     backgroundColor: "rgba(255,255,255,1)",
   },
   image: {
