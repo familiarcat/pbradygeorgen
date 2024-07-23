@@ -7,7 +7,7 @@ export default function Actioncard() {
       <Image
         style={styles.image}
         source={{
-          uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/pro8zns5ysa-2976%3A6752?alt=media&token=986f9bfa-cc76-4223-a6c4-f7504ebe4342",
+          uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
         }}
       />
       <View style={styles.cardArea}>
@@ -18,7 +18,7 @@ export default function Actioncard() {
         <Image
           style={styles.rating}
           source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/pro8zns5ysa-2976%3A6757?alt=media&token=091f2dd7-ba49-4890-9101-55a01ede02b8",
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
           }}
         />
         <Text style={styles.priceText}>$99 USD</Text>

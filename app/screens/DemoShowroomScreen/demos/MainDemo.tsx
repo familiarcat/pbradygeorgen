@@ -1,6 +1,14 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
-import { ImageStyle, ScrollView, TextStyle, View, ViewStyle, StyleSheet } from "react-native"
+import {
+  ImageStyle,
+  ScrollView,
+  TextStyle,
+  View,
+  ViewStyle,
+  StyleSheet,
+  Dimensions,
+} from "react-native"
 import { Button, Icon, LottieAnimation, Text } from "../../../components"
 import { colors, typography } from "../../../theme"
 import { Demo } from "../DemoShowroomScreen"
@@ -11,6 +19,9 @@ import PingPongAnimation from "app/components/PingPong"
 import CardComponentOnCanvas from "app/components/CardComponentOnCanvas"
 import Standardcard from "app/components/StandardCard"
 import Actioncard from "app/components/ActionCard"
+import Itemcard from "app/components/ItemCard"
+import Productcard from "app/components/ProductCard"
+import Reviewcard from "app/components/ReviewCard"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -43,18 +54,61 @@ const $disabledButtonTextStyle: TextStyle = {
   textDecorationColor: colors.palette.neutral100,
 }
 
+const { width: screenWidth } = Dimensions.get("window")
+
+const calculateItemWidth = (columns: number) => {
+  const gutter = 10
+  return (screenWidth - gutter * (columns + 1)) / columns
+}
+
 const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    padding: 10,
+    padding: 5, // Minimum gutter
   },
   gridItem: {
-    flexBasis: "48%", // Adjust the width as needed
-    marginBottom: 10,
+    margin: 5, // Minimum gutter
+    overflow: "hidden", // Hide content that overflows the bounds
   },
 })
+
+const ResponsiveGrid = () => {
+  const columns = screenWidth > 1600 ? 4 : screenWidth > 1200 ? 3 : 2
+  const itemWidth = calculateItemWidth(columns)
+
+  return (
+    <ScrollView contentContainerStyle={styles.gridContainer}>
+      <LottieAnimation
+        animationSource={require("assets/animations/paintRoller.json")}
+        onPress={() => console.log("pressed at the lottie level")}
+        speed={1}
+        pingPong={true}
+      />
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <Standardcard />
+      </View>
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <Actioncard />
+      </View>
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <Itemcard />
+      </View>
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <Productcard />
+      </View>
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <Reviewcard />
+      </View>
+      <View style={[styles.gridItem, { width: itemWidth }]}>
+        <CardComponentOnCanvas />
+      </View>
+
+      {/* Add more grid items here */}
+    </ScrollView>
+  )
+}
 
 export const DemoButton: Demo = {
   name: "Button",
@@ -66,25 +120,7 @@ export const DemoButton: Demo = {
       layout="column"
       description="There are a few presets that are pre-configured."
     >
-      <LottieAnimation
-        animationSource={require("assets/animations/phone_orientation.json")}
-        onPress={() => console.log("pressed at the lottie level")}
-        speed={1}
-        pingPong={true}
-      />
-      <ScrollView contentContainerStyle={styles.gridContainer}>
-        <View style={styles.gridItem}>
-          <CardComponentOnCanvas />
-        </View>
-        <View style={styles.gridItem}>
-          <Standardcard />
-        </View>
-        <View style={styles.gridItem}>
-          <Actioncard />
-        </View>
-        {/* Add more grid items here */}
-      </ScrollView>
-      {/* <PingPongAnimation animationData={require("assets/animations/gradient_square.json")} /> */}
+      <ResponsiveGrid />
       <Button
         text="From Props"
         onPress={() => {
