@@ -63,24 +63,6 @@
       "service": "Lambda"
     }
   },
-  "parameters": {
-    "AMPLIFY_function_openAI_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "openAI"
-        }
-      ]
-    },
-    "AMPLIFY_function_openAI_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "openAI"
-        }
-      ]
-    }
-  },
   "storage": {
     "s3resumebuilderstorage1a319798": {
       "dependsOn": [],
