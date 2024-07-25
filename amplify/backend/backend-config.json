@@ -28,9 +28,7 @@
       "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
+        "mfaTypes": ["SMS"],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
@@ -40,17 +38,10 @@
           ],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [
-          "EMAIL",
-          "NAME"
-        ],
+        "signupAttributes": ["EMAIL", "NAME"],
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
+        "usernameAttributes": ["EMAIL"],
+        "verificationMechanisms": ["EMAIL"]
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
@@ -61,11 +52,6 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "resumebuilderlayer69ee0665": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "LambdaLayer"
     }
   },
   "parameters": {
@@ -82,22 +68,6 @@
         {
           "category": "function",
           "resourceName": "openAI"
-        }
-      ]
-    },
-    "AMPLIFY_function_resumebuilderlayer69ee0665_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "resumebuilderlayer69ee0665"
-        }
-      ]
-    },
-    "AMPLIFY_function_resumebuilderlayer69ee0665_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "resumebuilderlayer69ee0665"
         }
       ]
     }
