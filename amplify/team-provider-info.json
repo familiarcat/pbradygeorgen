@@ -19,7 +19,12 @@
         "openAI": {
           "deploymentBucketName": "amplify-amplifyccf95263eb0f4-staging-23421-deployment",
           "s3Key": "amplify-builds/openAI-476c346d78774850546a-build.zip"
-        }
+        },
+        "resumebuilderlayer69ee0665": {
+          "deploymentBucketName": "amplify-amplifyccf95263eb0f4-staging-23421-deployment",
+          "s3Key": "amplify-builds/resumebuilderlayer69ee0665-LambdaLayerVersion4f81b665-build.zip"
+        },
+        "populateData": {}
       },
       "storage": {
         "s3resumebuilderstorage1a319798": {}
