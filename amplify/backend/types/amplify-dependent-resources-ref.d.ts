@@ -24,9 +24,6 @@ export type AmplifyDependentResourcesAttributes = {
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
       "Region": "string"
-    },
-    "resumebuilderlayer69ee0665": {
-      "Arn": "string"
     }
   },
   "storage": {

@@ -1,6 +1,8 @@
 {
-  "providers": ["awscloudformation"],
-  "projectName": "resumebuilder",
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "pbradygeorgen",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {
@@ -8,9 +10,8 @@
     "config": {
       "SourceDir": "app",
       "DistributionDir": "/",
-      "BuildCommand": "npm run-script build",
+      "BuildCommand": "yarn run build",
       "StartCommand": "npm run-script start"
     }
-  },
-  "projectId": "d2gv0gd3awxys0"
+  }
 }
