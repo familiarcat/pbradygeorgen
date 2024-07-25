@@ -1,7 +1,6 @@
 {
-  "providers": [
-    "awscloudformation"
-  ],
+  "providers": ["awscloudformation"],
+  "projectId": "d2gv0gd3awxys0",
   "projectName": "resumebuilder",
   "version": "3.1",
   "frontend": "javascript",
