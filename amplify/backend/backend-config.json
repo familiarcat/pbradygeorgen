@@ -84,22 +84,6 @@
           "resourceName": "openAI"
         }
       ]
-    },
-    "AMPLIFY_function_resumebuilderlayer69ee0665_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "resumebuilderlayer69ee0665"
-        }
-      ]
-    },
-    "AMPLIFY_function_resumebuilderlayer69ee0665_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "resumebuilderlayer69ee0665"
-        }
-      ]
     }
   },
   "storage": {
