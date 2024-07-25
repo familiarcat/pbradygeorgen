@@ -61,6 +61,45 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "resumebuilderlayer69ee0665": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_openAI_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openAI"
+        }
+      ]
+    },
+    "AMPLIFY_function_openAI_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "openAI"
+        }
+      ]
+    },
+    "AMPLIFY_function_resumebuilderlayer69ee0665_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "resumebuilderlayer69ee0665"
+        }
+      ]
+    },
+    "AMPLIFY_function_resumebuilderlayer69ee0665_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "resumebuilderlayer69ee0665"
+        }
+      ]
     }
   },
   "storage": {

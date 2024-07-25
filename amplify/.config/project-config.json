@@ -11,5 +11,6 @@
       "BuildCommand": "npm run-script build",
       "StartCommand": "npm run-script start"
     }
-  }
+  },
+  "projectId": "d2gv0gd3awxys0"
 }
