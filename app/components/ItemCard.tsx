@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from "react-native"
 export default function Itemcard() {
   return (
     <View style={styles.itemCard}>
+      <Text>Itemcard</Text>
+
       <View style={styles.badge}>
         <Text style={styles.label}>New!</Text>
       </View>
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     // width: "48%", // Adjust the width to fit within a responsive grid
     height: 200,
     padding: 16,
-    margin: 5, // Minimum gutter
+    // margin: 5, // Minimum gutter
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
   },

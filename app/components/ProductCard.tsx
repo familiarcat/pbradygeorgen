@@ -1,16 +1,24 @@
 import React from "react"
-import { StyleSheet, Image, Text, View } from "react-native"
+import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
+import ResponsiveGrid from "./utility_components/ResponsiveGrid"
 
 export default function Productcard() {
+  const { width: screenWidth } = useWindowDimensions()
+  const isVertical = screenWidth <= 600 // Adjust this threshold based on your needs
+
   return (
-    <View style={styles.productCard}>
+    <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
       <Image
-        style={styles.image}
+        style={[styles.image, isVertical ? styles.imageVertical : styles.imageHorizontal]}
         source={{
           uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
         }}
       />
-      <View style={styles.cardArea}>
+
+      <View
+        style={[styles.cardArea, isVertical ? styles.cardAreaVertical : styles.cardAreaHorizontal]}
+      >
+        <Text>Productcard</Text>
         <Text style={styles.title}>Classic Long Sleeve T-Shirt</Text>
         <View style={styles.ratings}>
           <Image
@@ -84,27 +92,42 @@ export default function Productcard() {
 
 const styles = StyleSheet.create({
   productCard: {
-    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: "100%",
     padding: 10,
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
+    minWidth: 640,
     marginBottom: 10,
   },
+  horizontal: {
+    flexDirection: "row",
+  },
+  vertical: {
+    flexDirection: "column",
+  },
   image: {
-    width: "33%",
-    height: "100%",
     borderRadius: 8,
   },
+  imageHorizontal: {
+    width: "33%",
+    height: "100%",
+  },
+  imageVertical: {
+    width: "100%",
+    height: 200,
+  },
   cardArea: {
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
-    width: "66%",
     padding: 16,
     backgroundColor: "rgba(255,255,255,1)",
+  },
+  cardAreaHorizontal: {
+    width: "66%",
+  },
+  cardAreaVertical: {
+    width: "100%",
   },
   title: {
     marginBottom: 8,

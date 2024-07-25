@@ -4,6 +4,8 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Editprofile() {
   return (
     <View style={styles.editProfile}>
+      <Text>Editprofile</Text>
+
       <View style={styles.content}>
         <View style={styles.editProfileHeader}>
           <Image
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
     width: 640,
     height: 528,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   content: {
     flexDirection: "column",

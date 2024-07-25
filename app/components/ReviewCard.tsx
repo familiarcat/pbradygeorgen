@@ -1,16 +1,22 @@
 import React from "react"
-import { StyleSheet, Image, Text, View } from "react-native"
+import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
 
 export default function Reviewcard() {
+  const { width: screenWidth } = useWindowDimensions()
+  const isVertical = screenWidth <= 800 // Adjust this threshold based on your needs
+
   return (
-    <View style={styles.reviewCard}>
+    <View style={[styles.reviewCard, isVertical ? styles.vertical : styles.horizontal]}>
       <Image
-        style={styles.image}
+        style={[styles.image, isVertical ? styles.imageVertical : styles.imageHorizontal]}
         source={{
           uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/qai2rmpa8ur-2976%3A6826?alt=media&token=d2b25232-1383-48ca-9fdf-cc018c7f1161",
         }}
       />
-      <View style={styles.cardArea}>
+      <View
+        style={[styles.cardArea, isVertical ? styles.cardAreaVertical : styles.cardAreaHorizontal]}
+      >
+        <Text>Reviewcard</Text>
         <View style={styles.title}>
           <View style={styles.frame}>
             <Text style={styles.infoText}>Information about this product</Text>
@@ -55,27 +61,42 @@ export default function Reviewcard() {
 
 const styles = StyleSheet.create({
   reviewCard: {
-    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    width: "100%",
+    width: 960,
     padding: 10,
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
     marginBottom: 10,
   },
+  horizontal: {
+    flexDirection: "row",
+  },
+  vertical: {
+    flexDirection: "column",
+  },
   image: {
-    width: "40%",
-    height: "100%",
     borderRadius: 8,
   },
+  imageHorizontal: {
+    width: "40%",
+    height: "100%",
+  },
+  imageVertical: {
+    width: "100%",
+    height: 200,
+  },
   cardArea: {
-    flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: "60%",
     padding: 16,
     backgroundColor: "rgba(255,255,255,1)",
+  },
+  cardAreaHorizontal: {
+    width: "60%",
+  },
+  cardAreaVertical: {
+    width: "100%",
   },
   title: {
     flexDirection: "column",

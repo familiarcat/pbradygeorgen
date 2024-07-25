@@ -4,6 +4,8 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Standardcard() {
   return (
     <View style={styles.standardCard}>
+      <Text>Standardcard</Text>
+
       <Image
         style={styles.image}
         source={{
@@ -28,7 +30,9 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: 320,
     height: 276,
+    paddingTop: 24,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   image: {
     width: "100%",

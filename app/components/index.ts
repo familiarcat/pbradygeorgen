@@ -24,3 +24,5 @@ export * from "./CommentCard"
 export * from "./ProductCard"
 export * from "./ProfileCard"
 export * from "./EditProfileCard"
+
+export * from "./utility_components/ResponsiveGrid"

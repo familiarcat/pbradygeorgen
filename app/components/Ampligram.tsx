@@ -4,6 +4,7 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Ampligram() {
   return (
     <View style={styles.ampligram}>
+      <Text>Ampligram</Text>
       <View style={styles.header}>
         <View style={styles.profile}>
           <Image
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     width: 640,
     height: 725,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   header: {
     flexDirection: "row",

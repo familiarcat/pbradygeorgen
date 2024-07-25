@@ -4,6 +4,8 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function SocialPost() {
   return (
     <View style={styles.socialPost}>
+      <Text>SocialPost</Text>
+
       <View style={styles.body}>
         <View style={styles.text}>
           <View style={styles.headline}>
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
     height: 377,
     padding: 24,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   body: {
     flexDirection: "row",

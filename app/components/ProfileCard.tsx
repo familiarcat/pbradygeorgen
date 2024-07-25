@@ -4,6 +4,8 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Profilecard() {
   return (
     <View style={styles.profileCard}>
+      <Text>Profilecard</Text>
+
       <Image
         style={styles.image}
         source={{
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
     height: 407,
     padding: 24,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   image: {
     width: 160,

@@ -4,6 +4,7 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Actioncard() {
   return (
     <View style={styles.actionCard}>
+      <Text>ActionCard</Text>
       <Image
         style={styles.image}
         source={{
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 635,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   image: {
     width: "100%",

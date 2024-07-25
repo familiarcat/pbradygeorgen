@@ -26,6 +26,7 @@ import Ampligram from "app/components/Ampligram"
 import Commentcard from "app/components/CommentCard"
 import Profilecard from "app/components/ProfileCard"
 import Editprofilecard from "app/components/EditProfileCard"
+import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -58,72 +59,6 @@ const $disabledButtonTextStyle: TextStyle = {
   textDecorationColor: colors.palette.neutral100,
 }
 
-const { width: screenWidth } = Dimensions.get("window")
-
-const calculateItemWidth = (columns: number) => {
-  const gutter = 10
-  return (screenWidth - gutter * (columns + 1)) / columns
-}
-
-const styles = StyleSheet.create({
-  gridContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-start", // Items float left
-    padding: 15, // Minimum gutter
-  },
-  gridItem: {
-    margin: 5,
-    padding: 5, // Minimum gutter
-    overflow: "hidden", // Hide content that overflows the bounds
-  },
-})
-
-const ResponsiveGrid = () => {
-  const columns = screenWidth > 1600 ? 4 : screenWidth > 1200 ? 3 : 2
-  const itemWidth = calculateItemWidth(columns)
-
-  return (
-    <View style={styles.gridContainer}>
-      <View style={styles.gridItem}>
-        <CardComponentOnCanvas />
-      </View>
-      <View style={styles.gridItem}>
-        <Standardcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Actioncard />
-      </View>
-      <View style={styles.gridItem}>
-        <Itemcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Productcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Reviewcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Ampligram />
-      </View>
-      <View style={styles.gridItem}>
-        <Commentcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Productcard />
-      </View>
-      <View style={styles.gridItem}>
-        <Profilecard />
-      </View>
-      <View style={styles.gridItem}>
-        <Editprofilecard />
-      </View>
-
-      {/* Add more child components as needed */}
-    </View>
-  )
-}
-
 export const DemoButton: Demo = {
   name: "Button",
   description:
@@ -134,7 +69,27 @@ export const DemoButton: Demo = {
       layout="column"
       description="There are a few presets that are pre-configured."
     >
-      <ResponsiveGrid />
+      <ResponsiveGrid>
+        <Productcard />
+        <Actioncard />
+        <Standardcard />
+        <ResponsiveGrid>
+          <Itemcard />
+          <Itemcard />
+          <Itemcard />
+        </ResponsiveGrid>
+        <ResponsiveGrid>
+          <Standardcard />
+          <Itemcard />
+          <Itemcard />
+        </ResponsiveGrid>
+        <Reviewcard />
+        <Ampligram />
+        <Commentcard />
+        <Productcard />
+        <Profilecard />
+        <Editprofilecard />
+      </ResponsiveGrid>
       <LottieAnimation
         animationSource={require("assets/animations/waves.json")}
         onPress={() => console.log("pressed at the lottie level")}

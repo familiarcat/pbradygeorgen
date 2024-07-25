@@ -4,6 +4,7 @@ import { StyleSheet, Image, Text, View } from "react-native"
 export default function Commentcard() {
   return (
     <View style={styles.commentCard}>
+      <Text>Commentcard</Text>
       <View style={styles.liked}>
         <View style={styles.userLiked}>
           <Image
@@ -87,6 +88,7 @@ const styles = StyleSheet.create({
     height: 192,
     padding: 16,
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 8,
   },
   liked: {
     flexDirection: "row",
