@@ -22,6 +22,10 @@ import Actioncard from "app/components/ActionCard"
 import Itemcard from "app/components/ItemCard"
 import Productcard from "app/components/ProductCard"
 import Reviewcard from "app/components/ReviewCard"
+import Ampligram from "app/components/Ampligram"
+import Commentcard from "app/components/CommentCard"
+import Profilecard from "app/components/ProfileCard"
+import Editprofilecard from "app/components/EditProfileCard"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -66,10 +70,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start", // Items float left
-    padding: 5, // Minimum gutter
+    padding: 15, // Minimum gutter
   },
   gridItem: {
-    margin: 5, // Minimum gutter
+    margin: 5,
+    padding: 5, // Minimum gutter
     overflow: "hidden", // Hide content that overflows the bounds
   },
 })
@@ -80,12 +85,40 @@ const ResponsiveGrid = () => {
 
   return (
     <View style={styles.gridContainer}>
-      <CardComponentOnCanvas />
-      <Standardcard />
-      <Actioncard />
-      <Itemcard />
-      <Productcard />
-      <Reviewcard />
+      <View style={styles.gridItem}>
+        <CardComponentOnCanvas />
+      </View>
+      <View style={styles.gridItem}>
+        <Standardcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Actioncard />
+      </View>
+      <View style={styles.gridItem}>
+        <Itemcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Productcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Reviewcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Ampligram />
+      </View>
+      <View style={styles.gridItem}>
+        <Commentcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Productcard />
+      </View>
+      <View style={styles.gridItem}>
+        <Profilecard />
+      </View>
+      <View style={styles.gridItem}>
+        <Editprofilecard />
+      </View>
+
       {/* Add more child components as needed */}
     </View>
   )

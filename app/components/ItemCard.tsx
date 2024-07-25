@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: "48%", // Adjust the width to fit within a responsive grid
+    // width: "48%", // Adjust the width to fit within a responsive grid
+    height: 200,
     padding: 16,
     margin: 5, // Minimum gutter
     backgroundColor: "rgba(255,255,255,1)",
