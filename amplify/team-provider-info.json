@@ -19,6 +19,10 @@
         "openAI": {
           "deploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
           "s3Key": "amplify-builds/openAI-476c346d78774850546a-build.zip"
+        },
+        "populateData": {
+          "deploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
+          "s3Key": "amplify-builds/populateData-78774f704a636d4c4f57-build.zip"
         }
       },
       "storage": {
