@@ -10,6 +10,9 @@
   "dependencies": {
     "@aws-amplify/core": "^4.7.15",
     "@aws-amplify/datastore": "^3.14.7",
-    "dotenv": "^10.0.0"
+    "aws-appsync": "^4.1.10",
+    "aws-sdk": "^2.1665.0",
+    "dotenv": "^10.0.0",
+    "isomorphic-fetch": "^3.0.0"
   }
 }
