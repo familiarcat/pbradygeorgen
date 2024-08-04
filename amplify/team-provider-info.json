@@ -22,7 +22,7 @@
         },
         "populateData": {
           "deploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
-          "s3Key": "amplify-builds/populateData-684c794a43364a76474c-build.zip"
+          "s3Key": "amplify-builds/populateData-5844426f662b79313336-build.zip"
         }
       },
       "storage": {
