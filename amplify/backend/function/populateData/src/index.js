@@ -1,8 +1,9 @@
 const Amplify = require("@aws-amplify/core").default
 const AWSAppSyncClient = require("aws-appsync").default
 const gql = require("graphql-tag")
-const fetch = require("isomorphic-fetch")
+require("isomorphic-fetch")
 
+// Load environment variables in non-production environments
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config()
 }
@@ -184,6 +185,83 @@ const ADD_SKILL_MUTATION = gql`
   }
 `
 
+const LIST_ALL_ITEMS_QUERY = gql`
+  query ListAllItems($limit: Int) {
+    listReferences(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listContactInformations(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listResumes(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listEducations(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listDegrees(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listCompanies(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listAccomplishments(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listSchools(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listExperiences(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listSkills(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listEngagements(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+    listSummaries(limit: $limit) {
+      items {
+        id
+        _version
+      }
+    }
+  }
+`
+
 // GraphQL delete mutations
 const DELETE_REFERENCE_MUTATION = gql`
   mutation DeleteReference($input: DeleteReferenceInput!) {
@@ -281,298 +359,46 @@ const DELETE_SUMMARY_MUTATION = gql`
   }
 `
 
-// Function to delete all data with pagination and batch processing
+// Function to delete all data
 async function deleteAllData() {
-  // Pagination query to get the list of all items for each type
-  const listQueries = [
-    { queryName: "listReferences", deleteMutation: DELETE_REFERENCE_MUTATION },
-    { queryName: "listContactInformations", deleteMutation: DELETE_CONTACT_INFORMATION_MUTATION },
-    { queryName: "listResumes", deleteMutation: DELETE_RESUME_MUTATION },
-    { queryName: "listEducations", deleteMutation: DELETE_EDUCATION_MUTATION },
-    { queryName: "listDegrees", deleteMutation: DELETE_DEGREE_MUTATION },
-    { queryName: "listCompanies", deleteMutation: DELETE_COMPANY_MUTATION },
-    { queryName: "listAccomplishments", deleteMutation: DELETE_ACCOMPLISHMENT_MUTATION },
-    { queryName: "listSchools", deleteMutation: DELETE_SCHOOL_MUTATION },
-    { queryName: "listExperiences", deleteMutation: DELETE_EXPERIENCE_MUTATION },
-    { queryName: "listSkills", deleteMutation: DELETE_SKILL_MUTATION },
-    { queryName: "listEngagements", deleteMutation: DELETE_ENGAGEMENT_MUTATION },
-    { queryName: "listSummaries", deleteMutation: DELETE_SUMMARY_MUTATION },
-  ]
+  // Query to get the list of all items for each type
+  const result = await client.query({
+    query: LIST_ALL_ITEMS_QUERY,
+    variables: { limit: 1000 }, // Adjust limit as needed
+    fetchPolicy: "network-only",
+  })
 
-  for (const { queryName, deleteMutation } of listQueries) {
-    let nextToken = null
-    do {
-      const listQuery = gql`
-        query ${queryName}($limit: Int, $nextToken: String) {
-          ${queryName}(limit: $limit, nextToken: $nextToken) {
-            items {
-              id
-              _version
-            }
-            nextToken
-          }
-        }
-      `
+  const deleteOperations = []
 
-      const result = await client.query({
-        query: listQuery,
-        variables: { limit: 100, nextToken },
-        fetchPolicy: "network-only",
-      })
-
-      const items = result.data[queryName].items
-      nextToken = result.data[queryName].nextToken
-
-      const deletePromises = items.map(({ id, _version }) =>
+  // Helper function to add delete mutations
+  const addDeleteOperations = (items, deleteMutation) => {
+    items.forEach(({ id, _version }) => {
+      deleteOperations.push(
         client.mutate({
           mutation: deleteMutation,
-          variables: { input: { id, _version } },
+          variables: { input: { id, _version } }, // Include _version for conflict resolution
         }),
       )
-
-      // Process deletions in batches of 25 to avoid overwhelming AppSync
-      for (let i = 0; i < deletePromises.length; i += 25) {
-        await Promise.all(deletePromises.slice(i, i + 25))
-      }
-    } while (nextToken)
+    })
   }
-}
 
-// Function to create records concurrently
-async function createRecords() {
-  // Create Contact Information
-  const contactInfoResult = await client.mutate({
-    mutation: ADD_CONTACT_INFORMATION_MUTATION,
-    variables: {
-      input: {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        phone: "123-456-7890",
-      },
-    },
-  })
-
-  const contactInfoID = contactInfoResult.data.createContactInformation.id
-
-  // Create References for Contact Information concurrently
-  const referencePromises = Array.from({ length: 3 }, (_, i) =>
-    client.mutate({
-      mutation: ADD_REFERENCE_MUTATION,
-      variables: {
-        input: {
-          name: `Reference ${i + 1}`,
-          phone: `123-456-789${i}`,
-          email: `reference${i + 1}@example.com`,
-          contactinformationID: contactInfoID,
-        },
-      },
-    }),
+  addDeleteOperations(result.data.listReferences.items, DELETE_REFERENCE_MUTATION)
+  addDeleteOperations(
+    result.data.listContactInformations.items,
+    DELETE_CONTACT_INFORMATION_MUTATION,
   )
-  await Promise.all(referencePromises)
+  addDeleteOperations(result.data.listResumes.items, DELETE_RESUME_MUTATION)
+  addDeleteOperations(result.data.listEducations.items, DELETE_EDUCATION_MUTATION)
+  addDeleteOperations(result.data.listDegrees.items, DELETE_DEGREE_MUTATION)
+  addDeleteOperations(result.data.listCompanies.items, DELETE_COMPANY_MUTATION)
+  addDeleteOperations(result.data.listAccomplishments.items, DELETE_ACCOMPLISHMENT_MUTATION)
+  addDeleteOperations(result.data.listSchools.items, DELETE_SCHOOL_MUTATION)
+  addDeleteOperations(result.data.listExperiences.items, DELETE_EXPERIENCE_MUTATION)
+  addDeleteOperations(result.data.listSkills.items, DELETE_SKILL_MUTATION)
+  addDeleteOperations(result.data.listEngagements.items, DELETE_ENGAGEMENT_MUTATION)
+  addDeleteOperations(result.data.listSummaries.items, DELETE_SUMMARY_MUTATION)
 
-  // Create Resume
-  const resumeResult = await client.mutate({
-    mutation: ADD_RESUME_MUTATION,
-    variables: {
-      input: {
-        title: "Sample Resume",
-      },
-    },
-  })
-
-  const resumeID = resumeResult.data.createResume.id
-
-  // Create Summary for Resume
-  await client.mutate({
-    mutation: ADD_SUMMARY_MUTATION,
-    variables: {
-      input: {
-        goals: "Become a software developer",
-        persona: "Hardworking and dedicated",
-        url: "http://example.com",
-        headshot: "http://example.com/headshot.jpg",
-        gptResponse: "Generated by GPT",
-      },
-    },
-  })
-
-  // Create Education for Resume
-  const educationResult = await client.mutate({
-    mutation: ADD_EDUCATION_MUTATION,
-    variables: {
-      input: {
-        summary: "Education Summary",
-      },
-    },
-  })
-
-  const educationID = educationResult.data.createEducation.id
-
-  // Create Schools and Degrees concurrently
-  const schoolPromises = Array.from({ length: 3 }, async (_, i) => {
-    const schoolResult = await client.mutate({
-      mutation: ADD_SCHOOL_MUTATION,
-      variables: {
-        input: {
-          name: `School ${i + 1}`,
-          educationID: educationID,
-        },
-      },
-    })
-
-    const schoolID = schoolResult.data.createSchool.id
-
-    const degreePromises = Array.from({ length: 3 }, (_, j) =>
-      client.mutate({
-        mutation: ADD_DEGREE_MUTATION,
-        variables: {
-          input: {
-            major: `Major ${j + 1}`,
-            startYear: AWSDateConverter(`${new Date().getFullYear() - j}-01-01`),
-            endYear: AWSDateConverter(`${new Date().getFullYear() - j + 4}-01-01`),
-            schoolID: schoolID,
-          },
-        },
-      }),
-    )
-
-    const accomplishmentPromises = Array.from({ length: 3 }, (_, k) =>
-      client.mutate({
-        mutation: ADD_ACCOMPLISHMENT_MUTATION,
-        variables: {
-          input: {
-            title: `School Accomplishment ${k + 1}`,
-            description: "Accomplishment Description",
-            link: "http://example.com",
-            companyID: null,
-            engagementID: null,
-          },
-        },
-      }),
-    )
-
-    await Promise.all([...degreePromises, ...accomplishmentPromises])
-  })
-
-  await Promise.all(schoolPromises)
-
-  // Create Experience for Resume
-  const experienceResult = await client.mutate({
-    mutation: ADD_EXPERIENCE_MUTATION,
-    variables: {
-      input: {
-        title: "Experience Title",
-        text: "Experience Description",
-        gptResponse: "Generated by GPT",
-      },
-    },
-  })
-
-  const experienceID = experienceResult.data.createExperience.id
-
-  // Create Companies, Engagements, Accomplishments, and Skills concurrently
-  const companyPromises = Array.from({ length: 3 }, async (_, i) => {
-    const companyResult = await client.mutate({
-      mutation: ADD_COMPANY_MUTATION,
-      variables: {
-        input: {
-          name: `Company ${i + 1}`,
-          role: `Role ${i + 1}`,
-          startDate: AWSDateConverter(new Date().toISOString()),
-          endDate: AWSDateConverter(new Date().toISOString()),
-          historyID: experienceID,
-          title: `Title ${i + 1}`,
-          gptResponse: "Generated by GPT",
-        },
-      },
-    })
-
-    const companyID = companyResult.data.createCompany.id
-
-    const engagementPromises = Array.from({ length: 3 }, async (_, j) => {
-      const engagementResult = await client.mutate({
-        mutation: ADD_ENGAGEMENT_MUTATION,
-        variables: {
-          input: {
-            client: `Client ${j + 1}`,
-            startDate: AWSDateConverter(new Date().toISOString()),
-            endDate: AWSDateConverter(new Date().toISOString()),
-            companyID: companyID,
-            gptResponse: "Generated by GPT",
-          },
-        },
-      })
-
-      const engagementID = engagementResult.data.createEngagement.id
-
-      const accomplishmentPromises = Array.from({ length: 3 }, (_, k) =>
-        client.mutate({
-          mutation: ADD_ACCOMPLISHMENT_MUTATION,
-          variables: {
-            input: {
-              title: `Engagement Accomplishment ${k + 1}`,
-              description: "Accomplishment Description",
-              link: "http://example.com",
-              companyID: companyID,
-              engagementID: engagementID,
-            },
-          },
-        }),
-      )
-
-      await Promise.all(accomplishmentPromises)
-    })
-
-    const companyAccomplishmentPromises = Array.from({ length: 3 }, (_, j) =>
-      client.mutate({
-        mutation: ADD_ACCOMPLISHMENT_MUTATION,
-        variables: {
-          input: {
-            title: `Company Accomplishment ${j + 1}`,
-            description: "Accomplishment Description",
-            link: "http://example.com",
-            companyID: companyID,
-            engagementID: null,
-          },
-        },
-      }),
-    )
-
-    const skillPromises = Array.from({ length: 3 }, (_, j) =>
-      client.mutate({
-        mutation: ADD_SKILL_MUTATION,
-        variables: {
-          input: {
-            title: `Skill ${j + 1}`,
-            link: "http://example.com",
-            companyID: companyID,
-            resumeID: resumeID,
-            accomplishmentID: null,
-          },
-        },
-      }),
-    )
-
-    await Promise.all([...engagementPromises, ...companyAccomplishmentPromises, ...skillPromises])
-  })
-
-  await Promise.all(companyPromises)
-
-  // Create Skills for Resume concurrently
-  const resumeSkillPromises = Array.from({ length: 3 }, (_, i) =>
-    client.mutate({
-      mutation: ADD_SKILL_MUTATION,
-      variables: {
-        input: {
-          title: `Resume Skill ${i + 1}`,
-          link: "http://example.com",
-          resumeID: resumeID,
-        },
-      },
-    }),
-  )
-
-  await Promise.all(resumeSkillPromises)
+  await Promise.all(deleteOperations)
 }
 
 // Lambda handler
@@ -581,13 +407,238 @@ exports.handler = async (event) => {
     // Clear the existing data in the database
     await deleteAllData()
 
-    // Create new records
-    await createRecords()
+    // Create Contact Information
+    const contactInfoResult = await client.mutate({
+      mutation: ADD_CONTACT_INFORMATION_MUTATION,
+      variables: {
+        input: {
+          name: "John Doe",
+          email: "john.doe@example.com",
+          phone: "123-456-7890",
+        },
+      },
+    })
+
+    const contactInfoID = contactInfoResult.data.createContactInformation.id
+
+    // Create References for Contact Information
+    for (let i = 0; i < 3; i++) {
+      await client.mutate({
+        mutation: ADD_REFERENCE_MUTATION,
+        variables: {
+          input: {
+            name: `Reference ${i + 1}`,
+            phone: `123-456-789${i}`,
+            email: `reference${i + 1}@example.com`,
+            contactinformationID: contactInfoID,
+          },
+        },
+      })
+    }
+
+    // Create Resume
+    const resumeResult = await client.mutate({
+      mutation: ADD_RESUME_MUTATION,
+      variables: {
+        input: {
+          title: "Sample Resume",
+        },
+      },
+    })
+
+    const resumeID = resumeResult.data.createResume.id
+
+    // Create Summary for Resume
+    await client.mutate({
+      mutation: ADD_SUMMARY_MUTATION,
+      variables: {
+        input: {
+          goals: "Become a software developer",
+          persona: "Hardworking and dedicated",
+          url: "http://example.com",
+          headshot: "http://example.com/headshot.jpg",
+          gptResponse: "Generated by GPT",
+        },
+      },
+    })
+
+    // Create Education for Resume
+    const educationResult = await client.mutate({
+      mutation: ADD_EDUCATION_MUTATION,
+      variables: {
+        input: {
+          summary: "Education Summary",
+        },
+      },
+    })
+
+    const educationID = educationResult.data.createEducation.id
+
+    // Create Schools for Education
+    for (let i = 0; i < 3; i++) {
+      const schoolResult = await client.mutate({
+        mutation: ADD_SCHOOL_MUTATION,
+        variables: {
+          input: {
+            name: `School ${i + 1}`,
+            educationID: educationID,
+          },
+        },
+      })
+
+      const schoolID = schoolResult.data.createSchool.id
+
+      // Create Degrees for School
+      for (let j = 0; j < 3; j++) {
+        await client.mutate({
+          mutation: ADD_DEGREE_MUTATION,
+          variables: {
+            input: {
+              major: `Major ${j + 1}`,
+              startYear: AWSDateConverter(`${new Date().getFullYear() - j}-01-01`),
+              endYear: AWSDateConverter(`${new Date().getFullYear() - j + 4}-01-01`),
+              schoolID: schoolID,
+            },
+          },
+        })
+      }
+
+      // Create Accomplishments for School
+      for (let k = 0; k < 3; k++) {
+        await client.mutate({
+          mutation: ADD_ACCOMPLISHMENT_MUTATION,
+          variables: {
+            input: {
+              title: `School Accomplishment ${k + 1}`,
+              description: "Accomplishment Description",
+              link: "http://example.com",
+              companyID: null,
+              engagementID: null,
+            },
+          },
+        })
+      }
+    }
+
+    // Create Experience for Resume
+    const experienceResult = await client.mutate({
+      mutation: ADD_EXPERIENCE_MUTATION,
+      variables: {
+        input: {
+          title: "Experience Title",
+          text: "Experience Description",
+          gptResponse: "Generated by GPT",
+        },
+      },
+    })
+
+    const experienceID = experienceResult.data.createExperience.id
+
+    // Create Companies for Experience
+    for (let i = 0; i < 3; i++) {
+      const companyResult = await client.mutate({
+        mutation: ADD_COMPANY_MUTATION,
+        variables: {
+          input: {
+            name: `Company ${i + 1}`,
+            role: `Role ${i + 1}`,
+            startDate: AWSDateConverter(new Date().toISOString()),
+            endDate: AWSDateConverter(new Date().toISOString()),
+            historyID: experienceID,
+            title: `Title ${i + 1}`,
+            gptResponse: "Generated by GPT",
+          },
+        },
+      })
+
+      const companyID = companyResult.data.createCompany.id
+
+      // Create Engagements for Company
+      for (let j = 0; j < 3; j++) {
+        const engagementResult = await client.mutate({
+          mutation: ADD_ENGAGEMENT_MUTATION,
+          variables: {
+            input: {
+              client: `Client ${j + 1}`,
+              startDate: AWSDateConverter(new Date().toISOString()),
+              endDate: AWSDateConverter(new Date().toISOString()),
+              companyID: companyID,
+              gptResponse: "Generated by GPT",
+            },
+          },
+        })
+
+        const engagementID = engagementResult.data.createEngagement.id
+
+        // Create Accomplishments for Engagement
+        for (let k = 0; k < 3; k++) {
+          await client.mutate({
+            mutation: ADD_ACCOMPLISHMENT_MUTATION,
+            variables: {
+              input: {
+                title: `Engagement Accomplishment ${k + 1}`,
+                description: "Accomplishment Description",
+                link: "http://example.com",
+                companyID: companyID,
+                engagementID: engagementID,
+              },
+            },
+          })
+        }
+      }
+
+      // Create Accomplishments for Company
+      for (let j = 0; j < 3; j++) {
+        await client.mutate({
+          mutation: ADD_ACCOMPLISHMENT_MUTATION,
+          variables: {
+            input: {
+              title: `Company Accomplishment ${j + 1}`,
+              description: "Accomplishment Description",
+              link: "http://example.com",
+              companyID: companyID,
+              engagementID: null,
+            },
+          },
+        })
+      }
+
+      // Create Skills for Company
+      for (let j = 0; j < 3; j++) {
+        await client.mutate({
+          mutation: ADD_SKILL_MUTATION,
+          variables: {
+            input: {
+              title: `Skill ${j + 1}`,
+              link: "http://example.com",
+              companyID: companyID,
+              resumeID: resumeID,
+              accomplishmentID: null,
+            },
+          },
+        })
+      }
+    }
+
+    // Create Skills for Resume
+    for (let i = 0; i < 3; i++) {
+      await client.mutate({
+        mutation: ADD_SKILL_MUTATION,
+        variables: {
+          input: {
+            title: `Resume Skill ${i + 1}`,
+            link: "http://example.com",
+            resumeID: resumeID,
+          },
+        },
+      })
+    }
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         message: "Data reset and populated successfully",
+        resume: resumeResult.data.createResume,
       }),
     }
   } catch (error) {
