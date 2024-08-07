@@ -13,9 +13,6 @@
     "babel-preset-expo": "^11.0.12"
   },
   "dependencies": {
-    "graphql": "^15.5.0",
-    "graphql-tag": "^2.12.0",
-    "apollo-client": "^2.6.10",
     "@aws-amplify/core": "^4.7.15",
     "aws-appsync": "^4.1.10",
     "aws-sdk": "^2.1665.0",
@@ -23,3 +20,5 @@
     "isomorphic-fetch": "^3.0.0"
   }
 }
+
+

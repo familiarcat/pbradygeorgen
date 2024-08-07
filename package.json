@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@aws-amplify/core": "^6.1.0",
-    "@aws-amplify/datastore": "^5.0.20",
+    "@aws-amplify/datastore": "^5.0.43",
     "@aws-amplify/plugin-types": "0.9.0",
     "@aws-sdk/types": "^3.465.0",
     "@babel/plugin-transform-optional-chaining": "^7.24.5",
@@ -59,6 +59,8 @@
     "@types/node": "^20.12.12",
     "@types/tinycolor2": "^1.4.6",
     "apisauce": "3.0.1",
+    "aws-amplify": "^6.4.4",
+    "aws-amplify-react-native": "^7.0.8",
     "date-fns": "^2.30.0",
     "expo": "^49.0.21",
     "expo-application": "~5.3.0",
