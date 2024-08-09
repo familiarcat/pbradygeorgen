@@ -129,18 +129,18 @@ const ResumeView = () => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   useEffect(() => {
     const fetchData = async () => {
-      // clearData()
+      clearData()
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found, creating mock data")
-          createMockData()
-            .catch(console.error)
-            .then(() => {
-              console.log("Created mock data in then statement")
-            })
+          // createMockData()
+          //   .catch(console.error)
+          //   .then(() => {
+          //     console.log("Created mock data in then statement")
+          //   })
           return
         }
 
