@@ -16,8 +16,116 @@ import {
   Accomplishment,
 } from "../models"
 
+// Define TypeScript interfaces for your models
+interface ResumeType {
+  id: string
+  title?: string | null
+  resumeSummaryId?: string | null
+  resumeEducationId?: string | null
+  resumeExperienceId?: string | null
+  resumeContactInformationId?: string | null
+  createdAt?: string
+  updatedAt?: string
+}
+
+interface SummaryType {
+  id: string
+  goals?: string | null
+  persona?: string | null
+}
+
+interface SkillType {
+  id: string
+  title?: string | null
+  resumeID?: string | null
+}
+
+interface EducationType {
+  id: string
+  summary?: string | null
+}
+
+interface ExperienceType {
+  id: string
+  title?: string | null
+  text?: string | null
+}
+
+interface ContactInformationType {
+  id: string
+  name?: string | null
+  email?: string | null
+  phone?: string | null
+}
+
+interface ReferenceType {
+  id: string
+  name?: string | null
+  phone?: string | null
+  email?: string | null
+  contactinformationID?: string | null
+}
+
+interface SchoolType {
+  id: string
+  name?: string | null
+  educationID?: string | null
+}
+
+interface DegreeType {
+  id: string
+  major?: string | null
+  startYear?: string | null
+  endYear?: string | null
+  schoolID?: string | null
+}
+
+interface CompanyType {
+  id: string
+  name?: string | null
+  role?: string | null
+  startDate?: string | null
+  endDate?: string | null
+  title?: string | null
+  historyID?: string | null
+}
+
+interface EngagementType {
+  id: string
+  client?: string | null
+  startDate?: string | null
+  endDate?: string | null
+  companyID?: string | null
+}
+
+interface AccomplishmentType {
+  id: string
+  title?: string | null
+  description?: string | null
+  engagementID?: string | null
+  companyID?: string | null
+}
+
+// Use correct types for each model
+type ExpandedResume = Omit<
+  ResumeType,
+  "Summary" | "Skills" | "Education" | "Experience" | "ContactInformation"
+> & {
+  Summary: SummaryType | null
+  Skills: SkillType[]
+  Education: EducationType | null
+  Schools: SchoolType[]
+  Degrees: DegreeType[]
+  Experience: ExperienceType | null
+  Companies: CompanyType[]
+  Engagements: EngagementType[]
+  Accomplishments: AccomplishmentType[]
+  ContactInformation: ContactInformationType | null
+  References: ReferenceType[]
+}
+
 const ResumeView = () => {
-  const [resumes, setResumes] = useState<any[]>([])
+  const [resumes, setResumes] = useState<ExpandedResume[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,87 +133,146 @@ const ResumeView = () => {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
+        if (!resumeData || resumeData.length === 0) {
+          console.warn("No resumes found")
+          return
+        }
+
         // Fetch related data for each resume
-        const expandedResumes = await Promise.all(
+        const expandedResumes: ExpandedResume[] = await Promise.all(
           resumeData.map(async (resume) => {
-            // Check for summary ID and fetch related summary
-            const summary =
-              resume.resumeSummaryId && typeof resume.resumeSummaryId === "string"
-                ? await DataStore.query(Summary, (s) => s.id.eq(resume.resumeSummaryId!))
-                : []
+            // Fetch related summary
+            const summary = resume.resumeSummaryId
+              ? await DataStore.query(Summary, (s) => s.id.eq(resume.resumeSummaryId!)).then(
+                  (res) => res[0] || null,
+                )
+              : null
 
             // Fetch related skills
-            const skills = await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id))
+            const skills: SkillType[] = (
+              await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id))
+            ).map((skill) => ({
+              id: skill.id,
+              title: skill.title ?? undefined,
+              resumeID: skill.resumeID ?? undefined,
+            }))
 
-            // Check for education ID and fetch related education
-            const education =
-              resume.resumeEducationId && typeof resume.resumeEducationId === "string"
-                ? await DataStore.query(Education, (e) => e.id.eq(resume.resumeEducationId!))
-                : []
-
-            const schools = education.length
-              ? await DataStore.query(School, (school) => school.educationID.eq(education[0].id))
-              : []
-
-            const degrees = await Promise.all(
-              schools.map((school) =>
-                DataStore.query(Degree, (degree) => degree.schoolID.eq(school.id)),
-              ),
-            )
-
-            // Check for experience ID and fetch related experience
-            const experience =
-              resume.resumeExperienceId && typeof resume.resumeExperienceId === "string"
-                ? await DataStore.query(Experience, (e) => e.id.eq(resume.resumeExperienceId!))
-                : []
-
-            const companies = experience.length
-              ? await DataStore.query(Company, (company) => company.historyID.eq(experience[0].id))
-              : []
-
-            const engagements = await Promise.all(
-              companies.map((company) =>
-                DataStore.query(Engagement, (engagement) => engagement.companyID.eq(company.id)),
-              ),
-            )
-
-            const accomplishments = await Promise.all(
-              companies.map((company) =>
-                DataStore.query(Accomplishment, (accomplishment) =>
-                  accomplishment.companyID.eq(company.id),
-                ),
-              ),
-            )
-
-            // Check for contact information ID and fetch related contact information
-            const contactInfo =
-              resume.resumeContactInformationId &&
-              typeof resume.resumeContactInformationId === "string"
-                ? await DataStore.query(ContactInformation, (ci) =>
-                    ci.id.eq(resume.resumeContactInformationId!),
-                  )
-                : []
-
-            const references = contactInfo.length
-              ? await DataStore.query(Reference, (ref) =>
-                  ref.contactinformationID.eq(contactInfo[0].id),
+            // Fetch related education and its schools and degrees
+            const education = resume.resumeEducationId
+              ? await DataStore.query(Education, (e) => e.id.eq(resume.resumeEducationId!)).then(
+                  (res) => res[0] || null,
                 )
-              : []
+              : null
+            const schools: SchoolType[] = (
+              await DataStore.query(School, (school) => school.educationID.eq(education?.id || ""))
+            ).map((school) => ({
+              id: school.id,
+              name: school.name ?? undefined,
+              educationID: school.educationID ?? undefined,
+            }))
+
+            const degrees: DegreeType[] = (
+              await Promise.all(
+                schools.map((school) =>
+                  DataStore.query(Degree, (degree) => degree.schoolID.eq(school.id)),
+                ),
+              )
+            )
+              .flat()
+              .map((degree) => ({
+                id: degree.id,
+                major: degree.major ?? undefined,
+                startYear: degree.startYear ?? undefined,
+                endYear: degree.endYear ?? undefined,
+                schoolID: degree.schoolID ?? undefined,
+              }))
+
+            // Fetch related experience and its companies, engagements, and accomplishments
+            const experience = resume.resumeExperienceId
+              ? await DataStore.query(Experience, (exp) =>
+                  exp.id.eq(resume.resumeExperienceId!),
+                ).then((res) => res[0] || null)
+              : null
+            const companies: CompanyType[] = (
+              await DataStore.query(Company, (company) =>
+                company.historyID.eq(experience?.id || ""),
+              )
+            ).map((company) => ({
+              id: company.id,
+              name: company.name ?? undefined,
+              role: company.role ?? undefined,
+              startDate: company.startDate ?? undefined,
+              endDate: company.endDate ?? undefined,
+              title: company.title ?? undefined,
+              historyID: company.historyID ?? undefined,
+            }))
+
+            const engagements: EngagementType[] = (
+              await Promise.all(
+                companies.map((company) =>
+                  DataStore.query(Engagement, (engagement) => engagement.companyID.eq(company.id)),
+                ),
+              )
+            )
+              .flat()
+              .map((engagement) => ({
+                id: engagement.id,
+                client: engagement.client ?? undefined,
+                startDate: engagement.startDate ?? undefined,
+                endDate: engagement.endDate ?? undefined,
+                companyID: engagement.companyID ?? undefined,
+              }))
+
+            const accomplishments: AccomplishmentType[] = (
+              await Promise.all(
+                companies.map((company) =>
+                  DataStore.query(Accomplishment, (accomplishment) =>
+                    accomplishment.companyID.eq(company.id),
+                  ),
+                ),
+              )
+            )
+              .flat()
+              .map((accomplishment) => ({
+                id: accomplishment.id,
+                title: accomplishment.title ?? undefined,
+                description: accomplishment.description ?? undefined,
+                engagementID: accomplishment.engagementID ?? undefined,
+                companyID: accomplishment.companyID ?? undefined,
+              }))
+
+            // Fetch related contact information and its references
+            const contactInfo = resume.resumeContactInformationId
+              ? await DataStore.query(ContactInformation, (ci) =>
+                  ci.id.eq(resume.resumeContactInformationId!),
+                ).then((res) => res[0] || null)
+              : null
+            const references: ReferenceType[] = (
+              await DataStore.query(Reference, (ref) =>
+                ref.contactinformationID.eq(contactInfo?.id || ""),
+              )
+            ).map((reference) => ({
+              id: reference.id,
+              name: reference.name ?? undefined,
+              phone: reference.phone ?? undefined,
+              email: reference.email ?? undefined,
+              contactinformationID: reference.contactinformationID ?? undefined,
+            }))
 
             return {
               ...resume,
-              Summary: summary.length > 0 ? summary[0] : null,
+              Summary: summary,
               Skills: skills,
-              Education: education.length > 0 ? education[0] : null,
+              Education: education,
               Schools: schools,
-              Degrees: degrees.flat(),
-              Experience: experience.length > 0 ? experience[0] : null,
+              Degrees: degrees,
+              Experience: experience,
               Companies: companies,
-              Engagements: engagements.flat(),
-              Accomplishments: accomplishments.flat(),
-              ContactInformation:
-                contactInfo.length > 0 ? { ...contactInfo[0], References: references } : null,
-            }
+              Engagements: engagements,
+              Accomplishments: accomplishments,
+              ContactInformation: contactInfo,
+              References: references,
+            } as ExpandedResume // Ensure it is cast correctly
           }),
         )
 
@@ -142,7 +309,7 @@ const ResumeView = () => {
           {resume.Skills && resume.Skills.length > 0 && (
             <View style={renderIndentation(1)}>
               <Text style={styles.sectionTitle}>Skills</Text>
-              {resume.Skills.map((skill: Skill) => (
+              {resume.Skills.map((skill) => (
                 <Text key={skill.id} style={styles.text}>
                   {skill.title}
                 </Text>
@@ -157,16 +324,14 @@ const ResumeView = () => {
               {resume.Schools && resume.Schools.length > 0 && (
                 <View style={renderIndentation(2)}>
                   <Text style={styles.sectionTitle}>Schools</Text>
-                  {resume.Schools.map((school: School) => (
+                  {resume.Schools.map((school) => (
                     <View key={school.id} style={renderIndentation(3)}>
                       <Text style={styles.text}>{school.name}</Text>
-                      {resume.Degrees.filter((d: Degree) => d.schoolID === school.id).map(
-                        (degree: Degree) => (
-                          <Text key={degree.id} style={styles.text}>
-                            {degree.major} ({degree.startYear} - {degree.endYear})
-                          </Text>
-                        ),
-                      )}
+                      {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
+                        <Text key={degree.id} style={styles.text}>
+                          {degree.major} ({degree.startYear} - {degree.endYear})
+                        </Text>
+                      ))}
                     </View>
                   ))}
                 </View>
@@ -182,23 +347,23 @@ const ResumeView = () => {
               {resume.Companies && resume.Companies.length > 0 && (
                 <View style={renderIndentation(2)}>
                   <Text style={styles.sectionTitle}>Companies</Text>
-                  {resume.Companies.map((company: Company) => (
+                  {resume.Companies.map((company) => (
                     <View key={company.id} style={renderIndentation(3)}>
                       <Text style={styles.text}>
                         {company.name} - {company.role} ({company.startDate} - {company.endDate})
                       </Text>
                       <Text style={styles.text}>Title: {company.title}</Text>
 
-                      {resume.Engagements.filter((e: Engagement) => e.companyID === company.id).map(
-                        (engagement: Engagement) => (
+                      {resume.Engagements.filter((e) => e.companyID === company.id).map(
+                        (engagement) => (
                           <View key={engagement.id} style={renderIndentation(4)}>
                             <Text style={styles.text}>
                               Engagement with {engagement.client} ({engagement.startDate} -{" "}
                               {engagement.endDate})
                             </Text>
                             {resume.Accomplishments.filter(
-                              (a: Accomplishment) => a.engagementID === engagement.id,
-                            ).map((accomplishment: Accomplishment) => (
+                              (a) => a.engagementID === engagement.id,
+                            ).map((accomplishment) => (
                               <Text key={accomplishment.id} style={styles.text}>
                                 Accomplishment: {accomplishment.title} -{" "}
                                 {accomplishment.description}
@@ -220,17 +385,16 @@ const ResumeView = () => {
               <Text style={styles.text}>Name: {resume.ContactInformation.name}</Text>
               <Text style={styles.text}>Email: {resume.ContactInformation.email}</Text>
               <Text style={styles.text}>Phone: {resume.ContactInformation.phone}</Text>
-              {resume.ContactInformation.References &&
-                resume.ContactInformation.References.length > 0 && (
-                  <View style={renderIndentation(2)}>
-                    <Text style={styles.sectionTitle}>References</Text>
-                    {resume.ContactInformation.References.map((reference: Reference) => (
-                      <Text key={reference.id} style={styles.text}>
-                        {reference.name} - {reference.phone} - {reference.email}
-                      </Text>
-                    ))}
-                  </View>
-                )}
+              {resume.References && resume.References.length > 0 && (
+                <View style={renderIndentation(2)}>
+                  <Text style={styles.sectionTitle}>References</Text>
+                  {resume.References.map((reference) => (
+                    <Text key={reference.id} style={styles.text}>
+                      {reference.name} - {reference.phone} - {reference.email}
+                    </Text>
+                  ))}
+                </View>
+              )}
             </View>
           )}
         </View>

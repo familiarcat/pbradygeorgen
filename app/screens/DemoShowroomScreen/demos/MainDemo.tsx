@@ -27,6 +27,7 @@ import Commentcard from "app/components/CommentCard"
 import Profilecard from "app/components/ProfileCard"
 import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
+import ResumeView from "app/components/ResumeView"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -90,6 +91,7 @@ export const DemoButton: Demo = {
         <Profilecard />
         <Editprofilecard />
       </ResponsiveGrid>
+      <ResumeView />
       <LottieAnimation
         animationSource={require("assets/animations/waves.json")}
         onPress={() => console.log("pressed at the lottie level")}

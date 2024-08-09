@@ -1,4 +1,6 @@
-import { DataStore, MutableModel } from "@aws-amplify/datastore"
+// mockData.ts
+
+import { DataStore } from "@aws-amplify/datastore"
 import {
   Resume,
   Summary,
@@ -12,193 +14,230 @@ import {
   Company,
   Engagement,
   Accomplishment,
-  LazyResume,
 } from "../../models"
 
-// Function to create mock data
-const createMockData = async () => {
+// Function to create mock data with relationships
+export const createMockData = async () => {
   try {
+    // Create Summaries
+    const summary1 = await DataStore.save(
+      new Summary({
+        goals: "To build scalable software solutions.",
+        persona: "Innovative and problem-solving oriented.",
+      }),
+    )
+
+    const summary2 = await DataStore.save(
+      new Summary({
+        goals: "To lead innovative tech projects.",
+        persona: "Dynamic and results-driven.",
+      }),
+    )
+
+    // Create Skills
+    const skill1 = await DataStore.save(
+      new Skill({
+        title: "JavaScript",
+      }),
+    )
+
+    const skill2 = await DataStore.save(
+      new Skill({
+        title: "React",
+      }),
+    )
+
+    const skill3 = await DataStore.save(
+      new Skill({
+        title: "Python",
+      }),
+    )
+
+    const skill4 = await DataStore.save(
+      new Skill({
+        title: "AWS",
+      }),
+    )
+
+    // Create Schools
+    const school1 = await DataStore.save(
+      new School({
+        name: "ABC University",
+      }),
+    )
+
+    const school2 = await DataStore.save(
+      new School({
+        name: "XYZ Institute",
+      }),
+    )
+
+    // Create Degrees linked to Schools
+    await DataStore.save(
+      new Degree({
+        major: "Computer Science",
+        startYear: "2015",
+        endYear: "2019",
+        schoolID: school1.id, // Set schoolID instead of School object
+      }),
+    )
+
+    await DataStore.save(
+      new Degree({
+        major: "Information Technology",
+        startYear: "2016",
+        endYear: "2020",
+        schoolID: school2.id, // Set schoolID instead of School object
+      }),
+    )
+
+    // Create Education linked to Schools
+    const education1 = await DataStore.save(
+      new Education({
+        summary: "B.Sc in Computer Science from ABC University",
+      }),
+    )
+
+    const education2 = await DataStore.save(
+      new Education({
+        summary: "B.Tech in Information Technology from XYZ Institute",
+      }),
+    )
+
+    // Create Companies
+    const company1 = await DataStore.save(
+      new Company({
+        name: "XYZ Corp",
+        role: "Lead Developer",
+        startDate: "2019-01-01",
+        endDate: "2022-01-01",
+        title: "Project Manager",
+      }),
+    )
+
+    const company2 = await DataStore.save(
+      new Company({
+        name: "Tech Innovations Ltd.",
+        role: "Software Engineer",
+        startDate: "2018-01-01",
+        endDate: "2020-01-01",
+        title: "Senior Developer",
+      }),
+    )
+
+    // Create Engagements linked to Companies
+    await DataStore.save(
+      new Engagement({
+        client: "Acme Inc.",
+        startDate: "2019-01-01",
+        endDate: "2019-12-31",
+        companyID: company1.id, // Use companyID instead of Company object
+      }),
+    )
+
+    await DataStore.save(
+      new Engagement({
+        client: "Globex Corp.",
+        startDate: "2020-01-01",
+        endDate: "2020-12-31",
+        companyID: company2.id, // Use companyID instead of Company object
+      }),
+    )
+
+    // Create Accomplishments linked to Companies
+    await DataStore.save(
+      new Accomplishment({
+        title: "Increased code efficiency by 30%",
+        description: "Implemented caching strategies to improve performance.",
+        companyID: company1.id, // Use companyID instead of Company object
+      }),
+    )
+
+    await DataStore.save(
+      new Accomplishment({
+        title: "Led a successful migration to cloud infrastructure",
+        description: "Managed project to migrate services to AWS.",
+        companyID: company2.id, // Use companyID instead of Company object
+      }),
+    )
+
+    // Create Experiences linked to Companies
+    const experience1 = await DataStore.save(
+      new Experience({
+        title: "Lead Developer at XYZ Corp",
+        text: "Led a team of developers in creating a new SaaS product.",
+      }),
+    )
+
+    const experience2 = await DataStore.save(
+      new Experience({
+        title: "Software Engineer at Tech Innovations Ltd.",
+        text: "Developed innovative software solutions for clients.",
+      }),
+    )
+
     // Create Contact Information
-    const contactInfo = await DataStore.save(
+    const contactInfo1 = await DataStore.save(
       new ContactInformation({
         name: "John Doe",
         email: "john.doe@example.com",
-        phone: "123-456-7890",
+        phone: "+1234567890",
+      }),
+    )
+
+    const contactInfo2 = await DataStore.save(
+      new ContactInformation({
+        name: "Jane Doe",
+        email: "jane.doe@example.com",
+        phone: "+0987654321",
       }),
     )
 
     // Create References linked to Contact Information
-    await Promise.all(
-      ["Jane Smith", "Robert Brown", "Emily White"].map((name, index) =>
-        DataStore.save(
-          new Reference({
-            name,
-            phone: `123-456-789${index}`,
-            email: `${name.toLowerCase().replace(" ", ".")}@example.com`,
-            contactinformationID: contactInfo.id, // Correctly set the foreign key
-          }),
-        ),
-      ),
-    )
-
-    // Create Resume
-    const resume = await DataStore.save(
-      new Resume({
-        title: "Sample Resume",
-      }),
-    )
-
-    // Create Summary linked to Resume
-    const summary = await DataStore.save(
-      new Summary({
-        goals: "Become a software developer",
-        persona: "Hardworking and dedicated",
-        url: "http://example.com",
-        headshot: "http://example.com/headshot.jpg",
-        gptResponse: "Generated by GPT",
-        summaryResumeId: resume.id, // Use the foreign key to link
-      }),
-    )
-
-    // Update Resume with linked Contact Information and Summary
     await DataStore.save(
-      Resume.copyOf(resume, (draft: MutableModel<LazyResume>) => {
-        // Ensure proper type handling by declaring draft parameter type
-        draft.resumeContactInformationId = contactInfo.id // Link ContactInformation
-        draft.resumeSummaryId = summary.id // Link Summary
+      new Reference({
+        name: "Jane Smith",
+        phone: "+0987654321",
+        email: "jane.smith@example.com",
+        contactinformationID: contactInfo1.id, // Correct ID linking
       }),
     )
 
-    // Create Skills linked to Resume
-    await Promise.all(
-      ["JavaScript", "React Native", "AWS"].map((title) =>
-        DataStore.save(
-          new Skill({
-            title,
-            link: `http://example.com/${title.toLowerCase()}`,
-            resumeID: resume.id, // Correctly set the foreign key
-          }),
-        ),
-      ),
-    )
-
-    // Create Education linked to Resume
-    const education = await DataStore.save(
-      new Education({
-        summary: "Bachelor of Science in Computer Science",
-        educationResumeId: resume.id, // Use the foreign key to link
+    await DataStore.save(
+      new Reference({
+        name: "Tom Johnson",
+        phone: "+1122334455",
+        email: "tom.johnson@example.com",
+        contactinformationID: contactInfo2.id, // Correct ID linking
       }),
     )
 
-    // Create Schools linked to Education
-    const schools = await Promise.all(
-      ["MIT", "Stanford", "Harvard"].map((name) =>
-        DataStore.save(
-          new School({
-            name,
-            educationID: education.id, // Correctly set the foreign key
-          }),
-        ),
-      ),
-    )
-
-    // Create Degrees linked to Schools
-    await Promise.all(
-      schools.map((school: { id: any }, index: number) =>
-        DataStore.save(
-          new Degree({
-            major: `Major ${index + 1}`,
-            startYear: (new Date().getFullYear() - 4 - index).toString(), // Ensure year is a string
-            endYear: (new Date().getFullYear() - index).toString(), // Ensure year is a string
-            schoolID: school.id, // Link directly to School
-          }),
-        ),
-      ),
-    )
-
-    // Create Experience linked to Resume
-    const experience = await DataStore.save(
-      new Experience({
-        title: "Software Developer",
-        text: "Developed mobile applications",
-        gptResponse: "Generated by GPT",
-        experienceResumeId: resume.id, // Use the foreign key to link
+    // Finally, save Resumes with complete relationships
+    await DataStore.save(
+      new Resume({
+        title: "Software Engineer",
+        resumeSummaryId: summary1.id, // Use summary ID
+        resumeEducationId: education1.id, // Use education ID
+        resumeExperienceId: experience1.id, // Use experience ID
+        resumeContactInformationId: contactInfo1.id, // Use contact info ID
       }),
     )
 
-    // Create Companies linked to Experience
-    const companies = await Promise.all(
-      ["Google", "Amazon", "Facebook"].map((name) =>
-        DataStore.save(
-          new Company({
-            name,
-            role: "Developer",
-            startDate: new Date().toISOString().split("T")[0], // Use only date string
-            endDate: new Date().toISOString().split("T")[0], // Use only date string
-            historyID: experience.id, // Link to Experience
-            title: "Software Engineer",
-            gptResponse: "Generated by GPT",
-          }),
-        ),
-      ),
+    await DataStore.save(
+      new Resume({
+        title: "Tech Lead",
+        resumeSummaryId: summary2.id, // Use summary ID
+        resumeEducationId: education2.id, // Use education ID
+        resumeExperienceId: experience2.id, // Use experience ID
+        resumeContactInformationId: contactInfo2.id, // Use contact info ID
+      }),
     )
 
-    // Create Engagements and Accomplishments linked to Companies
-    for (const company of companies) {
-      const engagements = await Promise.all(
-        [1, 2, 3].map((i) =>
-          DataStore.save(
-            new Engagement({
-              client: `Client ${i}`,
-              startDate: new Date().toISOString().split("T")[0],
-              endDate: new Date().toISOString().split("T")[0],
-              companyID: company.id, // Link to Company
-              gptResponse: "Generated by GPT",
-            }),
-          ),
-        ),
-      )
-
-      // Create Accomplishments linked to Engagements
-      for (const engagement of engagements) {
-        await Promise.all(
-          [1, 2, 3].map((i) =>
-            DataStore.save(
-              new Accomplishment({
-                title: `Engagement Accomplishment ${i}`,
-                description: "Accomplishment Description",
-                link: "http://example.com",
-                companyID: company.id, // Link to Company
-                engagementID: engagement.id, // Link to Engagement
-              }),
-            ),
-          ),
-        )
-      }
-
-      // Create Company-level Accomplishments
-      await Promise.all(
-        [1, 2, 3].map((i) =>
-          DataStore.save(
-            new Accomplishment({
-              title: `Company Accomplishment ${i}`,
-              description: "Accomplishment Description",
-              link: "http://example.com",
-              companyID: company.id, // Link to Company
-              engagementID: null,
-            }),
-          ),
-        ),
-      )
-    }
-
-    console.log("Mock data created successfully")
+    console.log("Mock data saved to DataStore")
   } catch (error) {
     console.error("Error creating mock data:", error)
   }
 }
 
-// Call createMockData to populate DataStore with mock data
-createMockData().catch((error) => console.error("Error creating mock data:", error))
-
-export default createMockData
+// Usage
+createMockData().catch(console.error)
