@@ -70,6 +70,7 @@ export const DemoButton: Demo = {
       layout="column"
       description="There are a few presets that are pre-configured."
     >
+      <ResumeView />
       <ResponsiveGrid>
         <Productcard />
         <Actioncard />
@@ -91,7 +92,7 @@ export const DemoButton: Demo = {
         <Profilecard />
         <Editprofilecard />
       </ResponsiveGrid>
-      <ResumeView />
+
       <LottieAnimation
         animationSource={require("assets/animations/waves.json")}
         onPress={() => console.log("pressed at the lottie level")}

@@ -15,6 +15,7 @@ import {
   Engagement,
   Accomplishment,
 } from "../../models"
+import { toAWSDate } from "../../utils/awsDateConverter" // Import the utility function
 
 // Function to create mock data with relationships
 export const createMockData = async () => {
@@ -76,8 +77,8 @@ export const createMockData = async () => {
     await DataStore.save(
       new Degree({
         major: "Computer Science",
-        startYear: "2015",
-        endYear: "2019",
+        startYear: toAWSDate(2015), // Convert year to AWSDate
+        endYear: toAWSDate(2019), // Convert year to AWSDate
         schoolID: school1.id, // Set schoolID instead of School object
       }),
     )
@@ -85,8 +86,8 @@ export const createMockData = async () => {
     await DataStore.save(
       new Degree({
         major: "Information Technology",
-        startYear: "2016",
-        endYear: "2020",
+        startYear: toAWSDate(2016), // Convert year to AWSDate
+        endYear: toAWSDate(2020), // Convert year to AWSDate
         schoolID: school2.id, // Set schoolID instead of School object
       }),
     )
@@ -109,8 +110,8 @@ export const createMockData = async () => {
       new Company({
         name: "XYZ Corp",
         role: "Lead Developer",
-        startDate: "2019-01-01",
-        endDate: "2022-01-01",
+        startDate: toAWSDate("2019-01-01"), // Ensure AWSDate format
+        endDate: toAWSDate("2022-01-01"), // Ensure AWSDate format
         title: "Project Manager",
       }),
     )
@@ -119,8 +120,8 @@ export const createMockData = async () => {
       new Company({
         name: "Tech Innovations Ltd.",
         role: "Software Engineer",
-        startDate: "2018-01-01",
-        endDate: "2020-01-01",
+        startDate: toAWSDate("2018-01-01"), // Ensure AWSDate format
+        endDate: toAWSDate("2020-01-01"), // Ensure AWSDate format
         title: "Senior Developer",
       }),
     )
@@ -129,8 +130,8 @@ export const createMockData = async () => {
     await DataStore.save(
       new Engagement({
         client: "Acme Inc.",
-        startDate: "2019-01-01",
-        endDate: "2019-12-31",
+        startDate: toAWSDate("2019-01-01"), // Ensure AWSDate format
+        endDate: toAWSDate("2019-12-31"), // Ensure AWSDate format
         companyID: company1.id, // Use companyID instead of Company object
       }),
     )
@@ -138,8 +139,8 @@ export const createMockData = async () => {
     await DataStore.save(
       new Engagement({
         client: "Globex Corp.",
-        startDate: "2020-01-01",
-        endDate: "2020-12-31",
+        startDate: toAWSDate("2020-01-01"), // Ensure AWSDate format
+        endDate: toAWSDate("2020-12-31"), // Ensure AWSDate format
         companyID: company2.id, // Use companyID instead of Company object
       }),
     )

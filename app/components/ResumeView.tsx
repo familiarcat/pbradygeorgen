@@ -15,6 +15,7 @@ import {
   Engagement,
   Accomplishment,
 } from "../models"
+import createMockData from "../services/mock/createMockData"
 
 // Define TypeScript interfaces for your models
 interface ResumeType {
@@ -128,13 +129,16 @@ const ResumeView = () => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
 
   useEffect(() => {
+    console.log("ResumeView")
     const fetchData = async () => {
+      console.log("Fetching data")
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
         if (!resumeData || resumeData.length === 0) {
-          console.warn("No resumes found")
+          console.log("No resumes found")
+          createMockData()
           return
         }
 
@@ -293,7 +297,7 @@ const ResumeView = () => {
   })
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       {resumes.map((resume) => (
         <View key={resume.id} style={styles.resume}>
           <Text style={styles.resumeTitle}>{resume.title}</Text>
@@ -399,7 +403,7 @@ const ResumeView = () => {
           )}
         </View>
       ))}
-    </ScrollView>
+    </View>
   )
 }
 
