@@ -14,8 +14,8 @@ import {
   Company,
   Engagement,
   Accomplishment,
-} from "../../models"
-import { toAWSDate } from "../../utils/awsDateConverter" // Import the utility function
+} from "../models"
+import { toAWSDate } from "../utils/awsDateConverter" // Import the utility function
 
 // Function to clear data from all models
 export const clearData = async (log: boolean = false) => {

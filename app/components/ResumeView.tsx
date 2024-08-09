@@ -15,7 +15,7 @@ import {
   Engagement,
   Accomplishment,
 } from "../models"
-import { createMockData, clearData } from "../services/mock/mockData"
+import { createMockData, clearData } from "../mock/mockData"
 
 // Define TypeScript interfaces for your models
 interface ResumeType {
