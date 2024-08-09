@@ -1,0 +1,6 @@
+Convert Mermaid mmd Diagram File To SVG
+
+mmdc -i schema.mmd -o schema.pdf
+
+Create A PNG With A Dark Theme And Transparent Background
+mmdc -i input.mmd -o output.png -t dark -b transparent
