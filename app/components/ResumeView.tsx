@@ -129,13 +129,18 @@ const ResumeView = () => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   useEffect(() => {
     const fetchData = async () => {
+      // clearData()
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found, creating mock data")
-          await createMockData()
+          createMockData()
+            .catch(console.error)
+            .then(() => {
+              console.log("Created mock data in then statement")
+            })
           return
         }
 
@@ -295,7 +300,7 @@ const ResumeView = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <>{console.log("resumes", JSON.stringify(resumes, null, 2))}</>
+      {/* <>{console.log("resumes", JSON.stringify(resumes, null, 2))}</> */}
       {resumes.map((resume) => (
         <View key={resume.id} style={styles.resume}>
           <Text style={styles.resumeTitle}>{resume.title}</Text>

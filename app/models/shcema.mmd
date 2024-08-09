@@ -1,0 +1,113 @@
+erDiagram
+    Reference {
+        string id PK
+        string name
+        string phone
+        string email
+        string contactinformationID FK "FK to ContactInformation"
+    }
+
+    ContactInformation {
+        string id PK
+        string name
+        string email
+        string phone
+    }
+    ContactInformation ||--o{ Reference : hasMany
+
+    Resume {
+        string id PK
+        string title
+    }
+    Resume ||--|| Summary : hasOne
+    Resume ||--o{ Skill : hasMany
+    Resume ||--|| Education : hasOne
+    Resume ||--|| Experience : hasOne
+    Resume ||--|| ContactInformation : hasOne
+
+    Summary {
+        string id PK
+        string goals
+        string persona
+        string url
+        string headshot
+        string gptResponse
+        string resumeID FK "FK to Resume"
+    }
+    Summary }|--|| Resume : belongsTo
+
+    Skill {
+        string id PK
+        string title
+        string link
+        string resumeID FK "FK to Resume"
+        string companyID FK "FK to Company"
+        string accomplishmentID FK "FK to Accomplishment"
+    }
+
+    Education {
+        string id PK
+        string summary
+        string resumeID FK "FK to Resume"
+    }
+    Education ||--o{ School : hasMany
+    Education }|--|| Resume : belongsTo
+
+    School {
+        string id PK
+        string name
+        string educationID FK "FK to Education"
+    }
+    School ||--o{ Degree : hasMany
+
+    Degree {
+        string id PK
+        string major
+        string startYear
+        string endYear
+        string schoolID FK "FK to School"
+    }
+    Degree }|--|| School : belongsTo
+
+    Company {
+        string id PK
+        string name
+        string role
+        string startDate
+        string endDate
+        string title
+        string gptResponse
+        string historyID FK "FK to Experience"
+    }
+    Company ||--o{ Engagement : hasMany
+    Company ||--o{ Accomplishment : hasMany
+    Company ||--o{ Skill : hasMany
+    Company }|--|| Experience : belongsTo
+
+    Engagement {
+        string id PK
+        string client
+        string startDate
+        string endDate
+        string companyID FK "FK to Company"
+    }
+    Engagement ||--o{ Accomplishment : hasMany
+
+    Accomplishment {
+        string id PK
+        string title
+        string description
+        string link
+        string engagementID FK "FK to Engagement"
+        string companyID FK "FK to Company"
+    }
+
+    Experience {
+        string id PK
+        string title
+        string text
+        string gptResponse
+        string resumeID FK "FK to Resume"
+    }
+    Experience ||--o{ Company : hasMany
+    Experience }|--|| Resume : belongsTo

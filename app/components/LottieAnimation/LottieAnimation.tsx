@@ -50,7 +50,6 @@ export const LottieAnimation: React.FC<LottieAnimationProps> = ({
 
   useEffect(() => {
     !animationData ? setAnimationData(animationSource) : _.noop
-    console.log("first use effect called")
   }, [])
 
   useEffect(() => {

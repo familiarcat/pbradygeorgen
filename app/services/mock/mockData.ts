@@ -1,6 +1,6 @@
 // mockData.ts
 
-import { DataStore } from "@aws-amplify/datastore"
+import { DataStore, Predicates } from "@aws-amplify/datastore"
 import {
   Resume,
   Summary,
@@ -18,23 +18,24 @@ import {
 import { toAWSDate } from "../../utils/awsDateConverter" // Import the utility function
 
 // Function to clear data from all models
-export const clearData = async () => {
+export const clearData = async (log: boolean = false) => {
   try {
+    if (log) console.log("Clearing DataStore...")
     await Promise.all([
-      DataStore.delete(Resume, (r) => r),
-      DataStore.delete(Summary, (s) => s),
-      DataStore.delete(Skill, (s) => s),
-      DataStore.delete(Education, (e) => e),
-      DataStore.delete(Experience, (e) => e),
-      DataStore.delete(ContactInformation, (c) => c),
-      DataStore.delete(Reference, (r) => r),
-      DataStore.delete(School, (s) => s),
-      DataStore.delete(Degree, (d) => d),
-      DataStore.delete(Company, (c) => c),
-      DataStore.delete(Engagement, (e) => e),
-      DataStore.delete(Accomplishment, (a) => a),
+      DataStore.delete(Resume, Predicates.ALL),
+      DataStore.delete(Summary, Predicates.ALL),
+      DataStore.delete(Skill, Predicates.ALL),
+      DataStore.delete(Education, Predicates.ALL),
+      DataStore.delete(Experience, Predicates.ALL),
+      DataStore.delete(ContactInformation, Predicates.ALL),
+      DataStore.delete(Reference, Predicates.ALL),
+      DataStore.delete(School, Predicates.ALL),
+      DataStore.delete(Degree, Predicates.ALL),
+      DataStore.delete(Company, Predicates.ALL),
+      DataStore.delete(Engagement, Predicates.ALL),
+      DataStore.delete(Accomplishment, Predicates.ALL),
     ])
-    console.log("DataStore cleared")
+    if (log) console.log("DataStore cleared")
   } catch (error) {
     console.error("Error clearing data:", error)
   }
@@ -42,9 +43,11 @@ export const clearData = async () => {
 
 // Function to create mock data with relationships
 export const createMockData = async () => {
+  console.log("Creating Mock Data in mockData.ts")
+
   try {
     // Clear existing data
-    await clearData()
+    await clearData() // Pass true to log from clearData
 
     // Create Summaries
     const summary1 = await DataStore.save(
@@ -307,4 +310,4 @@ export const createMockData = async () => {
 }
 
 // Usage
-createMockData().catch(console.error)
+// createMockData().catch(console.error)
