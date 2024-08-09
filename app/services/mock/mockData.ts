@@ -1,6 +1,6 @@
 // mockData.ts
 
-import { DataStore } from "@aws-amplify/datastore"
+import { DataStore, Predicates } from "@aws-amplify/datastore"
 import {
   Resume,
   Summary,
@@ -17,9 +17,35 @@ import {
 } from "../../models"
 import { toAWSDate } from "../../utils/awsDateConverter" // Import the utility function
 
+// Function to clear existing data from DataStore
+export const clearData = async () => {
+  console.log("clearData")
+  try {
+    await DataStore.delete(Reference, Predicates.ALL) // Delete all References
+    await DataStore.delete(ContactInformation, Predicates.ALL) // Delete all Contact Information
+    await DataStore.delete(Resume, Predicates.ALL) // Delete all Resumes
+    await DataStore.delete(Education, Predicates.ALL) // Delete all Education records
+    await DataStore.delete(Degree, Predicates.ALL) // Delete all Degrees
+    await DataStore.delete(School, Predicates.ALL) // Delete all Schools
+    await DataStore.delete(Skill, Predicates.ALL) // Delete all Skills
+    await DataStore.delete(Summary, Predicates.ALL) // Delete all Summaries
+    await DataStore.delete(Experience, Predicates.ALL) // Delete all Experiences
+    await DataStore.delete(Company, Predicates.ALL) // Delete all Companies
+    await DataStore.delete(Engagement, Predicates.ALL) // Delete all Engagements
+    await DataStore.delete(Accomplishment, Predicates.ALL) // Delete all Accomplishments
+
+    console.log("Existing data cleared from DataStore")
+  } catch (error) {
+    console.error("Error clearing data:", error)
+  }
+}
+
 // Function to create mock data with relationships
 export const createMockData = async () => {
+  console.log("Creating mock data")
   try {
+    // Clear existing data first
+    await clearData()
     // Create Summaries
     const summary1 = await DataStore.save(
       new Summary({

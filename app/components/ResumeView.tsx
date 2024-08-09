@@ -15,7 +15,7 @@ import {
   Engagement,
   Accomplishment,
 } from "../models"
-import createMockData from "../services/mock/createMockData"
+import { createMockData, clearData } from "../services/mock/mockData"
 
 // Define TypeScript interfaces for your models
 interface ResumeType {
@@ -130,6 +130,7 @@ const ResumeView = () => {
 
   useEffect(() => {
     console.log("ResumeView")
+    clearData()
     const fetchData = async () => {
       console.log("Fetching data")
       try {
@@ -138,7 +139,7 @@ const ResumeView = () => {
 
         if (!resumeData || resumeData.length === 0) {
           console.log("No resumes found")
-          createMockData()
+          createMockData
           return
         }
 
@@ -279,7 +280,7 @@ const ResumeView = () => {
             } as ExpandedResume // Ensure it is cast correctly
           }),
         )
-
+        console.log("expandedResumes", expandedResumes)
         setResumes(expandedResumes)
       } catch (error) {
         console.error("Error fetching resumes:", error)
@@ -287,6 +288,7 @@ const ResumeView = () => {
     }
 
     fetchData()
+    console.log("resumes after fetchData", resumes)
     const subscription = DataStore.observe(Resume).subscribe(() => fetchData())
 
     return () => subscription.unsubscribe()
@@ -297,7 +299,7 @@ const ResumeView = () => {
   })
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {resumes.map((resume) => (
         <View key={resume.id} style={styles.resume}>
           <Text style={styles.resumeTitle}>{resume.title}</Text>
@@ -403,7 +405,7 @@ const ResumeView = () => {
           )}
         </View>
       ))}
-    </View>
+    </ScrollView>
   )
 }
 
