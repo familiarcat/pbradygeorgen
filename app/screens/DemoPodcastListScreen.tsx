@@ -32,7 +32,7 @@ import {
   Toggle,
 } from "../components"
 import { isRTL, translate } from "../i18n"
-import { useStores } from "../models"
+// import { useStores } from "../models"
 import { Episode } from "../models/Episode"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import { colors, spacing } from "../theme"
@@ -48,24 +48,24 @@ const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 
 export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = observer(
   function DemoPodcastListScreen(_props) {
-    const { episodeStore } = useStores()
+    // const { episodeStore } = useStores()
 
     const [refreshing, setRefreshing] = React.useState(false)
     const [isLoading, setIsLoading] = React.useState(false)
 
     // initially, kick off a background refresh without the refreshing UI
-    useEffect(() => {
-      ;(async function load() {
-        setIsLoading(true)
-        await episodeStore.fetchEpisodes()
-        setIsLoading(false)
-      })()
-    }, [episodeStore])
+    // useEffect(() => {
+    //   ;(async function load() {
+    //     setIsLoading(true)
+    //     await episodeStore.fetchEpisodes()
+    //     setIsLoading(false)
+    //   })()
+    // }, [episodeStore])
 
     // simulate a longer refresh, if the refresh is too fast for UX
     async function manualRefresh() {
       setRefreshing(true)
-      await Promise.all([episodeStore.fetchEpisodes(), delay(750)])
+      // await Promise.all([episodeStore.fetchEpisodes(), delay(750)])
       setRefreshing(false)
     }
 
@@ -75,7 +75,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
         safeAreaEdges={["top"]}
         contentContainerStyle={$screenContentContainer}
       >
-        <ListView<Episode>
+        {/* <ListView<Episode>
           contentContainerStyle={$listContentContainer}
           data={episodeStore.episodesForList.slice()}
           extraData={episodeStore.favorites.length + episodeStore.episodes.length}
@@ -133,7 +133,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
               onPressFavorite={() => episodeStore.toggleFavorite(item)}
             />
           )}
-        />
+        /> */}
       </Screen>
     )
   },

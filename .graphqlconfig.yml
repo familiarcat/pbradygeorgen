@@ -1,0 +1,19 @@
+projects:
+  resumebuilder:
+    schemaPath: amplify/backend/api/resumebuilder/build/schema.graphql
+    includes:
+      - app/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+      - src/API.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: app/graphql
+        region: us-east-2
+        apiId: null
+        maxDepth: 4
+extensions:
+  amplify:
+    version: 3

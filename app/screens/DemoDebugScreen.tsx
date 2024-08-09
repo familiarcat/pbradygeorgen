@@ -5,7 +5,7 @@ import { Button, ListItem, Screen, Text } from "../components"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import { colors, spacing } from "../theme"
 import { isRTL } from "../i18n"
-import { useStores } from "../models"
+// import { useStores } from "../models"
 
 function openLinkInBrowser(url: string) {
   Linking.canOpenURL(url).then((canOpen) => canOpen && Linking.openURL(url))
@@ -14,9 +14,9 @@ function openLinkInBrowser(url: string) {
 export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function DemoDebugScreen(
   _props,
 ) {
-  const {
-    authenticationStore: { logout },
-  } = useStores()
+  // const {
+  //   authenticationStore: { logout },
+  // } = useStores()
 
   const usingHermes = typeof HermesInternal === "object" && HermesInternal !== null
   // @ts-expect-error
@@ -103,9 +103,9 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
         <Button style={$button} tx="demoDebugScreen.reactotron" onPress={demoReactotron} />
         <Text style={$hint} tx={`demoDebugScreen.${Platform.OS}ReactotronHint` as const} />
       </View>
-      <View style={$buttonContainer}>
+      {/* <View style={$buttonContainer}>
         <Button style={$button} tx="common.logOut" onPress={logout} />
-      </View>
+      </View> */}
     </Screen>
   )
 }

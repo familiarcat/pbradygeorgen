@@ -3,7 +3,7 @@ import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import { Button, Text } from "app/components"
 import { isRTL } from "../i18n"
-import { useStores } from "../models"
+// import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader"
@@ -16,21 +16,21 @@ interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(_props) {
   const { navigation } = _props
-  const {
-    authenticationStore: { logout },
-  } = useStores()
+  // const {
+  //   authenticationStore: { logout },
+  // } = useStores()
 
   function goNext() {
     navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })
   }
 
-  useHeader(
-    {
-      rightTx: "common.logOut",
-      onRightPress: logout,
-    },
-    [logout],
-  )
+  // useHeader(
+  //   {
+  //     rightTx: "common.logOut",
+  //     onRightPress: logout,
+  //   },
+  //   [logout],
+  // )
 
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 

@@ -27,7 +27,7 @@ config.resolver = {
   ...config.resolver,
   blacklistRE: exclusionList([amplifyPattern]),
   assetExsts: [...config.resolver.assetExts, "json"], // Include JSON files
-  sourceExts: [...config.resolver.sourceExts, "json"], // Include JSON files,
+  sourceExts: [...config.resolver.sourceExts, "json", "mjs", "cjs"], // Include JSON files,
   extraNodeModules: require("node-libs-react-native"),
 }
 
