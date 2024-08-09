@@ -127,19 +127,15 @@ type ExpandedResume = Omit<
 
 const ResumeView = () => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
-
   useEffect(() => {
-    console.log("ResumeView")
-    clearData()
     const fetchData = async () => {
-      console.log("Fetching data")
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
         if (!resumeData || resumeData.length === 0) {
-          console.log("No resumes found")
-          createMockData
+          console.warn("No resumes found, creating mock data")
+          await createMockData()
           return
         }
 
@@ -280,7 +276,7 @@ const ResumeView = () => {
             } as ExpandedResume // Ensure it is cast correctly
           }),
         )
-        console.log("expandedResumes", expandedResumes)
+
         setResumes(expandedResumes)
       } catch (error) {
         console.error("Error fetching resumes:", error)
@@ -288,7 +284,6 @@ const ResumeView = () => {
     }
 
     fetchData()
-    console.log("resumes after fetchData", resumes)
     const subscription = DataStore.observe(Resume).subscribe(() => fetchData())
 
     return () => subscription.unsubscribe()
@@ -300,10 +295,10 @@ const ResumeView = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <>{console.log("resumes", JSON.stringify(resumes, null, 2))}</>
       {resumes.map((resume) => (
         <View key={resume.id} style={styles.resume}>
           <Text style={styles.resumeTitle}>{resume.title}</Text>
-
           {resume.Summary && (
             <View style={renderIndentation(1)}>
               <Text style={styles.sectionTitle}>Summary</Text>
