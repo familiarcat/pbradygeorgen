@@ -1,3 +1,5 @@
+// ResumeView.tsx
+
 import React, { useEffect, useState } from "react"
 import { View, Text, StyleSheet, ScrollView } from "react-native"
 import { DataStore } from "@aws-amplify/datastore"
@@ -15,18 +17,12 @@ import {
   Engagement,
   Accomplishment,
 } from "../models"
-import { createMockData, clearData } from "../mock/mockData"
+import { clearData, createMockData } from "app/mock/mockData"
 
 // Define TypeScript interfaces for your models
 interface ResumeType {
   id: string
   title?: string | null
-  resumeSummaryId?: string | null
-  resumeEducationId?: string | null
-  resumeExperienceId?: string | null
-  resumeContactInformationId?: string | null
-  createdAt?: string
-  updatedAt?: string
 }
 
 interface SummaryType {
@@ -88,7 +84,7 @@ interface CompanyType {
   startDate?: string | null
   endDate?: string | null
   title?: string | null
-  historyID?: string | null
+  experienceID?: string | null
 }
 
 interface EngagementType {
@@ -127,32 +123,29 @@ type ExpandedResume = Omit<
 
 const ResumeView = () => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
+
   useEffect(() => {
     const fetchData = async () => {
-      clearData()
+      // await clearData()
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
 
         if (!resumeData || resumeData.length === 0) {
-          console.warn("No resumes found, creating mock data")
-          // createMockData()
-          //   .catch(console.error)
-          //   .then(() => {
-          //     console.log("Created mock data in then statement")
-          //   })
+          console.warn("No resumes found")
+          await createMockData()
+            .then(() => console.log("create mock data completed on then"))
+            .catch(console.error)
           return
         }
 
         // Fetch related data for each resume
         const expandedResumes: ExpandedResume[] = await Promise.all(
           resumeData.map(async (resume) => {
-            // Fetch related summary
-            const summary = resume.resumeSummaryId
-              ? await DataStore.query(Summary, (s) => s.id.eq(resume.resumeSummaryId!)).then(
-                  (res) => res[0] || null,
-                )
-              : null
+            // Fetch related summary using relationship
+            const summary = await DataStore.query(Summary, (s) =>
+              s.id.eq(resume.resumeSummaryId || ""),
+            ).then((res) => res[0] || null)
 
             // Fetch related skills
             const skills: SkillType[] = (
@@ -163,12 +156,11 @@ const ResumeView = () => {
               resumeID: skill.resumeID ?? undefined,
             }))
 
-            // Fetch related education and its schools and degrees
-            const education = resume.resumeEducationId
-              ? await DataStore.query(Education, (e) => e.id.eq(resume.resumeEducationId!)).then(
-                  (res) => res[0] || null,
-                )
-              : null
+            // Fetch related education using relationship
+            const education = await DataStore.query(Education, (e) =>
+              e.id.eq(resume.resumeEducationId || ""),
+            ).then((res) => res[0] || null)
+
             const schools: SchoolType[] = (
               await DataStore.query(School, (school) => school.educationID.eq(education?.id || ""))
             ).map((school) => ({
@@ -193,15 +185,14 @@ const ResumeView = () => {
                 schoolID: degree.schoolID ?? undefined,
               }))
 
-            // Fetch related experience and its companies, engagements, and accomplishments
-            const experience = resume.resumeExperienceId
-              ? await DataStore.query(Experience, (exp) =>
-                  exp.id.eq(resume.resumeExperienceId!),
-                ).then((res) => res[0] || null)
-              : null
+            // Fetch related experience using relationship
+            const experience = await DataStore.query(Experience, (exp) =>
+              exp.id.eq(resume.resumeExperienceId || ""),
+            ).then((res) => res[0] || null)
+
             const companies: CompanyType[] = (
               await DataStore.query(Company, (company) =>
-                company.historyID.eq(experience?.id || ""),
+                company.experienceID.eq(experience?.id || ""),
               )
             ).map((company) => ({
               id: company.id,
@@ -210,7 +201,7 @@ const ResumeView = () => {
               startDate: company.startDate ?? undefined,
               endDate: company.endDate ?? undefined,
               title: company.title ?? undefined,
-              historyID: company.historyID ?? undefined,
+              experienceID: company.experienceID ?? undefined,
             }))
 
             const engagements: EngagementType[] = (
@@ -231,9 +222,9 @@ const ResumeView = () => {
 
             const accomplishments: AccomplishmentType[] = (
               await Promise.all(
-                companies.map((company) =>
+                engagements.map((engagement) =>
                   DataStore.query(Accomplishment, (accomplishment) =>
-                    accomplishment.companyID.eq(company.id),
+                    accomplishment.engagementID.eq(engagement.id),
                   ),
                 ),
               )
@@ -247,12 +238,11 @@ const ResumeView = () => {
                 companyID: accomplishment.companyID ?? undefined,
               }))
 
-            // Fetch related contact information and its references
-            const contactInfo = resume.resumeContactInformationId
-              ? await DataStore.query(ContactInformation, (ci) =>
-                  ci.id.eq(resume.resumeContactInformationId!),
-                ).then((res) => res[0] || null)
-              : null
+            // Fetch related contact information using relationship
+            const contactInfo = await DataStore.query(ContactInformation, (ci) =>
+              ci.id.eq(resume.resumeContactInformationId || ""),
+            ).then((res) => res[0] || null)
+
             const references: ReferenceType[] = (
               await DataStore.query(Reference, (ref) =>
                 ref.contactinformationID.eq(contactInfo?.id || ""),
@@ -300,10 +290,11 @@ const ResumeView = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <>{console.log("resumes", JSON.stringify(resumes, null, 2))}</> */}
+      <>{console.log("resumes in view", JSON.stringify(resumes, null, 2))}</>
       {resumes.map((resume) => (
         <View key={resume.id} style={styles.resume}>
           <Text style={styles.resumeTitle}>{resume.title}</Text>
+
           {resume.Summary && (
             <View style={renderIndentation(1)}>
               <Text style={styles.sectionTitle}>Summary</Text>

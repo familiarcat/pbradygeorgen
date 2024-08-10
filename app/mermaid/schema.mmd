@@ -1,0 +1,112 @@
+erDiagram
+    Reference {
+        ID id PK
+        String name
+        String phone
+        String email
+        ID contactinformationID FK
+    }
+
+    ContactInformation {
+        ID id PK
+        String name
+        String email
+        String phone
+    }
+    ContactInformation ||--o{ Reference : hasMany
+
+    Resume {
+        ID id PK
+        String title
+    }
+    Resume ||--o{ Skill : hasMany
+    Resume ||--|| Summary : hasOne
+    Resume ||--|| Education : hasOne
+    Resume ||--|| Experience : hasOne
+    Resume ||--|| ContactInformation : hasOne
+
+    Education {
+        ID id PK
+        String summary
+    }
+    Education ||--o{ School : hasMany
+
+    Degree {
+        ID id PK
+        String major
+        AWSDate startYear
+        AWSDate endYear
+        ID schoolID FK
+    }
+    Degree }o--|| School : belongsTo
+
+    Company {
+        ID id PK
+        String name
+        String role
+        AWSDate startDate
+        AWSDate endDate
+        String title
+        String gptResponse
+        ID experienceID FK
+    }
+    Company ||--o{ Engagement : hasMany
+    Company ||--o{ Accomplishment : hasMany
+    Company ||--o{ Skill : hasMany
+
+    Accomplishment {
+        ID id PK
+        String title
+        String description
+        String link
+        ID engagementID FK
+        ID companyID FK
+    }
+    Accomplishment }o--|| Engagement : belongsTo
+    Accomplishment }o--|| Company : belongsTo
+    Accomplishment ||--o{ Skill : hasMany
+
+    School {
+        ID id PK
+        String name
+        ID educationID FK
+    }
+    School ||--o{ Degree : hasMany
+
+    Experience {
+        ID id PK
+        String title
+        String text
+        String gptResponse
+    }
+    Experience ||--o{ Company : hasMany
+
+    Skill {
+        ID id PK
+        String title
+        String link
+        ID resumeID FK
+        ID companyID FK
+        ID accomplishmentID FK
+    }
+
+    Engagement {
+        ID id PK
+        String client
+        AWSDate startDate
+        AWSDate endDate
+        ID companyID FK
+        String gptResponse
+    }
+    Engagement }o--|| Company : belongsTo
+    Engagement ||--o{ Accomplishment : hasMany
+
+    Summary {
+        ID id PK
+        String goals
+        String persona
+        String url
+        String headshot
+        String gptResponse
+    }
+    Summary }o--|| Resume : belongsTo

@@ -386,21 +386,6 @@ export const schema = {
                         ]
                     }
                 },
-                "Resume": {
-                    "name": "Resume",
-                    "isArray": false,
-                    "type": {
-                        "model": "Resume"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "educationResumeId"
-                        ]
-                    }
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -416,13 +401,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "educationResumeId": {
-                    "name": "educationResumeId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -487,21 +465,6 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
-                },
-                "School": {
-                    "name": "School",
-                    "isArray": false,
-                    "type": {
-                        "model": "School"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "schoolID"
-                        ]
-                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -592,13 +555,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "historyID": {
-                    "name": "historyID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "Engagements": {
                     "name": "Engagements",
                     "isArray": true,
@@ -661,6 +617,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "experienceID": {
+                    "name": "experienceID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -690,7 +653,7 @@ export const schema = {
                     "properties": {
                         "name": "byExperience",
                         "fields": [
-                            "historyID"
+                            "experienceID"
                         ]
                     }
                 },
@@ -862,7 +825,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "School"
+                            "schoolID"
                         ]
                     }
                 },
@@ -948,6 +911,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "gptResponse": {
+                    "name": "gptResponse",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "Companies": {
                     "name": "Companies",
                     "isArray": true,
@@ -960,29 +930,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "historyID"
-                        ]
-                    }
-                },
-                "gptResponse": {
-                    "name": "gptResponse",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Resume": {
-                    "name": "Resume",
-                    "isArray": false,
-                    "type": {
-                        "model": "Resume"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "experienceResumeId"
+                            "experienceID"
                         ]
                     }
                 },
@@ -1001,13 +949,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "experienceResumeId": {
-                    "name": "experienceResumeId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1306,21 +1247,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Resume": {
-                    "name": "Resume",
-                    "isArray": false,
-                    "type": {
-                        "model": "Resume"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "summaryResumeId"
-                        ]
-                    }
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1336,13 +1262,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "summaryResumeId": {
-                    "name": "summaryResumeId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1374,5 +1293,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "47cbe5dfb90832f7701a7a09fd224bfa"
+    "version": "b658a70d838ce1a2c12ac1a891ad602c"
 };

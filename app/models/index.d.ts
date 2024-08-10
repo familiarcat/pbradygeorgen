@@ -128,10 +128,8 @@ type EagerEducation = {
   readonly id: string;
   readonly summary?: string | null;
   readonly Schools?: (School | null)[] | null;
-  readonly Resume?: Resume | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly educationResumeId?: string | null;
 }
 
 type LazyEducation = {
@@ -142,10 +140,8 @@ type LazyEducation = {
   readonly id: string;
   readonly summary?: string | null;
   readonly Schools: AsyncCollection<School>;
-  readonly Resume: AsyncItem<Resume | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly educationResumeId?: string | null;
 }
 
 export declare type Education = LazyLoading extends LazyLoadingDisabled ? EagerEducation : LazyEducation
@@ -164,7 +160,6 @@ type EagerDegree = {
   readonly startYear?: string | null;
   readonly endYear?: string | null;
   readonly schoolID?: string | null;
-  readonly School?: School | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -179,7 +174,6 @@ type LazyDegree = {
   readonly startYear?: string | null;
   readonly endYear?: string | null;
   readonly schoolID?: string | null;
-  readonly School: AsyncItem<School | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -200,12 +194,12 @@ type EagerCompany = {
   readonly role?: string | null;
   readonly startDate?: string | null;
   readonly endDate?: string | null;
-  readonly historyID?: string | null;
   readonly Engagements?: (Engagement | null)[] | null;
   readonly Accomplishments?: (Accomplishment | null)[] | null;
   readonly Skills?: (Skill | null)[] | null;
   readonly title?: string | null;
   readonly gptResponse?: string | null;
+  readonly experienceID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -220,12 +214,12 @@ type LazyCompany = {
   readonly role?: string | null;
   readonly startDate?: string | null;
   readonly endDate?: string | null;
-  readonly historyID?: string | null;
   readonly Engagements: AsyncCollection<Engagement>;
   readonly Accomplishments: AsyncCollection<Accomplishment>;
   readonly Skills: AsyncCollection<Skill>;
   readonly title?: string | null;
   readonly gptResponse?: string | null;
+  readonly experienceID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -314,12 +308,10 @@ type EagerExperience = {
   readonly id: string;
   readonly title?: string | null;
   readonly text?: string | null;
-  readonly Companies?: (Company | null)[] | null;
   readonly gptResponse?: string | null;
-  readonly Resume?: Resume | null;
+  readonly Companies?: (Company | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly experienceResumeId?: string | null;
 }
 
 type LazyExperience = {
@@ -330,12 +322,10 @@ type LazyExperience = {
   readonly id: string;
   readonly title?: string | null;
   readonly text?: string | null;
-  readonly Companies: AsyncCollection<Company>;
   readonly gptResponse?: string | null;
-  readonly Resume: AsyncItem<Resume | undefined>;
+  readonly Companies: AsyncCollection<Company>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly experienceResumeId?: string | null;
 }
 
 export declare type Experience = LazyLoading extends LazyLoadingDisabled ? EagerExperience : LazyExperience
@@ -429,10 +419,8 @@ type EagerSummary = {
   readonly url?: string | null;
   readonly headshot?: string | null;
   readonly gptResponse?: string | null;
-  readonly Resume?: Resume | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly summaryResumeId?: string | null;
 }
 
 type LazySummary = {
@@ -446,10 +434,8 @@ type LazySummary = {
   readonly url?: string | null;
   readonly headshot?: string | null;
   readonly gptResponse?: string | null;
-  readonly Resume: AsyncItem<Resume | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly summaryResumeId?: string | null;
 }
 
 export declare type Summary = LazyLoading extends LazyLoadingDisabled ? EagerSummary : LazySummary

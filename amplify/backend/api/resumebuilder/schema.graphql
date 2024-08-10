@@ -28,7 +28,6 @@ type Education @model @auth(rules: [{allow: public}]) {
   id: ID!
   summary: String
   Schools: [School] @hasMany(indexName: "byEducation", fields: ["id"])
-  Resume: Resume @belongsTo
 }
 
 type Degree @model @auth(rules: [{allow: public}]) {
@@ -37,7 +36,6 @@ type Degree @model @auth(rules: [{allow: public}]) {
   startYear: AWSDate
   endYear: AWSDate
   schoolID: ID @index(name: "bySchool")
-  School: School @belongsTo(fields: ["schoolID"])
 }
 
 type Company @model @auth(rules: [{allow: public}]) {
@@ -46,12 +44,12 @@ type Company @model @auth(rules: [{allow: public}]) {
   role: String
   startDate: AWSDate
   endDate: AWSDate
-  historyID: ID @index(name: "byExperience")
   Engagements: [Engagement] @hasMany(indexName: "byCompany", fields: ["id"])
   Accomplishments: [Accomplishment] @hasMany(indexName: "byCompany", fields: ["id"])
   Skills: [Skill] @hasMany(indexName: "byCompany", fields: ["id"])
   title: String
   gptResponse: String
+  experienceID: ID! @index(name: "byExperience")
 }
 
 type Accomplishment @model @auth(rules: [{allow: public}]) {
@@ -75,9 +73,8 @@ type Experience @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String
   text: String
-  Companies: [Company] @hasMany(indexName: "byExperience", fields: ["id"])
   gptResponse: String
-  Resume: Resume @belongsTo
+  Companies: [Company] @hasMany(indexName: "byExperience", fields: ["id"])
 }
 
 type Skill @model @auth(rules: [{allow: public}]) {
@@ -106,6 +103,5 @@ type Summary @model @auth(rules: [{allow: public}]) {
   url: String
   headshot: String
   gptResponse: String
-  Resume: Resume @belongsTo
 }
  
