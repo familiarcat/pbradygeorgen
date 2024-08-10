@@ -49,22 +49,18 @@ export const createMockData = async () => {
     // Clear existing data
     await clearData(true)
 
-    // Extract first letter for breadcrumb
-    const prefix1 = "(S)"
-    const prefix2 = "(T)"
-
     // Create Summaries
     const summary1 = await DataStore.save(
       new Summary({
-        goals: `${prefix1} To build scalable software solutions.`,
-        persona: `${prefix1} Innovative and problem-solving oriented.`,
+        goals: "To build scalable software solutions.",
+        persona: "Innovative and problem-solving oriented.",
       }),
     )
 
     const summary2 = await DataStore.save(
       new Summary({
-        goals: `${prefix2} To lead innovative tech projects.`,
-        persona: `${prefix2} Dynamic and results-driven.`,
+        goals: "To lead innovative tech projects.",
+        persona: "Dynamic and results-driven.",
       }),
     )
 
@@ -94,7 +90,7 @@ export const createMockData = async () => {
       ["JavaScript", "React", "Node.js"].map((title) =>
         DataStore.save(
           new Skill({
-            title: `${prefix1} ${title}`,
+            title: title,
             resumeID: resume1.id, // Link skill to resume
           }),
         ),
@@ -105,7 +101,7 @@ export const createMockData = async () => {
       ["Python", "AWS", "TypeScript"].map((title) =>
         DataStore.save(
           new Skill({
-            title: `${prefix2} ${title}`,
+            title: title,
             resumeID: resume2.id, // Link skill to resume
           }),
         ),
@@ -118,13 +114,13 @@ export const createMockData = async () => {
     // Create Education
     const education1 = await DataStore.save(
       new Education({
-        summary: `${prefix1} B.Sc in Computer Science from ABC University`,
+        summary: "B.Sc in Computer Science from ABC University",
       }),
     )
 
     const education2 = await DataStore.save(
       new Education({
-        summary: `${prefix2} B.Tech in Information Technology from XYZ Institute`,
+        summary: "B.Tech in Information Technology from XYZ Institute",
       }),
     )
 
@@ -134,14 +130,14 @@ export const createMockData = async () => {
     // Create Schools
     const school1 = await DataStore.save(
       new School({
-        name: `${prefix1} ABC University`,
+        name: "ABC University",
         educationID: education1.id,
       }),
     )
 
     const school2 = await DataStore.save(
       new School({
-        name: `${prefix2} XYZ Institute`,
+        name: "XYZ Institute",
         educationID: education2.id,
       }),
     )
@@ -164,7 +160,7 @@ export const createMockData = async () => {
       ].map((degree) =>
         DataStore.save(
           new Degree({
-            major: `${prefix1} ${degree.major}`,
+            major: degree.major,
             startYear: degree.startYear,
             endYear: degree.endYear,
             schoolID: degree.schoolID,
@@ -190,7 +186,7 @@ export const createMockData = async () => {
       ].map((degree) =>
         DataStore.save(
           new Degree({
-            major: `${prefix2} ${degree.major}`,
+            major: degree.major,
             startYear: degree.startYear,
             endYear: degree.endYear,
             schoolID: degree.schoolID,
@@ -205,15 +201,15 @@ export const createMockData = async () => {
     // Create Experiences
     const experience1 = await DataStore.save(
       new Experience({
-        title: `${prefix1} Lead Developer at XYZ Corp`,
-        text: `${prefix1} Led a team of developers in creating a new SaaS product.`,
+        title: "Lead Developer at XYZ Corp",
+        text: "Led a team of developers in creating a new SaaS product.",
       }),
     )
 
     const experience2 = await DataStore.save(
       new Experience({
-        title: `${prefix2} Software Engineer at Tech Innovations Ltd.`,
-        text: `${prefix2} Developed innovative software solutions for clients.`,
+        title: "Software Engineer at Tech Innovations Ltd.",
+        text: "Developed innovative software solutions for clients.",
       }),
     )
 
@@ -223,22 +219,22 @@ export const createMockData = async () => {
     // Create Companies linked to Experiences
     const company1 = await DataStore.save(
       new Company({
-        name: `${prefix1} XYZ Corp`,
-        role: `${prefix1} Lead Developer`,
+        name: "XYZ Corp",
+        role: "Lead Developer",
         startDate: toAWSDate("2019-01-01"),
         endDate: toAWSDate("2022-01-01"),
-        title: `${prefix1} Project Manager`,
+        title: "Project Manager",
         experienceID: experience1.id,
       }),
     )
 
     const company2 = await DataStore.save(
       new Company({
-        name: `${prefix2} Tech Innovations Ltd.`,
-        role: `${prefix2} Software Engineer`,
+        name: "Tech Innovations Ltd.",
+        role: "Software Engineer",
         startDate: toAWSDate("2018-01-01"),
         endDate: toAWSDate("2020-01-01"),
-        title: `${prefix2} Senior Developer`,
+        title: "Senior Developer",
         experienceID: experience2.id,
       }),
     )
@@ -261,7 +257,7 @@ export const createMockData = async () => {
       ].map((engagement) =>
         DataStore.save(
           new Engagement({
-            client: `${prefix1} ${engagement.client}`,
+            client: engagement.client,
             startDate: engagement.startDate,
             endDate: engagement.endDate,
             companyID: engagement.companyID,
@@ -287,7 +283,7 @@ export const createMockData = async () => {
       ].map((engagement) =>
         DataStore.save(
           new Engagement({
-            client: `${prefix2} ${engagement.client}`,
+            client: engagement.client,
             startDate: engagement.startDate,
             endDate: engagement.endDate,
             companyID: engagement.companyID,
@@ -317,8 +313,8 @@ export const createMockData = async () => {
       ].map((accomplishment) =>
         DataStore.save(
           new Accomplishment({
-            title: `${prefix1} ${accomplishment.title}`,
-            description: `${prefix1} ${accomplishment.description}`,
+            title: accomplishment.title,
+            description: accomplishment.description,
             companyID: accomplishment.companyID,
             engagementID: accomplishment.engagementID,
           }),
@@ -343,8 +339,8 @@ export const createMockData = async () => {
       ].map((accomplishment) =>
         DataStore.save(
           new Accomplishment({
-            title: `${prefix2} ${accomplishment.title}`,
-            description: `${prefix2} ${accomplishment.description}`,
+            title: accomplishment.title,
+            description: accomplishment.description,
             companyID: accomplishment.companyID,
             engagementID: accomplishment.engagementID,
           }),
@@ -358,7 +354,7 @@ export const createMockData = async () => {
     // Create Contact Information
     const contactInfo1 = await DataStore.save(
       new ContactInformation({
-        name: `${prefix1} John Doe`,
+        name: "John Doe",
         email: "john.doe@example.com",
         phone: "+1234567890",
       }),
@@ -366,7 +362,7 @@ export const createMockData = async () => {
 
     const contactInfo2 = await DataStore.save(
       new ContactInformation({
-        name: `${prefix2} Jane Doe`,
+        name: "Jane Doe",
         email: "jane.doe@example.com",
         phone: "+0987654321",
       }),
@@ -393,7 +389,7 @@ export const createMockData = async () => {
       ].map((reference) =>
         DataStore.save(
           new Reference({
-            name: `${prefix1} ${reference.name}`,
+            name: reference.name,
             phone: reference.phone,
             email: reference.email,
             contactinformationID: reference.contactinformationID,
@@ -419,7 +415,7 @@ export const createMockData = async () => {
       ].map((reference) =>
         DataStore.save(
           new Reference({
-            name: `${prefix2} ${reference.name}`,
+            name: reference.name,
             phone: reference.phone,
             email: reference.email,
             contactinformationID: reference.contactinformationID,
