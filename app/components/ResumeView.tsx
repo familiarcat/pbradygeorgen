@@ -307,7 +307,7 @@ const ResumeView = () => {
             <View style={renderIndentation(1)}>
               <Text style={styles.sectionTitle}>Skills</Text>
               {resume.Skills.map((skill) => (
-                <Text key={skill.id} style={styles.text}>
+                <Text key={skill.id} style={renderIndentation(2)}>
                   {skill.title}
                 </Text>
               ))}
@@ -325,7 +325,7 @@ const ResumeView = () => {
                     <View key={school.id} style={renderIndentation(3)}>
                       <Text style={styles.text}>{school.name}</Text>
                       {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
-                        <Text key={degree.id} style={styles.text}>
+                        <Text key={degree.id} style={renderIndentation(4)}>
                           {degree.major} ({degree.startYear} - {degree.endYear})
                         </Text>
                       ))}
@@ -361,7 +361,7 @@ const ResumeView = () => {
                             {resume.Accomplishments.filter(
                               (a) => a.engagementID === engagement.id,
                             ).map((accomplishment) => (
-                              <Text key={accomplishment.id} style={styles.text}>
+                              <Text key={accomplishment.id} style={renderIndentation(5)}>
                                 Accomplishment: {accomplishment.title} -{" "}
                                 {accomplishment.description}
                               </Text>
@@ -386,7 +386,7 @@ const ResumeView = () => {
                 <View style={renderIndentation(2)}>
                   <Text style={styles.sectionTitle}>References</Text>
                   {resume.References.map((reference) => (
-                    <Text key={reference.id} style={styles.text}>
+                    <Text key={reference.id} style={renderIndentation(3)}>
                       {reference.name} - {reference.phone} - {reference.email}
                     </Text>
                   ))}
