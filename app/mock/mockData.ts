@@ -85,7 +85,7 @@ export const createMockData = async () => {
     console.log("Resume 1 ID:", resume1.id)
     console.log("Resume 2 ID:", resume2.id)
 
-    // Create Skills
+    // Create Skills linked to Resumes
     const skills1 = await Promise.all(
       ["JavaScript", "React", "Node.js"].map((title) =>
         DataStore.save(
@@ -111,7 +111,7 @@ export const createMockData = async () => {
     console.log("Skills for Resume 1:", JSON.stringify(skills1, null, 2))
     console.log("Skills for Resume 2:", JSON.stringify(skills2, null, 2))
 
-    // Create Education
+    // Create Education linked to Resumes
     const education1 = await DataStore.save(
       new Education({
         summary: "B.Sc in Computer Science from ABC University",
@@ -127,7 +127,7 @@ export const createMockData = async () => {
     console.log("Education 1 ID:", education1.id)
     console.log("Education 2 ID:", education2.id)
 
-    // Create Schools
+    // Create Schools linked to Education
     const school1 = await DataStore.save(
       new School({
         name: "ABC University",
@@ -198,7 +198,7 @@ export const createMockData = async () => {
     console.log("Degrees for School 1:", JSON.stringify(degrees1, null, 2))
     console.log("Degrees for School 2:", JSON.stringify(degrees2, null, 2))
 
-    // Create Experiences
+    // Create Experiences linked to Resumes
     const experience1 = await DataStore.save(
       new Experience({
         title: "Lead Developer at XYZ Corp",
@@ -350,6 +350,64 @@ export const createMockData = async () => {
 
     console.log("Accomplishments for Company 1:", JSON.stringify(accomplishments1, null, 2))
     console.log("Accomplishments for Company 2:", JSON.stringify(accomplishments2, null, 2))
+
+    // Create Skills linked to Companies and Engagements
+    const companySkills1 = await Promise.all(
+      ["Leadership", "Communication"].map((title) =>
+        DataStore.save(
+          new Skill({
+            title: title,
+            companyID: company1.id,
+          }),
+        ),
+      ),
+    )
+
+    const companySkills2 = await Promise.all(
+      ["Project Management", "Team Building"].map((title) =>
+        DataStore.save(
+          new Skill({
+            title: title,
+            companyID: company2.id,
+          }),
+        ),
+      ),
+    )
+
+    console.log("Company Skills for Company 1:", JSON.stringify(companySkills1, null, 2))
+    console.log("Company Skills for Company 2:", JSON.stringify(companySkills2, null, 2))
+
+    // Create Skills linked to Accomplishments
+    const accomplishmentSkills1 = await Promise.all(
+      ["Optimization", "Performance"].map((title) =>
+        DataStore.save(
+          new Skill({
+            title: title,
+            accomplishmentID: accomplishments1[0].id,
+          }),
+        ),
+      ),
+    )
+
+    const accomplishmentSkills2 = await Promise.all(
+      ["Security", "Audit"].map((title) =>
+        DataStore.save(
+          new Skill({
+            title: title,
+            accomplishmentID: accomplishments2[0].id,
+          }),
+        ),
+      ),
+    )
+
+    console.log(
+      "Accomplishment Skills for Accomplishment 1:",
+      JSON.stringify(accomplishmentSkills1, null, 2),
+    )
+    console.log(
+      "Accomplishment Skills for Accomplishment 2:",
+      JSON.stringify(accomplishmentSkills2, null, 2),
+    )
 
     // Create Contact Information
     const contactInfo1 = await DataStore.save(
