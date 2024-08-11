@@ -35,6 +35,8 @@ interface SkillType {
   id: string
   title?: string | null
   resumeID?: string | null
+  companyID?: string | null
+  accomplishmentID?: string | null
 }
 
 interface EducationType {
@@ -154,6 +156,8 @@ const ResumeView = () => {
               id: skill.id,
               title: skill.title ?? undefined,
               resumeID: skill.resumeID ?? undefined,
+              companyID: skill.companyID ?? undefined,
+              accomplishmentID: skill.accomplishmentID ?? undefined, // Include accomplishmentID
             }))
 
             // Fetch related education using relationship
@@ -273,6 +277,12 @@ const ResumeView = () => {
         )
 
         setResumes(expandedResumes)
+
+        // Log the resumes in a human-readable format
+        console.log(
+          "Resumes (Human-Readable):\n",
+          expandedResumes.map((resume) => JSON.stringify(resume, null, 2)),
+        )
       } catch (error) {
         console.error("Error fetching resumes:", error)
       }
@@ -284,121 +294,181 @@ const ResumeView = () => {
     return () => subscription.unsubscribe()
   }, [])
 
-  const renderIndentation = (level: number) => ({
-    marginLeft: level * 10,
-  })
+  const getBackgroundColor = (level: number): string => {
+    const baseColor = 45 // Base gray percentage for the darkest
+    const step = 3 // Step percentage
+    return `hsl(0, 0%, ${baseColor + step * level}%)`
+  }
+
+  const getPastelColor = (level: number): string => {
+    const hueStep = 50 // Hue step to create variations in pastel colors
+    return `hsl(${(hueStep * level) % 360}, 70%, 80%)`
+  }
 
   return (
     <ScrollView style={styles.container}>
-      <>{console.log("resumes in view", JSON.stringify(resumes, null, 2))}</>
-      {resumes.map((resume) => (
-        <View key={resume.id} style={styles.resume}>
-          <Text style={styles.resumeTitle}>{resume.title}</Text>
+      <>
+        {console.log("resumes in view", JSON.stringify(resumes, null, 2))}
+        {resumes.map((resume) => (
+          <View key={resume.id} style={[styles.resume, { backgroundColor: getBackgroundColor(1) }]}>
+            <Text style={styles.resumeTitle}>{resume.title}</Text>
 
-          {resume.Summary && (
-            <View style={renderIndentation(1)}>
-              <Text style={styles.sectionTitle}>Summary</Text>
-              <Text style={styles.text}>Goals: {resume.Summary.goals}</Text>
-              <Text style={styles.text}>Persona: {resume.Summary.persona}</Text>
-            </View>
-          )}
+            {resume.Summary && (
+              <View style={[renderIndentation(1), { backgroundColor: getPastelColor(1) }]}>
+                <Text style={styles.sectionTitle}>Summary</Text>
+                <Text style={styles.text}>Goals: {resume.Summary.goals}</Text>
+                <Text style={styles.text}>Persona: {resume.Summary.persona}</Text>
+              </View>
+            )}
 
-          {resume.Skills && resume.Skills.length > 0 && (
-            <View style={renderIndentation(1)}>
-              <Text style={styles.sectionTitle}>Skills</Text>
-              {resume.Skills.map((skill) => (
-                <Text key={skill.id} style={renderIndentation(2)}>
-                  {skill.title}
-                </Text>
-              ))}
-            </View>
-          )}
+            {resume.Skills && resume.Skills.length > 0 && (
+              <View style={[renderIndentation(1), { backgroundColor: getPastelColor(2) }]}>
+                <Text style={styles.sectionTitle}>Skills</Text>
+                {resume.Skills.map((skill) => (
+                  <Text
+                    key={skill.id}
+                    style={[renderIndentation(2), { backgroundColor: getBackgroundColor(2) }]}
+                  >
+                    {skill.title}
+                  </Text>
+                ))}
+              </View>
+            )}
 
-          {resume.Education && (
-            <View style={renderIndentation(1)}>
-              <Text style={styles.sectionTitle}>Education</Text>
-              <Text style={styles.text}>Summary: {resume.Education.summary}</Text>
-              {resume.Schools && resume.Schools.length > 0 && (
-                <View style={renderIndentation(2)}>
-                  <Text style={styles.sectionTitle}>Schools</Text>
-                  {resume.Schools.map((school) => (
-                    <View key={school.id} style={renderIndentation(3)}>
-                      <Text style={styles.text}>{school.name}</Text>
-                      {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
-                        <Text key={degree.id} style={renderIndentation(4)}>
-                          {degree.major} ({degree.startYear} - {degree.endYear})
+            {resume.Education && (
+              <View style={[renderIndentation(1), { backgroundColor: getPastelColor(3) }]}>
+                <Text style={styles.sectionTitle}>Education</Text>
+                <Text style={styles.text}>Summary: {resume.Education.summary}</Text>
+                {resume.Schools && resume.Schools.length > 0 && (
+                  <View style={[renderIndentation(2), { backgroundColor: getBackgroundColor(3) }]}>
+                    <Text style={styles.sectionTitle}>Schools</Text>
+                    {resume.Schools.map((school) => (
+                      <View
+                        key={school.id}
+                        style={[renderIndentation(3), { backgroundColor: getPastelColor(4) }]}
+                      >
+                        <Text style={styles.text}>{school.name}</Text>
+                        {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
+                          <Text
+                            key={degree.id}
+                            style={[
+                              renderIndentation(4),
+                              { backgroundColor: getBackgroundColor(4) },
+                            ]}
+                          >
+                            {degree.major} ({degree.startYear} - {degree.endYear})
+                          </Text>
+                        ))}
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+
+            {resume.Experience && (
+              <View style={[renderIndentation(1), { backgroundColor: getPastelColor(5) }]}>
+                <Text style={styles.sectionTitle}>Experience</Text>
+                <Text style={styles.text}>Title: {resume.Experience.title}</Text>
+                <Text style={styles.text}>Text: {resume.Experience.text}</Text>
+                {resume.Companies && resume.Companies.length > 0 && (
+                  <View style={[renderIndentation(2), { backgroundColor: getBackgroundColor(5) }]}>
+                    <Text style={styles.sectionTitle}>Companies</Text>
+                    {resume.Companies.map((company) => (
+                      <View
+                        key={company.id}
+                        style={[renderIndentation(3), { backgroundColor: getPastelColor(6) }]}
+                      >
+                        <Text style={styles.text}>
+                          {company.name} - {company.role} ({company.startDate} - {company.endDate})
                         </Text>
-                      ))}
-                    </View>
-                  ))}
-                </View>
-              )}
-            </View>
-          )}
+                        <Text style={styles.text}>Title: {company.title}</Text>
 
-          {resume.Experience && (
-            <View style={renderIndentation(1)}>
-              <Text style={styles.sectionTitle}>Experience</Text>
-              <Text style={styles.text}>Title: {resume.Experience.title}</Text>
-              <Text style={styles.text}>Text: {resume.Experience.text}</Text>
-              {resume.Companies && resume.Companies.length > 0 && (
-                <View style={renderIndentation(2)}>
-                  <Text style={styles.sectionTitle}>Companies</Text>
-                  {resume.Companies.map((company) => (
-                    <View key={company.id} style={renderIndentation(3)}>
-                      <Text style={styles.text}>
-                        {company.name} - {company.role} ({company.startDate} - {company.endDate})
-                      </Text>
-                      <Text style={styles.text}>Title: {company.title}</Text>
-
-                      {resume.Engagements.filter((e) => e.companyID === company.id).map(
-                        (engagement) => (
-                          <View key={engagement.id} style={renderIndentation(4)}>
-                            <Text style={styles.text}>
-                              Engagement with {engagement.client} ({engagement.startDate} -{" "}
-                              {engagement.endDate})
-                            </Text>
-                            {resume.Accomplishments.filter(
-                              (a) => a.engagementID === engagement.id,
-                            ).map((accomplishment) => (
-                              <Text key={accomplishment.id} style={renderIndentation(5)}>
-                                Accomplishment: {accomplishment.title} -{" "}
-                                {accomplishment.description}
+                        {resume.Engagements.filter((e) => e.companyID === company.id).map(
+                          (engagement) => (
+                            <View
+                              key={engagement.id}
+                              style={[
+                                renderIndentation(4),
+                                { backgroundColor: getBackgroundColor(6) },
+                              ]}
+                            >
+                              <Text style={styles.text}>
+                                Engagement with {engagement.client} ({engagement.startDate} -{" "}
+                                {engagement.endDate})
                               </Text>
-                            ))}
-                          </View>
-                        ),
-                      )}
-                    </View>
-                  ))}
-                </View>
-              )}
-            </View>
-          )}
+                              {resume.Accomplishments.filter(
+                                (a) => a.engagementID === engagement.id,
+                              ).map((accomplishment) => (
+                                <View
+                                  key={accomplishment.id}
+                                  style={[
+                                    renderIndentation(5),
+                                    { backgroundColor: getPastelColor(7) },
+                                  ]}
+                                >
+                                  <Text>
+                                    Accomplishment: {accomplishment.title} -{" "}
+                                    {accomplishment.description}
+                                  </Text>
 
-          {resume.ContactInformation && (
-            <View style={renderIndentation(1)}>
-              <Text style={styles.sectionTitle}>Contact Information</Text>
-              <Text style={styles.text}>Name: {resume.ContactInformation.name}</Text>
-              <Text style={styles.text}>Email: {resume.ContactInformation.email}</Text>
-              <Text style={styles.text}>Phone: {resume.ContactInformation.phone}</Text>
-              {resume.References && resume.References.length > 0 && (
-                <View style={renderIndentation(2)}>
-                  <Text style={styles.sectionTitle}>References</Text>
-                  {resume.References.map((reference) => (
-                    <Text key={reference.id} style={renderIndentation(3)}>
-                      {reference.name} - {reference.phone} - {reference.email}
-                    </Text>
-                  ))}
-                </View>
-              )}
-            </View>
-          )}
-        </View>
-      ))}
+                                  {/* Display skills related to accomplishments */}
+                                  {resume.Skills.filter(
+                                    (s) => s.accomplishmentID === accomplishment.id,
+                                  ).map((skill) => (
+                                    <Text
+                                      key={skill.id}
+                                      style={[
+                                        renderIndentation(6),
+                                        { backgroundColor: getBackgroundColor(7) },
+                                      ]}
+                                    >
+                                      Skill: {skill.title}
+                                    </Text>
+                                  ))}
+                                </View>
+                              ))}
+                            </View>
+                          ),
+                        )}
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+
+            {resume.ContactInformation && (
+              <View style={[renderIndentation(1), { backgroundColor: getPastelColor(8) }]}>
+                <Text style={styles.sectionTitle}>Contact Information</Text>
+                <Text style={styles.text}>Name: {resume.ContactInformation.name}</Text>
+                <Text style={styles.text}>Email: {resume.ContactInformation.email}</Text>
+                <Text style={styles.text}>Phone: {resume.ContactInformation.phone}</Text>
+                {resume.References && resume.References.length > 0 && (
+                  <View style={[renderIndentation(2), { backgroundColor: getBackgroundColor(8) }]}>
+                    <Text style={styles.sectionTitle}>References</Text>
+                    {resume.References.map((reference) => (
+                      <Text
+                        key={reference.id}
+                        style={[renderIndentation(3), { backgroundColor: getPastelColor(9) }]}
+                      >
+                        {reference.name} - {reference.phone} - {reference.email}
+                      </Text>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
+          </View>
+        ))}
+      </>
     </ScrollView>
   )
 }
+
+const renderIndentation = (level: number) => ({
+  marginLeft: level * 10,
+})
 
 const styles = StyleSheet.create({
   container: {
