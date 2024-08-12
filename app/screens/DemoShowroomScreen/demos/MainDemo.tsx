@@ -27,7 +27,8 @@ import Commentcard from "app/components/CommentCard"
 import Profilecard from "app/components/ProfileCard"
 import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
-import ResumeView from "app/components/ResumeView"
+import ResumeView from "app/components/Resume/ResumeView"
+import Summary from "app/components/Resume/components/SummaryView"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
