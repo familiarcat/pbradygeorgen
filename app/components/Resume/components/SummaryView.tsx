@@ -61,16 +61,6 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
               )
             })}
           </>
-          {/* {resume.Skills.map((skill:any) => (console.log(skill)))} */}
-          {/* <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Another</Text>
-          </View>
-          <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Classic</Text>
-          </View>
-          <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Modern</Text>
-          </View> */}
         </View>
         <Text style={[styles.infoText, renderTextColor(level, baseHue)]}>
           Information about this product.
