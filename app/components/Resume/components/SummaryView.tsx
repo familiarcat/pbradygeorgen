@@ -1,7 +1,7 @@
 // SummaryView.tsx
 import React from "react"
 import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
-import { ExpandedResume, SummaryType } from "../../types" // Import the type for Resume
+import { ExpandedResume, SkillType, SummaryType } from "../../types" // Import the type for Resume
 import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
 
 interface SummaryViewProps {
@@ -18,7 +18,7 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 
   return (
     <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
-      <>{console.log("resume in SummaryView", JSON.stringify(resume, null, 2))}</>
+      {/* <>{console.log("resume in SummaryView", JSON.stringify(resume, null, 2))}</> */}
       <View style={styles.imageContainer}>
         <Image
           style={[styles.image, isVertical ? styles.imageVertical : styles.imageHorizontal]}
@@ -44,6 +44,19 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>72</Text>
         </View>
         <View style={styles.tags}>
+          {/* <>{console.log("Skills: ", JSON.stringify(resume.Skills, null, 2))}</> */}
+          {/* <>{console.log(resume.Skills.length)}</> */}
+          <>
+            {resume.Skills.map((skill: SkillType, index: number) => {
+              console.log("skill in map", skill)
+              return (
+                <View style={styles.badge} key={`skill.id_${index}`}>
+                  <Text>{skill.title}</Text>
+                </View>
+              )
+            })}
+          </>
+          {/* {resume.Skills.map((skill:any) => (console.log(skill)))} */}
           <View style={styles.badge}>
             <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Another</Text>
           </View>
