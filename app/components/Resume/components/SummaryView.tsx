@@ -1,15 +1,19 @@
 // SummaryView.tsx
 import React from "react"
 import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
-import { useDataContext } from "../../DataContext" // Import the context hook
+import { ExpandedResume } from "../../types" // Import the type for Resume
 
-const SummaryView: React.FC = () => {
-  const { renderIndentation, renderTextColor } = useDataContext() // Access context data
+interface SummaryViewProps {
+  resume: ExpandedResume // Define the prop type
+  baseHue?: number // Optional base hue for styling
+}
+
+const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
+  const { renderIndentation, renderTextColor } = useDataContext() // Access context for rendering styles
   const { width: screenWidth } = useWindowDimensions()
   const isVertical = screenWidth <= 640 // Use 640px as the breakpoint
 
   const level = 2 // Define the hierarchy level for this component
-  const baseHue = 0 // Set base hue, can be passed as a prop if needed
 
   return (
     <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
@@ -17,7 +21,7 @@ const SummaryView: React.FC = () => {
         <Image
           style={[styles.image, isVertical ? styles.imageVertical : styles.imageHorizontal]}
           source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+            uri: resume.Summary?.imageUri || "https://example.com/default-image.jpg",
           }}
         />
       </View>
@@ -26,76 +30,58 @@ const SummaryView: React.FC = () => {
         style={[styles.cardArea, isVertical ? styles.cardAreaVertical : styles.cardAreaHorizontal]}
       >
         <Text style={[styles.title, renderTextColor(level, baseHue)]}>
-          Summary Classic Long Sleeve T-Shirt
+          {resume.title || "Default Title"}
         </Text>
         <View style={styles.ratings}>
           <Image
             style={styles.ratingImage}
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+              uri: "https://example.com/rating-image.jpg",
             }}
           />
-          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>72</Text>
+          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>
+            {resume.Summary?.rating || "N/A"}
+          </Text>
         </View>
         <View style={styles.tags}>
-          <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>New</Text>
-          </View>
-          <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Classic</Text>
-          </View>
-          <View style={styles.badge}>
-            <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>Modern</Text>
-          </View>
+          {resume.Summary?.tags?.map((tag, index) => (
+            <View key={index} style={styles.badge}>
+              <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>{tag}</Text>
+            </View>
+          ))}
         </View>
         <Text style={[styles.infoText, renderTextColor(level, baseHue)]}>
-          Information about this product.
+          {resume.Summary?.info || "Information about this product."}
         </Text>
         <View style={styles.quote}>
           <Image
             style={styles.quoteIcon}
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+              uri: "https://example.com/quote-icon.jpg",
             }}
           />
           <Text style={[styles.quoteText, renderTextColor(level, baseHue)]}>
-            “This is a quote.“
+            {resume.Summary?.quote || "This is a quote."}
           </Text>
         </View>
         <Image
           style={styles.divider}
           source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+            uri: "https://example.com/divider.jpg",
           }}
         />
         <View style={styles.features}>
-          <View style={styles.feature}>
-            <Image
-              style={styles.featureIcon}
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
-              }}
-            />
-            <Text style={[styles.featureText, renderTextColor(level, baseHue)]}>Fast</Text>
-          </View>
-          <View style={styles.feature}>
-            <Image
-              style={styles.featureIcon}
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
-              }}
-            />
-            <Text style={[styles.featureText, renderTextColor(level, baseHue)]}>Fun</Text>
-          </View>
-          <View style={styles.feature}>
-            <Image
-              style={styles.featureIcon}
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/u8rrnye9gf-2976%3A6822?alt=media&token=f98c3286-3145-4770-b141-95ecdce280b7",
-              }}
-            />
-            <Text style={[styles.featureText, renderTextColor(level, baseHue)]}>Flirty</Text>
-          </View>
+          {resume.Summary?.features?.map((feature, index) => (
+            <View key={index} style={styles.feature}>
+              <Image
+                style={styles.featureIcon}
+                source={{
+                  uri: "https://example.com/feature-icon.jpg",
+                }}
+              />
+              <Text style={[styles.featureText, renderTextColor(level, baseHue)]}>{feature}</Text>
+            </View>
+          ))}
         </View>
       </View>
     </View>

@@ -1,12 +1,11 @@
 // ResumeView.tsx
 import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
-import { DataProvider, useDataContext } from "../DataContext" // Import the DataContext
+import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
 import SummaryView from "./components/SummaryView"
-// import SummaryView from "./components/SummaryView" // Ensure your child components are imported
 
-const ResumeViewContent: React.FC = () => {
-  const { resumes, renderIndentation, renderTextColor, getBaseHueForResume } = useDataContext() // Use context
+const ResumeViewContent = () => {
+  const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
 
   return (
     <ScrollView style={styles.container}>
@@ -25,7 +24,7 @@ const ResumeViewContent: React.FC = () => {
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Persona: {resume.Summary.persona}
                 </Text>
-                <SummaryView />
+                {/* <SummaryView /> */}
               </View>
             )}
 
@@ -179,7 +178,7 @@ const ResumeViewContent: React.FC = () => {
   )
 }
 
-const ResumeView: React.FC = () => (
+const ResumeView = () => (
   <DataProvider>
     <ResumeViewContent />
   </DataProvider>
