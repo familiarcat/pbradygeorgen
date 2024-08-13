@@ -24,7 +24,7 @@ const ResumeViewContent = () => {
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Persona: {resume.Summary.persona}
                 </Text>
-                {/* <SummaryView /> */}
+                <SummaryView resume={resume} />
               </View>
             )}
 
