@@ -3,6 +3,8 @@ import React from "react"
 import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType, SummaryType } from "../../types" // Import the type for Resume
 import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
+import { AutoImage } from "app/components"
+import ItemCard from "./ItemCard"
 
 interface SummaryViewProps {
   resume: ExpandedResume // Define the prop type
@@ -19,21 +21,29 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   return (
     <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
       {/* <>{console.log("resume in SummaryView", JSON.stringify(resume, null, 2))}</> */}
-      <View style={styles.imageContainer}>
+      <View>
+        <AutoImage
+          style={{ alignSelf: "center", borderRadius: 5 }}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+          }}
+          // source={
+          //   "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c"
+          // }
+        />
+      </View>
+      {/* <View style={styles.imageContainer}>
         <Image
           style={[styles.image, isVertical ? styles.imageVertical : styles.imageHorizontal]}
           source={{
             uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
           }}
         />
-      </View>
-
+      </View> */}
       <View
         style={[styles.cardArea, isVertical ? styles.cardAreaVertical : styles.cardAreaHorizontal]}
       >
-        <Text style={[styles.title, renderTextColor(level, baseHue)]}>
-          Summary Classic Long Sleeve T-Shirt
-        </Text>
+        <Text style={[styles.title, renderTextColor(level, baseHue)]}>{resume?.title}</Text>
         <View style={styles.ratings}>
           <Image
             style={styles.ratingImage}
@@ -41,30 +51,38 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
               uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
             }}
           />
-          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>72</Text>
+          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>
+            Goals: {resume.Summary?.goals}
+          </Text>
         </View>
+        <View style={styles.ratings}>
+          <Image
+            style={styles.ratingImage}
+            source={{
+              uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
+            }}
+          />
+          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>
+            Persona: {resume.Summary?.persona}
+          </Text>
+        </View>
+        <Text style={[styles.infoText, renderTextColor(level, baseHue)]}>Skills</Text>
         <View style={styles.tags}>
           {/* <>{console.log("Skills: ", JSON.stringify(resume.Skills, null, 2))}</> */}
           {/* <>{console.log(resume.Skills.length)}</> */}
-          <>
-            {resume.Skills.map((skill: SkillType, index: number) => {
-              console.log("skill in map", skill)
-              return (
-                <View style={styles.badge} key={skill.id}>
-                  <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>
-                    {skill.title}
-                  </Text>
-                </View>
-                // <View style={styles.badge} key={`skill.id_${index}`}>
-                //   <Text>{skill.title}</Text>
-                // </View>
-              )
-            })}
-          </>
+          {resume.Skills.map((skill: SkillType, index: number) => {
+            return (
+              <View style={styles.badge} key={skill.id}>
+                <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>
+                  {skill.title}
+                </Text>
+              </View>
+              // <View style={styles.badge} key={`skill.id_${index}`}>
+              //   <Text>{skill.title}</Text>
+              // </View>
+            )
+          })}
         </View>
-        <Text style={[styles.infoText, renderTextColor(level, baseHue)]}>
-          Information about this product.
-        </Text>
         <View style={styles.quote}>
           <Image
             style={styles.quoteIcon}
@@ -82,6 +100,7 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
             uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
           }}
         />
+        <ItemCard />
         <View style={styles.features}>
           <View style={styles.feature}>
             <Image

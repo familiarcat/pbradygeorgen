@@ -13,17 +13,19 @@ const ResumeViewContent = () => {
         const baseHue = getBaseHueForResume(index)
         return (
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
-            <Text style={[styles.resumeTitle, renderTextColor(1, baseHue)]}>{resume.title}</Text>
+            <Text style={[styles.resumeTitle, renderTextColor(1, baseHue)]}>
+              {resume.ContactInformation?.name}
+            </Text>
 
             {resume.Summary && (
               <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>
+                {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Goals: {resume.Summary.goals}
                 </Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Persona: {resume.Summary.persona}
-                </Text>
+                </Text> */}
                 <SummaryView resume={resume} />
               </View>
             )}
