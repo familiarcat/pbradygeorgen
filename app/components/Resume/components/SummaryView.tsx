@@ -1,5 +1,7 @@
+// SummaryView.tsx
+
 import React from "react"
-import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native"
+import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
 import ItemCard from "./ItemCard"
 
@@ -10,7 +12,7 @@ interface SummaryViewProps {
 
 const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
-  const isVertical = screenWidth <= 640 // Use 640px as the breakpoint
+  const isVertical = screenWidth <= 640 // Use 640px as the mobile breakpoint
 
   const level = 2 // Define the hierarchy level for this component
 
@@ -54,21 +56,10 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           </Text>
         </View>
         <View style={styles.features}>
-          <>{console.log("resume in summary:", JSON.stringify(resume, null, 2))}</>
-          <View style={styles.textContainer}>
-            <View style={styles.features}>
-              {/* Render ItemCards for each hasOne relationship */}
-              {hasOneRelationships.map((relationship) => (
-                <ItemCard key={relationship.id} resume={resume} name={relationship.name} />
-              ))}
-            </View>
-          </View>
-          {/* {resume.Companies?.map((company, index) => (
-            <ItemCard key={company.id} resume={resume} name={company.name || "Company"} />
+          {/* Render ItemCards for each hasOne relationship */}
+          {hasOneRelationships.map((relationship) => (
+            <ItemCard key={relationship.id} resume={resume} name={relationship.name} />
           ))}
-          {resume.Schools?.map((school, index) => (
-            <ItemCard key={school.id} resume={resume} name={school.name || "School"} />
-          ))} */}
         </View>
       </View>
     </View>
