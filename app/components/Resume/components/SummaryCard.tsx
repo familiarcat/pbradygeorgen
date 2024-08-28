@@ -1,8 +1,7 @@
-// ItemCard.tsx
-
+// SummaryCard.tsx
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { EducationType, ExpandedResume, ExperienceType } from "../../types" // Adjust path as necessary
+import { ExpandedResume } from "../../types" // Adjust path as necessary
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -13,19 +12,15 @@ const sortOrder = [
   "Contact Information",
   "Education",
   "Experience",
-  // "Company",
-  // "School",
-  // Add other sections as needed
+  // Exclude "Company" and "School" by commenting them out or removing them
 ]
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
   const displayData = () => {
-    console.log(name)
     switch (name) {
       case "Contact Information":
         return (
           <>
-            {console.log("resume.ContactInformation", resume.ContactInformation)}
             <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
             {resume?.References?.map((reference) => (
               <Text key={reference.id}>{reference.name}</Text>
@@ -48,27 +43,15 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
             <Text>{resume.Experience?.text || "No Experience Text"}</Text>
           </>
         )
+      // Cases for "Company" and "School" are still here if you want to use them later
       case "Company":
-        return (
-          <>
-            {resume.Companies?.map((company) => (
-              <Text key={company.id}>{company.name}</Text>
-            ))}
-          </>
-        )
       case "School":
-        return (
-          <>
-            {resume.Schools?.map((school) => (
-              <Text key={school.id}>{school.name}</Text>
-            ))}
-          </>
-        )
-      // Add more cases for other models like Company, etc.
       default:
-        return <Text>No Data Available</Text>
+        return null // Return null for cases not included in sortOrder
     }
   }
+
+  if (!sortOrder.includes(name)) return null // Do not render the component if the name is not in sortOrder
 
   return (
     <View style={styles.itemCard}>
@@ -84,23 +67,18 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 16,
-    margin: 8, // Space between cards
+    margin: 8,
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
     flexGrow: 1,
-
-    // Responsive width and height based on screen size
-    // Mobile: Single column
     "@media (max-width: 640px)": {
-      flexBasis: "100%", // Full width on mobile
+      flexBasis: "100%",
     },
-    // Tablet: Two columns
     "@media (min-width: 641px) and (max-width: 1023px)": {
-      flexBasis: "48%", // Two columns on tablet
+      flexBasis: "48%",
     },
-    // Desktop: Three columns
     "@media (min-width: 1024px)": {
-      flexBasis: "30%", // Three columns on desktop
+      flexBasis: "30%",
     },
   },
   itemCardTitle: {
