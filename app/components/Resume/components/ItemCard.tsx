@@ -63,20 +63,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    flexBasis: "100%", // Default to full width on mobile
     padding: 16,
-    margin: 5, // Space between cards
+    margin: 8, // Space between cards
+    backgroundColor: "rgba(255,255,0,1)",
     borderRadius: 8,
-    backgroundColor: "rgba(255,255,0,1)", // Example background color
+    flexGrow: 1,
 
-    // Tablet
-    "@media (min-width: 768px)": {
-      flexBasis: "48%", // 2-column layout on tablets
+    // Responsive width and height based on screen size
+    // Mobile: Single column
+    "@media (max-width: 640px)": {
+      flexBasis: "100%", // Full width on mobile
     },
-
-    // Desktop
+    // Tablet: Two columns
+    "@media (min-width: 641px) and (max-width: 1023px)": {
+      flexBasis: "48%", // Two columns on tablet
+    },
+    // Desktop: Three columns
     "@media (min-width: 1024px)": {
-      flexBasis: "31%", // 3-column layout on desktops
+      flexBasis: "30%", // Three columns on desktop
     },
   },
   itemCardTitle: {

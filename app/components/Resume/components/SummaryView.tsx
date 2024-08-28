@@ -21,6 +21,7 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   return (
     <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
       <View style={styles.imageContainer}>
+        <Text style={[styles.title, renderTextColor(level, baseHue)]}>{resume?.title}</Text>
         <Image
           style={styles.image}
           source={{
@@ -56,7 +57,6 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           </Text>
         </View>
         <View style={styles.features}>
-          {/* Render ItemCards for each hasOne relationship */}
           {hasOneRelationships.map((relationship) => (
             <ItemCard key={relationship.id} resume={resume} name={relationship.name} />
           ))}
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
     marginBottom: 10,
+    flexWrap: "wrap",
   },
   horizontal: {
     flexDirection: "row",
