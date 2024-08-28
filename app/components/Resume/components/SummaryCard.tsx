@@ -4,12 +4,21 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { EducationType, ExpandedResume, ExperienceType } from "../../types" // Adjust path as necessary
 
-interface ItemCardProps {
+interface SummaryCardProps {
   resume: ExpandedResume
   name: string // Accept a name for human-readable display
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({ resume, name }) => {
+const sortOrder = [
+  "Contact Information",
+  "Education",
+  "Experience",
+  "Company",
+  "School",
+  // Add other sections as needed
+]
+
+const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
   const displayData = () => {
     switch (name) {
       case "Contact Information":
@@ -100,4 +109,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ItemCard
+export default SummaryCard

@@ -3,7 +3,8 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
-import ItemCard from "./ItemCard"
+import ItemCard from "./SummaryCard"
+import SummaryCardsContainer from "./SummaryCardsContainer"
 
 interface SummaryViewProps {
   resume: ExpandedResume // Define the prop type
@@ -56,11 +57,12 @@ const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
             “This is a quote.“
           </Text>
         </View>
-        <View style={styles.features}>
+        {/* <View style={styles.features}>
           {hasOneRelationships.map((relationship) => (
             <ItemCard key={relationship.id} resume={resume} name={relationship.name} />
           ))}
-        </View>
+        </View> */}
+        <SummaryCardsContainer resume={resume} />
       </View>
     </View>
   )
