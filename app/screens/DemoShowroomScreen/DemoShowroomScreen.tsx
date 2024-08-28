@@ -41,9 +41,10 @@ const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
       <Link to={`/showroom/${sectionSlug}`} style={$menuContainer}>
         <Text preset="bold">{item.name}</Text>
       </Link>
+      {item.useCases.reverse()}
       {item.useCases.map((u) => {
         const itemSlug = slugify(u)
-
+        console.log(itemSlug)
         return (
           <Link key={`section${sectionIndex}-${u}`} to={`/showroom/${sectionSlug}/${itemSlug}`}>
             <Text>{u}</Text>

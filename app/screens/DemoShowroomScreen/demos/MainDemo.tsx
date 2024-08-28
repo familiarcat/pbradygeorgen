@@ -67,13 +67,13 @@ export const DemoButton: Demo = {
     "A component that allows users to take actions and make choices. Wraps the Text component with a Pressable component.",
   data: [
     <DemoUseCase
-      name="Presets"
+      name="Presets in control"
       layout="column"
       description="There are a few presets that are pre-configured."
     >
       <ResumeView />
       <ResponsiveGrid>
-        <Productcard />
+        {/* <Productcard /> */}
         <Actioncard />
         <Standardcard />
         <ResponsiveGrid>

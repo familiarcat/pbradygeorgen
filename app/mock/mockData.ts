@@ -18,8 +18,9 @@ import {
 import { toAWSDate } from "../utils/awsDateConverter" // Import the utility function
 
 // Function to clear data from all models
-export const clearData = async (log: boolean = false) => {
+export const clearData = async (log: boolean = true) => {
   try {
+    console.log("clearData")
     if (log) console.log("Clearing DataStore...")
     await Promise.all([
       DataStore.delete(Resume, Predicates.ALL),

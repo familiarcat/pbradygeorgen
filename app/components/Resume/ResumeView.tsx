@@ -11,6 +11,7 @@ const ResumeViewContent = () => {
     <ScrollView style={styles.container}>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
+        console.log("contactInformation", resume.ContactInformation?.name)
         return (
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
             <Text style={[styles.resumeTitle, renderTextColor(1, baseHue)]}>
@@ -80,7 +81,41 @@ const ResumeViewContent = () => {
                 )}
               </View>
             )}
-
+            {resume.ContactInformation && (
+              <View style={renderIndentation(1)}>
+                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 240)]}>
+                  Contact Information
+                </Text>
+                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
+                  Name: {resume.ContactInformation?.name}
+                </Text>
+                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
+                  Email: {resume.ContactInformation?.email}
+                </Text>
+                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
+                  Phone: {resume.ContactInformation?.phone}
+                </Text>
+                {resume.References && resume.References?.length > 0 && (
+                  <View style={renderIndentation(2)}>
+                    <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 240)]}>
+                      References
+                    </Text>
+                    {resume.References?.map((reference) => (
+                      <Text
+                        key={reference.id}
+                        style={[
+                          styles.text,
+                          renderTextColor(4, baseHue + 240),
+                          renderIndentation(1),
+                        ]}
+                      >
+                        {reference?.name} - {reference?.phone} - {reference?.email}
+                      </Text>
+                    ))}
+                  </View>
+                )}
+              </View>
+            )}
             {resume.Experience && (
               <View style={renderIndentation(1)}>
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
@@ -132,42 +167,6 @@ const ResumeViewContent = () => {
                           ),
                         )}
                       </View>
-                    ))}
-                  </View>
-                )}
-              </View>
-            )}
-
-            {resume.ContactInformation && (
-              <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 240)]}>
-                  Contact Information
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Name: {resume.ContactInformation.name}
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Email: {resume.ContactInformation.email}
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Phone: {resume.ContactInformation.phone}
-                </Text>
-                {resume.References && resume.References.length > 0 && (
-                  <View style={renderIndentation(2)}>
-                    <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 240)]}>
-                      References
-                    </Text>
-                    {resume.References.map((reference) => (
-                      <Text
-                        key={reference.id}
-                        style={[
-                          styles.text,
-                          renderTextColor(4, baseHue + 240),
-                          renderIndentation(1),
-                        ]}
-                      >
-                        {reference.name} - {reference.phone} - {reference.email}
-                      </Text>
                     ))}
                   </View>
                 )}

@@ -131,6 +131,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined)
 
 export const useDataContext = (): DataContextType => {
   const context = useContext(DataContext)
+  console.log("\n\nusing DataContext ")
   if (!context) {
     throw new Error("useDataContext must be used within a DataProvider")
   }
@@ -149,7 +150,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       try {
         // Fetch all resumes
         const resumeData = await DataStore.query(Resume)
-
+        console.log("resumeData", resumeData)
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found")
           await createMockData()
