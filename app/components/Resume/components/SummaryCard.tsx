@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native"
 import { ExpandedResume } from "../../types" // Adjust path as necessary
 import Itemcard from "app/components/ItemCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
+import ReferenceItemCard from "./ReferenceItemCard"
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -22,16 +23,18 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
     switch (name) {
       case "Contact Information":
         return (
-          <>
-            <Itemcard />
-            <Itemcard />
-            <Itemcard />
-            <Itemcard />
+          <ResponsiveGrid>
+            <ReferenceItemCard />
+            <ReferenceItemCard />
+            <ReferenceItemCard />
+            <ReferenceItemCard />
+            <ReferenceItemCard />
+
             <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
             {resume?.References?.map((reference) => (
               <Text key={reference.id}>{reference.name}</Text>
             ))}
-          </>
+          </ResponsiveGrid>
         )
       case "Education":
         return (
@@ -60,10 +63,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
   if (!sortOrder.includes(name)) return null // Do not render the component if the name is not in sortOrder
 
   return (
-    <View style={styles.itemCard}>
+    <>
       <Text style={styles.itemCardTitle}>{name}</Text>
       {displayData()}
-    </View>
+    </>
   )
 }
 

@@ -1,35 +1,36 @@
 import React from "react"
 import { Dimensions, ScrollView, View, StyleSheet } from "react-native"
 
-// Get device screen width
-const { width: screenWidth } = Dimensions.get("window")
-
-// Function to calculate the width of each item based on the number of columns
-const calculateItemWidth = (columns: number) => {
-  const gutter = 10
-  return (screenWidth - gutter * (columns + 1)) / columns
+// Determine the number of columns based on screen width
+const calculateColumns = (screenWidth: number) => {
+  if (screenWidth >= 1200) return 3 // Three columns for desktop
+  if (screenWidth >= 800) return 2 // Two columns for tablets
+  return 1 // One column for mobile
 }
 
-// Styles for the grid and grid items
 const styles = StyleSheet.create({
   gridContainer: {
-    flexDirection: "column", // Stack children vertically
-    alignItems: "center", // Align children to center horizontally
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center", // Center items for a better aesthetic when there is extra space
+    padding: 10,
   },
   gridItem: {
-    margin: 5,
-    padding: 5,
-    width: "100%", // Take full width to align child component sizing responsibility
+    minWidth: 225, // Minimum width for each item
+    maxWidth: "26.7%", // Maximum width for each item
+    width: "100%", // Allows flexing within minWidth and maxWidth constraints
+    padding: 10,
+    marginBottom: 20, // Space between rows
+    marginRight: 20,
+    backgroundColor: "rgba(0, 255, 255, 1)",
   },
 })
 
 export default function ResponsiveGrid({ children }: { children: React.ReactNode }): JSX.Element {
-  // Decide on the number of columns based on screen width
-  const columns = screenWidth > 1600 ? 4 : screenWidth > 1200 ? 3 : screenWidth > 800 ? 2 : 1
-  // Calculate the item width
-  const itemWidth = calculateItemWidth(columns)
+  const screenWidth = Dimensions.get("window").width
+  const columns = calculateColumns(screenWidth)
+  const itemWidth = Math.max(200, Math.min(400, screenWidth / columns - 20)) // Calculate width dynamically
 
-  // Render children within the ScrollView, passing calculated width
   return (
     <ScrollView contentContainerStyle={styles.gridContainer}>
       {React.Children.map(children, (child) => (

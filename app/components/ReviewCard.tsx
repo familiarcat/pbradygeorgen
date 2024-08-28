@@ -3,7 +3,7 @@ import { StyleSheet, Image, Text, View, useWindowDimensions } from "react-native
 
 export default function Reviewcard() {
   const { width: screenWidth } = useWindowDimensions()
-  const isVertical = screenWidth <= 800 // Adjust this threshold based on your needs
+  const isVertical = screenWidth <= 400 // Adjust this threshold based on your needs
 
   return (
     <View style={[styles.reviewCard, isVertical ? styles.vertical : styles.horizontal]}>

@@ -2,10 +2,10 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 
 // ItemCard adapted to fit within a responsive grid
-export default function ItemCard() {
+export default function ReferenceItemCard() {
   return (
     <View style={styles.itemCard}>
-      <Text style={styles.header}>Itemcard</Text>
+      {/* <Text style={styles.header}>Reference Card With a big ass title</Text> */}
       <View style={styles.badge}>
         <Text style={styles.label}>New!</Text>
       </View>
@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    minWidth: 200, // Minimum width from responsive grid
-    maxWidth: "33%", // Maximum width from responsive grid
+    minWidth: 100, // Minimum width from responsive grid
+    maxWidth: 200, // Maximum width from responsive grid
     width: "100%", // Take full available width
-    height: 200,
+    height: "50%",
     padding: 5,
-    backgroundColor: "rgba(255,255,0,1)",
+    backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
   },
   header: {
