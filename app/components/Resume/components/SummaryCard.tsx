@@ -13,13 +13,14 @@ const sortOrder = [
   "Contact Information",
   "Education",
   "Experience",
-  "Company",
-  "School",
+  // "Company",
+  // "School",
   // Add other sections as needed
 ]
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
   const displayData = () => {
+    console.log(name)
     switch (name) {
       case "Contact Information":
         return (
