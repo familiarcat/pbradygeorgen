@@ -3,6 +3,7 @@ import React from "react"
 import { View } from "react-native"
 import SummaryCard from "./SummaryCard"
 import { ExpandedResume } from "../../types" // Adjust path as necessary
+import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
 interface ResumeSection {
   name: string
@@ -32,11 +33,11 @@ const SummaryCardsContainer: React.FC<{ resume: ExpandedResume }> = ({ resume })
   sectionData.sort((a, b) => sortOrder.indexOf(a.name) - sortOrder.indexOf(b.name))
 
   return (
-    <View>
+    <ResponsiveGrid>
       {sectionData.map((section) => (
         <SummaryCard key={section.name} resume={section.data} name={section.name} />
       ))}
-    </View>
+    </ResponsiveGrid>
   )
 }
 

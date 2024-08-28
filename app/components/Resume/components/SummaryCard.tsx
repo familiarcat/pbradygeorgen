@@ -2,6 +2,8 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ExpandedResume } from "../../types" // Adjust path as necessary
+import Itemcard from "app/components/ItemCard"
+import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -21,6 +23,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
       case "Contact Information":
         return (
           <>
+            <Itemcard />
+            <Itemcard />
+            <Itemcard />
+            <Itemcard />
             <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
             {resume?.References?.map((reference) => (
               <Text key={reference.id}>{reference.name}</Text>
