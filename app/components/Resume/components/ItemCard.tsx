@@ -2,7 +2,7 @@
 
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ExpandedResume } from "../../types" // Adjust path as necessary
+import { EducationType, ExpandedResume, ExperienceType } from "../../types" // Adjust path as necessary
 
 interface ItemCardProps {
   resume: ExpandedResume
@@ -12,6 +12,16 @@ interface ItemCardProps {
 const ItemCard: React.FC<ItemCardProps> = ({ resume, name }) => {
   const displayData = () => {
     switch (name) {
+      case "Contact Information":
+        return (
+          <>
+            {console.log("resume.ContactInformation", resume.ContactInformation)}
+            <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
+            {resume?.References?.map((reference) => (
+              <Text key={reference.id}>{reference.name}</Text>
+            ))}
+          </>
+        )
       case "Education":
         return (
           <>
