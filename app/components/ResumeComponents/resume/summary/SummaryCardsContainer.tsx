@@ -2,7 +2,7 @@
 import React from "react"
 import { View } from "react-native"
 import SummaryCard from "./SummaryCard"
-import { ExpandedResume } from "../../types" // Adjust path as necessary
+import { ExpandedResume } from "../../../types" // Adjust path as necessary
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
 interface ResumeSection {

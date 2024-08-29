@@ -11,6 +11,8 @@ import {
 } from "react-native"
 import { Button, Icon, LottieAnimation, Text, Screen } from "../components"
 import { colors, typography } from "../theme"
+import { createMockData } from "app/mock/mockData"
+
 // import { Demo } from "../DemoShowroomScreen"
 // import { DemoDivider } from "../DemoDivider"
 // import { DemoUseCase } from "../DemoUseCase"
@@ -27,8 +29,8 @@ import Commentcard from "app/components/CommentCard"
 import Profilecard from "app/components/ProfileCard"
 import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
-import ResumeView from "app/components/Resume/ResumeView"
-import Summary from "app/components/Resume/components/SummaryView"
+import ResumeView from "app/components/ResumeComponents/ResumeView"
+import Summary from "app/components/ResumeComponents/resume/ResumeView"
 import { AppStackScreenProps } from "app/navigators"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }

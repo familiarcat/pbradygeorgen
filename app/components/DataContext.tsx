@@ -144,11 +144,11 @@ interface DataProviderProps {
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch all resumes
+        console.log("Fetching resumes")
         const resumeData = await DataStore.query(Resume)
         console.log("resumeData", resumeData)
         if (!resumeData || resumeData.length === 0) {

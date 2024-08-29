@@ -2,7 +2,7 @@
 import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
 import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
-import SummaryView from "./components/SummaryView"
+import SummaryView from "./resume/ResumeView"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()

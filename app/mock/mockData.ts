@@ -49,7 +49,7 @@ export const createMockData = async () => {
   try {
     // Clear existing data
     await clearData(true)
-
+    console.log("data should be cleared and rebuilt")
     // Create Summaries
     const summary1 = await DataStore.save(
       new Summary({
@@ -441,6 +441,18 @@ export const createMockData = async () => {
         },
         {
           name: "Sarah Connor",
+          phone: "+1346798520",
+          email: "sarah.connor@example.com",
+          contactinformationID: contactInfo1.id,
+        },
+        {
+          name: "Kathy Smith",
+          phone: "+0987654321",
+          email: "jane.smith@example.com",
+          contactinformationID: contactInfo1.id,
+        },
+        {
+          name: "John Connor",
           phone: "+1346798520",
           email: "sarah.connor@example.com",
           contactinformationID: contactInfo1.id,

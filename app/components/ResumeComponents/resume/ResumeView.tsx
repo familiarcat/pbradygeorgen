@@ -3,15 +3,14 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
-import ItemCard from "./SummaryCard"
-import SummaryCardsContainer from "./SummaryCardsContainer"
+import SummaryCardsContainer from "./summary/SummaryCardsContainer"
 
 interface SummaryViewProps {
   resume: ExpandedResume // Define the prop type
   baseHue?: number // Optional base hue for styling
 }
 
-const SummaryView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
+const ResumeView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
   const isVertical = screenWidth <= 640 // Use 640px as the mobile breakpoint
 
@@ -210,4 +209,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SummaryView
+export default ResumeView
