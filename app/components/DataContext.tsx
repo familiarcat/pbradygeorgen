@@ -146,6 +146,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   useEffect(() => {
     const fetchData = async () => {
+      // await clearData()
       try {
         // Fetch all resumes
         console.log("Fetching resumes")

@@ -14,7 +14,7 @@ const ResumeView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
   const isVertical = screenWidth <= 640 // Use 640px as the mobile breakpoint
 
-  const level = 2 // Define the hierarchy level for this component
+  const level = 4 // Define the hierarchy level for this component
 
   const hasOneRelationships = extractHasOneRelationships(resume)
 

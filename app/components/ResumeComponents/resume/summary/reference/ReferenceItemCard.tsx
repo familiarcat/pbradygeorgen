@@ -1,21 +1,26 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
+import { ReferenceType, SummaryType } from "../../../../types"
+
+interface SummaryCardProps {
+  reference: ReferenceType
+}
 
 // ItemCard adapted to fit within a responsive grid
-export default function ReferenceItemCard() {
+const ReferenceItemCard: React.FC<SummaryCardProps> = ({ reference }) => {
   return (
     <View style={styles.itemCard}>
-      {/* <Text style={styles.header}>Reference Card With a big ass title</Text> */}
-      <View style={styles.badge}>
-        <Text style={styles.label}>New!</Text>
-      </View>
-      <View style={styles.frame417}>
-        <View style={styles.productTitle}>
-          <Text style={styles.tShirt}>T-Shirt</Text>
-          <Text style={styles.classicLongSleeve}>Classic Long Sleeve</Text>
-        </View>
-        <Text style={styles.price}>$99</Text>
-      </View>
+      <Text style={styles.header}>{reference.name}</Text>
+      {/* <View style={styles.badge}>
+        <Text style={styles.label}>{reference.name}</Text>
+      </View> */}
+      {/* <View style={styles.frame417}> */}
+      {/* <View style={styles.productTitle}> */}
+      <Text style={styles.tShirt}>{reference.email}</Text>
+      <Text style={styles.classicLongSleeve}>{reference.phone}</Text>
+      {/* </View> */}
+      {/* <Text style={styles.price}>$99</Text> */}
+      {/* </View> */}
     </View>
   )
 }
@@ -29,9 +34,9 @@ const styles = StyleSheet.create({
     minWidth: 100, // Minimum width from responsive grid
     maxWidth: 200, // Maximum width from responsive grid
     width: "100%", // Take full available width
-    height: "50%",
+    height: "60%",
     padding: 5,
-    backgroundColor: "rgba(255,255,255,1)",
+    // backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 8,
   },
   header: {
@@ -84,3 +89,4 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
 })
+export default ReferenceItemCard

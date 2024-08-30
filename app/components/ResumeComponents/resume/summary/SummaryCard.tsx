@@ -23,17 +23,17 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
     switch (name) {
       case "Contact Information":
         return (
-          <ResponsiveGrid>
-            <ReferenceItemCard />
-            <ReferenceItemCard />
-            <ReferenceItemCard />
-            <ReferenceItemCard />
-
+          <>
             <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
-            {resume?.References?.map((reference) => (
-              <Text key={reference.id}>{reference.name}</Text>
-            ))}
-          </ResponsiveGrid>
+            <Text>{"References"}</Text>
+            <ResponsiveGrid>
+              {resume?.References?.map((reference) => (
+                <>
+                  <ReferenceItemCard reference={reference} />
+                </>
+              ))}
+            </ResponsiveGrid>
+          </>
         )
       case "Education":
         return (
