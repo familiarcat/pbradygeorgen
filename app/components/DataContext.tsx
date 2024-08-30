@@ -101,11 +101,10 @@ interface AccomplishmentType {
   companyID?: string | null
 }
 
-// Use correct types for each model
-type ExpandedResume = Omit<
-  ResumeType,
-  "Summary" | "Skills" | "Education" | "Experience" | "ContactInformation"
-> & {
+// ExpandedResume type adjusted for potential undefined values
+type ExpandedResume = {
+  id: string
+  title?: string | null // Ensure it's explicitly optional if your data might not include it
   Summary: SummaryType | null
   Skills: SkillType[]
   Education: EducationType | null
@@ -119,7 +118,7 @@ type ExpandedResume = Omit<
   References: ReferenceType[]
 }
 
-// Define the context value type
+// Example of using ExpandedResume within the DataContext
 interface DataContextType {
   resumes: ExpandedResume[]
   getBaseHueForResume: (index: number) => number
@@ -163,64 +162,71 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         // Fetch related data for each resume
         const expandedResumes: ExpandedResume[] = await Promise.all(
           resumeData.map(async (resume) => {
-            const summary = await DataStore.query(Summary, (s) =>
-              s.id.eq(resume.resumeSummaryId || ""),
-            ).then((res) => res[0] || null)
+            const summary = resume.resumeSummaryId
+              ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
+              : null
 
-            const skills = await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id))
+            const skills = resume.id
+              ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
+              : []
 
-            const education = await DataStore.query(Education, (e) =>
-              e.id.eq(resume.resumeEducationId || ""),
-            ).then((res) => res[0] || null)
+            const education = resume.resumeEducationId
+              ? await DataStore.query(Education, resume.resumeEducationId).then(
+                  (res) => res || null,
+                )
+              : null
 
-            const schools = await DataStore.query(School, (school) =>
-              school.educationID.eq(education?.id || ""),
-            )
+            const schools = education
+              ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
+              : []
 
-            const degrees = (
-              await Promise.all(
-                schools.map((school) =>
-                  DataStore.query(Degree, (degree) => degree.schoolID.eq(school.id)),
+            const degrees = await Promise.all(
+              schools.map((school) =>
+                DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
+              ),
+            ).then((results) => results.flat())
+
+            const experience = resume.resumeExperienceId
+              ? await DataStore.query(Experience, resume.resumeExperienceId).then(
+                  (res) => res || null,
+                )
+              : null
+
+            const companies = experience
+              ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
+                  () => [],
+                )
+              : []
+
+            const engagements = await Promise.all(
+              companies.map((company) =>
+                DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
+              ),
+            ).then((results) => results.flat())
+
+            const accomplishments = await Promise.all(
+              engagements.map((engagement) =>
+                DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
+                  () => [],
                 ),
-              )
-            ).flat()
+              ),
+            ).then((results) => results.flat())
 
-            const experience = await DataStore.query(Experience, (exp) =>
-              exp.id.eq(resume.resumeExperienceId || ""),
-            ).then((res) => res[0] || null)
+            const contactInfo = resume.resumeContactInformationId
+              ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
+                  (res) => res || null,
+                )
+              : null
 
-            const companies = await DataStore.query(Company, (company) =>
-              company.experienceID.eq(experience?.id || ""),
-            )
-
-            const engagements = (
-              await Promise.all(
-                companies.map((company) =>
-                  DataStore.query(Engagement, (engagement) => engagement.companyID.eq(company.id)),
-                ),
-              )
-            ).flat()
-
-            const accomplishments = (
-              await Promise.all(
-                engagements.map((engagement) =>
-                  DataStore.query(Accomplishment, (accomplishment) =>
-                    accomplishment.engagementID.eq(engagement.id),
-                  ),
-                ),
-              )
-            ).flat()
-
-            const contactInfo = await DataStore.query(ContactInformation, (ci) =>
-              ci.id.eq(resume.resumeContactInformationId || ""),
-            ).then((res) => res[0] || null)
-
-            const references = await DataStore.query(Reference, (ref) =>
-              ref.contactinformationID.eq(contactInfo?.id || ""),
-            )
+            const references = contactInfo
+              ? await DataStore.query(Reference, (r) =>
+                  r.contactinformationID.eq(contactInfo.id),
+                ).catch(() => [])
+              : []
 
             return {
-              ...resume,
+              id: resume.id,
+              title: resume.title,
               Summary: summary,
               Skills: skills,
               Education: education,
