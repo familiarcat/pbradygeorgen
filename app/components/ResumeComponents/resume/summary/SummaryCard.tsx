@@ -2,7 +2,6 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ExpandedResume } from "../../../types" // Adjust path as necessary
-import Itemcard from "app/components/ItemCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ReferenceItemCard from "./reference/ReferenceItemCard"
 
@@ -28,9 +27,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
             <Text>{"References"}</Text>
             <ResponsiveGrid>
               {resume?.References?.map((reference) => (
-                <>
-                  <ReferenceItemCard reference={reference} />
-                </>
+                <ReferenceItemCard reference={reference} key={reference.name} />
               ))}
             </ResponsiveGrid>
           </>
