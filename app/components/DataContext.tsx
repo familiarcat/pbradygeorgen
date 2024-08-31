@@ -144,6 +144,7 @@ interface DataProviderProps {
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   useEffect(() => {
+    console.log("DataProvider useEffect")
     const fetchData = async () => {
       // await clearData()
       try {
@@ -151,8 +152,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         console.log("Fetching resumes")
         const resumeData = await DataStore.query(Resume)
         console.log("resumeData", resumeData)
+        ;async () => await clearData()
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found")
+
           await createMockData()
             .then(() => console.log("create mock data completed on then"))
             .catch(console.error)

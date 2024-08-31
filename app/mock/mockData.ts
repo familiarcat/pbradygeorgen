@@ -19,8 +19,8 @@ import { toAWSDate } from "../utils/awsDateConverter" // Import the utility func
 
 // Function to clear data from all models
 export const clearData = async (log: boolean = true) => {
+  console.log("clearData")
   try {
-    console.log("clearData")
     if (log) console.log("Clearing DataStore...")
     await Promise.all([
       DataStore.delete(Resume, Predicates.ALL),
@@ -45,7 +45,9 @@ export const clearData = async (log: boolean = true) => {
 // Function to create mock data with relationships
 export const createMockData = async () => {
   console.log("Creating Mock Data in mockData.ts")
-
+  ;async () => {
+    await clearData()
+  }
   try {
     // Clear existing data
     await clearData(true)
