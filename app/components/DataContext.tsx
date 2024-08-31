@@ -146,21 +146,21 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   useEffect(() => {
     console.log("DataProvider useEffect")
     const fetchData = async () => {
-      await clearData()
+      // await clearData()
       try {
         // Fetch all resumes
         console.log("Fetching resumes")
         const resumeData = await DataStore.query(Resume)
         console.log("resumeData", resumeData)
         // await clearData()
-        // if (!resumeData || resumeData.length === 0) {
-        //   console.warn("No resumes found")
+        if (!resumeData || resumeData.length === 0) {
+          console.warn("No resumes found")
 
-        //   await createMockData()
-        //     .then(() => console.log("create mock data completed on then"))
-        //     .catch(console.error)
-        //   return
-        // }
+          await createMockData()
+            .then(() => console.log("create mock data completed on then"))
+            .catch(console.error)
+          return
+        }
 
         // Fetch related data for each resume
         const expandedResumes: ExpandedResume[] = await Promise.all(

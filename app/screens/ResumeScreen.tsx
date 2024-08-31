@@ -30,7 +30,7 @@ import Profilecard from "app/components/ProfileCard"
 import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ResumeView from "app/components/ResumeComponents/ResumeView"
-import Summary from "app/components/ResumeComponents/resume/ResumeView"
+// import Summary from "app/components/ResumeComponents/resume/ResumeView"
 import { AppStackScreenProps } from "app/navigators"
 import { clear } from "console"
 

@@ -1,3 +1,2 @@
 export * from "./ResumeView"
-export * from "./resume/ResumeView"
-export * from "./resume/summary/SummaryCard"
+export * from "./resume/summary/SummaryCardsContainer"
