@@ -2,13 +2,14 @@ import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
+import withThemeAndResponsiveStyles from "app/components/_HOC/withThemeAndResponsiveStyles"
 
 interface SummaryViewProps {
   resume: ExpandedResume
   baseHue?: number // Optional base hue for styling
 }
 
-const ResumeView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
+const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
 
   // Dynamic styling based on screen width
@@ -170,4 +171,5 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ResumeView
+const ThemedAndResponsiveResumeCard = withThemeAndResponsiveStyles(ResumeCard)
+export default ThemedAndResponsiveResumeCard

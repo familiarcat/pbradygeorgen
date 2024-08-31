@@ -2,7 +2,8 @@
 import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
 import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
-import SummaryView from "./resume/SummaryView"
+import SummaryView from "./resume/ResumeCard"
+import withThemeAndResponsiveStyles from "../_HOC/withThemeAndResponsiveStyles"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
@@ -214,4 +215,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ResumeView
+// export default ResumeView
+
+const ThemedAndResponsiveResumeView = withThemeAndResponsiveStyles(ResumeView)
+export default ThemedAndResponsiveResumeView
