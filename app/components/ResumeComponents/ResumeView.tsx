@@ -11,13 +11,9 @@ const ResumeViewContent = () => {
     <ScrollView style={styles.container}>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
-        console.log("contactInformation", resume.ContactInformation?.name)
+        // console.log("contactInformation", resume.ContactInformation?.name)
         return (
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
-            <Text style={[styles.resumeTitle, renderTextColor(1, baseHue)]}>
-              {resume.ContactInformation?.name}
-            </Text>
-
             {resume.Summary && (
               <View style={renderIndentation(1)}>
                 {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>

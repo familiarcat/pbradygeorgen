@@ -24,8 +24,8 @@ const SummaryCardsContainer: React.FC<{ resume: ExpandedResume }> = ({ resume })
     { name: "Contact Information", data: resume },
     { name: "Education", data: resume },
     { name: "Experience", data: resume },
-    { name: "Company", data: resume },
-    { name: "School", data: resume },
+    // { name: "Company", data: resume },
+    // { name: "School", data: resume },
     // Populate with actual data as needed
   ]
 

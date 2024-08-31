@@ -1,27 +1,25 @@
-// SummaryView.tsx
-
 import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
 
 interface SummaryViewProps {
-  resume: ExpandedResume // Define the prop type
+  resume: ExpandedResume
   baseHue?: number // Optional base hue for styling
 }
 
 const ResumeView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
-  const isVertical = screenWidth <= 640 // Use 640px as the mobile breakpoint
 
-  const level = 4 // Define the hierarchy level for this component
-
-  const hasOneRelationships = extractHasOneRelationships(resume)
+  // Dynamic styling based on screen width
+  const dynamicStyles = getDynamicStyles(screenWidth)
 
   return (
-    <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>
+    <View style={[styles.productCard, dynamicStyles.container]}>
       <View style={styles.imageContainer}>
-        <Text style={[styles.title, renderTextColor(level, baseHue)]}>{resume?.title}</Text>
+        <Text style={[styles.title, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          {resume?.ContactInformation?.name}
+        </Text>
         <Image
           style={styles.image}
           source={{
@@ -30,77 +28,59 @@ const ResumeView: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, renderTextColor(level, baseHue)]}>{resume?.title}</Text>
+        <Text style={[styles.title, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          {resume?.title}
+        </Text>
         <View style={styles.ratings}>
-          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>
+          <Text style={[styles.ratingText, renderTextColor(4, baseHue), dynamicStyles.text]}>
             Goals: {resume.Summary?.goals}
           </Text>
         </View>
         <View style={styles.ratings}>
-          <Text style={[styles.ratingText, renderTextColor(level, baseHue)]}>
+          <Text style={[styles.ratingText, renderTextColor(4, baseHue), dynamicStyles.text]}>
             Persona: {resume.Summary?.persona}
           </Text>
         </View>
-        <Text style={[styles.infoText, renderTextColor(level, baseHue)]}>Skills</Text>
+        <Text style={[styles.infoText, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          Skills
+        </Text>
         <View style={styles.tags}>
-          {resume.Skills.map((skill: SkillType, index: number) => (
+          {resume.Skills.map((skill: SkillType) => (
             <View style={styles.badge} key={skill.id}>
-              <Text style={[styles.badgeLabel, renderTextColor(level, baseHue)]}>
+              <Text style={[styles.badgeLabel, renderTextColor(4, baseHue), dynamicStyles.text]}>
                 {skill.title}
               </Text>
             </View>
           ))}
         </View>
         <View style={styles.quote}>
-          <Text style={[styles.quoteText, renderTextColor(level, baseHue)]}>
+          <Text style={[styles.quoteText, renderTextColor(4, baseHue), dynamicStyles.text]}>
             “This is a quote.“
           </Text>
         </View>
-        {/* <View style={styles.features}>
-          {hasOneRelationships.map((relationship) => (
-            <ItemCard key={relationship.id} resume={resume} name={relationship.name} />
-          ))}
-        </View> */}
         <SummaryCardsContainer resume={resume} />
       </View>
     </View>
   )
 }
 
-const extractHasOneRelationships = (resume: ExpandedResume) => {
-  const relationships = []
-
-  if (resume.Education) {
-    relationships.push({
-      id: resume.Education.id,
-      name: "Education",
-      model: resume.Education,
-    })
-  }
-
-  if (resume.Experience) {
-    relationships.push({
-      id: resume.Experience.id,
-      name: "Experience",
-      model: resume.Experience,
-    })
-  }
-
-  if (resume.ContactInformation) {
-    relationships.push({
-      id: resume.ContactInformation.id,
-      name: "Contact Information",
-      model: resume.ContactInformation,
-    })
-  }
-
-  return relationships
+function getDynamicStyles(screenWidth: number) {
+  const baseFontSize = screenWidth < 600 ? 12 : screenWidth < 960 ? 14 : 16
+  return StyleSheet.create({
+    container: {
+      flexDirection: screenWidth < 640 ? "column" : "row",
+    },
+    text: {
+      fontSize: baseFontSize,
+      lineHeight: baseFontSize * 1.5,
+    },
+  })
 }
 
 const renderTextColor = (level: number, baseHue: number): object => {
   const hue = (baseHue + level * 30) % 360
   const saturation = 100
-  const lightness = 30 // Ensuring text color is always dark enough
+  const lightness = 30
 
   return {
     color: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
@@ -112,32 +92,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    padding: 10,
+    padding: 20,
     backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: 8,
+    borderRadius: 20,
     marginBottom: 10,
     flexWrap: "wrap",
   },
-  horizontal: {
-    flexDirection: "row",
-  },
-  vertical: {
-    flexDirection: "column",
-  },
   imageContainer: {
-    width: "33.33%", // Image container width is 1/3 of the overall width
-    maxWidth: "33.33%", // Ensures that the image container never exceeds 1/3 of the total width
+    width: "33.33%",
+    maxWidth: "33.33%",
     alignItems: "flex-start",
   },
   image: {
-    width: "100%", // The image takes up the full width of the container
+    width: "100%",
     height: undefined,
-    aspectRatio: 1, // Maintain aspect ratio
+    aspectRatio: 1,
     resizeMode: "contain",
   },
   textContainer: {
-    flex: 1, // The text container takes up the remaining space
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 16,
     backgroundColor: "rgba(255,255,255,1)",
@@ -146,7 +120,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 20,
     lineHeight: 25,
-    fontFamily: "Inter",
     fontWeight: "700",
   },
   ratings: {
@@ -157,7 +130,6 @@ const styles = StyleSheet.create({
   ratingText: {
     fontSize: 16,
     lineHeight: 22,
-    fontFamily: "Inter",
     fontWeight: "400",
   },
   tags: {
@@ -178,15 +150,12 @@ const styles = StyleSheet.create({
   badgeLabel: {
     fontSize: 12,
     lineHeight: 12,
-    fontFamily: "Inter",
     fontWeight: "600",
   },
   infoText: {
     marginBottom: 8,
     fontSize: 16,
     lineHeight: 24,
-    fontFamily: "Inter",
-    fontWeight: "400",
     letterSpacing: 0.16,
   },
   quote: {
@@ -197,15 +166,7 @@ const styles = StyleSheet.create({
   quoteText: {
     fontSize: 16,
     lineHeight: 24,
-    fontFamily: "Inter",
-    fontWeight: "400",
     letterSpacing: 0.16,
-  },
-  features: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    flexWrap: "wrap",
   },
 })
 
