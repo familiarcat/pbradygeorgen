@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center", // Center items for a better aesthetic when there is extra space
+    justifyContent: "flex-start", // Center items for a better aesthetic when there is extra space
     padding: 10,
   },
   gridItem: {
