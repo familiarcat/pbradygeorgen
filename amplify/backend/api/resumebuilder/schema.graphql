@@ -103,5 +103,4 @@ type Summary @model @auth(rules: [{allow: public}]) {
   url: String
   headshot: String
   gptResponse: String
-}
- 
+} 
