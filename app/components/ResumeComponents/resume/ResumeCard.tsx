@@ -36,7 +36,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           }}
         />
       </View>
-      <View style={[styles.textContainer, { backgroundColor: "orange" }]}>
+      <View style={[styles.textContainer, { backgroundColor: "orange", maxWidth: "100%" }]}>
         <Text style={[styles.title, renderTextColor(3, baseHue), dynamicStyles.text]}>
           {resume?.title}
         </Text>
