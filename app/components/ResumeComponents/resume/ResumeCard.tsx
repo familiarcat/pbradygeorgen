@@ -127,9 +127,11 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   image: {
+    marginTop: 10,
     width: "100%",
     height: "100%",
     aspectRatio: 1,
+    borderRadius: 5,
   },
   textContainer: {
     flex: 1,
