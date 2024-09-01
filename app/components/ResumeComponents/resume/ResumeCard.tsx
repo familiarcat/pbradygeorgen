@@ -4,6 +4,7 @@ import { ExpandedResume, SkillType } from "../../types" // Import the type for R
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
 import ReferenceItemCard from "./summary/reference/ReferenceItemCard"
 import ContactInformationCard from "./ContactInformationCard"
+import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
 
 interface SummaryViewProps {
   resume: ExpandedResume
@@ -12,6 +13,7 @@ interface SummaryViewProps {
 
 const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
+  const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
 
   // Dynamic styling based on screen width
   const dynamicStyles = getDynamicStyles(screenWidth)
@@ -23,12 +25,14 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
           {resume?.ContactInformation?.name}
         </Text> */}
-        <ContactInformationCard
-          id={resume?.ContactInformation?.id ?? ""}
-          name={resume?.ContactInformation?.name}
-          email={resume?.ContactInformation?.email}
-          phone={resume?.ContactInformation?.phone}
-        />
+        <DataProvider>
+          <ContactInformationCard
+            id={resume?.ContactInformation?.id ?? ""}
+            name={resume?.ContactInformation?.name}
+            email={resume?.ContactInformation?.email}
+            phone={resume?.ContactInformation?.phone}
+          />
+        </DataProvider>
         <Image
           style={styles.image}
           source={{
@@ -37,7 +41,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         />
       </View>
       <View style={[styles.textContainer, { maxWidth: "100%" }]}>
-        <Text style={[styles.title, renderTextColor(3, baseHue), dynamicStyles.text]}>
+        <Text style={[styles.title, renderTextColor(10, baseHue), dynamicStyles.headingText]}>
           {resume?.title}
         </Text>
         <View style={styles.ratings}>
@@ -56,7 +60,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         <View style={styles.tags}>
           {resume.Skills.map((skill: SkillType) => (
             <View style={styles.badge} key={skill.id}>
-              <Text style={[styles.badgeLabel, renderTextColor(4, baseHue), dynamicStyles.text]}>
+              <Text style={[styles.badgeLabel, renderTextColor(2, baseHue), dynamicStyles.text]}>
                 {skill.title}
               </Text>
             </View>
@@ -82,6 +86,10 @@ function getDynamicStyles(screenWidth: number) {
     },
     text: {
       fontSize: baseFontSize,
+      lineHeight: baseFontSize * 1.5,
+    },
+    headingText: {
+      fontSize: baseFontSize * 1.5,
       lineHeight: baseFontSize * 1.5,
     },
     image: {
@@ -132,9 +140,9 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 8,
-    fontSize: 60,
+    fontSize: 18,
     lineHeight: 25,
-    fontWeight: "700",
+    fontWeight: "800",
   },
   ratings: {
     flexDirection: "row",
@@ -156,15 +164,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 5,
     paddingVertical: 6,
-    borderRadius: 32,
+    borderRadius: 10,
     backgroundColor: "rgba(239,240,240,1)",
   },
   badgeLabel: {
-    fontSize: 12,
-    lineHeight: 12,
-    fontWeight: "600",
+    fontSize: 8,
+    lineHeight: 8,
+    fontWeight: "500",
   },
   infoText: {
     marginBottom: 8,

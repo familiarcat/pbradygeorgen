@@ -1,16 +1,20 @@
 import React, { ReactNode } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ReferenceType, SummaryType, ContactInformationType } from "../../types"
+import { DataProvider, useDataContext } from "app/components/DataContext"
 
 // ItemCard adapted to fit within a responsive grid
 const ContactInformationCard: React.FC<ContactInformationType> = ({ name, email, phone }) => {
+  const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   return (
-    <View style={styles.itemCard}>
-      <Text style={styles.header}>{name}</Text>
+    <DataProvider>
+      <View style={[styles.itemCard, renderTextColor(8, getBaseHueForResume(2))]}>
+        <Text style={styles.header}>{name}</Text>
 
-      <Text style={styles.tShirt}>{email}</Text>
-      <Text style={styles.classicLongSleeve}>{phone}</Text>
-    </View>
+        <Text style={[styles.tShirt, renderIndentation(2)]}>{email}</Text>
+        <Text style={[styles.classicLongSleeve, renderIndentation(2)]}>{phone}</Text>
+      </View>
+    </DataProvider>
   )
 }
 
