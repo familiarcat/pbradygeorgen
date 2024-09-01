@@ -1,26 +1,15 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ReferenceType, SummaryType } from "../../../../types"
-
-interface ReferenceCardType {
-  reference: ReferenceType
-}
+import { ReferenceType, SummaryType, ContactInformationType } from "../../types"
 
 // ItemCard adapted to fit within a responsive grid
-const ReferenceItemCard: React.FC<ReferenceCardType> = ({ reference }) => {
+const ContactInformationCard: React.FC<ContactInformationType> = ({ name, email, phone }) => {
   return (
     <View style={styles.itemCard}>
-      <Text style={styles.header}>{reference.name}</Text>
-      {/* <View style={styles.badge}>
-        <Text style={styles.label}>{reference.name}</Text>
-      </View> */}
-      {/* <View style={styles.frame417}> */}
-      {/* <View style={styles.productTitle}> */}
-      <Text style={styles.tShirt}>{reference.email}</Text>
-      <Text style={styles.classicLongSleeve}>{reference.phone}</Text>
-      {/* </View> */}
-      {/* <Text style={styles.price}>$99</Text> */}
-      {/* </View> */}
+      <Text style={styles.header}>{name}</Text>
+
+      <Text style={styles.tShirt}>{email}</Text>
+      <Text style={styles.classicLongSleeve}>{phone}</Text>
     </View>
   )
 }
@@ -31,19 +20,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    minWidth: 100, // Minimum width from responsive grid
-    maxWidth: 200, // Maximum width from responsive grid
-    width: "100%", // Take full available width
+    // minWidth: 100, // Minimum width from responsive grid
+    maxWidth: 400, // Maximum width from responsive grid
+    // width: "100%", // Take full available width
     height: "60%",
     padding: 5,
-    // backgroundColor: "rgba(255,255,255,1)",
+    // backgroundColor: "rgba(255,0,255,1)",
     borderRadius: 8,
   },
   header: {
     // Correct style for the header
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 5,
+    width: "100%",
   },
   badge: {
     flexDirection: "row",
@@ -52,7 +42,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 8,
     padding: 8,
-    borderRadius: 15.5,
+    borderRadius: 32,
     backgroundColor: "rgba(214,245,219,1)",
   },
   label: {
@@ -89,4 +79,4 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
 })
-export default ReferenceItemCard
+export default ContactInformationCard

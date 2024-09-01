@@ -33,11 +33,11 @@ const SummaryCardsContainer: React.FC<{ resume: ExpandedResume }> = ({ resume })
   sectionData.sort((a, b) => sortOrder.indexOf(a.name) - sortOrder.indexOf(b.name))
 
   return (
-    <>
+    <View>
       {sectionData.map((section) => (
         <SummaryCard key={section.name} resume={section.data} name={section.name} />
       ))}
-    </>
+    </View>
   )
 }
 

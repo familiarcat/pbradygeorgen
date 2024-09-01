@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     padding: 16,
     margin: 8,
-    backgroundColor: "rgba(255,255,255,1)",
+    backgroundColor: "rgba(0,255,255,1)",
     borderRadius: 8,
     flexGrow: 1,
     "@media (max-width: 640px)": {

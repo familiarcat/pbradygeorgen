@@ -2,7 +2,8 @@ import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
-import withThemeAndResponsiveStyles from "app/components/_HOC/withThemeAndResponsiveStyles"
+import ReferenceItemCard from "./summary/reference/ReferenceItemCard"
+import ContactInformationCard from "./ContactInformationCard"
 
 interface SummaryViewProps {
   resume: ExpandedResume
@@ -17,10 +18,17 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 
   return (
     <View style={[styles.productCard, dynamicStyles.container]}>
-      <View style={styles.imageContainer}>
-        <Text style={[styles.title, renderTextColor(4, baseHue), dynamicStyles.text]}>
+      <View style={[styles.imageContainer, { backgroundColor: "blue" }]}>
+        {/* {resume.ContactInformation && <ReferenceItemCard reference={resume.ContactInformation} />} */}
+        {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
           {resume?.ContactInformation?.name}
-        </Text>
+        </Text> */}
+        <ContactInformationCard
+          id={resume?.ContactInformation?.id ?? ""}
+          name={resume?.ContactInformation?.name}
+          email={resume?.ContactInformation?.email}
+          phone={resume?.ContactInformation?.phone}
+        />
         <Image
           style={styles.image}
           source={{
@@ -28,8 +36,8 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           }}
         />
       </View>
-      <View style={styles.textContainer}>
-        <Text style={[styles.title, renderTextColor(4, baseHue), dynamicStyles.text]}>
+      <View style={[styles.textContainer, { backgroundColor: "orange" }]}>
+        <Text style={[styles.title, renderTextColor(3, baseHue), dynamicStyles.text]}>
           {resume?.title}
         </Text>
         <View style={styles.ratings}>
@@ -66,7 +74,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 }
 
 function getDynamicStyles(screenWidth: number) {
-  const baseFontSize = screenWidth < 600 ? 12 : screenWidth < 960 ? 14 : 16
+  const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
   return StyleSheet.create({
     container: {
       flexDirection: screenWidth < 640 ? "column" : "row",
@@ -81,7 +89,7 @@ function getDynamicStyles(screenWidth: number) {
 const renderTextColor = (level: number, baseHue: number): object => {
   const hue = (baseHue + level * 30) % 360
   const saturation = 100
-  const lightness = 30
+  const lightness = 15
 
   return {
     color: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
@@ -94,10 +102,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 20,
-    backgroundColor: "rgba(255,255,255,1)",
+    backgroundColor: "rgba(255,255,0,1)",
     borderRadius: 20,
     marginBottom: 10,
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
   },
   imageContainer: {
     width: "33.33%",
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 8,
-    fontSize: 20,
+    fontSize: 60,
     lineHeight: 25,
     fontWeight: "700",
   },
@@ -168,8 +176,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     letterSpacing: 0.16,
+    fontStyle: "italic",
   },
 })
 
-const ThemedAndResponsiveResumeCard = withThemeAndResponsiveStyles(ResumeCard)
-export default ThemedAndResponsiveResumeCard
+export default ResumeCard

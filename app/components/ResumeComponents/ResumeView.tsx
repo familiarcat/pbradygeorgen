@@ -3,17 +3,16 @@ import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
 import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
 import SummaryView from "./resume/ResumeCard"
-import withThemeAndResponsiveStyles from "../_HOC/withThemeAndResponsiveStyles"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
-
   return (
     <ScrollView style={styles.container}>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
         // console.log("contactInformation", resume.ContactInformation?.name)
         return (
+          // using the Summary view to contain the Resume data
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
             {resume.Summary && (
               <View style={renderIndentation(1)}>
@@ -30,7 +29,7 @@ const ResumeViewContent = () => {
 
             {resume.Skills && resume.Skills.length > 0 && (
               <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 60)]}>Skills</Text>
+                <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills</Text>
                 {resume.Skills.map((skill) => (
                   <Text
                     key={skill.id}
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "cyan",
   },
   resume: {
     marginBottom: 20,
@@ -217,5 +216,4 @@ const styles = StyleSheet.create({
 
 // export default ResumeView
 
-const ThemedAndResponsiveResumeView = withThemeAndResponsiveStyles(ResumeView)
-export default ThemedAndResponsiveResumeView
+export default ResumeView
