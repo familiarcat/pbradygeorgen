@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native"
 import { ExpandedResume } from "../../../types" // Adjust path as necessary
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ReferenceItemCard from "./reference/ReferenceItemCard"
+import { DataProvider, useDataContext } from "app/components/DataContext"
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -18,13 +19,15 @@ const sortOrder = [
 ]
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
+  const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
+
   const displayData = () => {
     switch (name) {
       case "Contact Information":
         return (
           <>
-            <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
-            <Text>{"References"}</Text>
+            {/* <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
+            <Text>{"References"}</Text> */}
             <ResponsiveGrid>
               {resume?.References?.map((reference) => (
                 <ReferenceItemCard reference={reference} key={reference.name} />
@@ -35,7 +38,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
       case "Education":
         return (
           <>
-            <Text>{resume.Education?.summary || "No Education Summary"}</Text>
+            <Text style={[styles.itemCard, renderTextColor(8, getBaseHueForResume(2))]}>
+              {resume.Education?.summary || "No Education Summary"}
+            </Text>
             {resume.Schools?.map((school) => (
               <Text key={school.id}>{school.name}</Text>
             ))}
@@ -60,7 +65,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
 
   return (
     <>
-      <Text style={styles.itemCardTitle}>{name}</Text>
+      <Text style={[styles.itemCardTitle, renderTextColor(5, getBaseHueForResume(2))]}>{name}</Text>
       {displayData()}
     </>
   )

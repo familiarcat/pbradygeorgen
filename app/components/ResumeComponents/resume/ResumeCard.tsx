@@ -25,14 +25,12 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
           {resume?.ContactInformation?.name}
         </Text> */}
-        <DataProvider>
-          <ContactInformationCard
-            id={resume?.ContactInformation?.id ?? ""}
-            name={resume?.ContactInformation?.name}
-            email={resume?.ContactInformation?.email}
-            phone={resume?.ContactInformation?.phone}
-          />
-        </DataProvider>
+        <ContactInformationCard
+          id={resume?.ContactInformation?.id ?? ""}
+          name={resume?.ContactInformation?.name}
+          email={resume?.ContactInformation?.email}
+          phone={resume?.ContactInformation?.phone}
+        />
         <Image
           style={styles.image}
           source={{
@@ -41,7 +39,14 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         />
       </View>
       <View style={[styles.textContainer, { maxWidth: "100%" }]}>
-        <Text style={[styles.title, renderTextColor(10, baseHue), dynamicStyles.headingText]}>
+        <Text
+          style={[
+            styles.title,
+            renderTextColor(10, baseHue),
+            dynamicStyles.headingText,
+            { marginLeft: -15 },
+          ]}
+        >
           {resume?.title}
         </Text>
         <View style={styles.ratings}>
