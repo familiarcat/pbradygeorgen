@@ -15,7 +15,7 @@ const ResumeViewContent = () => {
           // using the Summary view to contain the Resume data
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
             {resume.Summary && (
-              <View style={renderIndentation(1)}>
+              <View style={renderIndentation(0)}>
                 {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Goals: {resume.Summary.goals}
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "cyan",
   },
   resume: {
     marginBottom: 20,
