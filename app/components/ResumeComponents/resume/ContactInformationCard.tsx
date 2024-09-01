@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     // minWidth: 100, // Minimum width from responsive grid
-    maxWidth: 400, // Maximum width from responsive grid
+    // maxWidth: 400, // Maximum width from responsive grid
     // width: "100%", // Take full available width
     // height: "60%",
     padding: 5,

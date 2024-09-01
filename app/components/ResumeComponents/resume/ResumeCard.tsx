@@ -18,7 +18,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 
   return (
     <View style={[styles.productCard, dynamicStyles.container]}>
-      <View style={[styles.imageContainer, { backgroundColor: "blue" }]}>
+      <View style={[styles.imageContainer]}>
         {/* {resume.ContactInformation && <ReferenceItemCard reference={resume.ContactInformation} />} */}
         {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
           {resume?.ContactInformation?.name}
@@ -36,7 +36,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           }}
         />
       </View>
-      <View style={[styles.textContainer, { backgroundColor: "orange", maxWidth: "100%" }]}>
+      <View style={[styles.textContainer, { maxWidth: "100%" }]}>
         <Text style={[styles.title, renderTextColor(3, baseHue), dynamicStyles.text]}>
           {resume?.title}
         </Text>
@@ -75,6 +75,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 
 function getDynamicStyles(screenWidth: number) {
   const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
+  console.log("getting dynamic styles")
   return StyleSheet.create({
     container: {
       flexDirection: screenWidth < 640 ? "column" : "row",
@@ -82,6 +83,9 @@ function getDynamicStyles(screenWidth: number) {
     text: {
       fontSize: baseFontSize,
       lineHeight: baseFontSize * 1.5,
+    },
+    image: {
+      borderColor: screenWidth < 640 ? "blue" : "red",
     },
   })
 }
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    padding: 0,
+    padding: 15,
     backgroundColor: "rgba(255,255,255,1)",
     borderRadius: 20,
     marginBottom: 10,
@@ -111,13 +115,13 @@ const styles = StyleSheet.create({
     width: "33.33%",
     maxWidth: "33.33%",
     alignItems: "flex-start",
+    resizeMode: "cover",
     padding: 0,
   },
   image: {
     width: "100%",
     height: "100%",
     aspectRatio: 1,
-    resizeMode: "cover",
   },
   textContainer: {
     flex: 1,
