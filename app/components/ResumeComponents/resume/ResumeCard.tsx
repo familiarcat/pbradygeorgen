@@ -133,10 +133,13 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 10,
+    paddingTop: 10,
+    paddingLeft: 10,
     width: "100%",
     height: "100%",
     aspectRatio: 1,
     borderRadius: 5,
+    resizeMode: "cover",
   },
   textContainer: {
     flex: 1,
