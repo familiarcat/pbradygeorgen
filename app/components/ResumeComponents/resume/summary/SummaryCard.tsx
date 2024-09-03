@@ -1,10 +1,11 @@
 // SummaryCard.tsx
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ExpandedResume } from "../../../types" // Adjust path as necessary
+import { ExpandedResume, EducationType } from "../../../types" // Adjust path as necessary
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ReferenceItemCard from "./reference/ReferenceItemCard"
 import { DataProvider, useDataContext } from "app/components/DataContext"
+import EducationItemCard from "./education/EducationItemCard"
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -23,7 +24,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
 
   const displayData = () => {
     switch (name) {
-      case "Contact Information":
+      case "References":
         return (
           <>
             {/* <Text>{resume.ContactInformation?.name || "No Contact Information name"}</Text>
@@ -38,12 +39,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
       case "Education":
         return (
           <>
-            <Text style={[styles.itemCard, renderTextColor(8, getBaseHueForResume(2))]}>
-              {resume.Education?.summary || "No Education Summary"}
-            </Text>
-            {resume.Schools?.map((school) => (
-              <Text key={school.id}>{school.name}</Text>
-            ))}
+            {console.log("Education", resume.Education)}
+            <ResponsiveGrid>
+              {resume.Education && <EducationItemCard resume={resume}></EducationItemCard>}
+            </ResponsiveGrid>
           </>
         )
       case "Experience":
@@ -62,7 +61,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
   }
 
   if (!sortOrder.includes(name)) return null // Do not render the component if the name is not in sortOrder
-
+  if (name == "Contact Information") {
+    // console.log("name is Contact Information")
+    name = "References"
+  }
   return (
     <>
       <Text style={[styles.itemCardTitle, renderTextColor(5, getBaseHueForResume(2))]}>{name}</Text>

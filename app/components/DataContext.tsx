@@ -130,7 +130,6 @@ const DataContext = createContext<DataContextType | undefined>(undefined)
 
 export const useDataContext = (): DataContextType => {
   const context = useContext(DataContext)
-  console.log("\n\nusing DataContext ")
   if (!context) {
     throw new Error("useDataContext must be used within a DataProvider")
   }
@@ -144,14 +143,14 @@ interface DataProviderProps {
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   useEffect(() => {
-    console.log("DataProvider useEffect")
+    // console.log("DataProvider useEffect")
     const fetchData = async () => {
       // await clearData()
       try {
         // Fetch all resumes
-        console.log("Fetching resumes")
+        // console.log("Fetching resumes")
         const resumeData = await DataStore.query(Resume)
-        console.log("resumeData", resumeData)
+        // console.log("resumeData", resumeData)
         // await clearData()
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found")

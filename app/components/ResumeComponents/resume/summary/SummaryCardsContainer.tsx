@@ -13,18 +13,18 @@ interface ResumeSection {
 
 const SummaryCardsContainer: React.FC<{ resume: ExpandedResume }> = ({ resume }) => {
   const sortOrder = [
-    "Contact Information",
     "Education",
     "Experience",
+    "Contact Information",
     "Company",
     "School",
     // Add other sections as needed
   ]
 
   const sectionData: ResumeSection[] = [
-    { name: "Contact Information", data: resume },
     { name: "Education", data: resume },
     { name: "Experience", data: resume },
+    { name: "Contact Information", data: resume },
     // { name: "Company", data: resume },
     // { name: "School", data: resume },
     // Populate with actual data as needed
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     // maxWidth: 400, // Maximum width from responsive grid
     // width: "100%", // Take full available width
     // height: "60%",
-    padding: 5,
+    // padding: 5,
     // backgroundColor: "purple",
     borderRadius: 8,
   },

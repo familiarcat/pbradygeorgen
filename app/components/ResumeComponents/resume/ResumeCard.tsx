@@ -42,7 +42,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         <Text
           style={[
             styles.title,
-            renderTextColor(10, baseHue),
+            renderTextColor(5, getBaseHueForResume(5)),
             dynamicStyles.headingText,
             { marginLeft: -15 },
           ]}
@@ -50,29 +50,44 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           {resume?.title}
         </Text>
         <View style={styles.ratings}>
-          <Text style={[styles.ratingText, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          <Text
+            style={[
+              styles.ratingText,
+              renderTextColor(4, getBaseHueForResume(2)),
+              dynamicStyles.text,
+            ]}
+          >
             Goals: {resume.Summary?.goals}
           </Text>
         </View>
         <View style={styles.ratings}>
-          <Text style={[styles.ratingText, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          <Text
+            style={[
+              styles.ratingText,
+              renderTextColor(4, getBaseHueForResume(5)),
+              dynamicStyles.text,
+            ]}
+          >
             Persona: {resume.Summary?.persona}
           </Text>
         </View>
-        <Text style={[styles.infoText, renderTextColor(4, baseHue), dynamicStyles.text]}>
-          Skills
-        </Text>
+        <Text style={[styles.title, renderTextColor(4, getBaseHueForResume(5))]}>Skills</Text>
+        {/* Skills list */}
         <View style={styles.tags}>
           {resume.Skills.map((skill: SkillType) => (
             <View style={styles.badge} key={skill.id}>
-              <Text style={[styles.badgeLabel, renderTextColor(2, baseHue), dynamicStyles.text]}>
-                {skill.title}
-              </Text>
+              <Text style={[renderTextColor(2, getBaseHueForResume(3))]}>{skill.title}</Text>
             </View>
           ))}
         </View>
         <View style={styles.quote}>
-          <Text style={[styles.quoteText, renderTextColor(4, baseHue), dynamicStyles.text]}>
+          <Text
+            style={[
+              styles.quoteText,
+              renderTextColor(4, getBaseHueForResume(5)),
+              dynamicStyles.text,
+            ]}
+          >
             “This is a quote.“
           </Text>
         </View>
@@ -84,7 +99,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
 
 function getDynamicStyles(screenWidth: number) {
   const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
-  console.log("getting dynamic styles")
+  // console.log("getting dynamic styles")
   return StyleSheet.create({
     container: {
       flexDirection: screenWidth < 640 ? "column" : "row",
@@ -97,20 +112,7 @@ function getDynamicStyles(screenWidth: number) {
       fontSize: baseFontSize * 1.5,
       lineHeight: baseFontSize * 1.5,
     },
-    image: {
-      borderColor: screenWidth < 640 ? "blue" : "red",
-    },
   })
-}
-
-const renderTextColor = (level: number, baseHue: number): object => {
-  const hue = (baseHue + level * 30) % 360
-  const saturation = 100
-  const lightness = 15
-
-  return {
-    color: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
-  }
 }
 
 const styles = StyleSheet.create({
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   ratingText: {
-    fontSize: 16,
+    fontSize: 68,
     lineHeight: 22,
     fontWeight: "400",
   },
@@ -180,8 +182,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(239,240,240,1)",
   },
   badgeLabel: {
-    fontSize: 8,
-    lineHeight: 8,
     fontWeight: "500",
   },
   infoText: {

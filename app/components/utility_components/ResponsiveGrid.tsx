@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
     minWidth: 225, // Minimum width for each item
     maxWidth: "26.7%", // Maximum width for each item
     width: "100%", // Allows flexing within minWidth and maxWidth constraints
-    padding: 10,
-    marginBottom: 20, // Space between rows
-    marginRight: 20,
+    padding: 5,
+    marginBottom: 5, // Space between rows
+    marginRight: 10,
     backgroundColor: "rgba(255, 255, 255, 0)",
   },
 })

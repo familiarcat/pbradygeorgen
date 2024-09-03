@@ -12,11 +12,13 @@ const ReferenceItemCard: React.FC<ReferenceCardType> = ({ reference }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   return (
     <View style={styles.itemCard}>
-      <Text style={[styles.header]}>{reference.name}</Text>
-      <Text style={[styles.email, , renderTextColor(5, 0), renderIndentation(1)]}>
+      <Text style={[styles.header, renderTextColor(3, 0), renderIndentation(0)]}>
+        {reference.name}
+      </Text>
+      <Text style={[styles.email, renderTextColor(5, 0), renderIndentation(0.5)]}>
         {reference.email}
       </Text>
-      <Text style={[styles.phone, , renderTextColor(5, 2), renderIndentation(1)]}>
+      <Text style={[styles.phone, renderTextColor(4, 1), renderIndentation(0.75)]}>
         {reference.phone}
       </Text>
     </View>
@@ -29,11 +31,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    // minWidth: 100, // Minimum width from responsive grid
+    minWidth: "100%", // Minimum width from responsive grid
     // maxWidth: 200, // Maximum width from responsive grid
+    width: 225,
     height: "100%",
-    padding: 15,
-    backgroundColor: "rgba(255,0,255,.25)",
+    // padding: 15,
+    backgroundColor: "rgba(255,0,255,0)",
     fontColor: "rgba(255,0,255,1)",
     borderRadius: 8,
   },
