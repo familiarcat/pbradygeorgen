@@ -40,9 +40,13 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
         return (
           <>
             {console.log("Education", resume.Education)}
-            <ResponsiveGrid>
-              {resume.Education && <EducationItemCard resume={resume}></EducationItemCard>}
-            </ResponsiveGrid>
+            {/* <ResponsiveGrid>
+              {resume?.References?.map((reference) => (
+                <ReferenceItemCard reference={reference} key={reference.name} />
+              ))}
+            </ResponsiveGrid> */}
+
+            {resume.Education && <EducationItemCard resume={resume}></EducationItemCard>}
           </>
         )
       case "Experience":

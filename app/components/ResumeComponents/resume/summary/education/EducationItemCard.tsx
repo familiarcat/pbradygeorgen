@@ -15,17 +15,16 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   return (
     <View style={styles.itemCard}>
       {resume.Education && (
-        <View style={renderIndentation(0)}>
-          <Text style={[renderTextColor(3, getBaseHueForResume(3) + 120)]}>
+        <View style={[renderIndentation(0)]}>
+          <Text style={[renderIndentation(1), renderTextColor(3, getBaseHueForResume(3) + 120)]}>
             {resume.Education.summary}
           </Text>
           {resume.Schools && resume.Schools.length > 0 && (
-            <View style={renderIndentation(1)}>
-              <Text style={[renderTextColor(3, getBaseHueForResume(4) + 120)]}>Schools</Text>
+            <View style={[renderIndentation(0), { backgroundColor: "red" }]}>
               <ResponsiveGrid>
                 {resume.Schools.map((school) => (
                   <View key={school.id} style={renderIndentation(1)}>
-                    <Text style={[styles.header, renderTextColor(4, getBaseHueForResume(4) + 120)]}>
+                    <Text style={[styles.email, renderTextColor(4, getBaseHueForResume(4) + 120)]}>
                       {school.name}
                     </Text>
 

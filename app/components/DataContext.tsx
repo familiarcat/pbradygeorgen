@@ -16,6 +16,7 @@ import {
   Accomplishment,
 } from "../models"
 import { clearData, createMockData } from "app/mock/mockData"
+import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 
 // Define TypeScript interfaces for your models
 interface ResumeType {
@@ -124,6 +125,7 @@ interface DataContextType {
   getBaseHueForResume: (index: number) => number
   renderIndentation: (level: number) => { marginLeft: number }
   renderTextColor: (level: number, baseHue: number) => { color: string; backgroundColor: string }
+  dynamicStyles: any
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined)
@@ -142,24 +144,25 @@ interface DataProviderProps {
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
+  const { width: screenWidth } = useWindowDimensions()
   useEffect(() => {
     // console.log("DataProvider useEffect")
     const fetchData = async () => {
-      await clearData()
+      // await clearData()
       try {
         // Fetch all resumes
         // console.log("Fetching resumes")
         const resumeData = await DataStore.query(Resume)
         // console.log("resumeData", resumeData)
         // await clearData()
-        // if (!resumeData || resumeData.length === 0) {
-        //   console.warn("No resumes found")
+        if (!resumeData || resumeData.length === 0) {
+          console.warn("No resumes found")
 
-        //   await createMockData()
-        //     .then(() => console.log("create mock data completed on then"))
-        //     .catch(console.error)
-        //   return
-        // }
+          await createMockData()
+            .then(() => console.log("create mock data completed on then"))
+            .catch(console.error)
+          return
+        }
 
         // Fetch related data for each resume
         const expandedResumes: ExpandedResume[] = await Promise.all(
@@ -285,6 +288,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     backgroundColor: getBackgroundColorForLevel(level, baseHue),
   })
 
+  const dynamicStyles = getDynamicStyles(screenWidth)
+
   return (
     <DataContext.Provider
       value={{
@@ -292,9 +297,27 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         getBaseHueForResume,
         renderIndentation,
         renderTextColor,
+        dynamicStyles,
       }}
     >
       {children}
     </DataContext.Provider>
   )
+}
+
+function getDynamicStyles(screenWidth: number) {
+  const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
+  return StyleSheet.create({
+    container: {
+      flexDirection: screenWidth < 640 ? "column" : "row",
+    },
+    text: {
+      fontSize: baseFontSize,
+      lineHeight: baseFontSize * 1.5,
+    },
+    headingText: {
+      fontSize: baseFontSize * 1.5,
+      lineHeight: baseFontSize * 1.5,
+    },
+  })
 }

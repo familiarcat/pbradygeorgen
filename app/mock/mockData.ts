@@ -90,7 +90,18 @@ export const createMockData = async () => {
 
     // Create Skills linked to Resumes
     const skills1 = await Promise.all(
-      ["JavaScript", "React", "Node.js"].map((title) =>
+      [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Ruby",
+        "Agile",
+        "Gitflow",
+        "TDD",
+        "CI/CD",
+        "AWS",
+        "AWS Amplify",
+      ].map((title) =>
         DataStore.save(
           new Skill({
             title: title,
@@ -138,6 +149,13 @@ export const createMockData = async () => {
       }),
     )
 
+    const school1a = await DataStore.save(
+      new School({
+        name: "DEF University",
+        educationID: education1.id,
+      }),
+    )
+
     const school2 = await DataStore.save(
       new School({
         name: "XYZ Institute",
@@ -159,6 +177,12 @@ export const createMockData = async () => {
           startYear: toAWSDate(2014),
           endYear: toAWSDate(2018),
           schoolID: school1.id,
+        },
+        {
+          major: "Masters of Software Architecture",
+          startYear: toAWSDate(2014),
+          endYear: toAWSDate(2018),
+          schoolID: school1a.id,
         },
       ].map((degree) =>
         DataStore.save(

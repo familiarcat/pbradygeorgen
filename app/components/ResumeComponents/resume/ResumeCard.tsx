@@ -13,10 +13,8 @@ interface SummaryViewProps {
 
 const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
   const { width: screenWidth } = useWindowDimensions()
-  const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
-
-  // Dynamic styling based on screen width
-  const dynamicStyles = getDynamicStyles(screenWidth)
+  const { getBaseHueForResume, renderIndentation, renderTextColor, dynamicStyles } =
+    useDataContext()
 
   return (
     <View style={[styles.productCard, dynamicStyles.container]}>
@@ -95,24 +93,6 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
       </View>
     </View>
   )
-}
-
-function getDynamicStyles(screenWidth: number) {
-  const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
-  // console.log("getting dynamic styles")
-  return StyleSheet.create({
-    container: {
-      flexDirection: screenWidth < 640 ? "column" : "row",
-    },
-    text: {
-      fontSize: baseFontSize,
-      lineHeight: baseFontSize * 1.5,
-    },
-    headingText: {
-      fontSize: baseFontSize * 1.5,
-      lineHeight: baseFontSize * 1.5,
-    },
-  })
 }
 
 const styles = StyleSheet.create({
