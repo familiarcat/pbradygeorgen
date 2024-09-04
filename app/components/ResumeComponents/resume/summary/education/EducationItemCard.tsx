@@ -15,28 +15,33 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   return (
     <View style={styles.itemCard}>
       {resume.Education && (
-        <View style={[renderIndentation(0)]}>
-          <Text style={[renderIndentation(1), renderTextColor(3, getBaseHueForResume(3) + 120)]}>
+        <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
+          <Text
+            style={[
+              renderIndentation(1),
+              styles.header,
+              renderTextColor(3, getBaseHueForResume(3)),
+            ]}
+          >
             {resume.Education.summary}
           </Text>
           {resume.Schools && resume.Schools.length > 0 && (
-            <View style={[renderIndentation(0), { backgroundColor: "red" }]}>
+            <View>
               <ResponsiveGrid>
                 {resume.Schools.map((school) => (
-                  <View key={school.id} style={renderIndentation(1)}>
-                    <Text style={[styles.email, renderTextColor(4, getBaseHueForResume(4) + 120)]}>
+                  <View key={school.id} style={[renderTextColor(1, getBaseHueForResume(1))]}>
+                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(2))]}>
                       {school.name}
                     </Text>
 
-                    {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
+                    {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree, index) => (
                       <Text
                         key={degree.id}
-                        style={[
-                          renderTextColor(5, getBaseHueForResume(4) + 120),
-                          renderIndentation(1),
-                        ]}
+                        style={[renderTextColor(3, getBaseHueForResume(3)), renderIndentation(1)]}
                       >
-                        {degree.major} ({degree.startYear} - {degree.endYear})
+                        {degree.major}(
+                        {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"} -{" "}
+                        {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
                       </Text>
                     ))}
                   </View>
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
   },
   header: {
     // Correct style for the header
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
   },
