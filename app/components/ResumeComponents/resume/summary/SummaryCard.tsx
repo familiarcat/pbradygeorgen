@@ -6,6 +6,7 @@ import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ReferenceItemCard from "./reference/ReferenceItemCard"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import EducationItemCard from "./education/EducationItemCard"
+import ExperienceItemCard from "./experience/ExperienceItemCard"
 
 interface SummaryCardProps {
   resume: ExpandedResume
@@ -39,7 +40,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
       case "Education":
         return (
           <>
-            {console.log("Education", resume.Education)}
+            {/* {console.log("Education", resume.Education)} */}
             {/* <ResponsiveGrid>
               {resume?.References?.map((reference) => (
                 <ReferenceItemCard reference={reference} key={reference.name} />
@@ -54,6 +55,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
           <>
             <Text>{resume.Experience?.title || "No Experience Title"}</Text>
             <Text>{resume.Experience?.text || "No Experience Text"}</Text>
+            {resume.Experience && <ExperienceItemCard resume={resume}></ExperienceItemCard>}
           </>
         )
       // Cases for "Company" and "School" are still here if you want to use them later

@@ -68,7 +68,6 @@ Yes, you can use React Native and AWS Amplify with Wix. Here's a general overvie
    const fetchDataFromWix = async () => {
      try {
        const response = await axios.get("https://your-wix-site.com/_functions/endpoint")
-       console.log(response.data)
      } catch (error) {
        console.error(error)
      }

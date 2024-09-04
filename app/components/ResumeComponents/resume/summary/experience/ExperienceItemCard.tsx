@@ -1,20 +1,26 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../../types"
+import {
+  EducationType,
+  ExpandedResume,
+  ReferenceType,
+  SummaryType,
+  ExperienceType,
+} from "../../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
-interface EducationItemCardType {
+interface ExperienceItemCardType {
   resume: ExpandedResume
 }
 
 // ItemCard adapted to fit within a responsive grid
-const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
+const ExperienceItemCard: React.FC<ExperienceItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
-  // console.log("EducationItemCard", resume)
+  console.log("Experience Item Card", resume)
   return (
     <View style={[styles.itemCard]}>
-      {resume.Education && (
+      {resume.Experience && (
         <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
           <Text
             style={[
@@ -23,30 +29,37 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
               renderTextColor(3, getBaseHueForResume(3)),
             ]}
           >
-            {resume.Education.summary}
+            {resume.Experience?.title}
           </Text>
-          {resume.Schools && resume.Schools.length > 0 && (
+          {resume.Companies && resume.Companies.length > 0 && (
             <View>
               <ResponsiveGrid>
-                {resume.Schools.map((school) => (
+                {resume.Companies.map((company, index) => (
                   <View
-                    key={school.id}
-                    style={[renderIndentation(2), renderTextColor(1, getBaseHueForResume(1))]}
+                    key={company.id}
+                    style={[renderIndentation(2), renderTextColor(1, getBaseHueForResume(index))]}
                   >
-                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(2))]}>
-                      {school.name}
+                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(index))]}>
+                      {company.name}
                     </Text>
 
-                    {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree, index) => (
-                      <Text
-                        key={degree.id}
-                        style={[renderTextColor(3, getBaseHueForResume(3)), renderIndentation(1)]}
-                      >
-                        {degree.major}(
-                        {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"} -{" "}
-                        {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
-                      </Text>
-                    ))}
+                    {resume.Engagements.filter((d) => d.companyID === company.id).map(
+                      (engagement, index) => (
+                        <>
+                          {console.log("engagement", engagement)},
+                          <Text
+                            key={engagement.id}
+                            style={[
+                              renderTextColor(3, getBaseHueForResume(index)),
+                              renderIndentation(1),
+                            ]}
+                          >
+                            <Text>{engagement.client}</Text>
+                            <Text>{engagement.startDate}</Text>
+                          </Text>
+                        </>
+                      ),
+                    )}
                   </View>
                 ))}
               </ResponsiveGrid>
@@ -69,7 +82,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: "100%",
     // padding: 15,
-    backgroundColor: "rgba(255,0,255,0)",
+    backgroundColor: "rgba(0,0,255,0)",
     fontColor: "rgba(255,0,255,1)",
     borderRadius: 8,
   },
@@ -91,4 +104,4 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
 })
-export default EducationItemCard
+export default ExperienceItemCard
