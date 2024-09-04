@@ -13,7 +13,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   console.log("EducationItemCard", resume)
   return (
-    <View style={styles.itemCard}>
+    <View style={[styles.itemCard]}>
       {resume.Education && (
         <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
           <Text
@@ -29,7 +29,10 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
             <View>
               <ResponsiveGrid>
                 {resume.Schools.map((school) => (
-                  <View key={school.id} style={[renderTextColor(1, getBaseHueForResume(1))]}>
+                  <View
+                    key={school.id}
+                    style={[renderIndentation(2), renderTextColor(1, getBaseHueForResume(1))]}
+                  >
                     <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(2))]}>
                       {school.name}
                     </Text>

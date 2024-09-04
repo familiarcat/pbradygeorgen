@@ -67,8 +67,8 @@ const AppStack = observer(function AppStack() {
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
       initialRouteName={"Resume"}
     >
-      <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-      <Stack.Screen name="Demo" component={DemoNavigator} />
+      {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
+      {/* <Stack.Screen name="Demo" component={DemoNavigator} /> */}
 
       {/** 🔥 Your screens go here */}
       <Stack.Screen name="Resume" component={Screens.ResumeScreen} />
