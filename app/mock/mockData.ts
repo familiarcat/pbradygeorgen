@@ -163,6 +163,13 @@ export const createMockData = async () => {
       }),
     )
 
+    const school2a = await DataStore.save(
+      new School({
+        name: "123 Institute",
+        educationID: education1.id,
+      }),
+    )
+
     // Create Degrees linked to Schools
     const degrees1 = await Promise.all(
       [
@@ -179,7 +186,13 @@ export const createMockData = async () => {
           schoolID: school1.id,
         },
         {
-          major: "Masters of Software Architecture",
+          major: "Masters of Software Architecture (Shared)",
+          startYear: toAWSDate(2014),
+          endYear: toAWSDate(2018),
+          schoolID: school2a.id,
+        },
+        {
+          major: "Masters of Software Architecture (Singular)",
           startYear: toAWSDate(2014),
           endYear: toAWSDate(2018),
           schoolID: school1a.id,

@@ -157,7 +157,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         // await clearData()
         if (!resumeData || resumeData.length === 0) {
           console.warn("No resumes found")
-
           await createMockData()
             .then(() => console.log("create mock data completed on then"))
             .catch(console.error)

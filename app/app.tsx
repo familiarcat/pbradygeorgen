@@ -41,16 +41,17 @@ const config = {
       path: "",
     },
     Welcome: "welcome",
-    Demo: {
-      screens: {
-        DemoShowroom: {
-          path: "showroom/:queryIndex?/:itemIndex?",
-        },
-        DemoDebug: "debug",
-        DemoPodcastList: "podcast",
-        DemoCommunity: "community",
-      },
-    },
+    Resume: "resume",
+    // Demo: {
+    //   screens: {
+    //     DemoShowroom: {
+    //       path: "showroom/:queryIndex?/:itemIndex?",
+    //     },
+    //     DemoDebug: "debug",
+    //     DemoPodcastList: "podcast",
+    //     DemoCommunity: "community",
+    //   },
+    // },
   },
 }
 
