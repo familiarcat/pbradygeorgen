@@ -47,7 +47,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
               ))}
             </ResponsiveGrid> */}
 
-            {resume.Education && <EducationItemCard resume={resume}></EducationItemCard>}
+            {resume.Education && <EducationItemCard resume={resume} />}
           </>
         )
       case "Experience":
@@ -55,7 +55,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
           <>
             <Text>{resume.Experience?.title || "No Experience Title"}</Text>
             <Text>{resume.Experience?.text || "No Experience Text"}</Text>
-            {resume.Experience && <ExperienceItemCard resume={resume}></ExperienceItemCard>}
+            {resume.Experience && <ExperienceItemCard resume={resume} />}
           </>
         )
       // Cases for "Company" and "School" are still here if you want to use them later

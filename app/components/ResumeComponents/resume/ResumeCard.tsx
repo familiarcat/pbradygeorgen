@@ -79,13 +79,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           ))}
         </View>
         <View style={styles.quote}>
-          <Text
-            style={[
-              styles.quoteText,
-              renderTextColor(4, getBaseHueForResume(5)),
-              dynamicStyles.text,
-            ]}
-          >
+          <Text style={[styles.quoteText, renderTextColor(4, getBaseHueForResume(5))]}>
             “This is a quote.“
           </Text>
         </View>
@@ -176,7 +170,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   quoteText: {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 24,
     letterSpacing: 0.16,
     fontStyle: "italic",

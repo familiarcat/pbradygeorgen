@@ -28,19 +28,22 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
           {resume.Schools && resume.Schools.length > 0 && (
             <View>
               <ResponsiveGrid>
-                {resume.Schools.map((school) => (
+                {resume.Schools.map((school, index) => (
                   <View
                     key={school.id}
-                    style={[renderIndentation(2), renderTextColor(1, getBaseHueForResume(1))]}
+                    style={[renderIndentation(2), renderTextColor(1, getBaseHueForResume(index))]}
                   >
-                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(2))]}>
+                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(index))]}>
                       {school.name}
                     </Text>
 
                     {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree, index) => (
                       <Text
                         key={degree.id}
-                        style={[renderTextColor(3, getBaseHueForResume(3)), renderIndentation(1)]}
+                        style={[
+                          renderIndentation(1),
+                          renderTextColor(3, getBaseHueForResume(index)),
+                        ]}
                       >
                         {degree.major}(
                         {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"} -{" "}
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     minWidth: "100%", // Minimum width from responsive grid
     // maxWidth: 200, // Maximum width from responsive grid
-    width: 100,
+    width: "100%",
     height: "100%",
     // padding: 15,
     backgroundColor: "rgba(255,0,255,0)",
