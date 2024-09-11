@@ -53,8 +53,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ resume, name }) => {
       case "Experience":
         return (
           <>
-            <Text>{resume.Experience?.title || "No Experience Title"}</Text>
-            <Text>{resume.Experience?.text || "No Experience Text"}</Text>
+            {/* <Text>{resume.Experience?.title || "No Experience Title"}</Text>
+            <Text>{resume.Experience?.text || "No Experience Text"}</Text> */}
+            {/* {resume.Education && <EducationItemCard resume={resume} />} */}
             {resume.Experience && <ExperienceItemCard resume={resume} />}
           </>
         )

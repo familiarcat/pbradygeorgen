@@ -29,7 +29,7 @@ const ResumeViewContent = () => {
 
             {resume.Skills && resume.Skills.length > 0 && (
               <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills</Text>
+                <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills!</Text>
                 {resume.Skills.map((skill) => (
                   <Text
                     key={skill.id}

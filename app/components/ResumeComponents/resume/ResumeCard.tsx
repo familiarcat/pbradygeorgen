@@ -1,10 +1,10 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
-import { ExpandedResume, SkillType } from "../../types" // Import the type for Resume
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
 import ReferenceItemCard from "./summary/reference/ReferenceItemCard"
 import ContactInformationCard from "./ContactInformationCard"
 import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
+import { ExpandedResume, SkillType } from "app/components/types"
 
 interface SummaryViewProps {
   resume: ExpandedResume

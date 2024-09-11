@@ -280,6 +280,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   const renderIndentation = (level: number) => ({
     marginLeft: level * 15,
+    width: "90%",
   })
 
   const renderTextColor = (level: number, baseHue: number) => ({
