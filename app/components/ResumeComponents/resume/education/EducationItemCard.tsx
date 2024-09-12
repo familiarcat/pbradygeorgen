@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../../types"
+import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 
@@ -18,7 +18,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
         <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
           <Text
             style={[
-              renderIndentation(1),
+              renderIndentation(0),
               styles.header,
               renderTextColor(3, getBaseHueForResume(3)),
             ]}
@@ -27,7 +27,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
           </Text>
           {resume.Schools && resume.Schools.length > 0 && (
             <View>
-              <ResponsiveGrid>
+              <ResponsiveGrid width={"100%"}>
                 {resume.Schools.map((school, index) => (
                   <View
                     key={school.id}
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    minWidth: "100%", // Minimum width from responsive grid
+    // minWidth: "100%", // Minimum width from responsive grid
 
     // padding: 15,
     backgroundColor: "rgba(255,0,255,0)",

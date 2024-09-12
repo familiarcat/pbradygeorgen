@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ReferenceType, SummaryType, ExpandedResume } from "../../types"
+import { ReferenceType, SummaryType, ExpandedResume } from "../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 // import { ContactInformation } from "../../../../src/API"
 

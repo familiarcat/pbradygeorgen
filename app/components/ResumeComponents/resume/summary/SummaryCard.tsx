@@ -3,10 +3,10 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ExpandedResume, EducationType } from "../../../types" // Adjust path as necessary
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
-import ReferenceItemCard from "./reference/ReferenceItemCard"
+import ReferenceItemCard from "../reference/ReferenceItemCard"
 import { DataProvider, useDataContext } from "app/components/DataContext"
-import EducationItemCard from "./education/EducationItemCard"
-import ExperienceItemCard from "./experience/ExperienceItemCard"
+import EducationItemCard from "../education/EducationItemCard"
+import ExperienceItemCard from "../experience/ExperienceItemCard"
 
 interface SummaryCardProps {
   resume: ExpandedResume

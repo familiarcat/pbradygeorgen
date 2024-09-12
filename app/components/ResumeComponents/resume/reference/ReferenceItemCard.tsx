@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ReferenceType, SummaryType } from "../../../../types"
+import { ReferenceType, SummaryType } from "../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 
 interface ReferenceCardType {

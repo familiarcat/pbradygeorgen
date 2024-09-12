@@ -4,10 +4,10 @@ import { ScrollView, View, Text, StyleSheet } from "react-native"
 import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
 import SummaryView from "./resume/ResumeCard"
 import ResponsiveGrid from "../ResponsiveGrid"
-import ReferenceItemCard from "./resume/summary/reference/ReferenceItemCard"
+import ReferenceItemCard from "./resume/reference/ReferenceItemCard"
 import { SkillType } from "../types"
-import EducationItemCard from "./resume/summary/education/EducationItemCard"
-import ContactInformationCard from "./resume/ContactInformationCard"
+import EducationItemCard from "./resume/education/EducationItemCard"
+import ContactInformationCard from "./resume/contact/ContactInformationCard"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
@@ -19,6 +19,9 @@ const ResumeViewContent = () => {
         return (
           // using the Summary view to contain the Resume data
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
+            {resume.ContactInformation && (
+              <ContactInformationCard resume={resume} name="Contact Information" />
+            )}
             {resume.Summary && (
               <View style={renderIndentation(0)}>
                 {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>
@@ -62,21 +65,21 @@ const ResumeViewContent = () => {
             )}
 
             {resume.Education && (
-              <View style={[renderIndentation(1), styles.container]}>
-                <View style={renderIndentation(2)}>
+              <View style={[renderIndentation(0), styles.container]}>
+                <View style={renderIndentation(0)}>
                   <Text style={[styles.sectionTitle, renderTextColor(5, baseHue + 120)]}>
-                    Education
+                    Education!
                   </Text>
                   <Text style={[styles.text, renderTextColor(3, baseHue + 120)]}>
                     Summary: {resume.Education.summary}
                   </Text>
                   {resume.Schools && resume.Schools.length > 0 && (
-                    <View style={renderIndentation(2)}>
+                    <View style={renderIndentation(1)}>
                       <EducationItemCard resume={resume} />
-                      <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 120)]}>
+                      {/* <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 120)]}>
                         Schools
-                      </Text>
-                      {resume.Schools.map((school) => (
+                      </Text> */}
+                      {/* {resume.Schools.map((school) => (
                         <View key={school.id} style={renderIndentation(1)}>
                           <Text style={[styles.text, renderTextColor(4, baseHue + 120)]}>
                             {school.name}
@@ -94,19 +97,17 @@ const ResumeViewContent = () => {
                             </Text>
                           ))}
                         </View>
-                      ))}
+                      ))} */}
                     </View>
                   )}
                 </View>
               </View>
             )}
-            {resume.ContactInformation && (
-              <ContactInformationCard resume={resume} name="Contact Information" />
-            )}
+
             {resume.Experience && (
               <View style={renderIndentation(1)}>
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
-                  Experience
+                  Experience!
                 </Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Title: {resume.Experience.title}

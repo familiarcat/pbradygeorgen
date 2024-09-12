@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../../types"
+import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 

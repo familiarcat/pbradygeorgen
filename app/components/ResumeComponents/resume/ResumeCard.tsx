@@ -1,8 +1,8 @@
 import React from "react"
 import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
 import SummaryCardsContainer from "./summary/SummaryCardsContainer"
-import ReferenceItemCard from "./summary/reference/ReferenceItemCard"
-import ContactInformationCard from "./ContactInformationCard"
+import ReferenceItemCard from "./reference/ReferenceItemCard"
+import ContactInformationCard from "./contact/ContactInformationCard"
 import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
 import { ExpandedResume, SkillType } from "app/components/types"
 
@@ -31,7 +31,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           }}
         />
       </View>
-      <View style={[styles.textContainer, { maxWidth: "100%" }]}>
+      <View style={[styles.textContainer]}>
         <Text
           style={[
             styles.title,
@@ -57,7 +57,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           <Text
             style={[
               styles.ratingText,
-              renderTextColor(4, getBaseHueForResume(5)),
+              renderTextColor(3, getBaseHueForResume(5)),
               dynamicStyles.text,
             ]}
           >
@@ -74,7 +74,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
           ))}
         </View>
         <View style={styles.quote}>
-          <Text style={[styles.quoteText, renderTextColor(4, getBaseHueForResume(5))]}>
+          <Text style={[styles.quoteText, renderTextColor(1, getBaseHueForResume(5))]}>
             “This is a quote.“
           </Text>
         </View>
