@@ -23,12 +23,7 @@ const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
         {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
           {resume?.ContactInformation?.name}
         </Text> */}
-        <ContactInformationCard
-          id={resume?.ContactInformation?.id ?? ""}
-          name={resume?.ContactInformation?.name}
-          email={resume?.ContactInformation?.email}
-          phone={resume?.ContactInformation?.phone}
-        />
+        <ContactInformationCard resume={resume} name={"contact information - lower level"} />
         <Image
           style={styles.image}
           source={{

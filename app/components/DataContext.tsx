@@ -306,10 +306,11 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 }
 
 function getDynamicStyles(screenWidth: number) {
-  const baseFontSize = screenWidth < 600 ? 14 : screenWidth < 960 ? 16 : 18
+  const baseFontSize = screenWidth < 640 ? 14 : screenWidth < 960 ? 16 : 18
   return StyleSheet.create({
     container: {
       flexDirection: screenWidth < 640 ? "column" : "row",
+      backgroundColor: "purple",
     },
     text: {
       fontSize: baseFontSize,

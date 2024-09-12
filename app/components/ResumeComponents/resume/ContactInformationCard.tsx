@@ -1,18 +1,23 @@
 import React, { ReactNode } from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ReferenceType, SummaryType, ContactInformationType } from "../../types"
+import { ReferenceType, SummaryType, ExpandedResume } from "../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
+// import { ContactInformation } from "../../../../src/API"
 
-// ItemCard adapted to fit within a responsive grid
-const ContactInformationCard: React.FC<ContactInformationType> = ({ name, email, phone }) => {
+interface ContactInformationType {
+  resume: ExpandedResume
+  name: string
+}
+
+const ContactInformationCard: React.FC<ContactInformationType> = ({ resume, name }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   return (
     <DataProvider>
       <View style={[styles.itemCard, renderTextColor(8, getBaseHueForResume(2))]}>
         <Text style={styles.header}>{name}</Text>
 
-        <Text style={[styles.email, renderIndentation(2)]}>{email}</Text>
-        <Text style={[styles.phone, renderIndentation(2)]}>{phone}</Text>
+        <Text style={[styles.email, renderIndentation(2)]}>{resume.ContactInformation?.email}</Text>
+        <Text style={[styles.phone, renderIndentation(2)]}>{resume.ContactInformation?.phone}</Text>
       </View>
     </DataProvider>
   )

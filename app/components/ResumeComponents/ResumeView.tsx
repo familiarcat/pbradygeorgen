@@ -3,6 +3,11 @@ import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
 import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
 import SummaryView from "./resume/ResumeCard"
+import ResponsiveGrid from "../ResponsiveGrid"
+import ReferenceItemCard from "./resume/summary/reference/ReferenceItemCard"
+import { SkillType } from "../types"
+import EducationItemCard from "./resume/summary/education/EducationItemCard"
+import ContactInformationCard from "./resume/ContactInformationCard"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
@@ -23,94 +28,80 @@ const ResumeViewContent = () => {
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
                   Persona: {resume.Summary.persona}
                 </Text> */}
-                <SummaryView resume={resume} />
+                {/* <SummaryView resume={resume} /> */}
+                <ResponsiveGrid>
+                  {resume?.References?.map((reference) => (
+                    <ReferenceItemCard reference={reference} key={reference.name} />
+                  ))}
+                </ResponsiveGrid>
               </View>
             )}
 
             {resume.Skills && resume.Skills.length > 0 && (
               <View style={renderIndentation(1)}>
                 <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills!</Text>
-                {resume.Skills.map((skill) => (
+                <View style={styles.tags}>
+                  {resume.Skills.map((skill: SkillType) => (
+                    <View style={styles.badge} key={skill.id}>
+                      <Text style={[renderTextColor(2, getBaseHueForResume(3))]}>
+                        {skill.title}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+
+                {/* {resume.Skills.map((skill) => (
                   <Text
                     key={skill.id}
                     style={[styles.text, renderTextColor(3, baseHue + 60), renderIndentation(1)]}
                   >
                     {skill.title}
                   </Text>
-                ))}
+                ))} */}
               </View>
             )}
 
             {resume.Education && (
-              <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 120)]}>
-                  Education
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 120)]}>
-                  Summary: {resume.Education.summary}
-                </Text>
-                {resume.Schools && resume.Schools.length > 0 && (
-                  <View style={renderIndentation(2)}>
-                    <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 120)]}>
-                      Schools
-                    </Text>
-                    {resume.Schools.map((school) => (
-                      <View key={school.id} style={renderIndentation(1)}>
-                        <Text style={[styles.text, renderTextColor(4, baseHue + 120)]}>
-                          {school.name}
-                        </Text>
-                        {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
-                          <Text
-                            key={degree.id}
-                            style={[
-                              styles.text,
-                              renderTextColor(5, baseHue + 120),
-                              renderIndentation(1),
-                            ]}
-                          >
-                            {degree.major} ({degree.startYear} - {degree.endYear})
+              <View style={[renderIndentation(1), styles.container]}>
+                <View style={renderIndentation(2)}>
+                  <Text style={[styles.sectionTitle, renderTextColor(5, baseHue + 120)]}>
+                    Education
+                  </Text>
+                  <Text style={[styles.text, renderTextColor(3, baseHue + 120)]}>
+                    Summary: {resume.Education.summary}
+                  </Text>
+                  {resume.Schools && resume.Schools.length > 0 && (
+                    <View style={renderIndentation(2)}>
+                      <EducationItemCard resume={resume} />
+                      <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 120)]}>
+                        Schools
+                      </Text>
+                      {resume.Schools.map((school) => (
+                        <View key={school.id} style={renderIndentation(1)}>
+                          <Text style={[styles.text, renderTextColor(4, baseHue + 120)]}>
+                            {school.name}
                           </Text>
-                        ))}
-                      </View>
-                    ))}
-                  </View>
-                )}
+                          {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree) => (
+                            <Text
+                              key={degree.id}
+                              style={[
+                                styles.text,
+                                renderTextColor(5, baseHue + 120),
+                                renderIndentation(1),
+                              ]}
+                            >
+                              {degree.major} ({degree.startYear} - {degree.endYear})
+                            </Text>
+                          ))}
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
               </View>
             )}
             {resume.ContactInformation && (
-              <View style={renderIndentation(1)}>
-                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 240)]}>
-                  Contact Information
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Name: {resume.ContactInformation?.name}
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Email: {resume.ContactInformation?.email}
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 240)]}>
-                  Phone: {resume.ContactInformation?.phone}
-                </Text>
-                {resume.References && resume.References?.length > 0 && (
-                  <View style={renderIndentation(2)}>
-                    <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 240)]}>
-                      References
-                    </Text>
-                    {resume.References?.map((reference) => (
-                      <Text
-                        key={reference.id}
-                        style={[
-                          styles.text,
-                          renderTextColor(4, baseHue + 240),
-                          renderIndentation(1),
-                        ]}
-                      >
-                        {reference?.name} - {reference?.phone} - {reference?.email}
-                      </Text>
-                    ))}
-                  </View>
-                )}
-              </View>
+              <ContactInformationCard resume={resume} name="Contact Information" />
             )}
             {resume.Experience && (
               <View style={renderIndentation(1)}>
@@ -196,6 +187,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 2,
+  },
+
+  tags: {
+    flexDirection: "row",
+    marginBottom: 8,
+    flexWrap: "wrap",
+  },
+  badge: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+    paddingHorizontal: 5,
+    paddingVertical: 6,
+    borderRadius: 10,
+    backgroundColor: "rgba(239,240,240,1)",
+  },
+  badgeLabel: {
+    fontWeight: "500",
   },
   resumeTitle: {
     fontSize: 20,

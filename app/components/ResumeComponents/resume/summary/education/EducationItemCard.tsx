@@ -68,9 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     minWidth: "100%", // Minimum width from responsive grid
-    // maxWidth: 200, // Maximum width from responsive grid
-    width: "100%",
-    height: "100%",
+
     // padding: 15,
     backgroundColor: "rgba(255,0,255,0)",
     fontColor: "rgba(255,0,255,1)",
