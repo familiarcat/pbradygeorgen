@@ -67,12 +67,16 @@ const ResumeViewContent = () => {
             {resume.Education && (
               <View style={[renderIndentation(0), styles.container]}>
                 <View style={renderIndentation(0)}>
-                  <Text style={[styles.sectionTitle, renderTextColor(5, baseHue + 120)]}>
+                  {/* <Text
+                    style={[
+                      styles.sectionTitle,
+                      renderIndentation(0),
+                      renderTextColor(5, baseHue + 120),
+                    ]}
+                  >
                     Education!
-                  </Text>
-                  <Text style={[styles.text, renderTextColor(3, baseHue + 120)]}>
-                    Summary: {resume.Education.summary}
-                  </Text>
+                  </Text> */}
+
                   {resume.Schools && resume.Schools.length > 0 && (
                     <View style={renderIndentation(1)}>
                       <EducationItemCard resume={resume} />
