@@ -18,10 +18,12 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    paddingHorizontal: 10, // Optional padding around the grid container
   },
   gridItem: {
-    flexGrow: 1, // Allow item to grow and fill space
-    padding: "2.5%", // Set 2.5% padding around each grid item to create a 5% total gutter between items
+    padding: 5, // Padding around each grid item
+    marginBottom: 10, // Space between rows
+    backgroundColor: "rgba(255, 255, 255, 0)", // Optional background color
   },
 })
 
@@ -45,12 +47,31 @@ export default function ResponsiveGrid({
 }: ResponsiveGridProps): JSX.Element {
   const screenWidth = Dimensions.get("window").width
   const columns = calculateColumns(screenWidth)
-  const defaultItemWidth = `${Math.floor(100 / columns) - 5}%` // Calculate width dynamically with a 5% gutter between columns
+
+  // Calculate gutter width (3%)
+  const gutterWidth = screenWidth * 0.03
+  const totalGutterSpace = gutterWidth * (columns - 1) // Total space occupied by all gutters in the row
+
+  // Calculate the available width for items after accounting for gutters
+  const availableWidth = screenWidth - totalGutterSpace - 20 // 20px padding (10px on each side)
+
+  // Calculate the width of each grid item dynamically
+  const itemWidth = availableWidth / columns
 
   return (
     <ScrollView contentContainerStyle={[styles.gridContainer, getAlignmentStyle(align)]}>
-      {React.Children.map(children, (child) => (
-        <View style={[styles.gridItem, { width: width || defaultItemWidth } as ViewStyle]}>
+      {React.Children.map(children, (child, index) => (
+        <View
+          key={index}
+          style={[
+            styles.gridItem,
+            { width: width || itemWidth } as ViewStyle,
+            {
+              marginRight: align !== "right" && (index + 1) % columns !== 0 ? gutterWidth : 0,
+              marginLeft: align !== "left" && (index + 1) % columns !== 0 ? gutterWidth : 0,
+            },
+          ]}
+        >
           {child}
         </View>
       ))}

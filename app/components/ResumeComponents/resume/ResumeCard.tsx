@@ -1,175 +1,70 @@
 import React from "react"
-import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
-import SummaryCardsContainer from "./summary/SummaryCardsContainer"
-import ReferenceItemCard from "./reference/ReferenceItemCard"
-import ContactInformationCard from "./contact/ContactInformationCard"
-import { DataProvider, useDataContext } from "../../DataContext" // Import the context and provider
-import { ExpandedResume, SkillType } from "app/components/types"
+import { Dimensions, ScrollView, View, StyleSheet, ViewStyle } from "react-native"
 
-interface SummaryViewProps {
-  resume: ExpandedResume
-  baseHue?: number // Optional base hue for styling
+interface ResponsiveGridProps {
+  children: React.ReactNode
+  width?: number | string // Allow width to be a number (pixels) or a percentage string
+  align?: "left" | "center" | "right" // Allow alignment options
 }
 
-const ResumeCard: React.FC<SummaryViewProps> = ({ resume, baseHue = 0 }) => {
-  const { width: screenWidth } = useWindowDimensions()
-  const { getBaseHueForResume, renderIndentation, renderTextColor, dynamicStyles } =
-    useDataContext()
-
-  return (
-    <View style={[styles.productCard, dynamicStyles.container]}>
-      <View style={[styles.imageContainer]}>
-        {/* {resume.ContactInformation && <ReferenceItemCard reference={resume.ContactInformation} />} */}
-        {/* <Text style={[styles.title, renderTextColor(1, baseHue), dynamicStyles.text]}>
-          {resume?.ContactInformation?.name}
-        </Text> */}
-        <ContactInformationCard resume={resume} name={"contact information - lower level"} />
-        <Image
-          style={styles.image}
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/unify-v3-copy.appspot.com/o/upx5opbp7ll-1%3A2359?alt=media&token=10ae8444-de47-4a6d-a200-ae1020592b1c",
-          }}
-        />
-      </View>
-      <View style={[styles.textContainer]}>
-        <Text
-          style={[
-            styles.title,
-            renderTextColor(5, getBaseHueForResume(5)),
-            dynamicStyles.headingText,
-            { marginLeft: -15 },
-          ]}
-        >
-          {resume?.title}
-        </Text>
-        <View style={styles.ratings}>
-          <Text
-            style={[
-              styles.ratingText,
-              renderTextColor(4, getBaseHueForResume(2)),
-              dynamicStyles.text,
-            ]}
-          >
-            Goals: {resume.Summary?.goals}
-          </Text>
-        </View>
-        <View style={styles.ratings}>
-          <Text
-            style={[
-              styles.ratingText,
-              renderTextColor(3, getBaseHueForResume(5)),
-              dynamicStyles.text,
-            ]}
-          >
-            Persona: {resume.Summary?.persona}
-          </Text>
-        </View>
-        <Text style={[styles.title, renderTextColor(4, getBaseHueForResume(5))]}>Skills</Text>
-        {/* Skills list */}
-        <View style={styles.tags}>
-          {resume.Skills.map((skill: SkillType) => (
-            <View style={styles.badge} key={skill.id}>
-              <Text style={[renderTextColor(2, getBaseHueForResume(3))]}>{skill.title}</Text>
-            </View>
-          ))}
-        </View>
-        <View style={styles.quote}>
-          <Text style={[styles.quoteText, renderTextColor(1, getBaseHueForResume(5))]}>
-            “This is a quote.“
-          </Text>
-        </View>
-        <SummaryCardsContainer resume={resume} />
-      </View>
-    </View>
-  )
+// Determine the number of columns based on screen width
+const calculateColumns = (screenWidth: number) => {
+  if (screenWidth >= 1200) return 5 // Five columns for desktop
+  if (screenWidth >= 800) return 4 // Four columns for tablets
+  return 1 // One column for mobile
 }
 
 const styles = StyleSheet.create({
-  productCard: {
+  gridContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    padding: 15,
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: 20,
-    marginBottom: 10,
-    flexWrap: "nowrap",
-  },
-  imageContainer: {
-    width: "33.33%",
-    maxWidth: "33.33%",
-    alignItems: "flex-start",
-    resizeMode: "cover",
-    padding: 0,
-  },
-  image: {
-    marginTop: 10,
-    paddingTop: 10,
-    paddingLeft: 10,
-    width: "100%",
-    height: "100%",
-    aspectRatio: 1,
-    borderRadius: 5,
-    resizeMode: "cover",
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    padding: 16,
-    backgroundColor: "rgba(255,255,255,1)",
-  },
-  title: {
-    marginBottom: 8,
-    fontSize: 18,
-    lineHeight: 25,
-    fontWeight: "800",
-  },
-  ratings: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  ratingText: {
-    fontSize: 68,
-    lineHeight: 22,
-    fontWeight: "400",
-  },
-  tags: {
-    flexDirection: "row",
-    marginBottom: 8,
     flexWrap: "wrap",
+    padding: 10, // Added padding around the grid
   },
-  badge: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 8,
-    paddingHorizontal: 5,
-    paddingVertical: 6,
-    borderRadius: 10,
-    backgroundColor: "rgba(239,240,240,1)",
-  },
-  badgeLabel: {
-    fontWeight: "500",
-  },
-  infoText: {
-    marginBottom: 8,
-    fontSize: 16,
-    lineHeight: 24,
-    letterSpacing: 0.16,
-  },
-  quote: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  quoteText: {
-    fontSize: 14,
-    lineHeight: 24,
-    letterSpacing: 0.16,
-    fontStyle: "italic",
+  gridItem: {
+    minWidth: 225, // Minimum width for each item
+    marginRight: "5%", // 5% margin between items
+    marginBottom: 10, // Space between rows
+    backgroundColor: "rgba(255, 255, 255, 0)",
   },
 })
 
-export default ResumeCard
+// Utility function to determine the alignment style
+const getAlignmentStyle = (align: "left" | "center" | "right" | undefined): ViewStyle => {
+  switch (align) {
+    case "left":
+      return { justifyContent: "flex-start", alignItems: "flex-start" } // Keep items to the left
+    case "right":
+      return { justifyContent: "flex-end", alignItems: "flex-end" } // Align items to the right
+    case "center":
+    default:
+      return { justifyContent: "center", alignItems: "center" } // Center the items by default
+  }
+}
+
+export default function ResponsiveGrid({
+  children,
+  width,
+  align = "center", // Default alignment to center
+}: ResponsiveGridProps): JSX.Element {
+  const screenWidth = Dimensions.get("window").width
+  const columns = calculateColumns(screenWidth)
+  const defaultItemWidth = Math.max(200, Math.min(400, (screenWidth * 0.95) / columns)) // Adjust width, considering 5% margin
+
+  return (
+    <ScrollView contentContainerStyle={[styles.gridContainer, getAlignmentStyle(align)]}>
+      {React.Children.map(children, (child, index) => (
+        <View
+          key={index}
+          style={[
+            styles.gridItem,
+            { width: width || defaultItemWidth } as ViewStyle,
+            // Remove marginRight for the last item in a row
+            { marginRight: (index + 1) % columns === 0 ? 0 : "5%" },
+          ]}
+        >
+          {child}
+        </View>
+      ))}
+    </ScrollView>
+  )
+}

@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    padding: 10,
+    width: "100%",
     borderRadius: 8,
-    backgroundColor: "rgba(255,0,255,0)", // Transparent background for testing
+    backgroundColor: "white",
   },
   header: {
     fontSize: 16,
