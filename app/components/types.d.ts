@@ -17,6 +17,7 @@ export interface EducationType {
 }
 
 export interface ExperienceType {
+  [x: string]: any
   id: string
   title?: string | null
   text?: string | null

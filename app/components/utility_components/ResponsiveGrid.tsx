@@ -9,8 +9,8 @@ interface ResponsiveGridProps {
 
 // Determine the number of columns based on screen width
 const calculateColumns = (screenWidth: number) => {
-  if (screenWidth >= 1200) return 5 // Five columns for desktop
-  if (screenWidth >= 800) return 4 // Four columns for tablets
+  if (screenWidth >= 1200) return 3 // Five columns for desktop
+  if (screenWidth >= 800) return 2 // Four columns for tablets
   return 1 // One column for mobile
 }
 
