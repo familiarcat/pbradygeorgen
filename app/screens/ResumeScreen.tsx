@@ -31,7 +31,6 @@ import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ResumeView from "app/components/ResumeComponents/ResumeView"
 // import Summary from "app/components/ResumeComponents/resume/ResumeView"
-import { AppStackScreenProps } from "app/navigators"
 import { clear } from "console"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
@@ -65,9 +64,13 @@ const $disabledButtonTextStyle: TextStyle = {
   textDecorationColor: colors.palette.neutral100,
 }
 
-interface ResumeScreenProps extends AppStackScreenProps<"Resume"> {}
+import { NavigationProp } from "@react-navigation/native"
 
-export const ResumeScreen: FC<ResumeScreenProps> = () => {
+export type ResumeScreenProps = {
+  navigation: NavigationProp<any>
+}
+
+export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   return (
     <Screen>
       <ResumeView />
