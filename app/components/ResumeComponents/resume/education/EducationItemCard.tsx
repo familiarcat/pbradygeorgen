@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native"
 import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../../../types"
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
+import { Card } from "react-native-paper"
 
 interface EducationItemCardType {
   resume: ExpandedResume
@@ -13,23 +14,18 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   // console.log("EducationItemCard", resume)
   return (
+    <Card>
     <View style={[styles.itemCard]}>
       {resume.Education && (
         <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
-          <Text
-            style={[
-              renderIndentation(0),
-              styles.header,
-              renderTextColor(3, getBaseHueForResume(3)),
-            ]}
-          >
-            {resume.Education.summary}
-          </Text>
+          
+          
 
           {resume.Schools && resume.Schools.length > 0 && (
             <View style={{ width: "100%" }}>
-              <ResponsiveGrid width={"33%"} align="left">
+              <ResponsiveGrid width={"100%%"} align="left">
                 {resume.Schools.map((school, index) => (
+                  <Card>
                   <View
                     key={school.id}
                     style={[renderIndentation(0), renderTextColor(1, getBaseHueForResume(index))]}
@@ -52,6 +48,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                       </Text>
                     ))}
                   </View>
+                  </Card>
                 ))}
               </ResponsiveGrid>
             </View>
@@ -59,6 +56,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
         </View>
       )}
     </View>
+    </Card>
   )
 }
 

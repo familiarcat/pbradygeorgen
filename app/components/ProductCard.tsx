@@ -4,7 +4,7 @@ import ResponsiveGrid from "./utility_components/ResponsiveGrid"
 
 export default function Productcard() {
   const { width: screenWidth } = useWindowDimensions()
-  const isVertical = screenWidth <= 600 // Adjust this threshold based on your needs
+  const isVertical = screenWidth <= 800 // Adjust this threshold based on your needs
 
   return (
     <View style={[styles.productCard, isVertical ? styles.vertical : styles.horizontal]}>

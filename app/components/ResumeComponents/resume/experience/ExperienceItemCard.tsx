@@ -118,10 +118,14 @@ const ExperienceItemCard: React.FC<ExperienceItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   console.log("EducationItemCard", resume)
   return (
+    
     <View style={[styles.itemCard]}>
       {resume.Experience && (
         <View style={[renderTextColor(4, getBaseHueForResume(4)), { width: "100%" }]}>
-          <Text
+          
+          {resume.Companies && resume.Companies.length > 0 && (
+            <ResponsiveGrid width={"100%"} align="left">
+              <Text
             style={[
               renderIndentation(0),
               styles.header,
@@ -130,8 +134,6 @@ const ExperienceItemCard: React.FC<ExperienceItemCardType> = ({ resume }) => {
           >
             {resume.Experience.title}
           </Text>
-          {resume.Companies && resume.Companies.length > 0 && (
-            <ResponsiveGrid width={"100%"} align="left">
               {resume.Companies.map((school, index) => (
                 <View
                   key={school.id}

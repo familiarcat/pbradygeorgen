@@ -10,7 +10,7 @@ const calculateItemWidth = (columns: number) => {
 }
 
 const ResponsiveGrid = ({ children }: { children: React.ReactNode }) => {
-  const columns = screenWidth > 1600 ? 4 : screenWidth > 1200 ? 3 : screenWidth > 800 ? 2 : 1
+  const columns = screenWidth > 1440 ? 4 : screenWidth > 1200 ? 3 : screenWidth > 800 ? 2 : 1
   const itemWidth = calculateItemWidth(columns)
 
   return (
@@ -30,11 +30,12 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     padding: 5,
   },
   gridItem: {
     margin: 5,
+    width: "100%",
     overflow: "hidden",
   },
 })

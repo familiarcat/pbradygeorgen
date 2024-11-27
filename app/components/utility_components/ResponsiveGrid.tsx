@@ -1,5 +1,6 @@
 import React from "react"
 import { Dimensions, ScrollView, View, StyleSheet, ViewStyle } from "react-native"
+import { Card } from "react-native-paper"
 
 interface ResponsiveGridProps {
   children: React.ReactNode
@@ -43,7 +44,7 @@ const getAlignmentStyle = (align: "left" | "center" | "right" | undefined): View
 export default function ResponsiveGrid({
   children,
   width,
-  align = "center", // Default alignment to center
+  align = "left", // Default alignment to left
 }: ResponsiveGridProps): JSX.Element {
   const screenWidth = Dimensions.get("window").width
   const columns = calculateColumns(screenWidth)
@@ -53,7 +54,7 @@ export default function ResponsiveGrid({
   const totalGutterSpace = gutterWidth * (columns - 1) // Total space occupied by all gutters in the row
 
   // Calculate the available width for items after accounting for gutters
-  const availableWidth = screenWidth - totalGutterSpace - 20 // 20px padding (10px on each side)
+  const availableWidth = screenWidth - totalGutterSpace - 40 // 20px padding (10px on each side)
 
   // Calculate the width of each grid item dynamically
   const itemWidth = availableWidth / columns
@@ -61,7 +62,7 @@ export default function ResponsiveGrid({
   return (
     <ScrollView contentContainerStyle={[styles.gridContainer, getAlignmentStyle(align)]}>
       {React.Children.map(children, (child, index) => (
-        <View
+        <Card
           key={index}
           style={[
             styles.gridItem,
@@ -73,7 +74,7 @@ export default function ResponsiveGrid({
           ]}
         >
           {child}
-        </View>
+        </Card>
       ))}
     </ScrollView>
   )

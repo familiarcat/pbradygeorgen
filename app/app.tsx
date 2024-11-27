@@ -10,6 +10,7 @@ import { customFontsToLoad } from "./theme"
 import Config from "./config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
+import { DemoShowroomScreen } from "./screens"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -22,6 +23,7 @@ const config = {
     },
     Welcome: "welcome",
     Resume: "resume",
+    DemoShowroomScreen: "demo"
   },
 }
 

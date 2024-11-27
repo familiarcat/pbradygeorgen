@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native"
-import { Button, Icon, LottieAnimation, Text, Screen } from "../components"
+import { Button, Icon, LottieAnimation, Text, Screen, Card } from "../components"
 import { colors, typography } from "../theme"
 import { createMockData, clearData } from "app/mock/mockData"
 
@@ -65,6 +65,7 @@ const $disabledButtonTextStyle: TextStyle = {
 }
 
 import { NavigationProp } from "@react-navigation/native"
+import ResponsiveNestedGrid from "app/components/ResponsiveNestedGrid"
 
 export type ResumeScreenProps = {
   navigation: NavigationProp<any>
@@ -73,7 +74,11 @@ export type ResumeScreenProps = {
 export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   return (
     <Screen>
-      <ResumeView />
+      
+
+        <ResumeView />
+    
+      
       <ResponsiveGrid>
         <Productcard />
         <Actioncard />

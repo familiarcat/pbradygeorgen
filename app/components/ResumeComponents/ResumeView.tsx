@@ -8,11 +8,18 @@ import { SkillType } from "../types"
 import EducationItemCard from "./resume/education/EducationItemCard"
 import ContactInformationCard from "./resume/contact/ContactInformationCard"
 import ExperienceItemCard from "./resume/experience/ExperienceItemCard"
+import Actioncard from "../ActionCard"
+import Productcard from "../ProductCard"
+import Standardcard from "../StandardCard"
+import { Surface } from "react-native-paper"
+
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   return (
     <ScrollView style={styles.container}>
+      <Surface>
+      <View>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
         // console.log("contactInformation", resume.ContactInformation?.name)
@@ -46,13 +53,16 @@ const ResumeViewContent = () => {
                 ))} */}
               </View>
             )}
-
+            
             {resume.Education && (
               <View style={renderIndentation(1)}>
+                
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Education!
                 </Text>
                 <EducationItemCard resume={resume} />
+                
+              
 
                 {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Title: {resume.Experience ? resume.Experience.title : ""}
@@ -111,6 +121,9 @@ const ResumeViewContent = () => {
                 {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Experience!
                 </Text> */}
+                <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
+                  Experience!
+                </Text>
                 <ExperienceItemCard resume={resume} />
 
                 {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
@@ -183,6 +196,9 @@ const ResumeViewContent = () => {
           </View>
         )
       })}
+      </View>
+      
+      </Surface>
     </ScrollView>
   )
 }
@@ -207,7 +223,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
-    elevation: 2,
+    elevation: 8,
   },
 
   tags: {
