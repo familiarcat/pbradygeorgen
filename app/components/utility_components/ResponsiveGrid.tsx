@@ -17,13 +17,15 @@ const calculateColumns = (screenWidth: number) => {
 
 const styles = StyleSheet.create({
   gridContainer: {
+    width:"100%",
     flexDirection: "row",
     flexWrap: "wrap",
     paddingHorizontal: 10, // Optional padding around the grid container
   },
   gridItem: {
-    padding: 5, // Padding around each grid item
+    padding: 10, // Padding around each grid item
     marginBottom: 10, // Space between rows
+    marginRight:5,
     backgroundColor: "rgba(255, 255, 255, 0)", // Optional background color
   },
 })

@@ -14,19 +14,18 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   // console.log("EducationItemCard", resume)
   return (
-    <Card>
+    <Card style={[renderTextColor(6, getBaseHueForResume(8))]}>
     <View style={[styles.itemCard]}>
       {resume.Education && (
-        <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
-          
+          <View style={[renderTextColor(4, getBaseHueForResume(4)), { width: "100%" }]}>
           
 
           {resume.Schools && resume.Schools.length > 0 && (
-            <View style={{ width: "100%" }}>
+            
               <ResponsiveGrid width={"100%%"} align="left">
                 {resume.Schools.map((school, index) => (
-                  <Card>
-                  <View
+                 
+                  <Card
                     key={school.id}
                     style={[renderIndentation(0), renderTextColor(1, getBaseHueForResume(index))]}
                   >
@@ -47,11 +46,11 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                         {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
                       </Text>
                     ))}
-                  </View>
                   </Card>
+                  
                 ))}
               </ResponsiveGrid>
-            </View>
+            
           )}
         </View>
       )}
@@ -62,32 +61,28 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
 
 // Styles for ReferenceItemCard
 const styles = StyleSheet.create({
-  itemCard: {
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    // minWidth: "100%", // Minimum width from responsive grid
-
-    // padding: 15,
-    fontColor: "rgba(255,0,255,1)",
-    borderRadius: 8,
-  },
-  header: {
-    // Correct style for the header
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  email: {
-    color: "blue",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  phone: {
-    color: "rgba(48,64,80,1)",
-    fontSize: 16,
-    letterSpacing: 0.16,
-    fontWeight: "400",
-  },
-})
+    itemCard: {
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
+      borderRadius: 8,
+    },
+    header: {
+      // Correct style for the header
+      fontSize: 18,
+      fontWeight: "bold",
+      marginBottom: 5,
+    },
+    email: {
+      color: "blue",
+      fontSize: 16,
+      fontWeight: "700",
+    },
+    phone: {
+      color: "rgba(48,64,80,1)",
+      fontSize: 16,
+      letterSpacing: 0.16,
+      fontWeight: "400",
+    },
+  })
 export default EducationItemCard
