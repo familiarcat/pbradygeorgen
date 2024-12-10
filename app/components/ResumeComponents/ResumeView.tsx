@@ -16,11 +16,10 @@ import { Surface } from "react-native-paper"
 
 const ResumeViewContent = () => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
-  // console.log('resumes\n\n', JSON.stringify(resumes, null, 2))
   return (
     <ScrollView style={styles.container}>
       <Surface>
-      
+      <View>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
         // console.log("contactInformation", resume.ContactInformation?.name)
@@ -119,12 +118,17 @@ const ResumeViewContent = () => {
 
             {resume.Experience && (
               <View style={renderIndentation(1)}>
-                
+                {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
+                  Experience!
+                </Text> */}
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Experience!
                 </Text>
                 <ExperienceItemCard resume={resume} />
-                
+
+                {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
+                  Title: {resume.Experience.title}
+                </Text> */}
                 {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Text: {resume.Experience.text}
                 </Text> */}
@@ -170,20 +174,20 @@ const ResumeViewContent = () => {
                       </View>
                     ))}
                   </View>
-                )}
+                )} */}
               </View>
             )}
             {resume.Summary && (
               <View style={renderIndentation(0)}>
                 {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue)]}>Summary</Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
-                Goals: {resume.Summary.goals}
+                  Goals: {resume.Summary.goals}
                 </Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue)]}>
-                {console.log('reference:', reference)}
                   Persona: {resume.Summary.persona}
                 </Text> */}
                 {/* <SummaryView resume={resume} /> */}
+
                 {resume?.References?.map((reference) => (
                   <ReferenceItemCard reference={reference} key={reference.name} />
                 ))}
@@ -192,7 +196,7 @@ const ResumeViewContent = () => {
           </View>
         )
       })}
-      
+      </View>
       
       </Surface>
     </ScrollView>
