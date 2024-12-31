@@ -123,7 +123,7 @@ type ExpandedResume = {
 interface DataContextType {
   resumes: ExpandedResume[]
   getBaseHueForResume: (index: number) => number
-  renderIndentation: (level: number) => { marginLeft: number }
+  renderIndentation: (level: number) => { paddingLeft: number }
   renderTextColor: (level: number, baseHue: number) => { color: string; backgroundColor: string }
   dynamicStyles: any
 }
@@ -278,9 +278,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`
   }
 
-  const renderIndentation = (level: number) => ({
-    marginLeft: level * 15,
-    width: "90%",
+  const renderIndentation = (level: any) => ({
+    paddingLeft : level * 15,
+    width: "100%",
   })
 
   const renderTextColor = (level: number, baseHue: number) => ({
@@ -306,11 +306,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 }
 
 function getDynamicStyles(screenWidth: number) {
-  const baseFontSize = screenWidth < 640 ? 14 : screenWidth < 960 ? 16 : 18
+  const baseFontSize = screenWidth < 780 ? 14 : screenWidth < 960 ? 16 : 18
   return StyleSheet.create({
     container: {
-      flexDirection: screenWidth < 640 ? "column" : "row",
-      backgroundColor: "purple",
+      flexDirection: screenWidth < 780 ? "column" : "row",
     },
     text: {
       fontSize: baseFontSize,

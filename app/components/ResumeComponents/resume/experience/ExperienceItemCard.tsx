@@ -4,6 +4,7 @@ import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../..
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import { Card } from "react-native-paper"
+import { BentoContainer } from "app/components/utility_components/Bento"
 
 interface ExperienceItemCardType {
   resume: ExpandedResume
@@ -17,6 +18,74 @@ const ExperienceItemCard: React.FC<ExperienceItemCardType> = ({ resume }) => {
     <>
       <Card>
         <View style={[styles.itemCard]}>
+                {resume.Experience && (
+                  <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
+                    {resume.Companies && resume.Companies.length > 0 && (
+                      <View style={{ width: "100%" }}>
+                        <ResponsiveGrid width={"100%"} align="left">
+                          <BentoContainer>
+                              
+                          {resume.Companies.map((company, index) => (
+                            <Card>
+                            
+                            <View key={company.id} style={renderIndentation(1)}>
+                          <Text
+                            style={[styles.text, renderTextColor(4, getBaseHueForResume(4) + 180)]}
+                          >
+                            {company.name} - {company.role} ({company.startDate} - {company.endDate}
+                            )
+                          </Text>
+                          <Card>
+                          <Text
+                            style={[styles.text,renderIndentation(2), renderTextColor(4, getBaseHueForResume(4) + 180)]}
+                          >
+                            Title: {company.title}
+                          </Text>
+                          </Card>
+
+                          {resume.Engagements.filter((e) => e.companyID === company.id).map(
+                            (engagement) => (
+                              <Card>
+                              <View key={engagement.id} style={renderIndentation(3)}>
+                                <Text
+                                  style={[
+                                    styles.text,
+                                    renderTextColor(5, getBaseHueForResume(4) + 180),
+                                  ]}
+                                >
+                                  Engagement with {engagement.client} ({engagement.startDate} -{" "}
+                                  {engagement.endDate})
+                                </Text>
+                                {resume.Accomplishments.filter(
+                                  (a) => a.engagementID === engagement.id,
+                                ).map((accomplishment) => (
+                                  <Text
+                                    key={accomplishment.id}
+                                    style={[
+                                      styles.text,
+                                      renderTextColor(6, getBaseHueForResume(4) + 180),
+                                      renderIndentation(1),
+                                    ]}
+                                  >
+                                    Accomplishment: {accomplishment.title} -{" "}
+                                    {accomplishment.description}
+                                  </Text>
+                                ))}
+                              </View>
+                              </Card>
+                            ),
+                          )}
+                        </View>
+                          </Card>
+                          ))}
+                          </BentoContainer>
+                        </ResponsiveGrid>
+                       </View>
+                    )}
+                  </View>
+                )}
+              </View>
+        {/* <View style={[styles.itemCard]}>
           {resume.Companies && resume.Companies.length > 0 && (
             <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
               {resume.Companies && resume.Companies.length > 0 && (
@@ -79,7 +148,7 @@ const ExperienceItemCard: React.FC<ExperienceItemCardType> = ({ resume }) => {
               )}
             </View>
           )}
-        </View>
+        </View> */}
         {/* <View style={[styles.itemCard]}>
         {resume.Experience && (
           <>

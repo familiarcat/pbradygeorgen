@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: 10, // Optional padding around the grid container
+    paddingHorizontal: 0, // Optional padding around the grid container
   },
   gridItem: {
     flexWrap: 'wrap',

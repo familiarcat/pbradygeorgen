@@ -16,7 +16,6 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   // console.log("EducationItemCard", resume)
   return (
     
-    <Card>
       <View style={[styles.itemCard]}>
         {resume.Education && (
           <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
@@ -26,7 +25,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                   <BentoContainer>
                       
                   {resume.Schools.map((school, index) => (
-                    <Card>
+                    <View>
                     
                       <View
                         key={school.id}
@@ -43,6 +42,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
 
                         {resume.Degrees.filter((d) => d.schoolID === school.id).map(
                           (degree, index) => (
+                            <View>
                             <Text
                               key={degree.id}
                               style={[
@@ -54,10 +54,11 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                               {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"}{" "}
                               - {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
                             </Text>
+                            </View>
                           ),
                         )}
                       </View>
-                  </Card>
+                  </View>
                   ))}
                   </BentoContainer>
                 </ResponsiveGrid>
@@ -66,7 +67,6 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
           </View>
         )}
       </View>
-    </Card>
   )
 }
 
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "flex-start",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   header: {
     // Correct style for the header
