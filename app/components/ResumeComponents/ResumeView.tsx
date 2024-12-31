@@ -61,21 +61,14 @@ const ResumeViewContent = () => {
             )}
 
             {resume.Experience && (
-              <View style={renderIndentation(1)}>
-                {/* <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
-                  Experience!
-                </Text> */}
+              <View style={renderIndentation(0)}>
+                
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Experience!
                 </Text>
                 <ExperienceItemCard resume={resume} />
 
-                {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
-                  Title: {resume.Experience.title}
-                </Text>
-                <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
-                  Text: {resume.Experience.text}
-                </Text> */}
+                
                 
               </View>
             )}
