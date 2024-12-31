@@ -10,8 +10,8 @@ interface ResponsiveGridProps {
 
 // Determine the number of columns based on screen width
 const calculateColumns = (screenWidth: number) => {
-  if (screenWidth >= 1200) return 3 // Five columns for desktop
-  if (screenWidth >= 800) return 2 // Four columns for tablets
+  if (screenWidth >= 1200) return 4 // Five columns for desktop
+  if (screenWidth >= 720) return 3 // Four columns for tablets
   return 1 // One column for mobile
 }
 
@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: 0, // Optional padding around the grid container
+    paddingHorizontal: 5, // Optional padding around the grid container
   },
   gridItem: {
     flexWrap: 'wrap',
     padding: 5, // Padding around each grid item
-    marginBottom: 10, // Space between rows
+    marginBottom: 5, // Space between rows
     backgroundColor: "rgba(255, 255, 255, 0)", // Optional background color
   },
 })

@@ -50,7 +50,7 @@ const ResumeViewContent = () => {
             )}
             
             {resume.Education && (
-              <View style={renderIndentation(1)}>
+              <View style={renderIndentation(0)}>
                 
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Education!!
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    flexWrap: "wrap"
   },
   resume: {
     marginBottom: 20,

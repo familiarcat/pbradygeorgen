@@ -306,7 +306,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 }
 
 function getDynamicStyles(screenWidth: number) {
-  const baseFontSize = screenWidth < 780 ? 14 : screenWidth < 960 ? 16 : 18
+  const baseFontSize = screenWidth < 780 ? 14 : screenWidth < 980 ? 16 : 18
   return StyleSheet.create({
     container: {
       flexDirection: screenWidth < 780 ? "column" : "row",

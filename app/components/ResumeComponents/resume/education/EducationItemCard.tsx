@@ -15,18 +15,15 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   // console.log("EducationItemCard", resume)
   return (
-    
-      <View style={[styles.itemCard]}>
-        {resume.Education && (
-          <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
-            {resume.Schools && resume.Schools.length > 0 && (
-              <View style={{ width: "100%" }}>
-                <ResponsiveGrid width={"100%"} align="left">
-                  <BentoContainer>
-                      
+    <View style={[styles.itemCard]}>
+      {resume.Education && (
+        <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
+          {resume.Schools && resume.Schools.length > 0 && (
+            <View style={{ width: "100%" }}>
+              <ResponsiveGrid width={"100%"} align="left">
+                <BentoContainer>
                   {resume.Schools.map((school, index) => (
-                    <View>
-                    
+                    <BentoItem>
                       <View
                         key={school.id}
                         style={[
@@ -43,30 +40,32 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                         {resume.Degrees.filter((d) => d.schoolID === school.id).map(
                           (degree, index) => (
                             <View>
-                            <Text
-                              key={degree.id}
-                              style={[
-                                renderIndentation(1),
-                                renderTextColor(3, getBaseHueForResume(index)),
-                              ]}
-                            >
-                              {degree.major}(
-                              {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"}{" "}
-                              - {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
-                            </Text>
+                              <Text
+                                key={degree.id}
+                                style={[
+                                  renderIndentation(1),
+                                  renderTextColor(3, getBaseHueForResume(index)),
+                                ]}
+                              >
+                                {degree.major}(
+                                {degree.startYear
+                                  ? new Date(degree.startYear).getFullYear()
+                                  : "N/A"}{" "}
+                                - {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
+                              </Text>
                             </View>
                           ),
                         )}
                       </View>
-                  </View>
+                    </BentoItem>
                   ))}
-                  </BentoContainer>
-                </ResponsiveGrid>
-               </View>
-            )}
-          </View>
-        )}
-      </View>
+                </BentoContainer>
+              </ResponsiveGrid>
+            </View>
+          )}
+        </View>
+      )}
+    </View>
   )
 }
 
@@ -84,6 +83,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
   },
-  
 })
 export default EducationItemCard
