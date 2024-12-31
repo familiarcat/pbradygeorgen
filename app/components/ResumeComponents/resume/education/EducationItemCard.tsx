@@ -21,12 +21,13 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
         {resume.Education && (
           <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
             {resume.Schools && resume.Schools.length > 0 && (
-              // <View style={{ width: "100%" }}>
+              <View style={{ width: "100%" }}>
                 <ResponsiveGrid width={"100%"} align="left">
-                  {resume.Schools.map((school, index) => (
-                    <BentoContainer>
+                  <BentoContainer>
                       
+                  {resume.Schools.map((school, index) => (
                     <Card>
+                    
                       <View
                         key={school.id}
                         style={[
@@ -56,11 +57,11 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
                           ),
                         )}
                       </View>
-                    </Card>
-                    </BentoContainer>
+                  </Card>
                   ))}
+                  </BentoContainer>
                 </ResponsiveGrid>
-              // </View>
+               </View>
             )}
           </View>
         )}
