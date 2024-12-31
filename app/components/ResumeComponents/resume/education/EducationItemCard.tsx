@@ -4,6 +4,7 @@ import { EducationType, ExpandedResume, ReferenceType, SummaryType } from "../..
 import { DataProvider, useDataContext } from "app/components/DataContext"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import { Card } from "react-native-paper"
+import { BentoContainer, BentoItem } from "app/components/utility_components/Bento"
 
 interface EducationItemCardType {
   resume: ExpandedResume
@@ -14,48 +15,56 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
   const { resumes, getBaseHueForResume, renderIndentation, renderTextColor } = useDataContext()
   // console.log("EducationItemCard", resume)
   return (
+    
     <Card>
-    <View style={[styles.itemCard]}>
-      {resume.Education && (
-        <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
-          
-          
-
-          {resume.Schools && resume.Schools.length > 0 && (
-            <View style={{ width: "100%" }}>
-              <ResponsiveGrid width={"100%"} align="left">
-                {resume.Schools.map((school, index) => (
-                  <Card>
-                  <View
-                    key={school.id}
-                    style={[renderIndentation(0), renderTextColor(1, getBaseHueForResume(index))]}
-                  >
-                    <Text style={[styles.header, renderTextColor(2, getBaseHueForResume(index))]}>
-                      {school.name}
-                    </Text>
-
-                    {resume.Degrees.filter((d) => d.schoolID === school.id).map((degree, index) => (
-                      <Text
-                        key={degree.id}
+      <View style={[styles.itemCard]}>
+        {resume.Education && (
+          <View style={[renderTextColor(4, getBaseHueForResume(4))]}>
+            {resume.Schools && resume.Schools.length > 0 && (
+              // <View style={{ width: "100%" }}>
+                <ResponsiveGrid width={"100%"} align="left">
+                  {resume.Schools.map((school, index) => (
+                    <BentoContainer>
+                      
+                    <Card>
+                      <View
+                        key={school.id}
                         style={[
-                          renderIndentation(1),
-                          renderTextColor(3, getBaseHueForResume(index)),
+                          renderIndentation(0),
+                          renderTextColor(1, getBaseHueForResume(index)),
                         ]}
                       >
-                        {degree.major}(
-                        {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"} -{" "}
-                        {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
-                      </Text>
-                    ))}
-                  </View>
-                  </Card>
-                ))}
-              </ResponsiveGrid>
-            </View>
-          )}
-        </View>
-      )}
-    </View>
+                        <Text
+                          style={[styles.header, renderTextColor(2, getBaseHueForResume(index))]}
+                        >
+                          {school.name}
+                        </Text>
+
+                        {resume.Degrees.filter((d) => d.schoolID === school.id).map(
+                          (degree, index) => (
+                            <Text
+                              key={degree.id}
+                              style={[
+                                renderIndentation(1),
+                                renderTextColor(3, getBaseHueForResume(index)),
+                              ]}
+                            >
+                              {degree.major}(
+                              {degree.startYear ? new Date(degree.startYear).getFullYear() : "N/A"}{" "}
+                              - {degree.endYear ? new Date(degree.endYear).getFullYear() : "N/A"})
+                            </Text>
+                          ),
+                        )}
+                      </View>
+                    </Card>
+                    </BentoContainer>
+                  ))}
+                </ResponsiveGrid>
+              // </View>
+            )}
+          </View>
+        )}
+      </View>
     </Card>
   )
 }
@@ -64,13 +73,9 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
 const styles = StyleSheet.create({
   itemCard: {
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "space-evenly",
     alignItems: "flex-start",
-    // minWidth: "100%", // Minimum width from responsive grid
-
-    // padding: 15,
-    // fontColor: "rgba(255,0,255,1)",
-    borderRadius: 8,
+    flexWrap: "wrap"
   },
   header: {
     // Correct style for the header
@@ -78,16 +83,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
   },
-  email: {
-    color: "blue",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  phone: {
-    color: "rgba(48,64,80,1)",
-    fontSize: 16,
-    letterSpacing: 0.16,
-    fontWeight: "400",
-  },
+  
 })
 export default EducationItemCard

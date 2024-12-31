@@ -13,7 +13,6 @@ import Productcard from "../ProductCard"
 import Standardcard from "../StandardCard"
 import { Surface } from "react-native-paper"
 import { BentoContainer } from "../utility_components/Bento"
-import BentoView from "./BentoView"
 
 
 const ResumeViewContent = () => {
@@ -62,7 +61,7 @@ const ResumeViewContent = () => {
               <View style={renderIndentation(1)}>
                 
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
-                  Education!
+                  Education!!
                 </Text>
                 <EducationItemCard resume={resume} />
                 
@@ -130,55 +129,13 @@ const ResumeViewContent = () => {
                 </Text>
                 <ExperienceItemCard resume={resume} />
 
-                <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
+                {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Title: {resume.Experience.title}
                 </Text>
                 <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Text: {resume.Experience.text}
-                </Text>
-                {/* {resume.Companies && resume.Companies.length > 0 && (
-                  <View style={renderIndentation(2)}>
-                    <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 180)]}>
-                      Companies
-                    </Text>
-                    {resume.Companies.map((company) => (
-                      <View key={company.id} style={renderIndentation(1)}>
-                        <Text style={[styles.text, renderTextColor(4, baseHue + 180)]}>
-                          {company.name} - {company.role} ({company.startDate} - {company.endDate})
-                        </Text>
-                        <Text style={[styles.text, renderTextColor(4, baseHue + 180)]}>
-                          Title: {company.title}
-                        </Text>
-
-                        {resume.Engagements.filter((e) => e.companyID === company.id).map(
-                          (engagement) => (
-                            <View key={engagement.id} style={renderIndentation(1)}>
-                              <Text style={[styles.text, renderTextColor(5, baseHue + 180)]}>
-                                Engagement with {engagement.client} ({engagement.startDate} -{" "}
-                                {engagement.endDate})
-                              </Text>
-                              {resume.Accomplishments.filter(
-                                (a) => a.engagementID === engagement.id,
-                              ).map((accomplishment) => (
-                                <Text
-                                  key={accomplishment.id}
-                                  style={[
-                                    styles.text,
-                                    renderTextColor(6, baseHue + 180),
-                                    renderIndentation(1),
-                                  ]}
-                                >
-                                  Accomplishment: {accomplishment.title} -{" "}
-                                  {accomplishment.description}
-                                </Text>
-                              ))}
-                            </View>
-                          ),
-                        )}
-                      </View>
-                    ))}
-                  </View>
-                )} */}
+                </Text> */}
+                
               </View>
             )}
             {resume.Summary && (
