@@ -23,7 +23,7 @@ const EducationItemCard: React.FC<EducationItemCardType> = ({ resume }) => {
 
           {resume.Schools && resume.Schools.length > 0 && (
             <View style={{ width: "100%" }}>
-              <ResponsiveGrid width={"100%%"} align="left">
+              <ResponsiveGrid width={"100%"} align="left">
                 {resume.Schools.map((school, index) => (
                   <Card>
                   <View
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     // minWidth: "100%", // Minimum width from responsive grid
 
     // padding: 15,
-    fontColor: "rgba(255,0,255,1)",
+    // fontColor: "rgba(255,0,255,1)",
     borderRadius: 8,
   },
   header: {

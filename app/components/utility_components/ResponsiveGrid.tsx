@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // Optional padding around the grid container
   },
   gridItem: {
+    flexWrap: 'wrap',
     padding: 5, // Padding around each grid item
     marginBottom: 10, // Space between rows
     backgroundColor: "rgba(255, 255, 255, 0)", // Optional background color

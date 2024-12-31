@@ -12,6 +12,8 @@ import Actioncard from "../ActionCard"
 import Productcard from "../ProductCard"
 import Standardcard from "../StandardCard"
 import { Surface } from "react-native-paper"
+import { BentoContainer } from "../utility_components/Bento"
+import BentoView from "./BentoView"
 
 
 const ResumeViewContent = () => {
@@ -19,6 +21,7 @@ const ResumeViewContent = () => {
   return (
     <ScrollView style={styles.container}>
       <Surface>
+        
       <View>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
@@ -26,10 +29,11 @@ const ResumeViewContent = () => {
         return (
           // using the Summary view to contain the Resume data
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
+            
             {resume.ContactInformation && (
               <ContactInformationCard resume={resume} name="Contact Information" />
             )}
-
+            
             {resume.Skills && resume.Skills.length > 0 && (
               <View style={renderIndentation(1)}>
                 <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills!</Text>
@@ -42,7 +46,7 @@ const ResumeViewContent = () => {
                     </View>
                   ))}
                 </View>
-
+                  {/* vertical flow */}
                 {/* {resume.Skills.map((skill) => (
                   <Text
                     key={skill.id}
@@ -126,12 +130,12 @@ const ResumeViewContent = () => {
                 </Text>
                 <ExperienceItemCard resume={resume} />
 
-                {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
+                <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Title: {resume.Experience.title}
-                </Text> */}
-                {/* <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
+                </Text>
+                <Text style={[styles.text, renderTextColor(3, baseHue + 180)]}>
                   Text: {resume.Experience.text}
-                </Text> */}
+                </Text>
                 {/* {resume.Companies && resume.Companies.length > 0 && (
                   <View style={renderIndentation(2)}>
                     <Text style={[styles.sectionTitle, renderTextColor(3, baseHue + 180)]}>
