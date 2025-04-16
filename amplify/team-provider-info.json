@@ -29,5 +29,27 @@
         "s3resumebuilderstorage1a319798": {}
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pbradygeorgen-dev-175517-authRole",
+      "UnauthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-dev-175517-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-dev-175517-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pbradygeorgen-dev-175517-deployment",
+      "UnauthRoleName": "amplify-pbradygeorgen-dev-175517-unauthRole",
+      "StackName": "amplify-pbradygeorgen-dev-175517",
+      "StackId": "arn:aws:cloudformation:us-east-1:860268930466:stack/amplify-pbradygeorgen-dev-175517/dea9f9b0-1b15-11f0-af00-12b6492ee685",
+      "AmplifyAppId": "d1ardtr2ne6hay"
+    },
+    "categories": {
+      "auth": {
+        "resumebuilder": {}
+      },
+      "function": {
+        "openAI": {},
+        "populateData": {}
+      }
+    }
   }
 }

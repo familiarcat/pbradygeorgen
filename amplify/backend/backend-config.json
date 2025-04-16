@@ -11,7 +11,8 @@
           ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
+              "apiKeyExpirationDate": "2026-04-16T22:57:08.517Z",
+              "apiKeyExpirationDays": 365,
               "description": "api key description"
             },
             "authenticationType": "API_KEY"
@@ -66,40 +67,6 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_openAI_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "openAI"
-        }
-      ]
-    },
-    "AMPLIFY_function_openAI_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "openAI"
-        }
-      ]
-    },
-    "AMPLIFY_function_populateData_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "populateData"
-        }
-      ]
-    },
-    "AMPLIFY_function_populateData_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "populateData"
-        }
-      ]
     }
   },
   "storage": {
