@@ -25,6 +25,22 @@
     .loading h1 {
       margin-bottom: 20px;
     }
+    .error-container {
+      display: none;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .error-container button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -34,9 +50,41 @@
       <p>Loading application...</p>
     </div>
   </div>
+
+  <div id="error-container" class="error-container">
+    <h1>Something went wrong</h1>
+    <p>We're sorry, but something went wrong. Please try refreshing the page.</p>
+    <p id="error-message"></p>
+    <button onclick="window.location.reload()">Refresh Page</button>
+  </div>
+
   <script>
     // This will be replaced by the actual app
     console.log('Web build loading - April 2025 update');
+
+    // Add a timeout to show an error message if the app doesn't load
+    setTimeout(function() {
+      var loadingElement = document.querySelector('.loading');
+      var rootElement = document.getElementById('root');
+      var errorContainer = document.getElementById('error-container');
+
+      // If the loading element is still visible after 10 seconds, show an error
+      if (loadingElement && loadingElement.parentNode === rootElement) {
+        console.log('Application failed to load within timeout');
+        document.getElementById('error-message').textContent = 'Application failed to load within timeout';
+        errorContainer.style.display = 'block';
+        loadingElement.style.display = 'none';
+      }
+    }, 10000); // 10 second timeout
+
+    // Global error handler
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.error('Global error caught:', { message, source, lineno, colno, error });
+      document.getElementById('error-message').textContent = 'Error: ' + message;
+      document.getElementById('error-container').style.display = 'block';
+      document.querySelector('.loading').style.display = 'none';
+      return true; // Prevent default error handling
+    };
   </script>
 </body>
 </html>

@@ -21,42 +21,13 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 interface AppNavigatorProps extends Partial<NavigationContainerProps> {} // Ensure props are extendable from NavigationContainerProps
 
 const AppStack = observer(function AppStack() {
-  const { isAuthenticated, isLoading } = useAuth()
-
-  // For web deployment, always show content
-  const isWeb = typeof window !== 'undefined' && window.location && window.location.href.includes('pbradygeorgen.com');
-
-  console.log('App rendering, isWeb:', isWeb, 'isLoading:', isLoading, 'isAuthenticated:', isAuthenticated);
-
-  // Show content immediately for web deployment
-  if (isWeb) {
-    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="ResumeScreen" component={ResumeScreen} />
-        <Stack.Screen name="ResumeWizardNavigator" component={ResumeWizardNavigator} />
-      </Stack.Navigator>
-    )
-  }
-
-  // Show loading screen while checking authentication
-  if (isLoading) {
-    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      </Stack.Navigator>
-    )
-  }
+  // For web deployment, we'll always show the content without authentication
+  console.log('App rendering - showing content without authentication');
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <>
-          <Stack.Screen name="ResumeScreen" component={ResumeScreen} />
-          <Stack.Screen name="ResumeWizardNavigator" component={ResumeWizardNavigator} />
-        </>
-      ) : (
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      )}
+      <Stack.Screen name="ResumeScreen" component={ResumeScreen} />
+      <Stack.Screen name="ResumeWizardNavigator" component={ResumeWizardNavigator} />
     </Stack.Navigator>
   )
 })

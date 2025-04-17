@@ -1,34 +1,39 @@
-import { Amplify } from 'aws-amplify';
+// Mock Amplify configuration for web deployment
 
-// Initialize Amplify
+// Create mock objects to prevent errors
+const createMockAmplify = () => {
+  return {
+    Auth: {
+      currentAuthenticatedUser: () => Promise.resolve(null),
+      signIn: () => Promise.resolve(null),
+      signOut: () => Promise.resolve(),
+    },
+    Hub: {
+      listen: () => {
+        return () => {}; // Return a no-op cleanup function
+      }
+    },
+    API: {
+      graphql: () => Promise.resolve({}),
+      get: () => Promise.resolve({}),
+      post: () => Promise.resolve({}),
+    },
+    Storage: {
+      get: () => Promise.resolve(null),
+      put: () => Promise.resolve(null),
+    }
+  };
+};
+
+// Export a mock Amplify object
+export const Amplify = createMockAmplify();
+
+// Initialize Amplify (mock version for web)
 export const configureAmplify = () => {
   try {
-    console.log('Configuring Amplify...');
-
-    // Manual configuration for Amplify
-    const amplifyConfig = {
-      Auth: {
-        // Disable Auth for web deployment
-        // region: 'us-east-2',
-        // userPoolId: 'us-east-2_xxxxxxxx',
-        // userPoolWebClientId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
-      },
-      API: {
-        GraphQL: {
-          endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
-          region: 'us-east-2',
-          apiKey: 'da2-7n7st4as4vbf7i3cx6amixuxiu',
-          defaultAuthMode: 'apiKey',
-        }
-      },
-      Storage: {
-        // Configure S3 if needed
-      }
-    };
-
-    Amplify.configure(amplifyConfig);
-    console.log('Amplify configured successfully');
+    console.log('Using mock Amplify configuration for web deployment');
+    // Do nothing - we're using the mock objects instead
   } catch (error) {
-    console.error('Error configuring Amplify:', error);
+    console.error('Error in mock Amplify configuration:', error);
   }
 };

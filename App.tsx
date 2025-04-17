@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 import * as SplashScreen from "expo-splash-screen"
 import { configureAmplify } from "./app/config/amplify-config"
 
-// Initialize Amplify
+// Initialize mock Amplify for web deployment
 configureAmplify()
 
 // Prevent splash screen from auto-hiding

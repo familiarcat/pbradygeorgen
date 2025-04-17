@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { Amplify, Auth, Hub } from 'aws-amplify';
+import { Amplify } from '../config/amplify-config';
 import { configureAmplify } from '../config/amplify-config';
 
 // Initialize Amplify
@@ -55,19 +55,9 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
 
   const checkUser = async () => {
     try {
-      // For web deployment, we'll set a short timeout to prevent blocking
-      const timeoutPromise = new Promise(resolve => setTimeout(() => {
-        console.log('Auth check timed out, proceeding as guest');
-        resolve(null);
-      }, 2000));
-
-      // Race between actual auth check and timeout
-      const userData = await Promise.race([
-        Auth.currentAuthenticatedUser(),
-        timeoutPromise
-      ]);
-
-      setUser(userData);
+      console.log('Using mock Auth check for web deployment');
+      // Always proceed as guest for web deployment
+      setUser(null);
     } catch (error) {
       console.log('Auth check failed, proceeding as guest', error);
       setUser(null);
@@ -78,8 +68,9 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
 
   const signIn = async (username: string, password: string) => {
     try {
-      const user = await Auth.signIn(username, password);
-      return user;
+      console.log('Using mock signIn for web deployment');
+      // Always return null for web deployment
+      return null;
     } catch (error) {
       console.error('Error signing in:', error);
       throw error;
@@ -88,7 +79,8 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
 
   const signOut = async () => {
     try {
-      await Auth.signOut();
+      console.log('Using mock signOut for web deployment');
+      // Do nothing for web deployment
     } catch (error) {
       console.error('Error signing out:', error);
     }
