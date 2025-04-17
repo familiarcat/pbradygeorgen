@@ -3,23 +3,17 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = async function (env, argv) {
+  // Use the default Expo webpack config
   const config = await createExpoWebpackConfigAsync(
     {
       ...env,
-      // Optionally turn on/off HMR
-      hot: true,
+      // Disable HMR for production builds
+      hot: false,
     },
     argv,
   )
 
-  // Add support for AWS Amplify
-  config.resolve.alias = {
-    ...config.resolve.alias,
-    '@aws-amplify/core': path.resolve(__dirname, 'node_modules/@aws-amplify/core'),
-    'aws-amplify': path.resolve(__dirname, 'node_modules/aws-amplify'),
-  }
-
-  // Fix for crypto modules in webpack 5
+  // Add polyfills and fallbacks needed for AWS Amplify
   if (!config.resolve.fallback) {
     config.resolve.fallback = {}
   }
@@ -29,10 +23,10 @@ module.exports = async function (env, argv) {
     crypto: require.resolve('crypto-browserify'),
     stream: require.resolve('stream-browserify'),
     buffer: require.resolve('buffer/'),
-    'process/browser': require.resolve('process/browser'),
+    process: require.resolve('process/browser'),
   }
 
-  // Add polyfills
+  // Add required plugins
   if (!config.plugins) {
     config.plugins = []
   }

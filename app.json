@@ -52,12 +52,6 @@
         "backgroundColor": "#191015"
       },
       "bundler": "metro",
-      "output": "static",
-      "build": {
-        "babel": {
-          "include": ["@aws-amplify/ui-react", "aws-amplify"]
-        }
-      },
       "entryPoint": "./app/web-entry.tsx"
     },
     "plugins": [
