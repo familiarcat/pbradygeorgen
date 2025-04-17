@@ -19,11 +19,12 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 const prefix = Linking.createURL("/")
 const config = {
   screens: {
-    Login: {
+    // Define the root path to go to ResumeScreen
+    ResumeScreen: {
       path: "",
     },
-    Welcome: "welcome",
-    Resume: "resume",
+    ResumeWizardNavigator: "wizard",
+    LoginScreen: "login",
     DemoShowroomScreen: "demo"
   },
 }

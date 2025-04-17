@@ -1,0 +1,12 @@
+[
+  {
+    "source": "/",
+    "destination": "/ResumeScreen",
+    "status": "302"
+  },
+  {
+    "source": "/<*>",
+    "destination": "/index.html",
+    "status": "200"
+  }
+]

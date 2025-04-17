@@ -15,10 +15,40 @@
       flex-direction: column;
       min-height: 100vh;
     }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .loading h1 {
+      margin-bottom: 20px;
+    }
   </style>
+  <!-- Redirect script to ensure proper routing -->
+  <script>
+    // Check if we need to redirect
+    function checkRedirect() {
+      // If we're at the root path and not already at /ResumeScreen
+      if (window.location.pathname === '/' && !window.location.href.includes('/ResumeScreen')) {
+        console.log('Redirecting to ResumeScreen');
+        // Redirect to ResumeScreen
+        window.location.href = '/ResumeScreen';
+      }
+    }
+
+    // Run the check when the page loads
+    window.onload = checkRedirect;
+  </script>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div class="loading">
+      <h1>Brady Georgen</h1>
+      <p>Loading application...</p>
+    </div>
+  </div>
   <script>
     // Simple check to verify the web build is working
     console.log('Web build loaded successfully - April 2025 update');

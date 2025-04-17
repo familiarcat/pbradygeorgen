@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { registerRootComponent } from 'expo';
 import App from '../App';
+import { WebRouter } from './web-router';
 
 // This is the entry point for web builds
 // It simply re-exports the main App component
@@ -50,9 +51,19 @@ function WebApp() {
     );
   }
 
-  // Wrap the App component in an error boundary
+  // For web, we'll use our WebRouter component directly
+  // This ensures that the root URL shows the ResumeScreen
   try {
-    return <App />;
+    // Check if we're on the web
+    const isWeb = typeof window !== 'undefined' && window.location && window.location.href.includes('pbradygeorgen.com');
+
+    if (isWeb) {
+      console.log('Using WebRouter for direct routing to ResumeScreen');
+      return <WebRouter />;
+    } else {
+      // Use the normal App component for non-web environments
+      return <App />;
+    }
   } catch (e) {
     console.error('Error rendering App:', e);
     setError(e instanceof Error ? e : new Error('Error rendering App'));

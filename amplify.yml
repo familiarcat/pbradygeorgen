@@ -19,6 +19,18 @@ frontend:
     baseDirectory: dist
     files:
       - '**/*'
+    customHeaders:
+      - pattern: '**/*'
+        headers:
+          - key: 'Cache-Control'
+            value: 'max-age=0, no-cache, no-store, must-revalidate'
+    redirects:
+      - source: '/'
+        destination: '/ResumeScreen'
+        status: '302'
+      - source: '/<*>'
+        destination: '/index.html'
+        status: '200'
   cache:
     paths:
       - node_modules/**/*

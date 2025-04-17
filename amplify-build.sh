@@ -24,6 +24,10 @@ mkdir -p dist
 cp -f public/index.html dist/index.html
 cp -f static/fallback.html dist/fallback.html
 
+# Copy redirects file
+echo "Copying redirects file..."
+cp -f redirects.json dist/redirects.json
+
 # Build the web app
 echo "Building web app..."
 npm run bundle:web
