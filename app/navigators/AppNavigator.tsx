@@ -7,7 +7,6 @@ import { DarkTheme, DefaultTheme } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
 import { ResumeScreen } from "../screens/ResumeScreen"
 import { ResumeWizardNavigator } from "./ResumeWizardNavigator"
-import { useAuth } from "../components/AmplifyProvider"
 import { LoginScreen } from "../screens"
 
 export type AppStackParamList = {
@@ -21,7 +20,6 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 interface AppNavigatorProps extends Partial<NavigationContainerProps> {} // Ensure props are extendable from NavigationContainerProps
 
 const AppStack = observer(function AppStack() {
-  // For web deployment, we'll always show the content without authentication
   console.log('App rendering - showing content without authentication');
 
   return (

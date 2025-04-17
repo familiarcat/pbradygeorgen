@@ -1,9 +1,4 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { Amplify } from '../config/amplify-config';
-import { configureAmplify } from '../config/amplify-config';
-
-// Initialize Amplify
-configureAmplify();
 
 // Create context
 interface AuthContextType {
@@ -17,7 +12,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
   signIn: async () => null,
   signOut: async () => {},
 });
@@ -28,67 +23,23 @@ interface AmplifyProviderProps {
 }
 
 export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
-  const [user, setUser] = useState<any | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // For web deployment, we'll use a simplified version without any Amplify dependencies
+  const [user] = useState<any | null>(null);
+  const [isLoading] = useState(false);
 
-  useEffect(() => {
-    // Check if user is already signed in
-    checkUser();
-
-    // Listen for auth events
-    const listener = Hub.listen('auth', ({ payload: { event, data } }) => {
-      switch (event) {
-        case 'signIn':
-          setUser(data);
-          break;
-        case 'signOut':
-          setUser(null);
-          break;
-      }
-    });
-
-    return () => {
-      // Cleanup listener
-      listener();
-    };
-  }, []);
-
-  const checkUser = async () => {
-    try {
-      console.log('Using mock Auth check for web deployment');
-      // Always proceed as guest for web deployment
-      setUser(null);
-    } catch (error) {
-      console.log('Auth check failed, proceeding as guest', error);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const signIn = async (username: string, password: string) => {
-    try {
-      console.log('Using mock signIn for web deployment');
-      // Always return null for web deployment
-      return null;
-    } catch (error) {
-      console.error('Error signing in:', error);
-      throw error;
-    }
+  // Simple mock functions
+  const signIn = async () => {
+    console.log('Mock signIn called');
+    return null;
   };
 
   const signOut = async () => {
-    try {
-      console.log('Using mock signOut for web deployment');
-      // Do nothing for web deployment
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    console.log('Mock signOut called');
   };
 
   const value = {
     user,
-    isAuthenticated: !!user,
+    isAuthenticated: false,
     isLoading,
     signIn,
     signOut,
