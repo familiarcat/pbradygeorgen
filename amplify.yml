@@ -8,15 +8,17 @@ backend:
         - npm install -g @aws-amplify/cli@latest
     build:
       commands:
-        - amplifyPush --simple
+        - echo "Skipping backend build for now"
+        # - amplifyPush --simple
 frontend:
   phases:
     preBuild:
       commands:
         - npm ci
+        - npm install crypto-browserify stream-browserify buffer process
     build:
       commands:
-        - npm run bundle:web
+        - npm run build:web || npm run bundle:web
   artifacts:
     baseDirectory: dist
     files:

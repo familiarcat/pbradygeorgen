@@ -20,14 +20,23 @@ module.exports = async function (env, argv) {
   }
 
   // Fix for crypto modules in webpack 5
+  if (!config.resolve.fallback) {
+    config.resolve.fallback = {}
+  }
+
   config.resolve.fallback = {
     ...config.resolve.fallback,
     crypto: require.resolve('crypto-browserify'),
     stream: require.resolve('stream-browserify'),
     buffer: require.resolve('buffer/'),
+    'process/browser': require.resolve('process/browser'),
   }
 
   // Add polyfills
+  if (!config.plugins) {
+    config.plugins = []
+  }
+
   config.plugins.push(
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],

@@ -57,7 +57,8 @@
         "babel": {
           "include": ["@aws-amplify/ui-react", "aws-amplify"]
         }
-      }
+      },
+      "entryPoint": "./app/web-entry.tsx"
     },
     "plugins": [
       "expo-localization",
