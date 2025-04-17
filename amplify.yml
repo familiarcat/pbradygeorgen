@@ -5,6 +5,7 @@ backend:
       commands:
         - rm -rf amplify-backup || true
         - echo "Removed amplify-backup folder if it existed"
+        - npm install -g @aws-amplify/cli@latest
     build:
       commands:
         - amplifyPush --simple
@@ -15,9 +16,9 @@ frontend:
         - npm ci
     build:
       commands:
-        - npm run build
+        - npm run bundle:web
   artifacts:
-    baseDirectory: build
+    baseDirectory: dist
     files:
       - '**/*'
   cache:

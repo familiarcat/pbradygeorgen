@@ -51,7 +51,13 @@
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       },
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "static",
+      "build": {
+        "babel": {
+          "include": ["@aws-amplify/ui-react", "aws-amplify"]
+        }
+      }
     },
     "plugins": [
       "expo-localization",

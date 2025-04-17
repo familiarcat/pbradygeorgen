@@ -1,53 +1,63 @@
 import { observer } from "mobx-react-lite"
 import React, { ComponentType, FC, useEffect, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ViewStyle } from "react-native"
+import { TextInput, TextStyle, ViewStyle, Alert } from "react-native"
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../components"
 // import { useStores } from "../models"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
+import { useAuth } from "../components/AmplifyProvider"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
   const authPasswordInput = useRef<TextInput>(null)
+  const { signIn } = useAuth()
 
+  const [authEmail, setAuthEmail] = useState("")
   const [authPassword, setAuthPassword] = useState("")
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [attemptsCount, setAttemptsCount] = useState(0)
-  // const {
-  //   authenticationStore: { authEmail, setAuthEmail, setAuthToken, validationError },
-  // } = useStores()
+  const [error, setError] = useState("")
 
   useEffect(() => {
     // Here is where you could fetch credentials from keychain or storage
     // and pre-fill the form fields.
-    // setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
+    setAuthEmail("user@example.com")
+    setAuthPassword("password123")
 
     // Return a "cleanup" function that React will run when the component unmounts
     return () => {
       setAuthPassword("")
-      // setAuthEmail("")
+      setAuthEmail("")
+      setError("")
     }
   }, [])
 
-  // const error = isSubmitted ? validationError : ""
-
-  function login() {
+  async function login() {
     setIsSubmitted(true)
     setAttemptsCount(attemptsCount + 1)
+    setError("")
 
-    // if (validationError) return
+    if (!authEmail || !authPassword) {
+      setError("Please enter both email and password")
+      return
+    }
 
-    // // Make a request to your server to get an authentication token.
-    // // If successful, reset the fields and set the token.
-    // setIsSubmitted(false)
-    // setAuthPassword("")
-    // setAuthEmail("")
+    try {
+      // Call Amplify Auth signIn
+      await signIn(authEmail, authPassword)
 
-    // // We'll mock this with a fake token.
-    // setAuthToken(String(Date.now()))
+      // If successful, reset the fields
+      setIsSubmitted(false)
+      setAuthPassword("")
+      setAuthEmail("")
+    } catch (err) {
+      // Handle authentication errors
+      console.error("Login error:", err)
+      setError("Invalid username or password")
+      Alert.alert("Login Failed", "Please check your credentials and try again.")
+    }
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -76,7 +86,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       <Text tx="loginScreen.enterDetails" preset="subheading" style={$enterDetails} />
       {attemptsCount > 2 && <Text tx="loginScreen.hint" size="sm" weight="light" style={$hint} />}
 
-      {/* <TextField
+      <TextField
         value={authEmail}
         onChangeText={setAuthEmail}
         containerStyle={$textField}
@@ -89,7 +99,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         helper={error}
         status={error ? "error" : undefined}
         onSubmitEditing={() => authPasswordInput.current?.focus()}
-      /> */}
+      />
 
       <TextField
         ref={authPasswordInput}
