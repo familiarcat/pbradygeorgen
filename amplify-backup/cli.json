@@ -17,9 +17,7 @@
       "enableautoindexquerynames": true,
       "respectprimarykeyattributesonconnectionfield": true,
       "shoulddeepmergedirectiveconfigdefaults": false,
-      "populateownerfieldforstaticgroupauth": true,
-      "subscriptionsinheritprimaryauth": false,
-      "enablegen2migration": false
+      "populateownerfieldforstaticgroupauth": true
     },
     "frontend-ios": {
       "enablexcodeintegration": true

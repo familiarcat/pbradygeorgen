@@ -1,0 +1,55 @@
+{
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pbradygeorgen-main-0b505-authRole",
+      "UnauthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-main-0b505-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-main-0b505-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
+      "UnauthRoleName": "amplify-pbradygeorgen-main-0b505-unauthRole",
+      "StackName": "amplify-pbradygeorgen-main-0b505",
+      "StackId": "arn:aws:cloudformation:us-east-2:860268930466:stack/amplify-pbradygeorgen-main-0b505/1a995b90-1226-11ef-bfd7-0609dc1657e7",
+      "AmplifyAppId": "d2gv0gd3awxys0"
+    },
+    "categories": {
+      "auth": {
+        "resumebuilder": {}
+      },
+      "function": {
+        "openAI": {
+          "deploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
+          "s3Key": "amplify-builds/openAI-476c346d78774850546a-build.zip"
+        },
+        "populateData": {
+          "deploymentBucketName": "amplify-pbradygeorgen-main-0b505-deployment",
+          "s3Key": "amplify-builds/populateData-6544576753496a742f36-build.zip"
+        }
+      },
+      "storage": {
+        "s3resumebuilderstorage1a319798": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pbradygeorgen-dev-175517-authRole",
+      "UnauthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-dev-175517-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::860268930466:role/amplify-pbradygeorgen-dev-175517-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pbradygeorgen-dev-175517-deployment",
+      "UnauthRoleName": "amplify-pbradygeorgen-dev-175517-unauthRole",
+      "StackName": "amplify-pbradygeorgen-dev-175517",
+      "StackId": "arn:aws:cloudformation:us-east-1:860268930466:stack/amplify-pbradygeorgen-dev-175517/dea9f9b0-1b15-11f0-af00-12b6492ee685",
+      "AmplifyAppId": "d3vvlp7umhc1qr"
+    },
+    "categories": {
+      "auth": {
+        "resumebuilder": {}
+      },
+      "function": {
+        "openAI": {},
+        "populateData": {}
+      }
+    }
+  }
+}
