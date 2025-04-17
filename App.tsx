@@ -3,7 +3,7 @@ import React, { useEffect } from "react"
 import * as SplashScreen from "expo-splash-screen"
 import { configureAmplify } from "./app/config/amplify-config"
 
-// Initialize mock Amplify for web deployment
+// Initialize hybrid Amplify with real API access but mock Auth
 configureAmplify()
 
 // Prevent splash screen from auto-hiding

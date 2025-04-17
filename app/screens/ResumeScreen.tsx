@@ -12,6 +12,7 @@ import {
 import { Button, Icon, LottieAnimation, Text, Screen, Card } from "../components"
 import { colors, typography } from "../theme"
 import { createMockData, clearData } from "app/mock/mockData"
+import { DataDisplay } from "../components/DataDisplay"
 
 // import { Demo } from "../DemoShowroomScreen"
 // import { DemoDivider } from "../DemoDivider"
@@ -83,6 +84,11 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
 
         <View style={{ marginVertical: 20 }}>
           <ResumeView />
+        </View>
+
+        <View style={{ marginVertical: 20 }}>
+          <Text preset="heading" text="Data from DynamoDB" />
+          <DataDisplay />
         </View>
 
         <ResponsiveGrid>
