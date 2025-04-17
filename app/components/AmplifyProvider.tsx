@@ -55,9 +55,21 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
 
   const checkUser = async () => {
     try {
-      const userData = await Auth.currentAuthenticatedUser();
+      // For web deployment, we'll set a short timeout to prevent blocking
+      const timeoutPromise = new Promise(resolve => setTimeout(() => {
+        console.log('Auth check timed out, proceeding as guest');
+        resolve(null);
+      }, 2000));
+
+      // Race between actual auth check and timeout
+      const userData = await Promise.race([
+        Auth.currentAuthenticatedUser(),
+        timeoutPromise
+      ]);
+
       setUser(userData);
     } catch (error) {
+      console.log('Auth check failed, proceeding as guest', error);
       setUser(null);
     } finally {
       setIsLoading(false);

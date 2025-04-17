@@ -72,40 +72,47 @@ export type ResumeScreenProps = {
 }
 
 export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
-  return (
-    <Screen>
-      
+  // Log that the ResumeScreen is rendering
+  console.log('ResumeScreen rendering');
 
-        <ResumeView />
-    
-      
-      <ResponsiveGrid>
-        <Productcard />
-        <Actioncard />
-        <Standardcard />
+  return (
+    <Screen preset="scroll">
+      <View style={{ padding: 10 }}>
+        <Text preset="heading" text="Brady Georgen" />
+        <Text preset="subheading" text="Web & Mobile Developer" />
+
+        <View style={{ marginVertical: 20 }}>
+          <ResumeView />
+        </View>
+
         <ResponsiveGrid>
-          <Itemcard />
-          <Itemcard />
-          <Itemcard />
-        </ResponsiveGrid>
-        <ResponsiveGrid>
+          <Productcard />
+          <Actioncard />
           <Standardcard />
-          <Itemcard />
-          <Itemcard />
+          <ResponsiveGrid>
+            <Itemcard />
+            <Itemcard />
+            <Itemcard />
+          </ResponsiveGrid>
+          <ResponsiveGrid>
+            <Standardcard />
+            <Itemcard />
+            <Itemcard />
+          </ResponsiveGrid>
+          <Reviewcard />
+          <Ampligram />
+          <Commentcard />
+          <Productcard />
+          <Profilecard />
+          <Editprofilecard />
+          <LottieAnimation
+            animationSource={require("assets/animations/waves.json")}
+            onPress={() => console.log("pressed at the lottie level")}
+            speed={1}
+            pingPong={true}
+          />
         </ResponsiveGrid>
-        <Reviewcard />
-        <Ampligram />
-        <Commentcard />
-        <Productcard />
-        <Profilecard />
-        <Editprofilecard />
-        <LottieAnimation
-          animationSource={require("assets/animations/waves.json")}
-          onPress={() => console.log("pressed at the lottie level")}
-          speed={1}
-          pingPong={true}
-        />
-      </ResponsiveGrid>
+      </View>
     </Screen>
   )
 }

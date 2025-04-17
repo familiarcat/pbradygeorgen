@@ -23,6 +23,21 @@ interface AppNavigatorProps extends Partial<NavigationContainerProps> {} // Ensu
 const AppStack = observer(function AppStack() {
   const { isAuthenticated, isLoading } = useAuth()
 
+  // For web deployment, always show content
+  const isWeb = typeof window !== 'undefined' && window.location && window.location.href.includes('pbradygeorgen.com');
+
+  console.log('App rendering, isWeb:', isWeb, 'isLoading:', isLoading, 'isAuthenticated:', isAuthenticated);
+
+  // Show content immediately for web deployment
+  if (isWeb) {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="ResumeScreen" component={ResumeScreen} />
+        <Stack.Screen name="ResumeWizardNavigator" component={ResumeWizardNavigator} />
+      </Stack.Navigator>
+    )
+  }
+
   // Show loading screen while checking authentication
   if (isLoading) {
     return (
