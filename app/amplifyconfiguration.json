@@ -5,8 +5,11 @@
   "aws_appsync_authenticationType": "API_KEY",
   "aws_appsync_apiKey": "da2-7n7st4as4vbf7i3cx6amixuxiu",
   "DataStore": {
-    "conflictHandler": "AUTOMERGE",
+    "conflictHandler": "OPTIMISTIC_CONCURRENCY",
     "maxRecordsToSync": 10000,
-    "syncPageSize": 1000
+    "syncPageSize": 1000,
+    "fullSyncInterval": 60,
+    "syncExpressions": [],
+    "authModeStrategyType": "DEFAULT"
   }
 }

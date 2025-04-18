@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { Amplify, DataStore } from 'aws-amplify';
-import config from '../amplifyconfiguration.json';
+import { dataStoreSync } from '../services/DataStoreSync';
 
 // Create context
 interface AuthContextType {
@@ -14,8 +13,10 @@ interface AuthContextType {
 interface AmplifyContextType {
   dataStoreReady: boolean;
   networkStatus: string;
+  syncStatus: string;
   clearDataStore: () => Promise<void>;
   forceSync: () => Promise<void>;
+  initializeData: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -29,8 +30,10 @@ const AuthContext = createContext<AuthContextType>({
 const AmplifyContext = createContext<AmplifyContextType>({
   dataStoreReady: false,
   networkStatus: 'unknown',
+  syncStatus: 'not_started',
   clearDataStore: async () => {},
   forceSync: async () => {},
+  initializeData: async () => {},
 });
 
 // Provider component
@@ -44,57 +47,44 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
   const [isLoading] = useState(false);
   const [dataStoreReady, setDataStoreReady] = useState(false);
   const [networkStatus, setNetworkStatus] = useState('unknown');
+  const [syncStatus, setSyncStatus] = useState('not_started');
 
-  // Initialize Amplify with our configuration
+  // Initialize DataStoreSync service
   useEffect(() => {
-    const initializeAmplify = async () => {
+    const initializeDataStore = async () => {
       try {
-        console.log('Initializing Amplify with configuration');
-        Amplify.configure(config);
-        console.log('Amplify configured successfully');
+        console.log('Initializing DataStoreSync service');
+        await dataStoreSync.initialize();
+        console.log('DataStoreSync service initialized successfully');
 
-        // Clear any existing data to ensure clean sync
-        try {
-          console.log('Clearing DataStore to ensure clean sync');
-          await DataStore.clear();
-          console.log('DataStore cleared successfully');
-        } catch (clearError) {
-          console.error('Error clearing DataStore:', clearError);
-        }
+        // Update initial status
+        const status = dataStoreSync.getStatus();
+        setDataStoreReady(status.isReady);
+        setNetworkStatus(status.networkStatus);
+        setSyncStatus(status.syncStatus);
 
-        // Set up DataStore listeners
-        const subscription = DataStore.observe('datastore').subscribe({
-          next: (msg) => {
-            console.log('DataStore event:', msg.payload);
-            const { event, data } = msg.payload;
+        // Set up listener for status updates
+        const removeListener = dataStoreSync.addListener((event) => {
+          console.log('DataStoreSync event:', event);
 
-            if (event === 'ready') {
-              console.log('DataStore is ready');
-              setDataStoreReady(true);
-            } else if (event === 'networkStatus' && data && typeof data === 'object' && 'active' in data) {
-              const status = data.active ? 'online' : 'offline';
-              console.log(`Network status: ${status}`);
-              setNetworkStatus(status);
-            } else if (event === 'outboxStatus') {
-              console.log('Outbox status:', data);
-            } else if (event === 'syncQueriesReady') {
-              console.log('Sync queries ready');
-            }
-          },
-          error: (error) => {
-            console.error('DataStore subscription error:', error);
+          if (event.type === 'ready') {
+            setDataStoreReady(true);
+          } else if (event.type === 'networkStatus') {
+            setNetworkStatus(event.status);
+          } else if (['syncQueriesStarted', 'syncQueriesReady', 'fullSyncStarted', 'fullSyncCompleted'].includes(event.type)) {
+            setSyncStatus(event.type);
           }
         });
 
         return () => {
-          subscription.unsubscribe();
+          removeListener();
         };
       } catch (error) {
-        console.error('Error initializing Amplify:', error);
+        console.error('Error initializing DataStoreSync service:', error);
       }
     };
 
-    initializeAmplify();
+    initializeDataStore();
   }, []);
 
   // Simple mock functions for auth
@@ -107,12 +97,10 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     console.log('Mock signOut called');
   };
 
-  // DataStore functions
+  // DataStore functions - delegate to the DataStoreSync service
   const clearDataStore = async () => {
     try {
-      console.log('Clearing DataStore');
-      await DataStore.clear();
-      console.log('DataStore cleared successfully');
+      await dataStoreSync.clear();
     } catch (error) {
       console.error('Error clearing DataStore:', error);
     }
@@ -121,16 +109,18 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
   // Force sync with remote
   const forceSync = async () => {
     try {
-      console.log('Forcing DataStore sync');
-      // Stop DataStore
-      await DataStore.stop();
-      console.log('DataStore stopped');
-
-      // Start DataStore to trigger sync
-      await DataStore.start();
-      console.log('DataStore started, sync initiated');
+      await dataStoreSync.forceSync();
     } catch (error) {
       console.error('Error forcing DataStore sync:', error);
+    }
+  };
+
+  // Initialize data if needed
+  const initializeData = async () => {
+    try {
+      await dataStoreSync.initializeData();
+    } catch (error) {
+      console.error('Error initializing data:', error);
     }
   };
 
@@ -145,8 +135,10 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
   const amplifyValue = {
     dataStoreReady,
     networkStatus,
+    syncStatus,
     clearDataStore,
     forceSync,
+    initializeData,
   };
 
   return (

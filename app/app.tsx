@@ -1,5 +1,5 @@
 // App.tsx
-import React from "react"
+import React, { useEffect } from "react"
 import { useFonts } from "expo-font"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
@@ -13,6 +13,7 @@ import { ViewStyle } from "react-native"
 import { DemoShowroomScreen } from "./screens"
 import { AmplifyProvider } from "./components/AmplifyProvider"
 import { DataProvider } from "./components/DataContext"
+import { dataStoreSync } from "./services/DataStoreSync"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -43,6 +44,21 @@ function App(props: AppProps) {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
+
+  // Initialize DataStoreSync service as early as possible
+  useEffect(() => {
+    const initializeDataStore = async () => {
+      try {
+        console.log('Initializing DataStoreSync service from App component');
+        await dataStoreSync.initialize();
+        console.log('DataStoreSync service initialized successfully from App component');
+      } catch (error) {
+        console.error('Error initializing DataStoreSync service from App component:', error);
+      }
+    };
+
+    initializeDataStore();
+  }, [])
 
   const linking = {
     prefixes: [prefix],

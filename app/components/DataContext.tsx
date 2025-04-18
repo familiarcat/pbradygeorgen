@@ -152,64 +152,55 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const { width: screenWidth } = useWindowDimensions()
 
   // Get Amplify context
-  const { dataStoreReady, networkStatus: amplifyNetworkStatus, clearDataStore: amplifyDataStoreClear, forceSync } = useAmplify();
+  const {
+    dataStoreReady,
+    networkStatus: amplifyNetworkStatus,
+    syncStatus: amplifySyncStatus,
+    clearDataStore: amplifyDataStoreClear,
+    forceSync,
+    initializeData
+  } = useAmplify();
 
   // Initialize data when DataStore is ready
   useEffect(() => {
     if (dataStoreReady) {
-      console.log('DataStore is ready, checking for existing data...');
-      const checkForData = async () => {
+      console.log('DataStore is ready, initializing data...');
+      const loadData = async () => {
         try {
-          // Check if we need to create mock data
-          const resumeCount = await DataStore.query(Resume, (r: any) => r, { limit: 1 })
-          console.log(`Found ${resumeCount.length} resumes during initialization`)
+          // Initialize data if needed (this will create mock data if none exists)
+          await initializeData();
 
-          if (resumeCount.length === 0) {
-            console.log('No resumes found during initialization, creating mock data...')
-            try {
-              // Stop sync before creating mock data
-              await stopDataStoreSync()
+          // Fetch data regardless of whether it was just created or already existed
+          await fetchData();
 
-              // Clear DataStore
-              await clearDataStore()
-
-              // Create mock data
-              await createMockData()
-              console.log('Mock data creation completed during initialization')
-
-              // Restart sync
-              await startDataStoreSync()
-
-              // Force sync to push local data to the cloud
-              await forceSync()
-              console.log('Forced sync to push local data to the cloud')
-
-              // Fetch the new data
-              await fetchDataWithoutAutoCreate()
-            } catch (error) {
-              console.error('Error creating initial mock data:', error)
-            }
-          } else {
-            // Data exists, fetch it
-            await fetchData()
-
-            // Force sync to ensure data is up to date
-            await forceSync()
-            console.log('Forced sync to ensure data is up to date')
-          }
+          // Force sync to ensure data is up to date with the cloud
+          await forceSync();
+          console.log('Forced sync to ensure data is up to date');
         } catch (error) {
-          console.error('Error checking for data:', error)
+          console.error('Error loading data:', error);
         }
       };
 
-      checkForData();
+      loadData();
     }
-  }, [dataStoreReady, forceSync])
+  }, [dataStoreReady, forceSync, initializeData])
 
-  // Update network status when it changes in AmplifyProvider
+  // Update status when it changes in AmplifyProvider
   useEffect(() => {
     setNetworkStatus(amplifyNetworkStatus);
+    console.log(`Network status updated: ${amplifyNetworkStatus}`);
   }, [amplifyNetworkStatus])
+
+  // Log sync status changes
+  useEffect(() => {
+    console.log(`Sync status updated: ${amplifySyncStatus}`);
+
+    // If sync completed, refresh data
+    if (amplifySyncStatus === 'fullSyncCompleted') {
+      console.log('Full sync completed, refreshing data...');
+      fetchData().catch(error => console.error('Error refreshing data after sync:', error));
+    }
+  }, [amplifySyncStatus])
   // Fetch data from DataStore after a short delay to ensure DataStore is initialized
   useEffect(() => {
     const fetchDataAfterDelay = async () => {
@@ -235,7 +226,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return () => subscription.unsubscribe()
   }, [])
 
-  // Function to clear DataStore
+  // Function to clear DataStore - delegate to AmplifyProvider
   const clearDataStore = async () => {
     try {
       console.log('Clearing DataStore')
@@ -246,53 +237,18 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   }
 
-  // Function to stop DataStore sync
+  // These functions are now handled by the DataStoreSync service via AmplifyProvider
+  // Keeping simplified versions for backward compatibility
   const stopDataStoreSync = async () => {
-    try {
-      console.log('Stopping DataStore sync')
-      await DataStore.stop()
-      console.log('DataStore sync stopped')
-    } catch (error) {
-      console.error('Error stopping DataStore sync:', error)
-    }
+    console.log('stopDataStoreSync called - now handled by DataStoreSync service')
   }
 
-  // Function to start DataStore sync
   const startDataStoreSync = async () => {
-    try {
-      console.log('Starting DataStore sync')
-      await DataStore.start()
-      console.log('DataStore sync started')
-    } catch (error) {
-      console.error('Error starting DataStore sync:', error)
-    }
+    console.log('startDataStoreSync called - now handled by DataStoreSync service')
   }
 
-  // Function to fetch data without auto-creating mock data
-  const fetchDataWithoutAutoCreate = async () => {
-    setIsLoading(true)
-    try {
-      // Fetch all resumes
-      console.log("Fetching resumes from DataStore without auto-create")
-      const resumeData = await DataStore.query(Resume)
-      console.log(`Found ${resumeData.length} resumes in DataStore`)
-
-      if (!resumeData || resumeData.length === 0) {
-        console.warn("No resumes found during fetch without auto-create")
-        setIsLoading(false)
-        return
-      }
-
-      // Fetch related data for each resume
-      const expandedResumes = await fetchExpandedResumes(resumeData)
-      setResumes(expandedResumes)
-      console.log(`Set ${expandedResumes.length} expanded resumes in state (without auto-create)`)
-    } catch (error) {
-      console.error("Error fetching resumes without auto-create:", error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  // This function is no longer needed as we're using the DataStoreSync service
+  // to handle data initialization and synchronization
 
   // Function to fetch expanded resumes
   const fetchExpandedResumes = async (resumeData: Resume[]) => {
@@ -467,9 +423,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const resetWithMockData = async () => {
     setIsLoading(true)
     try {
-      // Stop sync before resetting data
-      await stopDataStoreSync()
-
       // Clear DataStore
       await clearDataStore()
       console.log('DataStore cleared')
@@ -477,9 +430,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       // Create new mock data
       await createMockData()
       console.log('Mock data created')
-
-      // Restart sync
-      await startDataStoreSync()
 
       // Force sync to push local data to the cloud
       await forceSync()
