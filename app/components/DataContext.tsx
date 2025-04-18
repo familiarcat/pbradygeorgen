@@ -1,7 +1,6 @@
 // DataContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { DataStore } from "@aws-amplify/datastore"
-import { Hub } from "@aws-amplify/core"
 import {
   Resume,
   Summary,
@@ -18,7 +17,7 @@ import {
 } from "../models"
 import { createMockData } from "app/mock/mockData"
 import { StyleSheet, useWindowDimensions } from "react-native"
-import { configureAmplify, configureAmplifyDataStore } from "../config/amplify-config"
+import { useAmplify } from "./AmplifyProvider"
 
 // Define TypeScript interfaces for your models
 
@@ -148,88 +147,61 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   const [isLoading, setIsLoading] = useState(false)
   // Track loading and sync states for UI feedback
-  const [syncStatus, setSyncStatus] = useState('initializing')
+  const [syncStatus] = useState('initializing')
   const [networkStatus, setNetworkStatus] = useState('unknown')
   const { width: screenWidth } = useWindowDimensions()
 
-  // Initialize DataStore when component mounts
+  // Get Amplify context
+  const { dataStoreReady, networkStatus: amplifyNetworkStatus, clearDataStore: amplifyDataStoreClear } = useAmplify();
+
+  // Initialize data when DataStore is ready
   useEffect(() => {
-    const initializeDataStore = async () => {
-      try {
-        console.log('Initializing Amplify and DataStore in DataContext...')
-        // Configure Amplify first
-        configureAmplify()
-        // Then configure DataStore
-        configureAmplifyDataStore()
+    if (dataStoreReady) {
+      console.log('DataStore is ready, checking for existing data...');
+      const checkForData = async () => {
+        try {
+          // Check if we need to create mock data
+          const resumeCount = await DataStore.query(Resume, (r: any) => r, { limit: 1 })
+          console.log(`Found ${resumeCount.length} resumes during initialization`)
 
-        // Wait a moment for DataStore to initialize
-        await new Promise(resolve => setTimeout(resolve, 1000))
+          if (resumeCount.length === 0) {
+            console.log('No resumes found during initialization, creating mock data...')
+            try {
+              // Stop sync before creating mock data
+              await stopDataStoreSync()
 
-        console.log('Amplify and DataStore initialization completed')
+              // Clear DataStore
+              await clearDataStore()
 
-        // Check if we need to create mock data
-        const resumeCount = await DataStore.query(Resume, (r) => r, { limit: 1 })
-        console.log(`Found ${resumeCount.length} resumes during initialization`)
+              // Create mock data
+              await createMockData()
+              console.log('Mock data creation completed during initialization')
 
-        if (resumeCount.length === 0) {
-          console.log('No resumes found during initialization, creating mock data...')
-          try {
-            // Stop sync before creating mock data
-            await stopDataStoreSync()
+              // Restart sync
+              await startDataStoreSync()
 
-            // Clear DataStore
-            await clearDataStore()
-
-            // Create mock data
-            await createMockData()
-            console.log('Mock data creation completed during initialization')
-
-            // Restart sync
-            await startDataStoreSync()
-
-            // Fetch the new data
-            await fetchDataWithoutAutoCreate()
-          } catch (error) {
-            console.error('Error creating initial mock data:', error)
+              // Fetch the new data
+              await fetchDataWithoutAutoCreate()
+            } catch (error) {
+              console.error('Error creating initial mock data:', error)
+            }
+          } else {
+            // Data exists, fetch it
+            await fetchData()
           }
+        } catch (error) {
+          console.error('Error checking for data:', error)
         }
-      } catch (error) {
-        console.error('Error initializing Amplify and DataStore:', error)
-      }
+      };
+
+      checkForData();
     }
+  }, [dataStoreReady])
 
-    initializeDataStore()
-
-    // Set up Hub listener for DataStore events
-    const hubListener = Hub.listen('datastore', async (hubData: any) => {
-      const { event, data } = hubData.payload;
-
-      switch (event) {
-        case 'ready':
-          console.log('DataStore is ready')
-          setSyncStatus('ready')
-          break;
-        case 'syncQueriesReady':
-          console.log('DataStore sync queries ready')
-          setSyncStatus('synced')
-          // Refresh data after sync
-          fetchData()
-          break;
-        case 'networkStatus':
-          if (data && typeof data === 'object' && 'active' in data) {
-            const status = data.active ? 'online' : 'offline';
-            console.log(`DataStore network status: ${status}`)
-            setNetworkStatus(status)
-          }
-          break;
-      }
-    })
-
-    // Clean up Hub listener
-    return () => {
-      hubListener();
-    }
-  }, [])
+  // Update network status when it changes in AmplifyProvider
+  useEffect(() => {
+    setNetworkStatus(amplifyNetworkStatus);
+  }, [amplifyNetworkStatus])
   // Fetch data from DataStore after a short delay to ensure DataStore is initialized
   useEffect(() => {
     const fetchDataAfterDelay = async () => {
@@ -259,7 +231,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const clearDataStore = async () => {
     try {
       console.log('Clearing DataStore')
-      await DataStore.clear()
+      await amplifyDataStoreClear()
       console.log('DataStore cleared')
     } catch (error) {
       console.error('Error clearing DataStore:', error)
@@ -319,50 +291,50 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return Promise.all(
       resumeData.map(async (resume) => {
         const summary = resume.resumeSummaryId
-          ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
+          ? await DataStore.query(Summary, resume.resumeSummaryId).then((res: any) => res || null)
           : null
 
         const skills = resume.id
-          ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
+          ? await DataStore.query(Skill, (s: any) => s.resumeID.eq(resume.id)).catch(() => [])
           : []
 
         const education = resume.resumeEducationId
           ? await DataStore.query(Education, resume.resumeEducationId).then(
-              (res) => res || null,
+              (res: any) => res || null,
             )
           : null
 
         const schools = education
-          ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
+          ? await DataStore.query(School, (s: any) => s.educationID.eq(education.id)).catch(() => [])
           : []
 
         const degrees = await Promise.all(
-          schools.map((school) =>
-            DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
+          schools.map((school: any) =>
+            DataStore.query(Degree, (d: any) => d.schoolID.eq(school.id)).catch(() => []),
           ),
         ).then((results) => results.flat())
 
         const experience = resume.resumeExperienceId
           ? await DataStore.query(Experience, resume.resumeExperienceId).then(
-              (res) => res || null,
+              (res: any) => res || null,
             )
           : null
 
         const companies = experience
-          ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
+          ? await DataStore.query(Company, (c: any) => c.experienceID.eq(experience.id)).catch(
               () => [],
             )
           : []
 
         const engagements = await Promise.all(
-          companies.map((company) =>
-            DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
+          companies.map((company: any) =>
+            DataStore.query(Engagement, (e: any) => e.companyID.eq(company.id)).catch(() => []),
           ),
         ).then((results) => results.flat())
 
         const accomplishments = await Promise.all(
-          engagements.map((engagement) =>
-            DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
+          engagements.map((engagement: any) =>
+            DataStore.query(Accomplishment, (a: any) => a.engagementID.eq(engagement.id)).catch(
               () => [],
             ),
           ),
@@ -370,12 +342,12 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
         const contactInfo = resume.resumeContactInformationId
           ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
-              (res) => res || null,
+              (res: any) => res || null,
             )
           : null
 
         const references = contactInfo
-          ? await DataStore.query(Reference, (r) =>
+          ? await DataStore.query(Reference, (r: any) =>
               r.contactinformationID.eq(contactInfo.id),
             ).catch(() => [])
           : []
