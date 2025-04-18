@@ -11,7 +11,7 @@ import {
 } from "react-native"
 import { Button, Icon, LottieAnimation, Text, Screen, Card } from "../components"
 import { colors, typography } from "../theme"
-import { createMockData, clearData } from "app/mock/mockData"
+// Data management is now handled by DataContext
 
 // import { Demo } from "../DemoShowroomScreen"
 // import { DemoDivider } from "../DemoDivider"
@@ -31,7 +31,7 @@ import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ResumeView from "app/components/ResumeComponents/ResumeView"
 // import Summary from "app/components/ResumeComponents/resume/ResumeView"
-import { clear } from "console"
+import { useDataContext } from "app/components/DataContext"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -75,31 +75,17 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   // Log that the ResumeScreen is rendering
   console.log('ResumeScreen rendering');
 
-  // State to track loading state
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  // Function to reset data
-  const resetData = async () => {
-    setIsLoading(true);
-    try {
-      // Clear existing data
-      await clearData();
-      console.log('Data cleared');
-
-      // Create new mock data
-      await createMockData();
-      console.log('Mock data created');
-    } catch (error) {
-      console.error('Error resetting data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Initialize data when component mounts
-  React.useEffect(() => {
-    resetData();
-  }, []);
+  // Get the resetWithMockData function from the DataContext
+  // Use try/catch to handle the case where DataContext might not be available
+  let resetWithMockData = async () => {};
+  let isLoading = false;
+  try {
+    const context = useDataContext();
+    resetWithMockData = context.resetWithMockData;
+    isLoading = context.isLoading;
+  } catch (error) {
+    console.error('Error accessing DataContext:', error);
+  }
 
   return (
     <Screen preset="scroll">
@@ -110,7 +96,7 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
         <View style={{ marginVertical: 10, flexDirection: 'row', justifyContent: 'center' }}>
           <Button
             text={isLoading ? "Resetting..." : "Reset Data"}
-            onPress={resetData}
+            onPress={resetWithMockData}
             style={{ marginHorizontal: 10 }}
             disabled={isLoading}
           />

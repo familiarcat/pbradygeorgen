@@ -1,6 +1,7 @@
 // DataContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { DataStore } from "@aws-amplify/datastore"
+import { Hub } from "@aws-amplify/core"
 import {
   Resume,
   Summary,
@@ -16,13 +17,10 @@ import {
   Accomplishment,
 } from "../models"
 import { clearData, createMockData } from "app/mock/mockData"
-import { StyleSheet, Text, View, Image, useWindowDimensions } from "react-native"
+import { StyleSheet, useWindowDimensions } from "react-native"
+import { configureAmplify, configureAmplifyDataStore } from "../config/amplify-config"
 
 // Define TypeScript interfaces for your models
-interface ResumeType {
-  id: string
-  title?: string | null
-}
 
 interface SummaryType {
   id: string
@@ -126,6 +124,8 @@ interface DataContextType {
   renderIndentation: (level: number) => { paddingLeft: number }
   renderTextColor: (level: number, baseHue: number) => { color: string; backgroundColor: string }
   dynamicStyles: any
+  isLoading: boolean
+  resetWithMockData: () => Promise<void>
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined)
@@ -144,24 +144,114 @@ interface DataProviderProps {
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  // Track loading state for UI feedback
+  const [_syncStatus, setSyncStatus] = useState('initializing') // Underscore prefix to indicate it's used indirectly
   const { width: screenWidth } = useWindowDimensions()
+
+  // Initialize DataStore when component mounts
   useEffect(() => {
-    // console.log("DataProvider useEffect")
-    const fetchData = async () => {
-      // await clearData()
+    const initializeDataStore = async () => {
       try {
-        // Fetch all resumes
-        // console.log("Fetching resumes")
-        const resumeData = await DataStore.query(Resume)
-        // console.log("resumeData", resumeData)
-        // await clearData()
-        if (!resumeData || resumeData.length === 0) {
-          console.warn("No resumes found")
-          await createMockData()
-            .then(() => console.log("create mock data completed on then"))
-            .catch(console.error)
+        console.log('Initializing Amplify and DataStore in DataContext...')
+        // Configure Amplify first
+        configureAmplify()
+        // Then configure DataStore
+        configureAmplifyDataStore()
+
+        // Wait a moment for DataStore to initialize
+        await new Promise(resolve => setTimeout(resolve, 1000))
+
+        console.log('Amplify and DataStore initialization completed')
+      } catch (error) {
+        console.error('Error initializing Amplify and DataStore:', error)
+      }
+    }
+
+    initializeDataStore()
+
+    // Set up Hub listener for DataStore events
+    const hubListener = Hub.listen('datastore', async (hubData: any) => {
+      const { event, data } = hubData.payload;
+
+      switch (event) {
+        case 'ready':
+          console.log('DataStore is ready')
+          setSyncStatus('ready')
+          break;
+        case 'syncQueriesReady':
+          console.log('DataStore sync queries ready')
+          setSyncStatus('synced')
+          // Refresh data after sync
+          fetchData()
+          break;
+        case 'networkStatus':
+          if (data && typeof data === 'object' && 'active' in data) {
+            console.log(`DataStore network status: ${data.active ? 'online' : 'offline'}`)
+            setSyncStatus(data.active ? 'online' : 'offline')
+          }
+          break;
+      }
+    })
+
+    // Clean up Hub listener
+    return () => {
+      hubListener();
+    }
+  }, [])
+  // Fetch data from DataStore after a short delay to ensure DataStore is initialized
+  useEffect(() => {
+    const fetchDataAfterDelay = async () => {
+      try {
+        // Wait a moment to ensure DataStore is fully initialized
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        console.log('Initial data fetch starting...')
+        await fetchData()
+        console.log('Initial data fetch completed')
+      } catch (error) {
+        console.error('Error in initial data fetch:', error)
+      }
+    }
+
+    fetchDataAfterDelay()
+
+    // Subscribe to changes in Resume model
+    const subscription = DataStore.observe(Resume).subscribe(() => {
+      console.log('Resume model changed, refreshing data')
+      fetchData()
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // Function to fetch data from DataStore
+  const fetchData = async () => {
+    setIsLoading(true)
+    try {
+      // Fetch all resumes
+      console.log("Fetching resumes from DataStore")
+      const resumeData = await DataStore.query(Resume)
+      console.log(`Found ${resumeData.length} resumes in DataStore`)
+
+      if (!resumeData || resumeData.length === 0) {
+        console.warn("No resumes found, creating mock data...")
+        await createMockData()
+          .then(() => console.log("Mock data creation completed"))
+          .catch(console.error)
+
+        // Query again after creating mock data
+        const newResumeData = await DataStore.query(Resume)
+        console.log(`After creating mock data, found ${newResumeData.length} resumes`)
+
+        if (!newResumeData || newResumeData.length === 0) {
+          console.error("Still no resumes found after creating mock data")
+          setIsLoading(false)
           return
         }
+
+        // Continue with the new data
+        return fetchData() // Recursively call fetchData with the new data
+      }
 
         // Fetch related data for each resume
         const expandedResumes: ExpandedResume[] = await Promise.all(
@@ -247,16 +337,13 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         )
 
         setResumes(expandedResumes)
+        console.log(`Set ${expandedResumes.length} expanded resumes in state`)
       } catch (error) {
         console.error("Error fetching resumes:", error)
+      } finally {
+        setIsLoading(false)
       }
     }
-
-    fetchData()
-    const subscription = DataStore.observe(Resume).subscribe(() => fetchData())
-
-    return () => subscription.unsubscribe()
-  }, [])
 
   // Define a base hue for each resume
   const getBaseHueForResume = (index: number) => {
@@ -290,6 +377,27 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   const dynamicStyles = getDynamicStyles(screenWidth)
 
+  // Function to reset data with mock data
+  const resetWithMockData = async () => {
+    setIsLoading(true)
+    try {
+      // Clear existing data
+      await clearData()
+      console.log('Data cleared')
+
+      // Create new mock data
+      await createMockData()
+      console.log('Mock data created')
+
+      // Fetch the new data
+      await fetchData()
+    } catch (error) {
+      console.error('Error resetting data:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <DataContext.Provider
       value={{
@@ -298,6 +406,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         renderIndentation,
         renderTextColor,
         dynamicStyles,
+        isLoading,
+        resetWithMockData,
       }}
     >
       {children}

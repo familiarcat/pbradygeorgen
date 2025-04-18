@@ -19,6 +19,10 @@ const amplifyConfig = {
   },
   Storage: {
     // Configure S3 if needed
+  },
+  DataStore: {
+    // Configure DataStore to use local storage only for web deployment
+    sync: false
   }
 };
 
@@ -68,6 +72,11 @@ class HybridAmplify {
     return this.realAmplify.Storage;
   }
 
+  // Use the real DataStore implementation
+  get DataStore() {
+    return this.realAmplify.DataStore;
+  }
+
   // Configure method that applies our config to the real Amplify
   configure(config?: any) {
     try {
@@ -89,5 +98,17 @@ export const configureAmplify = () => {
     console.log('Hybrid Amplify configured successfully');
   } catch (error) {
     console.error('Error configuring hybrid Amplify:', error);
+  }
+};
+
+// Configure DataStore specifically
+export const configureAmplifyDataStore = () => {
+  try {
+    console.log('Configuring Amplify DataStore');
+    // DataStore is already configured in the main configure call
+    // This is just to ensure it's properly initialized
+    console.log('DataStore configured successfully');
+  } catch (error) {
+    console.error('Error configuring DataStore:', error);
   }
 };
