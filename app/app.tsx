@@ -12,6 +12,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 import { DemoShowroomScreen } from "./screens"
 import { AmplifyProvider } from "./components/AmplifyProvider"
+import { DataProvider } from "./components/DataContext"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -54,13 +55,15 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <AmplifyProvider>
-          <GestureHandlerRootView style={$container}>
-            <AppNavigator
-              linking={linking} // Pass linking configuration here
-              initialState={initialNavigationState} // Pass initial navigation state
-              onStateChange={onNavigationStateChange} // Handle state changes
-            />
-          </GestureHandlerRootView>
+          <DataProvider>
+            <GestureHandlerRootView style={$container}>
+              <AppNavigator
+                linking={linking} // Pass linking configuration here
+                initialState={initialNavigationState} // Pass initial navigation state
+                onStateChange={onNavigationStateChange} // Handle state changes
+              />
+            </GestureHandlerRootView>
+          </DataProvider>
         </AmplifyProvider>
       </ErrorBoundary>
     </SafeAreaProvider>
