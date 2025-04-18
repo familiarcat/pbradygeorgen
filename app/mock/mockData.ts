@@ -125,7 +125,7 @@ export const createMockData = async () => {
     // Create Education linked to Resumes
     const education1 = await DataStore.save(
       new Education({
-        summary: "B.Sc in Computer Science from Webster University",
+        summary: "B.Sc in Computer Science from ABC University",
       }),
     )
 
@@ -141,7 +141,7 @@ export const createMockData = async () => {
     // Create Schools linked to Education
     const school1 = await DataStore.save(
       new School({
-        name: "Webster University",
+        name: "ABC University",
         educationID: education1.id,
       }),
     )

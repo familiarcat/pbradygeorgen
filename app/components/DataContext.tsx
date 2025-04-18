@@ -152,7 +152,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const { width: screenWidth } = useWindowDimensions()
 
   // Get Amplify context
-  const { dataStoreReady, networkStatus: amplifyNetworkStatus, clearDataStore: amplifyDataStoreClear } = useAmplify();
+  const { dataStoreReady, networkStatus: amplifyNetworkStatus, clearDataStore: amplifyDataStoreClear, forceSync } = useAmplify();
 
   // Initialize data when DataStore is ready
   useEffect(() => {
@@ -180,6 +180,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
               // Restart sync
               await startDataStoreSync()
 
+              // Force sync to push local data to the cloud
+              await forceSync()
+              console.log('Forced sync to push local data to the cloud')
+
               // Fetch the new data
               await fetchDataWithoutAutoCreate()
             } catch (error) {
@@ -188,6 +192,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
           } else {
             // Data exists, fetch it
             await fetchData()
+
+            // Force sync to ensure data is up to date
+            await forceSync()
+            console.log('Forced sync to ensure data is up to date')
           }
         } catch (error) {
           console.error('Error checking for data:', error)
@@ -196,7 +204,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
       checkForData();
     }
-  }, [dataStoreReady])
+  }, [dataStoreReady, forceSync])
 
   // Update network status when it changes in AmplifyProvider
   useEffect(() => {
@@ -472,6 +480,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
       // Restart sync
       await startDataStoreSync()
+
+      // Force sync to push local data to the cloud
+      await forceSync()
+      console.log('Forced sync to push local data to the cloud')
 
       // Fetch the new data
       await fetchData()

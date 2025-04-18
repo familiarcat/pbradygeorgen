@@ -15,6 +15,7 @@ interface AmplifyContextType {
   dataStoreReady: boolean;
   networkStatus: string;
   clearDataStore: () => Promise<void>;
+  forceSync: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -29,6 +30,7 @@ const AmplifyContext = createContext<AmplifyContextType>({
   dataStoreReady: false,
   networkStatus: 'unknown',
   clearDataStore: async () => {},
+  forceSync: async () => {},
 });
 
 // Provider component
@@ -51,6 +53,15 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
         Amplify.configure(config);
         console.log('Amplify configured successfully');
 
+        // Clear any existing data to ensure clean sync
+        try {
+          console.log('Clearing DataStore to ensure clean sync');
+          await DataStore.clear();
+          console.log('DataStore cleared successfully');
+        } catch (clearError) {
+          console.error('Error clearing DataStore:', clearError);
+        }
+
         // Set up DataStore listeners
         const subscription = DataStore.observe('datastore').subscribe({
           next: (msg) => {
@@ -64,6 +75,10 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
               const status = data.active ? 'online' : 'offline';
               console.log(`Network status: ${status}`);
               setNetworkStatus(status);
+            } else if (event === 'outboxStatus') {
+              console.log('Outbox status:', data);
+            } else if (event === 'syncQueriesReady') {
+              console.log('Sync queries ready');
             }
           },
           error: (error) => {
@@ -103,6 +118,22 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     }
   };
 
+  // Force sync with remote
+  const forceSync = async () => {
+    try {
+      console.log('Forcing DataStore sync');
+      // Stop DataStore
+      await DataStore.stop();
+      console.log('DataStore stopped');
+
+      // Start DataStore to trigger sync
+      await DataStore.start();
+      console.log('DataStore started, sync initiated');
+    } catch (error) {
+      console.error('Error forcing DataStore sync:', error);
+    }
+  };
+
   const authValue = {
     user,
     isAuthenticated: false,
@@ -115,6 +146,7 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     dataStoreReady,
     networkStatus,
     clearDataStore,
+    forceSync,
   };
 
   return (
