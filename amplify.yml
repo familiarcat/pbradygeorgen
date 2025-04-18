@@ -1,36 +1,17 @@
 version: 1
-backend:
-  phases:
-    preBuild:
-      commands:
-        - echo "Skipping backend build for now"
-    build:
-      commands:
-        - echo "Skipping backend build for now"
 frontend:
   phases:
     preBuild:
       commands:
-        - chmod +x ./amplify-build.sh
+        - npm install
     build:
       commands:
-        - ./amplify-build.sh
+        - npm run build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: .next
     files:
       - '**/*'
-    customHeaders:
-      - pattern: '**/*'
-        headers:
-          - key: 'Cache-Control'
-            value: 'max-age=0, no-cache, no-store, must-revalidate'
-    redirects:
-      - source: '/'
-        destination: '/ResumeScreen'
-        status: '302'
-      - source: '/<*>'
-        destination: '/index.html'
-        status: '200'
   cache:
     paths:
       - node_modules/**/*
+      - .next/cache/**/*
