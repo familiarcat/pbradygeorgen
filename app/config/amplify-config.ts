@@ -9,21 +9,30 @@ const amplifyConfig = {
     // We'll use a mock Auth implementation
     // This is intentionally empty to avoid Auth errors
   },
-  // API configuration disabled for now - using local storage only
-  // API: {
-  //   GraphQL: {
-  //     endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
-  //     region: 'us-east-2',
-  //     apiKey: 'da2-7n7st4as4vbf7i3cx6amixuxiu',
-  //     defaultAuthMode: 'apiKey',
-  //   }
-  // },
+  // API configuration from amplify status command
+  API: {
+    GraphQL: {
+      endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
+      region: 'us-east-2',
+      apiKey: 'da2-7n7st4as4vbf7i3cx6amixuxiu',
+      defaultAuthMode: 'apiKey',
+    }
+  },
   Storage: {
     // Configure S3 if needed
   },
   DataStore: {
-    // Use local storage only for now
-    sync: false
+    // Enable sync with the AppSync API
+    sync: true,
+    // Additional DataStore configuration
+    conflictHandler: 'AUTOMERGE',
+    errorHandler: (error: any) => {
+      console.log('DataStore error handler:', error);
+      // Return true to retry on error
+      return true;
+    },
+    maxRecordsToSync: 10000, // Limit number of records to sync
+    syncPageSize: 1000 // Number of records to sync per request
   }
 };
 

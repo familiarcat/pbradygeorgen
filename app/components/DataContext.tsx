@@ -125,6 +125,8 @@ interface DataContextType {
   renderTextColor: (level: number, baseHue: number) => { color: string; backgroundColor: string }
   dynamicStyles: any
   isLoading: boolean
+  syncStatus: string
+  networkStatus: string
   resetWithMockData: () => Promise<void>
 }
 
@@ -145,8 +147,9 @@ interface DataProviderProps {
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [resumes, setResumes] = useState<ExpandedResume[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  // Track loading state for UI feedback
-  const [_syncStatus, setSyncStatus] = useState('initializing') // Underscore prefix to indicate it's used indirectly
+  // Track loading and sync states for UI feedback
+  const [syncStatus, setSyncStatus] = useState('initializing')
+  const [networkStatus, setNetworkStatus] = useState('unknown')
   const { width: screenWidth } = useWindowDimensions()
 
   // Initialize DataStore when component mounts
@@ -171,12 +174,18 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         if (resumeCount.length === 0) {
           console.log('No resumes found during initialization, creating mock data...')
           try {
+            // Stop sync before creating mock data
+            await stopDataStoreSync()
+
             // Clear DataStore
             await clearDataStore()
 
             // Create mock data
             await createMockData()
             console.log('Mock data creation completed during initialization')
+
+            // Restart sync
+            await startDataStoreSync()
 
             // Fetch the new data
             await fetchDataWithoutAutoCreate()
@@ -208,8 +217,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
           break;
         case 'networkStatus':
           if (data && typeof data === 'object' && 'active' in data) {
-            console.log(`DataStore network status: ${data.active ? 'online' : 'offline'}`)
-            setSyncStatus(data.active ? 'online' : 'offline')
+            const status = data.active ? 'online' : 'offline';
+            console.log(`DataStore network status: ${status}`)
+            setNetworkStatus(status)
           }
           break;
       }
@@ -253,6 +263,28 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       console.log('DataStore cleared')
     } catch (error) {
       console.error('Error clearing DataStore:', error)
+    }
+  }
+
+  // Function to stop DataStore sync
+  const stopDataStoreSync = async () => {
+    try {
+      console.log('Stopping DataStore sync')
+      await DataStore.stop()
+      console.log('DataStore sync stopped')
+    } catch (error) {
+      console.error('Error stopping DataStore sync:', error)
+    }
+  }
+
+  // Function to start DataStore sync
+  const startDataStoreSync = async () => {
+    try {
+      console.log('Starting DataStore sync')
+      await DataStore.start()
+      console.log('DataStore sync started')
+    } catch (error) {
+      console.error('Error starting DataStore sync:', error)
     }
   }
 
@@ -379,6 +411,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       if (!resumeData || resumeData.length === 0) {
         console.warn("No resumes found, creating mock data...")
 
+        // Stop sync before creating mock data
+        await stopDataStoreSync()
+
         // Clear DataStore
         await clearDataStore()
 
@@ -386,6 +421,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         await createMockData()
           .then(() => console.log("Mock data creation completed"))
           .catch(console.error)
+
+        // Restart sync
+        await startDataStoreSync()
 
         // Query again after creating mock data
         const newResumeData = await DataStore.query(Resume)
@@ -449,6 +487,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const resetWithMockData = async () => {
     setIsLoading(true)
     try {
+      // Stop sync before resetting data
+      await stopDataStoreSync()
+
       // Clear DataStore
       await clearDataStore()
       console.log('DataStore cleared')
@@ -456,6 +497,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       // Create new mock data
       await createMockData()
       console.log('Mock data created')
+
+      // Restart sync
+      await startDataStoreSync()
 
       // Fetch the new data
       await fetchData()
@@ -475,6 +519,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         renderTextColor,
         dynamicStyles,
         isLoading,
+        syncStatus,
+        networkStatus,
         resetWithMockData,
       }}
     >
