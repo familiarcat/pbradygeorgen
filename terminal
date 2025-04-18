@@ -1,0 +1,2 @@
+yarn add react-pdf
+yarn add -D @types/react-pdf
