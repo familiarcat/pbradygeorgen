@@ -1,6 +1,7 @@
 import App from "./app/app"
 import React, { useEffect } from "react"
 import * as SplashScreen from "expo-splash-screen"
+import { configureAmplifyDataStore } from "./app/config/amplify-datastore-config"
 
 // Prevent splash screen from auto-hiding
 try {
@@ -12,6 +13,10 @@ try {
 function IgniteApp() {
   useEffect(() => {
     console.log("App initialized - April 2025 update")
+
+    // Initialize Amplify DataStore
+    configureAmplifyDataStore()
+    console.log("Amplify DataStore initialized")
 
     // Hide splash screen with a delay to ensure UI is ready
     const hideSplash = async () => {

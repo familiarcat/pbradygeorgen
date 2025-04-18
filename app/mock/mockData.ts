@@ -1,6 +1,7 @@
 // mockData.ts
 
 import { DataStore, Predicates } from "@aws-amplify/datastore"
+import { Hub } from "@aws-amplify/core"
 import {
   Resume,
   Summary,
@@ -16,6 +17,7 @@ import {
   Accomplishment,
 } from "../models"
 import { toAWSDate } from "../utils/awsDateConverter" // Import the utility function
+import { configureAmplifyDataStore } from "../config/amplify-datastore-config"
 
 // Function to clear data from all models
 export const clearData = async (log: boolean = true) => {
@@ -45,10 +47,27 @@ export const clearData = async (log: boolean = true) => {
 // Function to create mock data with relationships
 export const createMockData = async () => {
   console.log("Creating Mock Data in mockData.ts")
+
   try {
+    // Ensure DataStore is configured
+    configureAmplifyDataStore()
+
     // Clear existing data
     await clearData(true)
-    console.log("data should be cleared and rebuilt")
+    console.log("Data cleared, creating new mock data...")
+
+    // Set up a listener for DataStore sync events
+    const listener = Hub.listen('datastore', (hubData) => {
+      const { event } = hubData.payload;
+      if (event === 'outboxStatus') {
+        console.log('DataStore outbox status updated - changes being synced');
+      }
+    })
+
+    // Clean up listener after 30 seconds
+    setTimeout(() => {
+      listener();
+    }, 30000)
     // Create Summaries
     const summary1 = await DataStore.save(
       new Summary({
@@ -141,7 +160,7 @@ export const createMockData = async () => {
     // Create Schools linked to Education
     const school1 = await DataStore.save(
       new School({
-        name: "ABC University",
+        name: "Webster University",
         educationID: education1.id,
       }),
     )

@@ -9,9 +9,10 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native"
-import { Icon, LottieAnimation, Text, Screen, Card } from "../components"
+import { Button, Icon, LottieAnimation, Text, Screen, Card } from "../components"
 import { colors, typography } from "../theme"
-// Data management is now handled by DataContext
+import { createMockData, clearData } from "app/mock/mockData"
+import { DataSync } from "../components/DataSync"
 
 // import { Demo } from "../DemoShowroomScreen"
 // import { DemoDivider } from "../DemoDivider"
@@ -31,7 +32,7 @@ import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ResumeView from "app/components/ResumeComponents/ResumeView"
 // import Summary from "app/components/ResumeComponents/resume/ResumeView"
-// Data is now automatically managed by DataContext
+import { clear } from "console"
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -75,14 +76,15 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   // Log that the ResumeScreen is rendering
   console.log('ResumeScreen rendering');
 
-  // Data is now automatically synced between local and deployed versions
-  // No need to manually reset data
-
   return (
     <Screen preset="scroll">
       <View style={{ padding: 10 }}>
         <Text preset="heading" text="Brady Georgen" />
         <Text preset="subheading" text="Web & Mobile Developer" />
+
+        <View style={{ marginVertical: 20 }}>
+          <DataSync />
+        </View>
 
         <View style={{ marginVertical: 20 }}>
           <ResumeView />

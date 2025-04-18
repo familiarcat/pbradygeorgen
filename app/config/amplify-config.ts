@@ -9,7 +9,6 @@ const amplifyConfig = {
     // We'll use a mock Auth implementation
     // This is intentionally empty to avoid Auth errors
   },
-  // API configuration from amplify status command
   API: {
     GraphQL: {
       endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
@@ -20,19 +19,6 @@ const amplifyConfig = {
   },
   Storage: {
     // Configure S3 if needed
-  },
-  DataStore: {
-    // Enable sync with the AppSync API
-    sync: true,
-    // Additional DataStore configuration
-    conflictHandler: 'AUTOMERGE',
-    errorHandler: (error: any) => {
-      console.log('DataStore error handler:', error);
-      // Return true to retry on error
-      return true;
-    },
-    maxRecordsToSync: 10000, // Limit number of records to sync
-    syncPageSize: 1000 // Number of records to sync per request
   }
 };
 
@@ -82,11 +68,6 @@ class HybridAmplify {
     return this.realAmplify.Storage;
   }
 
-  // Use the real DataStore implementation
-  get DataStore() {
-    return this.realAmplify.DataStore;
-  }
-
   // Configure method that applies our config to the real Amplify
   configure(config?: any) {
     try {
@@ -108,17 +89,5 @@ export const configureAmplify = () => {
     console.log('Hybrid Amplify configured successfully');
   } catch (error) {
     console.error('Error configuring hybrid Amplify:', error);
-  }
-};
-
-// Configure DataStore specifically
-export const configureAmplifyDataStore = () => {
-  try {
-    console.log('Configuring Amplify DataStore');
-    // DataStore is already configured in the main configure call
-    // This is just to ensure it's properly initialized
-    console.log('DataStore configured successfully');
-  } catch (error) {
-    console.error('Error configuring DataStore:', error);
   }
 };
