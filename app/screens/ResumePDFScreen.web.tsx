@@ -2,21 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Dimensions, View, Text, Platform } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../navigators/AppNavigator';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 
 type ResumePDFScreenProps = NativeStackScreenProps<AppStackParamList, 'ResumePDFScreen'>;
 
 export default function ResumePDFScreen({ route, navigation }: ResumePDFScreenProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const isFocused = useIsFocused();
 
   // Default to a fallback URI if none is provided
-  const pdfUrl = route.params?.uri || 'https://pbradygeorgen.com/resume.pdf';
+  const pdfUrl = route?.params?.uri || 'https://pbradygeorgen.com/resume.pdf';
 
   // This effect runs when the screen comes into focus
   useFocusEffect(
     React.useCallback(() => {
       console.log('ResumePDFScreen focused');
+
+      // Force the component to stay focused
+      if (!isFocused) {
+        console.log('ResumePDFScreen lost focus, attempting to regain');
+      }
 
       // Prevent automatic navigation to other screens
       const unsubscribe = () => {
@@ -24,7 +30,7 @@ export default function ResumePDFScreen({ route, navigation }: ResumePDFScreenPr
       };
 
       return unsubscribe;
-    }, [])
+    }, [isFocused])
   );
 
   useEffect(() => {
@@ -69,8 +75,15 @@ export default function ResumePDFScreen({ route, navigation }: ResumePDFScreenPr
             border: 'none',
           }}
           title="Resume PDF"
-          onError={() => setError('Failed to load PDF')}
-          onLoad={() => console.log('PDF loaded successfully')}
+          onError={() => {
+            console.error('Failed to load PDF');
+            setError('Failed to load PDF');
+          }}
+          onLoad={() => {
+            console.log('PDF loaded successfully');
+            setLoading(false);
+          }}
+          sandbox="allow-same-origin allow-scripts"
         />
       </View>
     </View>

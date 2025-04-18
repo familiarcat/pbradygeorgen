@@ -9,9 +9,9 @@ import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import Config from "./config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { ViewStyle } from "react-native"
-import { DemoShowroomScreen } from "./screens"
+import { ViewStyle, Platform } from "react-native"
 import { AmplifyProvider } from "./components/AmplifyProvider"
+import { RootNavigator } from "./navigators/RootNavigator"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -27,8 +27,7 @@ const config = {
     },
     ResumeScreen: "resume",
     ResumeWizardNavigator: "wizard",
-    LoginScreen: "login",
-    DemoShowroomScreen: "demo"
+    LoginScreen: "login"
   },
 }
 
@@ -66,16 +65,27 @@ function App(props: AppProps) {
 
   if (!isNavigationStateRestored || !areFontsLoaded) return null
 
+  // Determine which navigator to use based on the URL path
+  const isRootPath = Platform.OS === 'web' ?
+    (typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '')) :
+    true;
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <AmplifyProvider>
           <GestureHandlerRootView style={$container}>
-            <AppNavigator
-              linking={linking} // Pass linking configuration here
-              initialState={initialNavigationState} // Pass initial navigation state
-              onStateChange={onNavigationStateChange} // Handle state changes
-            />
+            {Platform.OS === 'web' && isRootPath ? (
+              // Use RootNavigator for the root path on web
+              <RootNavigator />
+            ) : (
+              // Use AppNavigator for all other paths
+              <AppNavigator
+                linking={linking} // Pass linking configuration here
+                initialState={initialNavigationState} // Pass initial navigation state
+                onStateChange={onNavigationStateChange} // Handle state changes
+              />
+            )}
           </GestureHandlerRootView>
         </AmplifyProvider>
       </ErrorBoundary>
