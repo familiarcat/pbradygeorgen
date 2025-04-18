@@ -11,7 +11,7 @@ import Config from "./config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle, Platform } from "react-native"
 import { AmplifyProvider } from "./components/AmplifyProvider"
-import { RootNavigator } from "./navigators/RootNavigator"
+import StandalonePDFViewer from "./screens/StandalonePDFViewer.web"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -68,24 +68,34 @@ function App(props: AppProps) {
   // Determine which navigator to use based on the URL path
   const isRootPath = Platform.OS === 'web' ?
     (typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '')) :
-    true;
+    false; // Default to false for native platforms
 
+  // For web root path, we'll use a direct approach to render the PDF
+  if (Platform.OS === 'web' && isRootPath) {
+    return (
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <ErrorBoundary catchErrors={Config.catchErrors}>
+          <AmplifyProvider>
+            <GestureHandlerRootView style={$container}>
+              <StandalonePDFViewer />
+            </GestureHandlerRootView>
+          </AmplifyProvider>
+        </ErrorBoundary>
+      </SafeAreaProvider>
+    );
+  }
+
+  // For all other paths and platforms, use the regular AppNavigator
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <AmplifyProvider>
           <GestureHandlerRootView style={$container}>
-            {Platform.OS === 'web' && isRootPath ? (
-              // Use RootNavigator for the root path on web
-              <RootNavigator />
-            ) : (
-              // Use AppNavigator for all other paths
-              <AppNavigator
-                linking={linking} // Pass linking configuration here
-                initialState={initialNavigationState} // Pass initial navigation state
-                onStateChange={onNavigationStateChange} // Handle state changes
-              />
-            )}
+            <AppNavigator
+              linking={linking} // Pass linking configuration here
+              initialState={initialNavigationState} // Pass initial navigation state
+              onStateChange={onNavigationStateChange} // Handle state changes
+            />
           </GestureHandlerRootView>
         </AmplifyProvider>
       </ErrorBoundary>
