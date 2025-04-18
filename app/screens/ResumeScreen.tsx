@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native"
-import { Button, Icon, LottieAnimation, Text, Screen, Card } from "../components"
+import { Icon, LottieAnimation, Text, Screen, Card } from "../components"
 import { colors, typography } from "../theme"
 // Data management is now handled by DataContext
 
@@ -31,7 +31,7 @@ import Editprofilecard from "app/components/EditProfileCard"
 import ResponsiveGrid from "app/components/utility_components/ResponsiveGrid"
 import ResumeView from "app/components/ResumeComponents/ResumeView"
 // import Summary from "app/components/ResumeComponents/resume/ResumeView"
-import { useDataContext } from "app/components/DataContext"
+// Data is now automatically managed by DataContext
 
 const $iconStyle: ImageStyle = { width: 30, height: 30 }
 const $customButtonStyle: ViewStyle = { backgroundColor: colors.background, height: 100 }
@@ -75,32 +75,14 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   // Log that the ResumeScreen is rendering
   console.log('ResumeScreen rendering');
 
-  // Get the resetWithMockData function from the DataContext
-  // Use try/catch to handle the case where DataContext might not be available
-  let resetWithMockData = async () => {};
-  let isLoading = false;
-  try {
-    const context = useDataContext();
-    resetWithMockData = context.resetWithMockData;
-    isLoading = context.isLoading;
-  } catch (error) {
-    console.error('Error accessing DataContext:', error);
-  }
+  // Data is now automatically synced between local and deployed versions
+  // No need to manually reset data
 
   return (
     <Screen preset="scroll">
       <View style={{ padding: 10 }}>
         <Text preset="heading" text="Brady Georgen" />
         <Text preset="subheading" text="Web & Mobile Developer" />
-
-        <View style={{ marginVertical: 10, flexDirection: 'row', justifyContent: 'center' }}>
-          <Button
-            text={isLoading ? "Resetting..." : "Reset Data"}
-            onPress={resetWithMockData}
-            style={{ marginHorizontal: 10 }}
-            disabled={isLoading}
-          />
-        </View>
 
         <View style={{ marginVertical: 20 }}>
           <ResumeView />

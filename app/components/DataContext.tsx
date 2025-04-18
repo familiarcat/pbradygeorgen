@@ -163,6 +163,33 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         await new Promise(resolve => setTimeout(resolve, 1000))
 
         console.log('Amplify and DataStore initialization completed')
+
+        // Check if we need to create mock data
+        const resumeCount = await DataStore.query(Resume, (r) => r, { limit: 1 })
+        console.log(`Found ${resumeCount.length} resumes during initialization`)
+
+        if (resumeCount.length === 0) {
+          console.log('No resumes found during initialization, creating mock data...')
+          try {
+            // Stop sync before creating mock data
+            await stopDataStoreSync()
+
+            // Clear existing data
+            await clearData()
+
+            // Create mock data
+            await createMockData()
+            console.log('Mock data creation completed during initialization')
+
+            // Restart sync
+            await startDataStoreSync()
+
+            // Fetch the new data
+            await fetchDataWithoutAutoCreate()
+          } catch (error) {
+            console.error('Error creating initial mock data:', error)
+          }
+        }
       } catch (error) {
         console.error('Error initializing Amplify and DataStore:', error)
       }
@@ -224,6 +251,139 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return () => subscription.unsubscribe()
   }, [])
 
+  // Function to stop DataStore sync
+  const stopDataStoreSync = async () => {
+    try {
+      console.log('Stopping DataStore sync')
+      await DataStore.stop()
+      console.log('DataStore sync stopped')
+    } catch (error) {
+      console.error('Error stopping DataStore sync:', error)
+    }
+  }
+
+  // Function to start DataStore sync
+  const startDataStoreSync = async () => {
+    try {
+      console.log('Starting DataStore sync')
+      await DataStore.start()
+      console.log('DataStore sync started')
+    } catch (error) {
+      console.error('Error starting DataStore sync:', error)
+    }
+  }
+
+  // Function to fetch data without auto-creating mock data
+  const fetchDataWithoutAutoCreate = async () => {
+    setIsLoading(true)
+    try {
+      // Fetch all resumes
+      console.log("Fetching resumes from DataStore without auto-create")
+      const resumeData = await DataStore.query(Resume)
+      console.log(`Found ${resumeData.length} resumes in DataStore`)
+
+      if (!resumeData || resumeData.length === 0) {
+        console.warn("No resumes found during fetch without auto-create")
+        setIsLoading(false)
+        return
+      }
+
+      // Fetch related data for each resume
+      const expandedResumes = await fetchExpandedResumes(resumeData)
+      setResumes(expandedResumes)
+      console.log(`Set ${expandedResumes.length} expanded resumes in state (without auto-create)`)
+    } catch (error) {
+      console.error("Error fetching resumes without auto-create:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Function to fetch expanded resumes
+  const fetchExpandedResumes = async (resumeData: Resume[]) => {
+    return Promise.all(
+      resumeData.map(async (resume) => {
+        const summary = resume.resumeSummaryId
+          ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
+          : null
+
+        const skills = resume.id
+          ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
+          : []
+
+        const education = resume.resumeEducationId
+          ? await DataStore.query(Education, resume.resumeEducationId).then(
+              (res) => res || null,
+            )
+          : null
+
+        const schools = education
+          ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
+          : []
+
+        const degrees = await Promise.all(
+          schools.map((school) =>
+            DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
+          ),
+        ).then((results) => results.flat())
+
+        const experience = resume.resumeExperienceId
+          ? await DataStore.query(Experience, resume.resumeExperienceId).then(
+              (res) => res || null,
+            )
+          : null
+
+        const companies = experience
+          ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
+              () => [],
+            )
+          : []
+
+        const engagements = await Promise.all(
+          companies.map((company) =>
+            DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
+          ),
+        ).then((results) => results.flat())
+
+        const accomplishments = await Promise.all(
+          engagements.map((engagement) =>
+            DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
+              () => [],
+            ),
+          ),
+        ).then((results) => results.flat())
+
+        const contactInfo = resume.resumeContactInformationId
+          ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
+              (res) => res || null,
+            )
+          : null
+
+        const references = contactInfo
+          ? await DataStore.query(Reference, (r) =>
+              r.contactinformationID.eq(contactInfo.id),
+            ).catch(() => [])
+          : []
+
+        return {
+          id: resume.id,
+          title: resume.title,
+          Summary: summary,
+          Skills: skills,
+          Education: education,
+          Schools: schools,
+          Degrees: degrees,
+          Experience: experience,
+          Companies: companies,
+          Engagements: engagements,
+          Accomplishments: accomplishments,
+          ContactInformation: contactInfo,
+          References: references,
+        }
+      }),
+    )
+  }
+
   // Function to fetch data from DataStore
   const fetchData = async () => {
     setIsLoading(true)
@@ -235,9 +395,20 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
       if (!resumeData || resumeData.length === 0) {
         console.warn("No resumes found, creating mock data...")
+
+        // Stop sync before creating mock data
+        await stopDataStoreSync()
+
+        // Clear existing data
+        await clearData()
+
+        // Create mock data
         await createMockData()
           .then(() => console.log("Mock data creation completed"))
           .catch(console.error)
+
+        // Restart sync
+        await startDataStoreSync()
 
         // Query again after creating mock data
         const newResumeData = await DataStore.query(Resume)
@@ -254,87 +425,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       }
 
         // Fetch related data for each resume
-        const expandedResumes: ExpandedResume[] = await Promise.all(
-          resumeData.map(async (resume) => {
-            const summary = resume.resumeSummaryId
-              ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
-              : null
-
-            const skills = resume.id
-              ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
-              : []
-
-            const education = resume.resumeEducationId
-              ? await DataStore.query(Education, resume.resumeEducationId).then(
-                  (res) => res || null,
-                )
-              : null
-
-            const schools = education
-              ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
-              : []
-
-            const degrees = await Promise.all(
-              schools.map((school) =>
-                DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
-              ),
-            ).then((results) => results.flat())
-
-            const experience = resume.resumeExperienceId
-              ? await DataStore.query(Experience, resume.resumeExperienceId).then(
-                  (res) => res || null,
-                )
-              : null
-
-            const companies = experience
-              ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
-                  () => [],
-                )
-              : []
-
-            const engagements = await Promise.all(
-              companies.map((company) =>
-                DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
-              ),
-            ).then((results) => results.flat())
-
-            const accomplishments = await Promise.all(
-              engagements.map((engagement) =>
-                DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
-                  () => [],
-                ),
-              ),
-            ).then((results) => results.flat())
-
-            const contactInfo = resume.resumeContactInformationId
-              ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
-                  (res) => res || null,
-                )
-              : null
-
-            const references = contactInfo
-              ? await DataStore.query(Reference, (r) =>
-                  r.contactinformationID.eq(contactInfo.id),
-                ).catch(() => [])
-              : []
-
-            return {
-              id: resume.id,
-              title: resume.title,
-              Summary: summary,
-              Skills: skills,
-              Education: education,
-              Schools: schools,
-              Degrees: degrees,
-              Experience: experience,
-              Companies: companies,
-              Engagements: engagements,
-              Accomplishments: accomplishments,
-              ContactInformation: contactInfo,
-              References: references,
-            }
-          }),
-        )
+        const expandedResumes = await fetchExpandedResumes(resumeData)
 
         setResumes(expandedResumes)
         console.log(`Set ${expandedResumes.length} expanded resumes in state`)

@@ -21,8 +21,8 @@ const amplifyConfig = {
     // Configure S3 if needed
   },
   DataStore: {
-    // Configure DataStore to use local storage only for web deployment
-    sync: false
+    // Configure DataStore to sync between local and deployed versions
+    sync: true
   }
 };
 
