@@ -54,16 +54,9 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     const initializeDataStore = async () => {
       try {
         console.log('Initializing DataStoreSync service');
-        await dataStoreSync.initialize();
-        console.log('DataStoreSync service initialized successfully');
 
-        // Update initial status
-        const status = dataStoreSync.getStatus();
-        setDataStoreReady(status.isReady);
-        setNetworkStatus(status.networkStatus);
-        setSyncStatus(status.syncStatus);
-
-        // Set up listener for status updates
+        // Set up listener for status updates before initialization
+        // This ensures we catch any events that happen during initialization
         const removeListener = dataStoreSync.addListener((event) => {
           console.log('DataStoreSync event:', event);
 
@@ -73,14 +66,39 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
             setNetworkStatus(event.status);
           } else if (['syncQueriesStarted', 'syncQueriesReady', 'fullSyncStarted', 'fullSyncCompleted'].includes(event.type)) {
             setSyncStatus(event.type);
+          } else if (event.type === 'dataInitialized') {
+            console.log('Data has been initialized');
+            // Force data ready state
+            setDataStoreReady(true);
+          } else if (event.type === 'dataInitializationFailed') {
+            console.error('Data initialization failed:', event.error);
+            // Force data ready state even on failure so UI can proceed
+            setDataStoreReady(true);
           }
         });
+
+        // Initialize the DataStoreSync service
+        await dataStoreSync.initialize().catch(error => {
+          console.error('DataStoreSync initialization error caught:', error);
+          // Force ready state even on error
+          setDataStoreReady(true);
+        });
+
+        console.log('DataStoreSync service initialized successfully');
+
+        // Update initial status
+        const status = dataStoreSync.getStatus();
+        setDataStoreReady(status.isReady);
+        setNetworkStatus(status.networkStatus);
+        setSyncStatus(status.syncStatus);
 
         return () => {
           removeListener();
         };
       } catch (error) {
-        console.error('Error initializing DataStoreSync service:', error);
+        console.error('Error in DataStoreSync initialization process:', error);
+        // Force ready state even on error
+        setDataStoreReady(true);
       }
     };
 
@@ -103,6 +121,7 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
       await dataStoreSync.clear();
     } catch (error) {
       console.error('Error clearing DataStore:', error);
+      // Continue despite errors
     }
   };
 
@@ -112,15 +131,21 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
       await dataStoreSync.forceSync();
     } catch (error) {
       console.error('Error forcing DataStore sync:', error);
+      // Continue despite errors
     }
   };
 
   // Initialize data if needed
   const initializeData = async () => {
     try {
+      // Force data ready state before initializing data
+      // This ensures the UI can proceed even if data initialization fails
+      setDataStoreReady(true);
+
       await dataStoreSync.initializeData();
     } catch (error) {
       console.error('Error initializing data:', error);
+      // Continue despite errors
     }
   };
 

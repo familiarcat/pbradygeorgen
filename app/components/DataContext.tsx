@@ -168,20 +168,49 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       const loadData = async () => {
         try {
           // Initialize data if needed (this will create mock data if none exists)
-          await initializeData();
+          await initializeData().catch(error => {
+            console.error('Error initializing data (caught):', error);
+          });
 
           // Fetch data regardless of whether it was just created or already existed
-          await fetchData();
+          await fetchData().catch(error => {
+            console.error('Error fetching data (caught):', error);
+          });
 
           // Force sync to ensure data is up to date with the cloud
-          await forceSync();
-          console.log('Forced sync to ensure data is up to date');
+          await forceSync().catch(error => {
+            console.error('Error forcing sync (caught):', error);
+          });
+          console.log('Data loading process completed');
         } catch (error) {
-          console.error('Error loading data:', error);
+          console.error('Error in data loading process:', error);
+          // Continue despite errors - the UI should still work
         }
       };
 
       loadData();
+    } else {
+      console.log('DataStore not ready yet, waiting...');
+      // Set a timeout to force data loading after a certain period
+      const timeoutId = setTimeout(() => {
+        if (!dataStoreReady) {
+          console.warn('DataStore still not ready after timeout, forcing data loading...');
+          const forceLoadData = async () => {
+            try {
+              // Initialize data if needed (this will create mock data if none exists)
+              await initializeData().catch(e => console.error('Forced initializeData error:', e));
+
+              // Fetch data regardless of whether it was just created or already existed
+              await fetchData().catch(e => console.error('Forced fetchData error:', e));
+            } catch (error) {
+              console.error('Error in forced data loading:', error);
+            }
+          };
+          forceLoadData();
+        }
+      }, 5000); // 5 second timeout
+
+      return () => clearTimeout(timeoutId);
     }
   }, [dataStoreReady, forceSync, initializeData])
 
@@ -238,14 +267,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   }
 
   // These functions are now handled by the DataStoreSync service via AmplifyProvider
-  // Keeping simplified versions for backward compatibility
-  const stopDataStoreSync = async () => {
-    console.log('stopDataStoreSync called - now handled by DataStoreSync service')
-  }
-
-  const startDataStoreSync = async () => {
-    console.log('startDataStoreSync called - now handled by DataStoreSync service')
-  }
+  // Removed as they are no longer needed
 
   // This function is no longer needed as we're using the DataStoreSync service
   // to handle data initialization and synchronization
@@ -254,85 +276,160 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const fetchExpandedResumes = async (resumeData: Resume[]) => {
     return Promise.all(
       resumeData.map(async (resume) => {
-        const summary = resume.resumeSummaryId
-          ? await DataStore.query(Summary, resume.resumeSummaryId).then((res: any) => res || null)
-          : null
+        try {
+          let summary = null;
+          try {
+            summary = resume.resumeSummaryId
+              ? await DataStore.query(Summary, resume.resumeSummaryId).then((res: any) => res || null)
+              : null;
+          } catch (error) {
+            console.warn(`Error fetching summary for resume ${resume.id}:`, error);
+          }
 
-        const skills = resume.id
-          ? await DataStore.query(Skill, (s: any) => s.resumeID.eq(resume.id)).catch(() => [])
-          : []
+          let skills: any[] = [];
+          try {
+            skills = resume.id
+              ? await DataStore.query(Skill, (s: any) => s.resumeID.eq(resume.id)).catch(() => [])
+              : [];
+          } catch (error) {
+            console.warn(`Error fetching skills for resume ${resume.id}:`, error);
+          }
 
-        const education = resume.resumeEducationId
-          ? await DataStore.query(Education, resume.resumeEducationId).then(
-              (res: any) => res || null,
-            )
-          : null
+          let education = null;
+          try {
+            education = resume.resumeEducationId
+              ? await DataStore.query(Education, resume.resumeEducationId).then(
+                  (res: any) => res || null,
+                )
+              : null;
+          } catch (error) {
+            console.warn(`Error fetching education for resume ${resume.id}:`, error);
+          }
 
-        const schools = education
-          ? await DataStore.query(School, (s: any) => s.educationID.eq(education.id)).catch(() => [])
-          : []
+          let schools: any[] = [];
+          try {
+            schools = education
+              ? await DataStore.query(School, (s: any) => s.educationID.eq(education.id)).catch(() => [])
+              : [];
+          } catch (error) {
+            console.warn(`Error fetching schools for resume ${resume.id}:`, error);
+          }
 
-        const degrees = await Promise.all(
-          schools.map((school: any) =>
-            DataStore.query(Degree, (d: any) => d.schoolID.eq(school.id)).catch(() => []),
-          ),
-        ).then((results) => results.flat())
+          let degrees: any[] = [];
+          try {
+            degrees = await Promise.all(
+              schools.map((school: any) =>
+                DataStore.query(Degree, (d: any) => d.schoolID.eq(school.id)).catch(() => []),
+              ),
+            ).then((results) => results.flat());
+          } catch (error) {
+            console.warn(`Error fetching degrees for resume ${resume.id}:`, error);
+          }
 
-        const experience = resume.resumeExperienceId
-          ? await DataStore.query(Experience, resume.resumeExperienceId).then(
-              (res: any) => res || null,
-            )
-          : null
+          let experience = null;
+          try {
+            experience = resume.resumeExperienceId
+              ? await DataStore.query(Experience, resume.resumeExperienceId).then(
+                  (res: any) => res || null,
+                )
+              : null;
+          } catch (error) {
+            console.warn(`Error fetching experience for resume ${resume.id}:`, error);
+          }
 
-        const companies = experience
-          ? await DataStore.query(Company, (c: any) => c.experienceID.eq(experience.id)).catch(
-              () => [],
-            )
-          : []
+          let companies: any[] = [];
+          try {
+            companies = experience
+              ? await DataStore.query(Company, (c: any) => c.experienceID.eq(experience.id)).catch(
+                  () => [],
+                )
+              : [];
+          } catch (error) {
+            console.warn(`Error fetching companies for resume ${resume.id}:`, error);
+          }
 
-        const engagements = await Promise.all(
-          companies.map((company: any) =>
-            DataStore.query(Engagement, (e: any) => e.companyID.eq(company.id)).catch(() => []),
-          ),
-        ).then((results) => results.flat())
+          let engagements: any[] = [];
+          try {
+            engagements = await Promise.all(
+              companies.map((company: any) =>
+                DataStore.query(Engagement, (e: any) => e.companyID.eq(company.id)).catch(() => []),
+              ),
+            ).then((results) => results.flat());
+          } catch (error) {
+            console.warn(`Error fetching engagements for resume ${resume.id}:`, error);
+          }
 
-        const accomplishments = await Promise.all(
-          engagements.map((engagement: any) =>
-            DataStore.query(Accomplishment, (a: any) => a.engagementID.eq(engagement.id)).catch(
-              () => [],
-            ),
-          ),
-        ).then((results) => results.flat())
+          let accomplishments: any[] = [];
+          try {
+            accomplishments = await Promise.all(
+              engagements.map((engagement: any) =>
+                DataStore.query(Accomplishment, (a: any) => a.engagementID.eq(engagement.id)).catch(
+                  () => [],
+                ),
+              ),
+            ).then((results) => results.flat());
+          } catch (error) {
+            console.warn(`Error fetching accomplishments for resume ${resume.id}:`, error);
+          }
 
-        const contactInfo = resume.resumeContactInformationId
-          ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
-              (res: any) => res || null,
-            )
-          : null
+          let contactInfo = null;
+          try {
+            contactInfo = resume.resumeContactInformationId
+              ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
+                  (res: any) => res || null,
+                )
+              : null;
+          } catch (error) {
+            console.warn(`Error fetching contact info for resume ${resume.id}:`, error);
+          }
 
-        const references = contactInfo
-          ? await DataStore.query(Reference, (r: any) =>
-              r.contactinformationID.eq(contactInfo.id),
-            ).catch(() => [])
-          : []
+          let references: any[] = [];
+          try {
+            references = contactInfo
+              ? await DataStore.query(Reference, (r: any) =>
+                  r.contactinformationID.eq(contactInfo.id),
+                ).catch(() => [])
+              : [];
+          } catch (error) {
+            console.warn(`Error fetching references for resume ${resume.id}:`, error);
+          }
 
-        return {
-          id: resume.id,
-          title: resume.title,
-          Summary: summary,
-          Skills: skills,
-          Education: education,
-          Schools: schools,
-          Degrees: degrees,
-          Experience: experience,
-          Companies: companies,
-          Engagements: engagements,
-          Accomplishments: accomplishments,
-          ContactInformation: contactInfo,
-          References: references,
+          return {
+            id: resume.id,
+            title: resume.title,
+            Summary: summary,
+            Skills: skills,
+            Education: education,
+            Schools: schools,
+            Degrees: degrees,
+            Experience: experience,
+            Companies: companies,
+            Engagements: engagements,
+            Accomplishments: accomplishments,
+            ContactInformation: contactInfo,
+            References: references,
+          };
+        } catch (error) {
+          console.error(`Error expanding resume ${resume.id}:`, error);
+          // Return a minimal object with just the ID and title
+          return {
+            id: resume.id,
+            title: resume.title || 'Unknown',
+            Summary: null,
+            Skills: [] as any[],
+            Education: null,
+            Schools: [] as any[],
+            Degrees: [] as any[],
+            Experience: null,
+            Companies: [] as any[],
+            Engagements: [] as any[],
+            Accomplishments: [] as any[],
+            ContactInformation: null,
+            References: [] as any[],
+          };
         }
       }),
-    )
+    );
   }
 
   // Function to fetch data from DataStore
@@ -341,51 +438,80 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     try {
       // Fetch all resumes
       console.log("Fetching resumes from DataStore")
-      const resumeData = await DataStore.query(Resume)
-      console.log(`Found ${resumeData.length} resumes in DataStore`)
+      let resumeData: Resume[] = []
+      try {
+        resumeData = await DataStore.query(Resume)
+        console.log(`Found ${resumeData.length} resumes in DataStore`)
+      } catch (queryError) {
+        console.error("Error querying resumes:", queryError)
+        // Continue with empty array
+      }
 
       if (!resumeData || resumeData.length === 0) {
         console.warn("No resumes found, creating mock data...")
 
-        // Stop sync before creating mock data
-        await stopDataStoreSync()
+        try {
+          // Create mock data directly without stopping/starting sync
+          await createMockData()
+            .then(() => console.log("Mock data creation completed"))
+            .catch(error => console.error("Error creating mock data:", error))
 
-        // Clear DataStore
-        await clearDataStore()
+          // Query again after creating mock data
+          let newResumeData: Resume[] = []
+          try {
+            newResumeData = await DataStore.query(Resume)
+            console.log(`After creating mock data, found ${newResumeData.length} resumes`)
+          } catch (queryError) {
+            console.error("Error querying resumes after creating mock data:", queryError)
+            // Continue with empty array
+          }
 
-        // Create mock data
-        await createMockData()
-          .then(() => console.log("Mock data creation completed"))
-          .catch(console.error)
+          if (!newResumeData || newResumeData.length === 0) {
+            console.error("Still no resumes found after creating mock data")
+            setIsLoading(false)
+            return
+          }
 
-        // Restart sync
-        await startDataStoreSync()
-
-        // Query again after creating mock data
-        const newResumeData = await DataStore.query(Resume)
-        console.log(`After creating mock data, found ${newResumeData.length} resumes`)
-
-        if (!newResumeData || newResumeData.length === 0) {
-          console.error("Still no resumes found after creating mock data")
+          // Continue with the new data
+          resumeData = newResumeData
+        } catch (mockDataError) {
+          console.error("Error in mock data creation process:", mockDataError)
           setIsLoading(false)
           return
         }
-
-        // Continue with the new data
-        return fetchData() // Recursively call fetchData with the new data
       }
 
-        // Fetch related data for each resume
+      // Fetch related data for each resume
+      try {
         const expandedResumes = await fetchExpandedResumes(resumeData)
-
         setResumes(expandedResumes)
         console.log(`Set ${expandedResumes.length} expanded resumes in state`)
-      } catch (error) {
-        console.error("Error fetching resumes:", error)
-      } finally {
-        setIsLoading(false)
+      } catch (expandError) {
+        console.error("Error expanding resumes:", expandError)
+        // Set at least the basic resume data
+        setResumes(resumeData.map(resume => ({
+          id: resume.id,
+          title: resume.title,
+          // Add empty arrays/nulls for related data
+          Summary: null,
+          Skills: [] as any[],
+          Education: null,
+          Schools: [] as any[],
+          Degrees: [] as any[],
+          Experience: null,
+          Companies: [] as any[],
+          Engagements: [] as any[],
+          Accomplishments: [] as any[],
+          ContactInformation: null,
+          References: [] as any[]
+        })))
       }
+    } catch (error) {
+      console.error("Error in main fetchData process:", error)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
   // Define a base hue for each resume
   const getBaseHueForResume = (index: number) => {
