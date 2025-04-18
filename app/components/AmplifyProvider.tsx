@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { DataStore } from 'aws-amplify';
+import config from '../amplifyconfiguration.json';
 
-// Create context
+// Create auth context
 interface AuthContextType {
   user: any | null;
   isAuthenticated: boolean;
@@ -17,6 +19,19 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => {},
 });
 
+// Create DataStore context
+interface AmplifyContextType {
+  dataStoreReady: boolean;
+  networkStatus: string;
+  clearDataStore: () => Promise<void>;
+}
+
+const AmplifyContext = createContext<AmplifyContextType>({
+  dataStoreReady: false,
+  networkStatus: 'unknown',
+  clearDataStore: async () => {},
+});
+
 // Provider component
 interface AmplifyProviderProps {
   children: ReactNode;
@@ -26,8 +41,44 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
   // For web deployment, we'll use a simplified version without any Amplify dependencies
   const [user] = useState<any | null>(null);
   const [isLoading] = useState(false);
+  const [dataStoreReady, setDataStoreReady] = useState(false);
+  const [networkStatus, setNetworkStatus] = useState('unknown');
 
-  // Simple mock functions
+  // Initialize Amplify with our configuration
+  useEffect(() => {
+    const initializeAmplify = async () => {
+      try {
+        console.log('Initializing Amplify with configuration');
+
+        // Modify the configuration to handle API connection errors
+        const modifiedConfig = { ...config };
+
+        // Always disable sync in web environments to prevent connection issues
+        if (typeof window !== 'undefined') {
+          console.log('Web environment detected, disabling sync to prevent connection issues');
+          if (modifiedConfig.DataStore) {
+            modifiedConfig.DataStore.sync = false;
+          }
+        }
+
+        // Configure Amplify
+        const Amplify = require('aws-amplify').Amplify;
+        Amplify.configure(modifiedConfig);
+        console.log('Amplify configured successfully');
+
+        // Mark DataStore as ready
+        setDataStoreReady(true);
+      } catch (error) {
+        console.error('Error initializing Amplify:', error);
+        // Force ready state even on error
+        setDataStoreReady(true);
+      }
+    };
+
+    initializeAmplify();
+  }, []);
+
+  // Simple mock functions for auth
   const signIn = async () => {
     console.log('Mock signIn called');
     return null;
@@ -37,7 +88,23 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     console.log('Mock signOut called');
   };
 
-  const value = {
+  // DataStore functions
+  const clearDataStore = async () => {
+    try {
+      console.log('Clearing DataStore');
+      if (DataStore && typeof DataStore.clear === 'function') {
+        await DataStore.clear();
+        console.log('DataStore cleared successfully');
+      } else {
+        console.warn('DataStore or DataStore.clear is not available');
+      }
+    } catch (error) {
+      console.error('Error clearing DataStore:', error);
+    }
+  };
+
+  // Auth context value
+  const authValue = {
     user,
     isAuthenticated: false,
     isLoading,
@@ -45,8 +112,22 @@ export const AmplifyProvider = ({ children }: AmplifyProviderProps) => {
     signOut,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  // Amplify context value
+  const amplifyValue = {
+    dataStoreReady,
+    networkStatus,
+    clearDataStore,
+  };
+
+  return (
+    <AuthContext.Provider value={authValue}>
+      <AmplifyContext.Provider value={amplifyValue}>
+        {children}
+      </AmplifyContext.Provider>
+    </AuthContext.Provider>
+  );
 };
 
-// Custom hook to use the auth context
+// Custom hooks to use the contexts
 export const useAuth = () => useContext(AuthContext);
+export const useAmplify = () => useContext(AmplifyContext);

@@ -50,59 +50,105 @@ export const createMockData = async () => {
 
   try {
     // Ensure DataStore is configured
-    configureAmplifyDataStore()
+    try {
+      configureAmplifyDataStore()
+    } catch (configError) {
+      console.error('Error configuring Amplify DataStore:', configError);
+      // Continue despite errors
+    }
 
     // Clear existing data
-    await clearData(true)
-    console.log("Data cleared, creating new mock data...")
+    try {
+      await clearData(true)
+      console.log("Data cleared, creating new mock data...")
+    } catch (clearError) {
+      console.error('Error clearing data:', clearError);
+      // Continue despite errors
+    }
 
     // Set up a listener for DataStore sync events
-    const listener = Hub.listen('datastore', (hubData) => {
-      const { event } = hubData.payload;
-      if (event === 'outboxStatus') {
-        console.log('DataStore outbox status updated - changes being synced');
+    let listener: () => void;
+    try {
+      if (Hub && typeof Hub.listen === 'function') {
+        listener = Hub.listen('datastore', (hubData) => {
+          try {
+            const { event } = hubData.payload;
+            if (event === 'outboxStatus') {
+              console.log('DataStore outbox status updated - changes being synced');
+            }
+          } catch (error) {
+            console.error('Error in Hub listener callback:', error);
+          }
+        });
+
+        // Clean up listener after 30 seconds
+        setTimeout(() => {
+          if (listener) {
+            listener();
+          }
+        }, 30000);
+      } else {
+        console.warn('Hub is not available or Hub.listen is not a function');
       }
-    })
+    } catch (hubError) {
+      console.error('Error setting up Hub listener:', hubError);
+      // Continue despite errors
+    }
+    // Check if DataStore is available
+    if (!DataStore || typeof DataStore.save !== 'function') {
+      console.error('DataStore or DataStore.save is not available');
+      return;
+    }
 
-    // Clean up listener after 30 seconds
-    setTimeout(() => {
-      listener();
-    }, 30000)
     // Create Summaries
-    const summary1 = await DataStore.save(
-      new Summary({
-        goals: "To build scalable software solutions.",
-        persona: "Innovative and problem-solving oriented.",
-      }),
-    )
+    let summary1, summary2;
+    try {
+      summary1 = await DataStore.save(
+        new Summary({
+          goals: "To build scalable software solutions.",
+          persona: "Innovative and problem-solving oriented.",
+        }),
+      );
 
-    const summary2 = await DataStore.save(
-      new Summary({
-        goals: "To lead innovative tech projects.",
-        persona: "Dynamic and results-driven.",
-      }),
-    )
+      summary2 = await DataStore.save(
+        new Summary({
+          goals: "To lead innovative tech projects.",
+          persona: "Dynamic and results-driven.",
+        }),
+      );
 
-    console.log("Summary 1 ID:", summary1.id)
-    console.log("Summary 2 ID:", summary2.id)
+      console.log("Summary 1 ID:", summary1.id);
+      console.log("Summary 2 ID:", summary2.id);
+    } catch (error) {
+      console.error('Error creating summaries:', error);
+      // If we can't create summaries, we can't continue
+      return;
+    }
 
     // Create Resumes
-    const resume1 = await DataStore.save(
-      new Resume({
-        title: "Software Engineer",
-        resumeSummaryId: summary1.id, // Link resume to summary
-      }),
-    )
+    let resume1, resume2;
+    try {
+      resume1 = await DataStore.save(
+        new Resume({
+          title: "Software Engineer",
+          resumeSummaryId: summary1.id, // Link resume to summary
+        }),
+      );
 
-    const resume2 = await DataStore.save(
-      new Resume({
-        title: "Tech Lead",
-        resumeSummaryId: summary2.id, // Link resume to summary
-      }),
-    )
+      resume2 = await DataStore.save(
+        new Resume({
+          title: "Tech Lead",
+          resumeSummaryId: summary2.id, // Link resume to summary
+        }),
+      );
 
-    console.log("Resume 1 ID:", resume1.id)
-    console.log("Resume 2 ID:", resume2.id)
+      console.log("Resume 1 ID:", resume1.id);
+      console.log("Resume 2 ID:", resume2.id);
+    } catch (error) {
+      console.error('Error creating resumes:', error);
+      // If we can't create resumes, we can't continue
+      return;
+    }
 
     // Create Skills linked to Resumes
     const skills1 = await Promise.all(
@@ -142,49 +188,75 @@ export const createMockData = async () => {
     console.log("Skills for Resume 2:", JSON.stringify(skills2, null, 2))
 
     // Create Education linked to Resumes
-    const education1 = await DataStore.save(
-      new Education({
-        summary: "B.Sc in Computer Science from ABC University",
-      }),
-    )
+    let education1, education2;
+    try {
+      education1 = await DataStore.save(
+        new Education({
+          summary: "B.Sc in Computer Science from ABC University",
+        }),
+      );
 
-    const education2 = await DataStore.save(
-      new Education({
-        summary: "B.Tech in Information Technology from XYZ Institute",
-      }),
-    )
+      education2 = await DataStore.save(
+        new Education({
+          summary: "B.Tech in Information Technology from XYZ Institute",
+        }),
+      );
 
-    console.log("Education 1 ID:", education1.id)
-    console.log("Education 2 ID:", education2.id)
+      console.log("Education 1 ID:", education1.id);
+      console.log("Education 2 ID:", education2.id);
+    } catch (error) {
+      console.error('Error creating education:', error);
+      // Continue despite errors - we'll just have resumes without education
+      education1 = null;
+      education2 = null;
+    }
 
     // Create Schools linked to Education
-    const school1 = await DataStore.save(
-      new School({
-        name: "Webster University",
-        educationID: education1.id,
-      }),
-    )
+    let school1, school1a, school2, school2a;
+    try {
+      if (education1) {
+        school1 = await DataStore.save(
+          new School({
+            name: "ABC University", // Changed from Webster University to ABC University
+            educationID: education1.id,
+          }),
+        );
+      }
 
-    const school1a = await DataStore.save(
-      new School({
-        name: "DEF University",
-        educationID: education1.id,
-      }),
-    )
+      if (education1) {
+        school1a = await DataStore.save(
+          new School({
+            name: "DEF University",
+            educationID: education1.id,
+          }),
+        );
+      }
 
-    const school2 = await DataStore.save(
-      new School({
-        name: "XYZ Institute",
-        educationID: education2.id,
-      }),
-    )
+      if (education2) {
+        school2 = await DataStore.save(
+          new School({
+            name: "XYZ Institute",
+            educationID: education2.id,
+          }),
+        );
+      }
 
-    const school2a = await DataStore.save(
-      new School({
-        name: "123 Institute",
-        educationID: education1.id,
-      }),
-    )
+      if (education1) {
+        school2a = await DataStore.save(
+          new School({
+            name: "123 Institute",
+            educationID: education1.id,
+          }),
+        );
+      }
+    } catch (error) {
+      console.error('Error creating schools:', error);
+      // Continue despite errors
+      school1 = null;
+      school1a = null;
+      school2 = null;
+      school2a = null;
+    }
 
     // Create Degrees linked to Schools
     const degrees1 = await Promise.all(
@@ -574,10 +646,19 @@ export const createMockData = async () => {
     console.log("Resume 2 Structure:", JSON.stringify(resume2Updated, null, 2))
 
     console.log("Mock data saved to DataStore")
+    return true
   } catch (error) {
     console.error("Error creating mock data:", error)
+    return false
   }
 }
 
-// Usage
-// createMockData().catch(console.error);
+// Helper function to safely execute DataStore operations
+export const safeDataStoreOperation = async <T>(operation: () => Promise<T>, fallback: T): Promise<T> => {
+  try {
+    return await operation();
+  } catch (error) {
+    console.error('Error in DataStore operation:', error);
+    return fallback;
+  }
+}

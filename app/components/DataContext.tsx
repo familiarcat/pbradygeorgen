@@ -152,33 +152,63 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // Initialize DataStore when component mounts
   useEffect(() => {
-    // Configure Amplify DataStore
-    configureAmplifyDataStore()
+    try {
+      // Configure Amplify DataStore
+      configureAmplifyDataStore()
 
-    // Set up Hub listener for DataStore events
-    const hubListener = Hub.listen('datastore', async (hubData) => {
-      const { event, data } = hubData.payload;
+      // Set up Hub listener for DataStore events
+      let hubListener: () => void;
+      try {
+        if (Hub && typeof Hub.listen === 'function') {
+          hubListener = Hub.listen('datastore', async (hubData) => {
+            try {
+              const { event, data } = hubData.payload;
 
-      switch (event) {
-        case 'ready':
-          setSyncStatus('ready')
-          break;
-        case 'syncQueriesReady':
-          setSyncStatus('synced')
-          // Refresh data after sync
-          fetchData()
-          break;
-        case 'networkStatus':
-          if (data && typeof data === 'object' && 'active' in data) {
-            setSyncStatus(data.active ? 'online' : 'offline')
+              switch (event) {
+                case 'ready':
+                  setSyncStatus('ready')
+                  break;
+                case 'syncQueriesReady':
+                  setSyncStatus('synced')
+                  // Refresh data after sync
+                  fetchData()
+                  break;
+                case 'networkStatus':
+                  if (data && typeof data === 'object' && 'active' in data) {
+                    setSyncStatus(data.active ? 'online' : 'offline')
+                  }
+                  break;
+              }
+            } catch (error) {
+              console.error('Error in Hub listener callback:', error);
+            }
+          });
+
+          // Clean up Hub listener
+          return () => {
+            if (hubListener) {
+              hubListener();
+            }
           }
-          break;
+        } else {
+          console.warn('Hub is not available or Hub.listen is not a function');
+          // Proceed without Hub listener
+          // Ensure we still fetch data
+          fetchData();
+          return undefined;
+        }
+      } catch (hubError) {
+        console.error('Error setting up Hub listener:', hubError);
+        // Proceed without Hub listener
+        // Ensure we still fetch data
+        fetchData();
+        return undefined;
       }
-    })
-
-    // Clean up Hub listener
-    return () => {
-      hubListener();
+    } catch (error) {
+      console.error('Error in DataStore initialization:', error);
+      // Ensure we still fetch data even if initialization fails
+      fetchData();
+      return undefined;
     }
   }, [])
 
@@ -187,121 +217,264 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     fetchData()
 
     // Subscribe to changes in Resume model
-    const subscription = DataStore.observe(Resume).subscribe(() => {
-      console.log('Resume model changed, refreshing data')
-      fetchData()
-    })
+    let subscription: { unsubscribe: () => void } | undefined;
+    try {
+      if (DataStore && typeof DataStore.observe === 'function') {
+        subscription = DataStore.observe(Resume).subscribe(() => {
+          console.log('Resume model changed, refreshing data')
+          fetchData()
+        })
+      } else {
+        console.warn('DataStore or DataStore.observe is not available');
+      }
+    } catch (error) {
+      console.error('Error setting up DataStore subscription:', error);
+    }
 
-    return () => subscription.unsubscribe()
+    return () => {
+      if (subscription && typeof subscription.unsubscribe === 'function') {
+        subscription.unsubscribe()
+      }
+    }
   }, [])
 
   const fetchData = async () => {
     setIsLoading(true)
     try {
+      // Check if DataStore is available
+      if (!DataStore || typeof DataStore.query !== 'function') {
+        console.warn('DataStore or DataStore.query is not available');
+        setIsLoading(false);
+        return;
+      }
+
       // Fetch all resumes
       console.log('Fetching resumes from DataStore')
-      const resumeData = await DataStore.query(Resume)
-      console.log(`Found ${resumeData.length} resumes in DataStore`)
+      let resumeData: Resume[] = [];
+      try {
+        resumeData = await DataStore.query(Resume);
+        console.log(`Found ${resumeData.length} resumes in DataStore`);
+      } catch (queryError) {
+        console.error('Error querying resumes:', queryError);
+        // Continue with empty array
+      }
 
       // If no resumes found, create mock data
       if (!resumeData || resumeData.length === 0) {
         console.warn('No resumes found in DataStore, creating mock data')
-        await createMockData()
-          .then(() => console.log('Mock data creation completed'))
-          .catch(error => console.error('Error creating mock data:', error))
-        return
+        try {
+          await createMockData()
+            .then(() => console.log('Mock data creation completed'))
+            .catch(error => console.error('Error creating mock data:', error))
+
+          // Try to query again after creating mock data
+          try {
+            resumeData = await DataStore.query(Resume);
+            console.log(`After creating mock data, found ${resumeData.length} resumes`);
+
+            if (!resumeData || resumeData.length === 0) {
+              console.error('Still no resumes found after creating mock data');
+              setIsLoading(false);
+              return;
+            }
+          } catch (queryError) {
+            console.error('Error querying resumes after creating mock data:', queryError);
+            setIsLoading(false);
+            return;
+          }
+        } catch (mockDataError) {
+          console.error('Error in mock data creation process:', mockDataError);
+          setIsLoading(false);
+          return;
+        }
       }
 
-        // Fetch related data for each resume
+      // Fetch related data for each resume
+      try {
         const expandedResumes: ExpandedResume[] = await Promise.all(
           resumeData.map(async (resume) => {
-            const summary = resume.resumeSummaryId
-              ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
-              : null
+            try {
+              let summary = null;
+              try {
+                summary = resume.resumeSummaryId
+                  ? await DataStore.query(Summary, resume.resumeSummaryId).then((res) => res || null)
+                  : null;
+              } catch (error) {
+                console.warn(`Error fetching summary for resume ${resume.id}:`, error);
+              }
 
-            const skills = resume.id
-              ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
-              : []
+              let skills: SkillType[] = [];
+              try {
+                skills = resume.id
+                  ? await DataStore.query(Skill, (s) => s.resumeID.eq(resume.id)).catch(() => [])
+                  : [];
+              } catch (error) {
+                console.warn(`Error fetching skills for resume ${resume.id}:`, error);
+              }
 
-            const education = resume.resumeEducationId
-              ? await DataStore.query(Education, resume.resumeEducationId).then(
-                  (res) => res || null,
-                )
-              : null
+              let education = null;
+              try {
+                education = resume.resumeEducationId
+                  ? await DataStore.query(Education, resume.resumeEducationId).then(
+                      (res) => res || null,
+                    )
+                  : null;
+              } catch (error) {
+                console.warn(`Error fetching education for resume ${resume.id}:`, error);
+              }
 
-            const schools = education
-              ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
-              : []
+              let schools: SchoolType[] = [];
+              try {
+                schools = education
+                  ? await DataStore.query(School, (s) => s.educationID.eq(education.id)).catch(() => [])
+                  : [];
+              } catch (error) {
+                console.warn(`Error fetching schools for resume ${resume.id}:`, error);
+              }
 
-            const degrees = await Promise.all(
-              schools.map((school) =>
-                DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
-              ),
-            ).then((results) => results.flat())
+              let degrees: DegreeType[] = [];
+              try {
+                degrees = await Promise.all(
+                  schools.map((school) =>
+                    DataStore.query(Degree, (d) => d.schoolID.eq(school.id)).catch(() => []),
+                  ),
+                ).then((results) => results.flat());
+              } catch (error) {
+                console.warn(`Error fetching degrees for resume ${resume.id}:`, error);
+              }
 
-            const experience = resume.resumeExperienceId
-              ? await DataStore.query(Experience, resume.resumeExperienceId).then(
-                  (res) => res || null,
-                )
-              : null
+              let experience = null;
+              try {
+                experience = resume.resumeExperienceId
+                  ? await DataStore.query(Experience, resume.resumeExperienceId).then(
+                      (res) => res || null,
+                    )
+                  : null;
+              } catch (error) {
+                console.warn(`Error fetching experience for resume ${resume.id}:`, error);
+              }
 
-            const companies = experience
-              ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
-                  () => [],
-                )
-              : []
+              let companies: CompanyType[] = [];
+              try {
+                companies = experience
+                  ? await DataStore.query(Company, (c) => c.experienceID.eq(experience.id)).catch(
+                      () => [],
+                    )
+                  : [];
+              } catch (error) {
+                console.warn(`Error fetching companies for resume ${resume.id}:`, error);
+              }
 
-            const engagements = await Promise.all(
-              companies.map((company) =>
-                DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
-              ),
-            ).then((results) => results.flat())
+              let engagements: EngagementType[] = [];
+              try {
+                engagements = await Promise.all(
+                  companies.map((company) =>
+                    DataStore.query(Engagement, (e) => e.companyID.eq(company.id)).catch(() => []),
+                  ),
+                ).then((results) => results.flat());
+              } catch (error) {
+                console.warn(`Error fetching engagements for resume ${resume.id}:`, error);
+              }
 
-            const accomplishments = await Promise.all(
-              engagements.map((engagement) =>
-                DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
-                  () => [],
-                ),
-              ),
-            ).then((results) => results.flat())
+              let accomplishments: AccomplishmentType[] = [];
+              try {
+                accomplishments = await Promise.all(
+                  engagements.map((engagement) =>
+                    DataStore.query(Accomplishment, (a) => a.engagementID.eq(engagement.id)).catch(
+                      () => [],
+                    ),
+                  ),
+                ).then((results) => results.flat());
+              } catch (error) {
+                console.warn(`Error fetching accomplishments for resume ${resume.id}:`, error);
+              }
 
-            const contactInfo = resume.resumeContactInformationId
-              ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
-                  (res) => res || null,
-                )
-              : null
+              let contactInfo = null;
+              try {
+                contactInfo = resume.resumeContactInformationId
+                  ? await DataStore.query(ContactInformation, resume.resumeContactInformationId).then(
+                      (res) => res || null,
+                    )
+                  : null;
+              } catch (error) {
+                console.warn(`Error fetching contact info for resume ${resume.id}:`, error);
+              }
 
-            const references = contactInfo
-              ? await DataStore.query(Reference, (r) =>
-                  r.contactinformationID.eq(contactInfo.id),
-                ).catch(() => [])
-              : []
+              let references: ReferenceType[] = [];
+              try {
+                references = contactInfo
+                  ? await DataStore.query(Reference, (r) =>
+                      r.contactinformationID.eq(contactInfo.id),
+                    ).catch(() => [])
+                  : [];
+              } catch (error) {
+                console.warn(`Error fetching references for resume ${resume.id}:`, error);
+              }
 
-            return {
-              id: resume.id,
-              title: resume.title,
-              Summary: summary,
-              Skills: skills,
-              Education: education,
-              Schools: schools,
-              Degrees: degrees,
-              Experience: experience,
-              Companies: companies,
-              Engagements: engagements,
-              Accomplishments: accomplishments,
-              ContactInformation: contactInfo,
-              References: references,
+              return {
+                id: resume.id,
+                title: resume.title,
+                Summary: summary,
+                Skills: skills,
+                Education: education,
+                Schools: schools,
+                Degrees: degrees,
+                Experience: experience,
+                Companies: companies,
+                Engagements: engagements,
+                Accomplishments: accomplishments,
+                ContactInformation: contactInfo,
+                References: references,
+              };
+            } catch (error) {
+              console.error(`Error expanding resume ${resume.id}:`, error);
+              // Return a minimal object with just the ID and title
+              return {
+                id: resume.id,
+                title: resume.title || 'Unknown',
+                Summary: null,
+                Skills: [] as SkillType[],
+                Education: null,
+                Schools: [] as SchoolType[],
+                Degrees: [] as DegreeType[],
+                Experience: null,
+                Companies: [] as CompanyType[],
+                Engagements: [] as EngagementType[],
+                Accomplishments: [] as AccomplishmentType[],
+                ContactInformation: null,
+                References: [] as ReferenceType[],
+              };
             }
           }),
-        )
+        );
 
-        setResumes(expandedResumes)
-      } catch (error) {
-        console.error("Error fetching resumes:", error)
-      } finally {
-        setIsLoading(false)
+        setResumes(expandedResumes);
+      } catch (expandError) {
+        console.error('Error expanding resumes:', expandError);
+        // Set at least the basic resume data
+        setResumes(resumeData.map(resume => ({
+          id: resume.id,
+          title: resume.title,
+          // Add empty arrays/nulls for related data
+          Summary: null,
+          Skills: [] as SkillType[],
+          Education: null,
+          Schools: [] as SchoolType[],
+          Degrees: [] as DegreeType[],
+          Experience: null,
+          Companies: [] as CompanyType[],
+          Engagements: [] as EngagementType[],
+          Accomplishments: [] as AccomplishmentType[],
+          ContactInformation: null,
+          References: [] as ReferenceType[]
+        })));
       }
+    } catch (error) {
+      console.error('Error in main fetchData process:', error);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
 
   // Define a base hue for each resume
