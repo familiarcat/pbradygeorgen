@@ -18,10 +18,12 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 // Web linking configuration
 const prefix = Linking.createURL("/")
 const config = {
+  initialRouteName: "ResumePDFScreen",
   screens: {
     // Define the root path to go to ResumePDFScreen
     ResumePDFScreen: {
       path: "",
+      exact: true
     },
     ResumeScreen: "resume",
     ResumeWizardNavigator: "wizard",
@@ -47,6 +49,19 @@ function App(props: AppProps) {
   const linking = {
     prefixes: [prefix],
     config,
+    // Add a custom getInitialURL function to ensure we always start with ResumePDFScreen
+    getInitialURL: async () => {
+      // Get the URL from Linking
+      const url = await Linking.getInitialURL();
+      console.log('Initial URL:', url);
+
+      // If there's no URL, return the default URL for ResumePDFScreen
+      if (!url) {
+        return prefix;
+      }
+
+      return url;
+    },
   }
 
   if (!isNavigationStateRestored || !areFontsLoaded) return null
