@@ -9,20 +9,21 @@ const amplifyConfig = {
     // We'll use a mock Auth implementation
     // This is intentionally empty to avoid Auth errors
   },
-  API: {
-    GraphQL: {
-      endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
-      region: 'us-east-2',
-      apiKey: 'da2-7n7st4as4vbf7i3cx6amixuxiu',
-      defaultAuthMode: 'apiKey',
-    }
-  },
+  // API configuration disabled for now - using local storage only
+  // API: {
+  //   GraphQL: {
+  //     endpoint: 'https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql',
+  //     region: 'us-east-2',
+  //     apiKey: 'da2-7n7st4as4vbf7i3cx6amixuxiu',
+  //     defaultAuthMode: 'apiKey',
+  //   }
+  // },
   Storage: {
     // Configure S3 if needed
   },
   DataStore: {
-    // Configure DataStore to sync between local and deployed versions
-    sync: true
+    // Use local storage only for now
+    sync: false
   }
 };
 

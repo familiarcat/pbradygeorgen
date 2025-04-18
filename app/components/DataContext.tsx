@@ -16,7 +16,7 @@ import {
   Engagement,
   Accomplishment,
 } from "../models"
-import { clearData, createMockData } from "app/mock/mockData"
+import { createMockData } from "app/mock/mockData"
 import { StyleSheet, useWindowDimensions } from "react-native"
 import { configureAmplify, configureAmplifyDataStore } from "../config/amplify-config"
 
@@ -171,18 +171,12 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         if (resumeCount.length === 0) {
           console.log('No resumes found during initialization, creating mock data...')
           try {
-            // Stop sync before creating mock data
-            await stopDataStoreSync()
-
-            // Clear existing data
-            await clearData()
+            // Clear DataStore
+            await clearDataStore()
 
             // Create mock data
             await createMockData()
             console.log('Mock data creation completed during initialization')
-
-            // Restart sync
-            await startDataStoreSync()
 
             // Fetch the new data
             await fetchDataWithoutAutoCreate()
@@ -251,25 +245,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return () => subscription.unsubscribe()
   }, [])
 
-  // Function to stop DataStore sync
-  const stopDataStoreSync = async () => {
+  // Function to clear DataStore
+  const clearDataStore = async () => {
     try {
-      console.log('Stopping DataStore sync')
-      await DataStore.stop()
-      console.log('DataStore sync stopped')
+      console.log('Clearing DataStore')
+      await DataStore.clear()
+      console.log('DataStore cleared')
     } catch (error) {
-      console.error('Error stopping DataStore sync:', error)
-    }
-  }
-
-  // Function to start DataStore sync
-  const startDataStoreSync = async () => {
-    try {
-      console.log('Starting DataStore sync')
-      await DataStore.start()
-      console.log('DataStore sync started')
-    } catch (error) {
-      console.error('Error starting DataStore sync:', error)
+      console.error('Error clearing DataStore:', error)
     }
   }
 
@@ -396,19 +379,13 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       if (!resumeData || resumeData.length === 0) {
         console.warn("No resumes found, creating mock data...")
 
-        // Stop sync before creating mock data
-        await stopDataStoreSync()
-
-        // Clear existing data
-        await clearData()
+        // Clear DataStore
+        await clearDataStore()
 
         // Create mock data
         await createMockData()
           .then(() => console.log("Mock data creation completed"))
           .catch(console.error)
-
-        // Restart sync
-        await startDataStoreSync()
 
         // Query again after creating mock data
         const newResumeData = await DataStore.query(Resume)
@@ -472,9 +449,9 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const resetWithMockData = async () => {
     setIsLoading(true)
     try {
-      // Clear existing data
-      await clearData()
-      console.log('Data cleared')
+      // Clear DataStore
+      await clearDataStore()
+      console.log('DataStore cleared')
 
       // Create new mock data
       await createMockData()
