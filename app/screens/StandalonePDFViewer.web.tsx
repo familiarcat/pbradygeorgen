@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, ActivityIndicator } from 'react-native';
 
 export default function StandalonePDFViewer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Use a fixed PDF URL for the standalone viewer
   const pdfUrl = 'https://pbradygeorgen.com/resume.pdf';
-  
+
   useEffect(() => {
     console.log('StandalonePDFViewer mounted');
-    
+
     // Set loading to false after a short delay to simulate loading
     const timer = setTimeout(() => {
       setLoading(false);
     }, 500);
-    
+
     return () => {
       console.log('StandalonePDFViewer unmounted');
       clearTimeout(timer);
     };
   }, []);
-  
+
   if (loading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <Text>Loading PDF...</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={styles.loadingText}>Loading PDF...</Text>
       </View>
     );
   }
-  
+
   if (error) {
     return (
       <View style={[styles.container, styles.centered]}>
@@ -37,7 +38,7 @@ export default function StandalonePDFViewer() {
       </View>
     );
   }
-  
+
   // For web, we use an iframe to display the PDF
   return (
     <View style={styles.container}>
@@ -58,7 +59,8 @@ export default function StandalonePDFViewer() {
             console.log('PDF loaded successfully');
             setLoading(false);
           }}
-          sandbox="allow-same-origin allow-scripts"
+          sandbox="allow-same-origin allow-scripts allow-forms"
+          allowFullScreen
         />
       </View>
     </View>
@@ -66,9 +68,9 @@ export default function StandalonePDFViewer() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     height: Dimensions.get('window').height,
     width: '100%',
     position: 'relative',
@@ -90,6 +92,13 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     textAlign: 'center',
-    margin: 20
+    margin: 20,
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333'
   }
 });

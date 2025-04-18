@@ -1,101 +1,33 @@
-// App.tsx
+// App.tsx - PDF-only version
 import React from "react"
 import { useFonts } from "expo-font"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
-import * as Linking from "expo-linking"
-import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "./screens/ErrorScreen/ErrorBoundary"
-import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import Config from "./config"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { ViewStyle, Platform } from "react-native"
+import { ViewStyle } from "react-native"
 import { AmplifyProvider } from "./components/AmplifyProvider"
-import StandalonePDFViewer from "./screens/StandalonePDFViewer.web"
 
-export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
-
-// Web linking configuration
-const prefix = Linking.createURL("/")
-const config = {
-  initialRouteName: "ResumePDFScreen",
-  screens: {
-    // Define the root path to go to ResumePDFScreen
-    ResumePDFScreen: {
-      path: "",
-      exact: true
-    },
-    ResumeScreen: "resume",
-    ResumeWizardNavigator: "wizard",
-    LoginScreen: "login"
-  },
-}
+// Import the appropriate PDF viewer based on platform
+import StandalonePDFViewer from "./screens/StandalonePDFViewer"
 
 interface AppProps {
-  hideSplashScreen: () => Promise<boolean>
+  hideSplashScreen?: () => Promise<boolean>
 }
 
-function App(props: AppProps) {
-  const { hideSplashScreen } = props
-  const {
-    initialNavigationState,
-    onNavigationStateChange,
-    isRestored: isNavigationStateRestored,
-  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
-
+function App(_props: AppProps) {
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
-  const linking = {
-    prefixes: [prefix],
-    config,
-    // Add a custom getInitialURL function to ensure we always start with ResumePDFScreen
-    getInitialURL: async () => {
-      // Get the URL from Linking
-      const url = await Linking.getInitialURL();
-      console.log('Initial URL:', url);
+  if (!areFontsLoaded) return null
 
-      // If there's no URL, return the default URL for ResumePDFScreen
-      if (!url) {
-        return prefix;
-      }
-
-      return url;
-    },
-  }
-
-  if (!isNavigationStateRestored || !areFontsLoaded) return null
-
-  // Determine which navigator to use based on the URL path
-  const isRootPath = Platform.OS === 'web' ?
-    (typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === '')) :
-    false; // Default to false for native platforms
-
-  // For web root path, we'll use a direct approach to render the PDF
-  if (Platform.OS === 'web' && isRootPath) {
-    return (
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <ErrorBoundary catchErrors={Config.catchErrors}>
-          <AmplifyProvider>
-            <GestureHandlerRootView style={$container}>
-              <StandalonePDFViewer />
-            </GestureHandlerRootView>
-          </AmplifyProvider>
-        </ErrorBoundary>
-      </SafeAreaProvider>
-    );
-  }
-
-  // For all other paths and platforms, use the regular AppNavigator
+  // PDF-only version - no navigation, no routing, just the PDF viewer
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <AmplifyProvider>
           <GestureHandlerRootView style={$container}>
-            <AppNavigator
-              linking={linking} // Pass linking configuration here
-              initialState={initialNavigationState} // Pass initial navigation state
-              onStateChange={onNavigationStateChange} // Handle state changes
-            />
+            <StandalonePDFViewer />
           </GestureHandlerRootView>
         </AmplifyProvider>
       </ErrorBoundary>
@@ -107,4 +39,6 @@ export default App
 
 const $container: ViewStyle = {
   flex: 1,
+  width: '100%',
+  height: '100%',
 }
