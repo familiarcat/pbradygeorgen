@@ -1,18 +1,13 @@
 // ResumeView.tsx
 import React from "react"
 import { ScrollView, View, Text, StyleSheet } from "react-native"
-import { DataProvider, useDataContext } from "../DataContext" // Import the context and provider
-import ResponsiveGrid from "../ResponsiveGrid"
+import { useDataContext } from "../DataContext" // Import only the context hook
 import ReferenceItemCard from "./resume/reference/ReferenceItemCard"
 import { SkillType } from "../types"
 import EducationItemCard from "./resume/education/EducationItemCard"
 import ContactInformationCard from "./resume/contact/ContactInformationCard"
 import ExperienceItemCard from "./resume/experience/ExperienceItemCard"
-import Actioncard from "../ActionCard"
-import Productcard from "../ProductCard"
-import Standardcard from "../StandardCard"
 import { Surface } from "react-native-paper"
-import { BentoContainer } from "../utility_components/Bento"
 
 
 const ResumeViewContent = () => {
@@ -20,7 +15,7 @@ const ResumeViewContent = () => {
   return (
     <ScrollView style={styles.container}>
       <Surface>
-        
+
       <View>
       {resumes.map((resume, index) => {
         const baseHue = getBaseHueForResume(index)
@@ -28,11 +23,11 @@ const ResumeViewContent = () => {
         return (
           // using the Summary view to contain the Resume data
           <View key={resume.id} style={[styles.resume, renderTextColor(0, baseHue)]}>
-            
+
             {resume.ContactInformation && (
               <ContactInformationCard resume={resume} name="Contact Information" />
             )}
-            
+
             {resume.Skills && resume.Skills.length > 0 && (
               <View style={renderIndentation(1)}>
                 <Text style={[styles.sectionTitle, renderTextColor(1, baseHue + 60)]}>Skills</Text>
@@ -45,31 +40,31 @@ const ResumeViewContent = () => {
                     </View>
                   ))}
                 </View>
-                
+
               </View>
             )}
-            
+
             {resume.Education && (
               <View style={renderIndentation(0)}>
-                
+
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Education!!
                 </Text>
                 <EducationItemCard resume={resume} />
-                
+
               </View>
             )}
 
             {resume.Experience && (
               <View style={renderIndentation(0)}>
-                
+
                 <Text style={[styles.sectionTitle, renderTextColor(2, baseHue + 180)]}>
                   Experience!
                 </Text>
                 <ExperienceItemCard resume={resume} />
 
-                
-                
+
+
               </View>
             )}
             {resume.Summary && (
@@ -92,17 +87,14 @@ const ResumeViewContent = () => {
         )
       })}
       </View>
-      
+
       </Surface>
     </ScrollView>
   )
 }
 
-const ResumeView = () => (
-  <DataProvider>
-    <ResumeViewContent />
-  </DataProvider>
-)
+// Use the parent DataContext directly instead of creating a nested one
+const ResumeView = () => <ResumeViewContent />
 
 const styles = StyleSheet.create({
   container: {

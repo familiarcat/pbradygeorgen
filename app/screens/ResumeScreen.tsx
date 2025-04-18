@@ -75,11 +75,46 @@ export const ResumeScreen: FC<ResumeScreenProps> = ({ navigation }) => {
   // Log that the ResumeScreen is rendering
   console.log('ResumeScreen rendering');
 
+  // State to track loading state
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  // Function to reset data
+  const resetData = async () => {
+    setIsLoading(true);
+    try {
+      // Clear existing data
+      await clearData();
+      console.log('Data cleared');
+
+      // Create new mock data
+      await createMockData();
+      console.log('Mock data created');
+    } catch (error) {
+      console.error('Error resetting data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Initialize data when component mounts
+  React.useEffect(() => {
+    resetData();
+  }, []);
+
   return (
     <Screen preset="scroll">
       <View style={{ padding: 10 }}>
         <Text preset="heading" text="Brady Georgen" />
         <Text preset="subheading" text="Web & Mobile Developer" />
+
+        <View style={{ marginVertical: 10, flexDirection: 'row', justifyContent: 'center' }}>
+          <Button
+            text={isLoading ? "Resetting..." : "Reset Data"}
+            onPress={resetData}
+            style={{ marginHorizontal: 10 }}
+            disabled={isLoading}
+          />
+        </View>
 
         <View style={{ marginVertical: 20 }}>
           <ResumeView />

@@ -45,9 +45,6 @@ export const clearData = async (log: boolean = true) => {
 // Function to create mock data with relationships
 export const createMockData = async () => {
   console.log("Creating Mock Data in mockData.ts")
-  ;async () => {
-    await clearData()
-  }
   try {
     // Clear existing data
     await clearData(true)
@@ -128,7 +125,7 @@ export const createMockData = async () => {
     // Create Education linked to Resumes
     const education1 = await DataStore.save(
       new Education({
-        summary: "B.Sc in Computer Science from ABC University",
+        summary: "B.Sc in Computer Science from Webster University",
       }),
     )
 
@@ -144,7 +141,7 @@ export const createMockData = async () => {
     // Create Schools linked to Education
     const school1 = await DataStore.save(
       new School({
-        name: "ABC University",
+        name: "Webster University",
         educationID: education1.id,
       }),
     )
