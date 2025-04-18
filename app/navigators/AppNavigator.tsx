@@ -36,7 +36,6 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen
         name="ResumePDFScreen"
         component={ResumePDFScreen}
-        initialParams={{ uri: 'https://pbradygeorgen.com/resume.pdf' }}
       />
       <Stack.Screen name="ResumeScreen" component={ResumeScreen} />
       <Stack.Screen name="ResumeWizardNavigator" component={ResumeWizardNavigator} />
