@@ -14,29 +14,20 @@
   },
   "api": {
     "pbradygeorgen": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": []
-        },
-        "GraphQLAPIIdOutput": "duluxygponhuja46hscmnqtemy",
-        "GraphQLAPIEndpointOutput": "https://fcfpzqv5v5e3fjcpvftgfq2i3i.appsync-api.us-east-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-7n7st4as4vbf7i3cx6amixuxiu"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-pbradygeorgen-main-d31af-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apipbradygeorgen"
-      },
-      "lastPushTimeStamp": "2025-04-17T00:17:06.815Z",
-      "lastPushDirHash": "gDNpN209RlJ6OfZH/chk6qABzto="
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   }
 }
