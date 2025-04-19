@@ -1,52 +1,18 @@
 version: 1
-env:
-  variables:
-    NODE_VERSION: 18
-    AMPLIFY_NEXTJS_EXPERIMENTAL_TRACE: true
-    AMPLIFY_DEPLOYMENT_MODE: static
 frontend:
   phases:
     preBuild:
       commands:
-        - export NVM_DIR="$HOME/.nvm"
-        - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-        - nvm install $NODE_VERSION
-        - nvm use $NODE_VERSION
-        - echo "Node version $(node -v)"
-        - echo "NPM version $(npm -v)"
+        - nvm install 18
+        - node -v
         - npm ci
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: out
+    baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
-  customHeaders:
-    - pattern: '**/*.{js,css}'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public, max-age=31536000, immutable'
-    - pattern: '**/*.{jpg,jpeg,png,gif,ico,svg,webp}'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public, max-age=31536000, immutable'
-    - pattern: '**/*.{pdf}'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public, max-age=86400'
-    - pattern: '**/*.{html}'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public, max-age=0, must-revalidate'
-    - pattern: '/'
-      headers:
-        - key: 'Cache-Control'
-          value: 'public, max-age=0, must-revalidate'
-  redirects:
-    - source: '</^[^.]+$|\.(?!(html|js|css|json|svg|png|jpg|jpeg|gif|webp|ico|pdf)$)([^.]+$)/>'
-      target: '/index.html'
-      status: '200'

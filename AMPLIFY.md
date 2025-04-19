@@ -1,10 +1,10 @@
 # AWS Amplify Deployment Guide
 
-This document outlines how to deploy this Next.js 15 static site to AWS Amplify.
+This document outlines how to deploy this Next.js 15 application to AWS Amplify using Server-Side Rendering (SSR).
 
 ## Deployment Configuration
 
-This project is configured as a static export using Next.js 15's `output: 'export'` option. The build process generates static HTML/CSS/JS files in the `out` directory.
+This project is configured for SSR deployment on AWS Amplify. The build process generates both static assets and server-side components in the `.next` directory.
 
 ## Branch Configuration
 
@@ -16,8 +16,9 @@ This project is configured as a static export using Next.js 15's `output: 'expor
 The build settings are defined in `amplify.yml` at the project root. Key settings:
 
 - **Build Command**: `npm run build`
-- **Output Directory**: `out`
+- **Output Directory**: `.next`
 - **Node.js Version**: 18.x or higher
+- **Deployment Type**: SSR (Server-Side Rendering)
 
 ## Custom Domain Setup
 
@@ -44,7 +45,7 @@ If you encounter build issues:
    - Amplify defaults to Node.js 14, which is incompatible
    - Our amplify.yml includes `nvm use 18` to switch to Node.js 18
    - You can also set the Node.js version in the Amplify Console under Build settings
-3. Verify that the `output: 'export'` setting is in next.config.ts
+3. Verify that the `output: 'export'` setting is NOT in next.config.ts (we want SSR capabilities)
 4. Make sure package-lock.json is committed (not yarn.lock)
 
 ## Local Testing

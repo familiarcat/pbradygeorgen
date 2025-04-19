@@ -16,7 +16,6 @@ echo "NPM version $(npm -v)"
 
 # Clean previous builds
 echo "Cleaning previous builds..."
-rm -rf out
 rm -rf .next
 
 # Install dependencies (like Amplify's npm ci)
@@ -27,9 +26,7 @@ npm ci
 echo "Building the project..."
 npm run build
 
-# Copy static site marker
-echo "Copying static site marker..."
-cp amplify-static-site.json out/
+# No need to copy static site marker for SSR deployment
 
 # Serve the output (optional)
-echo "Build completed. Run 'npm start' to serve the static site."
+echo "Build completed. Run 'npm start' to serve the SSR application."

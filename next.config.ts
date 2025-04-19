@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // Removed 'output: export' to enable SSR capabilities
   webpack: (config) => {
     config.resolve.alias.canvas = false;
     return config;

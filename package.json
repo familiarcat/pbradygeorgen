@@ -6,11 +6,10 @@
     "dev": "next dev --turbopack",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",
-    "postbuild": "./copy-static-marker.sh",
-    "start": "serve out",
+    "start": "next start",
     "lint": "next lint",
     "amplify:build": "./build.sh",
-    "amplify:serve": "serve out -p 3000"
+    "amplify:serve": "next start -p 3000"
   },
   "dependencies": {
     "next": "15.3.1",

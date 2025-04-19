@@ -1,10 +1,14 @@
-# AWS Amplify Deployment Instructions
+# AWS Amplify Deployment Instructions (SSR Mode)
 
-This document provides step-by-step instructions for deploying this Next.js application to AWS Amplify, specifically addressing the Node.js version requirements.
+This document provides step-by-step instructions for deploying this Next.js application to AWS Amplify using Server-Side Rendering (SSR) capabilities.
 
 ## Important: Node.js Version Requirements
 
 This Next.js 15.3.1 application requires **Node.js 18 or higher**. However, AWS Amplify defaults to Node.js 14, which is incompatible.
+
+## SSR vs Static Export
+
+This application is now configured for SSR deployment on Amplify, which provides better performance and SEO benefits compared to static export. AWS Amplify's compute SSR capabilities are specifically designed to work with Next.js applications.
 
 ## Deployment Steps
 
@@ -37,17 +41,19 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 18
-        - echo "Node version $(node -v)"
-        - echo "NPM version $(npm -v)"
+        - nvm install 18
+        - node -v
         - npm ci
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: out
+    baseDirectory: .next
     files:
       - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
 ```
 
 ### 4. Environment Variables (If Needed)
