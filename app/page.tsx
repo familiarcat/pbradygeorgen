@@ -1,5 +1,9 @@
 import PDFViewerWrapper from '@/components/PDFViewerWrapper';
 
 export default function Home() {
-  return <PDFViewerWrapper />;
+  return (
+    <div className="w-full h-screen overflow-hidden">
+      <PDFViewerWrapper />
+    </div>
+  );
 }
