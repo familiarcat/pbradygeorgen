@@ -3,6 +3,8 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "Node version $(node -v)"
+        - echo "NPM version $(npm -v)"
         - npm ci
     build:
       commands:
@@ -15,15 +17,27 @@ frontend:
     paths:
       - node_modules/**/*
   customHeaders:
-    - pattern: '**/*'
+    - pattern: '**/*.{js,css}'
       headers:
         - key: 'Cache-Control'
           value: 'public, max-age=31536000, immutable'
-    - pattern: 'index.html'
+    - pattern: '**/*.{jpg,jpeg,png,gif,ico,svg,webp}'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=31536000, immutable'
+    - pattern: '**/*.{pdf}'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=86400'
+    - pattern: '**/*.{html}'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=0, must-revalidate'
+    - pattern: '/'
       headers:
         - key: 'Cache-Control'
           value: 'public, max-age=0, must-revalidate'
   redirects:
-    - source: '</^[^.]+$|.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|woff2|ttf|map|json|pdf)$)([^.]+$)/>'
+    - source: '</^[^.]+$|\.(?!(html|js|css|json|svg|png|jpg|jpeg|gif|webp|ico|pdf)$)([^.]+$)/>'
       target: '/index.html'
       status: '200'

@@ -29,8 +29,42 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Local Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Serve production build locally
+npm start
+```
+
+### AWS Amplify Deployment
+
+This project is configured for deployment on AWS Amplify. For detailed instructions, see [AMPLIFY.md](./AMPLIFY.md).
+
+```bash
+# Simulate Amplify build process locally
+npm run amplify:build
+
+# Serve the built files locally
+npm run amplify:serve
+
+# Deploy to Amplify (requires AWS credentials)
+./deploy.sh pdf-next.js
+```
+
+The deployment process will:
+
+1. Build the static site
+2. Push to the specified branch
+3. Trigger Amplify's CI/CD pipeline
+4. Deploy to your custom domain
