@@ -1,0 +1,20 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - corepack enable
+        - yarn --version
+        # Rest of your preBuild commands
+    build:
+      commands:
+        - yarn build
+        # Rest of your build commands
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .yarn/cache/**/*
