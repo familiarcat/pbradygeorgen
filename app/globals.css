@@ -99,11 +99,34 @@ html, body {
   --viewer-pdf-background-color: #D4D1BE !important;
 }
 
-/* Target any embedded iframes created by the PDF viewer */
-iframe {
+/* Universal iframe styling for PDF viewer */
+.pdf-iframe {
   background-color: #D4D1BE !important;
   border: none !important;
   width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+/* PDF container styling */
+.pdf-container {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background-color: #D4D1BE !important;
+}
+
+/* Universal fixes for all browsers */
+iframe[src*=".pdf"] {
+  background-color: #D4D1BE !important;
 }
 
 /* Target the PDF.js viewer specifically */
@@ -111,24 +134,12 @@ iframe {
   background-color: #D4D1BE !important;
 }
 
-/* Styles for PDF with controls */
-.pdf-controls-container {
-  position: relative;
-  padding-top: 36px; /* Make room for the browser's PDF controls */
-  overflow: hidden;
-}
-
-.pdf-with-controls {
+/* PDF viewer toolbar styling */
+.pdf-toolbar {
   background-color: #D4D1BE !important;
 }
 
-/* Target the toolbar in the PDF viewer */
-.pdf-controls-container .toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
+/* Ensure PDF controls have the right background */
+[class*="toolbar"], [class*="controls"], [class*="buttons"] {
   background-color: #D4D1BE !important;
-  z-index: 10;
 }

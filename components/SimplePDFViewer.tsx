@@ -1,56 +1,92 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export default function SimplePDFViewer() {
-  const [showControls, setShowControls] = useState(false);
+  const showControls = false; // Fixed value since we no longer need to toggle controls
   const [showUI, setShowUI] = useState(true);
   const [uiTimeout, setUiTimeout] = useState<NodeJS.Timeout | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Auto-hide UI after inactivity
-  useEffect(() => {
-    const handleMouseMove = () => {
-      setShowUI(true);
-
-      // Clear any existing timeout
-      if (uiTimeout) {
-        clearTimeout(uiTimeout);
-      }
-
-      // Set a new timeout to hide the UI after 3 seconds of inactivity
-      const timeout = setTimeout(() => {
-        if (!showControls) { // Only auto-hide if not in controls mode
-          setShowUI(false);
+  // Function to handle UI visibility - memoized to avoid dependency issues
+  const handleUIVisibility = useCallback((event?: MouseEvent) => {
+    // For mouse events, only show UI when cursor is near the top of the screen
+    if (event && event.type === 'mousemove') {
+      // Only show UI when cursor is within 100px of the top of the screen
+      if (event.clientY <= 100) {
+        setShowUI(true);
+      } else if (showUI && !showControls) {
+        // If cursor moves away from the top and controls aren't shown, hide UI faster
+        if (uiTimeout) {
+          clearTimeout(uiTimeout);
         }
-      }, 3000);
+        const timeout = setTimeout(() => {
+          setShowUI(false);
+        }, 1000); // Faster hide (1 second)
+        setUiTimeout(timeout);
+        return;
+      }
+    } else {
+      // For non-mouse events (touch, click, or initial load), always show UI
+      setShowUI(true);
+    }
+
+    // Clear any existing timeout
+    if (uiTimeout) {
+      clearTimeout(uiTimeout);
+    }
+
+    // Only set auto-hide timeout if controls are not shown
+    if (!showControls) {
+      const timeout = setTimeout(() => {
+        setShowUI(false);
+      }, 2000); // Reduced from 3000ms to 2000ms for faster hiding
 
       setUiTimeout(timeout);
-    };
+    }
+  }, [showControls, uiTimeout, showUI]);
 
-    // Add event listener
+  // Set up event listeners for UI visibility
+  useEffect(() => {
+    // Event handlers that pass the event to handleUIVisibility
+    const handleMouseMove = (e: MouseEvent) => handleUIVisibility(e);
+    const handleTouch = () => handleUIVisibility();
+    const handleClick = () => handleUIVisibility();
+
+    // Add event listeners
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouch, { passive: true });
+    window.addEventListener('click', handleClick);
 
-    // Clean up
+    // Show UI initially
+    handleUIVisibility();
+
+    // Cleanup
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouch);
+      window.removeEventListener('click', handleClick);
+
       if (uiTimeout) {
         clearTimeout(uiTimeout);
       }
     };
-  }, [showControls, uiTimeout]);
+  }, [showControls, handleUIVisibility, uiTimeout]);
 
-  // When controls are shown, ensure UI is visible and stays visible
+  // Keep UI visible when controls are shown
   useEffect(() => {
     if (showControls) {
       setShowUI(true);
 
-      // Clear any existing timeout to prevent UI from hiding
+      // Clear any auto-hide timeout
       if (uiTimeout) {
         clearTimeout(uiTimeout);
         setUiTimeout(null);
       }
     }
   }, [showControls, uiTimeout]);
+
+  // No toggle controls needed anymore
 
   return (
     <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: '#D4D1BE' }}>
@@ -68,76 +104,31 @@ export default function SimplePDFViewer() {
             >
               Download Resume
             </a>
-            <a
-              href="/pbradygeorgen_resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-amber-700 text-white hover:bg-amber-800 rounded-md transition-colors text-sm font-medium shadow-md"
-            >
-              Open in New Tab
-            </a>
           </div>
-          <button
-            onClick={() => setShowControls(!showControls)}
-            className="px-4 py-2 bg-amber-700 text-white hover:bg-amber-800 rounded-md transition-colors text-sm font-medium shadow-md"
-          >
-            {showControls ? 'Hide Controls' : 'Show Controls'}
-          </button>
+
         </div>
       </div>
 
-      {/* PDF Viewer - takes up the entire viewport with no margins or padding */}
+      {/* Universal PDF Viewer using iframe */}
       <div className="w-full h-full pdf-container" style={{ margin: 0, padding: 0 }}>
-        {/* Create two separate objects - one for each mode, and toggle between them */}
-        {showControls ? (
-          <div className="pdf-controls-container" style={{ height: '100%', backgroundColor: '#D4D1BE' }}>
-            <object
-              data="/pbradygeorgen_resume.pdf#toolbar=1&navpanes=1&scrollbar=1&view=FitH"
-              type="application/pdf"
-              width="100%"
-              height="100%"
-              className="w-full h-full pdf-object pdf-with-controls"
-              style={{ border: 'none', backgroundColor: '#D4D1BE', padding: 0 }}
-            >
-              <div className="p-8 text-center">
-                <p>It appears your browser does not support embedded PDFs.</p>
-                <p className="mt-4">
-                  <a
-                    href="/pbradygeorgen_resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline"
-                  >
-                    Click here to download the PDF
-                  </a>
-                </p>
-              </div>
-            </object>
-          </div>
-        ) : (
-          <object
-            data="/pbradygeorgen_resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-            type="application/pdf"
-            width="100%"
-            height="100%"
-            className="w-full h-full pdf-object"
-            style={{ border: 'none', backgroundColor: '#D4D1BE', margin: 0, padding: 0 }}
-          >
-            <div className="p-8 text-center">
-              <p>It appears your browser does not support embedded PDFs.</p>
-              <p className="mt-4">
-                <a
-                  href="/pbradygeorgen_resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  Click here to download the PDF
-                </a>
-              </p>
-            </div>
-          </object>
-        )}
+        <iframe
+          ref={iframeRef}
+          src="/pbradygeorgen_resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+          className="w-full h-full pdf-iframe"
+          style={{
+            border: 'none',
+            backgroundColor: '#D4D1BE',
+            margin: 0,
+            padding: 0,
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            left: 0
+          }}
+          title="Resume PDF"
+        />
       </div>
     </div>
   );
