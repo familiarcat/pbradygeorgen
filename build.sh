@@ -27,5 +27,9 @@ npm ci
 echo "Building the project..."
 npm run build
 
+# Copy static site marker
+echo "Copying static site marker..."
+cp amplify-static-site.json out/
+
 # Serve the output (optional)
 echo "Build completed. Run 'npm start' to serve the static site."

@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",
+    "postbuild": "./copy-static-marker.sh",
     "start": "serve out",
     "lint": "next lint",
     "amplify:build": "./build.sh",

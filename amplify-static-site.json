@@ -1,0 +1,6 @@
+{
+  "isStaticSite": true,
+  "framework": "next",
+  "buildOutput": "out",
+  "skipServerBuild": true
+}

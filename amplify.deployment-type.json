@@ -1,0 +1,6 @@
+{
+  "deploymentType": "STATIC",
+  "framework": "next",
+  "skipServerBuild": true,
+  "staticOutput": "out"
+}

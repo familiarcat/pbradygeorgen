@@ -2,6 +2,8 @@ version: 1
 env:
   variables:
     NODE_VERSION: 18
+    AMPLIFY_NEXTJS_EXPERIMENTAL_TRACE: true
+    AMPLIFY_DEPLOYMENT_MODE: static
 frontend:
   phases:
     preBuild:
