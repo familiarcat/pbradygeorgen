@@ -40,6 +40,10 @@ If you encounter build issues:
 
 1. Check the build logs for specific errors
 2. Ensure Node.js version is compatible (18.x or higher)
+   - The project requires Node.js 18+ due to Next.js 15.3.1 requirements
+   - Amplify defaults to Node.js 14, which is incompatible
+   - Our amplify.yml includes `nvm use 18` to switch to Node.js 18
+   - You can also set the Node.js version in the Amplify Console under Build settings
 3. Verify that the `output: 'export'` setting is in next.config.ts
 4. Make sure package-lock.json is committed (not yarn.lock)
 

@@ -1,6 +1,17 @@
 #!/bin/bash
 # deploy.sh - Helper script for deploying to Amplify
 
+# Check Node.js version
+NODE_VERSION=$(node -v | cut -d 'v' -f 2)
+NODE_MAJOR=$(echo $NODE_VERSION | cut -d '.' -f 1)
+
+if [ $NODE_MAJOR -lt 18 ]; then
+  echo "Error: Node.js version 18 or higher is required. Current version: $NODE_VERSION"
+  echo "Please upgrade Node.js or use nvm to switch to a compatible version."
+  echo "Try: nvm use 18"
+  exit 1
+fi
+
 # Check if the branch name is provided
 if [ -z "$1" ]; then
   echo "Usage: ./deploy.sh <branch-name>"
@@ -32,7 +43,7 @@ if [ $? -eq 0 ]; then
   echo "Build successful! Ready to push to Amplify."
   echo "Do you want to push to Amplify now? (y/n)"
   read answer
-  
+
   if [ "$answer" == "y" ]; then
     echo "Pushing to Amplify..."
     git push origin $BRANCH
