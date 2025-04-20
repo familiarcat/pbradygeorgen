@@ -129,6 +129,9 @@ function formatMarkdown(markdown: string): string {
     .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
     // Special handling for company headers (h3) followed by job titles
     .replace(/^### (.*?)\n\*\*(.*?)\*\*/gm, '<h3 class="text-xl font-bold mt-6 mb-1">$1</h3><p class="font-semibold -mt-1 mb-3">$2</p>')
+
+    // Special handling for education entries (school name and years)
+    .replace(/^### (.*?)\n\*\*(.*?)\*\* \((.*?)\)/gm, '<h3 class="text-xl font-bold mt-6 mb-1">$1</h3><p class="font-semibold -mt-1 mb-3">$2 <span class="education-years">($3)</span></p>')
     // Regular h3 headers that don't match the pattern above
     .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
     .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-5 mb-2">$1</h4>')

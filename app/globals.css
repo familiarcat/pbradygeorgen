@@ -334,6 +334,15 @@ iframe[src*=".pdf"] {
   letter-spacing: -0.01em;
 }
 
+/* Education years styling */
+.book-content .education-years {
+  color: var(--text-tertiary);
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  margin-left: 0.25rem;
+}
+
 .book-content h4 {
   font-size: 1.1rem;
   font-weight: 600;
