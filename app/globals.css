@@ -2,10 +2,15 @@
 
 :root {
   /* Font families */
-  --font-sans: var(--font-inter), var(--font-source-sans), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  --font-serif: var(--font-merriweather), Georgia, Cambria, Times New Roman, Times, serif;
-  --font-heading: var(--font-roboto), var(--font-sans);
-  --font-mono: var(--font-geist-mono), SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  --dynamic-primary-font: var(--font-source-sans);
+  --dynamic-secondary-font: var(--font-merriweather);
+  --dynamic-heading-font: var(--font-roboto);
+  --dynamic-mono-font: var(--font-geist-mono);
+
+  --font-sans: var(--dynamic-primary-font), var(--font-inter), var(--font-source-sans), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --font-serif: var(--dynamic-secondary-font), var(--font-merriweather), Georgia, Cambria, Times New Roman, Times, serif;
+  --font-heading: var(--dynamic-heading-font), var(--font-roboto), var(--font-sans);
+  --font-mono: var(--dynamic-mono-font), var(--font-geist-mono), SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 
   /* Earth Tones Color Palette */
   --battleship-gray: #798D8E;
@@ -174,6 +179,17 @@ html, body {
   padding: 0;
   height: 100%;
   overflow: hidden;
+  transition: font-family 0.5s ease;
+}
+
+/* Font loading transitions */
+body:not(.fonts-loaded) {
+  /* Subtle loading state */
+  opacity: 0.98;
+}
+
+body.fonts-loaded {
+  opacity: 1;
 }
 
 /* Remove default margins and padding */

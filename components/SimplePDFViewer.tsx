@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { getUserIntentTracker } from '@/utils/UserIntentTracker';
 import PDFAnalyzer from './PDFAnalyzer';
+import usePdfFonts from '@/hooks/usePdfFonts';
 
 // Define types for debug data
 type CursorData = {
@@ -59,6 +60,23 @@ type DebugData = {
 };
 
 export default function SimplePDFViewer() {
+  // Use dynamic fonts based on the PDF
+  const pdfUrl = '/pbradygeorgen_resume.pdf';
+  const { primaryFont, secondaryFont, headingFont, isLoading: fontsLoading } = usePdfFonts(pdfUrl);
+
+  // Apply dynamic fonts to CSS variables
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.style.setProperty('--dynamic-primary-font', primaryFont);
+      document.documentElement.style.setProperty('--dynamic-secondary-font', secondaryFont);
+      document.documentElement.style.setProperty('--dynamic-heading-font', headingFont);
+
+      // Add a class to the body when fonts are loaded
+      if (!fontsLoading) {
+        document.body.classList.add('fonts-loaded');
+      }
+    }
+  }, [primaryFont, secondaryFont, headingFont, fontsLoading]);
   const showControls = false; // Fixed value since we no longer need to toggle controls
   const [showUI, setShowUI] = useState(false); // Start with UI hidden
   const [uiTimeout, setUiTimeout] = useState<NodeJS.Timeout | null>(null);
