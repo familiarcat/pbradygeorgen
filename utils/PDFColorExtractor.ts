@@ -1,7 +1,6 @@
 'use client';
 
 import * as pdfjs from 'pdfjs-dist';
-import { ColorSpace } from 'pdfjs-dist/types/src/shared/util';
 
 // Initialize PDF.js worker
 if (typeof window !== 'undefined' && !pdfjs.GlobalWorkerOptions.workerSrc) {
@@ -67,7 +66,7 @@ function getContrast(color1: string, color2: string): number {
 function findContrastingColor(color: string, colorPool: string[]): string {
   let maxContrast = 0;
   let contrastingColor = colorPool[0] || '#000000';
-  
+
   for (const poolColor of colorPool) {
     const contrast = getContrast(color, poolColor);
     if (contrast > maxContrast) {
@@ -75,7 +74,7 @@ function findContrastingColor(color: string, colorPool: string[]): string {
       contrastingColor = poolColor;
     }
   }
-  
+
   return contrastingColor;
 }
 
@@ -83,14 +82,15 @@ function findContrastingColor(color: string, colorPool: string[]): string {
 async function extractColorsFromPage(page: any): Promise<string[]> {
   const operatorList = await page.getOperatorList();
   const colors: string[] = [];
-  
+
   // Process each operation in the page
   for (let i = 0; i < operatorList.fnArray.length; i++) {
     const op = operatorList.fnArray[i];
     const args = operatorList.argsArray[i];
-    
+
     // Check for fill color operations
-    if (op === pdfjs.OPS.setFillRGBColor || op === pdfjs.OPS.setStrokeRGBColor) {
+    // Use numeric operation codes instead of OPS constants
+    if (op === 3 || op === 1) { // 3 = setFillRGBColor, 1 = setStrokeRGBColor
       if (args && args.length >= 3) {
         const [r, g, b] = args;
         const hexColor = rgbToHex(r, g, b);
@@ -99,9 +99,10 @@ async function extractColorsFromPage(page: any): Promise<string[]> {
         }
       }
     }
-    
+
     // Check for fill color in CMYK space
-    else if (op === pdfjs.OPS.setFillCMYKColor || op === pdfjs.OPS.setStrokeCMYKColor) {
+    // Use numeric operation codes instead of OPS constants
+    else if (op === 4 || op === 2) { // 4 = setFillCMYKColor, 2 = setStrokeCMYKColor
       if (args && args.length >= 4) {
         // Simple CMYK to RGB conversion (not perfect but works for our purpose)
         const [c, m, y, k] = args;
@@ -115,7 +116,7 @@ async function extractColorsFromPage(page: any): Promise<string[]> {
       }
     }
   }
-  
+
   return colors;
 }
 
@@ -124,11 +125,11 @@ function filterGrayscaleColors(colors: string[]): string[] {
   return colors.filter(color => {
     const rgb = color.substring(1).match(/.{2}/g)?.map(x => parseInt(x, 16)) || [0, 0, 0];
     const [r, g, b] = rgb;
-    
+
     // Check if the color is close to grayscale
     const avg = (r + g + b) / 3;
     const threshold = 15; // Tolerance for how close the RGB values need to be
-    
+
     return !(
       Math.abs(r - avg) < threshold &&
       Math.abs(g - avg) < threshold &&
@@ -142,27 +143,27 @@ function generateColorTheme(colors: string[]): ColorTheme {
   // Filter out grayscale colors and sort by luminance
   const filteredColors = filterGrayscaleColors(colors);
   const sortedColors = [...filteredColors].sort((a, b) => getLuminance(a) - getLuminance(b));
-  
+
   if (sortedColors.length === 0) {
     return { ...defaultColorTheme, isLoading: false };
   }
-  
+
   // Find the lightest and darkest colors
   const darkestColor = sortedColors[0];
   const lightestColor = sortedColors[sortedColors.length - 1];
-  
+
   // Determine if the PDF has a dark background
   const isDark = isDarkColor(lightestColor);
-  
+
   // Select colors based on luminance
   const background = isDark ? darkestColor : lightestColor;
   const text = isDark ? lightestColor : darkestColor;
-  
+
   // Find colors for primary, secondary, and accent
   const midColors = sortedColors.filter(c => c !== darkestColor && c !== lightestColor);
-  
+
   let primary, secondary, accent, border;
-  
+
   if (midColors.length >= 3) {
     // If we have enough colors, select distinct ones
     primary = midColors[Math.floor(midColors.length / 4)];
@@ -174,8 +175,8 @@ function generateColorTheme(colors: string[]): ColorTheme {
     primary = midColors[0];
     secondary = findContrastingColor(primary, [...midColors, darkestColor, lightestColor]);
     accent = findContrastingColor(secondary, [...midColors, darkestColor, lightestColor]);
-    border = isDark ? 
-      rgbToHex(...hexToRgb(darkestColor).map(c => Math.min(c + 30, 255))) : 
+    border = isDark ?
+      rgbToHex(...hexToRgb(darkestColor).map(c => Math.min(c + 30, 255))) :
       rgbToHex(...hexToRgb(lightestColor).map(c => Math.max(c - 30, 0)));
   } else {
     // Fallback to derived colors if we don't have enough
@@ -184,7 +185,7 @@ function generateColorTheme(colors: string[]): ColorTheme {
     accent = isDark ? lightenColor(darkestColor, 0.7) : darkenColor(lightestColor, 0.7);
     border = isDark ? lightenColor(darkestColor, 0.1) : darkenColor(lightestColor, 0.1);
   }
-  
+
   return {
     primary,
     secondary,
@@ -224,20 +225,20 @@ export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> 
     // Load the PDF document
     const loadingTask = pdfjs.getDocument(pdfUrl);
     const pdf = await loadingTask.promise;
-    
+
     // Get the first few pages (for better color sampling)
     const maxPages = Math.min(pdf.numPages, 3);
     const colorPromises = [];
-    
+
     for (let i = 1; i <= maxPages; i++) {
       const page = await pdf.getPage(i);
       colorPromises.push(extractColorsFromPage(page));
     }
-    
+
     // Combine colors from all pages
     const pageColors = await Promise.all(colorPromises);
     const allColors = Array.from(new Set(pageColors.flat()));
-    
+
     // Generate a color theme from the extracted colors
     return generateColorTheme(allColors);
   } catch (error) {
