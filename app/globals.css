@@ -13,47 +13,60 @@
   --reseda-green-2: #82896A;
   --lion: #9D8856;
 
-  /* Background Hierarchy - Enhanced for better application contrast */
-  --bg-primary: #F0EAD6; /* Lighter than ecru for better readability */
-  --bg-secondary: #E0DAB8; /* Lighter than sage-2 for subtle contrast */
-  --bg-tertiary: #D5C99A; /* Slightly darker for content areas */
-  --bg-accent: #C6BB85; /* Original ecru for accents */
-  --bg-inverse: #4A5448; /* Slightly lighter than ebony for better readability */
+  /* Background Hierarchy - Salinger-inspired for conversational flow */
+  --bg-primary: #F5F1E0; /* Very light background for main content - feels like parchment */
+  --bg-secondary: #EAE6D1; /* Subtle secondary background - barely noticeable difference */
+  --bg-tertiary: #E0DBCA; /* Slightly darker for content areas - gentle distinction */
+  --bg-accent: #D5CDB5; /* Subtle accent - doesn't interrupt the flow */
+  --bg-inverse: #4A5448; /* Dark background for contrast when needed */
 
-  /* Text Hierarchy - Enhanced for better readability */
-  --text-primary: #3F4A36; /* Darker than ebony for better contrast */
-  --text-secondary: #664F29; /* Darker than coyote for better readability */
-  --text-tertiary: #5A6B5C; /* Adjusted reseda-green for better contrast */
-  --text-muted: #7A8165; /* Lighter than reseda-green-2 for subtle text */
-  --text-inverse: #F5F1E0; /* Lighter than ecru for dark backgrounds */
+  /* Text Hierarchy - Salinger-inspired for natural reading */
+  --text-primary: #3A4535; /* Dark but not harsh - like reading a well-printed book */
+  --text-secondary: #5A6B54; /* Softer secondary text - present but not demanding */
+  --text-tertiary: #798D73; /* Even softer - whispers rather than speaks */
+  --text-muted: #9AA495; /* Barely there - like marginalia */
+  --text-inverse: #F5F1E0; /* Light text for dark backgrounds */
 
-  /* Border Hierarchy - Enhanced for better visibility */
-  --border-subtle: rgba(157, 136, 86, 0.25); /* Slightly more opaque */
-  --border-light: #B1AA7A; /* Original sage-2 */
-  --border-medium: #9D8856; /* Original lion */
-  --border-strong: #7E6233; /* Original coyote */
-  --border-focus: #5F8183; /* Brighter battleship-gray for focus states */
+  /* Border Hierarchy - Subtle distinctions */
+  --border-subtle: rgba(157, 136, 86, 0.15); /* Nearly invisible - just a hint */
+  --border-light: #D5CDB5; /* Very light - doesn't interrupt flow */
+  --border-medium: #B1AA7A; /* Noticeable but not jarring */
+  --border-strong: #9D8856; /* Stronger for important divisions */
+  --border-focus: #5F8183; /* Distinctive for focus states */
 
-  /* UI Element Colors - Enhanced for better interaction */
-  --ui-primary: #8E6E3B; /* Brighter than coyote for better visibility */
-  --ui-primary-hover: #A07D45; /* Lighter for hover state */
-  --ui-primary-active: #775C31; /* Darker for active state */
+  /* CTA Colors - Complementary high-contrast for attention */
+  --cta-primary: #7E4E2D; /* Rich terracotta - stands out against earth tones */
+  --cta-primary-hover: #8F5A35; /* Lighter for hover */
+  --cta-primary-active: #6D4326; /* Darker for active */
 
-  --ui-secondary: #5E7260; /* Brighter than reseda-green */
-  --ui-secondary-hover: #6F8471; /* Lighter for hover */
-  --ui-secondary-active: #4E5F50; /* Darker for active */
+  --cta-secondary: #4A6670; /* Slate blue - complementary to the earth tones */
+  --cta-secondary-hover: #57778A; /* Lighter for hover */
+  --cta-secondary-active: #3D5660; /* Darker for active */
 
-  --ui-tertiary: #6A7E7F; /* Brighter than battleship-gray */
-  --ui-tertiary-hover: #7B8F90; /* Lighter for hover */
-  --ui-tertiary-active: #596A6B; /* Darker for active */
+  --cta-accent: #9B4A2F; /* Burnt sienna - high contrast attention grabber */
+  --cta-accent-hover: #B05A3A; /* Lighter for hover */
+  --cta-accent-active: #8A4229; /* Darker for active */
 
-  --ui-disabled: rgba(121, 141, 142, 0.6); /* More opaque for better visibility */
+  /* UI Element Colors - More subtle for non-CTA elements */
+  --ui-primary: #8A8363; /* Muted gold - present but not demanding */
+  --ui-primary-hover: #9A9370; /* Lighter for hover */
+  --ui-primary-active: #797256; /* Darker for active */
 
-  /* State Colors - Enhanced for better feedback */
-  --state-success: #5C7A5E; /* Brighter success state */
-  --state-warning: #C4AD6D; /* Brighter warning state */
-  --state-error: #B05A35; /* More vibrant error state */
-  --state-info: #6A8082; /* Brighter info state */
+  --ui-secondary: #6A7A6C; /* Muted sage - recedes into background */
+  --ui-secondary-hover: #7B8A7D; /* Lighter for hover */
+  --ui-secondary-active: #596A5B; /* Darker for active */
+
+  --ui-tertiary: #798D8E; /* Original battleship-gray - neutral */
+  --ui-tertiary-hover: #8A9E9F; /* Lighter for hover */
+  --ui-tertiary-active: #687A7B; /* Darker for active */
+
+  --ui-disabled: rgba(121, 141, 142, 0.4); /* Very subtle - almost invisible */
+
+  /* State Colors - Clear but not jarring */
+  --state-success: #5C7A5E; /* Success - noticeable but calm */
+  --state-warning: #C4AD6D; /* Warning - attention without alarm */
+  --state-error: #B05A35; /* Error - noticeable but not panic-inducing */
+  --state-info: #6A8082; /* Info - neutral and calm */
 
   /* Shadow Colors */
   --shadow-light: rgba(95, 107, 84, 0.1); /* Ebony with low transparency */
@@ -61,7 +74,7 @@
   --shadow-strong: rgba(95, 107, 84, 0.3); /* Ebony with high transparency */
 
   /* PDF Specific */
-  --pdf-background: var(--ecru);
+  --pdf-background: var(--bg-primary);
 
   /* Component-specific mappings */
   --panel-bg: var(--bg-secondary);
@@ -70,26 +83,42 @@
 
   --analyzer-header-bg: var(--bg-secondary);
   --analyzer-header-text: var(--text-primary);
-  --analyzer-border: var(--border-medium);
-  --analyzer-shadow: var(--shadow-medium);
+  --analyzer-border: var(--border-light);
+  --analyzer-shadow: var(--shadow-light);
 
   /* Tab styles */
-  --tab-active: var(--ui-primary);
+  --tab-active: var(--cta-secondary);
   --tab-active-text: var(--text-inverse);
   --tab-inactive-text: var(--text-secondary);
   --tab-hover-text: var(--text-primary);
 
-  /* Section styles */
-  --section-header-bg: var(--bg-primary);
+  /* Section styles - Salinger-inspired for seamless reading */
+  --section-header-bg: transparent; /* No background - seamless with content */
   --section-header-text: var(--text-primary);
-  --section-content-bg: var(--bg-tertiary);
+  --section-content-bg: transparent; /* No background - seamless with content */
   --section-content-text: var(--text-primary);
-  --section-border: var(--border-medium);
+  --section-border: var(--border-subtle);
+
+  /* Button styles - Clear hierarchy */
+  --button-primary-bg: var(--cta-primary); /* High contrast for primary actions */
+  --button-primary-hover: var(--cta-primary-hover);
+  --button-primary-active: var(--cta-primary-active);
+  --button-primary-text: var(--text-inverse);
+
+  --button-secondary-bg: var(--cta-secondary); /* Medium contrast for secondary actions */
+  --button-secondary-hover: var(--cta-secondary-hover);
+  --button-secondary-active: var(--cta-secondary-active);
+  --button-secondary-text: var(--text-inverse);
+
+  --button-tertiary-bg: var(--ui-tertiary); /* Low contrast for tertiary actions */
+  --button-tertiary-hover: var(--ui-tertiary-hover);
+  --button-tertiary-active: var(--ui-tertiary-active);
+  --button-tertiary-text: var(--text-inverse);
 
   /* Interactive elements */
-  --interactive-hover: var(--ui-primary-hover);
-  --interactive-focus: var(--ui-primary-active);
-  --interactive-active: var(--ui-secondary);
+  --interactive-hover: var(--cta-primary-hover);
+  --interactive-focus: var(--cta-primary-active);
+  --interactive-active: var(--cta-secondary);
 
   /* Accessibility variants */
   --text-high-contrast: var(--text-primary);
@@ -109,21 +138,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode adjustments - Enhanced for better contrast while keeping the palette feel */
-    --bg-primary: #3A4334; /* Darker than ebony but not too dark */
-    --bg-secondary: #4A5A4C; /* Darker than reseda-green-2 but with better contrast */
-    --bg-tertiary: #5A6B5C; /* Original reseda-green adjusted */
-    --bg-accent: #8E6E3B; /* Brighter coyote for accents */
-    --bg-inverse: #F0EAD6; /* Lighter than ecru for better contrast */
+    /* Dark mode adjustments - Salinger-inspired for night reading */
+    --bg-primary: #2A3028; /* Dark but not black - like reading by lamplight */
+    --bg-secondary: #343C31; /* Slightly lighter - subtle distinction */
+    --bg-tertiary: #3E473A; /* Even lighter - gentle distinction */
+    --bg-accent: #4A5448; /* Subtle accent - doesn't interrupt the flow */
+    --bg-inverse: #F5F1E0; /* Light background for contrast when needed */
 
-    --text-primary: #F0EAD6; /* Lighter than ecru for better readability */
-    --text-secondary: #D5C99A; /* Brighter than sage-2 */
-    --text-tertiary: #B3AD79; /* Original sage */
-    --text-muted: #9D9A6D; /* Slightly darker sage for less important text */
-    --text-inverse: #3F4A36; /* Darker than ebony for contrast on light backgrounds */
+    --text-primary: #E6E2D1; /* Light but not harsh - easy on the eyes */
+    --text-secondary: #C5C1B2; /* Softer secondary text - present but not demanding */
+    --text-tertiary: #A5A194; /* Even softer - whispers rather than speaks */
+    --text-muted: #858277; /* Barely there - like marginalia */
+    --text-inverse: #2A3028; /* Dark text for light backgrounds */
 
-    /* Keep PDF background consistent */
-    --pdf-background: #F0EAD6; /* Lighter than ecru for better readability */
+    /* CTA colors remain vibrant in dark mode */
+    --cta-primary: #A05A35; /* Brighter terracotta for dark mode */
+    --cta-secondary: #5A7682; /* Brighter slate blue for dark mode */
+
+    /* Keep PDF background consistent for readability */
+    --pdf-background: #F5F1E0; /* Light background for PDF content */
   }
 }
 
@@ -256,19 +289,19 @@ iframe[src*=".pdf"] {
 
 /* PDF Content Analyzer Styles */
 .analyzer-panel {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-medium);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 12px var(--shadow-medium);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px var(--shadow-light);
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
 .analyzer-header {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  padding: 1rem;
-  border-bottom: 1px solid var(--border-medium);
+  padding: 1.25rem 1.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,27 +309,30 @@ iframe[src*=".pdf"] {
 
 .analyzer-content {
   background-color: var(--bg-primary);
-  padding: 1rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .analyzer-tabs {
   display: flex;
-  border-bottom: 1px solid var(--border-light);
-  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.5rem;
 }
 
 .analyzer-tab {
   padding: 0.75rem 1.25rem;
+  margin-right: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .analyzer-tab-active {
   color: var(--text-primary);
   font-weight: 600;
+  background-color: var(--bg-primary);
 }
 
 .analyzer-tab-active::after {
@@ -306,7 +342,7 @@ iframe[src*=".pdf"] {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--ui-primary);
+  background-color: var(--tab-active);
   border-radius: 1px;
 }
 
@@ -316,6 +352,7 @@ iframe[src*=".pdf"] {
 
 .analyzer-tab-inactive:hover {
   color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 .analyzer-section {
@@ -323,24 +360,31 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-section-header {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   padding: 0.5rem 0;
   position: sticky;
   top: 0;
-  background-color: var(--bg-primary);
+  background-color: var(--section-header-bg);
   z-index: 10;
-  border-bottom: 1px solid var(--border-light);
-  color: var(--text-primary);
+  border-bottom: 1px solid var(--section-border);
+  color: var(--section-header-text);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add subtle shadow when header is sticky */
+.analyzer-section-header:not(:first-child) {
+  box-shadow: 0 2px 4px var(--shadow-light);
 }
 
 .analyzer-section-content {
-  background-color: var(--bg-tertiary);
-  padding: 0.75rem;
-  border-radius: 0.375rem;
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  background-color: var(--section-content-bg);
+  padding: 0.75rem 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--section-content-text);
+  border: none;
+  line-height: 1.6;
 }
 
 .analyzer-button {
@@ -352,39 +396,61 @@ iframe[src*=".pdf"] {
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
+  letter-spacing: 0.01em;
 }
 
 .analyzer-button-primary {
-  background-color: var(--ui-primary);
-  color: var(--text-inverse);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button-primary:hover {
-  background-color: var(--ui-primary-hover);
+  background-color: var(--button-primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px var(--shadow-medium);
+}
+
+.analyzer-button-primary:active {
+  background-color: var(--button-primary-active);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button-secondary {
-  background-color: var(--ui-secondary);
-  color: var(--text-inverse);
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button-secondary:hover {
-  background-color: var(--ui-secondary-hover);
+  background-color: var(--button-secondary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px var(--shadow-medium);
+}
+
+.analyzer-button-secondary:active {
+  background-color: var(--button-secondary-active);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button-tertiary {
-  background-color: var(--ui-tertiary);
-  color: var(--text-inverse);
+  background-color: var(--button-tertiary-bg);
+  color: var(--button-tertiary-text);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button-tertiary:hover {
-  background-color: var(--ui-tertiary-hover);
+  background-color: var(--button-tertiary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px var(--shadow-medium);
+}
+
+.analyzer-button-tertiary:active {
+  background-color: var(--button-tertiary-active);
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--shadow-light);
 }
 
 .analyzer-button:disabled {
@@ -393,4 +459,5 @@ iframe[src*=".pdf"] {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  opacity: 0.7;
 }
