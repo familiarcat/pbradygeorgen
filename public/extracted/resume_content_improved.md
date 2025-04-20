@@ -73,10 +73,10 @@ Developed comprehensive onboarding documentation, sample code, and API integrati
 ## Education
 
 ### BFA Graphic Design
-**Webster University** (2001-2005)
+**Webster University (2001-2005)**
 
 ### BA Philosophy
-**Webster University** (2001-2005)
+**Webster University (2001-2005)**
 
 ### ASSC Motion Graphics
-**Saint Louis Community College** (1999-2001)
+**Saint Louis Community College (1999-2001)**
