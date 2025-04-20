@@ -17,7 +17,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
   return (
     <div className="analyzer-panel relative">
       <div className="analyzer-header">
-        <h2 className="text-xl font-bold">PDF Content Analyzer</h2>
+        <h2 className="text-xl font-bold">Contact</h2>
         {onClose && (
           <button
             onClick={onClose}
@@ -46,7 +46,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
             }`}
             onClick={() => setActiveTab('analysis')}
           >
-            AI Analysis
+            Summary
           </button>
           <button
             className={`analyzer-tab ${
@@ -54,7 +54,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
             }`}
             onClick={() => setActiveTab('content')}
           >
-            Extracted Content
+            Download Resume
           </button>
         </div>
 

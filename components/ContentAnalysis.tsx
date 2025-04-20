@@ -145,7 +145,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
           </div>
 
           <div className="mb-4">
-            <h3 className="analyzer-section-header">AI Recommendations</h3>
+            <h3 className="analyzer-section-header">Recommendations</h3>
             <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.recommendations.map((recommendation, index) => (
                 <li key={index}>{recommendation}</li>

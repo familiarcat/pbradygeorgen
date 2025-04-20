@@ -677,7 +677,7 @@ export default function SimplePDFViewer() {
             onClick={() => setShowAnalyzer(!showAnalyzer)}
             className="analyzer-button analyzer-button-secondary px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
           >
-            {showAnalyzer ? 'Hide Analysis' : 'Analyze PDF'}
+            {showAnalyzer ? 'Hide Contact' : 'Contact'}
           </button>
         </div>
       </div>
