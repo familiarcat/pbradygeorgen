@@ -287,6 +287,79 @@ iframe[src*=".pdf"] {
   background-color: var(--pdf-background) !important;
 }
 
+/* Book-like typography for content */
+.book-content {
+  font-family: Georgia, serif;
+  line-height: 1.7;
+  padding: 0 1.5rem;
+}
+
+.book-content p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+  hyphens: auto;
+  font-size: 1.1rem;
+}
+
+.book-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.book-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.book-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.book-content h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.book-content ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.book-content li {
+  margin-bottom: 0.5rem;
+}
+
+.book-content a {
+  text-decoration: none;
+  color: var(--cta-primary);
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.book-content a:hover {
+  border-bottom: 1px solid var(--cta-primary);
+}
+
 /* PDF Content Analyzer Styles */
 .analyzer-panel {
   background-color: var(--bg-primary);
@@ -360,31 +433,34 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-section-header {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding: 1rem 0;
   position: sticky;
   background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--section-header-text);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-/* Add subtle shadow when header is sticky */
-.analyzer-section-header {
-  box-shadow: 0 2px 4px var(--shadow-light);
+  border-bottom: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  width: 100%;
+  text-align: center;
 }
 
 .analyzer-section-content {
   background-color: var(--section-content-bg);
-  padding: 0.75rem 0.5rem;
-  margin-bottom: 1.5rem;
+  padding: 0 1rem 1.5rem;
+  margin-bottom: 2rem;
   color: var(--section-content-text);
   border: none;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.05rem;
 }
 
 .analyzer-button {

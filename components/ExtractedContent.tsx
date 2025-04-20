@@ -110,9 +110,9 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
           </button>
         </div>
       )}
-      <div className="prose max-w-none max-h-[400px] overflow-y-auto pr-2">
+      <div className="prose prose-lg max-w-none" style={{ maxHeight: 'calc(80vh - 8rem)', overflowY: 'auto' }}>
         {filePath.endsWith('.md') ? (
-          <div dangerouslySetInnerHTML={{ __html: formatMarkdown(content || '') }} />
+          <div className="book-content" dangerouslySetInnerHTML={{ __html: formatMarkdown(content || '') }} />
         ) : (
           <pre className="whitespace-pre-wrap font-mono text-sm analyzer-section-content p-4 rounded">{content}</pre>
         )}
@@ -125,11 +125,11 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 function formatMarkdown(markdown: string): string {
   return markdown
     // Headers with sticky positioning for better scrolling
-    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-30">$1</h1>')
-    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-6 mb-3 sticky top-8 analyzer-section-header py-2 z-20">$1</h2>')
-    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2 sticky top-16 analyzer-section-header py-2 z-10">$1</h3>')
-    .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-3 mb-2 sticky top-24 analyzer-section-header py-2 z-0">$1</h4>')
-    .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-2 mb-1 mt-3 mb-2">$1</h5>')
+    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-6 sticky top-0 analyzer-section-header py-3 z-10">$1</h1>')
+    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
+    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
+    .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-5 mb-2">$1</h4>')
+    .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-4 mb-2">$1</h5>')
 
     // Emphasis
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
