@@ -1,10 +1,19 @@
 'use client';
 
-import * as pdfjs from 'pdfjs-dist';
+// We'll use dynamic imports for PDF.js to avoid build issues
+let pdfjs: any = null;
 
-// Initialize PDF.js worker
-if (typeof window !== 'undefined' && !pdfjs.GlobalWorkerOptions.workerSrc) {
-  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Initialize PDF.js worker (client-side only)
+if (typeof window !== 'undefined') {
+  // This will be executed only in the browser
+  import('pdfjs-dist').then((module) => {
+    pdfjs = module;
+    if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+      pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+    }
+  }).catch(err => {
+    console.error('Error loading PDF.js:', err);
+  });
 }
 
 // Define color theme interface
@@ -222,6 +231,19 @@ function darkenColor(color: string, amount: number): string {
 // Main function to extract colors from a PDF
 export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> {
   try {
+    // Check if we're in the browser
+    if (typeof window === 'undefined') {
+      return { ...defaultColorTheme, isLoading: false };
+    }
+
+    // Ensure PDF.js is loaded
+    if (!pdfjs) {
+      pdfjs = await import('pdfjs-dist');
+      if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+        pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+      }
+    }
+
     // Load the PDF document
     const loadingTask = pdfjs.getDocument(pdfUrl);
     const pdf = await loadingTask.promise;
