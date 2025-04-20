@@ -129,6 +129,11 @@ iframe[src*=".pdf"] {
   background-color: #D4D1BE !important;
 }
 
+/* Radial gradient for debug visualization */
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
 /* Target the PDF.js viewer specifically */
 #viewer, .pdfViewer, .page, .canvasWrapper, .textLayer {
   background-color: #D4D1BE !important;
