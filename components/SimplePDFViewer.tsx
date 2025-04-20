@@ -684,7 +684,7 @@ export default function SimplePDFViewer() {
 
       {/* PDF Analyzer */}
       {showAnalyzer && (
-        <div className="absolute top-4 right-4 z-20 w-96 max-w-full">
+        <div className="absolute top-4 right-4 z-20 w-[32rem] max-w-[90vw]">
           <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
         </div>
       )}

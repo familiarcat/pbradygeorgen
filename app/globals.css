@@ -290,63 +290,69 @@ iframe[src*=".pdf"] {
 /* Book-like typography for content */
 .book-content {
   font-family: Georgia, serif;
-  line-height: 1.7;
-  padding: 0 1.5rem;
+  line-height: 1.5; /* Tighter leading */
+  padding: 0 1rem;
+  letter-spacing: -0.01em; /* Slightly tighter kerning */
+  max-width: 100%;
 }
 
 .book-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem; /* Reduced paragraph spacing */
   text-align: justify;
   hyphens: auto;
-  font-size: 1.1rem;
+  font-size: 1rem; /* Slightly smaller font size */
 }
 
 .book-content h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 2.5rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-subtle);
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-
-.book-content h3 {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-top: 2rem;
   margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-subtle);
   font-family: 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.book-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 1.6rem;
+  margin-bottom: 0.8rem;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .book-content h4 {
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
   font-family: 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .book-content h5 {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-top: 1.25rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   font-style: italic;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 .book-content ul {
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
+  margin-bottom: 1.2rem;
+  padding-left: 1.25rem;
 }
 
 .book-content li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
 }
 
 .book-content a {
@@ -433,10 +439,10 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-section-header {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  padding: 1rem 0;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0;
   position: sticky;
   background-color: var(--bg-primary);
   border-bottom: 1px solid var(--border-medium);
@@ -444,8 +450,8 @@ iframe[src*=".pdf"] {
   transition: all 0.3s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  letter-spacing: -0.01em;
-  box-shadow: 0 2px 8px var(--shadow-light);
+  letter-spacing: -0.02em;
+  box-shadow: 0 1px 4px var(--shadow-light);
   width: 100%;
   text-align: center;
 }

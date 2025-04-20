@@ -110,7 +110,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
           </button>
         </div>
       )}
-      <div className="prose prose-lg max-w-none" style={{ maxHeight: 'calc(80vh - 8rem)', overflowY: 'auto' }}>
+      <div className="prose max-w-none" style={{ maxHeight: 'calc(85vh - 6rem)', overflowY: 'auto', paddingRight: '0.5rem' }}>
         {filePath.endsWith('.md') ? (
           <div className="book-content" dangerouslySetInnerHTML={{ __html: formatMarkdown(content || '') }} />
         ) : (
@@ -125,7 +125,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 function formatMarkdown(markdown: string): string {
   return markdown
     // Headers with sticky positioning for better scrolling
-    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-6 sticky top-0 analyzer-section-header py-3 z-10">$1</h1>')
+    .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-10">$1</h1>')
     .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
     .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
     .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-5 mb-2">$1</h4>')
