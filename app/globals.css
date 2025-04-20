@@ -1,87 +1,135 @@
 @import "tailwindcss";
 
 :root {
-  /* Ashley Wood Color Palette */
-  --raw-umber: #886E58;
-  --dun: #CEC1AC;
-  --persian-orange: #D1906F;
-  --cafe-noir: #583825;
-  --brown-sugar: #A55F3D;
-  --khaki: #B2AA97;
-  --lion: #B79C84;
-  --dun-2: #DACAB5;
-  --walnut-brown: #6C5C4B;
-  --beaver: #A18871;
+  /* Earth Tones Color Palette */
+  --battleship-gray: #798D8E;
+  --coyote: #7E6233;
+  --ebony: #5F6B54;
+  --ecru: #C6BB85;
+  --sage: #B3AD79;
+  --ecru-2: #AF9F6B;
+  --reseda-green: #6D826F;
+  --sage-2: #B1AA7A;
+  --reseda-green-2: #82896A;
+  --lion: #9D8856;
 
-  /* Base colors */
-  --background: var(--dun-2);
-  --foreground: var(--cafe-noir);
-  --pdf-background: var(--dun-2);
+  /* Background Hierarchy */
+  --bg-primary: var(--ecru); /* Main background - lightest */
+  --bg-secondary: var(--sage-2); /* Secondary background - subtle contrast */
+  --bg-tertiary: var(--ecru-2); /* Tertiary background - more contrast */
+  --bg-accent: var(--sage); /* Accent background - for highlighting */
+  --bg-inverse: var(--ebony); /* Inverse background - for contrast areas */
 
-  /* Component-specific colors */
-  --button-primary-bg: var(--persian-orange);
-  --button-primary-hover: var(--brown-sugar);
-  --button-secondary-bg: var(--brown-sugar);
-  --button-secondary-hover: var(--cafe-noir);
-  --button-disabled: var(--lion);
+  /* Text Hierarchy */
+  --text-primary: var(--ebony); /* Primary text - highest contrast */
+  --text-secondary: var(--coyote); /* Secondary text - medium contrast */
+  --text-tertiary: var(--reseda-green); /* Tertiary text - subtle */
+  --text-muted: var(--reseda-green-2); /* Muted text - lowest contrast */
+  --text-inverse: var(--ecru); /* Inverse text - for dark backgrounds */
 
-  --panel-bg: var(--dun);
-  --content-bg: var(--dun-2);
-  --content-section-bg: rgba(183, 156, 132, 0.2); /* Lion with transparency */
+  /* Border Hierarchy */
+  --border-subtle: rgba(157, 136, 86, 0.2); /* Lion with transparency */
+  --border-light: var(--sage-2);
+  --border-medium: var(--lion);
+  --border-strong: var(--coyote);
+  --border-focus: var(--battleship-gray);
 
-  --tab-active: var(--persian-orange);
-  --tab-active-text: var(--cafe-noir);
-  --tab-inactive-text: var(--walnut-brown);
-  --tab-hover-text: var(--cafe-noir);
+  /* UI Element Colors */
+  --ui-primary: var(--coyote); /* Primary buttons, important actions */
+  --ui-primary-hover: #8F7040; /* Slightly lighter coyote */
+  --ui-primary-active: #6A5229; /* Slightly darker coyote */
 
-  /* PDF Content Analyzer specific colors */
-  --analyzer-header-bg: var(--dun);
-  --analyzer-header-text: var(--cafe-noir);
-  --analyzer-border: var(--beaver);
-  --analyzer-shadow: rgba(88, 56, 37, 0.2); /* Café noir with transparency */
+  --ui-secondary: var(--reseda-green); /* Secondary buttons, less important actions */
+  --ui-secondary-hover: #7E9380; /* Slightly lighter reseda-green */
+  --ui-secondary-active: #5C705E; /* Slightly darker reseda-green */
 
-  /* Content sections */
-  --section-header-bg: var(--dun-2);
-  --section-header-text: var(--cafe-noir);
-  --section-content-bg: var(--content-section-bg);
-  --section-content-text: var(--cafe-noir);
-  --section-border: var(--lion);
+  --ui-tertiary: var(--battleship-gray); /* Tertiary buttons, neutral actions */
+  --ui-tertiary-hover: #8A9E9F; /* Slightly lighter battleship-gray */
+  --ui-tertiary-active: #687A7B; /* Slightly darker battleship-gray */
+
+  --ui-disabled: rgba(121, 141, 142, 0.5); /* Battleship-gray with transparency */
+
+  /* State Colors */
+  --state-success: #6D826F; /* Success state - reseda-green */
+  --state-warning: #AF9F6B; /* Warning state - ecru-2 */
+  --state-error: #A06040; /* Error state - derived from coyote but more red */
+  --state-info: #798D8E; /* Info state - battleship-gray */
+
+  /* Shadow Colors */
+  --shadow-light: rgba(95, 107, 84, 0.1); /* Ebony with low transparency */
+  --shadow-medium: rgba(95, 107, 84, 0.2); /* Ebony with medium transparency */
+  --shadow-strong: rgba(95, 107, 84, 0.3); /* Ebony with high transparency */
+
+  /* PDF Specific */
+  --pdf-background: var(--ecru);
+
+  /* Component-specific mappings */
+  --panel-bg: var(--bg-secondary);
+  --content-bg: var(--bg-primary);
+  --content-section-bg: var(--bg-tertiary);
+
+  --analyzer-header-bg: var(--bg-secondary);
+  --analyzer-header-text: var(--text-primary);
+  --analyzer-border: var(--border-medium);
+  --analyzer-shadow: var(--shadow-medium);
+
+  /* Tab styles */
+  --tab-active: var(--ui-primary);
+  --tab-active-text: var(--text-inverse);
+  --tab-inactive-text: var(--text-secondary);
+  --tab-hover-text: var(--text-primary);
+
+  /* Section styles */
+  --section-header-bg: var(--bg-primary);
+  --section-header-text: var(--text-primary);
+  --section-content-bg: var(--bg-tertiary);
+  --section-content-text: var(--text-primary);
+  --section-border: var(--border-medium);
 
   /* Interactive elements */
-  --interactive-hover: var(--persian-orange);
-  --interactive-focus: var(--brown-sugar);
-  --interactive-active: var(--cafe-noir);
+  --interactive-hover: var(--ui-primary-hover);
+  --interactive-focus: var(--ui-primary-active);
+  --interactive-active: var(--ui-secondary);
 
   /* Accessibility variants */
-  --text-high-contrast: var(--cafe-noir);
-  --text-medium-contrast: var(--walnut-brown);
-  --text-low-contrast: var(--beaver);
-  --bg-high-contrast: var(--dun-2);
-  --bg-medium-contrast: var(--dun);
-  --bg-low-contrast: var(--khaki);
+  --text-high-contrast: var(--text-primary);
+  --text-medium-contrast: var(--text-secondary);
+  --text-low-contrast: var(--text-tertiary);
+  --bg-high-contrast: var(--bg-primary);
+  --bg-medium-contrast: var(--bg-secondary);
+  --bg-low-contrast: var(--bg-tertiary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Keep the PDF background color consistent in dark mode */
-    --background: var(--dun-2);
-    --foreground: var(--cafe-noir);
-    --pdf-background: var(--dun-2);
+    /* Dark mode adjustments - we invert some colors but keep the overall palette */
+    --bg-primary: var(--ebony);
+    --bg-secondary: var(--reseda-green-2);
+    --bg-tertiary: var(--reseda-green);
+    --bg-accent: var(--coyote);
+    --bg-inverse: var(--ecru);
 
-    /* We're keeping the same palette for dark mode to maintain consistency */
+    --text-primary: var(--ecru);
+    --text-secondary: var(--sage-2);
+    --text-tertiary: var(--sage);
+    --text-muted: var(--sage);
+    --text-inverse: var(--ebony);
+
+    /* Keep PDF background consistent */
+    --pdf-background: var(--ecru);
   }
 }
 
 html, body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
@@ -208,32 +256,32 @@ iframe[src*=".pdf"] {
 
 /* PDF Content Analyzer Styles */
 .analyzer-panel {
-  background-color: var(--panel-bg);
-  border: 1px solid var(--analyzer-border);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
   border-radius: 0.5rem;
-  box-shadow: 0 4px 12px var(--analyzer-shadow);
+  box-shadow: 0 4px 12px var(--shadow-medium);
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
 .analyzer-header {
-  background-color: var(--analyzer-header-bg);
-  color: var(--analyzer-header-text);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 1rem;
-  border-bottom: 1px solid var(--analyzer-border);
+  border-bottom: 1px solid var(--border-medium);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .analyzer-content {
-  background-color: var(--content-bg);
+  background-color: var(--bg-primary);
   padding: 1rem;
 }
 
 .analyzer-tabs {
   display: flex;
-  border-bottom: 1px solid var(--section-border);
+  border-bottom: 1px solid var(--border-light);
   margin-bottom: 1rem;
 }
 
@@ -247,7 +295,7 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-tab-active {
-  color: var(--tab-active-text);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -258,16 +306,16 @@ iframe[src*=".pdf"] {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--tab-active);
+  background-color: var(--ui-primary);
   border-radius: 1px;
 }
 
 .analyzer-tab-inactive {
-  color: var(--tab-inactive-text);
+  color: var(--text-secondary);
 }
 
 .analyzer-tab-inactive:hover {
-  color: var(--tab-hover-text);
+  color: var(--text-primary);
 }
 
 .analyzer-section {
@@ -281,16 +329,18 @@ iframe[src*=".pdf"] {
   padding: 0.5rem 0;
   position: sticky;
   top: 0;
-  background-color: var(--section-header-bg);
+  background-color: var(--bg-primary);
   z-index: 10;
-  border-bottom: 1px solid var(--section-border);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
 }
 
 .analyzer-section-content {
-  background-color: var(--section-content-bg);
+  background-color: var(--bg-tertiary);
   padding: 0.75rem;
   border-radius: 0.375rem;
-  color: var(--section-content-text);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
 }
 
 .analyzer-button {
@@ -305,23 +355,42 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-button-primary {
-  background-color: var(--button-primary-bg);
-  color: white;
+  background-color: var(--ui-primary);
+  color: var(--text-inverse);
 }
 
 .analyzer-button-primary:hover {
-  background-color: var(--button-primary-hover);
+  background-color: var(--ui-primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--analyzer-shadow);
+  box-shadow: 0 2px 4px var(--shadow-medium);
 }
 
 .analyzer-button-secondary {
-  background-color: var(--button-secondary-bg);
-  color: white;
+  background-color: var(--ui-secondary);
+  color: var(--text-inverse);
 }
 
 .analyzer-button-secondary:hover {
-  background-color: var(--button-secondary-hover);
+  background-color: var(--ui-secondary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--analyzer-shadow);
+  box-shadow: 0 2px 4px var(--shadow-medium);
+}
+
+.analyzer-button-tertiary {
+  background-color: var(--ui-tertiary);
+  color: var(--text-inverse);
+}
+
+.analyzer-button-tertiary:hover {
+  background-color: var(--ui-tertiary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--shadow-medium);
+}
+
+.analyzer-button:disabled {
+  background-color: var(--ui-disabled);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
