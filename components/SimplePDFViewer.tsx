@@ -685,7 +685,7 @@ export default function SimplePDFViewer() {
       {/* PDF Analyzer */}
       {showAnalyzer && (
         <div className="absolute top-4 right-4 z-20 w-96 max-w-full">
-          <PDFAnalyzer />
+          <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
         </div>
       )}
 
@@ -705,7 +705,7 @@ export default function SimplePDFViewer() {
           className="w-full h-full pdf-iframe"
           style={{
             border: 'none',
-            backgroundColor: '#D4D1BE',
+            backgroundColor: 'var(--pdf-background)',
             margin: 0,
             padding: 0,
             width: '100%',

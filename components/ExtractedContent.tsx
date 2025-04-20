@@ -73,7 +73,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 
   if (loading) {
     return (
-      <div className="p-4 bg-gray-100 rounded-lg">
+      <div className="analyzer-section-content p-4">
         <div className="animate-pulse flex space-x-4">
           <div className="flex-1 space-y-4 py-1">
             <div className="h-4 bg-gray-300 rounded w-3/4"></div>
@@ -89,19 +89,19 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 
   if (error) {
     return (
-      <div className="p-4 bg-red-100 text-red-700 rounded-lg">
-        <p>{error}</p>
+      <div className="analyzer-section-content p-4">
+        <p className="text-red-700">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
+    <div className="analyzer-section-content p-4">
       {showDownloadButton && content && (
         <div className="mb-4 flex justify-start">
           <button
             onClick={handleDownload}
-            className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm flex items-center"
+            className="analyzer-button analyzer-button-primary text-sm flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

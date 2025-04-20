@@ -59,12 +59,12 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
   }, []);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="analyzer-section-content p-4">
       <div className="flex justify-start mb-4">
         <button
           onClick={analyzeContent}
           disabled={isAnalyzing}
-          className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 disabled:bg-purple-300 flex items-center text-sm"
+          className="analyzer-button analyzer-button-secondary text-sm flex items-center"
         >
           {isAnalyzing ? (
             <>
@@ -81,7 +81,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+        <div className="mb-4 p-3 analyzer-section-content text-red-700">
           {error}
         </div>
       )}
@@ -99,14 +99,14 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
       {analysis && (
         <div className="prose max-w-none max-h-[500px] overflow-y-auto pr-2">
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Summary</h3>
-            <p className="bg-gray-50 p-3 rounded">{analysis.summary}</p>
+            <h3 className="analyzer-section-header">Summary</h3>
+            <p className="analyzer-section-content p-3 rounded">{analysis.summary}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Key Skills</h3>
-              <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
+              <h3 className="analyzer-section-header">Key Skills</h3>
+              <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
                 {analysis.keySkills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))}
@@ -114,8 +114,8 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Industry Experience</h3>
-              <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
+              <h3 className="analyzer-section-header">Industry Experience</h3>
+              <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
                 {analysis.industryExperience.map((industry, index) => (
                   <li key={index}>{industry}</li>
                 ))}
@@ -124,8 +124,8 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
           </div>
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Career Highlights</h3>
-            <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
+            <h3 className="analyzer-section-header">Career Highlights</h3>
+            <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.careerHighlights.map((highlight, index) => (
                 <li key={index}>{highlight}</li>
               ))}
@@ -134,19 +134,19 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Experience</h3>
-              <p className="bg-gray-50 p-3 rounded">{analysis.yearsOfExperience}</p>
+              <h3 className="analyzer-section-header">Experience</h3>
+              <p className="analyzer-section-content p-3 rounded">{analysis.yearsOfExperience}</p>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Education</h3>
-              <p className="bg-gray-50 p-3 rounded">{analysis.educationLevel}</p>
+              <h3 className="analyzer-section-header">Education</h3>
+              <p className="analyzer-section-content p-3 rounded">{analysis.educationLevel}</p>
             </div>
           </div>
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">AI Recommendations</h3>
-            <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
+            <h3 className="analyzer-section-header">AI Recommendations</h3>
+            <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.recommendations.map((recommendation, index) => (
                 <li key={index}>{recommendation}</li>
               ))}
