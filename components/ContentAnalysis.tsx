@@ -9,10 +9,10 @@ interface ContentAnalysisProps {
 interface AnalysisResult {
   summary: string;
   keySkills: string[];
-  industryExperience: string[];
-  careerHighlights: string[];
   yearsOfExperience: string;
   educationLevel: string;
+  careerHighlights: string[];
+  industryExperience: string[];
   recommendations: string[];
 }
 
@@ -20,74 +20,51 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [content, setContent] = useState<string | null>(null);
 
-  // Function to analyze content
   const analyzeContent = async () => {
-    if (!content) return;
+    setIsAnalyzing(true);
+    setError(null);
 
     try {
-      setIsAnalyzing(true);
-      setError(null);
-
       const response = await fetch('/api/analyze-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ filePath }),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to analyze content: ${response.status} ${response.statusText}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to analyze content');
       }
 
       const data = await response.json();
-      setAnalysis(data);
+      setAnalysis(data.analysis);
     } catch (err) {
       console.error('Error analyzing content:', err);
-      setError(err instanceof Error ? err.message : 'Failed to analyze content');
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setIsAnalyzing(false);
     }
   };
 
-  // Fetch content on mount
+  // Auto-analyze on component mount
   useEffect(() => {
-    async function fetchContent() {
-      try {
-        const response = await fetch(filePath);
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch content: ${response.status} ${response.statusText}`);
-        }
-
-        const text = await response.text();
-        setContent(text);
-      } catch (err) {
-        console.error('Error fetching content:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load content');
-      }
-    }
-
-    fetchContent();
-  }, [filePath]);
-
-  // Auto-analyze when content is loaded
-  useEffect(() => {
-    if (content) {
+    // Only analyze if we don't already have analysis data
+    if (!analysis && !isAnalyzing && !error) {
       analyzeContent();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
+  }, []);
 
   return (
-    <div className="p-4 aw-content-panel">
+    <div className="bg-white p-4 rounded-lg shadow">
       <div className="flex justify-start mb-4">
         <button
           onClick={analyzeContent}
           disabled={isAnalyzing}
-          className="aw-button-secondary text-sm flex items-center"
+          className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 disabled:bg-purple-300 flex items-center text-sm"
         >
           {isAnalyzing ? (
             <>
@@ -104,31 +81,32 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 aw-content-section rounded">
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
           {error}
         </div>
       )}
 
       {isAnalyzing && !analysis && (
-        <div className="animate-pulse space-y-4">
-          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-          <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+        <div className="animate-pulse space-y-4 py-1">
+          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+          <div className="space-y-2">
+            <div className="h-4 bg-gray-300 rounded"></div>
+            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+          </div>
         </div>
       )}
 
       {analysis && (
         <div className="prose max-w-none max-h-[500px] overflow-y-auto pr-2">
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Summary</h3>
-            <p className="aw-content-section p-3 rounded">{analysis.summary}</p>
+            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Summary</h3>
+            <p className="bg-gray-50 p-3 rounded">{analysis.summary}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Key Skills</h3>
-              <ul className="list-disc pl-5 aw-content-section p-3 rounded">
+              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Key Skills</h3>
+              <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
                 {analysis.keySkills.map((skill, index) => (
                   <li key={index}>{skill}</li>
                 ))}
@@ -136,8 +114,8 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Industry Experience</h3>
-              <ul className="list-disc pl-5 aw-content-section p-3 rounded">
+              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Industry Experience</h3>
+              <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
                 {analysis.industryExperience.map((industry, index) => (
                   <li key={index}>{industry}</li>
                 ))}
@@ -146,8 +124,8 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
           </div>
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Career Highlights</h3>
-            <ul className="list-disc pl-5 aw-content-section p-3 rounded">
+            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Career Highlights</h3>
+            <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
               {analysis.careerHighlights.map((highlight, index) => (
                 <li key={index}>{highlight}</li>
               ))}
@@ -156,19 +134,19 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Experience</h3>
-              <p className="aw-content-section p-3 rounded">{analysis.yearsOfExperience}</p>
+              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Experience</h3>
+              <p className="bg-gray-50 p-3 rounded">{analysis.yearsOfExperience}</p>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">Education</h3>
-              <p className="aw-content-section p-3 rounded">{analysis.educationLevel}</p>
+              <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">Education</h3>
+              <p className="bg-gray-50 p-3 rounded">{analysis.educationLevel}</p>
             </div>
           </div>
 
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-[var(--content-bg)] py-2 z-10">AI Recommendations</h3>
-            <ul className="list-disc pl-5 aw-content-section p-3 rounded">
+            <h3 className="text-lg font-semibold mb-2 sticky top-0 bg-white py-2">AI Recommendations</h3>
+            <ul className="list-disc pl-5 bg-gray-50 p-3 rounded">
               {analysis.recommendations.map((recommendation, index) => (
                 <li key={index}>{recommendation}</li>
               ))}

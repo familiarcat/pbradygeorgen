@@ -2,7 +2,11 @@ import * as pdfjs from 'pdfjs-dist';
 
 // Configure PDF.js
 if (typeof window !== 'undefined') {
-  // Use a local worker file
+  // Get the version from pdfjs
+  const version = pdfjs.version;
+  console.log(`PDF.js version: ${version}`);
+
+  // Use local worker file to avoid CORS issues
   pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.js';
 }
 
@@ -15,9 +19,18 @@ export async function extractTextFromPDF(url: string): Promise<string> {
   try {
     console.log('Starting PDF extraction from:', url);
 
-    // Set options to improve reliability
+    // Try a different approach - use fetch to get the PDF data as ArrayBuffer
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch PDF: ${response.status} ${response.statusText}`);
+    }
+
+    const pdfData = await response.arrayBuffer();
+    console.log('PDF data fetched successfully, size:', pdfData.byteLength, 'bytes');
+
+    // Load the PDF with the data
     const loadingTask = pdfjs.getDocument({
-      url: url,
+      data: pdfData,
       cMapUrl: 'https://unpkg.com/pdfjs-dist@3.4.120/cmaps/',
       cMapPacked: true,
       disableAutoFetch: false,
@@ -27,9 +40,9 @@ export async function extractTextFromPDF(url: string): Promise<string> {
 
     console.log('PDF loading task created');
 
-    // Add a timeout to prevent hanging
+    // Add a longer timeout to prevent hanging
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('PDF loading timed out after 10 seconds')), 10000);
+      setTimeout(() => reject(new Error('PDF loading timed out after 20 seconds')), 20000);
     });
 
     // Race the loading task against the timeout
@@ -45,14 +58,45 @@ export async function extractTextFromPDF(url: string): Promise<string> {
     for (let i = 1; i <= numPages; i++) {
       console.log(`Processing page ${i} of ${numPages}`);
       const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
 
-      // Concatenate the text items
-      const pageText = textContent.items
-        .map((item: any) => 'str' in item ? item.str : '')
-        .join(' ');
+      // Try using getTextContent first
+      try {
+        const textContent = await page.getTextContent();
 
-      fullText += pageText + '\n\n';
+        // Concatenate the text items
+        const pageText = textContent.items
+          .map((item: any) => 'str' in item ? item.str : '')
+          .join(' ');
+
+        fullText += pageText + '\n\n';
+      } catch (pageError) {
+        console.warn(`Error extracting text from page ${i} using getTextContent:`, pageError);
+
+        // Fallback to rendering the page and using OCR-like approach
+        try {
+          const viewport = page.getViewport({ scale: 1.0 });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+
+          if (!context) {
+            throw new Error('Could not get canvas context');
+          }
+
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          await page.render({
+            canvasContext: context,
+            viewport: viewport
+          }).promise;
+
+          // We can't do actual OCR here, but we can note that we tried the fallback
+          fullText += `[Page ${i} - Text extraction fallback used]\n\n`;
+        } catch (renderError) {
+          console.error(`Fallback rendering failed for page ${i}:`, renderError);
+          fullText += `[Page ${i} - Text extraction failed]\n\n`;
+        }
+      }
     }
 
     console.log('PDF text extraction completed successfully');

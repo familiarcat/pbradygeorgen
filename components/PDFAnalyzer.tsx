@@ -4,35 +4,18 @@ import { useState } from 'react';
 import ExtractedContent from './ExtractedContent';
 import ContentAnalysis from './ContentAnalysis';
 
-interface PDFAnalyzerProps {
-  onClose?: () => void;
-}
-
-export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
+export default function PDFAnalyzer() {
   // State for potential error messages
   const [error] = useState<string | null>(null);
   // State for active tab
   const [activeTab, setActiveTab] = useState<'content' | 'analysis'>('content');
 
   return (
-    <div className="aw-panel relative">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">PDF Content Analyzer</h2>
-        {onClose && (
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
-            aria-label="Close"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        )}
-      </div>
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-bold mb-4">PDF Content Analyzer</h2>
 
       {error && (
-        <div className="mb-4 p-3 bg-[var(--content-section-bg)] text-[var(--cafe-noir)] rounded">
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
           {error}
         </div>
       )}
@@ -40,16 +23,20 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
       {/* Tab navigation */}
       <div className="flex border-b border-gray-300 mb-4">
         <button
-          className={`aw-tab ${
-            activeTab === 'content' ? 'aw-tab-active' : 'aw-tab-inactive'
+          className={`py-2 px-4 font-medium text-sm transition-colors duration-200 ${
+            activeTab === 'content'
+              ? 'text-blue-600 border-b-2 border-blue-600 -mb-px'
+              : 'text-gray-500 hover:text-gray-700'
           }`}
           onClick={() => setActiveTab('content')}
         >
           Extracted Content
         </button>
         <button
-          className={`aw-tab ${
-            activeTab === 'analysis' ? 'aw-tab-active' : 'aw-tab-inactive'
+          className={`py-2 px-4 font-medium text-sm transition-colors duration-200 ${
+            activeTab === 'analysis'
+              ? 'text-blue-600 border-b-2 border-blue-600 -mb-px'
+              : 'text-gray-500 hover:text-gray-700'
           }`}
           onClick={() => setActiveTab('analysis')}
         >

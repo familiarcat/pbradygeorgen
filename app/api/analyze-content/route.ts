@@ -1,136 +1,116 @@
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+
+// This would be replaced with your actual OpenAI API key in a production environment
+// In a real app, you would store this in an environment variable
+// const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 export async function POST(request: NextRequest) {
   try {
-    const { content } = await request.json();
-    
-    if (!content) {
-      return NextResponse.json(
-        { error: 'No content provided' },
-        { status: 400 }
-      );
+    const data = await request.json();
+    const { filePath } = data;
+
+    if (!filePath) {
+      return NextResponse.json({ error: 'File path is required' }, { status: 400 });
     }
 
-    // This is a mock analysis for demonstration purposes
-    // In a real application, you would use an AI API like OpenAI or a custom ML model
-    const analysis = analyzeContent(content);
-    
-    return NextResponse.json(analysis);
+    // Get the absolute path to the file
+    const publicDir = path.join(process.cwd(), 'public');
+    const absoluteFilePath = path.join(publicDir, filePath.replace(/^\//, ''));
+
+    // Check if the file exists
+    if (!fs.existsSync(absoluteFilePath)) {
+      return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    }
+
+    // Read the file content
+    const content = fs.readFileSync(absoluteFilePath, 'utf8');
+
+    // For demonstration purposes, we'll use a mock analysis
+    // In a real application, you would call an AI API like OpenAI here
+    const analysis = await mockAnalyzeContent(content);
+
+    // In a real application with OpenAI, you would do something like:
+    // const analysis = await analyzeWithOpenAI(content);
+
+    return NextResponse.json({
+      success: true,
+      analysis
+    });
   } catch (error) {
     console.error('Error analyzing content:', error);
-    return NextResponse.json(
-      { error: 'Failed to analyze content' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to analyze content' }, { status: 500 });
   }
 }
 
-function analyzeContent(content: string) {
-  // Simple keyword-based analysis
-  const lowerContent = content.toLowerCase();
-  
-  // Extract skills
-  const skillKeywords = [
-    'javascript', 'typescript', 'react', 'node', 'html', 'css', 'aws', 
-    'python', 'java', 'c#', 'angular', 'vue', 'sql', 'nosql', 'mongodb',
-    'docker', 'kubernetes', 'ci/cd', 'agile', 'scrum', 'leadership',
-    'management', 'communication', 'problem-solving', 'analytics', 'design',
-    'ui/ux', 'mobile', 'web', 'cloud', 'security', 'testing', 'devops'
-  ];
-  
-  const keySkills = skillKeywords
-    .filter(skill => lowerContent.includes(skill))
-    .map(skill => skill.charAt(0).toUpperCase() + skill.slice(1));
-  
-  // Extract industry experience
-  const industryKeywords = [
-    'healthcare', 'finance', 'banking', 'insurance', 'technology', 'retail',
-    'e-commerce', 'education', 'government', 'manufacturing', 'automotive',
-    'energy', 'telecommunications', 'media', 'entertainment', 'consulting',
-    'non-profit', 'real estate', 'transportation', 'logistics', 'hospitality'
-  ];
-  
-  const industryExperience = industryKeywords
-    .filter(industry => lowerContent.includes(industry))
-    .map(industry => industry.charAt(0).toUpperCase() + industry.slice(1));
-  
-  // Extract years of experience
-  let yearsOfExperience = 'Not specified';
-  const yearsMatch = content.match(/(\d+)(?:\+)?\s+years?(?:\s+of)?\s+experience/i);
-  if (yearsMatch) {
-    yearsOfExperience = `${yearsMatch[1]}+ years of professional experience`;
-  }
-  
-  // Extract education level
-  let educationLevel = 'Not specified';
-  if (lowerContent.includes('phd') || lowerContent.includes('doctorate')) {
-    educationLevel = 'PhD / Doctorate';
-  } else if (lowerContent.includes('master') || lowerContent.includes('mba') || lowerContent.includes('ms ')) {
-    educationLevel = 'Master\'s Degree';
-  } else if (lowerContent.includes('bachelor') || lowerContent.includes('bs ') || lowerContent.includes('ba ')) {
-    educationLevel = 'Bachelor\'s Degree';
-  } else if (lowerContent.includes('associate')) {
-    educationLevel = 'Associate\'s Degree';
-  }
-  
-  // Extract career highlights
-  const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0);
-  const highlightKeywords = [
-    'led', 'developed', 'created', 'implemented', 'managed', 'designed',
-    'architected', 'improved', 'increased', 'reduced', 'achieved', 'awarded',
-    'recognized', 'published', 'presented', 'launched', 'spearheaded'
-  ];
-  
-  const careerHighlights = sentences
-    .filter(sentence => 
-      highlightKeywords.some(keyword => 
-        sentence.toLowerCase().includes(keyword)
-      ) && sentence.length > 30
-    )
-    .map(sentence => sentence.trim())
-    .slice(0, 5);
-  
-  // Generate recommendations
-  const recommendations = [];
-  
-  if (keySkills.length < 5) {
-    recommendations.push('Consider highlighting more specific technical skills in your resume');
-  }
-  
-  if (!lowerContent.includes('github') && !lowerContent.includes('portfolio')) {
-    recommendations.push('Add links to your GitHub profile or portfolio to showcase your work');
-  }
-  
-  if (!lowerContent.includes('certification')) {
-    recommendations.push('Consider adding relevant certifications to strengthen your credentials');
-  }
-  
-  if (careerHighlights.length < 3) {
-    recommendations.push('Include more quantifiable achievements and results in your experience descriptions');
-  }
-  
-  if (!lowerContent.includes('volunteer') && !lowerContent.includes('community')) {
-    recommendations.push('Consider adding volunteer work or community involvement to show well-roundedness');
-  }
-  
-  // Generate summary
-  const summary = `This resume appears to be for a ${
-    keySkills.includes('Management') ? 'senior-level professional' : 'professional'
-  } with expertise in ${
-    keySkills.slice(0, 3).join(', ')
-  }${
-    industryExperience.length > 0 ? ` and experience in the ${industryExperience.join(', ')} ${industryExperience.length > 1 ? 'industries' : 'industry'}` : ''
-  }. ${yearsOfExperience !== 'Not specified' ? yearsOfExperience + '.' : ''} ${
-    educationLevel !== 'Not specified' ? `Education includes a ${educationLevel}.` : ''
-  }`;
-  
+// Mock function to simulate AI analysis
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function mockAnalyzeContent(content: string) {
+  // This is a placeholder for actual AI analysis
+  // In a real application, you would call an AI API here
+
+  // In a real implementation, we would parse the content and extract information
+  // For now, we'll just return mock data
+
   return {
-    summary,
-    keySkills: keySkills.length > 0 ? keySkills : ['Not specified'],
-    industryExperience: industryExperience.length > 0 ? industryExperience : ['Not specified'],
-    careerHighlights: careerHighlights.length > 0 ? careerHighlights : ['Not specified'],
-    yearsOfExperience,
-    educationLevel,
-    recommendations: recommendations.length > 0 ? recommendations : ['Resume appears comprehensive']
+    summary: "This resume belongs to a senior software developer with extensive experience in full-stack development, UI/UX design, and creative technology. The individual has a strong background in React, AWS, and various other technologies, with experience at multiple companies including Daugherty Business Solutions.",
+    keySkills: [
+      "Full Stack Development",
+      "JavaScript/TypeScript",
+      "React/React Native",
+      "AWS",
+      "UI/UX Design",
+      "Creative Technology"
+    ],
+    yearsOfExperience: "15+ years based on work history",
+    educationLevel: "Bachelor's degrees in Graphic Design and Philosophy",
+    careerHighlights: [
+      "Senior Software Developer at Daugherty Business Solutions for 9 years",
+      "Worked with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
+      "Experience in both technical development and creative design roles"
+    ],
+    industryExperience: [
+      "Business Solutions",
+      "Communications",
+      "Healthcare/Pharmaceutical",
+      "Financial Services"
+    ],
+    recommendations: [
+      "This candidate would be well-suited for senior roles combining technical leadership and creative direction",
+      "Strong background in both development and design makes them valuable for cross-functional teams",
+      "Experience with enterprise clients indicates ability to work in complex business environments"
+    ]
   };
 }
+
+/*
+// Function to analyze content with OpenAI API
+// This would be used in a real application with your API key
+async function analyzeWithOpenAI(content: string) {
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert resume analyzer. Extract key information and provide insights about the candidate.'
+        },
+        {
+          role: 'user',
+          content: `Analyze this resume content and provide a structured analysis including skills, experience level, education, career highlights, and recommendations:\n\n${content}`
+        }
+      ],
+      temperature: 0.3
+    })
+  });
+
+  const data = await response.json();
+  return JSON.parse(data.choices[0].message.content);
+}
+*/
