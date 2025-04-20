@@ -80,8 +80,3 @@ Developed comprehensive onboarding documentation, sample code, and API integrati
 
 ### ASSC Motion Graphics
 **Saint Louis Community College** (1999-2001)
-
----
-
-*This document was manually formatted based on the PDF resume content.*
-*Generated on: 4/20/2025*
