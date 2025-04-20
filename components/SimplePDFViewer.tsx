@@ -180,7 +180,7 @@ export default function SimplePDFViewer() {
 
     // Set up callback for button intent changes
     intentTracker.setButtonIntentCallback((score) => {
-      // No logging of intent score
+      console.log('Button intent score:', score);
 
       // With our gradient approach, we don't need binary thresholds
       // The button's opacity is directly tied to the intent score
@@ -350,23 +350,29 @@ export default function SimplePDFViewer() {
   useEffect(() => {
     // Function to handle PDF load event
     const handlePdfLoad = () => {
+      console.log('PDF loaded');
+
       // Ensure we don't trigger animations multiple times
       if (pdfLoaded) return;
 
       setPdfLoaded(true);
 
       // Start animation sequence with longer delays to ensure proper ordering
+      console.log('Starting animation sequence');
 
       // 1. First fade in the PDF (with a shorter delay for better responsiveness)
       setTimeout(() => {
+        console.log('Fading in PDF');
         setPdfVisible(true);
 
         // 2. Then fade in the UI button after PDF is fully visible (reduced delay)
         setTimeout(() => {
+          console.log('Fading in button');
           setShowUI(true);
 
           // 3. Finally, hide the UI and mark animation as complete
           setTimeout(() => {
+            console.log('Animation sequence complete');
             setShowUI(false);
             setInitialAnimationComplete(true);
           }, 2000); // Show button for 2 seconds initially (reduced from 3s)
@@ -384,6 +390,7 @@ export default function SimplePDFViewer() {
       // Fallback in case the load event doesn't fire properly
       const fallbackTimer = setTimeout(() => {
         if (!pdfLoaded) {
+          console.log('Using fallback timer for PDF load');
           handlePdfLoad();
         }
       }, 2000); // Wait 2 seconds before assuming PDF is loaded
@@ -668,14 +675,14 @@ export default function SimplePDFViewer() {
           <a
             href="/pbradygeorgen_resume.pdf"
             download
-            className="px-4 py-2 bg-amber-800 text-white hover:bg-amber-900 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+            className="aw-button-primary"
           >
             Download Resume
           </a>
 
           <button
             onClick={() => setShowAnalyzer(!showAnalyzer)}
-            className="px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+            className="aw-button-secondary"
           >
             {showAnalyzer ? 'Hide Analysis' : 'Analyze PDF'}
           </button>
@@ -685,7 +692,7 @@ export default function SimplePDFViewer() {
       {/* PDF Analyzer */}
       {showAnalyzer && (
         <div className="absolute top-4 right-4 z-20 w-96 max-w-full">
-          <PDFAnalyzer pdfUrl="/pbradygeorgen_resume.pdf" />
+          <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
         </div>
       )}
 
@@ -705,7 +712,7 @@ export default function SimplePDFViewer() {
           className="w-full h-full pdf-iframe"
           style={{
             border: 'none',
-            backgroundColor: '#D4D1BE',
+            backgroundColor: 'var(--pdf-background)',
             margin: 0,
             padding: 0,
             width: '100%',
