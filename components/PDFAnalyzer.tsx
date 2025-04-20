@@ -12,7 +12,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
   // State for potential error messages
   const [error] = useState<string | null>(null);
   // State for active tab
-  const [activeTab, setActiveTab] = useState<'content' | 'analysis'>('content');
+  const [activeTab, setActiveTab] = useState<'content' | 'analysis'>('analysis');
 
   return (
     <div className="analyzer-panel relative">
@@ -42,19 +42,19 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         <div className="analyzer-tabs">
           <button
             className={`analyzer-tab ${
-              activeTab === 'content' ? 'analyzer-tab-active' : 'analyzer-tab-inactive'
-            }`}
-            onClick={() => setActiveTab('content')}
-          >
-            Extracted Content
-          </button>
-          <button
-            className={`analyzer-tab ${
               activeTab === 'analysis' ? 'analyzer-tab-active' : 'analyzer-tab-inactive'
             }`}
             onClick={() => setActiveTab('analysis')}
           >
             AI Analysis
+          </button>
+          <button
+            className={`analyzer-tab ${
+              activeTab === 'content' ? 'analyzer-tab-active' : 'analyzer-tab-inactive'
+            }`}
+            onClick={() => setActiveTab('content')}
+          >
+            Extracted Content
           </button>
         </div>
 
@@ -62,18 +62,18 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         <div className="relative overflow-hidden mt-4">
           <div
             className={`transition-all duration-300 ease-in-out ${
-              activeTab === 'content' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full absolute inset-0'
-            }`}
-          >
-            <ExtractedContent filePath="/extracted/resume_content_improved.md" />
-          </div>
-
-          <div
-            className={`transition-all duration-300 ease-in-out ${
               activeTab === 'analysis' ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full absolute inset-0'
             }`}
           >
             <ContentAnalysis filePath="/extracted/resume_content_improved.md" />
+          </div>
+
+          <div
+            className={`transition-all duration-300 ease-in-out ${
+              activeTab === 'content' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full absolute inset-0'
+            }`}
+          >
+            <ExtractedContent filePath="/extracted/resume_content_improved.md" />
           </div>
         </div>
       </div>
