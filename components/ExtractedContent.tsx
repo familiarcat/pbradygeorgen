@@ -127,6 +127,9 @@ function formatMarkdown(markdown: string): string {
     // Headers with sticky positioning for better scrolling
     .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-10">$1</h1>')
     .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
+    // Special handling for company headers (h3) followed by job titles
+    .replace(/^### (.*?)\n\*\*(.*?)\*\*/gm, '<h3 class="text-xl font-bold mt-6 mb-1">$1</h3><p class="font-semibold -mt-1 mb-3">$2</p>')
+    // Regular h3 headers that don't match the pattern above
     .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
     .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-5 mb-2">$1</h4>')
     .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-4 mb-2">$1</h5>')

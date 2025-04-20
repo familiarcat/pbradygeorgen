@@ -325,6 +325,15 @@ iframe[src*=".pdf"] {
   letter-spacing: -0.01em;
 }
 
+/* Company and job title pairing */
+.book-content h3 + p.font-semibold {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.01em;
+}
+
 .book-content h4 {
   font-size: 1.1rem;
   font-weight: 600;
