@@ -81,17 +81,17 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 analyzer-section-content text-red-700">
+        <div className="mb-4 p-3 analyzer-section-content text-[var(--state-error)]">
           {error}
         </div>
       )}
 
       {isAnalyzing && !analysis && (
         <div className="animate-pulse space-y-4 py-1">
-          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+          <div className="h-4 bg-[var(--bg-tertiary)] rounded w-3/4"></div>
           <div className="space-y-2">
-            <div className="h-4 bg-gray-300 rounded"></div>
-            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+            <div className="h-4 bg-[var(--bg-tertiary)] rounded"></div>
+            <div className="h-4 bg-[var(--bg-tertiary)] rounded w-5/6"></div>
           </div>
         </div>
       )}

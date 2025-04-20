@@ -76,10 +76,10 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
       <div className="analyzer-section-content p-4">
         <div className="animate-pulse flex space-x-4">
           <div className="flex-1 space-y-4 py-1">
-            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+            <div className="h-4 bg-[var(--bg-tertiary)] rounded w-3/4"></div>
             <div className="space-y-2">
-              <div className="h-4 bg-gray-300 rounded"></div>
-              <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+              <div className="h-4 bg-[var(--bg-tertiary)] rounded"></div>
+              <div className="h-4 bg-[var(--bg-tertiary)] rounded w-5/6"></div>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
   if (error) {
     return (
       <div className="analyzer-section-content p-4">
-        <p className="text-red-700">{error}</p>
+        <p className="text-[var(--state-error)]">{error}</p>
       </div>
     );
   }
@@ -114,7 +114,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
         {filePath.endsWith('.md') ? (
           <div dangerouslySetInnerHTML={{ __html: formatMarkdown(content || '') }} />
         ) : (
-          <pre className="whitespace-pre-wrap font-mono text-sm bg-gray-50 p-4 rounded">{content}</pre>
+          <pre className="whitespace-pre-wrap font-mono text-sm analyzer-section-content p-4 rounded">{content}</pre>
         )}
       </div>
     </div>
@@ -125,11 +125,11 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 function formatMarkdown(markdown: string): string {
   return markdown
     // Headers with sticky positioning for better scrolling
-    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-4 sticky top-0 bg-white py-2 z-10">$1</h1>')
-    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-6 mb-3 sticky top-0 bg-white py-2 z-10">$1</h2>')
-    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2 sticky top-0 bg-white py-2 z-10">$1</h3>')
-    .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-3 mb-2 sticky top-0 bg-white py-2 z-10">$1</h4>')
-    .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-2 mb-1 sticky top-0 bg-white py-2 z-10">$1</h5>')
+    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-10">$1</h1>')
+    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-6 mb-3 sticky top-0 analyzer-section-header py-2 z-10">$1</h2>')
+    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-4 mb-2 sticky top-0 analyzer-section-header py-2 z-10">$1</h3>')
+    .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-3 mb-2 sticky top-0 analyzer-section-header py-2 z-10">$1</h4>')
+    .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-2 mb-1 sticky top-0 analyzer-section-header py-2 z-10">$1</h5>')
 
     // Emphasis
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -139,10 +139,10 @@ function formatMarkdown(markdown: string): string {
     .replace(/^- (.*$)/gm, '<li class="ml-6 mb-1">$1</li>')
 
     // Links
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-blue-600 hover:underline" target="_blank">$1</a>')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-[var(--ui-primary)] hover:text-[var(--ui-primary-hover)] hover:underline" target="_blank">$1</a>')
 
     // Horizontal rule
-    .replace(/^---$/gm, '<hr class="my-6 border-t border-gray-300">')
+    .replace(/^---$/gm, '<hr class="my-6 border-t border-[var(--border-light)]">')
 
     // Paragraphs and line breaks
     .replace(/\n\n/g, '</p><p class="mb-4">')

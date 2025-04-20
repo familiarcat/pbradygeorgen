@@ -13,47 +13,47 @@
   --reseda-green-2: #82896A;
   --lion: #9D8856;
 
-  /* Background Hierarchy */
-  --bg-primary: var(--ecru); /* Main background - lightest */
-  --bg-secondary: var(--sage-2); /* Secondary background - subtle contrast */
-  --bg-tertiary: var(--ecru-2); /* Tertiary background - more contrast */
-  --bg-accent: var(--sage); /* Accent background - for highlighting */
-  --bg-inverse: var(--ebony); /* Inverse background - for contrast areas */
+  /* Background Hierarchy - Enhanced for better application contrast */
+  --bg-primary: #F0EAD6; /* Lighter than ecru for better readability */
+  --bg-secondary: #E0DAB8; /* Lighter than sage-2 for subtle contrast */
+  --bg-tertiary: #D5C99A; /* Slightly darker for content areas */
+  --bg-accent: #C6BB85; /* Original ecru for accents */
+  --bg-inverse: #4A5448; /* Slightly lighter than ebony for better readability */
 
-  /* Text Hierarchy */
-  --text-primary: var(--ebony); /* Primary text - highest contrast */
-  --text-secondary: var(--coyote); /* Secondary text - medium contrast */
-  --text-tertiary: var(--reseda-green); /* Tertiary text - subtle */
-  --text-muted: var(--reseda-green-2); /* Muted text - lowest contrast */
-  --text-inverse: var(--ecru); /* Inverse text - for dark backgrounds */
+  /* Text Hierarchy - Enhanced for better readability */
+  --text-primary: #3F4A36; /* Darker than ebony for better contrast */
+  --text-secondary: #664F29; /* Darker than coyote for better readability */
+  --text-tertiary: #5A6B5C; /* Adjusted reseda-green for better contrast */
+  --text-muted: #7A8165; /* Lighter than reseda-green-2 for subtle text */
+  --text-inverse: #F5F1E0; /* Lighter than ecru for dark backgrounds */
 
-  /* Border Hierarchy */
-  --border-subtle: rgba(157, 136, 86, 0.2); /* Lion with transparency */
-  --border-light: var(--sage-2);
-  --border-medium: var(--lion);
-  --border-strong: var(--coyote);
-  --border-focus: var(--battleship-gray);
+  /* Border Hierarchy - Enhanced for better visibility */
+  --border-subtle: rgba(157, 136, 86, 0.25); /* Slightly more opaque */
+  --border-light: #B1AA7A; /* Original sage-2 */
+  --border-medium: #9D8856; /* Original lion */
+  --border-strong: #7E6233; /* Original coyote */
+  --border-focus: #5F8183; /* Brighter battleship-gray for focus states */
 
-  /* UI Element Colors */
-  --ui-primary: var(--coyote); /* Primary buttons, important actions */
-  --ui-primary-hover: #8F7040; /* Slightly lighter coyote */
-  --ui-primary-active: #6A5229; /* Slightly darker coyote */
+  /* UI Element Colors - Enhanced for better interaction */
+  --ui-primary: #8E6E3B; /* Brighter than coyote for better visibility */
+  --ui-primary-hover: #A07D45; /* Lighter for hover state */
+  --ui-primary-active: #775C31; /* Darker for active state */
 
-  --ui-secondary: var(--reseda-green); /* Secondary buttons, less important actions */
-  --ui-secondary-hover: #7E9380; /* Slightly lighter reseda-green */
-  --ui-secondary-active: #5C705E; /* Slightly darker reseda-green */
+  --ui-secondary: #5E7260; /* Brighter than reseda-green */
+  --ui-secondary-hover: #6F8471; /* Lighter for hover */
+  --ui-secondary-active: #4E5F50; /* Darker for active */
 
-  --ui-tertiary: var(--battleship-gray); /* Tertiary buttons, neutral actions */
-  --ui-tertiary-hover: #8A9E9F; /* Slightly lighter battleship-gray */
-  --ui-tertiary-active: #687A7B; /* Slightly darker battleship-gray */
+  --ui-tertiary: #6A7E7F; /* Brighter than battleship-gray */
+  --ui-tertiary-hover: #7B8F90; /* Lighter for hover */
+  --ui-tertiary-active: #596A6B; /* Darker for active */
 
-  --ui-disabled: rgba(121, 141, 142, 0.5); /* Battleship-gray with transparency */
+  --ui-disabled: rgba(121, 141, 142, 0.6); /* More opaque for better visibility */
 
-  /* State Colors */
-  --state-success: #6D826F; /* Success state - reseda-green */
-  --state-warning: #AF9F6B; /* Warning state - ecru-2 */
-  --state-error: #A06040; /* Error state - derived from coyote but more red */
-  --state-info: #798D8E; /* Info state - battleship-gray */
+  /* State Colors - Enhanced for better feedback */
+  --state-success: #5C7A5E; /* Brighter success state */
+  --state-warning: #C4AD6D; /* Brighter warning state */
+  --state-error: #B05A35; /* More vibrant error state */
+  --state-info: #6A8082; /* Brighter info state */
 
   /* Shadow Colors */
   --shadow-light: rgba(95, 107, 84, 0.1); /* Ebony with low transparency */
@@ -109,21 +109,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode adjustments - we invert some colors but keep the overall palette */
-    --bg-primary: var(--ebony);
-    --bg-secondary: var(--reseda-green-2);
-    --bg-tertiary: var(--reseda-green);
-    --bg-accent: var(--coyote);
-    --bg-inverse: var(--ecru);
+    /* Dark mode adjustments - Enhanced for better contrast while keeping the palette feel */
+    --bg-primary: #3A4334; /* Darker than ebony but not too dark */
+    --bg-secondary: #4A5A4C; /* Darker than reseda-green-2 but with better contrast */
+    --bg-tertiary: #5A6B5C; /* Original reseda-green adjusted */
+    --bg-accent: #8E6E3B; /* Brighter coyote for accents */
+    --bg-inverse: #F0EAD6; /* Lighter than ecru for better contrast */
 
-    --text-primary: var(--ecru);
-    --text-secondary: var(--sage-2);
-    --text-tertiary: var(--sage);
-    --text-muted: var(--sage);
-    --text-inverse: var(--ebony);
+    --text-primary: #F0EAD6; /* Lighter than ecru for better readability */
+    --text-secondary: #D5C99A; /* Brighter than sage-2 */
+    --text-tertiary: #B3AD79; /* Original sage */
+    --text-muted: #9D9A6D; /* Slightly darker sage for less important text */
+    --text-inverse: #3F4A36; /* Darker than ebony for contrast on light backgrounds */
 
     /* Keep PDF background consistent */
-    --pdf-background: var(--ecru);
+    --pdf-background: #F0EAD6; /* Lighter than ecru for better readability */
   }
 }
 
