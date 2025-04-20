@@ -413,14 +413,14 @@ export default function SimplePDFViewer() {
   }, [debugMode, setDebugData]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: '#D4D1BE' }}>
+    <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* No overlay - we'll use window event listeners instead */}
       {/* Loading indicator - shown until PDF is loaded */}
       {!pdfVisible && (
-        <div className="absolute inset-0 flex justify-center items-center z-20 bg-[#D4D1BE]">
+        <div className="absolute inset-0 flex justify-center items-center z-20 bg-[var(--bg-primary)]">
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 border-t-4 border-amber-800 border-solid rounded-full animate-spin mb-4"></div>
-            <p className="text-amber-900 text-lg font-medium">Loading resume...</p>
+            <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
+            <p className="text-[var(--text-primary)] text-lg font-medium">Loading resume...</p>
           </div>
         </div>
       )}
@@ -668,14 +668,14 @@ export default function SimplePDFViewer() {
           <a
             href="/pbradygeorgen_resume.pdf"
             download
-            className="px-4 py-2 bg-amber-800 text-white hover:bg-amber-900 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+            className="analyzer-button analyzer-button-primary px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
           >
             Download Resume
           </a>
 
           <button
             onClick={() => setShowAnalyzer(!showAnalyzer)}
-            className="px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
+            className="analyzer-button analyzer-button-secondary px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg transform hover:scale-105"
           >
             {showAnalyzer ? 'Hide Analysis' : 'Analyze PDF'}
           </button>

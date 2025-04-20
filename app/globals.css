@@ -99,21 +99,21 @@
   --section-content-text: var(--text-primary);
   --section-border: var(--border-subtle);
 
-  /* Button styles - Clear hierarchy */
+  /* Button styles - Clear hierarchy with bright text */
   --button-primary-bg: var(--cta-primary); /* High contrast for primary actions */
   --button-primary-hover: var(--cta-primary-hover);
   --button-primary-active: var(--cta-primary-active);
-  --button-primary-text: var(--text-inverse);
+  --button-primary-text: #FFFFFF; /* Pure white for maximum visibility */
 
   --button-secondary-bg: var(--cta-secondary); /* Medium contrast for secondary actions */
   --button-secondary-hover: var(--cta-secondary-hover);
   --button-secondary-active: var(--cta-secondary-active);
-  --button-secondary-text: var(--text-inverse);
+  --button-secondary-text: #FFFFFF; /* Pure white for maximum visibility */
 
   --button-tertiary-bg: var(--ui-tertiary); /* Low contrast for tertiary actions */
   --button-tertiary-hover: var(--ui-tertiary-hover);
   --button-tertiary-active: var(--ui-tertiary-active);
-  --button-tertiary-text: var(--text-inverse);
+  --button-tertiary-text: #FFFFFF; /* Pure white for maximum visibility */
 
   /* Interactive elements */
   --interactive-hover: var(--cta-primary-hover);
@@ -365,16 +365,16 @@ iframe[src*=".pdf"] {
   margin-bottom: 0.75rem;
   padding: 0.5rem 0;
   position: sticky;
-  top: 0;
-  background-color: var(--section-header-bg);
-  z-index: 10;
-  border-bottom: 1px solid var(--section-border);
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
   color: var(--section-header-text);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* Add subtle shadow when header is sticky */
-.analyzer-section-header:not(:first-child) {
+.analyzer-section-header {
   box-shadow: 0 2px 4px var(--shadow-light);
 }
 
