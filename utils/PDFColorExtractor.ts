@@ -185,9 +185,14 @@ function generateColorTheme(colors: string[]): ColorTheme {
     primary = midColors[0];
     secondary = findContrastingColor(primary, [...midColors, darkestColor, lightestColor]);
     accent = findContrastingColor(secondary, [...midColors, darkestColor, lightestColor]);
-    border = isDark ?
-      rgbToHex(...hexToRgb(darkestColor).map(c => Math.min(c + 30, 255))) :
-      rgbToHex(...hexToRgb(lightestColor).map(c => Math.max(c - 30, 0)));
+    // Fix spread argument error by using array destructuring
+    if (isDark) {
+      const rgb = hexToRgb(darkestColor).map(c => Math.min(c + 30, 255)) as [number, number, number];
+      border = rgbToHex(rgb[0]/255, rgb[1]/255, rgb[2]/255);
+    } else {
+      const rgb = hexToRgb(lightestColor).map(c => Math.max(c - 30, 0)) as [number, number, number];
+      border = rgbToHex(rgb[0]/255, rgb[1]/255, rgb[2]/255);
+    }
   } else {
     // Fallback to derived colors if we don't have enough
     primary = isDark ? lightenColor(darkestColor, 0.3) : darkenColor(lightestColor, 0.3);
