@@ -6,8 +6,10 @@ interface FontMapping {
   [key: string]: string;
 }
 
-// Common PDF font to web font mappings
-const fontMappings: FontMapping = {
+// Common PDF font to web font mappings - used for reference
+// These mappings could be used in a more advanced implementation
+/*
+const PDF_FONT_MAPPINGS: FontMapping = {
   'Arial': 'Inter, Arial, sans-serif',
   'Helvetica': 'Inter, Helvetica, sans-serif',
   'Times': 'Merriweather, "Times New Roman", serif',
@@ -19,6 +21,7 @@ const fontMappings: FontMapping = {
   'Verdana': 'Inter, Verdana, sans-serif',
   'Tahoma': 'Inter, Tahoma, sans-serif',
 };
+*/
 
 export interface PdfFonts {
   primaryFont: string;
@@ -44,14 +47,14 @@ export default function usePdfFonts(pdfUrl: string): PdfFonts {
       try {
         // Simulate API call to analyze PDF
         await new Promise(resolve => setTimeout(resolve, 500));
-        
+
         // For demo purposes, we'll use different fonts based on the PDF filename
         const filename = pdfUrl.split('/').pop()?.toLowerCase() || '';
-        
+
         let primaryFont = 'var(--font-source-sans)';
         let secondaryFont = 'var(--font-merriweather)';
         let headingFont = 'var(--font-roboto)';
-        
+
         if (filename.includes('resume')) {
           // Resume-like documents often use clean sans-serif fonts
           primaryFont = 'var(--font-source-sans)';
@@ -65,7 +68,7 @@ export default function usePdfFonts(pdfUrl: string): PdfFonts {
           primaryFont = 'var(--font-inter)';
           headingFont = 'var(--font-inter)';
         }
-        
+
         setFonts({
           primaryFont,
           secondaryFont,
@@ -78,9 +81,9 @@ export default function usePdfFonts(pdfUrl: string): PdfFonts {
         setFonts(prev => ({ ...prev, isLoading: false }));
       }
     };
-    
+
     detectFonts();
   }, [pdfUrl]);
-  
+
   return fonts;
 }

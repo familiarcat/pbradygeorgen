@@ -83,16 +83,7 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
       ${resumeContent}
     `;
 
-    // Define the expected response format
-    const responseFormat = {
-      summary: "A first-person summary of the candidate's background and expertise",
-      keySkills: ["Skill 1", "Skill 2", "Skill 3"],
-      yearsOfExperience: "First-person statement about years of experience",
-      educationLevel: "First-person statement about education",
-      careerHighlights: ["Highlight 1", "Highlight 2", "Highlight 3"],
-      industryExperience: ["Industry 1", "Industry 2", "Industry 3"],
-      recommendations: ["Career goal/recommendation 1", "Career goal/recommendation 2", "Career goal/recommendation 3"]
-    };
+    // Expected response format is defined in the system message
 
     // Call the OpenAI API
     const response = await openai.chat.completions.create({

@@ -410,7 +410,7 @@ export class UserIntentTracker {
    * Track scroll events
    * @param event Scroll event
    */
-  public trackScroll(event: Event): void {
+  public trackScroll(_event: Event): void {
     const now = Date.now();
     const scrollDelta = window.scrollY - (this.scrollAmount || 0);
 
@@ -595,7 +595,7 @@ export class UserIntentTracker {
   /**
    * Get debug data for development and tuning
    */
-  public getDebugData(): any {
+  public getDebugData(): Record<string, unknown> {
     return {
       viewport: { width: this.viewportWidth, height: this.viewportHeight },
       cursor: {

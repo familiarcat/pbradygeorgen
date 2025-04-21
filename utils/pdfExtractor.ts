@@ -65,7 +65,7 @@ export async function extractTextFromPDF(url: string): Promise<string> {
 
         // Concatenate the text items
         const pageText = textContent.items
-          .map((item: any) => 'str' in item ? item.str : '')
+          .map((item: Record<string, unknown>) => 'str' in item ? item.str as string : '')
           .join(' ');
 
         fullText += pageText + '\n\n';

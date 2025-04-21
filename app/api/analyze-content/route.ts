@@ -131,11 +131,9 @@ async function mockAnalyzeContent(content: string) {
       console.log(`📊 [Dante] Summary: ${summaryPercentDiff.toFixed(1)}% length difference`);
 
       // Compare number of skills
-      const skillsDiff = Math.abs(analysis.keySkills.length - mockData.keySkills.length);
       console.log(`📊 [Dante] Skills: OpenAI found ${analysis.keySkills.length} skills vs ${mockData.keySkills.length} in mock`);
 
       // Compare career highlights
-      const highlightsDiff = Math.abs(analysis.careerHighlights.length - mockData.careerHighlights.length);
       console.log(`📊 [Dante] Career highlights: OpenAI found ${analysis.careerHighlights.length} highlights vs ${mockData.careerHighlights.length} in mock`);
 
       // Escape apostrophes for React

@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styles from '@/styles/SalingerHeader.module.css';
 
 interface SalingerHeaderProps {
@@ -14,11 +12,10 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onViewSummary,
   onContact
 }) => {
-  const router = useRouter();
-  
+
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
-    
+
     switch (action) {
       case 'download':
         if (onDownload) onDownload();
@@ -51,10 +48,10 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   return (
     <header className={styles.salingerHeader}>
       <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
-      
+
       <nav className={styles.headerActions}>
-        <a 
-          href="#" 
+        <a
+          href="#"
           className={styles.actionLink}
           onClick={(e) => handleAction('download', e)}
           aria-label="Download Resume"
@@ -62,8 +59,8 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           Download Resume
         </a>
         <span className={styles.actionSeparator}>•</span>
-        <a 
-          href="#" 
+        <a
+          href="#"
           className={styles.actionLink}
           onClick={(e) => handleAction('summary', e)}
           aria-label="View Summary"
@@ -71,8 +68,8 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           Summary
         </a>
         <span className={styles.actionSeparator}>•</span>
-        <a 
-          href="#" 
+        <a
+          href="#"
           className={styles.actionLink}
           onClick={(e) => handleAction('contact', e)}
           aria-label="Contact"
