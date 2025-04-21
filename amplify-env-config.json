@@ -1,0 +1,17 @@
+{
+  "appId": "YOUR_AMPLIFY_APP_ID",
+  "branch": "main",
+  "profile": "default",
+  "region": "us-east-1",
+  "environments": {
+    "dev": {
+      "branch": "develop"
+    },
+    "staging": {
+      "branch": "staging"
+    },
+    "prod": {
+      "branch": "main"
+    }
+  }
+}
