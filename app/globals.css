@@ -478,9 +478,11 @@ iframe[src*=".pdf"] {
 }
 
 .analyzer-tab-active {
-  color: var(--text-primary);
+  color: #FFFFFF; /* White text for contrast */
   font-weight: 600;
-  background-color: var(--bg-primary);
+  background-color: var(--cta-secondary); /* Use the CTA secondary color */
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .analyzer-tab-active::after {
@@ -500,7 +502,9 @@ iframe[src*=".pdf"] {
 
 .analyzer-tab-inactive:hover {
   color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  background-color: rgba(138, 129, 81, 0.15); /* Light Reseda green background */
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .analyzer-section {

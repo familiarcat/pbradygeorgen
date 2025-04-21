@@ -42,7 +42,8 @@
   position: relative;
   transition: all 0.3s ease;
   font-size: 1.1rem;
-  padding: 0.25rem 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
 }
 
 .actionLink::after {
@@ -57,7 +58,9 @@
 }
 
 .actionLink:hover {
-  color: #8A8151; /* Reseda green on hover */
+  color: #FFFFFF; /* White text for contrast */
+  background-color: #8A8151; /* Reseda green background on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .actionLink:hover::after {
@@ -66,7 +69,9 @@
 
 .actionLink:focus {
   outline: none;
-  color: #8A8151; /* Reseda green on focus */
+  color: #FFFFFF; /* White text for contrast */
+  background-color: #8A8151; /* Reseda green background on focus */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .actionLink:focus::after {
@@ -115,8 +120,8 @@
 }
 
 .downloadOption:hover {
-  background: rgba(138, 129, 81, 0.1); /* Light Reseda green background */
-  color: #8A8151; /* Reseda green text */
+  background: #8A8151; /* Reseda green background */
+  color: #FFFFFF; /* White text for contrast */
 }
 
 .actionSeparator {
