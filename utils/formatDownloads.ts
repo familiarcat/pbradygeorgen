@@ -2,10 +2,19 @@
 
 import OpenAI from 'openai';
 
-// Initialize the OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || process.env.OPENAI_API_KEY,
-});
+// Initialize the OpenAI client conditionally to avoid client-side errors
+let openai: OpenAI | null = null;
+
+// Only initialize if we have an API key
+const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+if (apiKey) {
+  try {
+    openai = new OpenAI({ apiKey });
+  } catch (error) {
+    console.warn('Failed to initialize OpenAI client:', error);
+    openai = null;
+  }
+}
 
 /**
  * Generate a properly formatted markdown version of the resume content
@@ -14,9 +23,9 @@ const openai = new OpenAI({
  */
 export async function generateFormattedMarkdown(content: string): Promise<string> {
   try {
-    // If OpenAI API key is not available, fall back to basic formatting
-    if (!openai.apiKey) {
-      console.log('OpenAI API key not available, using basic markdown formatting');
+    // If OpenAI client is not available, fall back to basic formatting
+    if (!openai) {
+      console.log('OpenAI client not available, using basic markdown formatting');
       return formatBasicMarkdown(content);
     }
 
@@ -25,10 +34,10 @@ export async function generateFormattedMarkdown(content: string): Promise<string
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean, 
-          professional markdown. Preserve the hierarchical structure, use proper markdown formatting for headers, 
+          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
+          professional markdown. Preserve the hierarchical structure, use proper markdown formatting for headers,
           lists, emphasis, etc. Make the content scannable and well-organized. Follow these guidelines:
-          
+
           1. Use # for the name
           2. Use ## for section headers
           3. Use ### for job titles/companies
@@ -38,7 +47,7 @@ export async function generateFormattedMarkdown(content: string): Promise<string
           7. Maintain a clean, professional layout
           8. Preserve all original content
           9. Do not add any new content or commentary
-          
+
           Return ONLY the formatted markdown, nothing else.`
         },
         {
@@ -51,12 +60,12 @@ export async function generateFormattedMarkdown(content: string): Promise<string
     });
 
     const formattedMarkdown = response.choices[0]?.message?.content || '';
-    
+
     if (!formattedMarkdown) {
       console.log('Empty response from OpenAI, using basic markdown formatting');
       return formatBasicMarkdown(content);
     }
-    
+
     return formattedMarkdown;
   } catch (error) {
     console.error('Error generating formatted markdown:', error);
@@ -72,9 +81,9 @@ export async function generateFormattedMarkdown(content: string): Promise<string
  */
 export async function generateFormattedText(content: string): Promise<string> {
   try {
-    // If OpenAI API key is not available, fall back to basic formatting
-    if (!openai.apiKey) {
-      console.log('OpenAI API key not available, using basic text formatting');
+    // If OpenAI client is not available, fall back to basic formatting
+    if (!openai) {
+      console.log('OpenAI client not available, using basic text formatting');
       return formatBasicText(content);
     }
 
@@ -83,10 +92,10 @@ export async function generateFormattedText(content: string): Promise<string> {
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean, 
-          professional plain text. Preserve the hierarchical structure, use proper spacing, indentation, and 
+          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
+          professional plain text. Preserve the hierarchical structure, use proper spacing, indentation, and
           capitalization to indicate hierarchy. Make the content scannable and well-organized. Follow these guidelines:
-          
+
           1. Use ALL CAPS for the name
           2. Use ALL CAPS with underlines (====) for section headers
           3. Use Title Case with proper indentation for job titles/companies
@@ -96,7 +105,7 @@ export async function generateFormattedText(content: string): Promise<string> {
           7. Use spacing and alignment to create a clean, professional layout
           8. Preserve all original content
           9. Do not add any new content or commentary
-          
+
           Return ONLY the formatted plain text, nothing else.`
         },
         {
@@ -109,12 +118,12 @@ export async function generateFormattedText(content: string): Promise<string> {
     });
 
     const formattedText = response.choices[0]?.message?.content || '';
-    
+
     if (!formattedText) {
       console.log('Empty response from OpenAI, using basic text formatting');
       return formatBasicText(content);
     }
-    
+
     return formattedText;
   } catch (error) {
     console.error('Error generating formatted text:', error);
@@ -133,12 +142,12 @@ function formatBasicMarkdown(content: string): string {
   const lines = content.split('\n');
   let formatted = '';
   let inList = false;
-  
+
   lines.forEach(line => {
     // Detect and format headers
     if (line.trim().match(/^P\.\s*Brady\s*Georgen/i)) {
       formatted += `# ${line.trim()}\n\n`;
-    } 
+    }
     // Section headers
     else if (line.trim().match(/^(EXPERIENCE|EDUCATION|SKILLS|PROJECTS|CONTACT)/i)) {
       formatted += `\n## ${line.trim()}\n\n`;
@@ -162,7 +171,7 @@ function formatBasicMarkdown(content: string): string {
       inList = false;
     }
   });
-  
+
   return formatted;
 }
 
@@ -176,12 +185,12 @@ function formatBasicText(content: string): string {
   const lines = content.split('\n');
   let formatted = '';
   let inList = false;
-  
+
   lines.forEach(line => {
     // Detect and format headers
     if (line.trim().match(/^P\.\s*Brady\s*Georgen/i)) {
       formatted += `${line.trim().toUpperCase()}\n${'='.repeat(line.trim().length)}\n\n`;
-    } 
+    }
     // Section headers
     else if (line.trim().match(/^(EXPERIENCE|EDUCATION|SKILLS|PROJECTS|CONTACT)/i)) {
       formatted += `\n${line.trim().toUpperCase()}\n${'-'.repeat(line.trim().length)}\n\n`;
@@ -205,6 +214,6 @@ function formatBasicText(content: string): string {
       inList = false;
     }
   });
-  
+
   return formatted;
 }
