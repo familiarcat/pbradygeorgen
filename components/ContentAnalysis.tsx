@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { formatForDisplay, formatArrayForDisplay } from '@/utils/textUtils';
 
 interface ContentAnalysisProps {
   filePath: string;
@@ -92,7 +93,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
         <div className="prose max-w-none max-h-[500px] overflow-y-auto pr-2">
           <div className="mb-4">
             <h3 className="analyzer-section-header">Summary</h3>
-            <p className="analyzer-section-content p-3 rounded">{analysis.summary}</p>
+            <p className="analyzer-section-content p-3 rounded">{formatForDisplay(analysis.summary)}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -100,7 +101,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
               <h3 className="analyzer-section-header">My Skills</h3>
               <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
                 {analysis.keySkills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
+                  <li key={index}>{formatForDisplay(skill)}</li>
                 ))}
               </ul>
             </div>
@@ -109,7 +110,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
               <h3 className="analyzer-section-header">Industries I&apos;ve Worked In</h3>
               <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
                 {analysis.industryExperience.map((industry, index) => (
-                  <li key={index}>{industry}</li>
+                  <li key={index}>{formatForDisplay(industry)}</li>
                 ))}
               </ul>
             </div>
@@ -119,7 +120,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             <h3 className="analyzer-section-header">My Career Journey</h3>
             <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.careerHighlights.map((highlight, index) => (
-                <li key={index}>{highlight}</li>
+                <li key={index}>{formatForDisplay(highlight)}</li>
               ))}
             </ul>
           </div>
@@ -127,12 +128,12 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <h3 className="analyzer-section-header">My Experience</h3>
-              <p className="analyzer-section-content p-3 rounded">{analysis.yearsOfExperience}</p>
+              <p className="analyzer-section-content p-3 rounded">{formatForDisplay(analysis.yearsOfExperience)}</p>
             </div>
 
             <div>
               <h3 className="analyzer-section-header">My Education</h3>
-              <p className="analyzer-section-content p-3 rounded">{analysis.educationLevel}</p>
+              <p className="analyzer-section-content p-3 rounded">{formatForDisplay(analysis.educationLevel)}</p>
             </div>
           </div>
 
@@ -140,7 +141,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             <h3 className="analyzer-section-header">What I&apos;m Looking For</h3>
             <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.recommendations.map((recommendation, index) => (
-                <li key={index}>{recommendation}</li>
+                <li key={index}>{formatForDisplay(recommendation)}</li>
               ))}
             </ul>
           </div>
