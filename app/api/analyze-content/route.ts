@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { escapeApostrophes, processTextArray } from '@/utils/textUtils';
 
 // This would be replaced with your actual OpenAI API key in a production environment
 // In a real app, you would store this in an environment variable
@@ -53,8 +54,9 @@ async function mockAnalyzeContent(content: string) {
   // In a real implementation, we would parse the content and extract information
   // For now, we'll just return mock data
 
+  // Create the analysis with escaped apostrophes for React
   return {
-    summary: "I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.",
+    summary: escapeApostrophes("I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions."),
     keySkills: [
       "Full Stack Development",
       "JavaScript/TypeScript",
@@ -63,24 +65,24 @@ async function mockAnalyzeContent(content: string) {
       "UI/UX Design",
       "Creative Technology"
     ],
-    yearsOfExperience: "I've been in the industry for over 15 years, continuously learning and evolving with technology",
-    educationLevel: "I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving",
-    careerHighlights: [
+    yearsOfExperience: escapeApostrophes("I've been in the industry for over 15 years, continuously learning and evolving with technology"),
+    educationLevel: escapeApostrophes("I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving"),
+    careerHighlights: processTextArray([
       "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
       "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
       "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
-    ],
+    ]),
     industryExperience: [
       "Business Solutions",
       "Communications",
       "Healthcare/Pharmaceutical",
       "Financial Services"
     ],
-    recommendations: [
+    recommendations: processTextArray([
       "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
       "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
       "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
-    ]
+    ])
   };
 }
 

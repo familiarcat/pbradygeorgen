@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { escapeApostrophes } from '@/utils/textUtils';
 
 interface ContentAnalysisProps {
   filePath: string;
@@ -106,7 +107,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             </div>
 
             <div>
-              <h3 className="analyzer-section-header">Industries I've Worked In</h3>
+              <h3 className="analyzer-section-header">Industries I&apos;ve Worked In</h3>
               <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
                 {analysis.industryExperience.map((industry, index) => (
                   <li key={index}>{industry}</li>
@@ -137,7 +138,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
           </div>
 
           <div className="mb-4">
-            <h3 className="analyzer-section-header">What I'm Looking For</h3>
+            <h3 className="analyzer-section-header">What I&apos;m Looking For</h3>
             <ul className="list-disc pl-5 analyzer-section-content p-3 rounded">
               {analysis.recommendations.map((recommendation, index) => (
                 <li key={index}>{recommendation}</li>
