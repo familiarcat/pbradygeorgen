@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // For demonstration purposes, we'll use a mock analysis
     // In a real application, you would call an AI API like OpenAI here
-    const analysis = await mockAnalyzeContent(content);
+    const analysis = await mockAnalyzeContent(content, forceRefresh);
 
     // In a real application with OpenAI, you would do something like:
     // const analysis = await analyzeWithOpenAI(content);
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Function to analyze content with OpenAI or fallback to mock data
-async function mockAnalyzeContent(content: string) {
+async function mockAnalyzeContent(content: string, forceRefresh = false) {
   // Check if we have an OpenAI API key and it's enabled
   const useOpenAI = process.env.OPENAI_API_KEY && process.env.USE_OPENAI === 'true';
 
