@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { escapeApostrophes, processTextArray } from '@/utils/textUtils';
+import { escapeApostrophes, processTextArray } from '@/utils/serverTextUtils';
 
 // This would be replaced with your actual OpenAI API key in a production environment
 // In a real app, you would store this in an environment variable
@@ -9,7 +9,15 @@ import { escapeApostrophes, processTextArray } from '@/utils/textUtils';
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    // Parse the request body
+    let data;
+    try {
+      data = await request.json();
+    } catch (parseError) {
+      console.error('Error parsing request JSON:', parseError);
+      return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
+    }
+
     const { filePath } = data;
 
     if (!filePath) {
@@ -41,7 +49,13 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error analyzing content:', error);
-    return NextResponse.json({ error: 'Failed to analyze content' }, { status: 500 });
+
+    // Provide more detailed error message for debugging
+    const errorMessage = error instanceof Error
+      ? `Failed to analyze content: ${error.message}`
+      : 'Failed to analyze content';
+
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 
