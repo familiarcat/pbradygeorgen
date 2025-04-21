@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { cacheService } from './cacheService';
+import { ResumeAnalysisResponse } from '@/types/openai';
 
 // Initialize the OpenAI client
 // In production, use environment variables for the API key
@@ -7,25 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-/**
- * Interface for the resume analysis request
- */
-export interface ResumeAnalysisRequest {
-  resumeContent: string;
-}
-
-/**
- * Interface for the resume analysis response
- */
-export interface ResumeAnalysisResponse {
-  summary: string;
-  keySkills: string[];
-  yearsOfExperience: string;
-  educationLevel: string;
-  careerHighlights: string[];
-  industryExperience: string[];
-  recommendations: string[];
-}
+// Types are now imported from @/types/openai
 
 /**
  * Analyzes resume content using OpenAI's GPT model
