@@ -153,65 +153,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             </div>
           )}
           <div className="mb-4">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="analyzer-section-header">Summary</h3>
-
-              {/* Salinger-inspired download options */}
-              <div className="relative group">
-                <button
-                  className="analyzer-button analyzer-button-secondary text-sm flex items-center px-3 py-1 rounded"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <svg className="-ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  Download
-                </button>
-
-                {/* Dropdown menu with Salinger-inspired styling */}
-                <div className="absolute right-0 mt-1 w-48 rounded-md shadow-lg bg-[var(--bg-secondary)] ring-1 ring-[var(--border-primary)] ring-opacity-5 focus:outline-none z-10 hidden group-hover:block">
-                  <div className="py-1" role="menu" aria-orientation="vertical">
-                    <a
-                      href="/pbradygeorgen_resume.pdf"
-                      download
-                      className="block px-4 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-secondary)] transition-colors duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Original PDF
-                    </a>
-                    <a
-                      href="/extracted/resume_content.md"
-                      download="pbradygeorgen_resume.md"
-                      className="block px-4 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-secondary)] transition-colors duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Markdown (.md)
-                    </a>
-                    <button
-                      onClick={() => {
-                        // Create a text version and download it
-                        const textContent = `# P. Brady Georgen Resume\n\n## Summary\n${analysis.summary}\n\n## Skills\n${analysis.keySkills.join(', ')}\n\n## Experience\n${analysis.yearsOfExperience}\n\n## Education\n${analysis.educationLevel}\n\n## Career Highlights\n${analysis.careerHighlights.join('\n')}\n\n## Industries\n${analysis.industryExperience.join(', ')}\n\n## Looking For\n${analysis.recommendations.join('\n')}\n`;
-
-                        const blob = new Blob([textContent], { type: 'text/plain' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'pbradygeorgen_resume.txt';
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(url);
-                      }}
-                      className="block w-full text-left px-4 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-secondary)] transition-colors duration-150 ease-in-out"
-                      role="menuitem"
-                    >
-                      Plain Text (.txt)
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h3 className="analyzer-section-header">Summary</h3>
             <p className="analyzer-section-content p-3 rounded">{formatForDisplay(analysis.summary)}</p>
           </div>
 

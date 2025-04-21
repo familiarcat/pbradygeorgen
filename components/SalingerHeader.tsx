@@ -50,14 +50,74 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
 
       <nav className={styles.headerActions}>
-        <a
-          href="#"
-          className={styles.actionLink}
-          onClick={(e) => handleAction('download', e)}
-          aria-label="Download Resume"
-        >
-          Download Resume
-        </a>
+        <div className={styles.downloadContainer}>
+          <a
+            href="#"
+            className={styles.actionLink}
+            onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
+            aria-label="Download Resume"
+            aria-haspopup="true"
+          >
+            Download Resume
+          </a>
+
+          {/* Dropdown menu with Salinger-inspired styling */}
+          <div className={styles.downloadMenu}>
+            <a
+              href="/pbradygeorgen_resume.pdf"
+              download
+              className={styles.downloadOption}
+            >
+              PDF Format
+            </a>
+            <a
+              href="/extracted/resume_content.md"
+              download="pbradygeorgen_resume.md"
+              className={styles.downloadOption}
+            >
+              Markdown Format
+            </a>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                // Create and download text version
+                if (onDownload) {
+                  // First trigger the regular download handler to ensure any necessary state is updated
+                  onDownload();
+                }
+
+                // Then create a text version using fetch to get the content
+                fetch('/extracted/resume_content.md')
+                  .then(response => response.text())
+                  .then(content => {
+                    // Format the content as plain text
+                    const textContent = content
+                      .replace(/^#\s+/gm, '') // Remove markdown headers
+                      .replace(/^##\s+/gm, '')
+                      .replace(/\*\*/g, '') // Remove bold markers
+                      .replace(/\*/g, '') // Remove italic markers
+                      .trim();
+
+                    // Create and download the file
+                    const blob = new Blob([textContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'pbradygeorgen_resume.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                  })
+                  .catch(error => console.error('Error creating text version:', error));
+              }}
+              className={styles.downloadOption}
+            >
+              Text Format
+            </a>
+          </div>
+        </div>
         <span className={styles.actionSeparator}>•</span>
         <a
           href="#"

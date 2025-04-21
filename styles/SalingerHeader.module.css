@@ -30,6 +30,12 @@
   gap: 1rem;
 }
 
+/* Download container for dropdown functionality */
+.downloadContainer {
+  position: relative;
+  display: inline-block;
+}
+
 .actionLink {
   color: #49423D; /* Ebony */
   text-decoration: none;
@@ -67,6 +73,52 @@
   width: 100%;
 }
 
+/* Dropdown menu styling */
+.downloadMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: rgba(212, 209, 190, 0.95); /* Ecru background with transparency */
+  border: 1px solid rgba(73, 66, 61, 0.15); /* Subtle ebony border */
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+/* Show dropdown on hover */
+.downloadContainer:hover .downloadMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Download options styling */
+.downloadOption {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #49423D; /* Ebony */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: 'Garamond', 'Times New Roman', serif;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
+}
+
+.downloadOption:last-child {
+  border-bottom: none;
+}
+
+.downloadOption:hover {
+  background: rgba(138, 129, 81, 0.1); /* Light Reseda green background */
+  color: #8A8151; /* Reseda green text */
+}
+
 .actionSeparator {
   color: #8F7E4F; /* Lion - warm, muted gold */
   font-size: 0.8rem;
@@ -80,11 +132,11 @@
     gap: 0.75rem;
     padding: 1rem 1.25rem;
   }
-  
+
   .siteTitle {
     font-size: 1.5rem;
   }
-  
+
   .headerActions {
     width: 100%;
     justify-content: space-between;
