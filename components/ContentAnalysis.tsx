@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { formatForDisplay, formatArrayForDisplay } from '@/utils/textUtils';
+import { formatForDisplay } from '@/utils/textUtils';
 
 interface ContentAnalysisProps {
   filePath: string;
