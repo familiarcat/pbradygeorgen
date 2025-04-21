@@ -35,32 +35,49 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
   try {
     // Define the system message to set the context for the AI
     const systemMessage = `
-      You are an expert resume analyzer. Extract key information from the resume and provide a structured analysis.
-      Your analysis should be in first person, as if the resume owner is speaking directly to the reader.
-      Use a conversational, natural tone following J.D. Salinger's writing style.
+      You are an expert resume analyzer with deep knowledge of the tech industry, particularly software development and design.
+
+      Your task is to extract key information from the resume and provide a structured analysis that captures the essence of the candidate's experience, skills, and career trajectory.
+
+      Your analysis should be written in first person, as if the resume owner is speaking directly to the reader.
+      Use a conversational, natural tone following J.D. Salinger's writing style - authentic, direct, and slightly introspective.
+
+      Focus on these aspects:
+      1. Technical skills and expertise (programming languages, frameworks, tools)
+      2. Creative abilities (design, UI/UX, illustration)
+      3. Professional experience and accomplishments
+      4. Educational background
+      5. Industries worked in
+      6. Career aspirations and strengths
 
       IMPORTANT: Your response must be a valid JSON object with EXACTLY these fields and no others:
-      - summary: A string with the first-person summary
-      - keySkills: An array of strings listing skills
-      - yearsOfExperience: A string describing experience in first person
-      - educationLevel: A string describing education in first person
-      - careerHighlights: An array of strings with career highlights in first person
-      - industryExperience: An array of strings listing industries
-      - recommendations: An array of strings with career goals/recommendations in first person
+      - summary: A string with a first-person summary that captures the essence of the candidate's professional identity (100-150 words)
+      - keySkills: An array of strings listing 6-8 core technical and creative skills
+      - yearsOfExperience: A string describing experience in first person, including total years and key roles
+      - educationLevel: A string describing education in first person, including degrees and institutions
+      - careerHighlights: An array of 3-4 strings with career highlights in first person, focusing on major accomplishments
+      - industryExperience: An array of strings listing industries the candidate has worked in
+      - recommendations: An array of 3 strings with career goals/recommendations in first person, reflecting the candidate's aspirations
 
       Do not include any additional fields or metadata in your response.
+      Ensure all text is properly formatted and free of markdown or special characters.
     `;
 
     // Define the user message with the resume content
     const userMessage = `
-      Analyze this resume content and provide a structured analysis including:
-      - A summary (in first person)
-      - Key skills
-      - Years of experience (in first person)
-      - Education level (in first person)
-      - Career highlights (in first person)
-      - Industry experience
-      - Recommendations/career goals (in first person)
+      Analyze this resume content and provide a structured analysis in JSON format.
+
+      Pay special attention to:
+      - The candidate's blend of technical and creative skills
+      - Their experience with React, AWS, and enterprise applications
+      - Their work across different industries (like Cox Communications, Bayer, etc.)
+      - Their educational background in both design and philosophy
+      - Their career progression and leadership roles
+
+      Remember to write in first person as if the candidate is speaking, using J.D. Salinger's conversational style.
+      Focus on creating a narrative that shows the candidate's unique blend of technical expertise and creative abilities.
+
+      For the recommendations section, suggest career directions that would leverage both their technical and creative strengths.
 
       Resume content:
       ${resumeContent}
@@ -84,8 +101,12 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
         { role: "system", content: systemMessage },
         { role: "user", content: userMessage }
       ],
-      temperature: 0.3, // Lower temperature for more consistent results
+      temperature: 0.4, // Balanced temperature for creativity while maintaining consistency
       response_format: { type: "json_object" },
+      max_tokens: 1500, // Ensure we have enough tokens for a detailed response
+      top_p: 0.95, // Slightly more diverse responses
+      presence_penalty: 0.1, // Slight penalty for repetition
+      frequency_penalty: 0.1, // Slight penalty for frequent tokens
     });
 
     // Parse the response
@@ -106,11 +127,44 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
         throw new Error('Invalid response structure from OpenAI');
       }
 
+      // Perform additional validation
+      const validationIssues = [];
+
+      if (analysis.summary.length < 50) validationIssues.push('Summary too short');
+      if (analysis.keySkills.length < 3) validationIssues.push('Too few skills');
+      if (analysis.careerHighlights.length < 2) validationIssues.push('Too few career highlights');
+      if (analysis.recommendations.length < 2) validationIssues.push('Too few recommendations');
+
+      // Check for non-first-person language
+      const thirdPersonPatterns = [
+        /\bhe\b/i, /\bshe\b/i, /\bhis\b/i, /\bher\b/i,
+        /\bthe candidate\b/i, /\bthe applicant\b/i,
+        /\bthey have\b/i, /\bthey are\b/i
+      ];
+
+      const hasThirdPerson = thirdPersonPatterns.some(pattern =>
+        pattern.test(analysis.summary) ||
+        pattern.test(analysis.yearsOfExperience) ||
+        pattern.test(analysis.educationLevel) ||
+        analysis.careerHighlights.some(h => pattern.test(h)) ||
+        analysis.recommendations.some(r => pattern.test(r))
+      );
+
+      if (hasThirdPerson) validationIssues.push('Contains third-person language');
+
+      if (validationIssues.length > 0) {
+        console.warn('Response validation issues:', validationIssues);
+      }
+
       // Log the parsed analysis
       console.log('Parsed analysis:', {
-        summary: analysis.summary.substring(0, 50) + '...',
-        keySkills: analysis.keySkills.length + ' skills',
-        yearsOfExperience: analysis.yearsOfExperience.substring(0, 30) + '...',
+        summary: analysis.summary.substring(0, 75) + '...',
+        keySkills: `${analysis.keySkills.length} skills: ${analysis.keySkills.join(', ')}`,
+        yearsOfExperience: analysis.yearsOfExperience.substring(0, 50) + '...',
+        educationLevel: analysis.educationLevel.substring(0, 50) + '...',
+        careerHighlights: `${analysis.careerHighlights.length} highlights`,
+        industryExperience: analysis.industryExperience.join(', '),
+        recommendations: `${analysis.recommendations.length} recommendations`
       });
 
       return analysis;
