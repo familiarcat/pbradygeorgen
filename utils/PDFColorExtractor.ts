@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 // We'll use dynamic imports for PDF.js to avoid build issues
