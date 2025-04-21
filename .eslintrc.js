@@ -1,3 +1,4 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -28,6 +29,15 @@ module.exports = {
       version: 'detect',
     },
   },
+  ignorePatterns: [
+    '.next/**',
+    'out/**',
+    'build/**',
+    'dist/**',
+    'node_modules/**',
+    '.cache/**',
+    '.eslintcache',
+  ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/ban-types': 'warn',
@@ -59,14 +69,5 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
       },
     },
-  ],
-  ignorePatterns: [
-    '.next/',
-    'out/',
-    'build/',
-    'dist/',
-    'node_modules/',
-    '.cache/',
-    '.eslintcache',
   ],
 };

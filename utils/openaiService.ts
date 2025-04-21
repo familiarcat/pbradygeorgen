@@ -128,7 +128,7 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
       }
 
       // Perform additional validation
-      const validationIssues = [];
+      const validationIssues: string[] = [];
 
       if (analysis.summary.length < 50) validationIssues.push('Summary too short');
       if (analysis.keySkills.length < 3) validationIssues.push('Too few skills');

@@ -1,0 +1,99 @@
+/* Salinger-inspired header styles */
+.salingerHeader {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.875rem;
+  background: rgba(212, 209, 190, 0.95); /* Ecru background with transparency */
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(73, 66, 61, 0.15); /* Subtle ebony border */
+  z-index: 100;
+  font-family: 'Garamond', 'Times New Roman', serif;
+  color: #49423D; /* Ebony - dark, earthy tone */
+  transition: all 0.3s ease;
+}
+
+.siteTitle {
+  font-weight: 400;
+  font-size: 1.8rem;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: #49423D; /* Ebony */
+  font-family: 'Garamond', 'Times New Roman', serif;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.actionLink {
+  color: #49423D; /* Ebony */
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  padding: 0.25rem 0;
+}
+
+.actionLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #8A8151; /* Reseda green for underline */
+  transition: width 0.3s ease;
+}
+
+.actionLink:hover {
+  color: #8A8151; /* Reseda green on hover */
+}
+
+.actionLink:hover::after {
+  width: 100%;
+}
+
+.actionLink:focus {
+  outline: none;
+  color: #8A8151; /* Reseda green on focus */
+}
+
+.actionLink:focus::after {
+  width: 100%;
+}
+
+.actionSeparator {
+  color: #8F7E4F; /* Lion - warm, muted gold */
+  font-size: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .salingerHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+  
+  .siteTitle {
+    font-size: 1.5rem;
+  }
+  
+  .headerActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Print styles - hide header when printing */
+@media print {
+  .salingerHeader {
+    display: none;
+  }
+}

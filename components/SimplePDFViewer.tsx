@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { getUserIntentTracker } from '@/utils/UserIntentTracker';
 import PDFAnalyzer from './PDFAnalyzer';
 import DynamicThemeProvider from './DynamicThemeProvider';
+import SalingerHeader from './SalingerHeader';
 
 // Define types for debug data
 type CursorData = {
@@ -415,19 +416,48 @@ export default function SimplePDFViewer() {
     }
   }, [debugMode, setDebugData]);
 
+  // Handle download action
+  const handleDownload = () => {
+    // Create a link to download the PDF
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'pbradygeorgen_resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Handle view summary action
+  const handleViewSummary = () => {
+    setShowAnalyzer(true);
+  };
+
+  // Handle contact action
+  const handleContact = () => {
+    // For now, just open a mailto link
+    window.location.href = 'mailto:brady@pbradygeorgen.com';
+  };
+
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      {/* No overlay - we'll use window event listeners instead */}
-      {/* Loading indicator - shown until PDF is loaded */}
-      {!pdfVisible && (
-        <div className="absolute inset-0 flex justify-center items-center z-20 bg-[var(--bg-primary)]">
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
-            <p className="text-[var(--text-primary)] text-lg font-medium">Loading resume...</p>
+        {/* Salinger Header */}
+        <SalingerHeader
+          onDownload={handleDownload}
+          onViewSummary={handleViewSummary}
+          onContact={handleContact}
+        />
+
+        {/* No overlay - we'll use window event listeners instead */}
+        {/* Loading indicator - shown until PDF is loaded */}
+        {!pdfVisible && (
+          <div className="absolute inset-0 flex justify-center items-center z-20 bg-[var(--bg-primary)]">
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
+              <p className="text-[var(--text-primary)] text-lg font-medium">Loading resume...</p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* Debug visualization - only shown when debugMode is true */}
       {debugMode && debugData && (
@@ -706,7 +736,7 @@ export default function SimplePDFViewer() {
         <iframe
           ref={iframeRef}
           src="/pbradygeorgen_resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-          className="w-full h-full pdf-iframe"
+          className="w-full h-[calc(100vh-4rem)] pdf-iframe mt-16"
           style={{
             border: 'none',
             backgroundColor: 'var(--pdf-background)',
