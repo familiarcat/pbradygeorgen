@@ -114,10 +114,11 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
       });
 
       return analysis;
-    } catch (parseError) {
+    } catch (error) {
+      const parseError = error as Error;
       console.error('Error parsing OpenAI response:', parseError);
       console.error('Raw content that failed to parse:', content);
-      throw new Error(`Failed to parse OpenAI response: ${parseError.message}`);
+      throw new Error(`Failed to parse OpenAI response: ${parseError.message || 'Unknown error'}`);
     }
   } catch (error) {
     console.error("Error analyzing resume with OpenAI:", error);
