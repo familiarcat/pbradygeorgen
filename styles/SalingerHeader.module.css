@@ -59,7 +59,7 @@
 
 .actionLink:hover {
   color: #FFFFFF; /* White text for contrast */
-  background-color: #8A8151; /* Reseda green background on hover */
+  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -70,7 +70,7 @@
 .actionLink:focus {
   outline: none;
   color: #FFFFFF; /* White text for contrast */
-  background-color: #8A8151; /* Reseda green background on focus */
+  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .downloadOption:hover {
-  background: #8A8151; /* Reseda green background */
+  background: #5A7682; /* Blue accent color (matches --cta-secondary) */
   color: #FFFFFF; /* White text for contrast */
 }
 
