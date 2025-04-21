@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { cacheService } from './cacheService';
 
 // Initialize the OpenAI client
 // In production, use environment variables for the API key
@@ -31,8 +32,21 @@ export interface ResumeAnalysisResponse {
  * @param resumeContent The content of the resume to analyze
  * @returns Structured analysis of the resume
  */
-export async function analyzeResume(resumeContent: string): Promise<ResumeAnalysisResponse> {
+export async function analyzeResume(resumeContent: string, forceRefresh = false): Promise<ResumeAnalysisResponse> {
   try {
+    // Generate a cache key based on the resume content
+    const cacheKey = cacheService.generateCacheKey(resumeContent);
+
+    // Check if we have a cached response and aren't forcing a refresh
+    if (!forceRefresh) {
+      const cachedResponse = cacheService.getItem(cacheKey);
+      if (cachedResponse) {
+        console.log('Using cached OpenAI response');
+        return cachedResponse;
+      }
+    } else {
+      console.log('Force refresh requested, skipping cache');
+    }
     // Define the system message to set the context for the AI
     const systemMessage = `
       You are an expert resume analyzer with deep knowledge of the tech industry, particularly software development and design.
@@ -157,6 +171,9 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
         industryExperience: analysis.industryExperience.join(', '),
         recommendations: `${analysis.recommendations.length} recommendations`
       });
+
+      // Store the response in the cache
+      cacheService.setItem(cacheKey, analysis);
 
       return analysis;
     } catch (error) {

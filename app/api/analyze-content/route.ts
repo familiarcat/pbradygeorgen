@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
     }
 
-    const { filePath } = data;
+    const { filePath, forceRefresh = false } = data;
 
     if (!filePath) {
       return NextResponse.json({ error: 'File path is required' }, { status: 400 });
@@ -104,8 +104,9 @@ async function mockAnalyzeContent(content: string) {
       console.log(`🔍 [Hesse] Content preview: ${content.substring(0, 100)}...`);
 
       // Use OpenAI to analyze the resume
+      console.log(`🔍 [Hesse] Force refresh: ${forceRefresh ? 'Yes' : 'No'}`);
       const startTime = Date.now();
-      const analysis = await analyzeResume(content);
+      const analysis = await analyzeResume(content, forceRefresh);
       const endTime = Date.now();
 
       // Detailed technical logging
