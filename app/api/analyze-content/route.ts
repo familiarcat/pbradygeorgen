@@ -62,16 +62,55 @@ export async function POST(request: NextRequest) {
 
 // Function to analyze content with OpenAI or fallback to mock data
 async function mockAnalyzeContent(content: string) {
-  // Check if we have an OpenAI API key
+  // Check if we have an OpenAI API key and it's enabled
   const useOpenAI = process.env.OPENAI_API_KEY && process.env.USE_OPENAI === 'true';
+
+  // Generate mock data for comparison or fallback
+  const mockData = {
+    summary: escapeApostrophes("I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions."),
+    keySkills: [
+      "Full Stack Development",
+      "JavaScript/TypeScript",
+      "React/React Native",
+      "AWS",
+      "UI/UX Design",
+      "Creative Technology"
+    ],
+    yearsOfExperience: escapeApostrophes("I've been in the industry for over 15 years, continuously learning and evolving with technology"),
+    educationLevel: escapeApostrophes("I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving"),
+    careerHighlights: processTextArray([
+      "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
+      "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
+      "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
+    ]),
+    industryExperience: [
+      "Business Solutions",
+      "Communications",
+      "Healthcare/Pharmaceutical",
+      "Financial Services"
+    ],
+    recommendations: processTextArray([
+      "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
+      "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
+      "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
+    ])
+  };
 
   try {
     if (useOpenAI) {
-      // Use OpenAI to analyze the resume
-      console.log('Using OpenAI to analyze resume...');
-      const analysis = await analyzeResume(content);
+      // Hesse-style technical logging
+      console.log('🔍 [Hesse] Using OpenAI to analyze resume content...');
+      console.log(`🔍 [Hesse] Content length: ${content.length} characters`);
+      console.log(`🔍 [Hesse] Content preview: ${content.substring(0, 100)}...`);
 
-      console.log('OpenAI analysis received:', Object.keys(analysis));
+      // Use OpenAI to analyze the resume
+      const startTime = Date.now();
+      const analysis = await analyzeResume(content);
+      const endTime = Date.now();
+
+      // Detailed technical logging
+      console.log(`✅ [Hesse] OpenAI analysis completed in ${endTime - startTime}ms`);
+      console.log(`✅ [Hesse] Fields received: ${Object.keys(analysis).join(', ')}`);
 
       // Check for unexpected fields that might be causing the issue
       const unexpectedFields = Object.keys(analysis).filter(key =>
@@ -80,8 +119,24 @@ async function mockAnalyzeContent(content: string) {
       );
 
       if (unexpectedFields.length > 0) {
-        console.warn('Unexpected fields in OpenAI response:', unexpectedFields);
+        console.warn(`⚠️ [Hesse] Unexpected fields in OpenAI response: ${unexpectedFields.join(', ')}`);
       }
+
+      // Dante-style comparison between mock and AI data
+      console.log('📊 [Dante] Comparing OpenAI analysis with mock data:');
+
+      // Compare summary lengths
+      const summaryDiff = Math.abs(analysis.summary.length - mockData.summary.length);
+      const summaryPercentDiff = (summaryDiff / mockData.summary.length) * 100;
+      console.log(`📊 [Dante] Summary: ${summaryPercentDiff.toFixed(1)}% length difference`);
+
+      // Compare number of skills
+      const skillsDiff = Math.abs(analysis.keySkills.length - mockData.keySkills.length);
+      console.log(`📊 [Dante] Skills: OpenAI found ${analysis.keySkills.length} skills vs ${mockData.keySkills.length} in mock`);
+
+      // Compare career highlights
+      const highlightsDiff = Math.abs(analysis.careerHighlights.length - mockData.careerHighlights.length);
+      console.log(`📊 [Dante] Career highlights: OpenAI found ${analysis.careerHighlights.length} highlights vs ${mockData.careerHighlights.length} in mock`);
 
       // Escape apostrophes for React
       return {
@@ -94,66 +149,24 @@ async function mockAnalyzeContent(content: string) {
         recommendations: processTextArray(analysis.recommendations)
       };
     } else {
-      console.log('Using mock data for resume analysis...');
+      console.log('⚠️ [Hesse] OpenAI integration is disabled. Using mock data for resume analysis...');
+      console.log('ℹ️ [Hesse] To enable OpenAI, set USE_OPENAI=true in .env.local');
       // Fallback to mock data if OpenAI is not available
-      return {
-        summary: escapeApostrophes("I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions."),
-        keySkills: [
-          "Full Stack Development",
-          "JavaScript/TypeScript",
-          "React/React Native",
-          "AWS",
-          "UI/UX Design",
-          "Creative Technology"
-        ],
-        yearsOfExperience: escapeApostrophes("I've been in the industry for over 15 years, continuously learning and evolving with technology"),
-        educationLevel: escapeApostrophes("I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving"),
-        careerHighlights: processTextArray([
-          "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
-          "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
-          "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
-        ]),
-        industryExperience: [
-          "Business Solutions",
-          "Communications",
-          "Healthcare/Pharmaceutical",
-          "Financial Services"
-        ],
-        recommendations: processTextArray([
-          "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
-          "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
-          "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
-        ])
-      };
+      return mockData;
     }
   } catch (error) {
-    console.error('Error in resume analysis:', error);
+    console.error('❌ [Hesse] Error in resume analysis:', error);
+    console.log('⚠️ [Dante] Falling back to mock data due to analysis failure');
+
+    if (error instanceof Error) {
+      console.log(`❌ [Hesse] Error details: ${error.name}: ${error.message}`);
+      if (error.stack) {
+        console.log(`❌ [Hesse] Stack trace: ${error.stack.split('\n')[0]}`);
+      }
+    }
+
     // If OpenAI fails, fall back to mock data
-    return {
-      summary: escapeApostrophes("I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology."),
-      keySkills: [
-        "Full Stack Development",
-        "JavaScript/TypeScript",
-        "React/React Native",
-        "AWS",
-        "UI/UX Design"
-      ],
-      yearsOfExperience: escapeApostrophes("I've been in the industry for over 15 years"),
-      educationLevel: escapeApostrophes("I hold dual Bachelor's degrees in Graphic Design and Philosophy"),
-      careerHighlights: processTextArray([
-        "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions",
-        "I've worked with major clients including Cox Communications, Bayer, and Mastercard"
-      ]),
-      industryExperience: [
-        "Business Solutions",
-        "Communications",
-        "Healthcare/Pharmaceutical"
-      ],
-      recommendations: processTextArray([
-        "I'm looking for opportunities that combine technical leadership with creative direction",
-        "I thrive in cross-functional teams"
-      ])
-    };
+    return mockData;
   }
 }
 
