@@ -54,7 +54,7 @@ async function mockAnalyzeContent(content: string) {
   // For now, we'll just return mock data
 
   return {
-    summary: "This resume belongs to a senior software developer with extensive experience in full-stack development, UI/UX design, and creative technology. The individual has a strong background in React, AWS, and various other technologies, with experience at multiple companies including Daugherty Business Solutions.",
+    summary: "I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.",
     keySkills: [
       "Full Stack Development",
       "JavaScript/TypeScript",
@@ -63,12 +63,12 @@ async function mockAnalyzeContent(content: string) {
       "UI/UX Design",
       "Creative Technology"
     ],
-    yearsOfExperience: "15+ years based on work history",
-    educationLevel: "Bachelor's degrees in Graphic Design and Philosophy",
+    yearsOfExperience: "I've been in the industry for over 15 years, continuously learning and evolving with technology",
+    educationLevel: "I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving",
     careerHighlights: [
-      "Senior Software Developer at Daugherty Business Solutions for 9 years",
-      "Worked with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
-      "Experience in both technical development and creative design roles"
+      "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
+      "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
+      "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
     ],
     industryExperience: [
       "Business Solutions",
@@ -77,9 +77,9 @@ async function mockAnalyzeContent(content: string) {
       "Financial Services"
     ],
     recommendations: [
-      "This candidate would be well-suited for senior roles combining technical leadership and creative direction",
-      "Strong background in both development and design makes them valuable for cross-functional teams",
-      "Experience with enterprise clients indicates ability to work in complex business environments"
+      "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
+      "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
+      "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
     ]
   };
 }
