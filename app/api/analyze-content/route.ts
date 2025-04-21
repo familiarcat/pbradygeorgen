@@ -71,6 +71,18 @@ async function mockAnalyzeContent(content: string) {
       console.log('Using OpenAI to analyze resume...');
       const analysis = await analyzeResume(content);
 
+      console.log('OpenAI analysis received:', Object.keys(analysis));
+
+      // Check for unexpected fields that might be causing the issue
+      const unexpectedFields = Object.keys(analysis).filter(key =>
+        !['summary', 'keySkills', 'yearsOfExperience', 'educationLevel',
+          'careerHighlights', 'industryExperience', 'recommendations'].includes(key)
+      );
+
+      if (unexpectedFields.length > 0) {
+        console.warn('Unexpected fields in OpenAI response:', unexpectedFields);
+      }
+
       // Escape apostrophes for React
       return {
         summary: escapeApostrophes(analysis.summary),

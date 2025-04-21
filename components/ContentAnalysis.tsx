@@ -41,7 +41,32 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
       }
 
       const data = await response.json();
-      setAnalysis(data.analysis);
+
+      // Log the received analysis data
+      console.log('Analysis data received:', Object.keys(data.analysis));
+
+      // Check for unexpected fields that might be causing the issue
+      const unexpectedFields = Object.keys(data.analysis).filter(key =>
+        !['summary', 'keySkills', 'yearsOfExperience', 'educationLevel',
+          'careerHighlights', 'industryExperience', 'recommendations'].includes(key)
+      );
+
+      if (unexpectedFields.length > 0) {
+        console.warn('Unexpected fields in analysis data:', unexpectedFields);
+        // Create a clean copy without unexpected fields
+        const cleanAnalysis = {
+          summary: data.analysis.summary,
+          keySkills: data.analysis.keySkills,
+          yearsOfExperience: data.analysis.yearsOfExperience,
+          educationLevel: data.analysis.educationLevel,
+          careerHighlights: data.analysis.careerHighlights,
+          industryExperience: data.analysis.industryExperience,
+          recommendations: data.analysis.recommendations
+        };
+        setAnalysis(cleanAnalysis);
+      } else {
+        setAnalysis(data.analysis);
+      }
     } catch (err) {
       console.error('Error analyzing content:', err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred');

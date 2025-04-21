@@ -38,6 +38,17 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
       You are an expert resume analyzer. Extract key information from the resume and provide a structured analysis.
       Your analysis should be in first person, as if the resume owner is speaking directly to the reader.
       Use a conversational, natural tone following J.D. Salinger's writing style.
+
+      IMPORTANT: Your response must be a valid JSON object with EXACTLY these fields and no others:
+      - summary: A string with the first-person summary
+      - keySkills: An array of strings listing skills
+      - yearsOfExperience: A string describing experience in first person
+      - educationLevel: A string describing education in first person
+      - careerHighlights: An array of strings with career highlights in first person
+      - industryExperience: An array of strings listing industries
+      - recommendations: An array of strings with career goals/recommendations in first person
+
+      Do not include any additional fields or metadata in your response.
     `;
 
     // Define the user message with the resume content
@@ -83,9 +94,31 @@ export async function analyzeResume(resumeContent: string): Promise<ResumeAnalys
       throw new Error("No content in the OpenAI response");
     }
 
+    console.log('Raw OpenAI response content:', content);
+
     // Parse the JSON response
-    const analysis = JSON.parse(content) as ResumeAnalysisResponse;
-    return analysis;
+    try {
+      const analysis = JSON.parse(content) as ResumeAnalysisResponse;
+
+      // Validate the response structure
+      if (!analysis.summary || !analysis.keySkills || !analysis.yearsOfExperience) {
+        console.error('Invalid response structure:', analysis);
+        throw new Error('Invalid response structure from OpenAI');
+      }
+
+      // Log the parsed analysis
+      console.log('Parsed analysis:', {
+        summary: analysis.summary.substring(0, 50) + '...',
+        keySkills: analysis.keySkills.length + ' skills',
+        yearsOfExperience: analysis.yearsOfExperience.substring(0, 30) + '...',
+      });
+
+      return analysis;
+    } catch (parseError) {
+      console.error('Error parsing OpenAI response:', parseError);
+      console.error('Raw content that failed to parse:', content);
+      throw new Error(`Failed to parse OpenAI response: ${parseError.message}`);
+    }
   } catch (error) {
     console.error("Error analyzing resume with OpenAI:", error);
     throw error;
