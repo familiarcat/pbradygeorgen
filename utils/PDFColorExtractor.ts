@@ -256,7 +256,7 @@ export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> 
 
     // Get the first few pages (for better color sampling)
     const maxPages = Math.min(pdf.numPages, 3);
-    const colorPromises = [];
+    const colorPromises: Promise<string[]>[] = [];
 
     for (let i = 1; i <= maxPages; i++) {
       const page = await pdf.getPage(i);
