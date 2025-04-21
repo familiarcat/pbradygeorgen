@@ -1,0 +1,23 @@
+# Build output
+.next/
+out/
+build/
+dist/
+
+# Node modules
+node_modules/
+
+# Cache
+.cache/
+.eslintcache
+
+# Environment variables
+.env*
+!.env.example
+
+# Misc
+.DS_Store
+*.log
+
+# Generated files
+public/extracted/
