@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { extractColorsFromPDF, ColorTheme, defaultColorTheme } from '@/utils/PDFColorExtractor';
+import { extractColorsFromPDF, ColorTheme, defaultColorTheme } from '@/utils/SimplePDFColorExtractor';
 
 export default function usePdfTheme(pdfUrl: string): ColorTheme {
   const [colorTheme, setColorTheme] = useState<ColorTheme>({
