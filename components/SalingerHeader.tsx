@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
+import { generateFormattedMarkdown, generateFormattedText } from '@/utils/formatDownloads';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -12,6 +13,9 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onViewSummary,
   onContact
 }) => {
+  // Loading states for different download formats
+  const [isLoadingMd, setIsLoadingMd] = useState(false);
+  const [isLoadingTxt, setIsLoadingTxt] = useState(false);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -80,50 +84,99 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
               PDF Format
             </a>
             <a
-              href="/extracted/resume_content.md"
-              download="pbradygeorgen_resume.md"
-              className={styles.downloadOption}
-            >
-              Markdown Format
-            </a>
-            <a
               href="#"
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                // Create and download text version
-                if (onDownload) {
-                  // First trigger the regular download handler to ensure any necessary state is updated
-                  onDownload();
+                setIsLoadingMd(true);
+
+                try {
+                  // Fetch the raw content
+                  const response = await fetch('/extracted/resume_content.md');
+                  const content = await response.text();
+
+                  // Generate formatted markdown
+                  const formattedMarkdown = await generateFormattedMarkdown(content);
+
+                  // Create and download the file
+                  const blob = new Blob([formattedMarkdown], { type: 'text/markdown' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'pbradygeorgen_resume.md';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                } catch (error) {
+                  console.error('Error generating markdown:', error);
+                  alert('Failed to generate markdown. Please try again.');
+                } finally {
+                  setIsLoadingMd(false);
                 }
-
-                // Then create a text version using fetch to get the content
-                fetch('/extracted/resume_content.md')
-                  .then(response => response.text())
-                  .then(content => {
-                    // Format the content as plain text
-                    const textContent = content
-                      .replace(/^#\s+/gm, '') // Remove markdown headers
-                      .replace(/^##\s+/gm, '')
-                      .replace(/\*\*/g, '') // Remove bold markers
-                      .replace(/\*/g, '') // Remove italic markers
-                      .trim();
-
-                    // Create and download the file
-                    const blob = new Blob([textContent], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'pbradygeorgen_resume.txt';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                  })
-                  .catch(error => console.error('Error creating text version:', error));
               }}
               className={styles.downloadOption}
             >
-              Text Format
+              {isLoadingMd ? (
+                <span className={styles.loadingText}>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Generating...
+                </span>
+              ) : (
+                'Markdown Format'
+              )}
+            </a>
+            <a
+              href="#"
+              onClick={async (e) => {
+                e.preventDefault();
+                setIsLoadingTxt(true);
+
+                try {
+                  // Trigger the regular download handler if needed
+                  if (onDownload) {
+                    onDownload();
+                  }
+
+                  // Fetch the raw content
+                  const response = await fetch('/extracted/resume_content.md');
+                  const content = await response.text();
+
+                  // Generate formatted text
+                  const formattedText = await generateFormattedText(content);
+
+                  // Create and download the file
+                  const blob = new Blob([formattedText], { type: 'text/plain' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'pbradygeorgen_resume.txt';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                } catch (error) {
+                  console.error('Error generating text format:', error);
+                  alert('Failed to generate text format. Please try again.');
+                } finally {
+                  setIsLoadingTxt(false);
+                }
+              }}
+              className={styles.downloadOption}
+            >
+              {isLoadingTxt ? (
+                <span className={styles.loadingText}>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Generating...
+                </span>
+              ) : (
+                'Text Format'
+              )}
             </a>
           </div>
         </div>

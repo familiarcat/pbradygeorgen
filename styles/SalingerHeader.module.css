@@ -124,6 +124,15 @@
   color: #FFFFFF; /* White text for contrast */
 }
 
+/* Loading text styling */
+.loadingText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  color: #49423D; /* Ebony */
+}
+
 .actionSeparator {
   color: #8F7E4F; /* Lion - warm, muted gold */
   font-size: 0.8rem;
