@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 
-interface FontMapping {
+// Commented out as it's not currently used
+/* interface FontMapping {
   [key: string]: string;
-}
+} */
 
 // Common PDF font to web font mappings - used for reference
 // These mappings could be used in a more advanced implementation

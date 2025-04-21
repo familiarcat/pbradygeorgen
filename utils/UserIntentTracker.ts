@@ -410,7 +410,7 @@ export class UserIntentTracker {
    * Track scroll events
    * @param event Scroll event
    */
-  public trackScroll(_event: Event): void {
+  public trackScroll(): void {
     const now = Date.now();
     const scrollDelta = window.scrollY - (this.scrollAmount || 0);
 
