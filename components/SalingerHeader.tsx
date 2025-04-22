@@ -5,6 +5,7 @@ interface SalingerHeaderProps {
   onDownload?: () => void;
   onViewSummary?: () => void;
   onContact?: () => void;
+  onUpload?: () => void;
   fileName?: string;
 }
 
@@ -12,6 +13,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onDownload,
   onViewSummary,
   onContact,
+  onUpload,
   fileName = 'resume'
 }) => {
   // Loading states for different download formats
@@ -44,6 +46,9 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
             contactElement.scrollIntoView({ behavior: 'smooth' });
           }
         }
+        break;
+      case 'upload':
+        if (onUpload) onUpload();
         break;
       default:
         break;
@@ -229,6 +234,15 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           aria-label="Contact"
         >
           Contact
+        </a>
+        <span className={styles.actionSeparator}>•</span>
+        <a
+          href="#"
+          className={styles.actionLink}
+          onClick={(e) => handleAction('upload', e)}
+          aria-label="Upload PDF"
+        >
+          Upload PDF
         </a>
       </nav>
     </header>

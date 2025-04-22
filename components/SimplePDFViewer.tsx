@@ -4,10 +4,13 @@ import { useState, useEffect, useRef } from 'react';
 import PDFAnalyzer from './PDFAnalyzer';
 import DynamicThemeProvider from './DynamicThemeProvider';
 import SalingerHeader from './SalingerHeader';
+import UploadModal from './UploadModal';
+import { DanteLogger } from '@/utils/DanteLogger';
 
 export default function SimplePDFViewer() {
-  // PDF URL for the current document
-  const pdfUrl = '/pbradygeorgen_resume.pdf';
+  // PDF URL state
+  const [pdfUrl, setPdfUrl] = useState('/pbradygeorgen_resume.pdf');
+  const [pdfName, setPdfName] = useState('pbradygeorgen_resume');
   const showControls = false; // Fixed value since we no longer need to toggle controls
   const [showUI, setShowUI] = useState(false); // Start with UI hidden
   const [uiTimeout, setUiTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -20,6 +23,9 @@ export default function SimplePDFViewer() {
 
   // PDF analysis toggle
   const [showAnalyzer, setShowAnalyzer] = useState(false);
+
+  // Upload modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   // Set up basic event listeners for UI visibility
   useEffect(() => {
@@ -141,6 +147,25 @@ export default function SimplePDFViewer() {
     window.location.href = 'mailto:brady@pbradygeorgen.com';
   };
 
+  // Handle upload action
+  const handleUpload = () => {
+    setShowUploadModal(true);
+    DanteLogger.success.ux('Upload modal opened');
+  };
+
+  // Handle PDF uploaded
+  const handlePdfUploaded = (url: string, fileName: string) => {
+    // Reset the PDF loading state
+    setPdfLoaded(false);
+    setPdfVisible(false);
+
+    // Update the PDF URL and name
+    setPdfUrl(url);
+    setPdfName(fileName.replace(/^\d+_/, '').replace(/\.pdf$/i, ''));
+
+    DanteLogger.success.core('PDF changed successfully', { url, fileName });
+  };
+
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
@@ -149,7 +174,15 @@ export default function SimplePDFViewer() {
           onDownload={handleDownload}
           onViewSummary={handleViewSummary}
           onContact={handleContact}
-          fileName="pbradygeorgen_resume"
+          onUpload={handleUpload}
+          fileName={pdfName}
+        />
+
+        {/* Upload Modal */}
+        <UploadModal
+          isOpen={showUploadModal}
+          onClose={() => setShowUploadModal(false)}
+          onPdfUploaded={handlePdfUploaded}
         />
 
         {/* No overlay - we'll use window event listeners instead */}

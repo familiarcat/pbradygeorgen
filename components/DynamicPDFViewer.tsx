@@ -34,13 +34,13 @@ export default function DynamicPDFViewer() {
       // Get the PDF URL from localStorage
       const storedPdfUrl = localStorage.getItem('currentPdfUrl');
       const storedPdfName = localStorage.getItem('currentPdfName');
-      
+
       if (storedPdfUrl) {
         setPdfUrl(storedPdfUrl);
         setPdfName(storedPdfName);
       } else {
-        // If no PDF URL is found, redirect to the upload page
-        router.push('/upload');
+        // If no PDF URL is found, redirect to the home page
+        router.push('/');
       }
     }
   }, [router]);

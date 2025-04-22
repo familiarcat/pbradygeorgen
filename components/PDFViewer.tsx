@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import PDFAnalyzer from './PDFAnalyzer';
 import DynamicThemeProvider from './DynamicThemeProvider';
 import SalingerHeader from './SalingerHeader';
+import UploadModal from './UploadModal';
 import { DanteLogger } from '@/utils/DanteLogger';
 
 interface PDFViewerProps {
@@ -24,6 +25,9 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
 
   // PDF analysis toggle
   const [showAnalyzer, setShowAnalyzer] = useState(false);
+
+  // Upload modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   // Extract the base filename without extension for downloads
   const baseFileName = pdfName.replace(/\.\w+$/, '').replace(/^\d+_/, '');
@@ -152,17 +156,41 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
     DanteLogger.success.basic('Contact action triggered');
   };
 
+  // Handle upload action
+  const handleUpload = () => {
+    setShowUploadModal(true);
+    DanteLogger.success.ux('Upload modal opened');
+  };
+
+  // Handle PDF uploaded
+  const handlePdfUploaded = (url: string, fileName: string) => {
+    // Store the PDF URL in localStorage for use in the viewer
+    localStorage.setItem('currentPdfUrl', url);
+    localStorage.setItem('currentPdfName', fileName);
+
+    // Reload the page to use the new PDF
+    window.location.reload();
+  };
+
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
         {/* Salinger Header */}
-        <SalingerHeader 
+        <SalingerHeader
           onDownload={handleDownload}
           onViewSummary={handleViewSummary}
           onContact={handleContact}
+          onUpload={handleUpload}
           fileName={baseFileName}
         />
-        
+
+        {/* Upload Modal */}
+        <UploadModal
+          isOpen={showUploadModal}
+          onClose={() => setShowUploadModal(false)}
+          onPdfUploaded={handlePdfUploaded}
+        />
+
         {/* Loading indicator - shown until PDF is loaded */}
         {!pdfVisible && (
           <div className="absolute inset-0 flex justify-center items-center z-20 bg-[var(--bg-primary)]">
