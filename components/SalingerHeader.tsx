@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
-import { generateFormattedMarkdown, generateFormattedText } from '@/utils/formatDownloads';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -90,15 +89,33 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                 setIsLoadingMd(true);
 
                 try {
-                  // Fetch the raw content
-                  const response = await fetch('/extracted/resume_content.md');
-                  const content = await response.text();
+                  // Call our server-side API to format the content
+                  const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      filePath: '/extracted/resume_content.md',
+                      format: 'markdown'
+                    }),
+                  });
 
-                  // Generate formatted markdown
-                  const formattedMarkdown = await generateFormattedMarkdown(content);
+                  if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                  }
+
+                  const result = await apiResponse.json();
+
+                  if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                  }
+
+                  // Log the detected content type
+                  console.log(`Content type detected: ${result.contentType}`);
 
                   // Create and download the file
-                  const blob = new Blob([formattedMarkdown], { type: 'text/markdown' });
+                  const blob = new Blob([result.formattedContent], { type: 'text/markdown' });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
                   a.href = url;
@@ -140,15 +157,33 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                     onDownload();
                   }
 
-                  // Fetch the raw content
-                  const response = await fetch('/extracted/resume_content.md');
-                  const content = await response.text();
+                  // Call our server-side API to format the content
+                  const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      filePath: '/extracted/resume_content.md',
+                      format: 'text'
+                    }),
+                  });
 
-                  // Generate formatted text
-                  const formattedText = await generateFormattedText(content);
+                  if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                  }
+
+                  const result = await apiResponse.json();
+
+                  if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                  }
+
+                  // Log the detected content type
+                  console.log(`Content type detected: ${result.contentType}`);
 
                   // Create and download the file
-                  const blob = new Blob([formattedText], { type: 'text/plain' });
+                  const blob = new Blob([result.formattedContent], { type: 'text/plain' });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
                   a.href = url;
