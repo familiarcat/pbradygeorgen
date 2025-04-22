@@ -64,7 +64,8 @@ export async function POST(request: NextRequest) {
       DanteLogger.success.core('PDF content extracted successfully');
 
       // Generate improved markdown
-      await execAsync('node scripts/generate-improved-markdown.js');
+      const extractedTextPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content.txt');
+      await execAsync(`node scripts/generate-improved-markdown.js "${extractedTextPath}"`);
       DanteLogger.success.core('Improved markdown generated successfully');
     } catch (error) {
       // Log the error but don't fail the upload

@@ -78,8 +78,11 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           {/* Dropdown menu with Salinger-inspired styling */}
           <div className={styles.downloadMenu}>
             <a
-              href="/pbradygeorgen_resume.pdf"
-              download
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onDownload) onDownload();
+              }}
               className={styles.downloadOption}
             >
               PDF Format

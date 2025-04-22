@@ -145,12 +145,13 @@ export default function SimplePDFViewer() {
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
         {/* Salinger Header */}
-        <SalingerHeader 
+        <SalingerHeader
           onDownload={handleDownload}
           onViewSummary={handleViewSummary}
           onContact={handleContact}
+          fileName="pbradygeorgen_resume"
         />
-        
+
         {/* No overlay - we'll use window event listeners instead */}
         {/* Loading indicator - shown until PDF is loaded */}
         {!pdfVisible && (
@@ -181,7 +182,7 @@ export default function SimplePDFViewer() {
         >
           <iframe
             ref={iframeRef}
-            src="/pbradygeorgen_resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+            src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
             className="w-full h-[calc(100vh-4rem)] pdf-iframe mt-16"
             style={{
               border: 'none',
