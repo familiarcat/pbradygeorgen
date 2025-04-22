@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:smart": "./dev-with-build.sh",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",
     "start": "next start",

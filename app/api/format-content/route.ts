@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     } catch (validationError) {
       // Even Zod has failed us! Log the validation error but continue
       if (validationError instanceof Error) {
-        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+        console.error('👑🔥 [Zod/Dante:Circle1] Kneel Before Zod! Validation failed:', validationError.message);
       }
     }
 
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     } catch (validationError) {
       // Even Zod has failed us! Log the validation error but continue
       if (validationError instanceof Error) {
-        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+        console.error('👑🌊 [Zod/Dante:Circle2] Kneel Before Zod! Validation failed:', validationError.message);
       }
     }
 
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     } catch (validationError) {
       // Even Zod has failed us! Log the validation error but continue
       if (validationError instanceof Error) {
-        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+        console.error('👑🍿 [Zod/Dante:Circle3] Kneel Before Zod! Validation failed:', validationError.message);
       }
     }
 
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
       } catch (validationError) {
         // Even Zod has failed us! Log the validation error but continue
         if (validationError instanceof Error) {
-          console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+          console.error('👑💰 [Zod/Dante:Circle4] Kneel Before Zod! Validation failed:', validationError.message);
         }
       }
 
@@ -170,7 +170,7 @@ export async function POST(request: NextRequest) {
       } catch (validationError) {
         // Even Zod has failed us! Log the validation error but continue
         if (validationError instanceof Error) {
-          console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+          console.error('👑💢 [Zod/Dante:Circle5] Kneel Before Zod! Validation failed:', validationError.message);
         }
       }
 
@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     // Handle Zod validation errors with Salinger-inspired lightheartedness
     if (error instanceof Error && error.name === 'ZodError') {
-      console.error('👑🧎 [Zod] Response format validation failed:', error.message);
+      console.error('👑🔥 [Zod/Dante:Circle6] Kneel Before Zod! Response validation failed:', error.message);
     } else {
       console.error('Error validating response format:', error);
     }
@@ -253,9 +253,9 @@ async function analyzeContentType(content: string): Promise<Result<string>> {
     console.error('Error analyzing content type:', error);
 
     // If it's a Zod error, we got an invalid content type from OpenAI
-    // 👑🧎 "Kneel before Zod!" - Check for Zod validation errors
+    // 👑🌶️ "Kneel before Zod!" - Check for Zod validation errors (Dante's 7th Circle)
     if (error instanceof Error && error.name === 'ZodError') {
-      console.error('👑🧎 [Zod] Invalid content type received from OpenAI, defaulting to "other"');
+      console.error('👑🌶️ [Zod/Dante:Circle7] Kneel Before Zod! Invalid content type received from OpenAI, defaulting to "other"');
       return {
         success: true,
         data: 'other',
