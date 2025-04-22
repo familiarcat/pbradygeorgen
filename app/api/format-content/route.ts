@@ -121,7 +121,135 @@ async function analyzeContentType(content: string): Promise<string> {
  */
 async function formatContentAsMarkdown(content: string, contentType: string): Promise<string> {
   try {
-    // Create a prompt based on the content type
+    // First, get structured content to ensure consistent hierarchy
+    const structuredContent = await getStructuredContent(content, contentType);
+
+    // Now generate markdown from the structured content
+    let markdown = '';
+
+    // Handle resume/CV content
+    if (contentType === 'resume' || contentType === 'cv') {
+      // Add name as top-level heading
+      if (structuredContent.name) {
+        markdown += `# ${structuredContent.name}\n\n`;
+      }
+
+      // Add contact info
+      if (structuredContent.contactInfo) {
+        const contactParts = [];
+        if (structuredContent.contactInfo.email) contactParts.push(structuredContent.contactInfo.email);
+        if (structuredContent.contactInfo.phone) contactParts.push(structuredContent.contactInfo.phone);
+        if (structuredContent.contactInfo.location) contactParts.push(structuredContent.contactInfo.location);
+
+        if (contactParts.length > 0) {
+          markdown += `${contactParts.join(' | ')}\n\n`;
+        }
+      }
+
+      // Add sections in order
+      if (structuredContent.sections && Array.isArray(structuredContent.sections)) {
+        structuredContent.sections.forEach(section => {
+          // Add section title
+          if (section.title) {
+            markdown += `## ${section.title}\n\n`;
+          }
+
+          // Add section content
+          if (section.content) {
+            if (Array.isArray(section.content)) {
+              section.content.forEach(item => {
+                markdown += `${item}\n\n`;
+              });
+            } else {
+              markdown += `${section.content}\n\n`;
+            }
+          }
+
+          // Add subsections
+          if (section.subsections && Array.isArray(section.subsections)) {
+            section.subsections.forEach(subsection => {
+              // Add subsection title
+              if (subsection.title) {
+                markdown += `### ${subsection.title}\n\n`;
+              }
+
+              // Add subsection details
+              if (subsection.details) {
+                markdown += `${subsection.details}\n\n`;
+              }
+
+              // Add subsection items as bullet points
+              if (subsection.items && Array.isArray(subsection.items)) {
+                subsection.items.forEach(item => {
+                  markdown += `* ${item}\n`;
+                });
+                markdown += '\n';
+              }
+            });
+          }
+        });
+      }
+    } else {
+      // Handle generic document content
+      if (structuredContent.title) {
+        markdown += `# ${structuredContent.title}\n\n`;
+      }
+
+      if (structuredContent.sections && Array.isArray(structuredContent.sections)) {
+        structuredContent.sections.forEach(section => {
+          // Add section heading
+          if (section.heading) {
+            markdown += `## ${section.heading}\n\n`;
+          }
+
+          // Add section content
+          if (section.content) {
+            if (Array.isArray(section.content)) {
+              section.content.forEach(para => {
+                markdown += `${para}\n\n`;
+              });
+            } else {
+              markdown += `${section.content}\n\n`;
+            }
+          }
+
+          // Add subsections
+          if (section.subsections && Array.isArray(section.subsections)) {
+            section.subsections.forEach(subsection => {
+              // Add subsection heading
+              if (subsection.heading) {
+                markdown += `### ${subsection.heading}\n\n`;
+              }
+
+              // Add subsection content
+              if (subsection.content) {
+                if (Array.isArray(subsection.content)) {
+                  subsection.content.forEach(para => {
+                    markdown += `${para}\n\n`;
+                  });
+                } else {
+                  markdown += `${subsection.content}\n\n`;
+                }
+              }
+
+              // Add subsection items as bullet points
+              if (subsection.items && Array.isArray(subsection.items)) {
+                subsection.items.forEach(item => {
+                  markdown += `* ${item}\n`;
+                });
+                markdown += '\n';
+              }
+            });
+          }
+        });
+      }
+    }
+
+    return markdown.trim();
+  } catch (error) {
+    console.error('Error formatting content as markdown:', error);
+
+    // Fall back to basic formatting if structured approach fails
     let systemPrompt = `You are a document formatting expert. Format the provided content as clean, professional markdown.`;
 
     // Add specific formatting instructions based on content type
@@ -197,7 +325,135 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
  */
 async function formatContentAsText(content: string, contentType: string): Promise<string> {
   try {
-    // Create a prompt based on the content type
+    // First, get structured content to ensure consistent hierarchy
+    const structuredContent = await getStructuredContent(content, contentType);
+
+    // Now generate plain text from the structured content
+    let textContent = '';
+
+    // Handle resume/CV content
+    if (contentType === 'resume' || contentType === 'cv') {
+      // Add name at the top in uppercase
+      if (structuredContent.name) {
+        textContent += `${structuredContent.name.toUpperCase()}\n${'='.repeat(structuredContent.name.length)}\n\n`;
+      }
+
+      // Add contact info
+      if (structuredContent.contactInfo) {
+        const contactParts = [];
+        if (structuredContent.contactInfo.email) contactParts.push(structuredContent.contactInfo.email);
+        if (structuredContent.contactInfo.phone) contactParts.push(structuredContent.contactInfo.phone);
+        if (structuredContent.contactInfo.location) contactParts.push(structuredContent.contactInfo.location);
+
+        if (contactParts.length > 0) {
+          textContent += `${contactParts.join(' | ')}\n\n`;
+        }
+      }
+
+      // Add sections in order
+      if (structuredContent.sections && Array.isArray(structuredContent.sections)) {
+        structuredContent.sections.forEach(section => {
+          // Add section title in uppercase with underline
+          if (section.title) {
+            textContent += `${section.title.toUpperCase()}\n${'-'.repeat(section.title.length)}\n\n`;
+          }
+
+          // Add section content
+          if (section.content) {
+            if (Array.isArray(section.content)) {
+              section.content.forEach(item => {
+                textContent += `${item}\n\n`;
+              });
+            } else {
+              textContent += `${section.content}\n\n`;
+            }
+          }
+
+          // Add subsections
+          if (section.subsections && Array.isArray(section.subsections)) {
+            section.subsections.forEach(subsection => {
+              // Add subsection title with proper indentation
+              if (subsection.title) {
+                textContent += `  ${subsection.title}\n`;
+              }
+
+              // Add subsection details
+              if (subsection.details) {
+                textContent += `  ${subsection.details}\n\n`;
+              }
+
+              // Add subsection items as bullet points with indentation
+              if (subsection.items && Array.isArray(subsection.items)) {
+                subsection.items.forEach(item => {
+                  textContent += `    * ${item}\n`;
+                });
+                textContent += '\n';
+              }
+            });
+          }
+        });
+      }
+    } else {
+      // Handle generic document content
+      if (structuredContent.title) {
+        textContent += `${structuredContent.title.toUpperCase()}\n${'='.repeat(structuredContent.title.length)}\n\n`;
+      }
+
+      if (structuredContent.sections && Array.isArray(structuredContent.sections)) {
+        structuredContent.sections.forEach(section => {
+          // Add section heading in uppercase with underline
+          if (section.heading) {
+            textContent += `${section.heading.toUpperCase()}\n${'-'.repeat(section.heading.length)}\n\n`;
+          }
+
+          // Add section content
+          if (section.content) {
+            if (Array.isArray(section.content)) {
+              section.content.forEach(para => {
+                textContent += `${para}\n\n`;
+              });
+            } else {
+              textContent += `${section.content}\n\n`;
+            }
+          }
+
+          // Add subsections
+          if (section.subsections && Array.isArray(section.subsections)) {
+            section.subsections.forEach(subsection => {
+              // Add subsection heading with proper indentation
+              if (subsection.heading) {
+                textContent += `  ${subsection.heading}\n`;
+              }
+
+              // Add subsection content with indentation
+              if (subsection.content) {
+                if (Array.isArray(subsection.content)) {
+                  subsection.content.forEach(para => {
+                    textContent += `  ${para}\n\n`;
+                  });
+                } else {
+                  textContent += `  ${subsection.content}\n\n`;
+                }
+              }
+
+              // Add subsection items as bullet points with indentation
+              if (subsection.items && Array.isArray(subsection.items)) {
+                subsection.items.forEach(item => {
+                  textContent += `    * ${item}\n`;
+                });
+                textContent += '\n';
+              }
+            });
+          }
+        });
+      }
+    }
+
+    return textContent.trim();
+  } catch (error) {
+    console.error('Error formatting content as text:', error);
+
+    // Fall back to basic formatting if structured approach fails
     let systemPrompt = `You are a document formatting expert. Format the provided content as clean, professional plain text.`;
 
     // Add specific formatting instructions based on content type
@@ -321,49 +577,45 @@ async function formatContentAsDocx(content: string, contentType: string): Promis
 async function getStructuredContent(content: string, contentType: string): Promise<any> {
   try {
     // Create a prompt based on the content type
-    let systemPrompt = `You are a document structuring expert. Parse the provided content and return a JSON structure with all the content properly organized.`;
+    let systemPrompt = `You are a document structuring expert specializing in preserving exact hierarchical structure.
+    Your task is to parse the provided content and return a JSON structure that PRECISELY preserves the original document's hierarchy,
+    section order, and content organization. This is CRITICAL for maintaining consistency across different document formats.`;
 
     // Add specific structuring instructions based on content type
     if (contentType === 'resume' || contentType === 'cv') {
       systemPrompt += `
-      This is a RESUME. Return a JSON object with these properties:
+      This is a RESUME. Return a JSON object with these properties, maintaining the EXACT order of sections as they appear in the original document:
 
       {
         "name": "Full Name",
         "contactInfo": { "email": "", "phone": "", "location": "" },
-        "summary": "Professional summary text",
-        "skills": ["Skill 1", "Skill 2", ...],
-        "experience": [
+        "sections": [
           {
-            "title": "Job Title",
-            "company": "Company Name",
-            "location": "Location",
-            "dates": "Date range",
-            "responsibilities": ["Responsibility 1", "Responsibility 2", ...]
-          },
-          ...
-        ],
-        "education": [
-          {
-            "degree": "Degree Name",
-            "institution": "Institution Name",
-            "location": "Location",
-            "dates": "Date range"
-          },
-          ...
-        ],
-        "certifications": ["Certification 1", "Certification 2", ...],
-        "additionalSections": {
-          "sectionName": ["Item 1", "Item 2", ...],
-          ...
-        }
+            "title": "Section Title (e.g., Professional Summary, Experience, etc.)",
+            "content": "Text content or array of items",
+            "subsections": [
+              {
+                "title": "Subsection Title (e.g., Company Name)",
+                "details": "Details like dates, location",
+                "items": ["Bullet point 1", "Bullet point 2", ...]
+              }
+            ]
+          }
+        ]
       }
 
-      Include ALL content from the original document. Do not omit any information.
-      Return ONLY the JSON object, nothing else.`;
+      IMPORTANT INSTRUCTIONS:
+      1. The 'name' MUST be the first element and should appear at the top of all formats
+      2. Preserve the EXACT order of sections as they appear in the original document
+      3. Include ALL content from the original document - do not omit any information
+      4. Maintain the hierarchical structure exactly as it appears in the original
+      5. For each section, correctly identify if content should be paragraph text or bullet points
+      6. Return ONLY the JSON object, nothing else
+
+      This structure will be used to generate multiple document formats, so accurate preservation of the original structure is CRITICAL.`;
     } else {
       systemPrompt += `
-      Return a JSON object with these properties:
+      Return a JSON object with these properties, maintaining the EXACT order and hierarchy of the original document:
 
       {
         "title": "Document Title",
@@ -374,7 +626,8 @@ async function getStructuredContent(content: string, contentType: string): Promi
             "subsections": [
               {
                 "heading": "Subsection Heading",
-                "content": "Subsection content"
+                "content": "Subsection content",
+                "items": ["Bullet point 1", "Bullet point 2", ...]
               },
               ...
             ]
@@ -383,8 +636,15 @@ async function getStructuredContent(content: string, contentType: string): Promi
         ]
       }
 
-      Include ALL content from the original document. Do not omit any information.
-      Return ONLY the JSON object, nothing else.`;
+      IMPORTANT INSTRUCTIONS:
+      1. The document title MUST be the first element and should appear at the top of all formats
+      2. Preserve the EXACT order of sections as they appear in the original document
+      3. Include ALL content from the original document - do not omit any information
+      4. Maintain the hierarchical structure exactly as it appears in the original
+      5. For each section, correctly identify if content should be paragraph text or bullet points
+      6. Return ONLY the JSON object, nothing else
+
+      This structure will be used to generate multiple document formats, so accurate preservation of the original structure is CRITICAL.`;
     }
 
     const response = await openai.chat.completions.create({
@@ -431,7 +691,7 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
   const paragraphs: Paragraph[] = [];
 
   if (contentType === 'resume' || contentType === 'cv') {
-    // Name as heading
+    // Name as heading - always first
     if (data.name) {
       paragraphs.push(
         new Paragraph({
@@ -493,157 +753,174 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
       }
     }
 
-    // Experience
-    if (data.experience && data.experience.length > 0) {
-      paragraphs.push(
-        new Paragraph({
-          text: 'EXPERIENCE',
-          heading: HeadingLevel.HEADING_2,
-          thematicBreak: true,
-        })
-      );
-
-      data.experience.forEach((job: any) => {
-        // Job title and company
-        paragraphs.push(
-          new Paragraph({
-            children: [
-              new TextRun({
-                text: job.title || '',
-                bold: true,
-              }),
-              new TextRun({
-                text: job.company ? ` at ${job.company}` : '',
-                bold: true,
-              }),
-            ],
-          })
-        );
-
-        // Location and dates
-        const locationDates = [
-          job.location,
-          job.dates
-        ].filter(Boolean).join(' | ');
-
-        if (locationDates) {
+    // Process sections in order
+    if (data.sections && Array.isArray(data.sections)) {
+      data.sections.forEach((section: any) => {
+        // Section title
+        if (section.title) {
           paragraphs.push(
             new Paragraph({
-              text: locationDates,
-              style: 'wellSpaced',
+              text: section.title.toUpperCase(),
+              heading: HeadingLevel.HEADING_2,
+              thematicBreak: true,
             })
           );
         }
 
-        // Responsibilities
-        if (job.responsibilities && job.responsibilities.length > 0) {
-          job.responsibilities.forEach((responsibility: string) => {
-            paragraphs.push(
-              new Paragraph({
-                text: `• ${responsibility}`,
-                indent: { left: 720 }, // 0.5 inch indent
-              })
-            );
+        // Section content
+        if (section.content) {
+          if (Array.isArray(section.content)) {
+            section.content.forEach((item: string) => {
+              paragraphs.push(new Paragraph({ text: item }));
+            });
+          } else {
+            paragraphs.push(new Paragraph({ text: section.content }));
+          }
+        }
+
+        // Subsections
+        if (section.subsections && Array.isArray(section.subsections)) {
+          section.subsections.forEach((subsection: any) => {
+            // Subsection title
+            if (subsection.title) {
+              paragraphs.push(
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: subsection.title,
+                      bold: true,
+                    }),
+                  ],
+                })
+              );
+            }
+
+            // Subsection details
+            if (subsection.details) {
+              paragraphs.push(
+                new Paragraph({
+                  text: subsection.details,
+                  style: 'wellSpaced',
+                })
+              );
+            }
+
+            // Subsection items as bullet points
+            if (subsection.items && Array.isArray(subsection.items)) {
+              subsection.items.forEach((item: string) => {
+                paragraphs.push(
+                  new Paragraph({
+                    text: `• ${item}`,
+                    indent: { left: 720 }, // 0.5 inch indent
+                  })
+                );
+              });
+            }
+
+            // Add spacing after each subsection
+            paragraphs.push(new Paragraph({}));
           });
         }
-
-        // Add spacing after each job
-        paragraphs.push(new Paragraph({}));
       });
     }
 
-    // Education
-    if (data.education && data.education.length > 0) {
-      paragraphs.push(
-        new Paragraph({
-          text: 'EDUCATION',
-          heading: HeadingLevel.HEADING_2,
-          thematicBreak: true,
-        })
-      );
+    // Legacy support for old structure (if present)
+    if (!data.sections && (data.education || data.certifications || data.additionalSections)) {
+      console.log('Using legacy structure for DOCX generation');
 
-      data.education.forEach((edu: any) => {
-        // Degree and institution
+      // Education
+      if (data.education && data.education.length > 0) {
         paragraphs.push(
           new Paragraph({
-            children: [
-              new TextRun({
-                text: edu.degree || '',
-                bold: true,
-              }),
-              new TextRun({
-                text: edu.institution ? ` - ${edu.institution}` : '',
-              }),
-            ],
-          })
-        );
-
-        // Location and dates
-        const locationDates = [
-          edu.location,
-          edu.dates
-        ].filter(Boolean).join(' | ');
-
-        if (locationDates) {
-          paragraphs.push(
-            new Paragraph({
-              text: locationDates,
-            })
-          );
-        }
-
-        // Add spacing after each education entry
-        paragraphs.push(new Paragraph({}));
-      });
-    }
-
-    // Certifications
-    if (data.certifications && data.certifications.length > 0) {
-      paragraphs.push(
-        new Paragraph({
-          text: 'CERTIFICATIONS',
-          heading: HeadingLevel.HEADING_2,
-          thematicBreak: true,
-        })
-      );
-
-      // Add certifications as bullet points or comma-separated list
-      if (Array.isArray(data.certifications)) {
-        data.certifications.forEach((cert: string) => {
-          paragraphs.push(
-            new Paragraph({
-              text: `• ${cert}`,
-            })
-          );
-        });
-      } else {
-        paragraphs.push(new Paragraph({ text: data.certifications }));
-      }
-    }
-
-    // Additional sections
-    if (data.additionalSections) {
-      Object.entries(data.additionalSections).forEach(([sectionName, items]: [string, any]) => {
-        paragraphs.push(
-          new Paragraph({
-            text: sectionName.toUpperCase(),
+            text: 'EDUCATION',
             heading: HeadingLevel.HEADING_2,
             thematicBreak: true,
           })
         );
 
-        if (Array.isArray(items)) {
-          items.forEach((item: string) => {
+        data.education.forEach((edu: any) => {
+          // Degree and institution
+          paragraphs.push(
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: edu.degree || '',
+                  bold: true,
+                }),
+                new TextRun({
+                  text: edu.institution ? ` - ${edu.institution}` : '',
+                }),
+              ],
+            })
+          );
+
+          // Location and dates
+          const locationDates = [
+            edu.location,
+            edu.dates
+          ].filter(Boolean).join(' | ');
+
+          if (locationDates) {
             paragraphs.push(
               new Paragraph({
-                text: `• ${item}`,
+                text: locationDates,
+              })
+            );
+          }
+
+          // Add spacing after each education entry
+          paragraphs.push(new Paragraph({}));
+        });
+      }
+
+      // Certifications
+      if (data.certifications && data.certifications.length > 0) {
+        paragraphs.push(
+          new Paragraph({
+            text: 'CERTIFICATIONS',
+            heading: HeadingLevel.HEADING_2,
+            thematicBreak: true,
+          })
+        );
+
+        // Add certifications as bullet points or comma-separated list
+        if (Array.isArray(data.certifications)) {
+          data.certifications.forEach((cert: string) => {
+            paragraphs.push(
+              new Paragraph({
+                text: `• ${cert}`,
               })
             );
           });
-        } else if (typeof items === 'string') {
-          paragraphs.push(new Paragraph({ text: items }));
+        } else {
+          paragraphs.push(new Paragraph({ text: data.certifications }));
         }
-      });
+      }
+
+      // Additional sections
+      if (data.additionalSections) {
+        Object.entries(data.additionalSections).forEach(([sectionName, items]: [string, any]) => {
+          paragraphs.push(
+            new Paragraph({
+              text: sectionName.toUpperCase(),
+              heading: HeadingLevel.HEADING_2,
+              thematicBreak: true,
+            })
+          );
+
+          if (Array.isArray(items)) {
+            items.forEach((item: string) => {
+              paragraphs.push(
+                new Paragraph({
+                  text: `• ${item}`,
+                })
+              );
+            });
+          } else if (typeof items === 'string') {
+            paragraphs.push(new Paragraph({ text: items }));
+          }
+        });
+      }
     }
   } else {
     // Generic document format
@@ -659,6 +936,7 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
 
     if (data.sections) {
       data.sections.forEach((section: any) => {
+        // Section heading
         if (section.heading) {
           paragraphs.push(
             new Paragraph({
@@ -669,6 +947,7 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
           );
         }
 
+        // Section content
         if (section.content) {
           if (Array.isArray(section.content)) {
             section.content.forEach((para: string) => {
@@ -679,8 +958,10 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
           }
         }
 
+        // Subsections
         if (section.subsections) {
           section.subsections.forEach((subsection: any) => {
+            // Subsection heading
             if (subsection.heading) {
               paragraphs.push(
                 new Paragraph({
@@ -690,6 +971,7 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
               );
             }
 
+            // Subsection content
             if (subsection.content) {
               if (Array.isArray(subsection.content)) {
                 subsection.content.forEach((para: string) => {
@@ -698,6 +980,18 @@ function generateDocxContent(data: any, contentType: string, rawContent: string 
               } else {
                 paragraphs.push(new Paragraph({ text: subsection.content }));
               }
+            }
+
+            // Subsection items as bullet points
+            if (subsection.items && Array.isArray(subsection.items)) {
+              subsection.items.forEach((item: string) => {
+                paragraphs.push(
+                  new Paragraph({
+                    text: `• ${item}`,
+                    indent: { left: 720 }, // 0.5 inch indent
+                  })
+                );
+              });
             }
           });
         }
