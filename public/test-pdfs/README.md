@@ -1,6 +1,40 @@
-# Testing Different PDF Templates
+# PDF Test Suite
 
-This directory contains test PDFs for evaluating how the application handles different resume templates and formats.
+This directory contains a comprehensive set of test PDFs designed to evaluate different aspects of our PDF interpretation system.
+
+## Test Categories
+
+### Color Theory Tests (`/color`)
+
+- **monochromatic.pdf**: Single color family with various shades
+- **high-contrast.pdf**: Bold contrasting colors with clear separation
+- **gradient.pdf**: Multiple gradients throughout the document
+
+### Typography Tests (`/typography`)
+
+- **serif.pdf**: Traditional serif fonts with formal layout
+- **sans-serif.pdf**: Clean sans-serif fonts with varied weights
+- **mixed-typography.pdf**: Combination of serif, sans-serif, and decorative fonts
+
+### Layout Structure Tests (`/layout`)
+
+- **single-column.pdf**: Classic single-column resume layout
+- **multi-column.pdf**: Two or three column layout with sidebar elements
+- **infographic.pdf**: Visual elements integrated with text
+
+### Special Elements Tests (`/special`)
+
+- **image-heavy.pdf**: Profile photo and other images
+- **table-based.pdf**: Skills or experience presented in tables
+- **special-chars.pdf**: International characters and symbols
+
+## Testing Philosophy
+
+These test PDFs embody our three philosophical approaches:
+
+- **Salinger**: Authentic visual interpretation and human-centered design
+- **Hesse**: Precise, analytical test cases with predictable outcomes
+- **Derrida**: Accounting for the "différance" - the unpredictable variations
 
 ## How to Test a PDF Template
 
