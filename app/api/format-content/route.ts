@@ -8,6 +8,7 @@ import {
   ContentTypeSchema,
   ResultSchema
 } from '@/types/schemas';
+import { DanteLogger } from '@/utils/DanteLogger';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -70,7 +71,7 @@ export async function POST(request: NextRequest) {
     } catch (validationError) {
       // Even Zod has failed us! Log the validation error but continue
       if (validationError instanceof Error) {
-        console.error('👑🔥 [Zod/Dante:Circle1] Kneel Before Zod! Validation failed:', validationError.message);
+        DanteLogger.error.validation(`Validation failed: ${validationError.message}`);
       }
     }
 
@@ -100,7 +101,7 @@ export async function POST(request: NextRequest) {
     } catch (validationError) {
       // Even Zod has failed us! Log the validation error but continue
       if (validationError instanceof Error) {
-        console.error('👑🌊 [Zod/Dante:Circle2] Kneel Before Zod! Validation failed:', validationError.message);
+        DanteLogger.error.dataFlow(`Validation failed: ${validationError.message}`);
       }
     }
 
@@ -130,7 +131,7 @@ export async function POST(request: NextRequest) {
 
   // Ensure contentType is always a string
   const contentType = contentTypeResult.data || 'other';
-  console.log(`🔍 [Hesse] Content type detected: ${contentType}`);
+  DanteLogger.success.basic(`Content type detected: ${contentType}`);
 
   // Step 2: Format content based on type and requested format
   let formattedContent;
@@ -156,6 +157,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(errorResponse, { status: 500 });
     }
     formattedContent = result.data;
+    DanteLogger.success.ux(`Content formatted as markdown successfully`);
   } else if (format === 'text') {
     const result = await formatContentAsText(content, contentType);
     if (!result.success) {
@@ -177,6 +179,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(errorResponse, { status: 500 });
     }
     formattedContent = result.data;
+    DanteLogger.success.ux(`Content formatted as text successfully`);
   }
 
   // Prepare the success response
@@ -187,16 +190,17 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    // 👑🧎 "Kneel before Zod!" - Validate our response format
+    // Validate our response format
     FormatContentResponseSchema.parse(successResponse);
 
+    DanteLogger.success.perfection(`Content formatting completed successfully for ${format} format`);
     return NextResponse.json(successResponse);
   } catch (error) {
     // Handle Zod validation errors with Salinger-inspired lightheartedness
     if (error instanceof Error && error.name === 'ZodError') {
-      console.error('👑🔥 [Zod/Dante:Circle6] Kneel Before Zod! Response validation failed:', error.message);
+      DanteLogger.error.config(`Response validation failed: ${error.message}`);
     } else {
-      console.error('Error validating response format:', error);
+      DanteLogger.error.system('Error validating response format', error);
     }
     // Return the response anyway, but log the error
     return NextResponse.json(successResponse);
@@ -246,16 +250,15 @@ async function analyzeContentType(content: string): Promise<Result<string>> {
     // Validate against our schema - "Kneel before Zod!"
     const contentType = ContentTypeSchema.parse(rawContentType);
 
-    console.log(`🔍 [Hesse] Content type validated by Zod: ${contentType}`);
+    DanteLogger.success.core(`Content type validated by Zod: ${contentType}`);
 
     return { success: true, data: contentType };
   } catch (error) {
-    console.error('Error analyzing content type:', error);
+    DanteLogger.error.corruption('Error analyzing content type', error);
 
     // If it's a Zod error, we got an invalid content type from OpenAI
-    // 👑🌶️ "Kneel before Zod!" - Check for Zod validation errors (Dante's 7th Circle)
     if (error instanceof Error && error.name === 'ZodError') {
-      console.error('👑🌶️ [Zod/Dante:Circle7] Kneel Before Zod! Invalid content type received from OpenAI, defaulting to "other"');
+      DanteLogger.error.validation('Invalid content type received from OpenAI, defaulting to "other"');
       return {
         success: true,
         data: 'other',
