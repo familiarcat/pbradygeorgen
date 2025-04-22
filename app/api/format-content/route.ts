@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
+import {
+  FormatContentRequestSchema,
+  FormatContentResponseSchema,
+  ContentTypeSchema,
+  ResultSchema
+} from '@/types/schemas';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -25,27 +31,54 @@ export async function POST(request: NextRequest) {
   try {
     data = await request.json();
   } catch (error) {
-    return NextResponse.json({
+    // "Kneel before Zod!" - Return a properly formatted error response
+    const errorResponse = {
       success: false,
       error: 'Invalid JSON in request body'
-    }, { status: 400 });
+    };
+
+    try {
+      // 👑🧎 "Kneel before Zod!" - Validate our error response format
+      FormatContentResponseSchema.parse(errorResponse);
+    } catch (validationError) {
+      // Even Zod has failed us! Log the validation error but continue
+      if (validationError instanceof Error) {
+        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+      }
+    }
+
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
-  const { filePath, format } = data;
+  // Validate request against our schema
+  const parseResult = FormatContentRequestSchema.safeParse(data);
 
-  if (!filePath) {
-    return NextResponse.json({
+  if (!parseResult.success) {
+    // Extract validation errors from Zod
+    const errorMessage = parseResult.error.errors.map(err =>
+      `${err.path.join('.')}: ${err.message}`
+    ).join(', ');
+
+    const errorResponse = {
       success: false,
-      error: 'File path is required'
-    }, { status: 400 });
+      error: `Invalid request: ${errorMessage}`
+    };
+
+    try {
+      // 👑🧎 "Kneel before Zod!" - Validate our error response format
+      FormatContentResponseSchema.parse(errorResponse);
+    } catch (validationError) {
+      // Even Zod has failed us! Log the validation error but continue
+      if (validationError instanceof Error) {
+        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+      }
+    }
+
+    return NextResponse.json(errorResponse, { status: 400 });
   }
 
-  if (!format || !['markdown', 'text'].includes(format)) {
-    return NextResponse.json({
-      success: false,
-      error: 'Valid format (markdown or text) is required'
-    }, { status: 400 });
-  }
+  // Extract validated data
+  const { filePath, format } = parseResult.data;
 
   // Read the file content
   const fullPath = path.join(process.cwd(), 'public', filePath);
@@ -55,19 +88,44 @@ export async function POST(request: NextRequest) {
     content = fs.readFileSync(fullPath, 'utf8');
   } catch (error) {
     console.error(`Error reading file ${fullPath}:`, error);
-    return NextResponse.json({
+
+    const errorResponse = {
       success: false,
       error: 'Failed to read file'
-    }, { status: 500 });
+    };
+
+    try {
+      // 👑🧎 "Kneel before Zod!" - Validate our error response format
+      FormatContentResponseSchema.parse(errorResponse);
+    } catch (validationError) {
+      // Even Zod has failed us! Log the validation error but continue
+      if (validationError instanceof Error) {
+        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+      }
+    }
+
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 
   // Step 1: Analyze content type
   const contentTypeResult = await analyzeContentType(content);
   if (!contentTypeResult.success) {
-    return NextResponse.json({
+    const errorResponse = {
       success: false,
       error: contentTypeResult.error || 'Failed to analyze content type'
-    }, { status: 500 });
+    };
+
+    try {
+      // 👑🧎 "Kneel before Zod!" - Validate our error response format
+      FormatContentResponseSchema.parse(errorResponse);
+    } catch (validationError) {
+      // Even Zod has failed us! Log the validation error but continue
+      if (validationError instanceof Error) {
+        console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+      }
+    }
+
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 
   // Ensure contentType is always a string
@@ -80,28 +138,69 @@ export async function POST(request: NextRequest) {
   if (format === 'markdown') {
     const result = await formatContentAsMarkdown(content, contentType);
     if (!result.success) {
-      return NextResponse.json({
+      const errorResponse = {
         success: false,
         error: result.error || 'Failed to format content as markdown'
-      }, { status: 500 });
+      };
+
+      try {
+        // 👑🧎 "Kneel before Zod!" - Validate our error response format
+        FormatContentResponseSchema.parse(errorResponse);
+      } catch (validationError) {
+        // Even Zod has failed us! Log the validation error but continue
+        if (validationError instanceof Error) {
+          console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+        }
+      }
+
+      return NextResponse.json(errorResponse, { status: 500 });
     }
     formattedContent = result.data;
   } else if (format === 'text') {
     const result = await formatContentAsText(content, contentType);
     if (!result.success) {
-      return NextResponse.json({
+      const errorResponse = {
         success: false,
         error: result.error || 'Failed to format content as text'
-      }, { status: 500 });
+      };
+
+      try {
+        // 👑🧎 "Kneel before Zod!" - Validate our error response format
+        FormatContentResponseSchema.parse(errorResponse);
+      } catch (validationError) {
+        // Even Zod has failed us! Log the validation error but continue
+        if (validationError instanceof Error) {
+          console.error('👑🧎 [Zod] Error response validation failed:', validationError.message);
+        }
+      }
+
+      return NextResponse.json(errorResponse, { status: 500 });
     }
     formattedContent = result.data;
   }
 
-  return NextResponse.json({
+  // Prepare the success response
+  const successResponse = {
     success: true,
     contentType,
     formattedContent
-  });
+  };
+
+  try {
+    // 👑🧎 "Kneel before Zod!" - Validate our response format
+    FormatContentResponseSchema.parse(successResponse);
+
+    return NextResponse.json(successResponse);
+  } catch (error) {
+    // Handle Zod validation errors with Salinger-inspired lightheartedness
+    if (error instanceof Error && error.name === 'ZodError') {
+      console.error('👑🧎 [Zod] Response format validation failed:', error.message);
+    } else {
+      console.error('Error validating response format:', error);
+    }
+    // Return the response anyway, but log the error
+    return NextResponse.json(successResponse);
+  }
 }
 
 /**
@@ -141,11 +240,30 @@ async function analyzeContentType(content: string): Promise<Result<string>> {
       max_tokens: 20,
     });
 
-    const contentType = response.choices[0]?.message?.content?.trim().toLowerCase() || 'other';
+    // Extract the content type from the response
+    const rawContentType = response.choices[0]?.message?.content?.trim().toLowerCase() || 'other';
+
+    // Validate against our schema - "Kneel before Zod!"
+    const contentType = ContentTypeSchema.parse(rawContentType);
+
+    console.log(`🔍 [Hesse] Content type validated by Zod: ${contentType}`);
+
     return { success: true, data: contentType };
   } catch (error) {
     console.error('Error analyzing content type:', error);
-    // Default to 'other' if analysis fails
+
+    // If it's a Zod error, we got an invalid content type from OpenAI
+    // 👑🧎 "Kneel before Zod!" - Check for Zod validation errors
+    if (error instanceof Error && error.name === 'ZodError') {
+      console.error('👑🧎 [Zod] Invalid content type received from OpenAI, defaulting to "other"');
+      return {
+        success: true,
+        data: 'other',
+        error: `Invalid content type: ${error.message}`
+      };
+    }
+
+    // Default to 'other' for any other errors
     return {
       success: true,
       data: 'other',
