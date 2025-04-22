@@ -15,7 +15,6 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   // Loading states for different download formats
   const [isLoadingMd, setIsLoadingMd] = useState(false);
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
-  const [isLoadingDocx, setIsLoadingDocx] = useState(false);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -214,79 +213,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                 'Text Format'
               )}
             </a>
-            <a
-              href="#"
-              onClick={async (e) => {
-                e.preventDefault();
-                setIsLoadingDocx(true);
 
-                try {
-                  // Call our server-side API to format the content
-                  const apiResponse = await fetch('/api/format-content', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      filePath: '/extracted/resume_content.md',
-                      format: 'docx'
-                    }),
-                  });
-
-                  if (!apiResponse.ok) {
-                    throw new Error(`API responded with status: ${apiResponse.status}`);
-                  }
-
-                  const result = await apiResponse.json();
-
-                  if (!result.success) {
-                    throw new Error(result.error || 'Unknown error');
-                  }
-
-                  // Log the detected content type
-                  console.log(`Content type detected: ${result.contentType}`);
-
-                  // Create and download the file from base64 buffer
-                  if (result.contentBuffer) {
-                    const binaryString = window.atob(result.contentBuffer);
-                    const bytes = new Uint8Array(binaryString.length);
-                    for (let i = 0; i < binaryString.length; i++) {
-                      bytes[i] = binaryString.charCodeAt(i);
-                    }
-
-                    const blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'pbradygeorgen_resume.docx';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                  } else {
-                    throw new Error('No document content received');
-                  }
-                } catch (error) {
-                  console.error('Error generating Word document:', error);
-                  alert('Failed to generate Word document. Please try again.');
-                } finally {
-                  setIsLoadingDocx(false);
-                }
-              }}
-              className={styles.downloadOption}
-            >
-              {isLoadingDocx ? (
-                <span className={styles.loadingText}>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Generating...
-                </span>
-              ) : (
-                'Word Format'
-              )}
-            </a>
           </div>
         </div>
         <span className={styles.actionSeparator}>•</span>
