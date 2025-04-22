@@ -5,12 +5,14 @@ interface SalingerHeaderProps {
   onDownload?: () => void;
   onViewSummary?: () => void;
   onContact?: () => void;
+  fileName?: string;
 }
 
 const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onDownload,
   onViewSummary,
-  onContact
+  onContact,
+  fileName = 'resume'
 }) => {
   // Loading states for different download formats
   const [isLoadingMd, setIsLoadingMd] = useState(false);
@@ -119,7 +121,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
                   a.href = url;
-                  a.download = 'pbradygeorgen_resume.md';
+                  a.download = `${fileName}.md`;
                   document.body.appendChild(a);
                   a.click();
                   document.body.removeChild(a);
@@ -187,7 +189,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement('a');
                   a.href = url;
-                  a.download = 'pbradygeorgen_resume.txt';
+                  a.download = `${fileName}.txt`;
                   document.body.appendChild(a);
                   a.click();
                   document.body.removeChild(a);
