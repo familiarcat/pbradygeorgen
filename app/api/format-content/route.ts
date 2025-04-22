@@ -281,7 +281,7 @@ async function formatContentAsDocx(content: string, contentType: string): Promis
       sections: [
         {
           properties: {},
-          children: generateDocxContent(structuredContent, contentType),
+          children: generateDocxContent(structuredContent, contentType, content),
         },
       ],
     });
@@ -424,9 +424,10 @@ async function getStructuredContent(content: string, contentType: string): Promi
  * Generate DOCX content from structured data
  * @param data Structured content data
  * @param contentType The type of content
+ * @param rawContent Original raw content as fallback
  * @returns Array of DOCX paragraphs
  */
-function generateDocxContent(data: any, contentType: string): Paragraph[] {
+function generateDocxContent(data: any, contentType: string, rawContent: string = ''): Paragraph[] {
   const paragraphs: Paragraph[] = [];
 
   if (contentType === 'resume' || contentType === 'cv') {
@@ -709,7 +710,7 @@ function generateDocxContent(data: any, contentType: string): Paragraph[] {
 
   // If we somehow ended up with no paragraphs, add the raw content
   if (paragraphs.length === 0) {
-    paragraphs.push(new Paragraph({ text: content }));
+    paragraphs.push(new Paragraph({ text: rawContent }));
   }
 
   return paragraphs;
