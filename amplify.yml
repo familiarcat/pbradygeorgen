@@ -3,23 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Setting up build environment"
-        - node -v
-        - npm -v
-        - echo "Creating .npmrc file"
-        - echo "engine-strict=false" > .npmrc
-        - echo "ignore-engines=true" >> .npmrc
-        - echo "legacy-peer-deps=true" >> .npmrc
-        - cat .npmrc
-        - echo "Cleaning up package.json"
-        - node amplify-cleanup.js
-        - cat package.json
-        - npm install --legacy-peer-deps
+        - npm install
     build:
       commands:
-        - echo "Building with NODE_ENV=production"
-        - export NODE_OPTIONS=--max_old_space_size=4096
-        - NODE_ENV=production npm run build
+        - npm run build
   artifacts:
     baseDirectory: .next
     files:
