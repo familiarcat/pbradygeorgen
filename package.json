@@ -22,7 +22,7 @@
     "next": "15.3.1",
     "openai": "^4.95.1",
     "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^5.1.91",
+    "pdfjs-dist": "^3.11.174",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -49,10 +49,6 @@
     "npm": ">=8.0.0"
   },
   "overrides": {
-    "pdfjs-dist": {
-      "engines": {
-        "node": ">=14.0.0"
-      }
-    }
+    "pdfjs-dist": "^3.11.174"
   }
 }
