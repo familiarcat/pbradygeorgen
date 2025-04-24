@@ -10,10 +10,15 @@ import {
 } from '@/types/schemas';
 import { DanteLogger } from '@/utils/DanteLogger';
 
-// Initialize OpenAI client
+// Initialize OpenAI client with fallback for build-time
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time',
 });
+
+// Function to check if OpenAI API key is available
+function isOpenAIKeyAvailable(): boolean {
+  return !!process.env.OPENAI_API_KEY;
+}
 
 // Define a Result type for better error handling
 type Result<T> = {
@@ -214,6 +219,12 @@ export async function POST(request: NextRequest) {
  */
 async function analyzeContentType(content: string): Promise<Result<string>> {
   try {
+    // Check if OpenAI API key is available
+    if (!isOpenAIKeyAvailable()) {
+      DanteLogger.warn.deprecated('OpenAI API key is not available, using default content type');
+      return { success: true, data: 'resume' };
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -327,6 +338,15 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   }
 
   try {
+    // Check if OpenAI API key is available
+    if (!isOpenAIKeyAvailable()) {
+      DanteLogger.warn.deprecated('OpenAI API key is not available, returning default markdown');
+      return {
+        success: true,
+        data: `# P. Brady Georgen\n\n## Senior Software Developer\n\n${content}`
+      };
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -410,6 +430,15 @@ async function formatContentAsText(content: string, contentType: string): Promis
   }
 
   try {
+    // Check if OpenAI API key is available
+    if (!isOpenAIKeyAvailable()) {
+      DanteLogger.warn.deprecated('OpenAI API key is not available, returning default text');
+      return {
+        success: true,
+        data: `P. BRADY GEORGEN\n\nSENIOR SOFTWARE DEVELOPER\n\n${content}`
+      };
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [

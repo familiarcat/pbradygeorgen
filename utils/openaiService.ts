@@ -2,11 +2,15 @@ import OpenAI from 'openai';
 import { cacheService } from './cacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 
-// Initialize the OpenAI client
-// In production, use environment variables for the API key
+// Initialize the OpenAI client with fallback for build-time
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time',
 });
+
+// Function to check if OpenAI API key is available
+function isOpenAIKeyAvailable(): boolean {
+  return !!process.env.OPENAI_API_KEY;
+}
 
 // Types are now imported from @/types/openai
 
@@ -17,6 +21,40 @@ const openai = new OpenAI({
  */
 export async function analyzeResume(resumeContent: string, forceRefresh = false): Promise<ResumeAnalysisResponse> {
   try {
+    // Check if OpenAI API key is available
+    if (!isOpenAIKeyAvailable()) {
+      console.log('OpenAI API key is not available, returning mock data');
+      return {
+        summary: "I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.",
+        keySkills: [
+          "Full Stack Development",
+          "JavaScript/TypeScript",
+          "React/React Native",
+          "AWS",
+          "UI/UX Design",
+          "Creative Technology"
+        ],
+        yearsOfExperience: "I've been in the industry for over 15 years, continuously learning and evolving with technology",
+        educationLevel: "I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving",
+        careerHighlights: [
+          "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
+          "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
+          "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
+        ],
+        industryExperience: [
+          "Business Solutions",
+          "Communications",
+          "Healthcare/Pharmaceutical",
+          "Financial Services"
+        ],
+        recommendations: [
+          "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
+          "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
+          "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
+        ]
+      };
+    }
+
     // Generate a cache key based on the resume content
     const cacheKey = cacheService.generateCacheKey(resumeContent);
 
