@@ -51,5 +51,8 @@
   },
   "overrides": {
     "pdfjs-dist": "^3.11.174"
+  },
+  "resolutions": {
+    "pdfjs-dist": "^3.11.174"
   }
 }
