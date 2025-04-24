@@ -20,10 +20,9 @@ const nextConfig = {
   },
   // Improve build performance
   poweredByHeader: false,
-  // Output configuration for production builds
-  output: 'standalone',
-  // Ensure static assets are copied to the standalone output
-  outputFileTracingRoot: process.cwd(),
+  // Use the default export mode instead of standalone for better static asset handling
+  // output: 'standalone',
+  // outputFileTracingRoot: process.cwd(),
 };
 
 module.exports = nextConfig;
