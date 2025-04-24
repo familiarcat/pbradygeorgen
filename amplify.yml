@@ -10,7 +10,11 @@ frontend:
         - echo "engine-strict=false" > .npmrc
         - echo "ignore-engines=true" >> .npmrc
         - cat .npmrc
-        - npm ci --production=false --ignore-engines
+        - echo "Cleaning up package.json and package-lock.json"
+        - rm -f package-lock.json
+        - node cleanup-package.js
+        - cat package.json
+        - npm install --legacy-peer-deps --no-package-lock
     build:
       commands:
         - echo "Building with NODE_ENV=production"
