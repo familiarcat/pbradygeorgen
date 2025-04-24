@@ -7,7 +7,7 @@
     "dev:smart": "./dev-with-build.sh",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",
-    "start": "node server.js",
+    "start": "node .next/standalone/server.js",
     "start:next": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

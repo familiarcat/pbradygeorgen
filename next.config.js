@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Removed 'output: export' to enable SSR capabilities
+  // Webpack configuration
   webpack: (config) => {
     // Ignore canvas dependency
     config.resolve.alias.canvas = false;
@@ -10,7 +10,9 @@ const nextConfig = {
 
     return config;
   },
+  // React strict mode
   reactStrictMode: true,
+  // ESLint configuration
   eslint: {
     // Ignore ESLint errors during builds to prevent blocking deployment
     ignoreDuringBuilds: true,
@@ -18,6 +20,10 @@ const nextConfig = {
   },
   // Improve build performance
   poweredByHeader: false,
+  // Output configuration for production builds
+  output: 'standalone',
+  // Ensure static assets are copied to the standalone output
+  outputFileTracingRoot: process.cwd(),
 };
 
 module.exports = nextConfig;
