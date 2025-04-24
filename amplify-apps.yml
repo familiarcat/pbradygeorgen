@@ -1,0 +1,30 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - echo "Setting up build environment"
+            - node -v
+            - npm -v
+            - echo "Creating .npmrc file"
+            - echo "engine-strict=false" > .npmrc
+            - echo "ignore-engines=true" >> .npmrc
+            - echo "legacy-peer-deps=true" >> .npmrc
+            - cat .npmrc
+            - echo "Cleaning up package.json"
+            - node amplify-cleanup.js
+            - cat package.json
+            - npm install --legacy-peer-deps
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - .next/cache/**/*
+    appRoot: .
