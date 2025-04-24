@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import PDFAnalyzer from './PDFAnalyzer';
 import DynamicThemeProvider from './DynamicThemeProvider';
 import SalingerHeader from './SalingerHeader';
-import UploadModal from './UploadModal';
+// import UploadModal from './UploadModal'; // Temporarily disabled
 import { DanteLogger } from '@/utils/DanteLogger';
 
 export default function SimplePDFViewer() {
@@ -24,8 +24,8 @@ export default function SimplePDFViewer() {
   // PDF analysis toggle
   const [showAnalyzer, setShowAnalyzer] = useState(false);
 
-  // Upload modal state
-  const [showUploadModal, setShowUploadModal] = useState(false);
+  // Upload modal state - temporarily disabled
+  // const [showUploadModal, setShowUploadModal] = useState(false);
 
   // Set up basic event listeners for UI visibility
   useEffect(() => {
@@ -147,23 +147,17 @@ export default function SimplePDFViewer() {
     window.location.href = 'mailto:brady@pbradygeorgen.com';
   };
 
-  // Handle upload action
+  // Handle upload action - temporarily disabled
   const handleUpload = () => {
-    setShowUploadModal(true);
-    DanteLogger.success.ux('Upload modal opened');
+    // Upload functionality temporarily disabled
+    console.log('Upload functionality temporarily disabled');
+    DanteLogger.warn.deprecated('Upload functionality temporarily disabled');
   };
 
-  // Handle PDF uploaded
+  // Handle PDF uploaded - temporarily disabled
   const handlePdfUploaded = (url: string, fileName: string) => {
-    // Reset the PDF loading state
-    setPdfLoaded(false);
-    setPdfVisible(false);
-
-    // Update the PDF URL and name
-    setPdfUrl(url);
-    setPdfName(fileName.replace(/^\d+_/, '').replace(/\.pdf$/i, ''));
-
-    DanteLogger.success.core('PDF changed successfully', { url, fileName });
+    // Upload functionality temporarily disabled
+    console.log('Upload functionality temporarily disabled');
   };
 
   return (
@@ -178,12 +172,13 @@ export default function SimplePDFViewer() {
           fileName={pdfName}
         />
 
-        {/* Upload Modal */}
+        {/* Upload Modal - temporarily disabled
         <UploadModal
           isOpen={showUploadModal}
           onClose={() => setShowUploadModal(false)}
           onPdfUploaded={handlePdfUploaded}
         />
+        */}
 
         {/* No overlay - we'll use window event listeners instead */}
         {/* Loading indicator - shown until PDF is loaded */}

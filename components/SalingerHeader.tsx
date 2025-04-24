@@ -236,6 +236,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           Contact
         </a>
         <span className={styles.actionSeparator}>•</span>
+        {/* Upload PDF feature temporarily disabled
         <a
           href="#"
           className={styles.actionLink}
@@ -244,6 +245,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         >
           Upload PDF
         </a>
+        */}
 
       </nav>
     </header>
