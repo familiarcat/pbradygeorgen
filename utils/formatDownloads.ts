@@ -245,9 +245,17 @@ function formatBasicMarkdown(content: string): string {
   // Start with a clean header
   formatted += `# P. Brady Georgen\n\n`;
   formatted += `## Professional Summary\n\n`;
-  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n`;
+  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n`;
 
-  // Add main sections
+  // Add contact information
+  formatted += `## Contact Information\n\n`;
+  formatted += `4350 A De Tonty St  \n`;
+  formatted += `St. Louis, MO  \n`;
+  formatted += `(314) 580-0608  \n`;
+  formatted += `pbradygeorgen.com  \n`;
+  formatted += `brady@pbradygeorgen.com\n\n`;
+
+  // Add experience section
   formatted += `## Experience\n\n`;
 
   // Process the content
@@ -276,7 +284,27 @@ function formatBasicMarkdown(content: string): string {
 
     // Skills section
     else if (line.trim().match(/^(SKILLS|EXPERTISE|PROFICIENCIES)/i)) {
-      formatted += `\n## Skills\n\n`;
+      formatted += `\n## Skills & Technologies\n\n`;
+
+      // Add Core Skills subsection
+      formatted += `### Core Skills\n\n`;
+      formatted += `- **Full Stack Development**\n`;
+      formatted += `- **JavaScript/TypeScript**\n`;
+      formatted += `- **Graphic Design & UI/UX**\n`;
+      formatted += `- **React & React Native**\n`;
+      formatted += `- **AWS & Cloud Architecture**\n`;
+      formatted += `- **Illustration**\n`;
+      formatted += `- **Creative/Technical Writing**\n\n`;
+
+      // Add Technical Skills subsection
+      formatted += `### Technical Skills\n\n`;
+      formatted += `- **Frontend**: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n`;
+      formatted += `- **Backend**: Node.js, Ruby, Java\n`;
+      formatted += `- **Cloud & Infrastructure**: AWS, AWS Amplify, Docker, Terraform\n`;
+      formatted += `- **Database**: MongoDB, SQL\n`;
+      formatted += `- **DevOps**: CI/CD, Jenkins, Shell Automation\n`;
+      formatted += `- **Architecture**: SOA (Service-Oriented Architecture)\n`;
+      formatted += `- **Design**: Adobe Creative Suite\n\n`;
     }
 
     // Job titles or companies (assuming they often have years in parentheses)
@@ -332,7 +360,15 @@ function formatBasicText(content: string): string {
 
   // Add professional summary
   formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n`;
-  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n\n`;
+  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n\n`;
+
+  // Add contact information
+  formatted += `CONTACT INFORMATION\n${'-'.repeat(19)}\n\n`;
+  formatted += `  4350 A De Tonty St\n`;
+  formatted += `  St. Louis, MO\n`;
+  formatted += `  (314) 580-0608\n`;
+  formatted += `  pbradygeorgen.com\n`;
+  formatted += `  brady@pbradygeorgen.com\n\n\n`;
 
   // Add experience section
   formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;
@@ -363,7 +399,27 @@ function formatBasicText(content: string): string {
 
     // Skills section
     else if (line.trim().match(/^(SKILLS|EXPERTISE|PROFICIENCIES)/i)) {
-      formatted += `\n\nSKILLS\n${'-'.repeat(6)}\n\n`;
+      formatted += `\n\nSKILLS & TECHNOLOGIES\n${'-'.repeat(20)}\n\n`;
+
+      // Add Core Skills subsection
+      formatted += `  CORE COMPETENCIES:\n`;
+      formatted += `    * Full Stack Development\n`;
+      formatted += `    * JavaScript/TypeScript\n`;
+      formatted += `    * Graphic Design & UI/UX\n`;
+      formatted += `    * React & React Native\n`;
+      formatted += `    * AWS & Cloud Architecture\n`;
+      formatted += `    * Illustration\n`;
+      formatted += `    * Creative/Technical Writing\n\n`;
+
+      // Add Technical Skills subsection
+      formatted += `  TECHNOLOGIES:\n`;
+      formatted += `    * Frontend: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n`;
+      formatted += `    * Backend: Node.js, Ruby, Java\n`;
+      formatted += `    * Cloud & Infrastructure: AWS, AWS Amplify, Docker, Terraform\n`;
+      formatted += `    * Database: MongoDB, SQL\n`;
+      formatted += `    * DevOps: CI/CD, Jenkins, Shell Automation\n`;
+      formatted += `    * Architecture: SOA (Service-Oriented Architecture)\n`;
+      formatted += `    * Design: Adobe Creative Suite\n\n`;
     }
 
     // Job titles or companies (assuming they often have years in parentheses)

@@ -311,7 +311,8 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
        - ## Education (organize all education chronologically, most recent first)
 
     3. For the Experience section, CRITICALLY IMPORTANT:
-       - Organize ALL entries by date (most recent first)
+       - STRICTLY organize ALL entries by date (most recent first) - this is absolutely essential
+       - Daugherty Business Solutions (2014-2023) should be listed FIRST, followed by Digital Ronan (2022-Present), then other positions in chronological order
        - Use level 3 headings (### Company Name) for primary employers/companies
        - Format job titles in bold (**Job Title**)
        - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
@@ -339,19 +340,42 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
        - Use level 3 headings (### Degree)
        - Format institution and date range on the next line, e.g., **Institution** (Year-Year)
        - Organize chronologically (most recent first)
+       - Ensure proper visual nesting by using consistent formatting for all education entries
 
-    5. For Skills & Technologies:
-       - Group related skills together
-       - Use bullet points for each skill or skill group
-       - Highlight key skills with bold formatting
+    5. For Skills & Technologies section (VERY IMPORTANT):
+       - Create two distinct subsections:
+         * Core Skills: List primary skills with bullet points and bold formatting
+         * Technical Skills: Create a comprehensive, organized list of all technologies mentioned
+       - Include ALL technologies mentioned in the resume: React, React Native, AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Shell Automation, Node, Ruby, Java, Javascript, Typescript, Adobe CS, UI/UX Prototyping
+       - Group related technologies together (e.g., Frontend, Backend, Cloud, DevOps)
+       - Format as a clean, well-organized list that showcases the breadth of technical expertise
+       - Example structure:
+         ## Skills & Technologies
 
-    6. Ensure the visual hierarchy is clear through consistent formatting:
+         ### Core Skills
+         - **Full Stack Development**
+         - **JavaScript/TypeScript**
+         - **Graphic Design & UI/UX**
+         - **Illustration**
+         - **Creative/Technical Writing**
+
+         ### Technical Skills
+         - **Frontend**: React, React Native, JavaScript, TypeScript, UI/UX Prototyping
+         - **Backend**: Node.js, Ruby, Java
+         - **Cloud & Infrastructure**: AWS, AWS Amplify, Docker, Terraform
+         - **Database**: MongoDB, SQL
+         - **DevOps**: CI/CD, Jenkins, Shell Automation
+         - **Architecture**: SOA (Service-Oriented Architecture)
+         - **Design**: Adobe Creative Suite
+
+    6. Ensure the visual hierarchy is clear through consistent formatting and indentation:
        - Level 1 (# Heading): Name
        - Level 2 (## Heading): Main sections (Summary, Contact, Experience, Skills, Education)
-       - Level 3 (### Heading): Primary employers, Degrees
+       - Level 3 (### Heading): Primary employers, Degrees, Skill categories
        - Level 4 (#### Client: Name): Client engagements under consultancy employers
-       - Bold text: Job titles, important skills
+       - Bold text: Job titles, important skills, technology categories
        - Bullet points: Responsibilities, achievements, skills
+       - Use proper indentation to visually reinforce the hierarchical relationships
 
     7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
@@ -469,16 +493,28 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '- Assisted with design, development, and marketing initiatives\n';
       formattedContent += '- Contributed to various software projects\n\n';
 
-      // Add skills section
+      // Add skills section with Core Skills and Technical Skills subsections
       formattedContent += '## Skills & Technologies\n\n';
+
+      // Core Skills subsection
+      formattedContent += '### Core Skills\n\n';
       formattedContent += '- **Full Stack Development**\n';
       formattedContent += '- **JavaScript/TypeScript**\n';
       formattedContent += '- **Graphic Design & UI/UX**\n';
       formattedContent += '- **React & React Native**\n';
       formattedContent += '- **AWS & Cloud Architecture**\n';
-      formattedContent += '- Illustration\n';
-      formattedContent += '- Creative/Technical writing\n\n';
-      formattedContent += '**Technologies:** AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Node, Ruby, Java, Adobe CS, UI/UX Prototyping\n\n';
+      formattedContent += '- **Illustration**\n';
+      formattedContent += '- **Creative/Technical Writing**\n\n';
+
+      // Technical Skills subsection with grouped technologies
+      formattedContent += '### Technical Skills\n\n';
+      formattedContent += '- **Frontend**: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n';
+      formattedContent += '- **Backend**: Node.js, Ruby, Java\n';
+      formattedContent += '- **Cloud & Infrastructure**: AWS, AWS Amplify, Docker, Terraform\n';
+      formattedContent += '- **Database**: MongoDB, SQL\n';
+      formattedContent += '- **DevOps**: CI/CD, Jenkins, Shell Automation\n';
+      formattedContent += '- **Architecture**: SOA (Service-Oriented Architecture)\n';
+      formattedContent += '- **Design**: Adobe Creative Suite\n\n';
 
       // Add education section
       formattedContent += '## Education\n\n';
