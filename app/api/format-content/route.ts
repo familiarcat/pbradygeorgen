@@ -299,7 +299,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
+    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Apply Hesse-like logical analysis to identify organizational relationships, particularly for consultancy/agency work. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
     1. Start with the person's name (P. Brady Georgen) as a level 1 heading (# Name) - make it stand out but feel personal
 
@@ -312,14 +312,28 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
 
     3. For the Experience section, CRITICALLY IMPORTANT:
        - Organize ALL entries by date (most recent first)
-       - Use level 3 headings (### Company Name) for organizations
+       - Use level 3 headings (### Company Name) for primary employers/companies
        - Format job titles in bold (**Job Title**)
        - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
-       - For Daugherty Business Solutions specifically:
-         * List client work (Cox, Bayer, Charter, Mastercard) as level 4 headings (#### Client Name) UNDER Daugherty
-         * Each client project should be nested under Daugherty, not as separate main entries
+       - Include a brief description of responsibilities directly under each job title
+
+       - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
+         * First list general responsibilities at the consultancy firm
+         * Then use level 4 headings (#### Client: Client Name) to list client engagements
+         * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
          * Format client work descriptions as bullet points under each client heading
-       - For all other companies, list responsibilities and achievements as bullet points directly under the job
+         * DO NOT create a separate "Client Work" section - all client work must be nested under the employer
+         * Example structure:
+           ### Daugherty Business Solutions
+           **Sr. Software Developer (III)** (2014 - 2023)
+           - Led development of enterprise applications
+           - Implemented solutions using modern web technologies
+
+           #### Client: Bayer
+           - Architected and developed enterprise-scale applications
+
+           #### Client: Charter Communications
+           - Engineered interactive call center solutions
 
     4. For Education entries:
        - Use level 3 headings (### Degree)
@@ -334,14 +348,14 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
     6. Ensure the visual hierarchy is clear through consistent formatting:
        - Level 1 (# Heading): Name
        - Level 2 (## Heading): Main sections (Summary, Contact, Experience, Skills, Education)
-       - Level 3 (### Heading): Companies, Degrees
-       - Level 4 (#### Heading): Clients (under Daugherty)
+       - Level 3 (### Heading): Primary employers, Degrees
+       - Level 4 (#### Client: Name): Client engagements under consultancy employers
        - Bold text: Job titles, important skills
        - Bullet points: Responsibilities, achievements, skills
 
     7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-    8. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
+    8. IMPORTANT: There should be NO separate "Client Work" section. All client work must be nested under the appropriate employer in the Experience section.
 
     9. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -401,45 +415,59 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '### Daugherty Business Solutions\n\n';
       formattedContent += '**Sr. Software Developer (III)** (2014 - 2023)\n\n';
       formattedContent += '- Led development of enterprise applications\n';
-      formattedContent += '- Implemented solutions using modern web technologies\n\n';
+      formattedContent += '- Implemented solutions using modern web technologies\n';
+      formattedContent += '- Collaborated with cross-functional teams to deliver high-quality software solutions\n\n';
 
-      // Client work nested under Daugherty
-      formattedContent += '#### Bayer\n\n';
+      // Client work nested under Daugherty with "Client:" prefix
+      formattedContent += '#### Client: Bayer\n\n';
       formattedContent += '- Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures\n';
       formattedContent += '- Upheld Agile best practices throughout development lifecycle\n\n';
 
-      formattedContent += '#### Charter Communications\n\n';
-      formattedContent += '- Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n\n';
+      formattedContent += '#### Client: Charter Communications\n\n';
+      formattedContent += '- Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n';
+      formattedContent += '- Implemented user-friendly interfaces for call center operations\n\n';
 
-      formattedContent += '#### Mastercard\n\n';
+      formattedContent += '#### Client: Mastercard\n\n';
       formattedContent += '- Developed comprehensive onboarding documentation, sample code, and API integration\n';
       formattedContent += '- Supported the MasterPass online purchasing initiative\n\n';
 
-      formattedContent += '#### Cox Communications\n\n';
+      formattedContent += '#### Client: Cox Communications\n\n';
       formattedContent += '- Implemented scaffolding framework for modular React applications\n';
-      formattedContent += '- Integrated with Adobe Content Manager\n\n';
+      formattedContent += '- Integrated with Adobe Content Manager\n';
+      formattedContent += '- Developed reusable component libraries\n\n';
 
       // Digital Ronan
       formattedContent += '### Digital Ronan (freelance)\n\n';
       formattedContent += '**Consultant & Creative Technologist** (2022 - Present)\n\n';
       formattedContent += '- Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '- Applying skills in web development, networking, and design\n\n';
+      formattedContent += '- Applying skills in web development, networking, and design\n';
+      formattedContent += '- Creating custom digital solutions for small to medium businesses\n\n';
 
       // Add other experience entries chronologically
       formattedContent += '### Deliveries on Demand\n\n';
       formattedContent += '**Lead Software Developer** (2011 - 2013)\n\n';
+      formattedContent += '- Developed and maintained delivery management software\n';
+      formattedContent += '- Led a team of developers in creating mobile applications\n\n';
 
       formattedContent += '### Infuze\n\n';
       formattedContent += '**Sr. Developer/Asst. Art Director** (2009 - 2011)\n\n';
+      formattedContent += '- Combined technical development with creative design direction\n';
+      formattedContent += '- Created digital marketing solutions for clients\n\n';
 
       formattedContent += '### Touchwood Creative\n\n';
       formattedContent += '**Lead Software Developer** (2008 - 2009)\n\n';
+      formattedContent += '- Developed custom web applications for clients\n';
+      formattedContent += '- Implemented creative digital solutions\n\n';
 
       formattedContent += '### ThinkTank (freelance)\n\n';
       formattedContent += '**Software and Creative Director** (2005 - 2008)\n\n';
+      formattedContent += '- Provided software development and creative direction services\n';
+      formattedContent += '- Managed client relationships and project deliverables\n\n';
 
       formattedContent += '### Asynchrony Solutions\n\n';
       formattedContent += '**Designer/Developer/Marketing Asst.** (2005)\n\n';
+      formattedContent += '- Assisted with design, development, and marketing initiatives\n';
+      formattedContent += '- Contributed to various software projects\n\n';
 
       // Add skills section
       formattedContent += '## Skills & Technologies\n\n';
@@ -447,6 +475,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '- **JavaScript/TypeScript**\n';
       formattedContent += '- **Graphic Design & UI/UX**\n';
       formattedContent += '- **React & React Native**\n';
+      formattedContent += '- **AWS & Cloud Architecture**\n';
       formattedContent += '- Illustration\n';
       formattedContent += '- Creative/Technical writing\n\n';
       formattedContent += '**Technologies:** AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Node, Ruby, Java, Adobe CS, UI/UX Prototyping\n\n';
@@ -510,7 +539,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
+    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Apply Hesse-like logical analysis to identify organizational relationships, particularly for consultancy/agency work. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
     1. Start with the person's name (P. BRADY GEORGEN) in ALL CAPS - make it stand out but feel personal
 
@@ -523,18 +552,32 @@ async function formatContentAsText(content: string, contentType: string): Promis
 
     3. For the Experience section, CRITICALLY IMPORTANT:
        - Organize ALL entries by date (most recent first)
-       - Use Title Case with proper indentation for company names
-       - Format job titles on the next line with proper indentation
+       - Use Title Case with proper indentation (2 spaces) for primary employers/companies
+       - Format job titles on the next line with proper indentation (4 spaces)
        - Format date ranges on the same line as job titles
-       - For Daugherty Business Solutions specifically:
-         * List client work (Cox, Bayer, Charter, Mastercard) indented under Daugherty
-         * Each client should be in Title Case with additional indentation (4 spaces)
-         * Format client work descriptions as indented bullet points under each client
-       - For all other companies, list responsibilities and achievements as bullet points directly under the job
+       - Include a brief description of general responsibilities directly under each job title
+
+       - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
+         * First list general responsibilities at the consultancy firm with proper indentation (6 spaces)
+         * Then list client engagements with "Client:" prefix and client name in Title Case (6 spaces indentation)
+         * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+         * Format client work descriptions with additional indentation (8 spaces)
+         * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under the employer
+         * Example structure:
+           Daugherty Business Solutions
+             Sr. Software Developer (III) (2014 - 2023)
+               * Led development of enterprise applications
+               * Implemented solutions using modern web technologies
+
+               Client: Bayer
+                 * Architected and developed enterprise-scale applications
+
+               Client: Charter Communications
+                 * Engineered interactive call center solutions
 
     4. For Education entries:
-       - Use Title Case with proper indentation for degrees
-       - Format institution and date range on the next line with proper indentation
+       - Use Title Case with proper indentation (2 spaces) for degrees
+       - Format institution and date range on the next line with proper indentation (4 spaces)
        - Organize chronologically (most recent first)
 
     5. For Skills & Technologies:
@@ -544,15 +587,16 @@ async function formatContentAsText(content: string, contentType: string): Promis
 
     6. Ensure the visual hierarchy is clear through consistent indentation:
        - Level 1 (0 spaces): MAIN HEADERS WITH UNDERLINES
-       - Level 2 (2 spaces): Company Names, Degree Names
-       - Level 3 (4 spaces): Job Titles, Institution Names, Client Names
-       - Level 4 (6 spaces): Bullet points for responsibilities, achievements
+       - Level 2 (2 spaces): Primary employers, Degree Names
+       - Level 3 (4 spaces): Job Titles, Institution Names
+       - Level 4 (6 spaces): General responsibilities, Client engagements
+       - Level 5 (8 spaces): Client-specific responsibilities
 
     7. Ensure generous spacing between sections (2-3 blank lines) for better readability
 
     8. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-    9. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
+    9. IMPORTANT: There should be NO separate "CLIENT WORK" section. All client work must be nested under the appropriate employer in the EXPERIENCE section.
 
     10. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -616,48 +660,62 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '  Daugherty Business Solutions\n';
       formattedContent += '    Sr. Software Developer (III) (2014 - 2023)\n\n';
       formattedContent += '      * Led development of enterprise applications\n';
-      formattedContent += '      * Implemented solutions using modern web technologies\n\n';
+      formattedContent += '      * Implemented solutions using modern web technologies\n';
+      formattedContent += '      * Collaborated with cross-functional teams to deliver high-quality software solutions\n\n';
 
-      // Client work nested under Daugherty
-      formattedContent += '    Bayer\n';
-      formattedContent += '      * Architected, developed, migrated, and maintained various enterprise scale\n';
-      formattedContent += '        applications utilizing React, AWS, and SOA architectures\n';
-      formattedContent += '      * Upheld Agile best practices throughout development lifecycle\n\n';
+      // Client work nested under Daugherty with "Client:" prefix
+      formattedContent += '      Client: Bayer\n';
+      formattedContent += '        * Architected, developed, migrated, and maintained various enterprise scale\n';
+      formattedContent += '          applications utilizing React, AWS, and SOA architectures\n';
+      formattedContent += '        * Upheld Agile best practices throughout development lifecycle\n\n';
 
-      formattedContent += '    Charter Communications\n';
-      formattedContent += '      * Engineered interactive call center solutions empowering representatives\n';
-      formattedContent += '        to provide enhanced customer service capabilities\n\n';
+      formattedContent += '      Client: Charter Communications\n';
+      formattedContent += '        * Engineered interactive call center solutions empowering representatives\n';
+      formattedContent += '          to provide enhanced customer service capabilities\n';
+      formattedContent += '        * Implemented user-friendly interfaces for call center operations\n\n';
 
-      formattedContent += '    Mastercard\n';
-      formattedContent += '      * Developed comprehensive onboarding documentation, sample code, and API\n';
-      formattedContent += '        integration\n';
-      formattedContent += '      * Supported the MasterPass online purchasing initiative\n\n';
+      formattedContent += '      Client: Mastercard\n';
+      formattedContent += '        * Developed comprehensive onboarding documentation, sample code, and API\n';
+      formattedContent += '          integration\n';
+      formattedContent += '        * Supported the MasterPass online purchasing initiative\n\n';
 
-      formattedContent += '    Cox Communications\n';
-      formattedContent += '      * Implemented scaffolding framework for modular React applications\n';
-      formattedContent += '      * Integrated with Adobe Content Manager\n\n';
+      formattedContent += '      Client: Cox Communications\n';
+      formattedContent += '        * Implemented scaffolding framework for modular React applications\n';
+      formattedContent += '        * Integrated with Adobe Content Manager\n';
+      formattedContent += '        * Developed reusable component libraries\n\n';
 
       // Digital Ronan
       formattedContent += '  Digital Ronan (freelance)\n';
       formattedContent += '    Consultant & Creative Technologist (2022 - Present)\n\n';
       formattedContent += '      * Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '      * Applying skills in web development, networking, and design\n\n';
+      formattedContent += '      * Applying skills in web development, networking, and design\n';
+      formattedContent += '      * Creating custom digital solutions for small to medium businesses\n\n';
 
       // Add other experience entries chronologically
       formattedContent += '  Deliveries on Demand\n';
       formattedContent += '    Lead Software Developer (2011 - 2013)\n\n';
+      formattedContent += '      * Developed and maintained delivery management software\n';
+      formattedContent += '      * Led a team of developers in creating mobile applications\n\n';
 
       formattedContent += '  Infuze\n';
       formattedContent += '    Sr. Developer/Asst. Art Director (2009 - 2011)\n\n';
+      formattedContent += '      * Combined technical development with creative design direction\n';
+      formattedContent += '      * Created digital marketing solutions for clients\n\n';
 
       formattedContent += '  Touchwood Creative\n';
       formattedContent += '    Lead Software Developer (2008 - 2009)\n\n';
+      formattedContent += '      * Developed custom web applications for clients\n';
+      formattedContent += '      * Implemented creative digital solutions\n\n';
 
       formattedContent += '  ThinkTank (freelance)\n';
       formattedContent += '    Software and Creative Director (2005 - 2008)\n\n';
+      formattedContent += '      * Provided software development and creative direction services\n';
+      formattedContent += '      * Managed client relationships and project deliverables\n\n';
 
       formattedContent += '  Asynchrony Solutions\n';
-      formattedContent += '    Designer/Developer/Marketing Asst. (2005)\n\n\n';
+      formattedContent += '    Designer/Developer/Marketing Asst. (2005)\n\n';
+      formattedContent += '      * Assisted with design, development, and marketing initiatives\n';
+      formattedContent += '      * Contributed to various software projects\n\n\n';
 
       // Add skills section
       formattedContent += 'SKILLS & TECHNOLOGIES\n';
@@ -667,6 +725,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '    * JavaScript/TypeScript\n';
       formattedContent += '    * Graphic Design & UI/UX\n';
       formattedContent += '    * React & React Native\n';
+      formattedContent += '    * AWS & Cloud Architecture\n';
       formattedContent += '    * Illustration\n';
       formattedContent += '    * Creative/Technical writing\n\n';
       formattedContent += '  TECHNOLOGIES:\n';

@@ -34,7 +34,7 @@ export async function generateFormattedMarkdown(content: string): Promise<string
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships.
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Apply Hesse-like logical analysis to identify organizational relationships, particularly for consultancy/agency work.
           Then, format it as clean, professional markdown with a J.D. Salinger-inspired approach.
 
           Follow these specific guidelines:
@@ -50,14 +50,28 @@ export async function generateFormattedMarkdown(content: string): Promise<string
 
           3. For the Experience section, CRITICALLY IMPORTANT:
              - Organize ALL entries by date (most recent first)
-             - Use level 3 headings (### Company Name) for organizations
+             - Use level 3 headings (### Company Name) for primary employers/companies
              - Format job titles in bold (**Job Title**)
              - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
-             - For Daugherty Business Solutions specifically:
-               * List client work (Cox, Bayer, Charter, Mastercard) as level 4 headings (#### Client Name) UNDER Daugherty
-               * Each client project should be nested under Daugherty, not as separate main entries
+             - Include a brief description of responsibilities directly under each job title
+
+             - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
+               * First list general responsibilities at the consultancy firm
+               * Then use level 4 headings (#### Client: Client Name) to list client engagements
+               * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
                * Format client work descriptions as bullet points under each client heading
-             - For all other companies, list responsibilities and achievements as bullet points directly under the job
+               * DO NOT create a separate "Client Work" section - all client work must be nested under the employer
+               * Example structure:
+                 ### Daugherty Business Solutions
+                 **Sr. Software Developer (III)** (2014 - 2023)
+                 - Led development of enterprise applications
+                 - Implemented solutions using modern web technologies
+
+                 #### Client: Bayer
+                 - Architected and developed enterprise-scale applications
+
+                 #### Client: Charter Communications
+                 - Engineered interactive call center solutions
 
           4. For Education entries:
              - Use level 3 headings (### Degree)
@@ -72,14 +86,14 @@ export async function generateFormattedMarkdown(content: string): Promise<string
           6. Ensure the visual hierarchy is clear through consistent formatting:
              - Level 1 (# Heading): Name
              - Level 2 (## Heading): Main sections (Summary, Contact, Experience, Skills, Education)
-             - Level 3 (### Heading): Companies, Degrees
-             - Level 4 (#### Heading): Clients (under Daugherty)
+             - Level 3 (### Heading): Primary employers, Degrees
+             - Level 4 (#### Client: Name): Client engagements under consultancy employers
              - Bold text: Job titles, important skills
              - Bullet points: Responsibilities, achievements, skills
 
           7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-          8. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
+          8. IMPORTANT: There should be NO separate "Client Work" section. All client work must be nested under the appropriate employer in the Experience section.
 
           9. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -127,7 +141,7 @@ export async function generateFormattedText(content: string): Promise<string> {
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships.
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Apply Hesse-like logical analysis to identify organizational relationships, particularly for consultancy/agency work.
           Then, format it as clean, professional plain text with a J.D. Salinger-inspired approach.
 
           Follow these specific guidelines:
@@ -143,18 +157,32 @@ export async function generateFormattedText(content: string): Promise<string> {
 
           3. For the Experience section, CRITICALLY IMPORTANT:
              - Organize ALL entries by date (most recent first)
-             - Use Title Case with proper indentation for company names
-             - Format job titles on the next line with proper indentation
+             - Use Title Case with proper indentation (2 spaces) for primary employers/companies
+             - Format job titles on the next line with proper indentation (4 spaces)
              - Format date ranges on the same line as job titles
-             - For Daugherty Business Solutions specifically:
-               * List client work (Cox, Bayer, Charter, Mastercard) indented under Daugherty
-               * Each client should be in Title Case with additional indentation (4 spaces)
-               * Format client work descriptions as indented bullet points under each client
-             - For all other companies, list responsibilities and achievements as bullet points directly under the job
+             - Include a brief description of general responsibilities directly under each job title
+
+             - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
+               * First list general responsibilities at the consultancy firm with proper indentation (6 spaces)
+               * Then list client engagements with "Client:" prefix and client name in Title Case (6 spaces indentation)
+               * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+               * Format client work descriptions with additional indentation (8 spaces)
+               * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under the employer
+               * Example structure:
+                 Daugherty Business Solutions
+                   Sr. Software Developer (III) (2014 - 2023)
+                     * Led development of enterprise applications
+                     * Implemented solutions using modern web technologies
+
+                     Client: Bayer
+                       * Architected and developed enterprise-scale applications
+
+                     Client: Charter Communications
+                       * Engineered interactive call center solutions
 
           4. For Education entries:
-             - Use Title Case with proper indentation for degrees
-             - Format institution and date range on the next line with proper indentation
+             - Use Title Case with proper indentation (2 spaces) for degrees
+             - Format institution and date range on the next line with proper indentation (4 spaces)
              - Organize chronologically (most recent first)
 
           5. For Skills & Technologies:
@@ -164,15 +192,16 @@ export async function generateFormattedText(content: string): Promise<string> {
 
           6. Ensure the visual hierarchy is clear through consistent indentation:
              - Level 1 (0 spaces): MAIN HEADERS WITH UNDERLINES
-             - Level 2 (2 spaces): Company Names, Degree Names
-             - Level 3 (4 spaces): Job Titles, Institution Names, Client Names
-             - Level 4 (6 spaces): Bullet points for responsibilities, achievements
+             - Level 2 (2 spaces): Primary employers, Degree Names
+             - Level 3 (4 spaces): Job Titles, Institution Names
+             - Level 4 (6 spaces): General responsibilities, Client engagements
+             - Level 5 (8 spaces): Client-specific responsibilities
 
           7. Ensure generous spacing between sections (2-3 blank lines) for better readability
 
           8. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-          9. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
+          9. IMPORTANT: There should be NO separate "CLIENT WORK" section. All client work must be nested under the appropriate employer in the EXPERIENCE section.
 
           10. DO NOT add any footer text, metadata, or generation information at the end
 
