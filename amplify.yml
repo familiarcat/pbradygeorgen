@@ -8,6 +8,10 @@ frontend:
       commands:
         - echo "Using custom build script"
         - chmod +x ./amplify-build.sh
+        - echo "Creating .npmrc file"
+        - echo "engine-strict=false" > .npmrc
+        - echo "ignore-engines=true" >> .npmrc
+        - cat .npmrc
     build:
       commands:
         - ./amplify-build.sh
