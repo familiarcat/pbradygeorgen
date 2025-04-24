@@ -1,11 +1,11 @@
 {
-  "appId": "YOUR_AMPLIFY_APP_ID",
-  "branch": "main",
+  "appId": "d2gv0gd3awxys0",
+  "branch": "pdf-nextjs",
   "profile": "default",
   "region": "us-east-1",
   "environments": {
     "dev": {
-      "branch": "develop"
+      "branch": "pdf-nextjs"
     },
     "staging": {
       "branch": "staging"
