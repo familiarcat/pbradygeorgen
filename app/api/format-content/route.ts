@@ -299,38 +299,49 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
+    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
     1. Start with the person's name (P. Brady Georgen) as a level 1 heading (# Name) - make it stand out but feel personal
 
     2. Create a clean, logical hierarchy with these main sections (as level 2 headings):
        - ## Professional Summary (create a brief summary from available information if not explicitly provided)
        - ## Contact Information (extract from the About Me section)
-       - ## Experience (organize all work experience chronologically, most recent first)
+       - ## Experience (organize ALL work experience strictly chronologically, most recent first)
        - ## Skills & Technologies (combine all skills and technologies into one cohesive section)
        - ## Education (organize all education chronologically, most recent first)
-       - ## Client Work (if present, organize client work as a separate section)
 
-    3. For each job in the Experience section:
+    3. For the Experience section, CRITICALLY IMPORTANT:
+       - Organize ALL entries by date (most recent first)
        - Use level 3 headings (### Company Name) for organizations
        - Format job titles in bold (**Job Title**)
        - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
-       - List responsibilities and achievements as bullet points under each job
+       - For Daugherty Business Solutions specifically:
+         * List client work (Cox, Bayer, Charter, Mastercard) as level 4 headings (#### Client Name) UNDER Daugherty
+         * Each client project should be nested under Daugherty, not as separate main entries
+         * Format client work descriptions as bullet points under each client heading
+       - For all other companies, list responsibilities and achievements as bullet points directly under the job
 
     4. For Education entries:
        - Use level 3 headings (### Degree)
        - Format institution and date range on the next line, e.g., **Institution** (Year-Year)
+       - Organize chronologically (most recent first)
 
     5. For Skills & Technologies:
        - Group related skills together
        - Use bullet points for each skill or skill group
        - Highlight key skills with bold formatting
 
-    6. Ensure generous spacing between sections for better readability
+    6. Ensure the visual hierarchy is clear through consistent formatting:
+       - Level 1 (# Heading): Name
+       - Level 2 (## Heading): Main sections (Summary, Contact, Experience, Skills, Education)
+       - Level 3 (### Heading): Companies, Degrees
+       - Level 4 (#### Heading): Clients (under Daugherty)
+       - Bold text: Job titles, important skills
+       - Bullet points: Responsibilities, achievements, skills
 
     7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-    8. Preserve all original content but reorganize it into a logical, hierarchical structure
+    8. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
 
     9. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -373,7 +384,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
 
       // Add professional summary
       formattedContent += '## Professional Summary\n\n';
-      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background.\n\n';
+      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n';
 
       // Add contact information
       formattedContent += '## Contact Information\n\n';
@@ -386,26 +397,59 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       // Add experience section
       formattedContent += '## Experience\n\n';
 
+      // Daugherty (most recent with client work nested)
+      formattedContent += '### Daugherty Business Solutions\n\n';
+      formattedContent += '**Sr. Software Developer (III)** (2014 - 2023)\n\n';
+      formattedContent += '- Led development of enterprise applications\n';
+      formattedContent += '- Implemented solutions using modern web technologies\n\n';
+
+      // Client work nested under Daugherty
+      formattedContent += '#### Bayer\n\n';
+      formattedContent += '- Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures\n';
+      formattedContent += '- Upheld Agile best practices throughout development lifecycle\n\n';
+
+      formattedContent += '#### Charter Communications\n\n';
+      formattedContent += '- Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n\n';
+
+      formattedContent += '#### Mastercard\n\n';
+      formattedContent += '- Developed comprehensive onboarding documentation, sample code, and API integration\n';
+      formattedContent += '- Supported the MasterPass online purchasing initiative\n\n';
+
+      formattedContent += '#### Cox Communications\n\n';
+      formattedContent += '- Implemented scaffolding framework for modular React applications\n';
+      formattedContent += '- Integrated with Adobe Content Manager\n\n';
+
       // Digital Ronan
       formattedContent += '### Digital Ronan (freelance)\n\n';
       formattedContent += '**Consultant & Creative Technologist** (2022 - Present)\n\n';
       formattedContent += '- Providing strategic digital consultancy for local businesses\n';
       formattedContent += '- Applying skills in web development, networking, and design\n\n';
 
-      // Daugherty
-      formattedContent += '### Daugherty Business Solutions\n\n';
-      formattedContent += '**Sr. Software Developer (III)** (2014 - 2023)\n\n';
-      formattedContent += '- Led development of enterprise applications\n';
-      formattedContent += '- Implemented solutions using modern web technologies\n\n';
+      // Add other experience entries chronologically
+      formattedContent += '### Deliveries on Demand\n\n';
+      formattedContent += '**Lead Software Developer** (2011 - 2013)\n\n';
+
+      formattedContent += '### Infuze\n\n';
+      formattedContent += '**Sr. Developer/Asst. Art Director** (2009 - 2011)\n\n';
+
+      formattedContent += '### Touchwood Creative\n\n';
+      formattedContent += '**Lead Software Developer** (2008 - 2009)\n\n';
+
+      formattedContent += '### ThinkTank (freelance)\n\n';
+      formattedContent += '**Software and Creative Director** (2005 - 2008)\n\n';
+
+      formattedContent += '### Asynchrony Solutions\n\n';
+      formattedContent += '**Designer/Developer/Marketing Asst.** (2005)\n\n';
 
       // Add skills section
       formattedContent += '## Skills & Technologies\n\n';
       formattedContent += '- **Full Stack Development**\n';
       formattedContent += '- **JavaScript/TypeScript**\n';
       formattedContent += '- **Graphic Design & UI/UX**\n';
+      formattedContent += '- **React & React Native**\n';
       formattedContent += '- Illustration\n';
       formattedContent += '- Creative/Technical writing\n\n';
-      formattedContent += '**Technologies:** React, React Native, AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Node, Ruby, Java\n\n';
+      formattedContent += '**Technologies:** AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Node, Ruby, Java, Adobe CS, UI/UX Prototyping\n\n';
 
       // Add education section
       formattedContent += '## Education\n\n';
@@ -415,17 +459,6 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '**Webster University** (2001-2005)\n\n';
       formattedContent += '### ASSC Motion Graphics\n\n';
       formattedContent += '**Saint Louis Community College** (1999-2001)\n\n';
-
-      // Add client work section
-      formattedContent += '## Client Work\n\n';
-      formattedContent += '### Bayer\n\n';
-      formattedContent += 'Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures: upholding Agile best practices.\n\n';
-
-      formattedContent += '### Charter Communications\n\n';
-      formattedContent += 'Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities.\n\n';
-
-      formattedContent += '### Mastercard\n\n';
-      formattedContent += 'Developed comprehensive onboarding documentation, sample code, and API integration to support the MasterPass online purchasing initiative.\n\n';
 
       return {
         success: true,
@@ -477,40 +510,49 @@ async function formatContentAsText(content: string, contentType: string): Promis
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
+    This is a RESUME. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships. Then, follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
     1. Start with the person's name (P. BRADY GEORGEN) in ALL CAPS - make it stand out but feel personal
 
     2. Create a clean, logical hierarchy with these main sections (in ALL CAPS with underlines):
        - PROFESSIONAL SUMMARY (create a brief summary from available information if not explicitly provided)
        - CONTACT INFORMATION (extract from the About Me section)
-       - EXPERIENCE (organize all work experience chronologically, most recent first)
+       - EXPERIENCE (organize ALL work experience strictly chronologically, most recent first)
        - SKILLS & TECHNOLOGIES (combine all skills and technologies into one cohesive section)
        - EDUCATION (organize all education chronologically, most recent first)
-       - CLIENT WORK (if present, organize client work as a separate section)
 
-    3. For each job in the Experience section:
+    3. For the Experience section, CRITICALLY IMPORTANT:
+       - Organize ALL entries by date (most recent first)
        - Use Title Case with proper indentation for company names
        - Format job titles on the next line with proper indentation
        - Format date ranges on the same line as job titles
-       - List responsibilities and achievements as bullet points with asterisks (*) under each job
+       - For Daugherty Business Solutions specifically:
+         * List client work (Cox, Bayer, Charter, Mastercard) indented under Daugherty
+         * Each client should be in Title Case with additional indentation (4 spaces)
+         * Format client work descriptions as indented bullet points under each client
+       - For all other companies, list responsibilities and achievements as bullet points directly under the job
 
     4. For Education entries:
        - Use Title Case with proper indentation for degrees
        - Format institution and date range on the next line with proper indentation
+       - Organize chronologically (most recent first)
 
     5. For Skills & Technologies:
        - Group related skills together
        - Use asterisks (*) for bullet points
        - Use ALL CAPS for key skill categories
 
-    6. Ensure generous spacing between sections (2-3 blank lines) for better readability
+    6. Ensure the visual hierarchy is clear through consistent indentation:
+       - Level 1 (0 spaces): MAIN HEADERS WITH UNDERLINES
+       - Level 2 (2 spaces): Company Names, Degree Names
+       - Level 3 (4 spaces): Job Titles, Institution Names, Client Names
+       - Level 4 (6 spaces): Bullet points for responsibilities, achievements
 
-    7. Use proper indentation to show hierarchy (2 spaces for each level)
+    7. Ensure generous spacing between sections (2-3 blank lines) for better readability
 
     8. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-    9. Preserve all original content but reorganize it into a logical, hierarchical structure
+    9. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
 
     10. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -555,7 +597,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       // Add professional summary
       formattedContent += 'PROFESSIONAL SUMMARY\n';
       formattedContent += '--------------------\n\n';
-      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background.\n\n\n';
+      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n\n';
 
       // Add contact information
       formattedContent += 'CONTACT INFORMATION\n';
@@ -570,17 +612,52 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += 'EXPERIENCE\n';
       formattedContent += '----------\n\n';
 
+      // Daugherty (most recent with client work nested)
+      formattedContent += '  Daugherty Business Solutions\n';
+      formattedContent += '    Sr. Software Developer (III) (2014 - 2023)\n\n';
+      formattedContent += '      * Led development of enterprise applications\n';
+      formattedContent += '      * Implemented solutions using modern web technologies\n\n';
+
+      // Client work nested under Daugherty
+      formattedContent += '    Bayer\n';
+      formattedContent += '      * Architected, developed, migrated, and maintained various enterprise scale\n';
+      formattedContent += '        applications utilizing React, AWS, and SOA architectures\n';
+      formattedContent += '      * Upheld Agile best practices throughout development lifecycle\n\n';
+
+      formattedContent += '    Charter Communications\n';
+      formattedContent += '      * Engineered interactive call center solutions empowering representatives\n';
+      formattedContent += '        to provide enhanced customer service capabilities\n\n';
+
+      formattedContent += '    Mastercard\n';
+      formattedContent += '      * Developed comprehensive onboarding documentation, sample code, and API\n';
+      formattedContent += '        integration\n';
+      formattedContent += '      * Supported the MasterPass online purchasing initiative\n\n';
+
+      formattedContent += '    Cox Communications\n';
+      formattedContent += '      * Implemented scaffolding framework for modular React applications\n';
+      formattedContent += '      * Integrated with Adobe Content Manager\n\n';
+
       // Digital Ronan
       formattedContent += '  Digital Ronan (freelance)\n';
-      formattedContent += '  Consultant & Creative Technologist (2022 - Present)\n\n';
-      formattedContent += '    * Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '    * Applying skills in web development, networking, and design\n\n';
+      formattedContent += '    Consultant & Creative Technologist (2022 - Present)\n\n';
+      formattedContent += '      * Providing strategic digital consultancy for local businesses\n';
+      formattedContent += '      * Applying skills in web development, networking, and design\n\n';
 
-      // Daugherty
-      formattedContent += '  Daugherty Business Solutions\n';
-      formattedContent += '  Sr. Software Developer (III) (2014 - 2023)\n\n';
-      formattedContent += '    * Led development of enterprise applications\n';
-      formattedContent += '    * Implemented solutions using modern web technologies\n\n\n';
+      // Add other experience entries chronologically
+      formattedContent += '  Deliveries on Demand\n';
+      formattedContent += '    Lead Software Developer (2011 - 2013)\n\n';
+
+      formattedContent += '  Infuze\n';
+      formattedContent += '    Sr. Developer/Asst. Art Director (2009 - 2011)\n\n';
+
+      formattedContent += '  Touchwood Creative\n';
+      formattedContent += '    Lead Software Developer (2008 - 2009)\n\n';
+
+      formattedContent += '  ThinkTank (freelance)\n';
+      formattedContent += '    Software and Creative Director (2005 - 2008)\n\n';
+
+      formattedContent += '  Asynchrony Solutions\n';
+      formattedContent += '    Designer/Developer/Marketing Asst. (2005)\n\n\n';
 
       // Add skills section
       formattedContent += 'SKILLS & TECHNOLOGIES\n';
@@ -589,38 +666,23 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '    * Full Stack Development\n';
       formattedContent += '    * JavaScript/TypeScript\n';
       formattedContent += '    * Graphic Design & UI/UX\n';
+      formattedContent += '    * React & React Native\n';
       formattedContent += '    * Illustration\n';
       formattedContent += '    * Creative/Technical writing\n\n';
       formattedContent += '  TECHNOLOGIES:\n';
-      formattedContent += '    * React, React Native, AWS, AWS Amplify, SOA, CI/CD\n';
+      formattedContent += '    * AWS, AWS Amplify, SOA, CI/CD\n';
       formattedContent += '    * MongoDB, SQL, Docker, Terraform, Jenkins\n';
-      formattedContent += '    * Node, Ruby, Java\n\n\n';
+      formattedContent += '    * Node, Ruby, Java, Adobe CS, UI/UX Prototyping\n\n\n';
 
       // Add education section
       formattedContent += 'EDUCATION\n';
       formattedContent += '---------\n\n';
       formattedContent += '  BFA Graphic Design\n';
-      formattedContent += '  Webster University (2001-2005)\n\n';
+      formattedContent += '    Webster University (2001-2005)\n\n';
       formattedContent += '  BA Philosophy\n';
-      formattedContent += '  Webster University (2001-2005)\n\n';
+      formattedContent += '    Webster University (2001-2005)\n\n';
       formattedContent += '  ASSC Motion Graphics\n';
-      formattedContent += '  Saint Louis Community College (1999-2001)\n\n\n';
-
-      // Add client work section
-      formattedContent += 'CLIENT WORK\n';
-      formattedContent += '----------\n\n';
-      formattedContent += '  Bayer\n';
-      formattedContent += '    Architected, developed, migrated, and maintained various enterprise scale\n';
-      formattedContent += '    applications utilizing React, AWS, and SOA architectures: upholding Agile\n';
-      formattedContent += '    best practices.\n\n';
-
-      formattedContent += '  Charter Communications\n';
-      formattedContent += '    Engineered interactive call center solutions empowering representatives\n';
-      formattedContent += '    to provide enhanced customer service capabilities.\n\n';
-
-      formattedContent += '  Mastercard\n';
-      formattedContent += '    Developed comprehensive onboarding documentation, sample code, and API\n';
-      formattedContent += '    integration to support the MasterPass online purchasing initiative.\n\n';
+      formattedContent += '    Saint Louis Community College (1999-2001)\n\n';
 
       return {
         success: true,

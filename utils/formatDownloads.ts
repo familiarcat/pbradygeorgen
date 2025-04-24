@@ -34,7 +34,7 @@ export async function generateFormattedMarkdown(content: string): Promise<string
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy.
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships.
           Then, format it as clean, professional markdown with a J.D. Salinger-inspired approach.
 
           Follow these specific guidelines:
@@ -44,31 +44,42 @@ export async function generateFormattedMarkdown(content: string): Promise<string
           2. Create a clean, logical hierarchy with these main sections (as level 2 headings):
              - ## Professional Summary (create a brief summary from available information if not explicitly provided)
              - ## Contact Information (extract from the About Me section)
-             - ## Experience (organize all work experience chronologically, most recent first)
+             - ## Experience (organize ALL work experience strictly chronologically, most recent first)
              - ## Skills & Technologies (combine all skills and technologies into one cohesive section)
              - ## Education (organize all education chronologically, most recent first)
-             - ## Client Work (if present, organize client work as a separate section)
 
-          3. For each job in the Experience section:
+          3. For the Experience section, CRITICALLY IMPORTANT:
+             - Organize ALL entries by date (most recent first)
              - Use level 3 headings (### Company Name) for organizations
              - Format job titles in bold (**Job Title**)
              - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
-             - List responsibilities and achievements as bullet points under each job
+             - For Daugherty Business Solutions specifically:
+               * List client work (Cox, Bayer, Charter, Mastercard) as level 4 headings (#### Client Name) UNDER Daugherty
+               * Each client project should be nested under Daugherty, not as separate main entries
+               * Format client work descriptions as bullet points under each client heading
+             - For all other companies, list responsibilities and achievements as bullet points directly under the job
 
           4. For Education entries:
              - Use level 3 headings (### Degree)
              - Format institution and date range on the next line, e.g., **Institution** (Year-Year)
+             - Organize chronologically (most recent first)
 
           5. For Skills & Technologies:
              - Group related skills together
              - Use bullet points for each skill or skill group
              - Highlight key skills with bold formatting
 
-          6. Ensure generous spacing between sections for better readability
+          6. Ensure the visual hierarchy is clear through consistent formatting:
+             - Level 1 (# Heading): Name
+             - Level 2 (## Heading): Main sections (Summary, Contact, Experience, Skills, Education)
+             - Level 3 (### Heading): Companies, Degrees
+             - Level 4 (#### Heading): Clients (under Daugherty)
+             - Bold text: Job titles, important skills
+             - Bullet points: Responsibilities, achievements, skills
 
           7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-          8. Preserve all original content but reorganize it into a logical, hierarchical structure
+          8. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
 
           9. DO NOT add any footer text, metadata, or generation information at the end
 
@@ -116,7 +127,7 @@ export async function generateFormattedText(content: string): Promise<string> {
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy.
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy. Pay special attention to the chronology and organizational relationships.
           Then, format it as clean, professional plain text with a J.D. Salinger-inspired approach.
 
           Follow these specific guidelines:
@@ -126,33 +137,42 @@ export async function generateFormattedText(content: string): Promise<string> {
           2. Create a clean, logical hierarchy with these main sections (in ALL CAPS with underlines):
              - PROFESSIONAL SUMMARY (create a brief summary from available information if not explicitly provided)
              - CONTACT INFORMATION (extract from the About Me section)
-             - EXPERIENCE (organize all work experience chronologically, most recent first)
+             - EXPERIENCE (organize ALL work experience strictly chronologically, most recent first)
              - SKILLS & TECHNOLOGIES (combine all skills and technologies into one cohesive section)
              - EDUCATION (organize all education chronologically, most recent first)
-             - CLIENT WORK (if present, organize client work as a separate section)
 
-          3. For each job in the Experience section:
+          3. For the Experience section, CRITICALLY IMPORTANT:
+             - Organize ALL entries by date (most recent first)
              - Use Title Case with proper indentation for company names
              - Format job titles on the next line with proper indentation
              - Format date ranges on the same line as job titles
-             - List responsibilities and achievements as bullet points with asterisks (*) under each job
+             - For Daugherty Business Solutions specifically:
+               * List client work (Cox, Bayer, Charter, Mastercard) indented under Daugherty
+               * Each client should be in Title Case with additional indentation (4 spaces)
+               * Format client work descriptions as indented bullet points under each client
+             - For all other companies, list responsibilities and achievements as bullet points directly under the job
 
           4. For Education entries:
              - Use Title Case with proper indentation for degrees
              - Format institution and date range on the next line with proper indentation
+             - Organize chronologically (most recent first)
 
           5. For Skills & Technologies:
              - Group related skills together
              - Use asterisks (*) for bullet points
              - Use ALL CAPS for key skill categories
 
-          6. Ensure generous spacing between sections (2-3 blank lines) for better readability
+          6. Ensure the visual hierarchy is clear through consistent indentation:
+             - Level 1 (0 spaces): MAIN HEADERS WITH UNDERLINES
+             - Level 2 (2 spaces): Company Names, Degree Names
+             - Level 3 (4 spaces): Job Titles, Institution Names, Client Names
+             - Level 4 (6 spaces): Bullet points for responsibilities, achievements
 
-          7. Use proper indentation to show hierarchy (2 spaces for each level)
+          7. Ensure generous spacing between sections (2-3 blank lines) for better readability
 
           8. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
 
-          9. Preserve all original content but reorganize it into a logical, hierarchical structure
+          9. Preserve all original content but reorganize it into a logical, hierarchical structure based on chronology and organizational relationships
 
           10. DO NOT add any footer text, metadata, or generation information at the end
 
