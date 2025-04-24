@@ -11,6 +11,15 @@ const nextConfig = {
     ignoreDuringBuilds: true,
     dirs: ['pages', 'components', 'app', 'utils', 'hooks'],
   },
+  // Optimize for production
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn'],
+    } : false,
+  },
+  // Improve build performance
+  poweredByHeader: false,
 };
 
 module.exports = nextConfig;

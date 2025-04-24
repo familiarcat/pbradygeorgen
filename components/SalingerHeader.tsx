@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import styles from '@/styles/SalingerHeader.module.css';
 
 interface SalingerHeaderProps {
@@ -245,14 +244,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         >
           Upload PDF
         </a>
-        <span className={styles.actionSeparator}>•</span>
-        <Link
-          href="/test"
-          className={styles.actionLink}
-          aria-label="Test PDFs"
-        >
-          Test PDFs
-        </Link>
+
       </nav>
     </header>
   );

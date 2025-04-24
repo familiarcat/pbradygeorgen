@@ -1,57 +1,34 @@
 #!/bin/bash
-# deploy.sh - Helper script for deploying to Amplify
+# deploy.sh - Quick deployment script for AWS Amplify
 
-# Check Node.js version
-NODE_VERSION=$(node -v | cut -d 'v' -f 2)
-NODE_MAJOR=$(echo $NODE_VERSION | cut -d '.' -f 1)
+# Print current git branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "Current branch: $CURRENT_BRANCH"
 
-if [ $NODE_MAJOR -lt 18 ]; then
-  echo "Error: Node.js version 18 or higher is required. Current version: $NODE_VERSION"
-  echo "Please upgrade Node.js or use nvm to switch to a compatible version."
-  echo "Try: nvm use 18"
-  exit 1
-fi
-
-# Check if the branch name is provided
-if [ -z "$1" ]; then
-  echo "Usage: ./deploy.sh <branch-name>"
-  echo "Example: ./deploy.sh pdf-next.js"
-  exit 1
-fi
-
-BRANCH=$1
-
-# Ensure we have the latest code
-echo "Fetching latest changes..."
-git fetch
-
-# Check if the branch exists
-if ! git show-ref --verify --quiet refs/heads/$BRANCH; then
-  echo "Branch $BRANCH doesn't exist locally. Creating it..."
-  git checkout -b $BRANCH
+# Check if there are any uncommitted changes
+if [[ -n $(git status -s) ]]; then
+  echo "There are uncommitted changes. Committing them now..."
+  git add .
+  git commit -m "Quick deployment: $(date)"
+  echo "Changes committed."
 else
-  echo "Checking out branch $BRANCH..."
-  git checkout $BRANCH
+  echo "No uncommitted changes."
 fi
 
-# Run the build locally to verify it works
-echo "Running local build to verify..."
-./build.sh
+# Run a quick local build to verify
+echo "Running quick build verification..."
+NODE_ENV=production npm run build
 
-# If the build succeeded, commit and push
+# If build succeeds, push to the current branch
 if [ $? -eq 0 ]; then
-  echo "Build successful! Ready to push to Amplify."
-  echo "Do you want to push to Amplify now? (y/n)"
-  read answer
+  echo "Build verification successful!"
+  echo "Pushing to $CURRENT_BRANCH..."
+  git push origin $CURRENT_BRANCH
 
-  if [ "$answer" == "y" ]; then
-    echo "Pushing to Amplify..."
-    git push origin $BRANCH
-    echo "Deployment initiated. Check the Amplify Console for build status."
-  else
-    echo "Deployment cancelled. You can push manually with: git push origin $BRANCH"
-  fi
+  echo "Push complete. Your changes should now be deploying to AWS Amplify."
+  echo "Check your Amplify console for deployment status."
+  echo "Deployment URL: https://pdf-nextjs.pbradygeorgen.com/"
 else
-  echo "Build failed. Please fix the issues before deploying."
+  echo "Build verification failed. Please fix the issues before deploying."
   exit 1
 fi
