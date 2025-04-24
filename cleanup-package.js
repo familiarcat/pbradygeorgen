@@ -20,6 +20,17 @@ packageJson.overrides = {
   "pdfjs-dist": "^3.11.174"
 };
 
+// Add or update the main field
+packageJson.main = "server.js";
+
+// Add or update the amplify field
+packageJson.amplify = {
+  "baseDirectory": "dist",
+  "framework": "next",
+  "nodeVersion": "14",
+  "packageManager": "npm"
+};
+
 // Remove any problematic dependencies
 const problematicDeps = [
   // Add any problematic dependencies here

@@ -3,25 +3,13 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Setting up build environment"
-        - node -v
-        - npm -v
-        - echo "Creating .npmrc file"
-        - echo "engine-strict=false" > .npmrc
-        - echo "ignore-engines=true" >> .npmrc
-        - cat .npmrc
-        - echo "Cleaning up package.json and package-lock.json"
-        - rm -f package-lock.json
-        - node cleanup-package.js
-        - cat package.json
-        - npm install --legacy-peer-deps --no-package-lock
+        - echo "Using custom build script"
+        - chmod +x ./amplify-custom-build.sh
     build:
       commands:
-        - echo "Building with NODE_ENV=production"
-        - export NODE_OPTIONS=--max_old_space_size=4096
-        - NODE_ENV=production npm run build
+        - ./amplify-custom-build.sh
   artifacts:
-    baseDirectory: .next
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
