@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 18
+        - nvm install 20
         - node -v
         - npm ci --production=false
     build:
