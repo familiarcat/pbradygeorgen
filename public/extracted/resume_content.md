@@ -27,7 +27,7 @@ development, networking, and design.
 BFA Graphic Design
 Webster University
 2001-2005
-2022 - Present
+2023 - Present
 Digital Ronan (freelance)
 Consultant & Creative Technoligist
 2013 - 2014
@@ -82,4 +82,4 @@ Saint Louis Community College
 ---
 
 *This document was automatically extracted from a PDF resume.*
-*Generated on: 4/20/2025*
+*Generated on: 4/24/2025*
