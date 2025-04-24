@@ -8,8 +8,11 @@ import SalingerHeader from './SalingerHeader';
 import { DanteLogger } from '@/utils/DanteLogger';
 
 export default function SimplePDFViewer() {
+  // Generate a timestamp for cache-busting
+  const timestamp = Date.now();
+
   // PDF URL state with cache-busting query parameter
-  const [pdfUrl, setPdfUrl] = useState(`/pbradygeorgen_resume.pdf?v=${Date.now()}`);
+  const [pdfUrl, setPdfUrl] = useState(`/pbradygeorgen_resume.pdf?v=${timestamp}`);
   const [pdfName, setPdfName] = useState('pbradygeorgen_resume');
   const showControls = false; // Fixed value since we no longer need to toggle controls
   const [showUI, setShowUI] = useState(false); // Start with UI hidden

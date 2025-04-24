@@ -1,7 +1,9 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { checkAndRefreshPdfContent } from '@/app/actions';
+import { DanteLogger } from '@/utils/DanteLogger';
 
 // Create a loading component
 function Loading() {
@@ -22,10 +24,42 @@ const SimplePDFViewer = dynamic(() => import('@/components/SimplePDFViewer'), {
 });
 
 export default function PDFViewerWrapper() {
+  const [refreshTimestamp, setRefreshTimestamp] = useState<number>(Date.now());
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(true);
+
+  // Check if PDF content needs to be refreshed on page load
+  useEffect(() => {
+    async function refreshIfNeeded() {
+      try {
+        setIsRefreshing(true);
+        const result = await checkAndRefreshPdfContent();
+
+        if (result.refreshed) {
+          // If content was refreshed, update the timestamp to trigger a re-render
+          setRefreshTimestamp(result.timestamp);
+          console.log('PDF content refreshed automatically:', result.message);
+        } else {
+          console.log('PDF content check:', result.message);
+        }
+      } catch (error) {
+        console.error('Error checking PDF content:', error);
+        DanteLogger.error.system('Error in automatic PDF refresh', { error });
+      } finally {
+        setIsRefreshing(false);
+      }
+    }
+
+    refreshIfNeeded();
+  }, []);
+
   return (
     <div className="w-full h-screen overflow-hidden">
       <Suspense fallback={<Loading />}>
-        <SimplePDFViewer />
+        {isRefreshing ? (
+          <Loading />
+        ) : (
+          <SimplePDFViewer key={refreshTimestamp} />
+        )}
       </Suspense>
     </div>
   );
