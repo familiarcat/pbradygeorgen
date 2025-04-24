@@ -2,7 +2,12 @@
 const nextConfig = {
   // Removed 'output: export' to enable SSR capabilities
   webpack: (config) => {
+    // Ignore canvas dependency
     config.resolve.alias.canvas = false;
+
+    // Ignore express dependency in dante-logger
+    config.resolve.alias.express = false;
+
     return config;
   },
   reactStrictMode: true,
@@ -10,13 +15,6 @@ const nextConfig = {
     // Ignore ESLint errors during builds to prevent blocking deployment
     ignoreDuringBuilds: true,
     dirs: ['pages', 'components', 'app', 'utils', 'hooks'],
-  },
-  // Optimize for production
-  swcMinify: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error', 'warn'],
-    } : false,
   },
   // Improve build performance
   poweredByHeader: false,
