@@ -11,6 +11,9 @@ frontend:
     baseDirectory: .next
     files:
       - '**/*'
+      - public/**/*
+      - package.json
+      - next.config.js
   cache:
     paths:
       - node_modules/**/*
