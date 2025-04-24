@@ -12,8 +12,17 @@ async function main() {
     // Use the provided file path
     pdfPath = args[0];
   } else {
-    // Use the default file path
+    // Use the default file path with a timestamp to force refresh
     pdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
+    console.log(`Using default PDF path: ${pdfPath}`);
+
+    // Log the file's last modified time to help with debugging
+    try {
+      const stats = fs.statSync(pdfPath);
+      console.log(`PDF file last modified: ${stats.mtime}`);
+    } catch (err) {
+      console.error(`Error checking PDF file stats: ${err}`);
+    }
   }
   const outputPath = path.join(__dirname, '../public/extracted/resume_content.txt');
   const markdownPath = path.join(__dirname, '../public/extracted/resume_content.md');
