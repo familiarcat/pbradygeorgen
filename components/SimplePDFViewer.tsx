@@ -160,6 +160,50 @@ export default function SimplePDFViewer() {
     console.log('Upload functionality temporarily disabled');
   };
 
+  // Handle refresh action - force reload the default PDF
+  const handleRefresh = async () => {
+    try {
+      // Show loading state
+      setPdfVisible(false);
+      setPdfLoaded(false);
+
+      // Call the API to refresh the default PDF content
+      const response = await fetch('/api/upload-pdf', {
+        method: 'POST',
+        body: (() => {
+          const formData = new FormData();
+          formData.append('useDefault', 'true');
+          return formData;
+        })(),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to refresh PDF content');
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Update the PDF URL with a cache-busting query parameter
+        setPdfUrl(`/pbradygeorgen_resume.pdf?v=${Date.now()}`);
+        DanteLogger.success.basic('PDF content refreshed successfully');
+
+        // Reload the iframe to force a refresh
+        if (iframeRef.current) {
+          iframeRef.current.src = `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`;
+        }
+      } else {
+        throw new Error(data.error || 'Unknown error refreshing PDF content');
+      }
+    } catch (error) {
+      console.error('Error refreshing PDF content:', error);
+      DanteLogger.error.system('Error refreshing PDF content', { error });
+
+      // Show PDF again even if refresh failed
+      setPdfVisible(true);
+    }
+  };
+
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
@@ -169,6 +213,7 @@ export default function SimplePDFViewer() {
           onViewSummary={handleViewSummary}
           onContact={handleContact}
           onUpload={handleUpload}
+          onRefresh={handleRefresh}
           fileName={pdfName}
         />
 

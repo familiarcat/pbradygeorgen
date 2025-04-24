@@ -6,6 +6,7 @@ interface SalingerHeaderProps {
   onViewSummary?: () => void;
   onContact?: () => void;
   onUpload?: () => void;
+  onRefresh?: () => void;
   fileName?: string;
 }
 
@@ -14,6 +15,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onViewSummary,
   onContact,
   onUpload,
+  onRefresh,
   fileName = 'resume'
 }) => {
   // Loading states for different download formats
@@ -49,6 +51,9 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         break;
       case 'upload':
         if (onUpload) onUpload();
+        break;
+      case 'refresh':
+        if (onRefresh) onRefresh();
         break;
       default:
         break;
@@ -234,6 +239,15 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           aria-label="Contact"
         >
           Contact
+        </a>
+        <span className={styles.actionSeparator}>•</span>
+        <a
+          href="#"
+          className={styles.actionLink}
+          onClick={(e) => handleAction('refresh', e)}
+          aria-label="Refresh PDF"
+        >
+          Refresh PDF
         </a>
         <span className={styles.actionSeparator}>•</span>
         {/* Upload PDF feature temporarily disabled

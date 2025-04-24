@@ -13,10 +13,38 @@ export async function POST(request: NextRequest) {
     // Parse the multipart form data
     const formData = await request.formData();
     const pdfFile = formData.get('pdf') as File;
+    const useDefault = formData.get('useDefault') === 'true';
 
-    if (!pdfFile) {
+    if (!pdfFile && !useDefault) {
       DanteLogger.error.validation('No PDF file provided in upload request');
       return NextResponse.json({ success: false, error: 'No PDF file provided' }, { status: 400 });
+    }
+
+    // If useDefault is true, process the default PDF file
+    if (useDefault) {
+      try {
+        const defaultPdfPath = path.join(process.cwd(), 'public', 'pbradygeorgen_resume.pdf');
+
+        // Run the extraction script on the default PDF
+        await execAsync(`node scripts/extract-pdf-text-improved.js "${defaultPdfPath}"`);
+        DanteLogger.success.core('Default PDF content extracted successfully');
+
+        // Return success response for default PDF
+        return NextResponse.json({
+          success: true,
+          pdfUrl: '/pbradygeorgen_resume.pdf',
+          fileName: 'pbradygeorgen_resume.pdf',
+          originalName: 'pbradygeorgen_resume.pdf',
+          isDefault: true
+        });
+      } catch (error) {
+        DanteLogger.error.dataFlow('Error processing default PDF content', { error });
+        console.error('Error processing default PDF content:', error);
+        return NextResponse.json(
+          { success: false, error: 'Failed to process default PDF' },
+          { status: 500 }
+        );
+      }
     }
 
     // Validate file type
