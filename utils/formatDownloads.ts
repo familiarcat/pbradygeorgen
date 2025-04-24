@@ -49,7 +49,8 @@ export async function generateFormattedMarkdown(content: string): Promise<string
              - ## Education (organize all education chronologically, most recent first)
 
           3. For the Experience section, CRITICALLY IMPORTANT:
-             - Organize ALL entries by date (most recent first)
+             - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
+             - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
              - Use level 3 headings (### Company Name) for primary employers/companies
              - Format job titles in bold (**Job Title**)
              - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
@@ -58,10 +59,10 @@ export async function generateFormattedMarkdown(content: string): Promise<string
              - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
                * First list general responsibilities at the consultancy firm
                * Then use level 4 headings (#### Client: Client Name) to list client engagements
-               * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+               * Each client engagement MUST be nested UNDER Daugherty Business Solutions, NOT as separate entries or sections
                * Format client work descriptions as bullet points under each client heading
-               * DO NOT create a separate "Client Work" section - all client work must be nested under the employer
-               * Example structure:
+               * DO NOT create a separate "Client Work" section - all client work must be nested under Daugherty
+               * The Experience section MUST follow this EXACT structure:
                  ### Daugherty Business Solutions
                  **Sr. Software Developer (III)** (2014 - 2023)
                  - Led development of enterprise applications
@@ -69,9 +70,16 @@ export async function generateFormattedMarkdown(content: string): Promise<string
 
                  #### Client: Bayer
                  - Architected and developed enterprise-scale applications
+                 - Upheld Agile best practices throughout development lifecycle
 
                  #### Client: Charter Communications
                  - Engineered interactive call center solutions
+
+                 #### Client: Mastercard
+                 - Developed comprehensive onboarding documentation
+
+                 #### Client: Cox Communications
+                 - Implemented scaffolding framework for modular React applications
 
           4. For Education entries:
              - Use level 3 headings (### Degree)
@@ -156,7 +164,8 @@ export async function generateFormattedText(content: string): Promise<string> {
              - EDUCATION (organize all education chronologically, most recent first)
 
           3. For the Experience section, CRITICALLY IMPORTANT:
-             - Organize ALL entries by date (most recent first)
+             - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
+             - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
              - Use Title Case with proper indentation (2 spaces) for primary employers/companies
              - Format job titles on the next line with proper indentation (4 spaces)
              - Format date ranges on the same line as job titles
@@ -165,10 +174,10 @@ export async function generateFormattedText(content: string): Promise<string> {
              - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
                * First list general responsibilities at the consultancy firm with proper indentation (6 spaces)
                * Then list client engagements with "Client:" prefix and client name in Title Case (6 spaces indentation)
-               * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+               * Each client engagement MUST be nested UNDER Daugherty Business Solutions, NOT as separate entries or sections
                * Format client work descriptions with additional indentation (8 spaces)
-               * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under the employer
-               * Example structure:
+               * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under Daugherty
+               * The Experience section MUST follow this EXACT structure:
                  Daugherty Business Solutions
                    Sr. Software Developer (III) (2014 - 2023)
                      * Led development of enterprise applications
@@ -176,9 +185,16 @@ export async function generateFormattedText(content: string): Promise<string> {
 
                      Client: Bayer
                        * Architected and developed enterprise-scale applications
+                       * Upheld Agile best practices throughout development lifecycle
 
                      Client: Charter Communications
                        * Engineered interactive call center solutions
+
+                     Client: Mastercard
+                       * Developed comprehensive onboarding documentation
+
+                     Client: Cox Communications
+                       * Implemented scaffolding framework for modular React applications
 
           4. For Education entries:
              - Use Title Case with proper indentation (2 spaces) for degrees

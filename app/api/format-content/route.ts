@@ -311,8 +311,8 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
        - ## Education (organize all education chronologically, most recent first)
 
     3. For the Experience section, CRITICALLY IMPORTANT:
-       - STRICTLY organize ALL entries by date (most recent first) - this is absolutely essential
-       - Daugherty Business Solutions (2014-2023) should be listed FIRST, followed by Digital Ronan (2022-Present), then other positions in chronological order
+       - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
+       - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
        - Use level 3 headings (### Company Name) for primary employers/companies
        - Format job titles in bold (**Job Title**)
        - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
@@ -321,20 +321,29 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
        - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
          * First list general responsibilities at the consultancy firm
          * Then use level 4 headings (#### Client: Client Name) to list client engagements
-         * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+         * Each client engagement MUST be nested UNDER Daugherty Business Solutions, NOT as separate entries or sections
          * Format client work descriptions as bullet points under each client heading
-         * DO NOT create a separate "Client Work" section - all client work must be nested under the employer
-         * Example structure:
+         * DO NOT create a separate "Client Work" section - all client work must be nested under Daugherty
+         * The Experience section MUST follow this EXACT structure:
            ### Daugherty Business Solutions
            **Sr. Software Developer (III)** (2014 - 2023)
            - Led development of enterprise applications
            - Implemented solutions using modern web technologies
 
            #### Client: Bayer
-           - Architected and developed enterprise-scale applications
+           - Architected and developed enterprise-scale applications utilizing React, AWS, and SOA architectures
+           - Upheld Agile best practices throughout development lifecycle
 
            #### Client: Charter Communications
-           - Engineered interactive call center solutions
+           - Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities
+
+           #### Client: Mastercard
+           - Developed comprehensive onboarding documentation, sample code, and API integration
+           - Supported the MasterPass online purchasing initiative
+
+           #### Client: Cox Communications
+           - Implemented scaffolding framework for modular React applications
+           - Integrated with Adobe Content Manager
 
     4. For Education entries:
        - Use level 3 headings (### Degree)
@@ -435,7 +444,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       // Add experience section
       formattedContent += '## Experience\n\n';
 
-      // Daugherty (most recent with client work nested)
+      // Daugherty (ALWAYS first with client work nested)
       formattedContent += '### Daugherty Business Solutions\n\n';
       formattedContent += '**Sr. Software Developer (III)** (2014 - 2023)\n\n';
       formattedContent += '- Led development of enterprise applications\n';
@@ -460,7 +469,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '- Integrated with Adobe Content Manager\n';
       formattedContent += '- Developed reusable component libraries\n\n';
 
-      // Digital Ronan
+      // Digital Ronan (second, even though it's more recent by date)
       formattedContent += '### Digital Ronan (freelance)\n\n';
       formattedContent += '**Consultant & Creative Technologist** (2022 - Present)\n\n';
       formattedContent += '- Providing strategic digital consultancy for local businesses\n';
@@ -469,12 +478,12 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
 
       // Add other experience entries chronologically
       formattedContent += '### Deliveries on Demand\n\n';
-      formattedContent += '**Lead Software Developer** (2011 - 2013)\n\n';
+      formattedContent += '**Lead Software Developer** (2013 - 2014)\n\n';
       formattedContent += '- Developed and maintained delivery management software\n';
       formattedContent += '- Led a team of developers in creating mobile applications\n\n';
 
       formattedContent += '### Infuze\n\n';
-      formattedContent += '**Sr. Developer/Asst. Art Director** (2009 - 2011)\n\n';
+      formattedContent += '**Sr. Developer/Asst. Art Director** (2011 - 2013)\n\n';
       formattedContent += '- Combined technical development with creative design direction\n';
       formattedContent += '- Created digital marketing solutions for clients\n\n';
 
@@ -489,7 +498,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '- Managed client relationships and project deliverables\n\n';
 
       formattedContent += '### Asynchrony Solutions\n\n';
-      formattedContent += '**Designer/Developer/Marketing Asst.** (2005)\n\n';
+      formattedContent += '**Designer/Developer/Marketing Asst.** (2004 - 2005)\n\n';
       formattedContent += '- Assisted with design, development, and marketing initiatives\n';
       formattedContent += '- Contributed to various software projects\n\n';
 
@@ -587,7 +596,8 @@ async function formatContentAsText(content: string, contentType: string): Promis
        - EDUCATION (organize all education chronologically, most recent first)
 
     3. For the Experience section, CRITICALLY IMPORTANT:
-       - Organize ALL entries by date (most recent first)
+       - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
+       - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
        - Use Title Case with proper indentation (2 spaces) for primary employers/companies
        - Format job titles on the next line with proper indentation (4 spaces)
        - Format date ranges on the same line as job titles
@@ -596,10 +606,10 @@ async function formatContentAsText(content: string, contentType: string): Promis
        - CONSULTANCY PATTERN (VERY IMPORTANT): For consultancy firms like Daugherty Business Solutions:
          * First list general responsibilities at the consultancy firm with proper indentation (6 spaces)
          * Then list client engagements with "Client:" prefix and client name in Title Case (6 spaces indentation)
-         * Each client engagement should be nested UNDER the consultancy employer, NOT as separate entries
+         * Each client engagement MUST be nested UNDER Daugherty Business Solutions, NOT as separate entries or sections
          * Format client work descriptions with additional indentation (8 spaces)
-         * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under the employer
-         * Example structure:
+         * DO NOT create a separate "CLIENT WORK" section - all client work must be nested under Daugherty
+         * The Experience section MUST follow this EXACT structure:
            Daugherty Business Solutions
              Sr. Software Developer (III) (2014 - 2023)
                * Led development of enterprise applications
@@ -607,9 +617,16 @@ async function formatContentAsText(content: string, contentType: string): Promis
 
                Client: Bayer
                  * Architected and developed enterprise-scale applications
+                 * Upheld Agile best practices throughout development lifecycle
 
                Client: Charter Communications
                  * Engineered interactive call center solutions
+
+               Client: Mastercard
+                 * Developed comprehensive onboarding documentation
+
+               Client: Cox Communications
+                 * Implemented scaffolding framework for modular React applications
 
     4. For Education entries:
        - Use Title Case with proper indentation (2 spaces) for degrees
@@ -692,7 +709,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += 'EXPERIENCE\n';
       formattedContent += '----------\n\n';
 
-      // Daugherty (most recent with client work nested)
+      // Daugherty (ALWAYS first with client work nested)
       formattedContent += '  Daugherty Business Solutions\n';
       formattedContent += '    Sr. Software Developer (III) (2014 - 2023)\n\n';
       formattedContent += '      * Led development of enterprise applications\n';
@@ -720,7 +737,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '        * Integrated with Adobe Content Manager\n';
       formattedContent += '        * Developed reusable component libraries\n\n';
 
-      // Digital Ronan
+      // Digital Ronan (second, even though it's more recent by date)
       formattedContent += '  Digital Ronan (freelance)\n';
       formattedContent += '    Consultant & Creative Technologist (2022 - Present)\n\n';
       formattedContent += '      * Providing strategic digital consultancy for local businesses\n';
@@ -729,12 +746,12 @@ async function formatContentAsText(content: string, contentType: string): Promis
 
       // Add other experience entries chronologically
       formattedContent += '  Deliveries on Demand\n';
-      formattedContent += '    Lead Software Developer (2011 - 2013)\n\n';
+      formattedContent += '    Lead Software Developer (2013 - 2014)\n\n';
       formattedContent += '      * Developed and maintained delivery management software\n';
       formattedContent += '      * Led a team of developers in creating mobile applications\n\n';
 
       formattedContent += '  Infuze\n';
-      formattedContent += '    Sr. Developer/Asst. Art Director (2009 - 2011)\n\n';
+      formattedContent += '    Sr. Developer/Asst. Art Director (2011 - 2013)\n\n';
       formattedContent += '      * Combined technical development with creative design direction\n';
       formattedContent += '      * Created digital marketing solutions for clients\n\n';
 
@@ -749,7 +766,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '      * Managed client relationships and project deliverables\n\n';
 
       formattedContent += '  Asynchrony Solutions\n';
-      formattedContent += '    Designer/Developer/Marketing Asst. (2005)\n\n';
+      formattedContent += '    Designer/Developer/Marketing Asst. (2004 - 2005)\n\n';
       formattedContent += '      * Assisted with design, development, and marketing initiatives\n';
       formattedContent += '      * Contributed to various software projects\n\n\n';
 
