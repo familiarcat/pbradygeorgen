@@ -34,21 +34,43 @@ export async function generateFormattedMarkdown(content: string): Promise<string
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
-          professional markdown with a J.D. Salinger-inspired approach. Preserve the hierarchical structure, use proper
-          markdown formatting for headers, lists, emphasis, etc. Make the content scannable and well-organized.
-          Follow these guidelines:
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy.
+          Then, format it as clean, professional markdown with a J.D. Salinger-inspired approach.
 
-          1. Use # for the name - make it stand out but feel personal
-          2. Use ## for section headers
-          3. Use ### for job titles/companies
-          4. Use bullet lists for responsibilities and skills - keep them concise and meaningful
-          5. Use **bold** for emphasis on important elements
+          Follow these specific guidelines:
+
+          1. Start with the person's name (P. Brady Georgen) as a level 1 heading (# Name) - make it stand out but feel personal
+
+          2. Create a clean, logical hierarchy with these main sections (as level 2 headings):
+             - ## Professional Summary (create a brief summary from available information if not explicitly provided)
+             - ## Contact Information (extract from the About Me section)
+             - ## Experience (organize all work experience chronologically, most recent first)
+             - ## Skills & Technologies (combine all skills and technologies into one cohesive section)
+             - ## Education (organize all education chronologically, most recent first)
+             - ## Client Work (if present, organize client work as a separate section)
+
+          3. For each job in the Experience section:
+             - Use level 3 headings (### Company Name) for organizations
+             - Format job titles in bold (**Job Title**)
+             - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
+             - List responsibilities and achievements as bullet points under each job
+
+          4. For Education entries:
+             - Use level 3 headings (### Degree)
+             - Format institution and date range on the next line, e.g., **Institution** (Year-Year)
+
+          5. For Skills & Technologies:
+             - Group related skills together
+             - Use bullet points for each skill or skill group
+             - Highlight key skills with bold formatting
+
           6. Ensure generous spacing between sections for better readability
-          7. Maintain a clean, professional layout with a personal touch
-          8. Preserve all original content
-          9. Do not add any new content or commentary
-          10. DO NOT add any footer text, metadata, or generation information at the end
+
+          7. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
+
+          8. Preserve all original content but reorganize it into a logical, hierarchical structure
+
+          9. DO NOT add any footer text, metadata, or generation information at the end
 
           Return ONLY the formatted markdown, nothing else.`
         },
@@ -94,20 +116,44 @@ export async function generateFormattedText(content: string): Promise<string> {
       messages: [
         {
           role: "system",
-          content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
-          professional plain text with a J.D. Salinger-inspired approach. Preserve the hierarchical structure, use proper
-          spacing, indentation, and capitalization to indicate hierarchy. Make the content scannable and well-organized.
-          Follow these guidelines:
+          content: `You are a resume formatting expert. First, carefully analyze the content to understand its structure and hierarchy.
+          Then, format it as clean, professional plain text with a J.D. Salinger-inspired approach.
 
-          1. Use ALL CAPS for the name - make it stand out but feel personal
-          2. Use ALL CAPS with underlines (====) for section headers
-          3. Use Title Case with proper indentation for job titles/companies
-          4. Use dashes (-) or asterisks (*) for bullet points - keep them concise and meaningful
-          5. Use proper indentation to show hierarchy (2 spaces for each level)
+          Follow these specific guidelines:
+
+          1. Start with the person's name (P. BRADY GEORGEN) in ALL CAPS - make it stand out but feel personal
+
+          2. Create a clean, logical hierarchy with these main sections (in ALL CAPS with underlines):
+             - PROFESSIONAL SUMMARY (create a brief summary from available information if not explicitly provided)
+             - CONTACT INFORMATION (extract from the About Me section)
+             - EXPERIENCE (organize all work experience chronologically, most recent first)
+             - SKILLS & TECHNOLOGIES (combine all skills and technologies into one cohesive section)
+             - EDUCATION (organize all education chronologically, most recent first)
+             - CLIENT WORK (if present, organize client work as a separate section)
+
+          3. For each job in the Experience section:
+             - Use Title Case with proper indentation for company names
+             - Format job titles on the next line with proper indentation
+             - Format date ranges on the same line as job titles
+             - List responsibilities and achievements as bullet points with asterisks (*) under each job
+
+          4. For Education entries:
+             - Use Title Case with proper indentation for degrees
+             - Format institution and date range on the next line with proper indentation
+
+          5. For Skills & Technologies:
+             - Group related skills together
+             - Use asterisks (*) for bullet points
+             - Use ALL CAPS for key skill categories
+
           6. Ensure generous spacing between sections (2-3 blank lines) for better readability
-          7. Use spacing and alignment to create a clean, professional layout with a personal touch
-          8. Preserve all original content
-          9. Do not add any new content or commentary
+
+          7. Use proper indentation to show hierarchy (2 spaces for each level)
+
+          8. Maintain a clean, professional layout with a personal touch that reflects Salinger's attention to authentic voice and detail
+
+          9. Preserve all original content but reorganize it into a logical, hierarchical structure
+
           10. DO NOT add any footer text, metadata, or generation information at the end
 
           Return ONLY the formatted plain text, nothing else.`
