@@ -1,20 +1,21 @@
 version: 1
-env:
-  variables:
-    NODE_VERSION: 20
 frontend:
   phases:
     preBuild:
       commands:
-        - echo "Using custom build script"
-        - chmod +x ./amplify-build.sh
+        - echo "Setting up build environment"
+        - node -v
+        - npm -v
         - echo "Creating .npmrc file"
         - echo "engine-strict=false" > .npmrc
         - echo "ignore-engines=true" >> .npmrc
         - cat .npmrc
+        - npm ci --production=false --ignore-engines
     build:
       commands:
-        - ./amplify-build.sh
+        - echo "Building with NODE_ENV=production"
+        - export NODE_OPTIONS=--max_old_space_size=4096
+        - NODE_ENV=production npm run build
   artifacts:
     baseDirectory: .next
     files:

@@ -1,6 +1,6 @@
 {
   "framework": "next",
-  "nodeVersion": "20",
+  "nodeVersion": "14",
   "packageManager": "npm",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
