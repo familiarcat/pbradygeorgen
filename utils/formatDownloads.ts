@@ -23,11 +23,12 @@ if (apiKey) {
  */
 export async function generateFormattedMarkdown(content: string): Promise<string> {
   try {
-    // If OpenAI client is not available, fall back to basic formatting
-    if (!openai) {
-      console.log('OpenAI client not available, using basic markdown formatting');
-      return formatBasicMarkdown(content);
-    }
+    // Always use our own formatting for consistency
+    console.log('Using custom resume markdown formatting for consistency');
+    return formatBasicMarkdown(content);
+
+    // Skip OpenAI API call
+    if (false && openai) {
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo", // Using a faster, cheaper model for formatting
@@ -138,11 +139,12 @@ export async function generateFormattedMarkdown(content: string): Promise<string
  */
 export async function generateFormattedText(content: string): Promise<string> {
   try {
-    // If OpenAI client is not available, fall back to basic formatting
-    if (!openai) {
-      console.log('OpenAI client not available, using basic text formatting');
-      return formatBasicText(content);
-    }
+    // Always use our own formatting for consistency
+    console.log('Using custom resume text formatting for consistency');
+    return formatBasicText(content);
+
+    // Skip OpenAI API call
+    if (false && openai) {
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo", // Using a faster, cheaper model for formatting
@@ -274,6 +276,38 @@ function formatBasicMarkdown(content: string): string {
   // Add experience section
   formatted += `## Experience\n\n`;
 
+  // Always add Daugherty first with client work nested
+  formatted += `### Daugherty Business Solutions\n\n`;
+  formatted += `**Sr. Software Developer (III)** (2014 - 2023)\n\n`;
+  formatted += `- Led development of enterprise applications\n`;
+  formatted += `- Implemented solutions using modern web technologies\n`;
+  formatted += `- Collaborated with cross-functional teams to deliver high-quality software solutions\n\n`;
+
+  // Client work nested under Daugherty with "Client:" prefix
+  formatted += `#### Client: Bayer\n\n`;
+  formatted += `- Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures\n`;
+  formatted += `- Upheld Agile best practices throughout development lifecycle\n\n`;
+
+  formatted += `#### Client: Charter Communications\n\n`;
+  formatted += `- Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n`;
+  formatted += `- Implemented user-friendly interfaces for call center operations\n\n`;
+
+  formatted += `#### Client: Mastercard\n\n`;
+  formatted += `- Developed comprehensive onboarding documentation, sample code, and API integration\n`;
+  formatted += `- Supported the MasterPass online purchasing initiative\n\n`;
+
+  formatted += `#### Client: Cox Communications\n\n`;
+  formatted += `- Implemented scaffolding framework for modular React applications\n`;
+  formatted += `- Integrated with Adobe Content Manager\n`;
+  formatted += `- Developed reusable component libraries\n\n`;
+
+  // Digital Ronan (second, even though it's more recent by date)
+  formatted += `### Digital Ronan (freelance)\n\n`;
+  formatted += `**Consultant & Creative Technologist** (2022 - Present)\n\n`;
+  formatted += `- Providing strategic digital consultancy for local businesses\n`;
+  formatted += `- Applying skills in web development, networking, and design\n`;
+  formatted += `- Creating custom digital solutions for small to medium businesses\n\n`;
+
   // Process the content
   let experienceAdded = false;
   let educationAdded = false;
@@ -388,6 +422,41 @@ function formatBasicText(content: string): string {
 
   // Add experience section
   formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;
+
+  // Always add Daugherty first with client work nested
+  formatted += `  Daugherty Business Solutions\n`;
+  formatted += `    Sr. Software Developer (III) (2014 - 2023)\n\n`;
+  formatted += `      * Led development of enterprise applications\n`;
+  formatted += `      * Implemented solutions using modern web technologies\n`;
+  formatted += `      * Collaborated with cross-functional teams to deliver high-quality software solutions\n\n`;
+
+  // Client work nested under Daugherty with "Client:" prefix
+  formatted += `      Client: Bayer\n`;
+  formatted += `        * Architected, developed, migrated, and maintained various enterprise scale\n`;
+  formatted += `          applications utilizing React, AWS, and SOA architectures\n`;
+  formatted += `        * Upheld Agile best practices throughout development lifecycle\n\n`;
+
+  formatted += `      Client: Charter Communications\n`;
+  formatted += `        * Engineered interactive call center solutions empowering representatives\n`;
+  formatted += `          to provide enhanced customer service capabilities\n`;
+  formatted += `        * Implemented user-friendly interfaces for call center operations\n\n`;
+
+  formatted += `      Client: Mastercard\n`;
+  formatted += `        * Developed comprehensive onboarding documentation, sample code, and API\n`;
+  formatted += `          integration\n`;
+  formatted += `        * Supported the MasterPass online purchasing initiative\n\n`;
+
+  formatted += `      Client: Cox Communications\n`;
+  formatted += `        * Implemented scaffolding framework for modular React applications\n`;
+  formatted += `        * Integrated with Adobe Content Manager\n`;
+  formatted += `        * Developed reusable component libraries\n\n`;
+
+  // Digital Ronan (second, even though it's more recent by date)
+  formatted += `  Digital Ronan (freelance)\n`;
+  formatted += `    Consultant & Creative Technologist (2022 - Present)\n\n`;
+  formatted += `      * Providing strategic digital consultancy for local businesses\n`;
+  formatted += `      * Applying skills in web development, networking, and design\n`;
+  formatted += `      * Creating custom digital solutions for small to medium businesses\n\n`;
 
   // Process the content
   let experienceAdded = false;

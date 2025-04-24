@@ -421,11 +421,11 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   }
 
   try {
-    // Check if OpenAI API key is available
-    if (!isOpenAIKeyAvailable()) {
-      DanteLogger.warn.deprecated('OpenAI API key is not available, returning default markdown');
+    // Always use our own formatting for consistency
+    if (true) {
+      DanteLogger.info.success('Using custom resume formatting for consistency');
 
-      // Create a more structured fallback markdown with Salinger-inspired formatting
+      // Create a more structured markdown with Salinger-inspired formatting
       const lines = content.split('\n').filter(line => line.trim() !== '');
       let formattedContent = '# P. Brady Georgen\n\n';
 
@@ -682,9 +682,9 @@ async function formatContentAsText(content: string, contentType: string): Promis
   }
 
   try {
-    // Check if OpenAI API key is available
-    if (!isOpenAIKeyAvailable()) {
-      DanteLogger.warn.deprecated('OpenAI API key is not available, returning default text');
+    // Always use our own formatting for consistency
+    if (true) {
+      DanteLogger.info.success('Using custom resume text formatting for consistency');
 
       // Create a more structured fallback text with Salinger-inspired formatting
       const lines = content.split('\n').filter(line => line.trim() !== '');
