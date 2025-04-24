@@ -23,8 +23,8 @@ export interface DanteLoggerProviderProps {
  * Provider component for Dante Logger (stub implementation)
  */
 export function DanteLoggerProvider({ children }: DanteLoggerProviderProps) {
-  // Just return the children
-  return <>{children}</>;
+  // Just return the children directly (no JSX)
+  return children;
 }
 
 /**
