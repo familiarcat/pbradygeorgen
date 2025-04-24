@@ -35,18 +35,20 @@ export async function generateFormattedMarkdown(content: string): Promise<string
         {
           role: "system",
           content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
-          professional markdown. Preserve the hierarchical structure, use proper markdown formatting for headers,
-          lists, emphasis, etc. Make the content scannable and well-organized. Follow these guidelines:
+          professional markdown with a J.D. Salinger-inspired approach. Preserve the hierarchical structure, use proper
+          markdown formatting for headers, lists, emphasis, etc. Make the content scannable and well-organized.
+          Follow these guidelines:
 
-          1. Use # for the name
+          1. Use # for the name - make it stand out but feel personal
           2. Use ## for section headers
           3. Use ### for job titles/companies
-          4. Use bullet lists for responsibilities and skills
+          4. Use bullet lists for responsibilities and skills - keep them concise and meaningful
           5. Use **bold** for emphasis on important elements
-          6. Ensure proper spacing between sections
-          7. Maintain a clean, professional layout
+          6. Ensure generous spacing between sections for better readability
+          7. Maintain a clean, professional layout with a personal touch
           8. Preserve all original content
           9. Do not add any new content or commentary
+          10. DO NOT add any footer text, metadata, or generation information at the end
 
           Return ONLY the formatted markdown, nothing else.`
         },
@@ -93,18 +95,20 @@ export async function generateFormattedText(content: string): Promise<string> {
         {
           role: "system",
           content: `You are a resume formatting expert. Your task is to take resume content and format it as clean,
-          professional plain text. Preserve the hierarchical structure, use proper spacing, indentation, and
-          capitalization to indicate hierarchy. Make the content scannable and well-organized. Follow these guidelines:
+          professional plain text with a J.D. Salinger-inspired approach. Preserve the hierarchical structure, use proper
+          spacing, indentation, and capitalization to indicate hierarchy. Make the content scannable and well-organized.
+          Follow these guidelines:
 
-          1. Use ALL CAPS for the name
+          1. Use ALL CAPS for the name - make it stand out but feel personal
           2. Use ALL CAPS with underlines (====) for section headers
           3. Use Title Case with proper indentation for job titles/companies
-          4. Use dashes (-) or asterisks (*) for bullet points
-          5. Use proper indentation to show hierarchy
-          6. Ensure proper spacing between sections
-          7. Use spacing and alignment to create a clean, professional layout
+          4. Use dashes (-) or asterisks (*) for bullet points - keep them concise and meaningful
+          5. Use proper indentation to show hierarchy (2 spaces for each level)
+          6. Ensure generous spacing between sections (2-3 blank lines) for better readability
+          7. Use spacing and alignment to create a clean, professional layout with a personal touch
           8. Preserve all original content
           9. Do not add any new content or commentary
+          10. DO NOT add any footer text, metadata, or generation information at the end
 
           Return ONLY the formatted plain text, nothing else.`
         },
@@ -133,7 +137,7 @@ export async function generateFormattedText(content: string): Promise<string> {
 }
 
 /**
- * Basic markdown formatting as a fallback
+ * Basic markdown formatting as a fallback with Salinger-inspired approach
  * @param content The raw content to format
  * @returns Basic formatted markdown
  */
@@ -143,28 +147,61 @@ function formatBasicMarkdown(content: string): string {
   let formatted = '';
   let inList = false;
 
+  // Start with a clean header
+  formatted += `# P. Brady Georgen\n\n`;
+  formatted += `## Professional Summary\n\n`;
+  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n`;
+
+  // Add main sections
+  formatted += `## Experience\n\n`;
+
+  // Process the content
+  let experienceAdded = false;
+  let educationAdded = false;
+
   lines.forEach(line => {
-    // Detect and format headers
+    // Skip the name since we already added it
     if (line.trim().match(/^P\.\s*Brady\s*Georgen/i)) {
-      formatted += `# ${line.trim()}\n\n`;
+      return;
     }
-    // Section headers
-    else if (line.trim().match(/^(EXPERIENCE|EDUCATION|SKILLS|PROJECTS|CONTACT)/i)) {
-      formatted += `\n## ${line.trim()}\n\n`;
+
+    // Experience section
+    else if (line.trim().match(/^(EXPERIENCE|WORK|EMPLOYMENT)/i)) {
+      // Already added the section header
+      experienceAdded = true;
     }
+
+    // Education section
+    else if (line.trim().match(/^(EDUCATION|ACADEMIC)/i)) {
+      if (!educationAdded) {
+        formatted += `\n## Education\n\n`;
+        educationAdded = true;
+      }
+    }
+
+    // Skills section
+    else if (line.trim().match(/^(SKILLS|EXPERTISE|PROFICIENCIES)/i)) {
+      formatted += `\n## Skills\n\n`;
+    }
+
     // Job titles or companies (assuming they often have years in parentheses)
-    else if (line.trim().match(/.*\(\d{4}.*\d{4}.*\)/i) || line.trim().match(/^[A-Z][\w\s]+,\s*[A-Z][\w\s]+$/)) {
+    else if (line.trim().match(/.*\(\d{4}.*\d{4}.*\)/i) ||
+             line.trim().match(/^[A-Z][\w\s]+,\s*[A-Z][\w\s]+$/) ||
+             line.trim().match(/Daugherty|Asynchrony|Webster/i)) {
       formatted += `### ${line.trim()}\n\n`;
     }
+
     // List items (often start with bullet points or dashes)
     else if (line.trim().match(/^[\-\•\*]/)) {
       formatted += `- ${line.trim().replace(/^[\-\•\*]\s*/, '')}\n`;
       inList = true;
     }
+
     // Continuation of list items (indented lines)
     else if (line.trim() && inList && line.match(/^\s+/)) {
       formatted += `  ${line.trim()}\n`;
     }
+
     // Regular content
     else if (line.trim()) {
       formatted += `${line.trim()}\n\n`;
@@ -172,11 +209,20 @@ function formatBasicMarkdown(content: string): string {
     }
   });
 
+  // Add education if not found in the content
+  if (!educationAdded) {
+    formatted += `\n## Education\n\n`;
+    formatted += `### BFA Graphic Design\n\n`;
+    formatted += `**Webster University** (2001-2005)\n\n`;
+    formatted += `### BA Philosophy\n\n`;
+    formatted += `**Webster University** (2001-2005)\n\n`;
+  }
+
   return formatted;
 }
 
 /**
- * Basic text formatting as a fallback
+ * Basic text formatting as a fallback with Salinger-inspired approach
  * @param content The raw content to format
  * @returns Basic formatted text
  */
@@ -186,34 +232,78 @@ function formatBasicText(content: string): string {
   let formatted = '';
   let inList = false;
 
+  // Start with a clean header
+  formatted += `P. BRADY GEORGEN\n${'='.repeat(16)}\n\n\n`;
+
+  // Add professional summary
+  formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n`;
+  formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n\n`;
+
+  // Add experience section
+  formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;
+
+  // Process the content
+  let experienceAdded = false;
+  let educationAdded = false;
+
   lines.forEach(line => {
-    // Detect and format headers
+    // Skip the name since we already added it
     if (line.trim().match(/^P\.\s*Brady\s*Georgen/i)) {
-      formatted += `${line.trim().toUpperCase()}\n${'='.repeat(line.trim().length)}\n\n`;
+      return;
     }
-    // Section headers
-    else if (line.trim().match(/^(EXPERIENCE|EDUCATION|SKILLS|PROJECTS|CONTACT)/i)) {
-      formatted += `\n${line.trim().toUpperCase()}\n${'-'.repeat(line.trim().length)}\n\n`;
+
+    // Experience section
+    else if (line.trim().match(/^(EXPERIENCE|WORK|EMPLOYMENT)/i)) {
+      // Already added the section header
+      experienceAdded = true;
     }
+
+    // Education section
+    else if (line.trim().match(/^(EDUCATION|ACADEMIC)/i)) {
+      if (!educationAdded) {
+        formatted += `\n\nEDUCATION\n${'-'.repeat(9)}\n\n`;
+        educationAdded = true;
+      }
+    }
+
+    // Skills section
+    else if (line.trim().match(/^(SKILLS|EXPERTISE|PROFICIENCIES)/i)) {
+      formatted += `\n\nSKILLS\n${'-'.repeat(6)}\n\n`;
+    }
+
     // Job titles or companies (assuming they often have years in parentheses)
-    else if (line.trim().match(/.*\(\d{4}.*\d{4}.*\)/i) || line.trim().match(/^[A-Z][\w\s]+,\s*[A-Z][\w\s]+$/)) {
+    else if (line.trim().match(/.*\(\d{4}.*\d{4}.*\)/i) ||
+             line.trim().match(/^[A-Z][\w\s]+,\s*[A-Z][\w\s]+$/) ||
+             line.trim().match(/Daugherty|Asynchrony|Webster/i)) {
       formatted += `  ${line.trim()}\n\n`;
     }
+
     // List items (often start with bullet points or dashes)
     else if (line.trim().match(/^[\-\•\*]/)) {
       formatted += `    * ${line.trim().replace(/^[\-\•\*]\s*/, '')}\n`;
       inList = true;
     }
+
     // Continuation of list items (indented lines)
     else if (line.trim() && inList && line.match(/^\s+/)) {
       formatted += `      ${line.trim()}\n`;
     }
+
     // Regular content
     else if (line.trim()) {
       formatted += `${line.trim()}\n\n`;
       inList = false;
     }
   });
+
+  // Add education if not found in the content
+  if (!educationAdded) {
+    formatted += `\n\nEDUCATION\n${'-'.repeat(9)}\n\n`;
+    formatted += `  BFA Graphic Design\n`;
+    formatted += `  Webster University (2001-2005)\n\n`;
+    formatted += `  BA Philosophy\n`;
+    formatted += `  Webster University (2001-2005)\n\n`;
+  }
 
   return formatted;
 }

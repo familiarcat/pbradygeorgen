@@ -299,40 +299,43 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. Follow these specific guidelines:
+    This is a RESUME. Follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
-    1. Start with the person's name as a level 1 heading (# Name)
+    1. Start with the person's name as a level 1 heading (# Name) - make it stand out but feel personal
     2. Use level 2 headings (## Heading) for main sections like Education, Experience, Skills, etc.
     3. Use level 3 headings (### Heading) for job titles/organizations
-    4. Use bullet points for skills, responsibilities, and achievements
+    4. Use bullet points for skills, responsibilities, and achievements - keep them concise and meaningful
     5. Use bold for dates, job titles, or other important information
-    6. Ensure proper spacing between sections
-    7. Maintain a clean, professional layout
+    6. Ensure generous spacing between sections for better readability
+    7. Maintain a clean, professional layout with a personal touch
     8. Preserve all original content
     9. Do not add any new content or commentary
+    10. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted markdown, nothing else.`;
   } else if (contentType === 'cover_letter') {
     systemPrompt += `
-    This is a COVER LETTER. Follow these specific guidelines:
+    This is a COVER LETTER. Follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
-    1. Start with the person's name as a level 1 heading
+    1. Start with the person's name as a level 1 heading - make it stand out but feel personal
     2. Format the date, recipient information, and salutation appropriately
-    3. Use paragraphs with proper spacing
+    3. Use paragraphs with generous spacing for better readability
     4. Use bold for emphasis on key points
     5. Format the closing and signature appropriately
-    6. Maintain a professional layout
+    6. Maintain a professional layout with a personal touch
+    7. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted markdown, nothing else.`;
   } else {
     systemPrompt += `
-    Follow these general guidelines:
+    Follow these general guidelines with a J.D. Salinger-inspired approach to formatting:
 
     1. Use appropriate heading levels (# for title, ## for main sections, etc.)
-    2. Use bullet points for lists
+    2. Use bullet points for lists - keep them concise and meaningful
     3. Use bold and italic for emphasis
-    4. Ensure proper spacing between sections
-    5. Maintain a clean, readable layout
+    4. Ensure generous spacing between sections for better readability
+    5. Maintain a clean, readable layout with a personal touch
+    6. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted markdown, nothing else.`;
   }
@@ -341,9 +344,30 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
     // Check if OpenAI API key is available
     if (!isOpenAIKeyAvailable()) {
       DanteLogger.warn.deprecated('OpenAI API key is not available, returning default markdown');
+
+      // Create a more structured fallback markdown with Salinger-inspired formatting
+      const lines = content.split('\n').filter(line => line.trim() !== '');
+      let formattedContent = '# P. Brady Georgen\n\n';
+      formattedContent += '## Professional Summary\n\n';
+      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n';
+
+      // Add experience section
+      formattedContent += '## Experience\n\n';
+
+      // Add education section
+      formattedContent += '## Education\n\n';
+      formattedContent += '### BFA Graphic Design\n\n';
+      formattedContent += '**Webster University** (2001-2005)\n\n';
+      formattedContent += '### BA Philosophy\n\n';
+      formattedContent += '**Webster University** (2001-2005)\n\n';
+
+      // Add remaining content
+      formattedContent += '## Additional Information\n\n';
+      formattedContent += lines.join('\n\n');
+
       return {
         success: true,
-        data: `# P. Brady Georgen\n\n## Senior Software Developer\n\n${content}`
+        data: formattedContent
       };
     }
 
@@ -391,40 +415,43 @@ async function formatContentAsText(content: string, contentType: string): Promis
   // Add specific formatting instructions based on content type
   if (contentType === 'resume' || contentType === 'cv') {
     systemPrompt += `
-    This is a RESUME. Follow these specific guidelines:
+    This is a RESUME. Follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
-    1. Start with the person's name in ALL CAPS
+    1. Start with the person's name in ALL CAPS - make it stand out but feel personal
     2. Use ALL CAPS with underlines (====) for main sections like EDUCATION, EXPERIENCE, SKILLS, etc.
     3. Use Title Case with proper indentation for job titles/organizations
-    4. Use dashes (-) or asterisks (*) for bullet points
+    4. Use dashes (-) or asterisks (*) for bullet points - keep them concise and meaningful
     5. Use proper indentation to show hierarchy (2 spaces for each level)
-    6. Use spacing to separate sections (2 blank lines between sections)
-    7. Align dates to the right when appropriate
-    8. Maintain a clean, professional layout
-    9. Preserve all original content
-    10. Do not add any new content or commentary
+    6. Ensure generous spacing between sections (2-3 blank lines) for better readability
+    7. Use spacing and alignment to create a clean, professional layout with a personal touch
+    8. Preserve all original content
+    9. Do not add any new content or commentary
+    10. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted plain text, nothing else.`;
   } else if (contentType === 'cover_letter') {
     systemPrompt += `
-    This is a COVER LETTER. Follow these specific guidelines:
+    This is a COVER LETTER. Follow these specific guidelines with a J.D. Salinger-inspired approach to formatting:
 
-    1. Format the sender's information at the top
+    1. Format the sender's information at the top - make it stand out but feel personal
     2. Format the date, recipient information with proper spacing
     3. Use proper paragraph formatting with indentation
-    4. Use spacing to separate sections
+    4. Ensure generous spacing between sections for better readability
     5. Format the closing and signature appropriately
+    6. Use spacing and alignment to create a clean, professional layout with a personal touch
+    7. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted plain text, nothing else.`;
   } else {
     systemPrompt += `
-    Follow these general guidelines:
+    Follow these general guidelines with a J.D. Salinger-inspired approach to formatting:
 
-    1. Use ALL CAPS for titles
-    2. Use proper indentation for hierarchy
-    3. Use dashes or asterisks for bullet points
-    4. Ensure proper spacing between sections
-    5. Maintain a clean, readable layout
+    1. Use ALL CAPS for titles - make them stand out but feel personal
+    2. Use proper indentation for hierarchy (2 spaces for each level)
+    3. Use dashes (-) or asterisks (*) for bullet points - keep them concise and meaningful
+    4. Ensure generous spacing between sections (2-3 blank lines) for better readability
+    5. Use spacing and alignment to create a clean, professional layout with a personal touch
+    6. DO NOT add any footer text, metadata, or generation information at the end
 
     Return ONLY the formatted plain text, nothing else.`;
   }
@@ -433,9 +460,38 @@ async function formatContentAsText(content: string, contentType: string): Promis
     // Check if OpenAI API key is available
     if (!isOpenAIKeyAvailable()) {
       DanteLogger.warn.deprecated('OpenAI API key is not available, returning default text');
+
+      // Create a more structured fallback text with Salinger-inspired formatting
+      const lines = content.split('\n').filter(line => line.trim() !== '');
+      let formattedContent = 'P. BRADY GEORGEN\n';
+      formattedContent += '=================\n\n\n';
+
+      formattedContent += 'PROFESSIONAL SUMMARY\n';
+      formattedContent += '--------------------\n\n';
+      formattedContent += 'Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.\n\n\n';
+
+      // Add experience section
+      formattedContent += 'EXPERIENCE\n';
+      formattedContent += '----------\n\n';
+      formattedContent += '  Daugherty Business Solutions (2014-2023)\n';
+      formattedContent += '  Sr. Software Developer (III)\n\n';
+
+      // Add education section
+      formattedContent += 'EDUCATION\n';
+      formattedContent += '---------\n\n';
+      formattedContent += '  BFA Graphic Design\n';
+      formattedContent += '  Webster University (2001-2005)\n\n';
+      formattedContent += '  BA Philosophy\n';
+      formattedContent += '  Webster University (2001-2005)\n\n';
+
+      // Add remaining content
+      formattedContent += 'ADDITIONAL INFORMATION\n';
+      formattedContent += '---------------------\n\n';
+      formattedContent += lines.join('\n\n');
+
       return {
         success: true,
-        data: `P. BRADY GEORGEN\n\nSENIOR SOFTWARE DEVELOPER\n\n${content}`
+        data: formattedContent
       };
     }
 
