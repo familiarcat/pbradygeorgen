@@ -143,10 +143,10 @@ export async function generateFormattedMarkdown(content: string): Promise<string
     console.log('Using custom resume markdown formatting for consistency');
     return formatBasicMarkdown(content);
 
-    // Skip OpenAI API call
-    if (false && openai) {
-
-    const response = await openai.chat.completions.create({
+    // Skip OpenAI API call - this code is never executed
+    if (false) {
+      // @ts-ignore - This code is never executed
+      const response = await openai?.chat.completions.create({
       model: "gpt-3.5-turbo", // Using a faster, cheaper model for formatting
       messages: [
         {
@@ -376,10 +376,10 @@ export async function generateFormattedText(content: string): Promise<string> {
     console.log('Using custom resume text formatting for consistency');
     return formatBasicText(content);
 
-    // Skip OpenAI API call
-    if (false && openai) {
-
-    const response = await openai.chat.completions.create({
+    // Skip OpenAI API call - this code is never executed
+    if (false) {
+      // @ts-ignore - This code is never executed
+      const response = await openai?.chat.completions.create({
       model: "gpt-3.5-turbo", // Using a faster, cheaper model for formatting
       messages: [
         {
