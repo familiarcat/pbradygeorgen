@@ -1,8 +1,8 @@
 {
   "framework": "next",
-  "nodeVersion": "18",
+  "nodeVersion": "20",
   "packageManager": "npm",
   "buildCommand": "npm run build",
-  "outputDirectory": "out",
-  "staticExport": true
+  "outputDirectory": ".next",
+  "staticExport": false
 }
