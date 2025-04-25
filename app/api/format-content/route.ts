@@ -311,8 +311,9 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
        - ## Education (organize all education chronologically, most recent first)
 
     3. For the Experience section, CRITICALLY IMPORTANT:
-       - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
-       - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
+       - ALWAYS list positions with "Present" in the date range FIRST (e.g., Digital Ronan 2022-Present)
+       - Then list other positions in chronological order (most recent first)
+       - Treat "Present" as the most recent date possible, overriding numerical years
        - Use level 3 headings (### Company Name) for primary employers/companies
        - Format job titles in bold (**Job Title**)
        - Format date ranges on the same line as job titles, e.g., **Job Title** (2020 - Present)
@@ -444,7 +445,14 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       // Add experience section
       formattedContent += '## Experience\n\n';
 
-      // Daugherty (ALWAYS first with client work nested)
+      // Digital Ronan (first because it includes "Present" in the date range)
+      formattedContent += '### Digital Ronan (freelance)\n\n';
+      formattedContent += '**Consultant & Creative Technologist** (2022 - Present)\n\n';
+      formattedContent += '- Providing strategic digital consultancy for local businesses\n';
+      formattedContent += '- Applying skills in web development, networking, and design\n';
+      formattedContent += '- Creating custom digital solutions for small to medium businesses\n\n';
+
+      // Daugherty (second with client work nested)
       formattedContent += '### Daugherty Business Solutions\n\n';
       formattedContent += '**Sr. Software Developer (III)** (2014 - 2023)\n\n';
       formattedContent += '- Led development of enterprise applications\n';
@@ -468,13 +476,6 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
       formattedContent += '- Implemented scaffolding framework for modular React applications\n';
       formattedContent += '- Integrated with Adobe Content Manager\n';
       formattedContent += '- Developed reusable component libraries\n\n';
-
-      // Digital Ronan (second, even though it's more recent by date)
-      formattedContent += '### Digital Ronan (freelance)\n\n';
-      formattedContent += '**Consultant & Creative Technologist** (2022 - Present)\n\n';
-      formattedContent += '- Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '- Applying skills in web development, networking, and design\n';
-      formattedContent += '- Creating custom digital solutions for small to medium businesses\n\n';
 
       // Add other experience entries chronologically
       formattedContent += '### Deliveries on Demand\n\n';
@@ -596,8 +597,9 @@ async function formatContentAsText(content: string, contentType: string): Promis
        - EDUCATION (organize all education chronologically, most recent first)
 
     3. For the Experience section, CRITICALLY IMPORTANT:
-       - MANUALLY OVERRIDE the chronological order to ensure Daugherty Business Solutions (2014-2023) is ALWAYS listed FIRST in the Experience section
-       - After Daugherty, list Digital Ronan (2022-Present), then other positions in chronological order
+       - ALWAYS list positions with "Present" in the date range FIRST (e.g., Digital Ronan 2022-Present)
+       - Then list other positions in chronological order (most recent first)
+       - Treat "Present" as the most recent date possible, overriding numerical years
        - Use Title Case with proper indentation (2 spaces) for primary employers/companies
        - Format job titles on the next line with proper indentation (4 spaces)
        - Format date ranges on the same line as job titles
@@ -710,7 +712,14 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += 'EXPERIENCE\n';
       formattedContent += '----------\n\n';
 
-      // Daugherty (ALWAYS first with client work nested)
+      // Digital Ronan (first because it includes "Present" in the date range)
+      formattedContent += 'Digital Ronan (freelance)\n';
+      formattedContent += 'Consultant & Creative Technologist (2022 - Present)\n\n';
+      formattedContent += '* Providing strategic digital consultancy for local businesses\n';
+      formattedContent += '* Applying skills in web development, networking, and design\n';
+      formattedContent += '* Creating custom digital solutions for small to medium businesses\n\n';
+
+      // Daugherty (second with client work nested)
       formattedContent += 'Daugherty Business Solutions\n';
       formattedContent += 'Sr. Software Developer (III) (2014 - 2023)\n\n';
       formattedContent += '* Led development of enterprise applications\n';
@@ -734,13 +743,6 @@ async function formatContentAsText(content: string, contentType: string): Promis
       formattedContent += '* Implemented scaffolding framework for modular React applications\n';
       formattedContent += '* Integrated with Adobe Content Manager\n';
       formattedContent += '* Developed reusable component libraries\n\n';
-
-      // Digital Ronan (second, even though it's more recent by date)
-      formattedContent += 'Digital Ronan (freelance)\n';
-      formattedContent += 'Consultant & Creative Technologist (2022 - Present)\n\n';
-      formattedContent += '* Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '* Applying skills in web development, networking, and design\n';
-      formattedContent += '* Creating custom digital solutions for small to medium businesses\n\n';
 
       // Add other experience entries chronologically
       formattedContent += 'Deliveries on Demand\n';
