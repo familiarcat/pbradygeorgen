@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
 
@@ -33,6 +33,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [summaryContent, setSummaryContent] = useState('');
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
+  const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -79,8 +80,18 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           });
         break;
       case 'contact':
-        if (onContact) onContact();
-        else {
+        if (onContact) {
+          // Call the contact handler
+          onContact();
+
+          // Remove focus from the button after a short delay
+          // This allows the email client to open before removing focus
+          setTimeout(() => {
+            if (contactButtonRef.current) {
+              contactButtonRef.current.blur();
+            }
+          }, 100);
+        } else {
           // Scroll to contact section if no handler provided
           const contactElement = document.querySelector('#contact-section');
           if (contactElement) {
@@ -476,6 +487,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         </div>
         <span className={styles.actionSeparator}>•</span>
         <a
+          ref={contactButtonRef}
           href="#"
           className={styles.actionLink}
           onClick={(e) => handleAction('contact', e)}
