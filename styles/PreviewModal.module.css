@@ -7,8 +7,9 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5vh 5% 0; /* Add padding to position modals near the top and sides */
   z-index: 1000;
   backdrop-filter: blur(3px);
   animation: fadeIn 0.3s ease;
@@ -19,7 +20,7 @@
   background-color: #D4D1BE; /* Ecru background */
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: 90%;
+  width: 45%; /* Reduced from 90% to allow for left/right positioning */
   max-width: 900px;
   max-height: 90vh;
   display: flex;
@@ -27,20 +28,23 @@
   animation: slideIn 0.3s ease;
   border: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
   font-family: 'Courier New', monospace;
+  position: relative; /* Enable positioning */
   margin: 0 auto; /* Center by default */
 }
 
 /* Left-aligned modal */
 .modalContentLeft {
   margin-right: auto;
-  margin-left: 5%;
+  margin-left: 0;
+  width: 45%;
   animation: slideInLeft 0.3s ease;
 }
 
 /* Right-aligned modal */
 .modalContentRight {
   margin-left: auto;
-  margin-right: 5%;
+  margin-right: 0;
+  width: 45%;
   animation: slideInRight 0.3s ease;
 }
 
@@ -311,9 +315,17 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .modalContent {
+  .modalOverlay {
+    padding: 5vh 2.5% 0;
+    justify-content: center;
+  }
+
+  .modalContent,
+  .modalContentLeft,
+  .modalContentRight {
     width: 95%;
     max-height: 95vh;
+    margin: 0 auto;
   }
 
   .modalTitle {
