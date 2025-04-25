@@ -41,18 +41,15 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
 
   return (
     <div ref={analyzerRef} className="analyzer-panel relative">
-      <div className="analyzer-header flex justify-between items-center">
-        <h2 className="text-xl font-bold">Summary</h2>
+      <div className="analyzer-header flex justify-between items-center border-b border-[var(--border-medium)] pb-3">
+        <h2 className="text-[1.5rem] font-bold m-0 text-[var(--text-primary)] tracking-tight">Summary Preview</h2>
         {onClose && (
           <button
             onClick={onClose}
-            className="bg-[#49423D] text-white hover:bg-[#8F7E4F] p-2 rounded-md transition-all duration-200 flex items-center justify-center z-50 shadow-md"
+            className="bg-transparent border-none text-[var(--text-primary)] text-[1.5rem] cursor-pointer p-[0.25rem_0.5rem] rounded transition-all duration-200 hover:bg-[rgba(90,118,130,0.1)]"
             aria-label="Close"
-            style={{ boxShadow: '0 2px 6px rgba(0,0,0,0.3)' }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            &times;
           </button>
         )}
       </div>

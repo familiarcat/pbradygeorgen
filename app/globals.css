@@ -446,10 +446,9 @@ iframe[src*=".pdf"] {
 .analyzer-header {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  padding: 1.25rem 1.5rem 0.75rem;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 1rem 1.5rem;
   display: flex;
-  justify-content: space-between; /* Changed back to space-between for the new layout */
+  justify-content: space-between;
   align-items: center;
   font-family: var(--font-heading);
   position: relative;
