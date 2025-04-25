@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
+import PreviewModal from './PreviewModal';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -21,6 +22,12 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   // Loading states for different download formats
   const [isLoadingMd, setIsLoadingMd] = useState(false);
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
+
+  // Preview states
+  const [showMdPreview, setShowMdPreview] = useState(false);
+  const [showTxtPreview, setShowTxtPreview] = useState(false);
+  const [previewContent, setPreviewContent] = useState('');
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -60,11 +67,40 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
     }
   };
 
-  return (
-    <header className={styles.salingerHeader}>
-      <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
+  // Function to handle markdown download
+  const handleMarkdownDownload = () => {
+    // Create and download the file
+    const blob = new Blob([previewContent], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileName}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
-      <nav className={styles.headerActions}>
+  // Function to handle text download
+  const handleTextDownload = () => {
+    // Create and download the file
+    const blob = new Blob([previewContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileName}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <>
+      <header className={styles.salingerHeader}>
+        <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
+
+        <nav className={styles.headerActions}>
         <a
           href="#"
           className={styles.actionLink}
@@ -97,137 +133,224 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
             >
               PDF Format
             </a>
-            <a
-              href="#"
-              onClick={async (e) => {
-                e.preventDefault();
-                setIsLoadingMd(true);
+            <div className={styles.downloadOptionGroup}>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsLoadingPreview(true);
+                  setShowMdPreview(false); // Reset preview state
 
-                try {
-                  // Call our server-side API to format the content
-                  const apiResponse = await fetch('/api/format-content', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      filePath: '/extracted/resume_content.md',
-                      format: 'markdown'
-                    }),
-                  });
+                  try {
+                    // Call our server-side API to format the content
+                    const apiResponse = await fetch('/api/format-content', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'markdown'
+                      }),
+                    });
 
-                  if (!apiResponse.ok) {
-                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                    if (!apiResponse.ok) {
+                      throw new Error(`API responded with status: ${apiResponse.status}`);
+                    }
+
+                    const result = await apiResponse.json();
+
+                    if (!result.success) {
+                      throw new Error(result.error || 'Unknown error');
+                    }
+
+                    // Set the preview content and show the preview modal
+                    setPreviewContent(result.formattedContent);
+                    setShowMdPreview(true);
+                  } catch (error) {
+                    console.error('Error generating markdown preview:', error);
+                    alert('Failed to generate markdown preview. Please try again.');
+                  } finally {
+                    setIsLoadingPreview(false);
                   }
+                }}
+                className={styles.previewButton}
+              >
+                Preview
+              </a>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsLoadingMd(true);
 
-                  const result = await apiResponse.json();
+                  try {
+                    // Call our server-side API to format the content
+                    const apiResponse = await fetch('/api/format-content', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'markdown'
+                      }),
+                    });
 
-                  if (!result.success) {
-                    throw new Error(result.error || 'Unknown error');
+                    if (!apiResponse.ok) {
+                      throw new Error(`API responded with status: ${apiResponse.status}`);
+                    }
+
+                    const result = await apiResponse.json();
+
+                    if (!result.success) {
+                      throw new Error(result.error || 'Unknown error');
+                    }
+
+                    // Log the detected content type
+                    console.log(`Content type detected: ${result.contentType}`);
+
+                    // Create and download the file
+                    const blob = new Blob([result.formattedContent], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${fileName}.md`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                  } catch (error) {
+                    console.error('Error generating markdown:', error);
+                    alert('Failed to generate markdown. Please try again.');
+                  } finally {
+                    setIsLoadingMd(false);
                   }
+                }}
+                className={styles.downloadOption}
+              >
+                {isLoadingMd ? (
+                  <span className={styles.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </span>
+                ) : (
+                  'Markdown Format'
+                )}
+              </a>
+            </div>
+            <div className={styles.downloadOptionGroup}>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsLoadingPreview(true);
+                  setShowTxtPreview(false); // Reset preview state
 
-                  // Log the detected content type
-                  console.log(`Content type detected: ${result.contentType}`);
+                  try {
+                    // Call our server-side API to format the content
+                    const apiResponse = await fetch('/api/format-content', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'text'
+                      }),
+                    });
 
-                  // Create and download the file
-                  const blob = new Blob([result.formattedContent], { type: 'text/markdown' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `${fileName}.md`;
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(url);
-                } catch (error) {
-                  console.error('Error generating markdown:', error);
-                  alert('Failed to generate markdown. Please try again.');
-                } finally {
-                  setIsLoadingMd(false);
-                }
-              }}
-              className={styles.downloadOption}
-            >
-              {isLoadingMd ? (
-                <span className={styles.loadingText}>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Generating...
-                </span>
-              ) : (
-                'Markdown Format'
-              )}
-            </a>
-            <a
-              href="#"
-              onClick={async (e) => {
-                e.preventDefault();
-                setIsLoadingTxt(true);
+                    if (!apiResponse.ok) {
+                      throw new Error(`API responded with status: ${apiResponse.status}`);
+                    }
 
-                try {
-                  // Trigger the regular download handler if needed
-                  if (onDownload) {
-                    onDownload();
+                    const result = await apiResponse.json();
+
+                    if (!result.success) {
+                      throw new Error(result.error || 'Unknown error');
+                    }
+
+                    // Set the preview content and show the preview modal
+                    setPreviewContent(result.formattedContent);
+                    setShowTxtPreview(true);
+                  } catch (error) {
+                    console.error('Error generating text preview:', error);
+                    alert('Failed to generate text preview. Please try again.');
+                  } finally {
+                    setIsLoadingPreview(false);
                   }
+                }}
+                className={styles.previewButton}
+              >
+                Preview
+              </a>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsLoadingTxt(true);
 
-                  // Call our server-side API to format the content
-                  const apiResponse = await fetch('/api/format-content', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      filePath: '/extracted/resume_content.md',
-                      format: 'text'
-                    }),
-                  });
+                  try {
+                    // Call our server-side API to format the content
+                    const apiResponse = await fetch('/api/format-content', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'text'
+                      }),
+                    });
 
-                  if (!apiResponse.ok) {
-                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                    if (!apiResponse.ok) {
+                      throw new Error(`API responded with status: ${apiResponse.status}`);
+                    }
+
+                    const result = await apiResponse.json();
+
+                    if (!result.success) {
+                      throw new Error(result.error || 'Unknown error');
+                    }
+
+                    // Log the detected content type
+                    console.log(`Content type detected: ${result.contentType}`);
+
+                    // Create and download the file
+                    const blob = new Blob([result.formattedContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${fileName}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                  } catch (error) {
+                    console.error('Error generating text format:', error);
+                    alert('Failed to generate text format. Please try again.');
+                  } finally {
+                    setIsLoadingTxt(false);
                   }
-
-                  const result = await apiResponse.json();
-
-                  if (!result.success) {
-                    throw new Error(result.error || 'Unknown error');
-                  }
-
-                  // Log the detected content type
-                  console.log(`Content type detected: ${result.contentType}`);
-
-                  // Create and download the file
-                  const blob = new Blob([result.formattedContent], { type: 'text/plain' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `${fileName}.txt`;
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(url);
-                } catch (error) {
-                  console.error('Error generating text format:', error);
-                  alert('Failed to generate text format. Please try again.');
-                } finally {
-                  setIsLoadingTxt(false);
-                }
-              }}
-              className={styles.downloadOption}
-            >
-              {isLoadingTxt ? (
-                <span className={styles.loadingText}>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Generating...
-                </span>
-              ) : (
-                'Text Format'
-              )}
-            </a>
+                }}
+                className={styles.downloadOption}
+              >
+                {isLoadingTxt ? (
+                  <span className={styles.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </span>
+                ) : (
+                  'Text Format'
+                )}
+              </a>
+            </div>
 
           </div>
         </div>
@@ -263,6 +386,27 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
       </nav>
     </header>
+
+    {/* Markdown Preview Modal */}
+    <PreviewModal
+      isOpen={showMdPreview}
+      onClose={() => setShowMdPreview(false)}
+      content={previewContent}
+      format="markdown"
+      fileName={fileName}
+      onDownload={handleMarkdownDownload}
+    />
+
+    {/* Text Preview Modal */}
+    <PreviewModal
+      isOpen={showTxtPreview}
+      onClose={() => setShowTxtPreview(false)}
+      content={previewContent}
+      format="text"
+      fileName={fileName}
+      onDownload={handleTextDownload}
+    />
+    </>
   );
 };
 

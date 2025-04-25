@@ -103,6 +103,38 @@
   transform: translateY(0);
 }
 
+/* Download option group styling */
+.downloadOptionGroup {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
+}
+
+.downloadOptionGroup:last-child {
+  border-bottom: none;
+}
+
+/* Preview button styling */
+.previewButton {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  color: #49423D; /* Ebony */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: 'Garamond', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  background-color: rgba(143, 126, 79, 0.1); /* Lion with transparency */
+  border-right: 1px solid rgba(73, 66, 61, 0.1);
+  flex: 0 0 auto;
+  width: 70px;
+  text-align: center;
+}
+
+.previewButton:hover {
+  background: #8F7E4F; /* Lion color */
+  color: #FFFFFF; /* White text for contrast */
+}
+
 /* Download options styling */
 .downloadOption {
   display: block;
@@ -112,11 +144,7 @@
   transition: all 0.2s ease;
   font-family: 'Garamond', 'Times New Roman', serif;
   font-size: 1rem;
-  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
-}
-
-.downloadOption:last-child {
-  border-bottom: none;
+  flex: 1;
 }
 
 .downloadOption:hover {

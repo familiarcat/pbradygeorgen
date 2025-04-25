@@ -1,0 +1,189 @@
+/* Modal overlay - covers the entire screen */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal content container */
+.modalContent {
+  background-color: #D4D1BE; /* Ecru background */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  border: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
+  font-family: 'Garamond', 'Times New Roman', serif;
+}
+
+/* Modal header */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
+}
+
+/* Modal title */
+.modalTitle {
+  margin: 0;
+  color: #49423D; /* Ebony */
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+/* Close button */
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #49423D; /* Ebony */
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(73, 66, 61, 0.1);
+}
+
+/* Modal body - contains the preview content */
+.modalBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  background-color: #F5F3E7; /* Lighter ecru for content area */
+  border-radius: 0 0 8px 8px;
+}
+
+/* Code block for markdown preview */
+.codeBlock {
+  margin: 0 !important;
+  border-radius: 4px !important;
+  max-height: 60vh;
+  overflow-y: auto !important;
+  font-family: 'Courier New', monospace !important;
+  font-size: 0.9rem !important;
+}
+
+/* Text preview */
+.textPreview {
+  margin: 0;
+  padding: 1rem;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #333;
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid rgba(73, 66, 61, 0.1);
+}
+
+/* Modal footer */
+.modalFooter {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  border-top: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
+}
+
+/* Download button */
+.downloadButton {
+  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  color: #FFFFFF;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Garamond', 'Times New Roman', serif;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.downloadButton:hover {
+  background-color: #4A6272;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Cancel button */
+.cancelButton {
+  background-color: transparent;
+  color: #49423D; /* Ebony */
+  border: 1px solid rgba(73, 66, 61, 0.3);
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Garamond', 'Times New Roman', serif;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  background-color: rgba(73, 66, 61, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .modalTitle {
+    font-size: 1.25rem;
+  }
+  
+  .modalBody {
+    padding: 1rem;
+  }
+  
+  .modalFooter {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .downloadButton, .cancelButton {
+    width: 100%;
+  }
+}
