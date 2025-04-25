@@ -40,6 +40,9 @@
   font-weight: bold;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .summaryLink:hover {
@@ -69,6 +72,9 @@
   font-weight: bold;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .actionLink::after {
@@ -141,7 +147,10 @@
 
 /* Preview button styling */
 .previewButton {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
   padding: 0.75rem 0.5rem;
   color: #49423D; /* Ebony */
   text-decoration: none;
@@ -152,7 +161,7 @@
   background-color: rgba(143, 126, 79, 0.1); /* Lion with transparency */
   border-right: 1px solid rgba(73, 66, 61, 0.1);
   flex: 0 0 auto;
-  width: 80px;
+  width: 90px;
   text-align: center;
 }
 
@@ -174,6 +183,20 @@
   font-size: 1rem;
   flex: 1;
   gap: 0.5rem;
+}
+
+/* Action icons */
+.actionIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+/* Preview icon */
+.previewIcon {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2;
 }
 
 /* Download icon */
