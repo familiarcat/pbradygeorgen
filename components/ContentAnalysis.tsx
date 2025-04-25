@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { formatForDisplay } from '@/utils/textUtils';
-import { cacheService } from '@/utils/cacheService';
 
 interface ContentAnalysisProps {
   filePath: string;
@@ -125,6 +124,25 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
 
       {analysis && (
         <div className="prose max-w-none max-h-[500px] overflow-y-auto pr-2">
+          {/* Top controls: Close button and Refresh button (in dev mode) */}
+          <div className="flex justify-between items-center mb-4">
+            {/* Close Summary button in the upper right */}
+            <button
+              onClick={() => {
+                // Find the closest parent component with a close function
+                const event = new CustomEvent('close-content-analysis', { bubbles: true });
+                document.dispatchEvent(event);
+              }}
+              className="bg-[#49423D] text-white hover:bg-[#8F7E4F] py-1 px-3 rounded-md transition-all duration-200 flex items-center justify-center shadow-md ml-auto"
+              style={{ boxShadow: '0 2px 6px rgba(0,0,0,0.3)' }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Close
+            </button>
+          </div>
+
           {/* Refresh button - only shown in development mode */}
           {isDevelopment && (
             <div className="flex justify-end mb-4">
@@ -207,23 +225,7 @@ export default function ContentAnalysis({ filePath }: ContentAnalysisProps) {
             </ul>
           </div>
 
-          {/* Close button at the bottom */}
-          <div className="flex justify-center mt-8 mb-4">
-            <button
-              onClick={() => {
-                // Find the closest parent component with a close function
-                const event = new CustomEvent('close-content-analysis', { bubbles: true });
-                document.dispatchEvent(event);
-              }}
-              className="bg-[#49423D] text-white hover:bg-[#8F7E4F] py-2 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md"
-              style={{ boxShadow: '0 2px 6px rgba(0,0,0,0.3)' }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              Close Summary
-            </button>
-          </div>
+
         </div>
       )}
     </div>
