@@ -37,7 +37,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[rgba(90,118,130,0.1)] p-1 rounded-full transition-all duration-200"
+            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[rgba(90,118,130,0.1)] p-2 rounded-full transition-all duration-200 absolute top-4 right-4"
             aria-label="Close"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,20 +58,7 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         <div className="mt-4">
           <ContentAnalysis filePath="/extracted/resume_content_improved.md" />
 
-          {/* Close button at the bottom */}
-          {onClose && (
-            <div className="flex justify-center mt-6 mb-2">
-              <button
-                onClick={onClose}
-                className="analyzer-button analyzer-button-secondary text-sm flex items-center px-4 py-2 rounded"
-              >
-                <svg className="-ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                Close Summary
-              </button>
-            </div>
-          )}
+          {/* No bottom close button - using only the X icon in the upper right */}
         </div>
       </div>
     </div>
