@@ -22,6 +22,28 @@ rm -rf .next
 echo "Installing dependencies..."
 npm ci
 
+# Ensure PDF content is extracted before build
+echo "Checking PDF file..."
+if [ -f "public/pbradygeorgen_resume.pdf" ]; then
+  echo "PDF file found: public/pbradygeorgen_resume.pdf"
+  echo "Last modified: $(stat -c %y public/pbradygeorgen_resume.pdf 2>/dev/null || stat -f "%Sm" public/pbradygeorgen_resume.pdf)"
+
+  # Create the extracted directory if it doesn't exist
+  mkdir -p public/extracted
+
+  # Extract content from the PDF
+  echo "Extracting content from PDF..."
+  node scripts/extract-pdf-text-improved.js public/pbradygeorgen_resume.pdf
+
+  if [ $? -eq 0 ]; then
+    echo "PDF content extracted successfully"
+  else
+    echo "Warning: PDF extraction failed, but continuing build"
+  fi
+else
+  echo "Warning: PDF file not found at public/pbradygeorgen_resume.pdf"
+fi
+
 # Build the project
 echo "Building the project..."
 npm run build
