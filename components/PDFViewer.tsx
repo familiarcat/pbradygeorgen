@@ -201,9 +201,9 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
           </div>
         )}
 
-        {/* PDF Analyzer */}
+        {/* PDF Analyzer - positioned on the left side */}
         {showAnalyzer && (
-          <div className="absolute top-4 right-4 z-20 w-[32rem] max-w-[90vw]">
+          <div className="absolute top-4 left-4 z-20 w-[32rem] max-w-[90vw]">
             <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
           </div>
         )}
