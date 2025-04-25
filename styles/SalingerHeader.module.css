@@ -25,6 +25,29 @@
   font-family: 'Courier New', monospace;
 }
 
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.summaryLink {
+  color: #49423D; /* Ebony */
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.summaryLink:hover {
+  color: #FFFFFF; /* White text for contrast */
+  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .headerActions {
   display: flex;
   align-items: center;
@@ -190,6 +213,11 @@
 
   .siteTitle {
     font-size: 1.5rem;
+  }
+
+  .headerLeft {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 
   .headerActions {

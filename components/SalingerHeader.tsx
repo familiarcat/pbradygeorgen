@@ -111,7 +111,17 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   return (
     <>
       <header className={styles.salingerHeader}>
-        <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
+        <div className={styles.headerLeft}>
+          <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
+          <a
+            href="#"
+            className={styles.summaryLink}
+            onClick={(e) => handleAction('summary', e)}
+            aria-label="View Summary"
+          >
+            Summary
+          </a>
+        </div>
 
         <nav className={styles.headerActions}>
         <div className={styles.downloadContainer}>
@@ -410,15 +420,6 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
           </div>
         </div>
-        <span className={styles.actionSeparator}>•</span>
-        <a
-          href="#"
-          className={styles.actionLink}
-          onClick={(e) => handleAction('summary', e)}
-          aria-label="View Summary"
-        >
-          Summary
-        </a>
         <span className={styles.actionSeparator}>•</span>
         <a
           href="#"
