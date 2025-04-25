@@ -21,12 +21,21 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
       }
     }
 
-    // Add event listener
+    // Handle custom close event from ContentAnalysis
+    function handleCustomClose() {
+      if (onClose) {
+        onClose();
+      }
+    }
+
+    // Add event listeners
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('close-content-analysis', handleCustomClose);
 
     // Clean up
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('close-content-analysis', handleCustomClose);
     };
   }, [onClose]);
 
@@ -37,8 +46,9 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="bg-[#49423D] text-white hover:bg-[#8F7E4F] p-2 rounded-md transition-all duration-200 flex items-center justify-center z-50"
+            className="bg-[#49423D] text-white hover:bg-[#8F7E4F] p-2 rounded-md transition-all duration-200 flex items-center justify-center z-50 shadow-md"
             aria-label="Close"
+            style={{ boxShadow: '0 2px 6px rgba(0,0,0,0.3)' }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
