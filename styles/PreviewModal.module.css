@@ -72,14 +72,112 @@
   border-radius: 0 0 8px 8px;
 }
 
-/* Code block for markdown preview */
-.codeBlock {
-  margin: 0 !important;
-  border-radius: 4px !important;
+/* Markdown preview */
+.markdownPreview {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #FFFFFF;
+  border-radius: 4px;
   max-height: 60vh;
-  overflow-y: auto !important;
-  font-family: 'Courier New', monospace !important;
-  font-size: 0.9rem !important;
+  overflow-y: auto;
+  border: 1px solid rgba(73, 66, 61, 0.1);
+  font-family: 'Garamond', 'Times New Roman', serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.markdownPreview h1 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #49423D; /* Ebony */
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+.markdownPreview h2 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #49423D; /* Ebony */
+  font-weight: 400;
+  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.markdownPreview h3 {
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #49423D; /* Ebony */
+  font-weight: 400;
+}
+
+.markdownPreview h4 {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #49423D; /* Ebony */
+  font-weight: 400;
+  font-style: italic;
+}
+
+.markdownPreview p {
+  margin-bottom: 1rem;
+}
+
+.markdownPreview ul, .markdownPreview ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdownPreview li {
+  margin-bottom: 0.25rem;
+}
+
+.markdownPreview a {
+  color: #5A7682; /* Blue accent color */
+  text-decoration: none;
+}
+
+.markdownPreview a:hover {
+  text-decoration: underline;
+}
+
+.markdownPreview code {
+  background-color: rgba(73, 66, 61, 0.05);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.markdownPreview pre {
+  background-color: rgba(73, 66, 61, 0.05);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.markdownPreview pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* PDF preview */
+.pdfPreview {
+  width: 100%;
+  height: 60vh;
+  border: 1px solid rgba(73, 66, 61, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pdfFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 /* Text preview */
@@ -118,11 +216,22 @@
   font-family: 'Garamond', 'Times New Roman', serif;
   font-size: 1rem;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .downloadButton:hover {
   background-color: #4A6272;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Download icon */
+.downloadIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
 }
 
 /* Cancel button */
@@ -169,20 +278,20 @@
     width: 95%;
     max-height: 95vh;
   }
-  
+
   .modalTitle {
     font-size: 1.25rem;
   }
-  
+
   .modalBody {
     padding: 1rem;
   }
-  
+
   .modalFooter {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .downloadButton, .cancelButton {
     width: 100%;
   }

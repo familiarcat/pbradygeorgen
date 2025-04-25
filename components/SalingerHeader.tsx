@@ -22,10 +22,12 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   // Loading states for different download formats
   const [isLoadingMd, setIsLoadingMd] = useState(false);
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
+  const [isLoadingPdf, setIsLoadingPdf] = useState(false);
 
   // Preview states
   const [showMdPreview, setShowMdPreview] = useState(false);
   const [showTxtPreview, setShowTxtPreview] = useState(false);
+  const [showPdfPreview, setShowPdfPreview] = useState(false);
   const [previewContent, setPreviewContent] = useState('');
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
@@ -95,6 +97,17 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
     URL.revokeObjectURL(url);
   };
 
+  // Function to handle PDF download
+  const handlePdfDownload = () => {
+    // Create a link to the PDF file and trigger download
+    const a = document.createElement('a');
+    a.href = `/pbradygeorgen_resume.pdf?v=${Date.now()}`;
+    a.download = `${fileName}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
     <>
       <header className={styles.salingerHeader}>
@@ -123,16 +136,54 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
           {/* Dropdown menu with Salinger-inspired styling */}
           <div className={styles.downloadMenu}>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onDownload) onDownload();
-              }}
-              className={styles.downloadOption}
-            >
-              PDF Format
-            </a>
+            <div className={styles.downloadOptionGroup}>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowPdfPreview(true);
+                }}
+                className={styles.previewButton}
+              >
+                Preview
+              </a>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsLoadingPdf(true);
+
+                  try {
+                    handlePdfDownload();
+                  } catch (error) {
+                    console.error('Error downloading PDF:', error);
+                    alert('Failed to download PDF. Please try again.');
+                  } finally {
+                    setIsLoadingPdf(false);
+                  }
+                }}
+                className={styles.downloadOption}
+              >
+                {isLoadingPdf ? (
+                  <span className={styles.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Downloading...
+                  </span>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    PDF Format
+                  </>
+                )}
+              </a>
+            </div>
             <div className={styles.downloadOptionGroup}>
               <a
                 href="#"
@@ -238,7 +289,14 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                     Generating...
                   </span>
                 ) : (
-                  'Markdown Format'
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Markdown Format
+                  </>
                 )}
               </a>
             </div>
@@ -347,7 +405,14 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
                     Generating...
                   </span>
                 ) : (
-                  'Text Format'
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Text Format
+                  </>
                 )}
               </a>
             </div>
@@ -363,17 +428,8 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         >
           Contact
         </a>
-        <span className={styles.actionSeparator}>•</span>
-        <a
-          href="#"
-          className={styles.actionLink}
-          onClick={(e) => handleAction('refresh', e)}
-          aria-label="Refresh PDF"
-        >
-          Refresh PDF
-        </a>
-        <span className={styles.actionSeparator}>•</span>
         {/* Upload PDF feature temporarily disabled
+        <span className={styles.actionSeparator}>•</span>
         <a
           href="#"
           className={styles.actionLink}
@@ -405,6 +461,16 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       format="text"
       fileName={fileName}
       onDownload={handleTextDownload}
+    />
+
+    {/* PDF Preview Modal */}
+    <PreviewModal
+      isOpen={showPdfPreview}
+      onClose={() => setShowPdfPreview(false)}
+      content=""
+      format="pdf"
+      fileName={fileName}
+      onDownload={handlePdfDownload}
     />
     </>
   );
