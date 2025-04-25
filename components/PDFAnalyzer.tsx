@@ -37,11 +37,11 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[rgba(90,118,130,0.1)] p-2 rounded-full transition-all duration-200 absolute top-4 right-4"
+            className="text-[var(--text-primary)] hover:text-[var(--cta-secondary)] hover:bg-[rgba(90,118,130,0.1)] p-2 rounded-full transition-all duration-200 absolute top-4 right-4 border border-[var(--border-medium)]"
             aria-label="Close"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         )}
