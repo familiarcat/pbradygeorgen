@@ -28,8 +28,11 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [showMdPreview, setShowMdPreview] = useState(false);
   const [showTxtPreview, setShowTxtPreview] = useState(false);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
   const [previewContent, setPreviewContent] = useState('');
+  const [summaryContent, setSummaryContent] = useState('');
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
+  const [isLoadingSummary, setIsLoadingSummary] = useState(false);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,14 +42,41 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         if (onDownload) onDownload();
         break;
       case 'summary':
-        if (onViewSummary) onViewSummary();
-        else {
-          // Scroll to summary section if no handler provided
-          const summaryElement = document.querySelector('#summary-section');
-          if (summaryElement) {
-            summaryElement.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
+        // Show the summary modal
+        setIsLoadingSummary(true);
+
+        // Fetch the summary content
+        fetch('/api/get-summary')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`API responded with status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.success) {
+              setSummaryContent(data.summary);
+              setShowSummaryModal(true);
+            } else {
+              throw new Error(data.error || 'Failed to load summary');
+            }
+          })
+          .catch(error => {
+            console.error('Error loading summary:', error);
+
+            // Fallback to the original behavior
+            if (onViewSummary) onViewSummary();
+            else {
+              // Scroll to summary section if no handler provided
+              const summaryElement = document.querySelector('#summary-section');
+              if (summaryElement) {
+                summaryElement.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          })
+          .finally(() => {
+            setIsLoadingSummary(false);
+          });
         break;
       case 'contact':
         if (onContact) onContact();
@@ -452,6 +482,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       format="markdown"
       fileName={fileName}
       onDownload={handleMarkdownDownload}
+      position="right"
     />
 
     {/* Text Preview Modal */}
@@ -462,6 +493,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       format="text"
       fileName={fileName}
       onDownload={handleTextDownload}
+      position="right"
     />
 
     {/* PDF Preview Modal */}
@@ -472,6 +504,28 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       format="pdf"
       fileName={fileName}
       onDownload={handlePdfDownload}
+      position="right"
+    />
+
+    {/* Summary Modal */}
+    <PreviewModal
+      isOpen={showSummaryModal}
+      onClose={() => setShowSummaryModal(false)}
+      content={summaryContent}
+      format="markdown"
+      fileName="summary"
+      onDownload={() => {
+        const blob = new Blob([summaryContent], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'summary.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }}
+      position="left"
     />
     </>
   );

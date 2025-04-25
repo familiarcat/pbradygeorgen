@@ -12,6 +12,7 @@ interface PreviewModalProps {
   format: 'markdown' | 'text' | 'pdf';
   fileName: string;
   onDownload: () => void;
+  position?: 'left' | 'right' | 'center';
 }
 
 const PreviewModal: React.FC<PreviewModalProps> = ({
@@ -20,7 +21,8 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   content,
   format,
   fileName,
-  onDownload
+  onDownload,
+  position = 'center'
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +77,15 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
 
   return (
     <div className={styles.modalOverlay}>
-      <div ref={modalRef} className={styles.modalContent}>
+      <div
+        ref={modalRef}
+        className={`${styles.modalContent} ${
+          position === 'left'
+            ? styles.modalContentLeft
+            : position === 'right'
+              ? styles.modalContentRight
+              : ''
+        }`}>
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>
             {format === 'markdown'
