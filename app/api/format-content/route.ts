@@ -687,6 +687,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
       DanteLogger.warn.deprecated('Using custom resume text formatting for consistency');
 
       // Create a more structured fallback text with Salinger-inspired formatting
+      // This matches the structure of the markdown formatting for consistency
       const lines = content.split('\n').filter(line => line.trim() !== '');
       let formattedContent = 'P. BRADY GEORGEN\n';
       formattedContent += '=================\n\n\n';
@@ -699,102 +700,107 @@ async function formatContentAsText(content: string, contentType: string): Promis
       // Add contact information
       formattedContent += 'CONTACT INFORMATION\n';
       formattedContent += '-------------------\n\n';
-      formattedContent += '  4350 A De Tonty St\n';
-      formattedContent += '  St. Louis, MO\n';
-      formattedContent += '  (314) 580-0608\n';
-      formattedContent += '  pbradygeorgen.com\n';
-      formattedContent += '  brady@pbradygeorgen.com\n\n\n';
+      formattedContent += '4350 A De Tonty St\n';
+      formattedContent += 'St. Louis, MO\n';
+      formattedContent += '(314) 580-0608\n';
+      formattedContent += 'pbradygeorgen.com\n';
+      formattedContent += 'brady@pbradygeorgen.com\n\n\n';
 
       // Add experience section
       formattedContent += 'EXPERIENCE\n';
       formattedContent += '----------\n\n';
 
       // Daugherty (ALWAYS first with client work nested)
-      formattedContent += '  Daugherty Business Solutions\n';
-      formattedContent += '    Sr. Software Developer (III) (2014 - 2023)\n\n';
-      formattedContent += '      * Led development of enterprise applications\n';
-      formattedContent += '      * Implemented solutions using modern web technologies\n';
-      formattedContent += '      * Collaborated with cross-functional teams to deliver high-quality software solutions\n\n';
+      formattedContent += 'Daugherty Business Solutions\n';
+      formattedContent += 'Sr. Software Developer (III) (2014 - 2023)\n\n';
+      formattedContent += '* Led development of enterprise applications\n';
+      formattedContent += '* Implemented solutions using modern web technologies\n';
+      formattedContent += '* Collaborated with cross-functional teams to deliver high-quality software solutions\n\n';
 
       // Client work nested under Daugherty with "Client:" prefix
-      formattedContent += '      Client: Bayer\n';
-      formattedContent += '        * Architected, developed, migrated, and maintained various enterprise scale\n';
-      formattedContent += '          applications utilizing React, AWS, and SOA architectures\n';
-      formattedContent += '        * Upheld Agile best practices throughout development lifecycle\n\n';
+      formattedContent += 'Client: Bayer\n\n';
+      formattedContent += '* Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures\n';
+      formattedContent += '* Upheld Agile best practices throughout development lifecycle\n\n';
 
-      formattedContent += '      Client: Charter Communications\n';
-      formattedContent += '        * Engineered interactive call center solutions empowering representatives\n';
-      formattedContent += '          to provide enhanced customer service capabilities\n';
-      formattedContent += '        * Implemented user-friendly interfaces for call center operations\n\n';
+      formattedContent += 'Client: Charter Communications\n\n';
+      formattedContent += '* Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n';
+      formattedContent += '* Implemented user-friendly interfaces for call center operations\n\n';
 
-      formattedContent += '      Client: Mastercard\n';
-      formattedContent += '        * Developed comprehensive onboarding documentation, sample code, and API\n';
-      formattedContent += '          integration\n';
-      formattedContent += '        * Supported the MasterPass online purchasing initiative\n\n';
+      formattedContent += 'Client: Mastercard\n\n';
+      formattedContent += '* Developed comprehensive onboarding documentation, sample code, and API integration\n';
+      formattedContent += '* Supported the MasterPass online purchasing initiative\n\n';
 
-      formattedContent += '      Client: Cox Communications\n';
-      formattedContent += '        * Implemented scaffolding framework for modular React applications\n';
-      formattedContent += '        * Integrated with Adobe Content Manager\n';
-      formattedContent += '        * Developed reusable component libraries\n\n';
+      formattedContent += 'Client: Cox Communications\n\n';
+      formattedContent += '* Implemented scaffolding framework for modular React applications\n';
+      formattedContent += '* Integrated with Adobe Content Manager\n';
+      formattedContent += '* Developed reusable component libraries\n\n';
 
       // Digital Ronan (second, even though it's more recent by date)
-      formattedContent += '  Digital Ronan (freelance)\n';
-      formattedContent += '    Consultant & Creative Technologist (2022 - Present)\n\n';
-      formattedContent += '      * Providing strategic digital consultancy for local businesses\n';
-      formattedContent += '      * Applying skills in web development, networking, and design\n';
-      formattedContent += '      * Creating custom digital solutions for small to medium businesses\n\n';
+      formattedContent += 'Digital Ronan (freelance)\n';
+      formattedContent += 'Consultant & Creative Technologist (2022 - Present)\n\n';
+      formattedContent += '* Providing strategic digital consultancy for local businesses\n';
+      formattedContent += '* Applying skills in web development, networking, and design\n';
+      formattedContent += '* Creating custom digital solutions for small to medium businesses\n\n';
 
       // Add other experience entries chronologically
-      formattedContent += '  Deliveries on Demand\n';
-      formattedContent += '    Lead Software Developer (2013 - 2014)\n\n';
-      formattedContent += '      * Developed and maintained delivery management software\n';
-      formattedContent += '      * Led a team of developers in creating mobile applications\n\n';
+      formattedContent += 'Deliveries on Demand\n';
+      formattedContent += 'Lead Software Developer (2013 - 2014)\n\n';
+      formattedContent += '* Developed and maintained delivery management software\n';
+      formattedContent += '* Led a team of developers in creating mobile applications\n\n';
 
-      formattedContent += '  Infuze\n';
-      formattedContent += '    Sr. Developer/Asst. Art Director (2011 - 2013)\n\n';
-      formattedContent += '      * Combined technical development with creative design direction\n';
-      formattedContent += '      * Created digital marketing solutions for clients\n\n';
+      formattedContent += 'Infuze\n';
+      formattedContent += 'Sr. Developer/Asst. Art Director (2011 - 2013)\n\n';
+      formattedContent += '* Combined technical development with creative design direction\n';
+      formattedContent += '* Created digital marketing solutions for clients\n\n';
 
-      formattedContent += '  Touchwood Creative\n';
-      formattedContent += '    Lead Software Developer (2008 - 2009)\n\n';
-      formattedContent += '      * Developed custom web applications for clients\n';
-      formattedContent += '      * Implemented creative digital solutions\n\n';
+      formattedContent += 'Touchwood Creative\n';
+      formattedContent += 'Lead Software Developer (2008 - 2009)\n\n';
+      formattedContent += '* Developed custom web applications for clients\n';
+      formattedContent += '* Implemented creative digital solutions\n\n';
 
-      formattedContent += '  ThinkTank (freelance)\n';
-      formattedContent += '    Software and Creative Director (2005 - 2008)\n\n';
-      formattedContent += '      * Provided software development and creative direction services\n';
-      formattedContent += '      * Managed client relationships and project deliverables\n\n';
+      formattedContent += 'ThinkTank (freelance)\n';
+      formattedContent += 'Software and Creative Director (2005 - 2008)\n\n';
+      formattedContent += '* Provided software development and creative direction services\n';
+      formattedContent += '* Managed client relationships and project deliverables\n\n';
 
-      formattedContent += '  Asynchrony Solutions\n';
-      formattedContent += '    Designer/Developer/Marketing Asst. (2004 - 2005)\n\n';
-      formattedContent += '      * Assisted with design, development, and marketing initiatives\n';
-      formattedContent += '      * Contributed to various software projects\n\n\n';
+      formattedContent += 'Asynchrony Solutions\n';
+      formattedContent += 'Designer/Developer/Marketing Asst. (2004 - 2005)\n\n';
+      formattedContent += '* Assisted with design, development, and marketing initiatives\n';
+      formattedContent += '* Contributed to various software projects\n\n\n';
 
-      // Add skills section
+      // Add skills section with Core Skills and Technical Skills subsections
       formattedContent += 'SKILLS & TECHNOLOGIES\n';
       formattedContent += '--------------------\n\n';
-      formattedContent += '  CORE COMPETENCIES:\n';
-      formattedContent += '    * Full Stack Development\n';
-      formattedContent += '    * JavaScript/TypeScript\n';
-      formattedContent += '    * Graphic Design & UI/UX\n';
-      formattedContent += '    * React & React Native\n';
-      formattedContent += '    * AWS & Cloud Architecture\n';
-      formattedContent += '    * Illustration\n';
-      formattedContent += '    * Creative/Technical writing\n\n';
-      formattedContent += '  TECHNOLOGIES:\n';
-      formattedContent += '    * AWS, AWS Amplify, SOA, CI/CD\n';
-      formattedContent += '    * MongoDB, SQL, Docker, Terraform, Jenkins\n';
-      formattedContent += '    * Node, Ruby, Java, Adobe CS, UI/UX Prototyping\n\n\n';
+
+      // Core Skills subsection
+      formattedContent += 'CORE SKILLS\n\n';
+      formattedContent += '* Full Stack Development\n';
+      formattedContent += '* JavaScript/TypeScript\n';
+      formattedContent += '* Graphic Design & UI/UX\n';
+      formattedContent += '* React & React Native\n';
+      formattedContent += '* AWS & Cloud Architecture\n';
+      formattedContent += '* Illustration\n';
+      formattedContent += '* Creative/Technical Writing\n\n';
+
+      // Technical Skills subsection with grouped technologies
+      formattedContent += 'TECHNICAL SKILLS\n\n';
+      formattedContent += '* Frontend: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n';
+      formattedContent += '* Backend: Node.js, Ruby, Java\n';
+      formattedContent += '* Cloud & Infrastructure: AWS, AWS Amplify, Docker, Terraform\n';
+      formattedContent += '* Database: MongoDB, SQL\n';
+      formattedContent += '* DevOps: CI/CD, Jenkins, Shell Automation\n';
+      formattedContent += '* Architecture: SOA (Service-Oriented Architecture)\n';
+      formattedContent += '* Design: Adobe Creative Suite\n\n\n';
 
       // Add education section
       formattedContent += 'EDUCATION\n';
       formattedContent += '---------\n\n';
-      formattedContent += '  BFA Graphic Design\n';
-      formattedContent += '    Webster University (2001-2005)\n\n';
-      formattedContent += '  BA Philosophy\n';
-      formattedContent += '    Webster University (2001-2005)\n\n';
-      formattedContent += '  ASSC Motion Graphics\n';
-      formattedContent += '    Saint Louis Community College (1999-2001)\n\n';
+      formattedContent += 'BFA Graphic Design\n\n';
+      formattedContent += 'Webster University (2001-2005)\n\n';
+      formattedContent += 'BA Philosophy\n\n';
+      formattedContent += 'Webster University (2001-2005)\n\n';
+      formattedContent += 'ASSC Motion Graphics\n\n';
+      formattedContent += 'Saint Louis Community College (1999-2001)\n\n';
 
       return {
         success: true,
