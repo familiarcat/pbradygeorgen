@@ -449,10 +449,10 @@ iframe[src*=".pdf"] {
   padding: 1.25rem 1.5rem 0.75rem;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
-  justify-content: flex-start; /* Changed from space-between to flex-start */
+  justify-content: space-between; /* Changed back to space-between for the new layout */
   align-items: center;
   font-family: var(--font-heading);
-  position: relative; /* Added to support absolute positioning of the close button */
+  position: relative;
 }
 
 .analyzer-content {
