@@ -8,9 +8,9 @@ AREA EXPERTISE
 EXTENDED EXPERIENCE
 ABOUT ME
 4350 A De Tonty St, 
-St. Louis, MO
+St. Louis, MO 63110
 (314) 580-0608
-pbradygeorgen.com
+www.pbradygeorgen.com
 brady@pbradygeorgen.com
 WORK EPERIENCE
 EDUCATION
@@ -82,4 +82,4 @@ Saint Louis Community College
 ---
 
 *This document was automatically extracted from a PDF resume.*
-*Generated on: 4/24/2025*
+*Generated on: 4/25/2025*
