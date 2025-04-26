@@ -110,8 +110,14 @@
   stroke-width: 2;
 }
 
-/* PDF Export button - Primary CTA */
-.pdfExportButton {
+/* Download container for dropdown functionality */
+.downloadContainer {
+  position: relative;
+  display: inline-block;
+}
+
+/* Download button - Primary CTA */
+.downloadButton {
   background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency (matches --cta-primary) */
   color: #F5F3E7; /* Light text color */
   border: none;
@@ -128,22 +134,78 @@
   gap: 0.5rem;
 }
 
-.pdfExportButton:hover {
+.downloadButton:hover {
   background-color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
   color: #FFFFFF; /* White text for contrast */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.pdfExportButton:disabled {
+.downloadButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* PDF icon */
-.pdfIcon {
+/* Download icon */
+.downloadIcon {
   width: 1.25rem;
   height: 1.25rem;
   stroke-width: 2;
+}
+
+/* Format icon */
+.formatIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+/* Download options dropdown */
+.downloadOptions {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: #222222; /* Dark background */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Download option */
+.downloadOption {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #F5F3E7; /* Light text color */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.downloadOption:last-child {
+  border-bottom: none;
+}
+
+.downloadOption:hover {
+  background-color: rgba(126, 78, 45, 0.3); /* Terracotta with transparency */
+}
+
+.downloadOption:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Close button - Dark theme */

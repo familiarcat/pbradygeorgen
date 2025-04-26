@@ -224,6 +224,20 @@
   color: #49423D; /* Ebony */
 }
 
+/* Loading spinner animation */
+.loadingSpinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .actionSeparator {
   color: #8F7E4F; /* Lion - warm, muted gold */
   font-size: 0.8rem;
