@@ -632,6 +632,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       fileName={fileName}
       onDownload={handlePdfDownload}
       position="right"
+      pdfSource="/pbradygeorgen_resume.pdf" // Explicitly set to resume PDF
     />
 
     {/* Summary Modal - Using the new dark-themed SummaryModal */}

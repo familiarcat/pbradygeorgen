@@ -47,10 +47,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Exporting summary as PDF with dark theme');
 
       // Use the markdown content directly with dark theme styling
+      // Note the different file name to distinguish it from the resume PDF
       await PdfGenerator.generatePdfFromMarkdown(content, {
-        title: 'P. Brady Georgen - Summary',
-        fileName: 'pbradygeorgen_summary.pdf',
-        headerText: 'P. Brady Georgen - Summary',
+        title: 'P. Brady Georgen - Cover Letter',
+        fileName: 'pbradygeorgen_cover_letter.pdf',
+        headerText: 'P. Brady Georgen - Cover Letter',
         footerText: 'Generated with Salinger Design',
         // Use letter size for US standard 8.5 x 11 inches
         pageSize: 'letter',
@@ -63,8 +64,8 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         }
       });
 
-      DanteLogger.success.ux('Exported summary as PDF using Salinger dark theme');
-      HesseLogger.summary.complete('Summary exported as PDF with dark theme styling');
+      DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
+      HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
     } catch (error) {
       DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
       HesseLogger.summary.error(`PDF export failed: ${error}`);
@@ -79,6 +80,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     try {
       setShowPdfPreview(true);
       HesseLogger.summary.start('Opening PDF preview with dark theme');
+
+      // Generate a temporary PDF for preview if needed
+      // For now, we're using a static preview file, but this could be dynamically generated
+
       DanteLogger.success.ux('Opened PDF preview with Salinger dark theme');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
@@ -98,7 +103,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'pbradygeorgen_summary.md';
+      a.download = 'pbradygeorgen_cover_letter.md';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -151,7 +156,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'pbradygeorgen_summary.txt';
+      a.download = 'pbradygeorgen_cover_letter.txt';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -264,7 +269,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               : ''
         }`}>
         <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>Summary</h2>
+          <h2 className={styles.modalTitle}>Cover Letter</h2>
           <div className={styles.headerActions}>
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
@@ -280,7 +285,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                Download Summary
+                Download Cover Letter
               </a>
 
               {/* Dropdown menu with Salinger-inspired styling */}
@@ -450,9 +455,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setShowPdfPreview(false)}
           content=""
           format="pdf"
-          fileName="pbradygeorgen_summary"
+          fileName="pbradygeorgen_cover_letter"
           onDownload={handleExportToPdf}
           position="right"
+          pdfSource="/summary-preview.pdf" // Use our dedicated summary PDF preview
         />
       )}
 
@@ -462,7 +468,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setShowMdPreview(false)}
           content={content}
           format="markdown"
-          fileName="pbradygeorgen_summary"
+          fileName="pbradygeorgen_cover_letter"
           onDownload={handleExportToMarkdown}
           position="right"
         />
@@ -474,7 +480,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setShowTxtPreview(false)}
           content={previewContent}
           format="text"
-          fileName="pbradygeorgen_summary"
+          fileName="pbradygeorgen_cover_letter"
           onDownload={handleExportToText}
           position="right"
         />
