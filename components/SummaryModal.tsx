@@ -84,6 +84,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const handlePdfPreview = async () => {
     try {
       HesseLogger.summary.start('Generating PDF preview with dark theme');
+      console.log('Starting PDF preview generation for Cover Letter');
 
       // Generate a real-time PDF preview
       const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, {
@@ -102,15 +103,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         }
       });
 
+      console.log('PDF data URL generated:', dataUrl ? `${dataUrl.substring(0, 50)}...` : 'null');
+
       // Store the data URL for the preview
       setPdfDataUrl(dataUrl);
+      console.log('PDF data URL stored in state');
 
       // Show the preview modal
       setActivePreview('pdf');
+      console.log('Active preview set to PDF');
 
       DanteLogger.success.ux('Opened PDF preview with Salinger dark theme');
       HesseLogger.summary.complete('PDF preview generated with dark theme styling');
     } catch (error) {
+      console.error('Error in PDF preview generation:', error);
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
       HesseLogger.summary.error(`PDF preview failed: ${error}`);
       alert('There was an error generating the PDF preview. Please try again.');
@@ -249,6 +255,16 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose, showDownloadOptions]);
+
+  // Reset state when modal is closed
+  useEffect(() => {
+    if (!isOpen) {
+      // Reset preview states when modal is closed
+      setActivePreview(null);
+      setPdfDataUrl(null);
+      console.log('Modal closed, reset preview states');
+    }
+  }, [isOpen]);
 
   // Handle escape key to close
   useEffect(() => {
@@ -477,7 +493,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       {showPdfPreview && (
         <PreviewModal
           isOpen={showPdfPreview}
-          onClose={() => setActivePreview(null)}
+          onClose={() => {
+            console.log('Closing PDF preview, resetting active preview');
+            setActivePreview(null);
+          }}
           content=""
           format="pdf"
           fileName="pbradygeorgen_cover_letter"

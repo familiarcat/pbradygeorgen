@@ -179,11 +179,31 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
             </div>
           ) : format === 'pdf' ? (
             <div className={styles.pdfPreview}>
-              <iframe
-                src={pdfDataUrl || `${pdfSource}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-                className={styles.pdfFrame}
-                title="PDF Preview"
-              />
+              {/* Log preview details */}
+              {(() => {
+                console.log('Rendering PDF preview with:', {
+                  hasPdfDataUrl: !!pdfDataUrl,
+                  pdfSource,
+                  format,
+                  fileName
+                });
+                return null;
+              })()}
+
+              {/* Conditionally render based on whether we have a data URL or a file source */}
+              {pdfDataUrl ? (
+                <iframe
+                  src={pdfDataUrl}
+                  className={styles.pdfFrame}
+                  title="PDF Preview (Data URL)"
+                />
+              ) : (
+                <iframe
+                  src={`${pdfSource}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                  className={styles.pdfFrame}
+                  title="PDF Preview (File)"
+                />
+              )}
             </div>
           ) : (
             <pre ref={textRef} className={styles.textPreview}>{content}</pre>
