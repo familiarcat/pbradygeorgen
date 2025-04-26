@@ -32,24 +32,17 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     try {
       setIsGeneratingPdf(true);
 
-      if (contentRef.current) {
-        await PdfGenerator.generatePdfFromElement(contentRef.current, {
-          title: 'P. Brady Georgen - Summary',
-          fileName: 'pbradygeorgen_summary.pdf',
-          headerText: 'P. Brady Georgen - Summary'
-        });
-        DanteLogger.success.ux('Exported summary as PDF using Salinger design principles');
-      } else {
-        // If ref is not available, use the content directly
-        await PdfGenerator.generatePdfFromMarkdown(content, {
-          title: 'P. Brady Georgen - Summary',
-          fileName: 'pbradygeorgen_summary.pdf',
-          headerText: 'P. Brady Georgen - Summary'
-        });
-        DanteLogger.success.ux('Exported summary as PDF using Salinger design principles');
-      }
+      // Always use the markdown content directly to avoid styling issues
+      await PdfGenerator.generatePdfFromMarkdown(content, {
+        title: 'P. Brady Georgen - Summary',
+        fileName: 'pbradygeorgen_summary.pdf',
+        headerText: 'P. Brady Georgen - Summary',
+        footerText: 'Generated with Salinger Design'
+      });
+      DanteLogger.success.ux('Exported summary as PDF using Salinger design principles');
     } catch (error) {
       DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
+      alert('There was an error generating the PDF. Please try again.');
     } finally {
       setIsGeneratingPdf(false);
     }

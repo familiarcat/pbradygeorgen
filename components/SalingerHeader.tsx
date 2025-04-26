@@ -631,15 +631,14 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onRefreshAnalysis={() => {
         setIsLoadingSummary(true);
 
-        // Call the analyze-content API to refresh the analysis
-        fetch('/api/analyze-content', {
-          method: 'POST',
+        // Call the get-summary API to refresh the analysis
+        fetch('/api/get-summary', {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            forceRefresh: true
-          }),
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
         })
           .then(response => {
             if (!response.ok) {
@@ -650,43 +649,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           .then(data => {
             if (data.success) {
               // Update the summary content with the new analysis
-              if (data.analysis) {
-                // Convert the analysis to markdown format
-                const analysis = data.analysis;
-                const markdown = `# P. Brady Georgen - Summary
-
-## Professional Summary
-
-${analysis.summary}
-
-## Key Skills
-
-${analysis.keySkills.map((skill: string) => `- ${skill}`).join('\n')}
-
-## Experience
-
-${analysis.yearsOfExperience}
-
-## Education
-
-${analysis.educationLevel}
-
-## Career Highlights
-
-${analysis.careerHighlights.map((highlight: string) => `- ${highlight}`).join('\n')}
-
-## Industry Experience
-
-${analysis.industryExperience.map((industry: string) => `- ${industry}`).join('\n')}
-
-## Recommendations
-
-${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
-`;
-                setSummaryContent(markdown);
-              } else {
-                setSummaryContent(data.markdown || data.summary);
-              }
+              setSummaryContent(data.summary);
               console.log('Analysis refreshed successfully');
             } else {
               throw new Error(data.error || 'Failed to refresh analysis');
@@ -694,7 +657,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           })
           .catch(error => {
             console.error('Error refreshing analysis:', error);
-            alert('Failed to refresh analysis. Please try again.');
+
+            // Show a more helpful error message
+            alert('Unable to refresh analysis. The server may be busy. Please try again in a moment.');
           })
           .finally(() => {
             setIsLoadingSummary(false);
