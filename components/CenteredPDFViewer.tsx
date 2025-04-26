@@ -126,6 +126,9 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // State for header height
   const [headerHeight, setHeaderHeight] = useState('5rem');
 
+  // Get the header background color from CSS
+  const headerBgColor = 'rgba(212, 209, 190, 0.95)'; // Ecru background with transparency
+
   // Update dimensions on window resize
   useEffect(() => {
     const handleResize = () => {
@@ -156,6 +159,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
+    // Set background color on body and html to match the header background
+    document.body.style.backgroundColor = headerBgColor;
+    document.documentElement.style.backgroundColor = headerBgColor;
+
     // Initial set
     setVH();
 
@@ -167,16 +174,16 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       window.removeEventListener('resize', setVH);
       window.removeEventListener('orientationchange', setVH);
     };
-  }, []);
-
-  // Get the header background color from CSS
-  const headerBgColor = 'rgba(212, 209, 190, 0.95)'; // Ecru background with transparency
+  }, [headerBgColor]);
 
   return (
-    <DynamicThemeProvider pdfUrl={pdfUrl}>
+    <DynamicThemeProvider pdfUrl={pdfUrl} style={{ minHeight: 'calc(var(--vh, 1vh) * 100)', backgroundColor: headerBgColor }}>
       <div
-        className="relative w-full h-screen overflow-hidden flex flex-col"
-        style={{ backgroundColor: headerBgColor }}
+        className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
+        style={{
+          backgroundColor: headerBgColor,
+          minHeight: 'calc(var(--vh, 1vh) * 100)'
+        }}
       >
         {/* Salinger Header */}
         <SalingerHeader
@@ -219,8 +226,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             opacity: pdfVisible ? 1 : 0,
             transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
             height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
+            minHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Ensure minimum height
             paddingTop: '0.5rem',
-            paddingBottom: '0.5rem'
+            paddingBottom: '0.5rem',
+            flex: 1
           }}
         >
           {/* PDF Viewer - centered horizontally with responsive width */}
@@ -229,20 +238,26 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             style={{
               backgroundColor: 'var(--pdf-background)',
               width: pdfWidth,
-              maxHeight: '100%'
+              height: '100%',
+              minHeight: '100%',
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column'
             }}
           >
             <iframe
               ref={iframeRef}
               src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-              className="w-full h-full"
+              className="w-full h-full flex-grow"
               style={{
                 border: 'none',
                 backgroundColor: 'var(--pdf-background)',
                 margin: 0,
                 padding: 0,
                 display: 'block', // Ensures proper rendering in all browsers
-                minHeight: '100%'
+                minHeight: '100%',
+                flex: 1,
+                position: 'relative'
               }}
               title="PDF Viewer"
               onLoad={handlePdfLoad}
