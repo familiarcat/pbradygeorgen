@@ -159,20 +159,119 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
-    // Set background color on body and html to match the header background
-    document.body.style.backgroundColor = headerBgColor;
-    document.documentElement.style.backgroundColor = headerBgColor;
+    // Function to check if device is in portrait mode
+    const isPortraitMode = () => {
+      return window.innerHeight > window.innerWidth;
+    };
+
+    // Function to check if device is mobile
+    const isMobileDevice = () => {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+
+    // Function to apply background color to all relevant elements
+    const applyBackgroundColor = () => {
+      // Set background color on body and html to match the header background
+      document.body.style.backgroundColor = headerBgColor;
+      document.documentElement.style.backgroundColor = headerBgColor;
+
+      // Target any potential container elements that might show through
+      const containers = document.querySelectorAll('.pdf-container, .pdf-iframe, iframe');
+      containers.forEach(container => {
+        if (container instanceof HTMLElement) {
+          container.style.backgroundColor = headerBgColor;
+        }
+      });
+
+      // Create a full-height background element if it doesn't exist
+      if (!document.getElementById('full-height-background')) {
+        const backgroundEl = document.createElement('div');
+        backgroundEl.id = 'full-height-background';
+        backgroundEl.style.position = 'fixed';
+        backgroundEl.style.top = '0';
+        backgroundEl.style.left = '0';
+        backgroundEl.style.width = '100%';
+        backgroundEl.style.height = '100%';
+        backgroundEl.style.backgroundColor = headerBgColor;
+        backgroundEl.style.zIndex = '-1';
+        document.body.appendChild(backgroundEl);
+      } else {
+        const backgroundEl = document.getElementById('full-height-background');
+        if (backgroundEl) {
+          backgroundEl.style.backgroundColor = headerBgColor;
+        }
+      }
+
+      // Special handling for mobile portrait mode
+      if (isMobileDevice() && isPortraitMode()) {
+        // Add an extra div at the bottom of the body to extend the background
+        if (!document.getElementById('portrait-mode-extension')) {
+          const extensionEl = document.createElement('div');
+          extensionEl.id = 'portrait-mode-extension';
+          extensionEl.style.position = 'fixed';
+          extensionEl.style.bottom = '0';
+          extensionEl.style.left = '0';
+          extensionEl.style.width = '100%';
+          extensionEl.style.height = '100vh'; // Extra height to ensure coverage
+          extensionEl.style.backgroundColor = headerBgColor;
+          extensionEl.style.zIndex = '-2'; // Below the main background
+          document.body.appendChild(extensionEl);
+        }
+      } else {
+        // Remove the extension if not in portrait mode
+        const extensionEl = document.getElementById('portrait-mode-extension');
+        if (extensionEl) {
+          document.body.removeChild(extensionEl);
+        }
+      }
+    };
 
     // Initial set
     setVH();
+    applyBackgroundColor();
+
+    // Handle orientation change specifically
+    const handleOrientationChange = () => {
+      // Delay to ensure the browser has updated its dimensions
+      setTimeout(() => {
+        setVH();
+        applyBackgroundColor();
+
+        // Additional delay for iOS Safari which sometimes needs extra time
+        setTimeout(() => {
+          // Apply background color again after a longer delay
+          applyBackgroundColor();
+
+          // Force a small scroll to trigger a repaint in problematic browsers
+          window.scrollTo(0, 1);
+          setTimeout(() => window.scrollTo(0, 0), 10);
+        }, 300);
+      }, 100);
+    };
 
     // Update on resize and orientation change
     window.addEventListener('resize', setVH);
-    window.addEventListener('orientationchange', setVH);
+    window.addEventListener('orientationchange', handleOrientationChange);
 
     return () => {
       window.removeEventListener('resize', setVH);
-      window.removeEventListener('orientationchange', setVH);
+      window.removeEventListener('orientationchange', handleOrientationChange);
+
+      // Clean up the background elements
+      const backgroundEl = document.getElementById('full-height-background');
+      if (backgroundEl) {
+        document.body.removeChild(backgroundEl);
+      }
+
+      // Clean up the portrait mode extension
+      const extensionEl = document.getElementById('portrait-mode-extension');
+      if (extensionEl) {
+        document.body.removeChild(extensionEl);
+      }
+
+      // Reset body and html background colors
+      document.body.style.backgroundColor = '';
+      document.documentElement.style.backgroundColor = '';
     };
   }, [headerBgColor]);
 
@@ -234,9 +333,9 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         >
           {/* PDF Viewer - centered horizontally with responsive width */}
           <div
-            className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow"
+            className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
             style={{
-              backgroundColor: 'var(--pdf-background)',
+              backgroundColor: headerBgColor, // Use the header background color directly
               width: pdfWidth,
               height: '100%',
               minHeight: '100%',
@@ -248,10 +347,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             <iframe
               ref={iframeRef}
               src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-              className="w-full h-full flex-grow"
+              className="w-full h-full flex-grow pdf-iframe"
               style={{
                 border: 'none',
-                backgroundColor: 'var(--pdf-background)',
+                backgroundColor: headerBgColor, // Use the header background color directly
                 margin: 0,
                 padding: 0,
                 display: 'block', // Ensures proper rendering in all browsers
