@@ -112,7 +112,15 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // 1.25rem + 1.875rem + ~2rem = ~5rem for desktop
   // 1rem + 1.25rem + ~3rem = ~5.25rem for mobile (due to stacking)
   const getHeaderHeight = () => {
-    return window.innerWidth <= 768 ? '5.25rem' : '5rem';
+    // For mobile devices, we need to account for the browser UI elements
+    if (window.innerWidth <= 768) {
+      // On very small screens, header takes more space due to wrapping
+      if (window.innerWidth < 480) {
+        return '6.5rem';
+      }
+      return '5.25rem';
+    }
+    return '5rem';
   };
 
   // State for header height
@@ -135,6 +143,29 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     // Clean up
     return () => {
       window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Fix for mobile viewport height issues (iOS Safari, etc.)
+  useEffect(() => {
+    // Function to update CSS variable with the viewport height
+    const setVH = () => {
+      // First get the viewport height and multiply it by 1% to get a value for a vh unit
+      const vh = window.innerHeight * 0.01;
+      // Then set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    // Initial set
+    setVH();
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
     };
   }, []);
 
@@ -182,33 +213,36 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
         {/* PDF Viewer Container - takes remaining vertical space */}
         <div
-          className="flex-grow flex flex-col overflow-auto transition-all duration-1500 ease-in-out"
+          className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
           style={{
             backgroundColor: headerBgColor,
             opacity: pdfVisible ? 1 : 0,
             transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
-            height: `calc(100vh - ${headerHeight})`,
-            paddingTop: '1rem'
+            height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
+            paddingTop: '0.5rem',
+            paddingBottom: '0.5rem'
           }}
         >
           {/* PDF Viewer - centered horizontally with responsive width */}
           <div
-            className="mx-auto rounded-lg overflow-hidden shadow-lg"
+            className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow"
             style={{
               backgroundColor: 'var(--pdf-background)',
               width: pdfWidth,
-              height: '100%'
+              maxHeight: '100%'
             }}
           >
             <iframe
               ref={iframeRef}
-              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
               className="w-full h-full"
               style={{
                 border: 'none',
                 backgroundColor: 'var(--pdf-background)',
                 margin: 0,
-                padding: 0
+                padding: 0,
+                display: 'block', // Ensures proper rendering in all browsers
+                minHeight: '100%'
               }}
               title="PDF Viewer"
               onLoad={handlePdfLoad}
