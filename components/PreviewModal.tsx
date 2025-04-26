@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/PreviewModal.module.css';
 import { DanteLogger } from '@/utils/DanteLogger';
 import ReactMarkdown from 'react-markdown';
+import PdfGenerator from '@/utils/PdfGenerator';
 
 interface PreviewModalProps {
   isOpen: boolean;
@@ -25,6 +26,44 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   position = 'center'
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const markdownRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLPreElement>(null);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  // Function to handle PDF export
+  const handleExportToPdf = async () => {
+    try {
+      setIsGeneratingPdf(true);
+
+      if (format === 'markdown' && markdownRef.current) {
+        await PdfGenerator.generatePdfFromElement(markdownRef.current, {
+          title: `${fileName} Summary`,
+          fileName: `${fileName}.pdf`,
+          headerText: 'P. Brady Georgen - Summary'
+        });
+        DanteLogger.success.ux(`Exported ${fileName}.pdf using Salinger design principles`);
+      } else if (format === 'text' && textRef.current) {
+        await PdfGenerator.generatePdfFromElement(textRef.current, {
+          title: `${fileName} Summary`,
+          fileName: `${fileName}.pdf`,
+          headerText: 'P. Brady Georgen - Summary'
+        });
+        DanteLogger.success.ux(`Exported ${fileName}.pdf using Salinger design principles`);
+      } else if (format === 'markdown') {
+        // If ref is not available, use the content directly
+        await PdfGenerator.generatePdfFromMarkdown(content, {
+          title: `${fileName} Summary`,
+          fileName: `${fileName}.pdf`,
+          headerText: 'P. Brady Georgen - Summary'
+        });
+        DanteLogger.success.ux(`Exported ${fileName}.pdf using Salinger design principles`);
+      }
+    } catch (error) {
+      DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
 
   // Handle click outside to close
   useEffect(() => {
@@ -94,13 +133,44 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                 ? 'PDF Preview'
                 : 'Text Preview'}
           </h2>
-          <button className={styles.closeButton} onClick={onClose} aria-label="Close">
-            &times;
-          </button>
+          <div className={styles.headerActions}>
+            {format !== 'pdf' && (
+              <button
+                className={styles.pdfExportButton}
+                onClick={handleExportToPdf}
+                disabled={isGeneratingPdf}
+                aria-label="Export to PDF"
+              >
+                {isGeneratingPdf ? (
+                  <span className={styles.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </span>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.pdfIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Export PDF
+                  </>
+                )}
+              </button>
+            )}
+            <button className={styles.closeButton} onClick={onClose} aria-label="Close">
+              &times;
+            </button>
+          </div>
         </div>
         <div className={styles.modalBody}>
           {format === 'markdown' ? (
-            <div className={styles.markdownPreview}>
+            <div ref={markdownRef} className={styles.markdownPreview}>
               <ReactMarkdown>{content}</ReactMarkdown>
             </div>
           ) : format === 'pdf' ? (
@@ -112,7 +182,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
               />
             </div>
           ) : (
-            <pre className={styles.textPreview}>{content}</pre>
+            <pre ref={textRef} className={styles.textPreview}>{content}</pre>
           )}
         </div>
         <div className={styles.modalFooter}>
