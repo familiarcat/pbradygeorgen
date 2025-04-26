@@ -72,7 +72,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // Handle contact action
   const handleContact = () => {
     DanteLogger.success.ux('Contact button clicked');
-    // Contact functionality is handled in the SalingerHeader component
+    // Open email client with mailto link
+    window.location.href = 'mailto:brady@pbradygeorgen.com?subject=Website%20Contact';
   };
 
   // Handle upload action
