@@ -15,11 +15,15 @@
     "amplify:serve": "node server.js",
     "env:pull": "node scripts/amplify-env-manager.js pull",
     "env:push": "node scripts/amplify-env-manager.js push",
-    "env:list": "node scripts/amplify-env-manager.js list"
+    "env:list": "node scripts/amplify-env-manager.js list",
+    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
     "docx": "^9.4.1",
+    "html-to-pdf": "^0.1.11",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
     "next": "15.3.1",
     "openai": "^4.95.1",
     "pdf-parse": "^1.1.1",
