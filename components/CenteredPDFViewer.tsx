@@ -126,8 +126,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // State for header height
   const [headerHeight, setHeaderHeight] = useState('5rem');
 
-  // Get the header background color from CSS
-  const headerBgColor = 'rgba(212, 209, 190, 0.95)'; // Ecru background with transparency
+  // Get the header background color from CSS - exact color from screenshot
+  const headerBgColor = '#d4d1be'; // Ecru background color from header
 
   // Update dimensions on window resize
   useEffect(() => {
