@@ -35,17 +35,30 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const handleExportToPdf = async () => {
     try {
       setIsGeneratingPdf(true);
+      HesseLogger.summary.start('Exporting summary as PDF with dark theme');
 
-      // Always use the markdown content directly to avoid styling issues
+      // Use the markdown content directly with dark theme styling
       await PdfGenerator.generatePdfFromMarkdown(content, {
         title: 'P. Brady Georgen - Summary',
         fileName: 'pbradygeorgen_summary.pdf',
         headerText: 'P. Brady Georgen - Summary',
-        footerText: 'Generated with Salinger Design'
+        footerText: 'Generated with Salinger Design',
+        // Use letter size for US standard 8.5 x 11 inches
+        pageSize: 'letter',
+        // Ensure proper margins for full bleed
+        margins: {
+          top: 10,
+          right: 10,
+          bottom: 10,
+          left: 10
+        }
       });
-      DanteLogger.success.ux('Exported summary as PDF using Salinger design principles');
+
+      DanteLogger.success.ux('Exported summary as PDF using Salinger dark theme');
+      HesseLogger.summary.complete('Summary exported as PDF with dark theme styling');
     } catch (error) {
       DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
+      HesseLogger.summary.error(`PDF export failed: ${error}`);
       alert('There was an error generating the PDF. Please try again.');
     } finally {
       setIsGeneratingPdf(false);

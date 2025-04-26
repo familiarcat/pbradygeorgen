@@ -48,6 +48,83 @@ const defaultOptions: PdfGenerationOptions = {
 };
 
 /**
+ * Content block for PDF generation
+ */
+interface ContentBlock {
+  type: 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'listItem';
+  content: string;
+}
+
+/**
+ * Parse markdown content into structured blocks for PDF generation
+ *
+ * @param markdownContent The markdown content to parse
+ * @returns Array of content blocks
+ */
+function parseMarkdownForPdf(markdownContent: string): ContentBlock[] {
+  const blocks: ContentBlock[] = [];
+
+  // Split content into lines
+  const lines = markdownContent.split('\n');
+
+  // Process each line
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    // Skip empty lines
+    if (!line) continue;
+
+    // Check for headings
+    if (line.startsWith('# ')) {
+      blocks.push({
+        type: 'heading1',
+        content: line.substring(2).trim()
+      });
+    } else if (line.startsWith('## ')) {
+      blocks.push({
+        type: 'heading2',
+        content: line.substring(3).trim()
+      });
+    } else if (line.startsWith('### ')) {
+      blocks.push({
+        type: 'heading3',
+        content: line.substring(4).trim()
+      });
+    }
+    // Check for list items
+    else if (line.startsWith('- ') || line.startsWith('* ')) {
+      blocks.push({
+        type: 'listItem',
+        content: line.substring(2).trim()
+      });
+    }
+    // Check for numbered list items
+    else if (/^\d+\.\s/.test(line)) {
+      blocks.push({
+        type: 'listItem',
+        content: line.replace(/^\d+\.\s/, '').trim()
+      });
+    }
+    // Everything else is a paragraph
+    else {
+      // Check if this is a continuation of a previous paragraph
+      const prevBlock = blocks[blocks.length - 1];
+      if (prevBlock && prevBlock.type === 'paragraph' && !lines[i-1].trim().endsWith('  ')) {
+        // Append to previous paragraph if the previous line doesn't end with two spaces
+        prevBlock.content += ' ' + line;
+      } else {
+        blocks.push({
+          type: 'paragraph',
+          content: line
+        });
+      }
+    }
+  }
+
+  return blocks;
+}
+
+/**
  * Generate a PDF from an HTML element
  *
  * @param element The HTML element to convert to PDF
@@ -249,45 +326,194 @@ export async function generatePdfFromMarkdown(
   try {
     DanteLogger.success.basic('Starting PDF generation from markdown content');
 
-    // Create a temporary container for the markdown content
-    const contentContainer = document.createElement('div');
-    contentContainer.className = 'markdownPreview';
+    // Determine if this is from the Summary modal (dark theme) or regular content
+    const isDarkTheme = options.fileName?.includes('summary') || false;
 
-    // Create a content element with the parsed markdown
-    const contentElement = document.createElement('div');
+    // Create a PDF document directly with proper dimensions for US Letter (8.5 x 11 inches)
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'in',
+      format: 'letter' // 8.5 x 11 inches
+    });
+
+    // Set document properties
+    pdf.setProperties({
+      title: options.title || 'Generated PDF',
+      author: options.author || 'P. Brady Georgen',
+      subject: options.subject || 'Resume Summary',
+      keywords: options.keywords || 'resume, summary, pdf'
+    });
+
+    // Set dark background for full bleed if using dark theme
+    if (isDarkTheme) {
+      // Add a full-page background rectangle
+      pdf.setFillColor(34, 34, 34); // #222222 dark background
+      pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
+    }
+
+    // Add header with Salinger styling
+    if (options.headerText) {
+      if (isDarkTheme) {
+        pdf.setTextColor(245, 243, 231); // #F5F3E7 light text for dark theme
+      } else {
+        pdf.setTextColor(73, 66, 61); // #49423D Ebony
+      }
+
+      pdf.setFont('courier', 'bold');
+      pdf.setFontSize(24);
+      pdf.text(options.headerText, 4.25, 1, { align: 'center' });
+
+      // Add a separator line
+      if (isDarkTheme) {
+        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
+      } else {
+        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
+      }
+      pdf.setLineWidth(0.01);
+      pdf.line(1, 1.2, 7.5, 1.2);
+    }
 
     // Parse the markdown content
-    // We'll use a simple markdown parser here
-    const formattedContent = markdownContent
-      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-      .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
-      .replace(/^##### (.*$)/gm, '<h5>$1</h5>')
-      .replace(/^###### (.*$)/gm, '<h6>$1</h6>')
-      .replace(/^\> (.*$)/gm, '<blockquote>$1</blockquote>')
-      .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
-      .replace(/\*(.*)\*/gm, '<em>$1</em>')
-      .replace(/\`\`\`([\s\S]*?)\`\`\`/gm, '<pre><code>$1</code></pre>')
-      .replace(/\`(.*?)\`/gm, '<code>$1</code>')
-      .replace(/!\[(.*?)\]\((.*?)\)/gm, '<img alt="$1" src="$2" style="max-width: 100%;" />')
-      .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2">$1</a>')
-      .replace(/^\s*\n\* (.*)/gm, '<ul>\n<li>$1</li>\n</ul>')
-      .replace(/^\s*\n[0-9]+\. (.*)/gm, '<ol>\n<li>$1</li>\n</ol>')
-      .replace(/<\/ul>\s*\n<ul>/g, '')
-      .replace(/<\/ol>\s*\n<ol>/g, '')
-      .replace(/^\s*\n/gm, '<br />')
-      .split('\n\n').map(p => !p.includes('<h') && !p.includes('<ul') && !p.includes('<ol') && !p.includes('<blockquote') ? `<p>${p}</p>` : p).join('\n');
+    const parsedContent = parseMarkdownForPdf(markdownContent);
 
-    // Set the content
-    contentElement.innerHTML = formattedContent;
+    // Set text color based on theme
+    if (isDarkTheme) {
+      pdf.setTextColor(245, 243, 231); // #F5F3E7 light text for dark theme
+    } else {
+      pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+    }
 
-    // Add the content to the container
-    contentContainer.appendChild(contentElement);
+    // Set default font
+    pdf.setFont('times', 'normal');
+    pdf.setFontSize(12);
 
-    // Generate PDF from the content container
-    await generatePdfFromElement(contentContainer, options);
+    // Add content with proper styling
+    let yPosition = options.headerText ? 1.5 : 0.5;
+    const margin = 1; // 1 inch margins
+    const pageWidth = 8.5 - (margin * 2);
 
+    // Process each content block
+    parsedContent.forEach(block => {
+      // Check if we need to add a new page
+      if (yPosition > 10) { // Close to bottom of page (11 inches - some margin)
+        pdf.addPage();
+        yPosition = 0.5;
+
+        // Add dark background to new page if using dark theme
+        if (isDarkTheme) {
+          pdf.setFillColor(34, 34, 34); // #222222 dark background
+          pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
+        }
+      }
+
+      // Handle different block types
+      switch (block.type) {
+        case 'heading1':
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+          }
+          pdf.setFont('courier', 'bold');
+          pdf.setFontSize(18);
+          pdf.text(block.content, margin, yPosition);
+          yPosition += 0.4;
+          break;
+
+        case 'heading2':
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+          }
+          pdf.setFont('courier', 'bold');
+          pdf.setFontSize(16);
+          pdf.text(block.content, margin, yPosition);
+          yPosition += 0.3;
+
+          // Add a subtle line under h2
+          if (isDarkTheme) {
+            pdf.setDrawColor(255, 255, 255, 0.2); // Light line for dark theme
+          } else {
+            pdf.setDrawColor(213, 205, 181); // #D5CDB5
+          }
+          pdf.setLineWidth(0.01);
+          pdf.line(margin, yPosition - 0.1, 7.5, yPosition - 0.1);
+          break;
+
+        case 'heading3':
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+          }
+          pdf.setFont('courier', 'bold');
+          pdf.setFontSize(14);
+          pdf.text(block.content, margin, yPosition);
+          yPosition += 0.3;
+          break;
+
+        case 'paragraph':
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+          }
+          pdf.setFont('times', 'normal');
+          pdf.setFontSize(12);
+
+          // Split long paragraphs into multiple lines
+          const lines = pdf.splitTextToSize(block.content, pageWidth);
+          pdf.text(lines, margin, yPosition);
+          yPosition += (lines.length * 0.2) + 0.1;
+          break;
+
+        case 'listItem':
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+          }
+          pdf.setFont('times', 'normal');
+          pdf.setFontSize(12);
+
+          // Add bullet point
+          pdf.text('•', margin, yPosition);
+
+          // Split long list items into multiple lines with proper indentation
+          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.3);
+          pdf.text(listItemLines, margin + 0.3, yPosition);
+          yPosition += (listItemLines.length * 0.2) + 0.1;
+          break;
+      }
+    });
+
+    // Add footer if provided
+    if (options.footerText) {
+      // Add a separator line
+      if (isDarkTheme) {
+        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
+      } else {
+        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
+      }
+      pdf.setLineWidth(0.01);
+      pdf.line(1, 10, 7.5, 10);
+
+      // Add footer text
+      if (isDarkTheme) {
+        pdf.setTextColor(245, 243, 231, 0.7); // #F5F3E7 light text with opacity
+      } else {
+        pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
+      }
+      pdf.setFont('courier', 'normal');
+      pdf.setFontSize(10);
+      pdf.text(options.footerText, 4.25, 10.5, { align: 'center' });
+    }
+
+    // Save the PDF
+    pdf.save(options.fileName || 'summary.pdf');
+
+    DanteLogger.success.ux(`PDF generated and downloaded as ${options.fileName || 'summary.pdf'}`);
     return Promise.resolve();
   } catch (error) {
     DanteLogger.error.runtime(`Error generating PDF from markdown: ${error}`);
