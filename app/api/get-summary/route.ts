@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
           });
         } catch (formatError) {
           HesseLogger.summary.error(`Error formatting summary: ${formatError}`);
-          DanteLogger.warn.minor('Falling back to analysis-based summary generation');
+          DanteLogger.warn.deprecated('Falling back to analysis-based summary generation');
 
           // If direct formatting fails, fall back to the analysis approach
           const startTime = Date.now();

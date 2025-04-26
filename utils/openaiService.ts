@@ -2,6 +2,7 @@ import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
 import { cacheService } from './cacheService';
+import { stringCacheService } from './stringCacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 import { HesseLogger } from './HesseLogger';
 
@@ -275,7 +276,7 @@ export async function formatSummaryContent(
 
     // Check if we have a cached response and aren't forcing a refresh
     if (!forceRefresh) {
-      const cachedResponse = cacheService.getItem(cacheKey);
+      const cachedResponse = stringCacheService.getItem(cacheKey);
       if (cachedResponse) {
         HesseLogger.cache.hit(`Using cached formatted summary for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
@@ -366,8 +367,8 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
       throw new Error("No content in the OpenAI response");
     }
 
-    // Store the response in the cache
-    cacheService.setItem(cacheKey, content);
+    // Store the response in the string cache
+    stringCacheService.setItem(cacheKey, content);
     HesseLogger.cache.update(`Stored formatted summary with key: ${cacheKey.substring(0, 8)}...`);
 
     // Log success
