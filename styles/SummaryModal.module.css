@@ -269,6 +269,30 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: #F5F3E7; /* Light text color */
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+}
+
+/* Loading container */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  width: 100%;
+  background-color: #222222; /* Dark background */
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+}
+
+/* Loading spinner */
+.loadingSpinner {
+  color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
+  width: 4rem;
+  height: 4rem;
 }
 
 /* Animations */

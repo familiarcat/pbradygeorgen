@@ -47,34 +47,103 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         // Show the summary modal
         setIsLoadingSummary(true);
 
-        // Fetch the summary content
+        // Fetch the summary content with proper error handling
         fetch('/api/get-summary')
           .then(response => {
             if (!response.ok) {
+              console.error(`API responded with status: ${response.status}`);
               throw new Error(`API responded with status: ${response.status}`);
             }
             return response.json();
           })
           .then(data => {
             if (data.success) {
+              console.log('Summary loaded successfully');
               setSummaryContent(data.summary);
               setShowSummaryModal(true);
             } else {
+              console.error('API returned error:', data.error);
               throw new Error(data.error || 'Failed to load summary');
             }
           })
           .catch(error => {
             console.error('Error loading summary:', error);
 
-            // Fallback to the original behavior
-            if (onViewSummary) onViewSummary();
-            else {
-              // Scroll to summary section if no handler provided
-              const summaryElement = document.querySelector('#summary-section');
-              if (summaryElement) {
-                summaryElement.scrollIntoView({ behavior: 'smooth' });
-              }
-            }
+            // Try the analyze-content API as a fallback
+            console.log('Attempting to use analyze-content API as fallback...');
+
+            fetch('/api/analyze-content', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                filePath: '/extracted/resume_content.md'
+              }),
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`Fallback API responded with status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                if (data.success && data.analysis) {
+                  console.log('Successfully loaded summary from fallback API');
+
+                  // Convert the analysis to markdown format
+                  const analysis = data.analysis;
+                  const markdown = `# P. Brady Georgen - Summary
+
+## Professional Summary
+
+${analysis.summary}
+
+## Key Skills
+
+${analysis.keySkills.map((skill: string) => `- ${skill}`).join('\n')}
+
+## Experience
+
+${analysis.yearsOfExperience}
+
+## Education
+
+${analysis.educationLevel}
+
+## Career Highlights
+
+${analysis.careerHighlights.map((highlight: string) => `- ${highlight}`).join('\n')}
+
+## Industry Experience
+
+${analysis.industryExperience.map((industry: string) => `- ${industry}`).join('\n')}
+
+## Recommendations
+
+${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
+`;
+
+                  setSummaryContent(markdown);
+                  setShowSummaryModal(true);
+                } else {
+                  throw new Error(data.error || 'Failed to load summary from fallback API');
+                }
+              })
+              .catch(fallbackError => {
+                console.error('Error with fallback API:', fallbackError);
+
+                // Final fallback to the original behavior
+                if (onViewSummary) {
+                  onViewSummary();
+                } else {
+                  // Scroll to summary section if no handler provided
+                  const summaryElement = document.querySelector('#summary-section');
+                  if (summaryElement) {
+                    summaryElement.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              });
           })
           .finally(() => {
             setIsLoadingSummary(false);
@@ -558,6 +627,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       isOpen={showSummaryModal}
       onClose={() => setShowSummaryModal(false)}
       content={summaryContent}
+      isLoading={isLoadingSummary}
       onRefreshAnalysis={() => {
         setIsLoadingSummary(true);
 
@@ -580,7 +650,43 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           .then(data => {
             if (data.success) {
               // Update the summary content with the new analysis
-              setSummaryContent(data.markdown || data.summary);
+              if (data.analysis) {
+                // Convert the analysis to markdown format
+                const analysis = data.analysis;
+                const markdown = `# P. Brady Georgen - Summary
+
+## Professional Summary
+
+${analysis.summary}
+
+## Key Skills
+
+${analysis.keySkills.map((skill: string) => `- ${skill}`).join('\n')}
+
+## Experience
+
+${analysis.yearsOfExperience}
+
+## Education
+
+${analysis.educationLevel}
+
+## Career Highlights
+
+${analysis.careerHighlights.map((highlight: string) => `- ${highlight}`).join('\n')}
+
+## Industry Experience
+
+${analysis.industryExperience.map((industry: string) => `- ${industry}`).join('\n')}
+
+## Recommendations
+
+${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
+`;
+                setSummaryContent(markdown);
+              } else {
+                setSummaryContent(data.markdown || data.summary);
+              }
               console.log('Analysis refreshed successfully');
             } else {
               throw new Error(data.error || 'Failed to refresh analysis');

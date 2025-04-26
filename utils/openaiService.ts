@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { cacheService } from './cacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
+import { HesseLogger } from './HesseLogger';
 
 // Initialize the OpenAI client with fallback for build-time
 const openai = new OpenAI({
@@ -62,11 +63,12 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
     if (!forceRefresh) {
       const cachedResponse = cacheService.getItem(cacheKey);
       if (cachedResponse) {
-        console.log('Using cached OpenAI response');
+        HesseLogger.cache.hit(`Using cached OpenAI response for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
       }
+      HesseLogger.cache.miss(`Cache miss for key: ${cacheKey.substring(0, 8)}...`);
     } else {
-      console.log('Force refresh requested, skipping cache');
+      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for key: ${cacheKey.substring(0, 8)}...`);
     }
     // Define the system message to set the context for the AI
     const systemMessage = `
@@ -120,6 +122,12 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
 
     // Expected response format is defined in the system message
 
+    // Log the OpenAI request
+    HesseLogger.openai.request(`Sending request to OpenAI for resume analysis (${resumeContent.length} chars)`);
+
+    // Start timing the request
+    const apiStartTime = Date.now();
+
     // Call the OpenAI API
     const response = await openai.chat.completions.create({
       model: "gpt-4-turbo",
@@ -132,16 +140,32 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       max_tokens: 1500, // Ensure we have enough tokens for a detailed response
       top_p: 0.95, // Slightly more diverse responses
       presence_penalty: 0.1, // Slight penalty for repetition
-      frequency_penalty: 0.1, // Slight penalty for frequent tokens
+      frequency_penalty: 0.1, // Slight penalty for frequent tokens,
     });
+
+    // Calculate response time
+    const apiEndTime = Date.now();
+    const apiResponseTime = apiEndTime - apiStartTime;
+
+    // Log the OpenAI response time
+    HesseLogger.openai.response(`Received response from OpenAI in ${apiResponseTime}ms`);
+
+    // Log token usage if available
+    if (response.usage) {
+      HesseLogger.openai.tokens(
+        `Token usage: ${response.usage.prompt_tokens} prompt + ${response.usage.completion_tokens} completion = ${response.usage.total_tokens} total`
+      );
+    }
 
     // Parse the response
     const content = response.choices[0]?.message?.content;
     if (!content) {
+      HesseLogger.openai.error("No content in the OpenAI response");
       throw new Error("No content in the OpenAI response");
     }
 
     console.log('Raw OpenAI response content:', content);
+    HesseLogger.summary.progress("Received raw content from OpenAI, parsing...");
 
     // Parse the JSON response
     try {
@@ -195,16 +219,24 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
 
       // Store the response in the cache
       cacheService.setItem(cacheKey, analysis);
+      HesseLogger.cache.update(`Stored item with key: ${cacheKey.substring(0, 8)}...`);
+
+      // Log success
+      HesseLogger.summary.complete(`Successfully generated and parsed summary`);
 
       return analysis;
     } catch (error) {
       const parseError = error as Error;
       console.error('Error parsing OpenAI response:', parseError);
       console.error('Raw content that failed to parse:', content);
+      HesseLogger.openai.error(`Failed to parse OpenAI response: ${parseError.message || 'Unknown error'}`);
+      HesseLogger.summary.error(`JSON parsing error: ${parseError.message}`);
       throw new Error(`Failed to parse OpenAI response: ${parseError.message || 'Unknown error'}`);
     }
   } catch (error) {
     console.error("Error analyzing resume with OpenAI:", error);
+    HesseLogger.openai.error(`Error analyzing resume with OpenAI: ${error instanceof Error ? error.message : String(error)}`);
+    HesseLogger.summary.error(`Analysis failed: ${error instanceof Error ? error.message : String(error)}`);
     throw error;
   }
 }
