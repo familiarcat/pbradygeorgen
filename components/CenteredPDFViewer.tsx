@@ -91,39 +91,46 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     window.location.reload();
   };
 
-  // Calculate dynamic padding based on screen width
-  const calculatePadding = () => {
+  // Calculate dynamic width based on screen size
+  const calculatePdfWidth = () => {
     // Get the window width
     const windowWidth = window.innerWidth;
-    
-    // Base padding is 5% of window width on each side
-    let sidePadding = Math.max(windowWidth * 0.05, 20); // Minimum 20px
-    
-    // For larger screens, increase padding proportionally
-    if (windowWidth > 1200) {
-      sidePadding = Math.max(windowWidth * 0.1, 60); // 10% padding with minimum 60px
-    } else if (windowWidth > 768) {
-      sidePadding = Math.max(windowWidth * 0.075, 40); // 7.5% padding with minimum 40px
-    }
-    
-    return `${sidePadding}px`;
+
+    // Calculate width as percentage of window width
+    // Min width: 70%, Max width: 90%
+    const widthPercent = Math.min(Math.max(70, 90 - (windowWidth / 100)), 90);
+
+    return `${widthPercent}%`;
   };
 
-  // State for dynamic padding
-  const [sidePadding, setSidePadding] = useState('5%');
-  
-  // Update padding on window resize
+  // State for dynamic width
+  const [pdfWidth, setPdfWidth] = useState('80%');
+
+  // Calculate header height (based on SalingerHeader CSS)
+  // Default height is padding-top + padding-bottom + content height
+  // 1.25rem + 1.875rem + ~2rem = ~5rem for desktop
+  // 1rem + 1.25rem + ~3rem = ~5.25rem for mobile (due to stacking)
+  const getHeaderHeight = () => {
+    return window.innerWidth <= 768 ? '5.25rem' : '5rem';
+  };
+
+  // State for header height
+  const [headerHeight, setHeaderHeight] = useState('5rem');
+
+  // Update dimensions on window resize
   useEffect(() => {
     const handleResize = () => {
-      setSidePadding(calculatePadding());
+      setPdfWidth(calculatePdfWidth());
+      setHeaderHeight(getHeaderHeight());
     };
-    
-    // Set initial padding
-    setSidePadding(calculatePadding());
-    
+
+    // Set initial dimensions
+    setPdfWidth(calculatePdfWidth());
+    setHeaderHeight(getHeaderHeight());
+
     // Add event listener
     window.addEventListener('resize', handleResize);
-    
+
     // Clean up
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -135,8 +142,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
-      <div 
-        className="relative w-full min-h-screen overflow-hidden flex flex-col" 
+      <div
+        className="relative w-full h-screen overflow-hidden flex flex-col"
         style={{ backgroundColor: headerBgColor }}
       >
         {/* Salinger Header */}
@@ -172,21 +179,24 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           </div>
         )}
 
-        {/* Centered PDF Viewer using iframe */}
+        {/* PDF Viewer Container - takes remaining vertical space */}
         <div
-          className="flex-grow flex justify-center items-center transition-all duration-1500 ease-in-out"
+          className="flex-grow flex flex-col overflow-auto transition-all duration-1500 ease-in-out"
           style={{
             backgroundColor: headerBgColor,
-            padding: `2rem ${sidePadding}`,
             opacity: pdfVisible ? 1 : 0,
-            transform: pdfVisible ? 'scale(1)' : 'scale(0.98)'
+            transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
+            height: `calc(100vh - ${headerHeight})`,
+            paddingTop: '1rem'
           }}
         >
-          <div 
-            className="w-full h-full max-w-5xl rounded-lg overflow-hidden shadow-lg"
-            style={{ 
+          {/* PDF Viewer - centered horizontally with responsive width */}
+          <div
+            className="mx-auto rounded-lg overflow-hidden shadow-lg"
+            style={{
               backgroundColor: 'var(--pdf-background)',
-              maxHeight: 'calc(100vh - 4rem - 4rem)' // Subtract header height and padding
+              width: pdfWidth,
+              height: '100%'
             }}
           >
             <iframe
