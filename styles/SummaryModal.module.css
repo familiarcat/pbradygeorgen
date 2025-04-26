@@ -1,0 +1,355 @@
+/* Modal overlay - covers the entire screen */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease;
+  /* Remove flex layout to allow absolute positioning of children */
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Modal content container - Dark theme */
+.modalContent {
+  background-color: #333333; /* Dark background */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  width: 45%; /* Reduced from 90% to allow for left/right positioning */
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  font-family: 'Courier New', monospace;
+  position: absolute; /* Use absolute positioning */
+  top: 5vh; /* Position from top */
+  left: 0; /* Will be overridden by left/right classes */
+  right: 0; /* Will be overridden by left/right classes */
+  margin: 0 auto; /* Center by default */
+  color: #F5F3E7; /* Light text color */
+}
+
+/* Left-aligned modal */
+.modalContentLeft {
+  left: 5% !important;
+  right: auto !important;
+  margin: 0 !important;
+  width: 45%;
+  animation: slideInLeft 0.3s ease !important;
+}
+
+/* Right-aligned modal */
+.modalContentRight {
+  right: 5% !important;
+  left: auto !important;
+  margin: 0 !important;
+  width: 45%;
+  animation: slideInRight 0.3s ease !important;
+}
+
+/* Modal header - Dark theme */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  background-color: #222222; /* Darker header */
+}
+
+/* Modal title - Dark theme */
+.modalTitle {
+  margin: 0;
+  color: #F5F3E7; /* Light text color */
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Header actions container */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Refresh button - Secondary CTA */
+.refreshButton {
+  background-color: rgba(95, 107, 84, 0.2); /* Ebony with transparency (matches --cta-secondary) */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.refreshButton:hover {
+  background-color: #5F6B54; /* Ebony color (matches --cta-secondary) */
+  color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Refresh icon */
+.refreshIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+/* PDF Export button - Primary CTA */
+.pdfExportButton {
+  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency (matches --cta-primary) */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pdfExportButton:hover {
+  background-color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
+  color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.pdfExportButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* PDF icon */
+.pdfIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+/* Close button - Dark theme */
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #F5F3E7; /* Light text color */
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Modal body - contains the preview content - Dark theme */
+.modalBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  background-color: #2A2A2A; /* Dark background for content area */
+  border-radius: 0 0 8px 8px;
+}
+
+/* Markdown preview - Dark theme */
+.markdownPreview {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #222222; /* Dark background */
+  border-radius: 4px;
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  font-family: 'Garamond', 'Times New Roman', serif;
+  line-height: 1.6;
+  color: #F5F3E7; /* Light text color */
+}
+
+.markdownPreview h1 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #F5F3E7; /* Light text color */
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+.markdownPreview h2 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #F5F3E7; /* Light text color */
+  font-weight: 400;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  padding-bottom: 0.5rem;
+}
+
+.markdownPreview h3 {
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #F5F3E7; /* Light text color */
+  font-weight: 400;
+}
+
+.markdownPreview h4 {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #F5F3E7; /* Light text color */
+  font-weight: 400;
+  font-style: italic;
+}
+
+.markdownPreview p {
+  margin-bottom: 1rem;
+}
+
+.markdownPreview ul, .markdownPreview ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdownPreview li {
+  margin-bottom: 0.25rem;
+}
+
+.markdownPreview a {
+  color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
+  text-decoration: none;
+}
+
+.markdownPreview a:hover {
+  text-decoration: underline;
+}
+
+.markdownPreview code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.markdownPreview pre {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.markdownPreview pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Loading text */
+.loadingText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modalContent,
+  .modalContentLeft,
+  .modalContentRight {
+    width: 90% !important;
+    max-height: 95vh;
+    left: 5% !important;
+    right: 5% !important;
+    margin: 0 !important;
+    animation: slideIn 0.3s ease !important;
+  }
+
+  .modalTitle {
+    font-size: 1.25rem;
+    font-weight: 700; /* Maintain bold text in responsive view */
+  }
+
+  .modalHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .refreshButton,
+  .pdfExportButton {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .modalBody {
+    padding: 1rem;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
+import SummaryModal from './SummaryModal';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -552,23 +553,46 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
       position="right"
     />
 
-    {/* Summary Modal */}
-    <PreviewModal
+    {/* Summary Modal - Using the new dark-themed SummaryModal */}
+    <SummaryModal
       isOpen={showSummaryModal}
       onClose={() => setShowSummaryModal(false)}
       content={summaryContent}
-      format="markdown"
-      fileName="summary"
-      onDownload={() => {
-        const blob = new Blob([summaryContent], { type: 'text/markdown' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'summary.md';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+      onRefreshAnalysis={() => {
+        setIsLoadingSummary(true);
+
+        // Call the analyze-content API to refresh the analysis
+        fetch('/api/analyze-content', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            forceRefresh: true
+          }),
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`API responded with status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.success) {
+              // Update the summary content with the new analysis
+              setSummaryContent(data.markdown || data.summary);
+              console.log('Analysis refreshed successfully');
+            } else {
+              throw new Error(data.error || 'Failed to refresh analysis');
+            }
+          })
+          .catch(error => {
+            console.error('Error refreshing analysis:', error);
+            alert('Failed to refresh analysis. Please try again.');
+          })
+          .finally(() => {
+            setIsLoadingSummary(false);
+          });
       }}
       position="left"
     />
