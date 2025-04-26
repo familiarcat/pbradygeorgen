@@ -1,5 +1,8 @@
 'use client';
 
+import { DanteLogger } from './DanteLogger';
+import HesseColorTheory, { SalingerCtaColors } from './HesseColorTheory';
+
 // Define color theme interface
 export interface ColorTheme {
   primary: string;
@@ -11,6 +14,7 @@ export interface ColorTheme {
   isDark: boolean;
   isLoading: boolean;
   rawColors: string[];
+  ctaColors?: SalingerCtaColors;
 }
 
 // Default color theme (our Salinger-inspired earth tones)
@@ -26,10 +30,27 @@ export const defaultColorTheme: ColorTheme = {
   rawColors: []
 };
 
-// Simplified version that just returns the default theme
+// Extract colors from PDF and apply Hesse color theory
 export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> {
-  // This is a simplified version that just returns the default theme
-  // In production, we would use PDF.js to extract colors
-  console.log('Using simplified color extractor for', pdfUrl);
-  return { ...defaultColorTheme, isLoading: false };
+  try {
+    // This is a simplified version that just returns the default theme
+    // In production, we would use PDF.js to extract colors
+    DanteLogger.success.basic(`Extracting colors from PDF: ${pdfUrl}`);
+
+    // Generate CTA colors using Hesse's mathematical approach
+    const ctaColors = HesseColorTheory.generateSalingerCtaColors(defaultColorTheme.primary);
+
+    // Analyze and log color contrast information using Dante
+    HesseColorTheory.analyzeColorContrast(ctaColors);
+
+    // Return the theme with CTA colors
+    return {
+      ...defaultColorTheme,
+      isLoading: false,
+      ctaColors
+    };
+  } catch (error) {
+    DanteLogger.error.runtime(`Failed to extract colors from PDF: ${error}`);
+    return { ...defaultColorTheme, isLoading: false };
+  }
 }

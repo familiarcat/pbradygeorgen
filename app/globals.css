@@ -53,18 +53,24 @@
   --border-strong: var(--dynamic-primary); /* Stronger for divisions */
   --border-focus: var(--dynamic-accent); /* Distinctive for focus */
 
-  /* CTA Colors - Dynamic theme with complementary high-contrast */
-  --cta-primary: var(--dynamic-accent); /* Primary CTA adapts to PDF */
+  /* CTA Colors - Hesse mathematical approach with Salinger visual hierarchy */
+  /* Primary CTA - Most important actions */
+  --cta-primary: var(--dynamic-accent); /* Base color adapts to PDF */
   --cta-primary-hover: color-mix(in srgb, var(--dynamic-accent) 80%, white 20%); /* Lighter for hover */
   --cta-primary-active: color-mix(in srgb, var(--dynamic-accent) 80%, black 20%); /* Darker for active */
+  --cta-primary-bg: color-mix(in srgb, var(--dynamic-accent) 90%, var(--dynamic-background) 10%); /* Subtle background */
 
-  --cta-secondary: var(--dynamic-secondary); /* Secondary CTA adapts to PDF */
+  /* Secondary CTA - Supporting actions */
+  --cta-secondary: var(--dynamic-secondary); /* Base color adapts to PDF */
   --cta-secondary-hover: color-mix(in srgb, var(--dynamic-secondary) 80%, white 20%); /* Lighter for hover */
   --cta-secondary-active: color-mix(in srgb, var(--dynamic-secondary) 80%, black 20%); /* Darker for active */
+  --cta-secondary-bg: color-mix(in srgb, var(--dynamic-secondary) 90%, var(--dynamic-background) 10%); /* Subtle background */
 
-  --cta-accent: var(--dynamic-primary); /* Accent CTA adapts to PDF */
-  --cta-accent-hover: color-mix(in srgb, var(--dynamic-primary) 80%, white 20%); /* Lighter for hover */
-  --cta-accent-active: color-mix(in srgb, var(--dynamic-primary) 80%, black 20%); /* Darker for active */
+  /* Tertiary CTA - Optional actions */
+  --cta-tertiary: var(--dynamic-primary); /* Base color adapts to PDF */
+  --cta-tertiary-hover: color-mix(in srgb, var(--dynamic-primary) 80%, white 20%); /* Lighter for hover */
+  --cta-tertiary-active: color-mix(in srgb, var(--dynamic-primary) 80%, black 20%); /* Darker for active */
+  --cta-tertiary-bg: color-mix(in srgb, var(--dynamic-primary) 90%, var(--dynamic-background) 10%); /* Subtle background */
 
   /* UI Element Colors - Dynamic theme with subtle elements */
   --ui-primary: color-mix(in srgb, var(--dynamic-primary) 70%, var(--dynamic-background) 30%); /* Muted primary */
@@ -118,21 +124,27 @@
   --section-content-text: var(--text-primary);
   --section-border: var(--border-subtle);
 
-  /* Button styles - Clear hierarchy with bright text */
+  /* Button styles - Salinger hierarchy with Hesse mathematical backgrounds */
+  /* Primary buttons - Most important actions */
   --button-primary-bg: var(--cta-primary); /* High contrast for primary actions */
   --button-primary-hover: var(--cta-primary-hover);
   --button-primary-active: var(--cta-primary-active);
   --button-primary-text: #FFFFFF; /* Pure white for maximum visibility */
+  --button-primary-container-bg: var(--cta-primary-bg); /* Subtle background for container */
 
+  /* Secondary buttons - Supporting actions */
   --button-secondary-bg: var(--cta-secondary); /* Medium contrast for secondary actions */
   --button-secondary-hover: var(--cta-secondary-hover);
   --button-secondary-active: var(--cta-secondary-active);
   --button-secondary-text: #FFFFFF; /* Pure white for maximum visibility */
+  --button-secondary-container-bg: var(--cta-secondary-bg); /* Subtle background for container */
 
-  --button-tertiary-bg: var(--ui-tertiary); /* Low contrast for tertiary actions */
-  --button-tertiary-hover: var(--ui-tertiary-hover);
-  --button-tertiary-active: var(--ui-tertiary-active);
+  /* Tertiary buttons - Optional actions */
+  --button-tertiary-bg: var(--cta-tertiary); /* Low contrast for tertiary actions */
+  --button-tertiary-hover: var(--cta-tertiary-hover);
+  --button-tertiary-active: var(--cta-tertiary-active);
   --button-tertiary-text: #FFFFFF; /* Pure white for maximum visibility */
+  --button-tertiary-container-bg: var(--cta-tertiary-bg); /* Subtle background for container */
 
   /* Interactive elements */
   --interactive-hover: var(--cta-primary-hover);
@@ -365,6 +377,31 @@ iframe {
 /* Ensure PDF controls have the right background */
 [class*="toolbar"], [class*="controls"], [class*="buttons"] {
   background-color: var(--pdf-background) !important;
+}
+
+/* Salinger CTA Container Styles */
+.cta-container {
+  background-color: rgba(212, 209, 190, 0.3); /* Subtle ecru background */
+  border-radius: 8px;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.cta-container-primary {
+  background-color: var(--button-primary-container-bg);
+}
+
+.cta-container-secondary {
+  background-color: var(--button-secondary-container-bg);
+}
+
+.cta-container-tertiary {
+  background-color: var(--button-tertiary-container-bg);
+}
+
+/* Hover effect for CTA containers */
+.cta-container:hover {
+  background-color: rgba(212, 209, 190, 0.5); /* Slightly darker on hover */
 }
 
 /* Book-like typography for content */

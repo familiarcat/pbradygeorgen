@@ -49,6 +49,27 @@ export default function DynamicThemeProvider({ children, pdfUrl }: DynamicThemeP
       document.documentElement.style.setProperty('--dynamic-text', colorTheme.text);
       document.documentElement.style.setProperty('--dynamic-border', colorTheme.border);
 
+      // Apply CTA colors if available
+      if (colorTheme.ctaColors) {
+        // Primary CTA
+        document.documentElement.style.setProperty('--cta-primary', colorTheme.ctaColors.primary.base);
+        document.documentElement.style.setProperty('--cta-primary-hover', colorTheme.ctaColors.primary.hover);
+        document.documentElement.style.setProperty('--cta-primary-active', colorTheme.ctaColors.primary.active);
+        document.documentElement.style.setProperty('--cta-primary-bg', `color-mix(in srgb, ${colorTheme.ctaColors.primary.base} 10%, ${colorTheme.background} 90%)`);
+
+        // Secondary CTA
+        document.documentElement.style.setProperty('--cta-secondary', colorTheme.ctaColors.secondary.base);
+        document.documentElement.style.setProperty('--cta-secondary-hover', colorTheme.ctaColors.secondary.hover);
+        document.documentElement.style.setProperty('--cta-secondary-active', colorTheme.ctaColors.secondary.active);
+        document.documentElement.style.setProperty('--cta-secondary-bg', `color-mix(in srgb, ${colorTheme.ctaColors.secondary.base} 10%, ${colorTheme.background} 90%)`);
+
+        // Tertiary CTA
+        document.documentElement.style.setProperty('--cta-tertiary', colorTheme.ctaColors.tertiary.base);
+        document.documentElement.style.setProperty('--cta-tertiary-hover', colorTheme.ctaColors.tertiary.hover);
+        document.documentElement.style.setProperty('--cta-tertiary-active', colorTheme.ctaColors.tertiary.active);
+        document.documentElement.style.setProperty('--cta-tertiary-bg', `color-mix(in srgb, ${colorTheme.ctaColors.tertiary.base} 10%, ${colorTheme.background} 90%)`);
+      }
+
       // Apply fonts
       document.documentElement.style.setProperty('--dynamic-primary-font', primaryFont);
       document.documentElement.style.setProperty('--dynamic-secondary-font', secondaryFont);

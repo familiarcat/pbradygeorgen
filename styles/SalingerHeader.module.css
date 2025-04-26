@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background-color: rgba(90, 118, 130, 0.1); /* Subtle background (matches --cta-secondary) */
 }
 
 .summaryLink:hover {
@@ -75,6 +76,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background-color: rgba(126, 98, 51, 0.1); /* Subtle background (matches --cta-tertiary) */
 }
 
 .actionLink::after {
@@ -90,7 +92,7 @@
 
 .actionLink:hover {
   color: #FFFFFF; /* White text for contrast */
-  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  background-color: #7E6233; /* Coyote color (matches --cta-tertiary) */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -101,7 +103,7 @@
 .actionLink:focus {
   outline: none;
   color: #FFFFFF; /* White text for contrast */
-  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  background-color: #7E6233; /* Coyote color (matches --cta-tertiary) */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -145,7 +147,7 @@
   border-bottom: none;
 }
 
-/* Preview button styling */
+/* Preview button styling - Primary CTA */
 .previewButton {
   display: flex;
   align-items: center;
@@ -158,7 +160,7 @@
   font-family: 'Courier New', monospace;
   font-weight: bold;
   font-size: 0.9rem;
-  background-color: rgba(143, 126, 79, 0.1); /* Lion with transparency */
+  background-color: rgba(126, 78, 45, 0.1); /* Terracotta with transparency (matches --cta-primary) */
   border-right: 1px solid rgba(73, 66, 61, 0.1);
   flex: 0 0 auto;
   width: 90px;
@@ -166,11 +168,11 @@
 }
 
 .previewButton:hover {
-  background: #8F7E4F; /* Lion color */
+  background: #7E4E2D; /* Terracotta color (matches --cta-primary) */
   color: #FFFFFF; /* White text for contrast */
 }
 
-/* Download options styling */
+/* Download options styling - Secondary CTA */
 .downloadOption {
   display: flex;
   align-items: center;
@@ -183,6 +185,7 @@
   font-size: 1rem;
   flex: 1;
   gap: 0.5rem;
+  background-color: rgba(95, 107, 84, 0.05); /* Ebony with transparency (matches --cta-secondary) */
 }
 
 /* Action icons */
@@ -207,8 +210,9 @@
 }
 
 .downloadOption:hover {
-  background: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  background: #5F6B54; /* Ebony color (matches --cta-secondary) */
   color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Loading text styling */

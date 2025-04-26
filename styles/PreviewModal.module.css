@@ -228,9 +228,9 @@
   border-top: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
 }
 
-/* Download button */
+/* Download button - Primary CTA */
 .downloadButton {
-  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
+  background-color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
   color: #FFFFFF;
   border: none;
   padding: 0.75rem 1.25rem;
@@ -243,11 +243,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .downloadButton:hover {
-  background-color: #4A6272;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #8F5A35; /* Lighter terracotta */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Download icon */
@@ -257,11 +258,11 @@
   stroke-width: 2;
 }
 
-/* Cancel button */
+/* Cancel button - Tertiary CTA */
 .cancelButton {
-  background-color: transparent;
+  background-color: rgba(126, 98, 51, 0.1); /* Subtle coyote background (matches --cta-tertiary) */
   color: #49423D; /* Ebony */
-  border: 1px solid rgba(73, 66, 61, 0.3);
+  border: 1px solid rgba(73, 66, 61, 0.2);
   padding: 0.75rem 1.25rem;
   border-radius: 4px;
   cursor: pointer;
@@ -271,7 +272,8 @@
 }
 
 .cancelButton:hover {
-  background-color: rgba(73, 66, 61, 0.1);
+  background-color: rgba(126, 98, 51, 0.2); /* Slightly darker on hover */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 /* Animations */
