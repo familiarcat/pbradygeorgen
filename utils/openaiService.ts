@@ -1,4 +1,6 @@
 import OpenAI from 'openai';
+import fs from 'fs';
+import path from 'path';
 import { cacheService } from './cacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 import { HesseLogger } from './HesseLogger';
@@ -240,3 +242,146 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
     throw error;
   }
 }
+
+/**
+ * Create a hash from a string
+ * @param str The string to hash
+ * @returns A hash of the string
+ */
+async function createHash(str: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+/**
+ * Format resume content into a well-structured summary using OpenAI
+ *
+ * @param resumeContent The raw resume content to format
+ * @param forceRefresh Whether to force a refresh of the cached response
+ * @returns A formatted markdown summary
+ */
+export async function formatSummaryContent(
+  resumeContent: string,
+  forceRefresh: boolean = false
+): Promise<string> {
+  try {
+    // Create a cache key based on the content
+    const contentHash = await createHash(resumeContent);
+    const cacheKey = `summary_format_${contentHash}`;
+
+    // Check if we have a cached response and aren't forcing a refresh
+    if (!forceRefresh) {
+      const cachedResponse = cacheService.getItem(cacheKey);
+      if (cachedResponse) {
+        HesseLogger.cache.hit(`Using cached formatted summary for key: ${cacheKey.substring(0, 8)}...`);
+        return cachedResponse;
+      }
+      HesseLogger.cache.miss(`Cache miss for formatted summary key: ${cacheKey.substring(0, 8)}...`);
+    } else {
+      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for formatted summary key: ${cacheKey.substring(0, 8)}...`);
+    }
+
+    // Read the prompt template
+    const promptPath = path.join(process.cwd(), 'prompts/summary_format_prompt.txt');
+    let promptTemplate = '';
+
+    try {
+      if (fs.existsSync(promptPath)) {
+        promptTemplate = fs.readFileSync(promptPath, 'utf8');
+      } else {
+        // Fallback prompt if file doesn't exist
+        promptTemplate = `Format the following resume content into a well-structured markdown document following these guidelines:
+
+1. Use a first-person narrative style throughout
+2. Create clear section headers with ## for main sections
+3. Use bullet points for lists of skills, experiences, etc.
+4. Maintain the personal tone and professional focus
+5. Organize content into these sections in this order:
+   - Professional Summary (introduction paragraph)
+   - Key Skills (bullet list)
+   - Experience (brief overview with years)
+   - Education (brief description)
+   - Career Highlights (bullet list)
+   - Industry Experience (bullet list)
+   - Recommendations (what I'm looking for - bullet list)
+
+Here's the raw content to format:
+
+{content}
+
+Format the content as a complete markdown document with the title "# P. Brady Georgen - Summary" at the top. Ensure all sections are properly formatted with appropriate headers, bullet points, and paragraph breaks.`;
+      }
+    } catch (error) {
+      HesseLogger.ai.error(`Error reading prompt template: ${error}`);
+      throw new Error(`Failed to read prompt template: ${error}`);
+    }
+
+    // Replace {content} placeholder with actual content if needed
+    const prompt = promptTemplate.includes('{content}')
+      ? promptTemplate.replace('{content}', resumeContent)
+      : promptTemplate;
+
+    // Log the OpenAI request
+    HesseLogger.openai.request('Sending request to OpenAI for summary formatting');
+
+    // Start timing the request
+    const apiStartTime = Date.now();
+
+    // Call the OpenAI API
+    const response = await openai.chat.completions.create({
+      model: "gpt-4-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a professional resume formatter that creates well-structured markdown documents from raw resume content. Follow the instructions exactly and only return the formatted markdown."
+        },
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.3, // Lower temperature for more consistent formatting
+      max_tokens: 1500, // Ensure we have enough tokens for a detailed response
+    });
+
+    // Calculate response time
+    const apiEndTime = Date.now();
+    const apiResponseTime = apiEndTime - apiStartTime;
+
+    // Log the OpenAI response time
+    HesseLogger.openai.response(`Received response from OpenAI in ${apiResponseTime}ms`);
+
+    // Log token usage if available
+    if (response.usage) {
+      HesseLogger.openai.tokens(
+        `Token usage: ${response.usage.prompt_tokens} prompt + ${response.usage.completion_tokens} completion = ${response.usage.total_tokens} total`
+      );
+    }
+
+    // Parse the response
+    const content = response.choices[0]?.message?.content;
+    if (!content) {
+      HesseLogger.openai.error("No content in the OpenAI response");
+      throw new Error("No content in the OpenAI response");
+    }
+
+    // Store the response in the cache
+    cacheService.setItem(cacheKey, content);
+    HesseLogger.cache.update(`Stored formatted summary with key: ${cacheKey.substring(0, 8)}...`);
+
+    // Log success
+    HesseLogger.summary.complete(`Successfully formatted summary`);
+
+    return content;
+  } catch (error) {
+    HesseLogger.openai.error(`Error formatting summary with OpenAI: ${error instanceof Error ? error.message : String(error)}`);
+    HesseLogger.summary.error(`Formatting failed: ${error instanceof Error ? error.message : String(error)}`);
+    throw error;
+  }
+}
+
+export default {
+  analyzeResume,
+  formatSummaryContent
+};

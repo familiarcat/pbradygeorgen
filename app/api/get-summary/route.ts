@@ -2,44 +2,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { DanteLogger } from '@/utils/DanteLogger';
-import { analyzeResume } from '@/utils/openaiService';
+import { HesseLogger } from '@/utils/HesseLogger';
+import { analyzeResume, formatSummaryContent } from '@/utils/openaiService';
 
 export async function GET(request: NextRequest) {
   try {
     DanteLogger.success.basic('Summary API called');
-    
+
     // Get the resume content from the public directory
     const publicDir = path.join(process.cwd(), 'public');
     const resumeFilePath = path.join(publicDir, 'extracted/resume_content.md');
-    
+
     // Check if the file exists
     if (!fs.existsSync(resumeFilePath)) {
       DanteLogger.error.runtime('Resume content file not found');
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Resume content file not found' 
+      return NextResponse.json({
+        success: false,
+        error: 'Resume content file not found'
       }, { status: 404 });
     }
-    
+
     // Read the file content
     const content = fs.readFileSync(resumeFilePath, 'utf8');
-    
+
     // Check if we have an OpenAI API key and it's enabled
     const useOpenAI = process.env.OPENAI_API_KEY && process.env.USE_OPENAI === 'true';
-    
+
     if (useOpenAI) {
       try {
-        DanteLogger.success.basic('Using OpenAI to generate summary');
-        
-        // Use OpenAI to analyze the resume
-        const startTime = Date.now();
-        const analysis = await analyzeResume(content, false);
-        const endTime = Date.now();
-        
-        DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);
-        
-        // Convert the analysis to markdown format
-        const markdown = `# P. Brady Georgen - Summary
+        HesseLogger.summary.start('Starting summary generation with OpenAI');
+
+        // First, try to format the content directly using our optimized prompt
+        try {
+          const startTime = Date.now();
+          const formattedSummary = await formatSummaryContent(content);
+          const endTime = Date.now();
+
+          HesseLogger.summary.complete(`Summary formatted in ${endTime - startTime}ms`);
+
+          return NextResponse.json({
+            success: true,
+            summary: formattedSummary
+          });
+        } catch (formatError) {
+          HesseLogger.summary.error(`Error formatting summary: ${formatError}`);
+          DanteLogger.warn.minor('Falling back to analysis-based summary generation');
+
+          // If direct formatting fails, fall back to the analysis approach
+          const startTime = Date.now();
+          const analysis = await analyzeResume(content, false);
+          const endTime = Date.now();
+
+          DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);
+
+          // Convert the analysis to markdown format
+          const markdown = `# P. Brady Georgen - Summary
 
 ## Professional Summary
 
@@ -69,14 +86,16 @@ ${analysis.industryExperience.map(industry => `- ${industry}`).join('\n')}
 
 ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
 `;
-        
-        return NextResponse.json({
-          success: true,
-          summary: markdown
-        });
+
+          return NextResponse.json({
+            success: true,
+            summary: markdown
+          });
+        }
       } catch (error) {
         DanteLogger.error.runtime(`Error generating summary with OpenAI: ${error}`);
-        
+        HesseLogger.summary.error(`Summary generation failed: ${error}`);
+
         // Fall back to a basic summary if OpenAI fails
         return NextResponse.json({
           success: true,
@@ -126,7 +145,8 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
       }
     } else {
       DanteLogger.warn.performance('OpenAI integration is disabled. Using fallback summary');
-      
+      HesseLogger.ai.warning('OpenAI integration is disabled. Using fallback summary');
+
       // Return a basic summary if OpenAI is not available
       return NextResponse.json({
         success: true,
@@ -176,10 +196,10 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
     }
   } catch (error) {
     DanteLogger.error.runtime(`Error in get-summary API: ${error}`);
-    
-    return NextResponse.json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error' 
+
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
