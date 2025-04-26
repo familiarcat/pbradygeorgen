@@ -32,10 +32,15 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
 
   // States for preview modals
-  const [showPdfPreview, setShowPdfPreview] = useState(false);
-  const [showMdPreview, setShowMdPreview] = useState(false);
-  const [showTxtPreview, setShowTxtPreview] = useState(false);
+  // Track which preview is active to prevent multiple previews from showing simultaneously
+  const [activePreview, setActivePreview] = useState<'pdf' | 'markdown' | 'text' | null>(null);
   const [previewContent, setPreviewContent] = useState('');
+  const [pdfDataUrl, setPdfDataUrl] = useState<string | null>(null);
+
+  // Computed states for previews based on activePreview
+  const showPdfPreview = activePreview === 'pdf';
+  const showMdPreview = activePreview === 'markdown';
+  const showTxtPreview = activePreview === 'text';
 
   // State for dropdown
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
@@ -78,13 +83,33 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   // Function to handle PDF preview
   const handlePdfPreview = async () => {
     try {
-      setShowPdfPreview(true);
-      HesseLogger.summary.start('Opening PDF preview with dark theme');
+      HesseLogger.summary.start('Generating PDF preview with dark theme');
 
-      // Generate a temporary PDF for preview if needed
-      // For now, we're using a static preview file, but this could be dynamically generated
+      // Generate a real-time PDF preview
+      const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, {
+        title: 'P. Brady Georgen - Cover Letter',
+        fileName: 'pbradygeorgen_cover_letter.pdf',
+        headerText: 'P. Brady Georgen - Cover Letter',
+        footerText: 'Generated with Salinger Design',
+        // Use letter size for US standard 8.5 x 11 inches
+        pageSize: 'letter',
+        // Ensure proper margins for full bleed
+        margins: {
+          top: 10,
+          right: 10,
+          bottom: 10,
+          left: 10
+        }
+      });
+
+      // Store the data URL for the preview
+      setPdfDataUrl(dataUrl);
+
+      // Show the preview modal
+      setActivePreview('pdf');
 
       DanteLogger.success.ux('Opened PDF preview with Salinger dark theme');
+      HesseLogger.summary.complete('PDF preview generated with dark theme styling');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
       HesseLogger.summary.error(`PDF preview failed: ${error}`);
@@ -125,7 +150,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     try {
       HesseLogger.summary.start('Opening Markdown preview');
       setPreviewContent(content);
-      setShowMdPreview(true);
+      setActivePreview('markdown');
       DanteLogger.success.ux('Opened Markdown preview with Salinger design');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing Markdown preview: ${error}`);
@@ -190,7 +215,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
 
       setPreviewContent(plainText);
-      setShowTxtPreview(true);
+      setActivePreview('text');
       DanteLogger.success.ux('Opened Text preview with Salinger design');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing Text preview: ${error}`);
@@ -452,20 +477,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       {showPdfPreview && (
         <PreviewModal
           isOpen={showPdfPreview}
-          onClose={() => setShowPdfPreview(false)}
+          onClose={() => setActivePreview(null)}
           content=""
           format="pdf"
           fileName="pbradygeorgen_cover_letter"
           onDownload={handleExportToPdf}
           position="right"
-          pdfSource="/summary-preview.pdf" // Use our dedicated summary PDF preview
+          pdfDataUrl={pdfDataUrl || undefined} // Use the dynamically generated PDF data URL
         />
       )}
 
       {showMdPreview && (
         <PreviewModal
           isOpen={showMdPreview}
-          onClose={() => setShowMdPreview(false)}
+          onClose={() => setActivePreview(null)}
           content={content}
           format="markdown"
           fileName="pbradygeorgen_cover_letter"
@@ -477,7 +502,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       {showTxtPreview && (
         <PreviewModal
           isOpen={showTxtPreview}
-          onClose={() => setShowTxtPreview(false)}
+          onClose={() => setActivePreview(null)}
           content={previewContent}
           format="text"
           fileName="pbradygeorgen_cover_letter"

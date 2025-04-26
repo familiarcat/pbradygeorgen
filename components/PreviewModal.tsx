@@ -14,7 +14,8 @@ interface PreviewModalProps {
   fileName: string;
   onDownload: () => void;
   position?: 'left' | 'right' | 'center';
-  pdfSource?: string; // Optional PDF source for preview
+  pdfSource?: string; // Optional PDF source for preview (file path)
+  pdfDataUrl?: string; // Optional PDF data URL for preview (takes precedence over pdfSource)
 }
 
 const PreviewModal: React.FC<PreviewModalProps> = ({
@@ -25,7 +26,8 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   fileName,
   onDownload,
   position = 'center',
-  pdfSource = '/pbradygeorgen_resume.pdf' // Default to resume PDF
+  pdfSource = '/pbradygeorgen_resume.pdf', // Default to resume PDF
+  pdfDataUrl // Optional PDF data URL
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const markdownRef = useRef<HTMLDivElement>(null);
@@ -178,7 +180,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
           ) : format === 'pdf' ? (
             <div className={styles.pdfPreview}>
               <iframe
-                src={`${pdfSource}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                src={pdfDataUrl || `${pdfSource}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                 className={styles.pdfFrame}
                 title="PDF Preview"
               />
