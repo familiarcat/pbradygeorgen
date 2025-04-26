@@ -276,7 +276,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   }, [headerBgColor]);
 
   return (
-    <DynamicThemeProvider pdfUrl={pdfUrl} style={{ minHeight: 'calc(var(--vh, 1vh) * 100)', backgroundColor: headerBgColor }}>
+    <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div
         className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
         style={{
