@@ -640,43 +640,6 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowSummaryModal(false)}
       content={summaryContent}
       isLoading={isLoadingSummary}
-      onRefreshAnalysis={() => {
-        setIsLoadingSummary(true);
-
-        // Call the get-summary API to refresh the analysis
-        fetch('/api/get-summary', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          }
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`API responded with status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.success) {
-              // Update the summary content with the new analysis
-              setSummaryContent(data.summary);
-              console.log('Analysis refreshed successfully');
-            } else {
-              throw new Error(data.error || 'Failed to refresh analysis');
-            }
-          })
-          .catch(error => {
-            console.error('Error refreshing analysis:', error);
-
-            // Show a more helpful error message
-            alert('Unable to refresh analysis. The server may be busy. Please try again in a moment.');
-          })
-          .finally(() => {
-            setIsLoadingSummary(false);
-          });
-      }}
       position="left"
     />
     </>

@@ -6,12 +6,12 @@ import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import ReactMarkdown from 'react-markdown';
 import PdfGenerator from '@/utils/PdfGenerator';
+import PreviewModal from './PreviewModal';
 
 interface SummaryModalProps {
   isOpen: boolean;
   onClose: () => void;
   content: string;
-  onRefreshAnalysis: () => void;
   position?: 'left' | 'right' | 'center';
   isLoading?: boolean;
 }
@@ -20,15 +20,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   isOpen,
   onClose,
   content,
-  onRefreshAnalysis,
   position = 'left',
   isLoading = false
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // States for download operations
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
+
+  // States for preview modals
+  const [showPdfPreview, setShowPdfPreview] = useState(false);
+  const [showMdPreview, setShowMdPreview] = useState(false);
+  const [showTxtPreview, setShowTxtPreview] = useState(false);
+  const [previewContent, setPreviewContent] = useState('');
+
+  // State for dropdown
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
   // Function to handle PDF export
@@ -65,6 +74,19 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   };
 
+  // Function to handle PDF preview
+  const handlePdfPreview = async () => {
+    try {
+      setShowPdfPreview(true);
+      HesseLogger.summary.start('Opening PDF preview with dark theme');
+      DanteLogger.success.ux('Opened PDF preview with Salinger dark theme');
+    } catch (error) {
+      DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
+      HesseLogger.summary.error(`PDF preview failed: ${error}`);
+      alert('There was an error generating the PDF preview. Please try again.');
+    }
+  };
+
   // Function to handle Markdown export
   const handleExportToMarkdown = async () => {
     try {
@@ -90,6 +112,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       alert('There was an error generating the Markdown file. Please try again.');
     } finally {
       setIsGeneratingMd(false);
+    }
+  };
+
+  // Function to handle Markdown preview
+  const handleMarkdownPreview = async () => {
+    try {
+      HesseLogger.summary.start('Opening Markdown preview');
+      setPreviewContent(content);
+      setShowMdPreview(true);
+      DanteLogger.success.ux('Opened Markdown preview with Salinger design');
+    } catch (error) {
+      DanteLogger.error.runtime(`Error showing Markdown preview: ${error}`);
+      HesseLogger.summary.error(`Markdown preview failed: ${error}`);
+      alert('There was an error generating the Markdown preview. Please try again.');
     }
   };
 
@@ -129,6 +165,32 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       alert('There was an error generating the Text file. Please try again.');
     } finally {
       setIsGeneratingTxt(false);
+    }
+  };
+
+  // Function to handle Text preview
+  const handleTextPreview = async () => {
+    try {
+      HesseLogger.summary.start('Opening Text preview');
+
+      // Convert markdown to plain text
+      const plainText = content
+        .replace(/#{1,6}\s+/g, '') // Remove headers
+        .replace(/\*\*/g, '') // Remove bold
+        .replace(/\*/g, '') // Remove italic
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
+        .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
+        .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
+        .replace(/>/g, '') // Remove blockquotes
+        .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
+
+      setPreviewContent(plainText);
+      setShowTxtPreview(true);
+      DanteLogger.success.ux('Opened Text preview with Salinger design');
+    } catch (error) {
+      DanteLogger.error.runtime(`Error showing Text preview: ${error}`);
+      HesseLogger.summary.error(`Text preview failed: ${error}`);
+      alert('There was an error generating the Text preview. Please try again.');
     }
   };
 
@@ -204,44 +266,47 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Summary</h2>
           <div className={styles.headerActions}>
-            <button
-              className={styles.refreshButton}
-              onClick={onRefreshAnalysis}
-              aria-label="Refresh Analysis"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className={styles.refreshIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M23 4v6h-6"></path>
-                <path d="M1 20v-6h6"></path>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
-                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
-              </svg>
-              Refresh Analysis
-            </button>
-
-            {/* Download dropdown container */}
+            {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
-              <button
-                className={styles.downloadButton}
-                onClick={() => setShowDownloadOptions(!showDownloadOptions)}
-                aria-label="Download Options"
+              <a
+                href="#"
+                className={styles.actionLink}
+                onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
+                aria-label="Download Summary"
                 aria-haspopup="true"
-                aria-expanded={showDownloadOptions}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                Download
-              </button>
+                Download Summary
+              </a>
 
-              {/* Download options dropdown */}
-              {showDownloadOptions && (
-                <div className={styles.downloadOptions}>
-                  <button
+              {/* Dropdown menu with Salinger-inspired styling */}
+              <div className={styles.downloadMenu}>
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePdfPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleExportToPdf();
+                    }}
                     className={styles.downloadOption}
-                    onClick={handleExportToPdf}
-                    disabled={isGeneratingPdf}
                   >
                     {isGeneratingPdf ? (
                       <span className={styles.loadingText}>
@@ -249,26 +314,43 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Generating PDF...
+                        Downloading...
                       </span>
                     ) : (
                       <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.formatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <line x1="16" y1="13" x2="8" y2="13"></line>
-                          <line x1="16" y1="17" x2="8" y2="17"></line>
-                          <polyline points="10 9 9 9 8 9"></polyline>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="7 10 12 15 17 10"></polyline>
+                          <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                         PDF Format
                       </>
                     )}
-                  </button>
+                  </a>
+                </div>
 
-                  <button
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleMarkdownPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleExportToMarkdown();
+                    }}
                     className={styles.downloadOption}
-                    onClick={handleExportToMarkdown}
-                    disabled={isGeneratingMd}
                   >
                     {isGeneratingMd ? (
                       <span className={styles.loadingText}>
@@ -276,25 +358,43 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Generating MD...
+                        Downloading...
                       </span>
                     ) : (
                       <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.formatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <path d="M10 13L8 17L12 17L10 13Z"></path>
-                          <path d="M14 13L16 17L12 17L14 13Z"></path>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="7 10 12 15 17 10"></polyline>
+                          <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                         Markdown Format
                       </>
                     )}
-                  </button>
+                  </a>
+                </div>
 
-                  <button
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleTextPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleExportToText();
+                    }}
                     className={styles.downloadOption}
-                    onClick={handleExportToText}
-                    disabled={isGeneratingTxt}
                   >
                     {isGeneratingTxt ? (
                       <span className={styles.loadingText}>
@@ -302,22 +402,21 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Generating TXT...
+                        Downloading...
                       </span>
                     ) : (
                       <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.formatIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <line x1="16" y1="13" x2="8" y2="13"></line>
-                          <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="7 10 12 15 17 10"></polyline>
+                          <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                         Text Format
                       </>
                     )}
-                  </button>
+                  </a>
                 </div>
-              )}
+              </div>
             </div>
 
             <button className={styles.closeButton} onClick={onClose} aria-label="Close">
@@ -343,6 +442,43 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           )}
         </div>
       </div>
+
+      {/* Preview Modals */}
+      {showPdfPreview && (
+        <PreviewModal
+          isOpen={showPdfPreview}
+          onClose={() => setShowPdfPreview(false)}
+          content=""
+          format="pdf"
+          fileName="pbradygeorgen_summary"
+          onDownload={handleExportToPdf}
+          position="right"
+        />
+      )}
+
+      {showMdPreview && (
+        <PreviewModal
+          isOpen={showMdPreview}
+          onClose={() => setShowMdPreview(false)}
+          content={content}
+          format="markdown"
+          fileName="pbradygeorgen_summary"
+          onDownload={handleExportToMarkdown}
+          position="right"
+        />
+      )}
+
+      {showTxtPreview && (
+        <PreviewModal
+          isOpen={showTxtPreview}
+          onClose={() => setShowTxtPreview(false)}
+          content={previewContent}
+          format="text"
+          fileName="pbradygeorgen_summary"
+          onDownload={handleExportToText}
+          position="right"
+        />
+      )}
     </div>
   );
 };
