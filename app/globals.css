@@ -229,6 +229,27 @@ body.theme-loaded {
   opacity: 1;
 }
 
+/* PDF-based theme transitions */
+.pdf-theme-transition * {
+  transition:
+    color 0.5s ease,
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease,
+    opacity 0.5s ease;
+}
+
+/* Theme refresh animation */
+@keyframes theme-refresh-pulse {
+  0% { opacity: 0.98; }
+  50% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+.theme-refreshing {
+  animation: theme-refresh-pulse 0.8s ease;
+}
+
 /* Dark theme adaptations */
 .pdf-dark-theme {
   /* Invert some colors for better dark mode readability */
