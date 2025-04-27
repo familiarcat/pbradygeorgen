@@ -27,7 +27,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   onDownload,
   onDownloadWithDataUrl,
   position = 'center',
-  pdfSource = '/pbradygeorgen_resume.pdf', // Default to resume PDF
+  pdfSource = '/default_resume.pdf', // Default to resume PDF
   pdfDataUrl // Optional PDF data URL
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);

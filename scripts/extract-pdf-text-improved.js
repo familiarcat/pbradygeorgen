@@ -13,7 +13,7 @@ async function main() {
     pdfPath = args[0];
   } else {
     // Use the default file path with a timestamp to force refresh
-    pdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
+    pdfPath = path.join(__dirname, '../public/default_resume.pdf');
     console.log(`Using default PDF path: ${pdfPath}`);
 
     // Log the file's last modified time to help with debugging

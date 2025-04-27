@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     // If useDefault is true, process the default PDF file
     if (useDefault) {
       try {
-        const defaultPdfPath = path.join(process.cwd(), 'public', 'pbradygeorgen_resume.pdf');
+        const defaultPdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
 
         // Run the extraction script on the default PDF
         await execAsync(`node scripts/extract-pdf-text-improved.js "${defaultPdfPath}"`);
@@ -32,9 +32,9 @@ export async function POST(request: NextRequest) {
         // Return success response for default PDF
         return NextResponse.json({
           success: true,
-          pdfUrl: '/pbradygeorgen_resume.pdf',
-          fileName: 'pbradygeorgen_resume.pdf',
-          originalName: 'pbradygeorgen_resume.pdf',
+          pdfUrl: '/default_resume.pdf',
+          fileName: 'default_resume.pdf',
+          originalName: 'default_resume.pdf',
           isDefault: true
         });
       } catch (error) {

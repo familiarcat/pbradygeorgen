@@ -12,7 +12,7 @@ const execAsync = promisify(exec);
  */
 export function getPdfLastModifiedTime(): Date | null {
   try {
-    const pdfPath = path.join(process.cwd(), 'public', 'pbradygeorgen_resume.pdf');
+    const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
     const stats = fs.statSync(pdfPath);
     return stats.mtime;
   } catch (error) {
@@ -46,15 +46,15 @@ export function getExtractedContentLastModifiedTime(): Date | null {
 export function isPdfContentStale(): boolean {
   const pdfTime = getPdfLastModifiedTime();
   const extractedTime = getExtractedContentLastModifiedTime();
-  
+
   if (!pdfTime) {
     return false; // Can't determine PDF time, assume it's not stale
   }
-  
+
   if (!extractedTime) {
     return true; // No extracted content, need to extract
   }
-  
+
   // Compare timestamps - if PDF is newer, content is stale
   return pdfTime > extractedTime;
 }
@@ -65,18 +65,18 @@ export function isPdfContentStale(): boolean {
  */
 export async function refreshPdfContent(): Promise<boolean> {
   try {
-    const pdfPath = path.join(process.cwd(), 'public', 'pbradygeorgen_resume.pdf');
-    
+    const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+
     // Create the extracted directory if it doesn't exist
     const extractedDir = path.join(process.cwd(), 'public', 'extracted');
     if (!fs.existsSync(extractedDir)) {
       fs.mkdirSync(extractedDir, { recursive: true });
     }
-    
+
     // Run the extraction script
     await execAsync(`node scripts/extract-pdf-text-improved.js "${pdfPath}"`);
     DanteLogger.success.core('PDF content refreshed automatically');
-    
+
     return true;
   } catch (error) {
     console.error('Error refreshing PDF content:', error);

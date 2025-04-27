@@ -1,6 +1,6 @@
 /**
  * Create Placeholder PDFs Script
- * 
+ *
  * This script creates placeholder PDFs for each test category.
  * It uses a simple approach of copying the sample PDF to each test location.
  * In a real implementation, these would be carefully designed PDFs.
@@ -37,16 +37,16 @@ const TEST_PDFS = {
 async function main() {
   try {
     console.log('Creating placeholder PDFs...');
-    
+
     // Get the sample PDF path
-    const samplePdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
-    
+    const samplePdfPath = path.join(__dirname, '../public/default_resume.pdf');
+
     // Check if the sample PDF exists
     if (!fs.existsSync(samplePdfPath)) {
       console.error(`Sample PDF not found: ${samplePdfPath}`);
       process.exit(1);
     }
-    
+
     // Process each category and file
     for (const [category, pdfs] of Object.entries(TEST_PDFS)) {
       // Create category directory if it doesn't exist
@@ -54,16 +54,16 @@ async function main() {
       if (!fs.existsSync(categoryDir)) {
         fs.mkdirSync(categoryDir, { recursive: true });
       }
-      
+
       // Create a placeholder file for each PDF in the category
       for (const pdf of pdfs) {
         console.log(`Creating ${category}/${pdf.id}.pdf...`);
-        
+
         const pdfPath = path.join(categoryDir, `${pdf.id}.pdf`);
-        
+
         // Copy the sample PDF to the test PDF location
         fs.copyFileSync(samplePdfPath, pdfPath);
-        
+
         // Create a description file
         const descPath = path.join(categoryDir, `${pdf.id}.txt`);
         const description = `Test PDF: ${pdf.name}
@@ -75,15 +75,15 @@ In a real implementation, this would be a carefully designed PDF that tests ${pd
 
 For now, we're using a copy of the sample resume PDF.
 `;
-        
+
         fs.writeFileSync(descPath, description);
-        
+
         console.log(`Created ${pdfPath}`);
       }
     }
-    
+
     console.log('Placeholder PDFs created successfully!');
-    
+
   } catch (error) {
     console.error('Error creating placeholder PDFs:', error);
     process.exit(1);

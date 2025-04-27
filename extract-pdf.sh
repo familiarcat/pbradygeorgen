@@ -7,10 +7,10 @@ chmod +x ./extract-pdf.sh
 echo "Current directory: $(pwd)"
 
 # Check if the PDF file exists
-if [ -f "./public/pbradygeorgen_resume.pdf" ]; then
+if [ -f "./public/default_resume.pdf" ]; then
   echo "PDF file exists"
   # Print the file's last modified time
-  echo "Last modified: $(stat -f "%Sm" ./public/pbradygeorgen_resume.pdf)"
+  echo "Last modified: $(stat -f "%Sm" ./public/default_resume.pdf)"
 else
   echo "PDF file does not exist"
   exit 1
@@ -18,7 +18,7 @@ fi
 
 # Run the extraction script
 echo "Running extraction script..."
-node scripts/extract-pdf-text-improved.js "./public/pbradygeorgen_resume.pdf"
+node scripts/extract-pdf-text-improved.js "./public/default_resume.pdf"
 
 # Check if the extraction was successful
 if [ -f "./public/extracted/resume_content.md" ]; then

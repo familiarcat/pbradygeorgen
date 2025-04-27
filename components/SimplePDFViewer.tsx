@@ -8,8 +8,8 @@ export default function SimplePDFViewer() {
   const timestamp = Date.now();
 
   // PDF URL state with cache-busting query parameter
-  const [pdfUrl, setPdfUrl] = useState(`/pbradygeorgen_resume.pdf?v=${timestamp}`);
-  const [pdfName, setPdfName] = useState('pbradygeorgen_resume');
+  const [pdfUrl, setPdfUrl] = useState(`/default_resume.pdf?v=${timestamp}`);
+  const [pdfName, setPdfName] = useState('default_resume');
 
   return (
     <CenteredPDFViewer pdfUrl={pdfUrl} pdfName={pdfName} />

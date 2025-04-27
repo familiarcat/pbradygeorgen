@@ -24,16 +24,16 @@ npm ci
 
 # Ensure PDF content is extracted before build
 echo "Checking PDF file..."
-if [ -f "public/pbradygeorgen_resume.pdf" ]; then
-  echo "PDF file found: public/pbradygeorgen_resume.pdf"
-  echo "Last modified: $(stat -c %y public/pbradygeorgen_resume.pdf 2>/dev/null || stat -f "%Sm" public/pbradygeorgen_resume.pdf)"
+if [ -f "public/default_resume.pdf" ]; then
+  echo "PDF file found: public/default_resume.pdf"
+  echo "Last modified: $(stat -c %y public/default_resume.pdf 2>/dev/null || stat -f "%Sm" public/default_resume.pdf)"
 
   # Create the extracted directory if it doesn't exist
   mkdir -p public/extracted
 
   # Extract content from the PDF
   echo "Extracting content from PDF..."
-  node scripts/extract-pdf-text-improved.js public/pbradygeorgen_resume.pdf
+  node scripts/extract-pdf-text-improved.js public/default_resume.pdf
 
   if [ $? -eq 0 ]; then
     echo "PDF content extracted successfully"

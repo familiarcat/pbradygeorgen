@@ -48,7 +48,7 @@ async function extractTextFromPDF(pdfPath) {
 
 // Main function
 async function main() {
-  const pdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
+  const pdfPath = path.join(__dirname, '../public/default_resume.pdf');
   const outputPath = path.join(__dirname, '../public/extracted/resume_content.txt');
 
   try {

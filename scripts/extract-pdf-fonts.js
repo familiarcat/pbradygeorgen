@@ -134,7 +134,7 @@ if (args.length > 0) {
   pdfPath = args[0];
 } else {
   // Use the default file path
-  pdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
+  pdfPath = path.join(__dirname, '../public/default_resume.pdf');
 }
 
 // Extract fonts from the PDF

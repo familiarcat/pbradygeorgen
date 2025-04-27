@@ -9,7 +9,7 @@ if [ $# -eq 0 ]; then
 fi
 
 NEW_PDF_PATH="$1"
-TARGET_PATH="public/pbradygeorgen_resume.pdf"
+TARGET_PATH="public/default_resume.pdf"
 
 # Check if the source file exists
 if [ ! -f "$NEW_PDF_PATH" ]; then

@@ -1,11 +1,11 @@
 /**
  * Test PDF Template Script
- * 
+ *
  * This script allows testing different PDF templates by:
  * 1. Copying a test PDF to the public directory
  * 2. Extracting its content
  * 3. Generating the necessary files for the application to process
- * 
+ *
  * Usage: node scripts/test-pdf-template.js [pdf-file-path]
  * Example: node scripts/test-pdf-template.js ./public/test-pdfs/template1.pdf
  */
@@ -35,20 +35,20 @@ const pdfFilename = path.basename(sourcePdfPath);
 async function main() {
   try {
     console.log(`Testing PDF template: ${pdfFilename}`);
-    
+
     // 1. Create a backup of the original PDF
-    const originalPdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
-    const backupPdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.backup.pdf');
-    
+    const originalPdfPath = path.join(__dirname, '../public/default_resume.pdf');
+    const backupPdfPath = path.join(__dirname, '../public/default_resume.backup.pdf');
+
     if (!fs.existsSync(backupPdfPath)) {
       console.log('Creating backup of original PDF...');
       fs.copyFileSync(originalPdfPath, backupPdfPath);
     }
-    
+
     // 2. Copy the test PDF to the public directory
     console.log('Copying test PDF to public directory...');
     fs.copyFileSync(sourcePdfPath, originalPdfPath);
-    
+
     // 3. Extract content from the PDF
     console.log('Extracting content from PDF...');
     try {
@@ -65,7 +65,7 @@ async function main() {
         execSync('node scripts/extract-pdf-text-simple.js', { stdio: 'inherit' });
       }
     }
-    
+
     // 4. Generate improved markdown content
     console.log('Generating improved markdown content...');
     try {
@@ -74,13 +74,13 @@ async function main() {
     } catch (error) {
       console.log('Failed to generate improved markdown. You may need to run the app and use the API directly.');
     }
-    
+
     console.log('\nTest PDF setup complete!');
     console.log('You can now run the application to see how it handles the new template:');
     console.log('npm run dev');
     console.log('\nTo restore the original PDF:');
     console.log('node scripts/restore-original-pdf.js');
-    
+
   } catch (error) {
     console.error('Error testing PDF template:', error);
     process.exit(1);

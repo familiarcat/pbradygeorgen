@@ -230,7 +230,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   const handlePdfDownload = () => {
     // Create a link to the PDF file and trigger download
     const a = document.createElement('a');
-    a.href = `/pbradygeorgen_resume.pdf?v=${Date.now()}`;
+    a.href = `/default_resume.pdf?v=${Date.now()}`;
     a.download = `${fileName}.pdf`;
     document.body.appendChild(a);
     a.click();
@@ -825,7 +825,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       fileName={fileName}
       onDownload={handlePdfDownload}
       position="right"
-      pdfSource="/pbradygeorgen_resume.pdf" // Explicitly set to resume PDF
+      pdfSource="/default_resume.pdf" // Explicitly set to resume PDF
     />
 
     {/* Summary Modal - Using the new dark-themed SummaryModal */}

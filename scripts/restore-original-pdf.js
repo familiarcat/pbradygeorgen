@@ -1,6 +1,6 @@
 /**
  * Restore Original PDF Script
- * 
+ *
  * This script restores the original PDF after testing a different template.
  */
 
@@ -12,19 +12,19 @@ const { execSync } = require('child_process');
 async function main() {
   try {
     console.log('Restoring original PDF...');
-    
+
     // Check if backup exists
-    const originalPdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.pdf');
-    const backupPdfPath = path.join(__dirname, '../public/pbradygeorgen_resume.backup.pdf');
-    
+    const originalPdfPath = path.join(__dirname, '../public/default_resume.pdf');
+    const backupPdfPath = path.join(__dirname, '../public/default_resume.backup.pdf');
+
     if (!fs.existsSync(backupPdfPath)) {
       console.error('Backup PDF not found. Cannot restore original.');
       process.exit(1);
     }
-    
+
     // Restore the original PDF
     fs.copyFileSync(backupPdfPath, originalPdfPath);
-    
+
     // Re-extract content from the original PDF
     console.log('Re-extracting content from original PDF...');
     try {
@@ -41,7 +41,7 @@ async function main() {
         execSync('node scripts/extract-pdf-text-simple.js', { stdio: 'inherit' });
       }
     }
-    
+
     // Generate improved markdown content
     console.log('Regenerating improved markdown content...');
     try {
@@ -50,11 +50,11 @@ async function main() {
     } catch (error) {
       console.log('Failed to generate improved markdown. You may need to run the app and use the API directly.');
     }
-    
+
     console.log('\nOriginal PDF restored!');
     console.log('You can now run the application with the original PDF:');
     console.log('npm run dev');
-    
+
   } catch (error) {
     console.error('Error restoring original PDF:', error);
     process.exit(1);
