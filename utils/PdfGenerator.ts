@@ -27,6 +27,7 @@ interface PdfGenerationOptions {
   headerText?: string;
   footerText?: string;
   fileName?: string;
+  isDarkTheme?: boolean; // Added for explicit theme control
 }
 
 const defaultOptions: PdfGenerationOptions = {
@@ -71,6 +72,16 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
   // Track if we've skipped the first heading
   let hasSkippedFirstHeading = !skipFirstHeading;
 
+  // Helper function to clean markdown formatting
+  const cleanMarkdownFormatting = (text: string): string => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
+      .replace(/\*(.*?)\*/g, '$1')     // Remove italic formatting
+      .replace(/`(.*?)`/g, '$1')       // Remove inline code formatting
+      .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Replace links with just the text
+      .replace(/!\[(.*?)\]\(.*?\)/g, '$1'); // Replace images with alt text
+  };
+
   // Process each line
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
@@ -88,44 +99,47 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
 
       blocks.push({
         type: 'heading1',
-        content: line.substring(2).trim()
+        content: cleanMarkdownFormatting(line.substring(2).trim())
       });
     } else if (line.startsWith('## ')) {
       blocks.push({
         type: 'heading2',
-        content: line.substring(3).trim()
+        content: cleanMarkdownFormatting(line.substring(3).trim())
       });
     } else if (line.startsWith('### ')) {
       blocks.push({
         type: 'heading3',
-        content: line.substring(4).trim()
+        content: cleanMarkdownFormatting(line.substring(4).trim())
       });
     }
     // Check for list items
     else if (line.startsWith('- ') || line.startsWith('* ')) {
       blocks.push({
         type: 'listItem',
-        content: line.substring(2).trim()
+        content: cleanMarkdownFormatting(line.substring(2).trim())
       });
     }
     // Check for numbered list items
     else if (/^\d+\.\s/.test(line)) {
       blocks.push({
         type: 'listItem',
-        content: line.replace(/^\d+\.\s/, '').trim()
+        content: cleanMarkdownFormatting(line.replace(/^\d+\.\s/, '').trim())
       });
     }
     // Everything else is a paragraph
     else {
+      // Clean the markdown formatting
+      const cleanedLine = cleanMarkdownFormatting(line);
+
       // Check if this is a continuation of a previous paragraph
       const prevBlock = blocks[blocks.length - 1];
       if (prevBlock && prevBlock.type === 'paragraph' && !lines[i-1].trim().endsWith('  ')) {
         // Append to previous paragraph if the previous line doesn't end with two spaces
-        prevBlock.content += ' ' + line;
+        prevBlock.content += ' ' + cleanedLine;
       } else {
         blocks.push({
           type: 'paragraph',
-          content: line
+          content: cleanedLine
         });
       }
     }
@@ -336,8 +350,10 @@ export async function generatePdfFromMarkdown(
   try {
     DanteLogger.success.basic('Starting PDF generation from markdown content');
 
-    // Determine if this is from the Summary modal (dark theme) or regular content
-    const isDarkTheme = options.fileName?.includes('summary') || false;
+    // Determine if this is from the Summary modal or Cover Letter (dark theme) or regular content
+    // Ensure consistent styling between preview and download by explicitly checking for cover_letter
+    const isDarkTheme = options.fileName?.includes('summary') || options.fileName?.includes('cover_letter') ||
+                        options.isDarkTheme === true || false;
 
     // Create a PDF document directly with proper dimensions for US Letter (8.5 x 11 inches)
     const pdf = new jsPDF({
@@ -566,8 +582,10 @@ export async function generatePdfDataUrlFromMarkdown(
   try {
     DanteLogger.success.basic('Generating PDF data URL from markdown content');
 
-    // Determine if this is from the Summary modal (dark theme) or regular content
-    const isDarkTheme = options.fileName?.includes('cover_letter') || options.fileName?.includes('summary') || false;
+    // Determine if this is from the Summary modal or Cover Letter (dark theme) or regular content
+    // Ensure consistent styling between preview and download by explicitly checking for cover_letter
+    const isDarkTheme = options.fileName?.includes('cover_letter') || options.fileName?.includes('summary') ||
+                        options.isDarkTheme === true || false;
 
     // Create a PDF document directly with proper dimensions for US Letter (8.5 x 11 inches)
     const pdf = new jsPDF({
