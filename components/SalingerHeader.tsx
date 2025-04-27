@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
 import SummaryModal from './SummaryModal';
+import DownloadService from '@/utils/DownloadService';
+import { DanteLogger } from '@/utils/DanteLogger';
+import { HesseLogger } from '@/utils/HesseLogger';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -25,15 +28,30 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
   const [isLoadingPdf, setIsLoadingPdf] = useState(false);
 
-  // Preview states
+  // Resume preview states
   const [showMdPreview, setShowMdPreview] = useState(false);
   const [showTxtPreview, setShowTxtPreview] = useState(false);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
+
+  // Cover Letter states
   const [showSummaryModal, setShowSummaryModal] = useState(false);
+  const [showCoverLetterPdfPreview, setShowCoverLetterPdfPreview] = useState(false);
+  const [showCoverLetterMdPreview, setShowCoverLetterMdPreview] = useState(false);
+  const [showCoverLetterTxtPreview, setShowCoverLetterTxtPreview] = useState(false);
+
+  // Content states
   const [previewContent, setPreviewContent] = useState('');
   const [summaryContent, setSummaryContent] = useState('');
+  const [coverLetterPdfDataUrl, setCoverLetterPdfDataUrl] = useState<string | null>(null);
+  const [coverLetterTextContent, setCoverLetterTextContent] = useState('');
+
+  // Loading states
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
+  const [isGeneratingCoverLetterPdf, setIsGeneratingCoverLetterPdf] = useState(false);
+  const [isGeneratingCoverLetterMd, setIsGeneratingCoverLetterMd] = useState(false);
+  const [isGeneratingCoverLetterTxt, setIsGeneratingCoverLetterTxt] = useState(false);
+
   const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
   const handleAction = (action: string, e: React.MouseEvent) => {
@@ -217,6 +235,181 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    DanteLogger.success.ux(`Downloaded ${fileName}.pdf`);
+  };
+
+  // Cover Letter download handlers
+
+  // Function to handle Cover Letter PDF preview
+  const handleCoverLetterPdfPreview = async () => {
+    try {
+      setIsGeneratingCoverLetterPdf(true);
+      HesseLogger.summary.start('Generating Cover Letter PDF preview');
+
+      // If we already have the summary content, use it
+      if (summaryContent) {
+        // Generate PDF data URL
+        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, {
+          title: 'P. Brady Georgen - Cover Letter',
+          fileName: 'pbradygeorgen_cover_letter.pdf',
+          headerText: 'P. Brady Georgen - Cover Letter',
+          footerText: 'Generated with Salinger Design',
+          pageSize: 'letter',
+          margins: { top: 8, right: 8, bottom: 8, left: 8 }
+        });
+
+        // Store the data URL
+        setCoverLetterPdfDataUrl(dataUrl);
+
+        // Show the preview modal
+        setShowCoverLetterPdfPreview(true);
+        DanteLogger.success.ux('Opened Cover Letter PDF preview');
+      } else {
+        // If we don't have the content yet, show the summary modal first
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      }
+    } catch (error) {
+      console.error('Error generating Cover Letter PDF preview:', error);
+      DanteLogger.error.runtime(`Error showing Cover Letter PDF preview: ${error}`);
+      alert('There was an error generating the PDF preview. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterPdf(false);
+    }
+  };
+
+  // Function to handle Cover Letter PDF download
+  const handleCoverLetterPdfDownload = async () => {
+    try {
+      setIsGeneratingCoverLetterPdf(true);
+
+      // If we already have a data URL, use it
+      if (coverLetterPdfDataUrl) {
+        await DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', {
+          dataUrl: coverLetterPdfDataUrl
+        });
+      }
+      // If we have content but no data URL
+      else if (summaryContent) {
+        await DownloadService.downloadPdf(summaryContent, 'pbradygeorgen_cover_letter', {
+          title: 'P. Brady Georgen - Cover Letter',
+          headerText: 'P. Brady Georgen - Cover Letter',
+          footerText: 'Generated with Salinger Design',
+          pageSize: 'letter',
+          margins: { top: 8, right: 8, bottom: 8, left: 8 }
+        });
+      }
+      // If we don't have content yet
+      else {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+        return;
+      }
+
+      DanteLogger.success.ux('Downloaded Cover Letter PDF');
+    } catch (error) {
+      console.error('Error downloading Cover Letter PDF:', error);
+      DanteLogger.error.runtime(`Error downloading Cover Letter PDF: ${error}`);
+      alert('There was an error downloading the PDF. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterPdf(false);
+    }
+  };
+
+  // Function to handle Cover Letter Markdown preview
+  const handleCoverLetterMarkdownPreview = () => {
+    try {
+      setIsGeneratingCoverLetterMd(true);
+
+      // If we have content, show the preview
+      if (summaryContent) {
+        setCoverLetterTextContent(summaryContent);
+        setShowCoverLetterMdPreview(true);
+        DanteLogger.success.ux('Opened Cover Letter Markdown preview');
+      } else {
+        // If we don't have content yet, show the summary modal first
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      }
+    } catch (error) {
+      console.error('Error showing Cover Letter Markdown preview:', error);
+      DanteLogger.error.runtime(`Error showing Cover Letter Markdown preview: ${error}`);
+      alert('There was an error generating the preview. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterMd(false);
+    }
+  };
+
+  // Function to handle Cover Letter Markdown download
+  const handleCoverLetterMarkdownDownload = async () => {
+    try {
+      setIsGeneratingCoverLetterMd(true);
+
+      // If we have content, download it
+      if (summaryContent) {
+        await DownloadService.downloadMarkdown(summaryContent, 'pbradygeorgen_cover_letter');
+        DanteLogger.success.ux('Downloaded Cover Letter Markdown');
+      } else {
+        // If we don't have content yet, show the summary modal first
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      }
+    } catch (error) {
+      console.error('Error downloading Cover Letter Markdown:', error);
+      DanteLogger.error.runtime(`Error downloading Cover Letter Markdown: ${error}`);
+      alert('There was an error downloading the file. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterMd(false);
+    }
+  };
+
+  // Function to handle Cover Letter Text preview
+  const handleCoverLetterTextPreview = () => {
+    try {
+      setIsGeneratingCoverLetterTxt(true);
+
+      // If we have content, convert to plain text and show the preview
+      if (summaryContent) {
+        const plainText = DownloadService.convertMarkdownToText(summaryContent);
+        setCoverLetterTextContent(plainText);
+        setShowCoverLetterTxtPreview(true);
+        DanteLogger.success.ux('Opened Cover Letter Text preview');
+      } else {
+        // If we don't have content yet, show the summary modal first
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      }
+    } catch (error) {
+      console.error('Error showing Cover Letter Text preview:', error);
+      DanteLogger.error.runtime(`Error showing Cover Letter Text preview: ${error}`);
+      alert('There was an error generating the preview. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterTxt(false);
+    }
+  };
+
+  // Function to handle Cover Letter Text download
+  const handleCoverLetterTextDownload = async () => {
+    try {
+      setIsGeneratingCoverLetterTxt(true);
+
+      // If we have content, convert to plain text and download
+      if (summaryContent) {
+        const plainText = DownloadService.convertMarkdownToText(summaryContent);
+        await DownloadService.downloadText(plainText, 'pbradygeorgen_cover_letter');
+        DanteLogger.success.ux('Downloaded Cover Letter Text');
+      } else {
+        // If we don't have content yet, show the summary modal first
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      }
+    } catch (error) {
+      console.error('Error downloading Cover Letter Text:', error);
+      DanteLogger.error.runtime(`Error downloading Cover Letter Text: ${error}`);
+      alert('There was an error downloading the file. Please try again.');
+    } finally {
+      setIsGeneratingCoverLetterTxt(false);
+    }
   };
 
   return (
@@ -642,6 +835,50 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       content={summaryContent}
       isLoading={isLoadingSummary}
       position="left"
+
+      // Pass the Cover Letter download handlers
+      onPdfPreview={handleCoverLetterPdfPreview}
+      onPdfDownload={handleCoverLetterPdfDownload}
+      onMarkdownPreview={handleCoverLetterMarkdownPreview}
+      onMarkdownDownload={handleCoverLetterMarkdownDownload}
+      onTextPreview={handleCoverLetterTextPreview}
+      onTextDownload={handleCoverLetterTextDownload}
+    />
+
+    {/* Cover Letter Preview Modals */}
+    {/* PDF Preview Modal */}
+    <PreviewModal
+      isOpen={showCoverLetterPdfPreview}
+      onClose={() => setShowCoverLetterPdfPreview(false)}
+      content=""
+      format="pdf"
+      fileName="pbradygeorgen_cover_letter"
+      onDownload={handleCoverLetterPdfDownload}
+      onDownloadWithDataUrl={(dataUrl) => DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', { dataUrl })}
+      position="right"
+      pdfDataUrl={coverLetterPdfDataUrl || undefined}
+    />
+
+    {/* Markdown Preview Modal */}
+    <PreviewModal
+      isOpen={showCoverLetterMdPreview}
+      onClose={() => setShowCoverLetterMdPreview(false)}
+      content={coverLetterTextContent}
+      format="markdown"
+      fileName="pbradygeorgen_cover_letter"
+      onDownload={handleCoverLetterMarkdownDownload}
+      position="right"
+    />
+
+    {/* Text Preview Modal */}
+    <PreviewModal
+      isOpen={showCoverLetterTxtPreview}
+      onClose={() => setShowCoverLetterTxtPreview(false)}
+      content={coverLetterTextContent}
+      format="text"
+      fileName="pbradygeorgen_cover_letter"
+      onDownload={handleCoverLetterTextDownload}
+      position="right"
     />
     </>
   );

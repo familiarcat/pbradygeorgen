@@ -14,6 +14,14 @@ interface SummaryModalProps {
   content: string;
   position?: 'left' | 'right' | 'center';
   isLoading?: boolean;
+
+  // Cover Letter download handlers
+  onPdfPreview?: () => void;
+  onPdfDownload?: () => void;
+  onMarkdownPreview?: () => void;
+  onMarkdownDownload?: () => void;
+  onTextPreview?: () => void;
+  onTextDownload?: () => void;
 }
 
 const SummaryModal: React.FC<SummaryModalProps> = ({
@@ -21,7 +29,15 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   onClose,
   content,
   position = 'left',
-  isLoading = false
+  isLoading = false,
+
+  // Cover Letter download handlers
+  onPdfPreview,
+  onPdfDownload,
+  onMarkdownPreview,
+  onMarkdownDownload,
+  onTextPreview,
+  onTextDownload
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -388,7 +404,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handlePdfPreview();
+                      if (onPdfPreview) {
+                        onPdfPreview();
+                      } else {
+                        handlePdfPreview(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.previewButton}
                   >
@@ -402,7 +422,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleExportToPdf();
+                      if (onPdfDownload) {
+                        onPdfDownload();
+                      } else {
+                        handleExportToPdf(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.downloadOption}
                   >
@@ -432,7 +456,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleMarkdownPreview();
+                      if (onMarkdownPreview) {
+                        onMarkdownPreview();
+                      } else {
+                        handleMarkdownPreview(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.previewButton}
                   >
@@ -446,7 +474,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleExportToMarkdown();
+                      if (onMarkdownDownload) {
+                        onMarkdownDownload();
+                      } else {
+                        handleExportToMarkdown(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.downloadOption}
                   >
@@ -476,7 +508,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleTextPreview();
+                      if (onTextPreview) {
+                        onTextPreview();
+                      } else {
+                        handleTextPreview(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.previewButton}
                   >
@@ -490,7 +526,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleExportToText();
+                      if (onTextDownload) {
+                        onTextDownload();
+                      } else {
+                        handleExportToText(); // Fallback to internal handler
+                      }
                     }}
                     className={styles.downloadOption}
                   >
