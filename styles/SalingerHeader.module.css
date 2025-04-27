@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: rgba(90, 118, 130, 0.1); /* Subtle background (matches --cta-secondary) */
+  background-color: rgba(90, 118, 130, 0.2); /* Increased opacity for better CTA visibility */
 }
 
 .summaryLink:hover {
@@ -76,7 +76,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: rgba(126, 98, 51, 0.1); /* Subtle background (matches --cta-tertiary) */
+  background-color: rgba(126, 98, 51, 0.2); /* Increased opacity for better CTA visibility */
 }
 
 .actionLink::after {
@@ -160,7 +160,7 @@
   font-family: 'Courier New', monospace;
   font-weight: bold;
   font-size: 0.9rem;
-  background-color: rgba(126, 78, 45, 0.1); /* Terracotta with transparency (matches --cta-primary) */
+  background-color: rgba(126, 78, 45, 0.2); /* Increased opacity for better CTA visibility */
   border-right: 1px solid rgba(73, 66, 61, 0.1);
   flex: 0 0 auto;
   width: 90px;
@@ -185,7 +185,7 @@
   font-size: 1rem;
   flex: 1;
   gap: 0.5rem;
-  background-color: rgba(95, 107, 84, 0.05); /* Ebony with transparency (matches --cta-secondary) */
+  background-color: rgba(95, 107, 84, 0.15); /* Increased opacity for better CTA visibility */
 }
 
 /* Action icons */
