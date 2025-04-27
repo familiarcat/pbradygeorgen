@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { escapeApostrophes, processTextArray } from '@/utils/serverTextUtils';
 import { analyzeResume } from '@/utils/openaiService';
+import { getExtractedContent } from '@/utils/pdfContentRefresher';
+import { DanteLogger } from '@/utils/DanteLogger';
 
 // This would be replaced with your actual OpenAI API key in a production environment
 // In a real app, you would store this in an environment variable
@@ -25,17 +27,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File path is required' }, { status: 400 });
     }
 
-    // Get the absolute path to the file
-    const publicDir = path.join(process.cwd(), 'public');
-    const absoluteFilePath = path.join(publicDir, filePath.replace(/^\//, ''));
+    // Get content based on file type
+    let content = '';
 
-    // Check if the file exists
-    if (!fs.existsSync(absoluteFilePath)) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    // Check if we're requesting resume content
+    if (filePath.includes('resume_content')) {
+      DanteLogger.success.basic('Using PDF content refresher for resume content');
+
+      // Get fresh content from the PDF
+      content = await getExtractedContent(forceRefresh);
+
+      if (!content) {
+        return NextResponse.json({ error: 'Failed to get fresh content from PDF' }, { status: 500 });
+      }
+    } else {
+      // For other files, read directly
+      const publicDir = path.join(process.cwd(), 'public');
+      const absoluteFilePath = path.join(publicDir, filePath.replace(/^\//, ''));
+
+      // Check if the file exists
+      if (!fs.existsSync(absoluteFilePath)) {
+        return NextResponse.json({ error: 'File not found' }, { status: 404 });
+      }
+
+      // Read the file content
+      content = fs.readFileSync(absoluteFilePath, 'utf8');
     }
-
-    // Read the file content
-    const content = fs.readFileSync(absoluteFilePath, 'utf8');
 
     // For demonstration purposes, we'll use a mock analysis
     // In a real application, you would call an AI API like OpenAI here

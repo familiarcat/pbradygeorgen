@@ -1,17 +1,28 @@
 {
-  "primary": "#3a6ea5",
-  "secondary": "#004e98",
-  "accent": "#ff6700",
-  "background": "#f6f6f6",
-  "text": "#333333",
-  "border": "#c0c0c0",
+  "primary": "#49b82e",
+  "secondary": "#334799",
+  "accent": "#b526d9",
+  "background": "#f1f4f1",
+  "text": "#232c21",
+  "border": "#c6d6c2",
   "isDark": false,
   "rawColors": [
-    "#3a6ea5",
-    "#004e98",
-    "#ff6700",
-    "#f6f6f6",
-    "#333333",
-    "#c0c0c0"
-  ]
+    "#49b82e",
+    "#334799",
+    "#b526d9",
+    "#f1f4f1",
+    "#232c21",
+    "#c6d6c2"
+  ],
+  "philosophy": {
+    "baseHue": 108,
+    "complementaryHue": 288,
+    "triadicHue1": 228,
+    "triadicHue2": 348,
+    "principles": [
+      "Hesse's harmony and balance",
+      "Salinger's authenticity and directness",
+      "Derrida's deconstruction and reconstruction"
+    ]
+  }
 }

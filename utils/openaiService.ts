@@ -3,8 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import { cacheService } from './cacheService';
 import { stringCacheService } from './stringCacheService';
+import { dynamicOpenAiCache, dynamicStringCache } from './dynamicCacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 import { HesseLogger } from './HesseLogger';
+import { DanteLogger } from './DanteLogger';
+import { checkContentFreshness, forceRefreshContent } from './pdfContentRefresher';
 
 // Initialize the OpenAI client with fallback for build-time
 const openai = new OpenAI({
@@ -25,6 +28,19 @@ function isOpenAIKeyAvailable(): boolean {
  */
 export async function analyzeResume(resumeContent: string, forceRefresh = false): Promise<ResumeAnalysisResponse> {
   try {
+    // Check if the PDF content is stale
+    const { isStale } = await checkContentFreshness();
+
+    // If the content is stale, force a refresh
+    if (isStale) {
+      DanteLogger.success.basic('PDF content is stale, refreshing...');
+      await forceRefreshContent();
+      DanteLogger.success.core('PDF content refreshed automatically');
+
+      // Force a cache refresh since the content has changed
+      forceRefresh = true;
+    }
+
     // Check if OpenAI API key is available
     if (!isOpenAIKeyAvailable()) {
       console.log('OpenAI API key is not available, returning mock data');
@@ -59,12 +75,26 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       };
     }
 
-    // Generate a cache key based on the resume content
-    const cacheKey = cacheService.generateCacheKey(resumeContent);
+    // Check for PDF content fingerprint to ensure we're using the right PDF
+    try {
+      const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
+      if (fs.existsSync(fingerprintPath)) {
+        const fingerprint = fs.readFileSync(fingerprintPath, 'utf8').trim();
+        DanteLogger.success.basic(`Using PDF content fingerprint: ${fingerprint.substring(0, 8)}...`);
+
+        // Force refresh of the PDF fingerprint in the dynamic cache
+        dynamicOpenAiCache.refreshPdfFingerprint();
+      }
+    } catch (error) {
+      console.warn('Could not read PDF content fingerprint:', error);
+    }
+
+    // Generate a cache key based on the resume content using the dynamic cache
+    const cacheKey = dynamicOpenAiCache.generateCacheKey(resumeContent);
 
     // Check if we have a cached response and aren't forcing a refresh
     if (!forceRefresh) {
-      const cachedResponse = cacheService.getItem(cacheKey);
+      const cachedResponse = dynamicOpenAiCache.getItem(cacheKey);
       if (cachedResponse) {
         HesseLogger.cache.hit(`Using cached OpenAI response for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
@@ -72,6 +102,10 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       HesseLogger.cache.miss(`Cache miss for key: ${cacheKey.substring(0, 8)}...`);
     } else {
       HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for key: ${cacheKey.substring(0, 8)}...`);
+
+      // Clear the cache if force refresh is requested
+      dynamicOpenAiCache.clearCache();
+      DanteLogger.success.core('Cleared OpenAI cache for fresh analysis');
     }
     // Define the system message to set the context for the AI
     const systemMessage = `
@@ -220,9 +254,10 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
         recommendations: `${analysis.recommendations.length} recommendations`
       });
 
-      // Store the response in the cache
-      cacheService.setItem(cacheKey, analysis);
+      // Store the response in the dynamic cache
+      dynamicOpenAiCache.setItem(cacheKey, analysis);
       HesseLogger.cache.update(`Stored item with key: ${cacheKey.substring(0, 8)}...`);
+      DanteLogger.success.core(`Cached analysis with PDF fingerprint`);
 
       // Log success
       HesseLogger.summary.complete(`Successfully generated and parsed summary`);
@@ -270,13 +305,39 @@ export async function formatSummaryContent(
   forceRefresh: boolean = false
 ): Promise<string> {
   try {
-    // Create a cache key based on the content
-    const contentHash = await createHash(resumeContent);
-    const cacheKey = `summary_format_${contentHash}`;
+    // Check if the PDF content is stale
+    const { isStale } = await checkContentFreshness();
+
+    // If the content is stale, force a refresh
+    if (isStale) {
+      DanteLogger.success.basic('PDF content is stale, refreshing...');
+      await forceRefreshContent();
+      DanteLogger.success.core('PDF content refreshed automatically');
+
+      // Force a cache refresh since the content has changed
+      forceRefresh = true;
+    }
+
+    // Check for PDF content fingerprint to ensure we're using the right PDF
+    try {
+      const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
+      if (fs.existsSync(fingerprintPath)) {
+        const fingerprint = fs.readFileSync(fingerprintPath, 'utf8').trim();
+        DanteLogger.success.basic(`Using PDF content fingerprint for summary: ${fingerprint.substring(0, 8)}...`);
+
+        // Force refresh of the PDF fingerprint in the dynamic cache
+        dynamicStringCache.refreshPdfFingerprint();
+      }
+    } catch (error) {
+      console.warn('Could not read PDF content fingerprint for summary:', error);
+    }
+
+    // Generate a cache key based on the content using the dynamic cache
+    const cacheKey = dynamicStringCache.generateCacheKey(resumeContent);
 
     // Check if we have a cached response and aren't forcing a refresh
     if (!forceRefresh) {
-      const cachedResponse = stringCacheService.getItem(cacheKey);
+      const cachedResponse = dynamicStringCache.getItem(cacheKey);
       if (cachedResponse) {
         HesseLogger.cache.hit(`Using cached formatted summary for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
@@ -284,6 +345,10 @@ export async function formatSummaryContent(
       HesseLogger.cache.miss(`Cache miss for formatted summary key: ${cacheKey.substring(0, 8)}...`);
     } else {
       HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for formatted summary key: ${cacheKey.substring(0, 8)}...`);
+
+      // Clear the cache if force refresh is requested
+      dynamicStringCache.clearCache();
+      DanteLogger.success.core('Cleared string cache for fresh summary formatting');
     }
 
     // Read the prompt template
@@ -367,9 +432,10 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
       throw new Error("No content in the OpenAI response");
     }
 
-    // Store the response in the string cache
-    stringCacheService.setItem(cacheKey, content);
+    // Store the response in the dynamic string cache
+    dynamicStringCache.setItem(cacheKey, content);
     HesseLogger.cache.update(`Stored formatted summary with key: ${cacheKey.substring(0, 8)}...`);
+    DanteLogger.success.core(`Cached formatted summary with PDF fingerprint`);
 
     // Log success
     HesseLogger.summary.complete(`Successfully formatted summary`);

@@ -28,20 +28,19 @@ if [ -f "public/default_resume.pdf" ]; then
   echo "PDF file found: public/default_resume.pdf"
   echo "Last modified: $(stat -c %y public/default_resume.pdf 2>/dev/null || stat -f "%Sm" public/default_resume.pdf)"
 
-  # Create the extracted directory if it doesn't exist
-  mkdir -p public/extracted
-
-  # Extract content from the PDF
-  echo "Extracting content from PDF..."
-  node scripts/extract-pdf-text-improved.js public/default_resume.pdf
+  # Force refresh all extracted content
+  echo "Force refreshing all extracted content..."
+  ./force-refresh.sh
 
   if [ $? -eq 0 ]; then
     echo "PDF content extracted successfully"
   else
-    echo "Warning: PDF extraction failed, but continuing build"
+    echo "Error: PDF extraction failed"
+    exit 1
   fi
 else
-  echo "Warning: PDF file not found at public/pbradygeorgen_resume.pdf"
+  echo "Error: PDF file not found at public/default_resume.pdf"
+  exit 1
 fi
 
 # Build the project

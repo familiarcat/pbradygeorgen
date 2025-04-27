@@ -3,21 +3,21 @@
 :root {
 }
 
-  /* Fallback fonts since none were detected in the PDF */
-  --pdf-font-1: "Arial", sans-serif;
-  --pdf-font-2: "Georgia", serif;
-  --pdf-font-3: "Courier New", monospace;
+  /* Philosophical fonts based on Hesse, Salinger, and Derrida */
+  --pdf-font-1: "Avenir", sans-serif; /* Hesse: Clarity and structure */
+  --pdf-font-2: "Garamond", serif; /* Salinger: Authenticity and directness */
+  --pdf-font-3: "Roboto Mono", monospace; /* Derrida: Deconstruction and analysis */
 }
 
-/* Fallback font classes */
-.pdf-sans-font {
+/* Philosophical font classes */
+.pdf-hesse-font {
   font-family: var(--pdf-font-1);
 }
 
-.pdf-serif-font {
+.pdf-salinger-font {
   font-family: var(--pdf-font-2);
 }
 
-.pdf-monospace-font {
+.pdf-derrida-font {
   font-family: var(--pdf-font-3);
 }

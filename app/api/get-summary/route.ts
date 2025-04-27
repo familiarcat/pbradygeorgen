@@ -4,26 +4,27 @@ import path from 'path';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import { analyzeResume, formatSummaryContent } from '@/utils/openaiService';
+import { getExtractedContent } from '@/utils/pdfContentRefresher';
 
 export async function GET(request: NextRequest) {
   try {
     DanteLogger.success.basic('Summary API called');
 
-    // Get the resume content from the public directory
-    const publicDir = path.join(process.cwd(), 'public');
-    const resumeFilePath = path.join(publicDir, 'extracted/resume_content.md');
+    // Check if we should force refresh based on query parameter
+    const searchParams = request.nextUrl.searchParams;
+    const forceRefresh = searchParams.has('t'); // If timestamp is present, force refresh
 
-    // Check if the file exists
-    if (!fs.existsSync(resumeFilePath)) {
-      DanteLogger.error.runtime('Resume content file not found');
+    // Get fresh content from the PDF
+    DanteLogger.success.basic('Using PDF content refresher for resume content');
+    const content = await getExtractedContent(forceRefresh);
+
+    if (!content) {
+      DanteLogger.error.runtime('Failed to get fresh content from PDF');
       return NextResponse.json({
         success: false,
-        error: 'Resume content file not found'
-      }, { status: 404 });
+        error: 'Failed to get fresh content from PDF'
+      }, { status: 500 });
     }
-
-    // Read the file content
-    const content = fs.readFileSync(resumeFilePath, 'utf8');
 
     // Check if we have an OpenAI API key and it's enabled
     const useOpenAI = process.env.OPENAI_API_KEY && process.env.USE_OPENAI === 'true';
@@ -55,8 +56,12 @@ export async function GET(request: NextRequest) {
 
           DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);
 
+          // Extract name from the content (first line or use a default)
+          const nameMatch = content.match(/^#\s*(.*?)(?:\s*-|\n|$)/);
+          const name = nameMatch ? nameMatch[1].trim() : 'Professional';
+
           // Convert the analysis to markdown format for a cover letter
-          const markdown = `# P. Brady Georgen - Cover Letter
+          const markdown = `# ${name} - Cover Letter
 
 ## Summary
 
@@ -95,9 +100,13 @@ ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
         HesseLogger.summary.error(`Summary generation failed: ${error}`);
 
         // Fall back to a basic cover letter if OpenAI fails
+        // Extract name from the content (first line or use a default)
+        const nameMatch = content.match(/^#\s*(.*?)(?:\s*-|\n|$)/);
+        const name = nameMatch ? nameMatch[1].trim() : 'Professional';
+
         return NextResponse.json({
           success: true,
-          summary: `# P. Brady Georgen - Cover Letter
+          summary: `# ${name} - Cover Letter
 
 ## Summary
 
@@ -140,10 +149,14 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
       DanteLogger.warn.performance('OpenAI integration is disabled. Using fallback summary');
       HesseLogger.ai.warning('OpenAI integration is disabled. Using fallback summary');
 
+      // Extract name from the content (first line or use a default)
+      const nameMatch = content.match(/^#\s*(.*?)(?:\s*-|\n|$)/);
+      const name = nameMatch ? nameMatch[1].trim() : 'Professional';
+
       // Return a basic cover letter if OpenAI is not available
       return NextResponse.json({
         success: true,
-        summary: `# P. Brady Georgen - Cover Letter
+        summary: `# ${name} - Cover Letter
 
 ## Summary
 

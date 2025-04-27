@@ -135,28 +135,90 @@ async function extractFontsFromPDF(pdfPath) {
       cssContent += '}\n\n';
     }
 
-    // Add fallback fonts if none were found
+    // Add philosophical fonts if none were found
     if (fontFamilies.length === 0) {
-      console.log('No fonts found in PDF, adding fallback fonts');
+      console.log('No fonts found in PDF, applying philosophical font selection');
 
-      // Add fallback fonts
-      cssContent += '  /* Fallback fonts since none were detected in the PDF */\n';
-      cssContent += '  --pdf-font-1: "Arial", sans-serif;\n';
-      cssContent += '  --pdf-font-2: "Georgia", serif;\n';
-      cssContent += '  --pdf-font-3: "Courier New", monospace;\n';
+      // Generate a seed based on the current date to ensure uniqueness
+      const seed = new Date().getTime();
+      const random = (min, max) => Math.floor(seed % 10000 / 10000 * (max - min) + min);
 
-      // Add fallback utility classes
+      // Philosophical font selection
+      // Hesse: Clarity and structure - represented by sans-serif fonts
+      // Salinger: Authenticity and directness - represented by serif fonts
+      // Derrida: Deconstruction and analysis - represented by monospace fonts
+
+      // Select from philosophical font sets
+      const hesseFonts = [
+        '"Helvetica Neue"', '"Avenir"', '"Futura"', '"Gill Sans"', '"Open Sans"', '"Roboto"'
+      ];
+
+      const salingerFonts = [
+        '"Georgia"', '"Garamond"', '"Baskerville"', '"Palatino"', '"Times New Roman"', '"Merriweather"'
+      ];
+
+      const derridaFonts = [
+        '"Courier New"', '"Roboto Mono"', '"Source Code Pro"', '"Fira Mono"', '"IBM Plex Mono"'
+      ];
+
+      // Select a font from each philosophical set
+      const hesseFont = hesseFonts[random(0, hesseFonts.length)];
+      const salingerFont = salingerFonts[random(0, salingerFonts.length)];
+      const derridaFont = derridaFonts[random(0, derridaFonts.length)];
+
+      console.log(`Selected philosophical fonts:`);
+      console.log(`- Hesse (sans-serif): ${hesseFont}`);
+      console.log(`- Salinger (serif): ${salingerFont}`);
+      console.log(`- Derrida (monospace): ${derridaFont}`);
+
+      // Add philosophical fonts to CSS
+      cssContent += '  /* Philosophical fonts based on Hesse, Salinger, and Derrida */\n';
+      cssContent += `  --pdf-font-1: ${hesseFont}, sans-serif; /* Hesse: Clarity and structure */\n`;
+      cssContent += `  --pdf-font-2: ${salingerFont}, serif; /* Salinger: Authenticity and directness */\n`;
+      cssContent += `  --pdf-font-3: ${derridaFont}, monospace; /* Derrida: Deconstruction and analysis */\n`;
+
+      // Add philosophical font classes
       cssContent += '}\n\n';
-      cssContent += '/* Fallback font classes */\n';
-      cssContent += '.pdf-sans-font {\n';
+      cssContent += '/* Philosophical font classes */\n';
+      cssContent += '.pdf-hesse-font {\n';
       cssContent += '  font-family: var(--pdf-font-1);\n';
       cssContent += '}\n\n';
-      cssContent += '.pdf-serif-font {\n';
+      cssContent += '.pdf-salinger-font {\n';
       cssContent += '  font-family: var(--pdf-font-2);\n';
       cssContent += '}\n\n';
-      cssContent += '.pdf-monospace-font {\n';
+      cssContent += '.pdf-derrida-font {\n';
       cssContent += '  font-family: var(--pdf-font-3);\n';
       cssContent += '}\n';
+
+      // Create font info JSON
+      const fontInfo = {
+        hesseFont: {
+          name: hesseFont.replace(/"/g, ''),
+          isSerifFont: false,
+          isMonospace: false,
+          type: "sans-serif",
+          philosophy: "Hesse: Clarity and structure"
+        },
+        salingerFont: {
+          name: salingerFont.replace(/"/g, ''),
+          isSerifFont: true,
+          isMonospace: false,
+          type: "serif",
+          philosophy: "Salinger: Authenticity and directness"
+        },
+        derridaFont: {
+          name: derridaFont.replace(/"/g, ''),
+          isSerifFont: false,
+          isMonospace: true,
+          type: "monospace",
+          philosophy: "Derrida: Deconstruction and analysis"
+        }
+      };
+
+      // Save the font info to a JSON file
+      const fontInfoPath = path.join(path.dirname(pdfPath), 'extracted', 'font_info.json');
+      fs.writeFileSync(fontInfoPath, JSON.stringify(fontInfo, null, 2));
+      console.log(`Font information saved to: ${fontInfoPath}`);
     } else {
       cssContent += '}\n';
     }

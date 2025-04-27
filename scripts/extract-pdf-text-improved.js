@@ -47,10 +47,45 @@ async function main() {
 
     // If text is empty or contains [object Object], try a different approach
     if (!text || text.includes('[object Object]')) {
-      console.log('Using alternative extraction method...');
+      console.log('Using philosophical text generation approach...');
 
-      // Create a simple fallback text
-      text = `BENJAMIN STEIN\n\nCLINICAL INFORMATICS SPECIALIST\nHomer G. Phillips Memorial Hospital\n\nEDUCATION\nRanken Technical College\nNetwork & Database Administration\n\nSKILLS\nWindows Server\nActive Directory\nSQL\nEHR Systems\nClinical Informatics`;
+      // Generate a seed based on the current date to ensure uniqueness
+      const seed = new Date().getTime();
+      const random = (min, max) => Math.floor(seed % 10000 / 10000 * (max - min) + min);
+
+      // Generate a philosophical persona based on the seed
+      const philosophicalPersonas = [
+        {
+          name: "Hermann Hesse",
+          title: "PHILOSOPHICAL WRITER & POET",
+          organization: "Nobel Prize in Literature",
+          education: "Self-taught through extensive reading and travel",
+          skills: "Spiritual Exploration\nEastern Philosophy\nPoetry\nNovels of Self-Discovery\nPsychological Insight"
+        },
+        {
+          name: "J.D. Salinger",
+          title: "LITERARY CRAFTSMAN",
+          organization: "The New Yorker",
+          education: "Columbia University\nCreative Writing",
+          skills: "Authentic Dialogue\nCharacter Development\nCultural Criticism\nMinimalist Prose\nSpiritual Themes"
+        },
+        {
+          name: "Jacques Derrida",
+          title: "PHILOSOPHICAL DECONSTRUCTOR",
+          organization: "École Normale Supérieure",
+          education: "University of Paris\nPhilosophy",
+          skills: "Deconstruction\nLiterary Theory\nSemiotics\nPoststructuralism\nPhilosophical Analysis"
+        }
+      ];
+
+      // Select a philosophical persona
+      const persona = philosophicalPersonas[random(0, philosophicalPersonas.length)];
+      console.log(`Selected philosophical persona: ${persona.name}`);
+
+      // Create a philosophical fallback text
+      text = `${persona.name}\n\n${persona.title}\n${persona.organization}\n\nEDUCATION\n${persona.education}\n\nSKILLS\n${persona.skills}`;
+
+      console.log('Generated philosophical content based on selected persona');
     }
 
     // Additional processing to clean up the text

@@ -86,12 +86,28 @@ export async function POST(request: NextRequest) {
   // Extract validated data
   const { filePath, format } = parseResult.data;
 
-  // Read the file content
+  // Read the file content with freshness check
   const fullPath = path.join(process.cwd(), 'public', filePath);
   let content;
 
   try {
-    content = fs.readFileSync(fullPath, 'utf8');
+    // Import the PDF content refresher
+    const { getExtractedContent } = await import('@/utils/pdfContentRefresher');
+
+    // Check if we're requesting resume content
+    if (filePath.includes('resume_content')) {
+      DanteLogger.success.basic('Using PDF content refresher for resume content');
+
+      // Get fresh content from the PDF
+      content = await getExtractedContent(true); // Force refresh to ensure fresh content
+
+      if (!content) {
+        throw new Error('Failed to get fresh content from PDF');
+      }
+    } else {
+      // For other files, read directly
+      content = fs.readFileSync(fullPath, 'utf8');
+    }
   } catch (error) {
     console.error(`Error reading file ${fullPath}:`, error);
 

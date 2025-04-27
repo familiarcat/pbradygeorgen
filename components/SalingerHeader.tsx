@@ -81,8 +81,9 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         // Show the summary modal
         setIsLoadingSummary(true);
 
-        // Fetch the summary content with proper error handling
-        fetch('/api/get-summary')
+        // Fetch the summary content with proper error handling and cache busting
+        const timestamp = new Date().getTime(); // Add timestamp to bust cache
+        fetch(`/api/get-summary?t=${timestamp}`)
           .then(response => {
             if (!response.ok) {
               console.error(`API responded with status: ${response.status}`);
@@ -106,13 +107,16 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
             // Try the analyze-content API as a fallback
             console.log('Attempting to use analyze-content API as fallback...');
 
-            fetch('/api/analyze-content', {
+            // Add timestamp to bust cache
+            const fallbackTimestamp = new Date().getTime();
+            fetch(`/api/analyze-content?t=${fallbackTimestamp}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                filePath: '/extracted/resume_content.md'
+                filePath: '/extracted/resume_content.md',
+                forceRefresh: true // Force refresh to ensure fresh content
               }),
             })
               .then(response => {
@@ -267,9 +271,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       if (summaryContent) {
         // Generate PDF data URL
         const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, {
-          title: 'P. Brady Georgen - Cover Letter',
-          fileName: 'pbradygeorgen_cover_letter.pdf',
-          headerText: 'P. Brady Georgen - Cover Letter',
+          title: `${useServerTheme().name || 'Professional'} - Cover Letter`,
+          fileName: 'cover_letter.pdf',
+          headerText: `${useServerTheme().name || 'Professional'} - Cover Letter`,
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter',
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
@@ -302,15 +306,15 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
       // If we already have a data URL, use it
       if (coverLetterPdfDataUrl) {
-        await DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', {
+        await DownloadService.downloadPdf('', 'cover_letter', {
           dataUrl: coverLetterPdfDataUrl
         });
       }
       // If we have content but no data URL
       else if (summaryContent) {
-        await DownloadService.downloadPdf(summaryContent, 'pbradygeorgen_cover_letter', {
-          title: 'P. Brady Georgen - Cover Letter',
-          headerText: 'P. Brady Georgen - Cover Letter',
+        await DownloadService.downloadPdf(summaryContent, 'cover_letter', {
+          title: `${useServerTheme().name || 'Professional'} - Cover Letter`,
+          headerText: `${useServerTheme().name || 'Professional'} - Cover Letter`,
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter',
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
@@ -364,7 +368,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
       // If we have content, download it
       if (summaryContent) {
-        await DownloadService.downloadMarkdown(summaryContent, 'pbradygeorgen_cover_letter');
+        await DownloadService.downloadMarkdown(summaryContent, 'cover_letter');
         DanteLogger.success.ux('Downloaded Cover Letter Markdown');
       } else {
         // If we don't have content yet, show the summary modal first
@@ -413,7 +417,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       // If we have content, convert to plain text and download
       if (summaryContent) {
         const plainText = DownloadService.convertMarkdownToText(summaryContent);
-        await DownloadService.downloadText(plainText, 'pbradygeorgen_cover_letter');
+        await DownloadService.downloadText(plainText, 'cover_letter');
         DanteLogger.success.ux('Downloaded Cover Letter Text');
       } else {
         // If we don't have content yet, show the summary modal first
@@ -884,9 +888,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowCoverLetterPdfPreview(false)}
       content=""
       format="pdf"
-      fileName="pbradygeorgen_cover_letter"
+      fileName="cover_letter"
       onDownload={handleCoverLetterPdfDownload}
-      onDownloadWithDataUrl={(dataUrl) => DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', { dataUrl })}
+      onDownloadWithDataUrl={(dataUrl) => DownloadService.downloadPdf('', 'cover_letter', { dataUrl })}
       position="right"
       pdfDataUrl={coverLetterPdfDataUrl || undefined}
     />
@@ -897,7 +901,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowCoverLetterMdPreview(false)}
       content={coverLetterTextContent}
       format="markdown"
-      fileName="pbradygeorgen_cover_letter"
+      fileName="cover_letter"
       onDownload={handleCoverLetterMarkdownDownload}
       position="right"
     />
@@ -908,7 +912,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowCoverLetterTxtPreview(false)}
       content={coverLetterTextContent}
       format="text"
-      fileName="pbradygeorgen_cover_letter"
+      fileName="cover_letter"
       onDownload={handleCoverLetterTextDownload}
       position="right"
     />

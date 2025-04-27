@@ -11,25 +11,24 @@ echo "engine-strict=false" >.npmrc
 echo "ignore-engines=true" >>.npmrc
 cat .npmrc
 
-# Check if the PDF file exists
-if [ -f "public/default_resume.pdf" ]; then
-    echo "PDF file found: public/default_resume.pdf"
-    echo "Last modified: $(stat -c %y public/default_resume.pdf 2>/dev/null || stat -f "%Sm" public/default_resume.pdf)"
+# Verify the PDF content first
+echo "Verifying PDF content..."
+node scripts/verify-pdf-content.js
 
-    # Create the extracted directory if it doesn't exist
-    mkdir -p public/extracted
+# Check if the verification was successful
+if [ $? -ne 0 ]; then
+    echo "Error: PDF content verification failed"
+    exit 1  # Exit with error to fail the build
+fi
 
-    # Extract content from the PDF to ensure it's processed
-    echo "Extracting content from PDF..."
-    node scripts/extract-pdf-text-improved.js public/default_resume.pdf
+# Run the dynamic PDF extraction process
+echo "Running dynamic PDF extraction process..."
+./amplify-dynamic-pdf.sh
 
-    if [ $? -eq 0 ]; then
-        echo "PDF content extracted successfully"
-    else
-        echo "Warning: PDF extraction failed, but continuing build"
-    fi
-else
-    echo "Warning: PDF file not found at public/pbradygeorgen_resume.pdf"
+# Check if the extraction was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Dynamic PDF extraction failed"
+    exit 1  # Exit with error to fail the build
 fi
 
 # Exit with success
