@@ -1,0 +1,17 @@
+{
+  "primary": "#3a6ea5",
+  "secondary": "#004e98",
+  "accent": "#ff6700",
+  "background": "#f6f6f6",
+  "text": "#333333",
+  "border": "#c0c0c0",
+  "isDark": false,
+  "rawColors": [
+    "#3a6ea5",
+    "#004e98",
+    "#ff6700",
+    "#f6f6f6",
+    "#333333",
+    "#c0c0c0"
+  ]
+}
