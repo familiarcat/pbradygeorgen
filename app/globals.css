@@ -316,11 +316,30 @@ body.theme-loaded {
   display: block !important;
   margin: 0 !important;
   padding: 0 !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  position: relative !important; /* Changed from absolute to relative for better scaling */
+}
+
+/* PDF container responsive styling */
+.pdf-container {
+  max-width: 1000px !important; /* Maximum width constraint */
+  min-width: 320px !important; /* Minimum width constraint */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Media queries for responsive PDF display */
+@media (max-width: 768px) {
+  .pdf-container {
+    width: 95% !important; /* Use more screen space on mobile */
+    min-width: 300px !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .pdf-container {
+    max-width: 1200px !important; /* Slightly larger on very large screens */
+  }
 }
 
 /* PDF container styling */

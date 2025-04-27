@@ -92,16 +92,36 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     window.location.reload();
   };
 
-  // Calculate dynamic width based on screen size
+  // Calculate dynamic width based on screen size with absolute min/max constraints
   const calculatePdfWidth = () => {
     // Get the window width
     const windowWidth = window.innerWidth;
 
+    // Define absolute min and max widths in pixels
+    const MIN_WIDTH_PX = 320; // Minimum width in pixels
+    const MAX_WIDTH_PX = 1000; // Maximum width in pixels
+
     // Calculate width as percentage of window width
-    // Min width: 70%, Max width: 90%
+    // Base percentage: Min width: 70%, Max width: 90%
     const widthPercent = Math.min(Math.max(70, 90 - (windowWidth / 100)), 90);
 
-    return `${widthPercent}%`;
+    // Calculate the pixel width based on percentage
+    const calculatedWidth = (windowWidth * widthPercent) / 100;
+
+    // Apply absolute constraints
+    if (calculatedWidth < MIN_WIDTH_PX && windowWidth > MIN_WIDTH_PX) {
+      // If calculated width is too small but window can fit minimum width
+      return `${MIN_WIDTH_PX}px`;
+    } else if (calculatedWidth > MAX_WIDTH_PX) {
+      // If calculated width is too large
+      return `${MAX_WIDTH_PX}px`;
+    } else if (windowWidth <= MIN_WIDTH_PX) {
+      // For very small screens, use 100% width
+      return '100%';
+    } else {
+      // Otherwise use the percentage
+      return `${widthPercent}%`;
+    }
   };
 
   // State for dynamic width
@@ -331,17 +351,24 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             flex: 1
           }}
         >
-          {/* PDF Viewer - centered horizontally with responsive width */}
+          {/* PDF Viewer - centered horizontally with responsive width and proper margins */}
           <div
             className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
             style={{
               backgroundColor: headerBgColor, // Use the header background color directly
               width: pdfWidth,
+              maxWidth: '1000px', // Maximum width constraint
+              minWidth: '320px', // Minimum width constraint
               height: '100%',
               minHeight: '100%',
               flex: 1,
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              // Add a subtle border for visual separation
+              border: '1px solid rgba(0, 0, 0, 0.1)',
+              // Center the container
+              marginLeft: 'auto',
+              marginRight: 'auto'
             }}
           >
             <iframe
@@ -356,7 +383,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
                 display: 'block', // Ensures proper rendering in all browsers
                 minHeight: '100%',
                 flex: 1,
-                position: 'relative'
+                position: 'relative',
+                // Ensure the iframe content is properly scaled
+                width: '100%',
+                height: '100%'
               }}
               title="PDF Viewer"
               onLoad={handlePdfLoad}
