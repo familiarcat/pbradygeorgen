@@ -1,13 +1,13 @@
 {
-  "buildTimestamp": "2025-04-27T20:15:53Z",
+  "buildTimestamp": "2025-04-27T23:45:17Z",
   "pdfInfo": {
     "path": "public/default_resume.pdf",
     "size": 119425,
-    "lastModified": "2025-04-27 01:45:41",
+    "lastModified": "2025-04-27 18:43:50",
     "contentFingerprint": "8a3751d594d2e00ebc38b393c756aa55595a9d3a15287134c664f4883645bfcd"
   },
   "extractionStatus": {
-    "textExtracted": false,
+    "textExtracted": true,
     "fontsExtracted": true,
     "colorsExtracted": true
   }
