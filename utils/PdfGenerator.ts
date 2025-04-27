@@ -370,8 +370,8 @@ export async function generatePdfFromMarkdown(
       }
 
       pdf.setFont('courier', 'bold');
-      pdf.setFontSize(24);
-      pdf.text(options.headerText, 4.25, 1, { align: 'center' });
+      pdf.setFontSize(22); // Slightly smaller font size
+      pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
       // Add a separator line
       if (isDarkTheme) {
@@ -380,7 +380,7 @@ export async function generatePdfFromMarkdown(
         pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
       }
       pdf.setLineWidth(0.01);
-      pdf.line(1, 1.2, 7.5, 1.2);
+      pdf.line(1, 0.95, 7.5, 0.95); // Moved up from 1.2 to 0.95
     }
 
     // Parse the markdown content, skipping the first heading if a header text is provided
@@ -397,15 +397,15 @@ export async function generatePdfFromMarkdown(
     pdf.setFont('times', 'normal');
     pdf.setFontSize(12);
 
-    // Add content with proper styling - optimized for single page
-    let yPosition = options.headerText ? 1.3 : 0.5; // Reduced top margin
-    const margin = 0.75; // Reduced margins for more content space (0.75 inch margins)
+    // Add content with proper styling - optimized for single page with balanced spacing
+    let yPosition = options.headerText ? 1.1 : 0.5; // Further reduced top margin after header
+    const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
     const pageWidth = 8.5 - (margin * 2);
 
     // Process each content block
     parsedContent.forEach(block => {
       // Check if we need to add a new page
-      if (yPosition > 10) { // Close to bottom of page (11 inches - some margin)
+      if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
         pdf.addPage();
         yPosition = 0.5;
 
@@ -437,9 +437,9 @@ export async function generatePdfFromMarkdown(
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
           pdf.setFont('courier', 'bold');
-          pdf.setFontSize(16);
+          pdf.setFontSize(15); // Slightly smaller font size
           pdf.text(block.content, margin, yPosition);
-          yPosition += 0.25; // Reduced spacing after headings
+          yPosition += 0.2; // Further reduced spacing after headings
 
           // Add a subtle line under h2
           if (isDarkTheme) {
@@ -448,7 +448,7 @@ export async function generatePdfFromMarkdown(
             pdf.setDrawColor(213, 205, 181); // #D5CDB5
           }
           pdf.setLineWidth(0.01);
-          pdf.line(margin, yPosition - 0.1, 7.5, yPosition - 0.1);
+          pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
           break;
 
         case 'heading3':
@@ -475,7 +475,7 @@ export async function generatePdfFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, pageWidth);
           pdf.text(lines, margin, yPosition);
-          yPosition += (lines.length * 0.2) + 0.05; // Reduced spacing after paragraphs
+          yPosition += (lines.length * 0.18) + 0.05; // Optimized line height and spacing after paragraphs
           break;
 
         case 'listItem':
@@ -491,9 +491,9 @@ export async function generatePdfFromMarkdown(
           pdf.text('•', margin, yPosition);
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.3);
-          pdf.text(listItemLines, margin + 0.3, yPosition);
-          yPosition += (listItemLines.length * 0.2) + 0.03; // Minimal spacing after list items
+          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.25); // Slightly wider content area
+          pdf.text(listItemLines, margin + 0.25, yPosition); // Reduced indentation
+          yPosition += (listItemLines.length * 0.18) + 0.02; // Optimized line height and minimal spacing after list items
           break;
       }
     });
@@ -507,7 +507,7 @@ export async function generatePdfFromMarkdown(
         pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
       }
       pdf.setLineWidth(0.01);
-      pdf.line(1, 10, 7.5, 10);
+      pdf.line(1, 10.3, 7.5, 10.3); // Moved down to allow more content space
 
       // Add footer text
       if (isDarkTheme) {
@@ -516,8 +516,8 @@ export async function generatePdfFromMarkdown(
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
       pdf.setFont('courier', 'normal');
-      pdf.setFontSize(10);
-      pdf.text(options.footerText, 4.25, 10.5, { align: 'center' });
+      pdf.setFontSize(9); // Slightly smaller font size
+      pdf.text(options.footerText, 4.25, 10.6, { align: 'center' }); // Moved down
     }
 
     // Save the PDF
@@ -579,8 +579,8 @@ export async function generatePdfDataUrlFromMarkdown(
       }
 
       pdf.setFont('courier', 'bold');
-      pdf.setFontSize(24);
-      pdf.text(options.headerText, 4.25, 1, { align: 'center' });
+      pdf.setFontSize(22); // Slightly smaller font size
+      pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
       // Add a separator line
       if (isDarkTheme) {
@@ -589,7 +589,7 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
       }
       pdf.setLineWidth(0.01);
-      pdf.line(1, 1.2, 7.5, 1.2);
+      pdf.line(1, 0.95, 7.5, 0.95); // Moved up from 1.2 to 0.95
     }
 
     // Parse the markdown content, skipping the first heading if a header text is provided
@@ -606,15 +606,15 @@ export async function generatePdfDataUrlFromMarkdown(
     pdf.setFont('times', 'normal');
     pdf.setFontSize(12);
 
-    // Add content with proper styling - optimized for single page
-    let yPosition = options.headerText ? 1.3 : 0.5; // Reduced top margin
-    const margin = 0.75; // Reduced margins for more content space (0.75 inch margins)
+    // Add content with proper styling - optimized for single page with balanced spacing
+    let yPosition = options.headerText ? 1.1 : 0.5; // Further reduced top margin after header
+    const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
     const pageWidth = 8.5 - (margin * 2);
 
     // Process each content block
     parsedContent.forEach(block => {
       // Check if we need to add a new page
-      if (yPosition > 10) { // Close to bottom of page (11 inches - some margin)
+      if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
         pdf.addPage();
         yPosition = 0.5;
 
@@ -646,9 +646,9 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
           pdf.setFont('courier', 'bold');
-          pdf.setFontSize(16);
+          pdf.setFontSize(15); // Slightly smaller font size
           pdf.text(block.content, margin, yPosition);
-          yPosition += 0.25; // Reduced spacing after headings
+          yPosition += 0.2; // Further reduced spacing after headings
 
           // Add a subtle line under h2
           if (isDarkTheme) {
@@ -657,7 +657,7 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setDrawColor(213, 205, 181); // #D5CDB5
           }
           pdf.setLineWidth(0.01);
-          pdf.line(margin, yPosition - 0.1, 7.5, yPosition - 0.1);
+          pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
           break;
 
         case 'heading3':
@@ -684,7 +684,7 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, pageWidth);
           pdf.text(lines, margin, yPosition);
-          yPosition += (lines.length * 0.2) + 0.05; // Reduced spacing after paragraphs
+          yPosition += (lines.length * 0.18) + 0.05; // Optimized line height and spacing after paragraphs
           break;
 
         case 'listItem':
@@ -700,9 +700,9 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.text('•', margin, yPosition);
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.3);
-          pdf.text(listItemLines, margin + 0.3, yPosition);
-          yPosition += (listItemLines.length * 0.2) + 0.03; // Minimal spacing after list items
+          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.25); // Slightly wider content area
+          pdf.text(listItemLines, margin + 0.25, yPosition); // Reduced indentation
+          yPosition += (listItemLines.length * 0.18) + 0.02; // Optimized line height and minimal spacing after list items
           break;
       }
     });
@@ -716,7 +716,7 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
       }
       pdf.setLineWidth(0.01);
-      pdf.line(1, 10, 7.5, 10);
+      pdf.line(1, 10.3, 7.5, 10.3); // Moved down to allow more content space
 
       // Add footer text
       if (isDarkTheme) {
@@ -725,8 +725,8 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
       pdf.setFont('courier', 'normal');
-      pdf.setFontSize(10);
-      pdf.text(options.footerText, 4.25, 10.5, { align: 'center' });
+      pdf.setFontSize(9); // Slightly smaller font size
+      pdf.text(options.footerText, 4.25, 10.6, { align: 'center' }); // Moved down
     }
 
     // Return the PDF as a data URL
