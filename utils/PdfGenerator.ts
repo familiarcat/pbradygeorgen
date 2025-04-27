@@ -402,8 +402,11 @@ export async function generatePdfFromMarkdown(
     const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
     const pageWidth = 8.5 - (margin * 2);
 
+    // Track the previous block type to add section separators
+    let prevBlockType: string | null = null;
+
     // Process each content block
-    parsedContent.forEach(block => {
+    parsedContent.forEach((block, index) => {
       // Check if we need to add a new page
       if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
         pdf.addPage();
@@ -414,6 +417,24 @@ export async function generatePdfFromMarkdown(
           pdf.setFillColor(34, 34, 34); // #222222 dark background
           pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
         }
+      }
+
+      // Add section separator before heading2 (except for the first section)
+      if (block.type === 'heading2' && index > 0) {
+        // Add extra space before new section
+        yPosition += 0.15;
+
+        // Add a thin separator line between sections
+        if (isDarkTheme) {
+          pdf.setDrawColor(255, 255, 255, 0.15); // Very subtle light line for dark theme
+        } else {
+          pdf.setDrawColor(213, 205, 181, 0.5); // #D5CDB5 with opacity
+        }
+        pdf.setLineWidth(0.005); // Thinner line for section separator
+        pdf.line(margin + 0.5, yPosition - 0.1, 7.5 - 0.5, yPosition - 0.1); // Centered, shorter line
+
+        // Add more space after the separator line
+        yPosition += 0.1;
       }
 
       // Handle different block types
@@ -443,9 +464,9 @@ export async function generatePdfFromMarkdown(
 
           // Add a subtle line under h2
           if (isDarkTheme) {
-            pdf.setDrawColor(255, 255, 255, 0.2); // Light line for dark theme
+            pdf.setDrawColor(255, 255, 255, 0.25); // Light line for dark theme
           } else {
-            pdf.setDrawColor(213, 205, 181); // #D5CDB5
+            pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5
           }
           pdf.setLineWidth(0.01);
           pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
@@ -611,8 +632,11 @@ export async function generatePdfDataUrlFromMarkdown(
     const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
     const pageWidth = 8.5 - (margin * 2);
 
+    // Track the previous block type to add section separators
+    let prevBlockType: string | null = null;
+
     // Process each content block
-    parsedContent.forEach(block => {
+    parsedContent.forEach((block, index) => {
       // Check if we need to add a new page
       if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
         pdf.addPage();
@@ -623,6 +647,24 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.setFillColor(34, 34, 34); // #222222 dark background
           pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
         }
+      }
+
+      // Add section separator before heading2 (except for the first section)
+      if (block.type === 'heading2' && index > 0) {
+        // Add extra space before new section
+        yPosition += 0.15;
+
+        // Add a thin separator line between sections
+        if (isDarkTheme) {
+          pdf.setDrawColor(255, 255, 255, 0.15); // Very subtle light line for dark theme
+        } else {
+          pdf.setDrawColor(213, 205, 181, 0.5); // #D5CDB5 with opacity
+        }
+        pdf.setLineWidth(0.005); // Thinner line for section separator
+        pdf.line(margin + 0.5, yPosition - 0.1, 7.5 - 0.5, yPosition - 0.1); // Centered, shorter line
+
+        // Add more space after the separator line
+        yPosition += 0.1;
       }
 
       // Handle different block types
@@ -652,9 +694,9 @@ export async function generatePdfDataUrlFromMarkdown(
 
           // Add a subtle line under h2
           if (isDarkTheme) {
-            pdf.setDrawColor(255, 255, 255, 0.2); // Light line for dark theme
+            pdf.setDrawColor(255, 255, 255, 0.25); // Light line for dark theme
           } else {
-            pdf.setDrawColor(213, 205, 181); // #D5CDB5
+            pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5
           }
           pdf.setLineWidth(0.01);
           pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
