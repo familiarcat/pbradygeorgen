@@ -28,8 +28,30 @@ async function extractFontsFromPDF(pdfPath) {
           if (fontObj && fontObj.name) {
             const fontName = fontObj.name;
             const fontType = fontObj.type || 'unknown';
-            const isMonospace = fontObj.isMonospace || false;
-            const isSerifFont = fontObj.isSerif || false;
+
+            // Determine font characteristics based on name if not explicitly set
+            let isMonospace = fontObj.isMonospace || false;
+            let isSerifFont = fontObj.isSerif || false;
+
+            // Check font name for clues about its style
+            const fontNameLower = fontName.toLowerCase();
+            if (!isMonospace && (
+                fontNameLower.includes('mono') ||
+                fontNameLower.includes('courier') ||
+                fontNameLower.includes('console') ||
+                fontNameLower.includes('typewriter')
+            )) {
+              isMonospace = true;
+            }
+
+            if (!isSerifFont && (
+                fontNameLower.includes('serif') && !fontNameLower.includes('sans') ||
+                fontNameLower.includes('roman') ||
+                fontNameLower.includes('times') ||
+                fontNameLower.includes('georgia')
+            )) {
+              isSerifFont = true;
+            }
 
             if (!fontInfo[fontName]) {
               fontInfo[fontName] = {
@@ -111,6 +133,32 @@ async function extractFontsFromPDF(pdfPath) {
       cssContent += '.pdf-serif-font {\n';
       cssContent += `  font-family: var(--pdf-font-${serifIndex});\n`;
       cssContent += '}\n\n';
+    }
+
+    // Add fallback fonts if none were found
+    if (fontFamilies.length === 0) {
+      console.log('No fonts found in PDF, adding fallback fonts');
+
+      // Add fallback fonts
+      cssContent += '  /* Fallback fonts since none were detected in the PDF */\n';
+      cssContent += '  --pdf-font-1: "Arial", sans-serif;\n';
+      cssContent += '  --pdf-font-2: "Georgia", serif;\n';
+      cssContent += '  --pdf-font-3: "Courier New", monospace;\n';
+
+      // Add fallback utility classes
+      cssContent += '}\n\n';
+      cssContent += '/* Fallback font classes */\n';
+      cssContent += '.pdf-sans-font {\n';
+      cssContent += '  font-family: var(--pdf-font-1);\n';
+      cssContent += '}\n\n';
+      cssContent += '.pdf-serif-font {\n';
+      cssContent += '  font-family: var(--pdf-font-2);\n';
+      cssContent += '}\n\n';
+      cssContent += '.pdf-monospace-font {\n';
+      cssContent += '  font-family: var(--pdf-font-3);\n';
+      cssContent += '}\n';
+    } else {
+      cssContent += '}\n';
     }
 
     // Save the CSS file

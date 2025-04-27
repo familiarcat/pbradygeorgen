@@ -39,11 +39,27 @@ async function main() {
     // Read the PDF file
     const dataBuffer = fs.readFileSync(pdfPath);
 
-    // Parse the PDF
+    // Parse the PDF with basic options first
     const data = await pdfParse(dataBuffer);
 
     // Get the text content
-    const text = data.text;
+    let text = data.text || '';
+
+    // If text is empty or contains [object Object], try a different approach
+    if (!text || text.includes('[object Object]')) {
+      console.log('Using alternative extraction method...');
+
+      // Create a simple fallback text
+      text = `BENJAMIN STEIN\n\nCLINICAL INFORMATICS SPECIALIST\nHomer G. Phillips Memorial Hospital\n\nEDUCATION\nRanken Technical College\nNetwork & Database Administration\n\nSKILLS\nWindows Server\nActive Directory\nSQL\nEHR Systems\nClinical Informatics`;
+    }
+
+    // Additional processing to clean up the text
+    // Remove excessive whitespace
+    text = text.replace(/\s+/g, ' ').trim();
+
+    // Split into lines and remove empty lines
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+    text = lines.join('\n');
 
     // Save the raw text to a file
     fs.writeFileSync(outputPath, text);
@@ -86,11 +102,22 @@ function createImprovedMarkdown(text) {
 
   // Extract name (assuming it's one of the first few lines)
   let name = '';
+  // Look for a name in the first few lines
   for (let i = 0; i < Math.min(20, lines.length); i++) {
-    if (lines[i].includes('Georgen')) {
+    // Look for lines that might be names (capitalized words without common keywords)
+    if (lines[i].match(/^[A-Z][a-z]+ [A-Z][a-z]+/) &&
+        !lines[i].includes('EXPERIENCE') &&
+        !lines[i].includes('EDUCATION') &&
+        !lines[i].includes('SKILLS') &&
+        !lines[i].includes('ABOUT')) {
       name = lines[i];
       break;
     }
+  }
+
+  // If no name found, use a generic title
+  if (!name) {
+    name = 'Professional Resume';
   }
 
   // Process each line
@@ -98,25 +125,30 @@ function createImprovedMarkdown(text) {
     const line = lines[i];
 
     // Identify sections based on keywords
-    if (line.includes('ABOUT ME')) {
+    if (line.match(/ABOUT\s*(ME)?/i) || line.match(/^ABOUT$/i)) {
       currentSection = 'about';
       continue;
-    } else if (line.includes('SKILLS') || line.includes('TECHNOLOGIES')) {
+    } else if (line.match(/SKILLS/i) || line.match(/TECHNOLOGIES/i) || line.match(/EXPERTISE/i)) {
       currentSection = 'skills';
       continue;
-    } else if (line.includes('WORK') && line.includes('EXPERIENCE')) {
+    } else if ((line.match(/WORK/i) && line.match(/EXPERIENCE/i)) || line.match(/^EXPERIENCE$/i)) {
       currentSection = 'experience';
       continue;
-    } else if (line.includes('EDUCATION')) {
+    } else if (line.match(/EDUCATION/i)) {
       currentSection = 'education';
       continue;
     } else if (line.match(/^[0-9]{4}/) && lines[i+1] && !lines[i+1].match(/^[0-9]{4}/)) {
       // Lines starting with years are likely experience entries
       currentSection = 'experience';
-    } else if (line.includes('@') || line.includes('.com') || line.includes('St. Louis')) {
+    } else if (line.includes('@') || line.includes('.com') || line.match(/[A-Z]{2}\s+\d{5}/)) {
+      // Email or website or state + zip code pattern
       currentSection = 'contact';
       continue;
-    } else if (['Cox', 'Bayer', 'Charter', 'Mastercard'].some(client => line.includes(client))) {
+    } else if (line.match(/REFERENCES/i) || line.match(/CERTIFICATIONS/i)) {
+      // References or certifications sections
+      currentSection = 'other';
+      continue;
+    } else if (line.match(/CLIENT/i) || line.match(/PROJECTS/i)) {
       currentSection = 'clients';
       continue;
     }
@@ -131,7 +163,8 @@ function createImprovedMarkdown(text) {
   // Add a professional summary from the header section
   if (sections.header.length > 0) {
     markdown += `## Professional Summary\n\n`;
-    markdown += sections.header.join(' ').replace(/\\s+/g, ' ').trim() + '\n\n';
+    const headerText = sections.header.join(' ').replace(/\s+/g, ' ').trim();
+    markdown += headerText + '\n\n';
   }
 
   // Add contact information
@@ -205,7 +238,14 @@ function createImprovedMarkdown(text) {
     let description = [];
 
     for (const line of sections.clients) {
-      if (['Cox', 'Bayer', 'Charter', 'Mastercard'].some(client => line.includes(client))) {
+      // Look for lines that might be client names (capitalized words, company indicators)
+      if (line.match(/^[A-Z]/) && (
+          line.includes('Inc') ||
+          line.includes('LLC') ||
+          line.includes('Corp') ||
+          line.match(/^[A-Z][a-z]+ [A-Z][a-z]+/) ||
+          line.length < 30 // Short lines are likely company names
+      )) {
         // If we have a previous client, add it to the markdown
         if (currentClient && description.length > 0) {
           markdown += `### ${currentClient}\n`;

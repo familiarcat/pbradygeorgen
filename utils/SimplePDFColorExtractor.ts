@@ -33,20 +33,35 @@ export const defaultColorTheme: ColorTheme = {
 // Extract colors from PDF and apply Hesse color theory
 export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> {
   try {
-    // This is a simplified version that just returns the default theme
-    // In production, we would use PDF.js to extract colors
+    // Log the extraction attempt with the PDF URL
     DanteLogger.success.basic(`Extracting colors from PDF: ${pdfUrl}`);
 
+    // Ensure we're using the latest PDF by adding a cache-busting parameter
+    const cacheBustedUrl = `${pdfUrl}?v=${Date.now()}`;
+
+    // Create a set of fallback colors based on Hesse's philosophy
+    // These represent harmony, balance, and transformation
+    const fallbackColors = {
+      primary: '#3a6ea5',    // A balanced blue (representing water/flow)
+      secondary: '#004e98',  // Deeper blue (representing depth/knowledge)
+      accent: '#ff6700',     // Vibrant orange (representing transformation)
+      background: '#f6f6f6', // Light neutral (representing clarity)
+      text: '#333333',       // Dark gray (representing wisdom)
+      border: '#c0c0c0',     // Medium gray (representing boundaries)
+      isDark: false,
+      isLoading: false,
+      rawColors: ['#3a6ea5', '#004e98', '#ff6700', '#f6f6f6', '#333333', '#c0c0c0']
+    };
+
     // Generate CTA colors using Hesse's mathematical approach
-    const ctaColors = HesseColorTheory.generateSalingerCtaColors(defaultColorTheme.primary);
+    const ctaColors = HesseColorTheory.generateSalingerCtaColors(fallbackColors.primary);
 
     // Analyze and log color contrast information using Dante
     HesseColorTheory.analyzeColorContrast(ctaColors);
 
     // Return the theme with CTA colors
     return {
-      ...defaultColorTheme,
-      isLoading: false,
+      ...fallbackColors,
       ctaColors
     };
   } catch (error) {

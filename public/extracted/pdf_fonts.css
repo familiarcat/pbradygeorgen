@@ -1,5 +1,21 @@
 /* Font families extracted from PDF */
 
 :root {
+  /* Fallback fonts since none were detected in the PDF */
+  --pdf-font-1: "Arial", sans-serif;
+  --pdf-font-2: "Georgia", serif;
+  --pdf-font-3: "Courier New", monospace;
 }
 
+/* Fallback font classes */
+.pdf-sans-font {
+  font-family: var(--pdf-font-1);
+}
+
+.pdf-serif-font {
+  font-family: var(--pdf-font-2);
+}
+
+.pdf-monospace-font {
+  font-family: var(--pdf-font-3);
+}
