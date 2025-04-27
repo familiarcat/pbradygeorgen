@@ -552,13 +552,43 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content=""
           format="pdf"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={() => {
+          onDownload={async () => {
             console.log('PDF download triggered from preview modal');
-            return handleExportToPdf();
+            try {
+              // Create a direct download link if we have a data URL
+              if (pdfDataUrl) {
+                console.log('Using cached PDF data URL for direct download');
+                const link = document.createElement('a');
+                link.href = pdfDataUrl;
+                link.download = 'pbradygeorgen_cover_letter.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                return Promise.resolve();
+              } else {
+                // Otherwise use the export function
+                return await handleExportToPdf();
+              }
+            } catch (error) {
+              console.error('Error in PDF download from preview:', error);
+              return Promise.reject(error);
+            }
           }}
-          onDownloadWithDataUrl={(dataUrl) => {
+          onDownloadWithDataUrl={async (dataUrl) => {
             console.log('PDF data URL download triggered from preview modal');
-            return handleDownloadFromDataUrl(dataUrl);
+            try {
+              // Direct download approach
+              const link = document.createElement('a');
+              link.href = dataUrl;
+              link.download = 'pbradygeorgen_cover_letter.pdf';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              return Promise.resolve();
+            } catch (error) {
+              console.error('Error in PDF data URL download:', error);
+              return Promise.reject(error);
+            }
           }}
           position="right"
           pdfDataUrl={pdfDataUrl || undefined} // Use the dynamically generated PDF data URL
@@ -572,9 +602,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content={content}
           format="markdown"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={() => {
+          onDownload={async () => {
             console.log('Markdown download triggered from preview modal');
-            return handleExportToMarkdown();
+            try {
+              // Direct download approach
+              const blob = new Blob([content], { type: 'text/markdown' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'pbradygeorgen_cover_letter.md';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              return Promise.resolve();
+            } catch (error) {
+              console.error('Error in Markdown download from preview:', error);
+              return handleExportToMarkdown(); // Fall back to the handler
+            }
           }}
           position="right"
         />
@@ -587,9 +632,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content={previewContent}
           format="text"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={() => {
+          onDownload={async () => {
             console.log('Text download triggered from preview modal');
-            return handleExportToText();
+            try {
+              // Direct download approach
+              const blob = new Blob([previewContent], { type: 'text/plain' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'pbradygeorgen_cover_letter.txt';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              return Promise.resolve();
+            } catch (error) {
+              console.error('Error in Text download from preview:', error);
+              return handleExportToText(); // Fall back to the handler
+            }
           }}
           position="right"
         />

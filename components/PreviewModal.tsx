@@ -155,83 +155,123 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
               e.preventDefault(); // Prevent any default behavior
               e.stopPropagation(); // Stop event propagation
 
-              try {
-                // Enhanced logging for debugging
-                console.log('Download button clicked with:', {
-                  format,
-                  fileName,
-                  hasPdfDataUrl: !!pdfDataUrl,
-                  hasDataUrlHandler: !!onDownloadWithDataUrl
-                });
+              // EXTREME DEBUGGING - Log everything
+              console.log('==================== DOWNLOAD BUTTON CLICKED ====================');
+              console.log('Format:', format);
+              console.log('File Name:', fileName);
+              console.log('Has PDF Data URL:', !!pdfDataUrl);
+              console.log('Has Data URL Handler:', !!onDownloadWithDataUrl);
+              console.log('Has Download Handler:', !!onDownload);
+              console.log('PDF Source:', pdfSource);
+              console.log('Component Props:', { format, fileName, pdfDataUrl: pdfDataUrl ? 'exists' : 'none', onDownloadWithDataUrl: !!onDownloadWithDataUrl, onDownload: !!onDownload });
 
+              try {
                 DanteLogger.success.basic(`Starting download of ${fileName}.${
                   format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
                 }`);
 
+                // DO NOT CLOSE THE MODAL YET - We'll handle this after download
+                let downloadStarted = false;
+
                 // For PDF format with data URL - DIRECT DOWNLOAD APPROACH
                 if (format === 'pdf' && pdfDataUrl) {
-                  console.log('Using direct data URL download');
+                  console.log('DOWNLOAD STRATEGY: Using direct data URL download');
 
-                  // Create a direct download link
-                  const link = document.createElement('a');
-                  link.href = pdfDataUrl;
-                  link.download = `${fileName}.pdf`;
-                  document.body.appendChild(link);
+                  try {
+                    // Create a direct download link
+                    const link = document.createElement('a');
+                    link.href = pdfDataUrl;
+                    link.download = `${fileName}.pdf`;
+                    document.body.appendChild(link);
 
-                  // Force the download to happen synchronously
-                  console.log('Triggering direct download');
-                  link.click();
-                  document.body.removeChild(link);
+                    // Force the download to happen synchronously
+                    console.log('Triggering direct download from data URL');
+                    link.click();
+                    document.body.removeChild(link);
+                    downloadStarted = true;
 
-                  // Also try the handler as a backup
-                  if (onDownloadWithDataUrl) {
-                    try {
-                      console.log('Also calling data URL handler as backup');
-                      onDownloadWithDataUrl(pdfDataUrl);
-                    } catch (handlerError) {
-                      console.error('Handler backup failed, but direct download should have worked:', handlerError);
+                    console.log('Direct download from data URL completed');
+                  } catch (directError) {
+                    console.error('Direct download failed:', directError);
+
+                    // If direct download fails, try the handler
+                    if (onDownloadWithDataUrl) {
+                      console.log('Falling back to data URL handler');
+                      try {
+                        await onDownloadWithDataUrl(pdfDataUrl);
+                        downloadStarted = true;
+                        console.log('Data URL handler download completed');
+                      } catch (handlerError) {
+                        console.error('Handler download failed:', handlerError);
+                        throw handlerError; // Re-throw to be caught by outer try/catch
+                      }
                     }
                   }
                 }
                 // For PDF format without data URL but with source
                 else if (format === 'pdf' && !pdfDataUrl && pdfSource) {
-                  console.log('Using default download handler for PDF with source:', pdfSource);
+                  console.log('DOWNLOAD STRATEGY: Using source file download');
 
-                  // Create a direct download link for the source
-                  const link = document.createElement('a');
-                  link.href = pdfSource;
-                  link.download = `${fileName}.pdf`;
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-
-                  // Also try the handler
                   try {
-                    console.log('Also calling default handler');
-                    onDownload();
-                  } catch (handlerError) {
-                    console.error('Handler failed, but direct download should have worked:', handlerError);
+                    // Create a direct download link for the source
+                    const link = document.createElement('a');
+                    link.href = pdfSource;
+                    link.download = `${fileName}.pdf`;
+                    document.body.appendChild(link);
+                    console.log('Triggering direct download from source');
+                    link.click();
+                    document.body.removeChild(link);
+                    downloadStarted = true;
+                    console.log('Direct download from source completed');
+                  } catch (directError) {
+                    console.error('Direct source download failed:', directError);
+
+                    // If direct download fails, try the handler
+                    console.log('Falling back to default handler');
+                    try {
+                      await onDownload();
+                      downloadStarted = true;
+                      console.log('Default handler download completed');
+                    } catch (handlerError) {
+                      console.error('Handler download failed:', handlerError);
+                      throw handlerError; // Re-throw to be caught by outer try/catch
+                    }
                   }
                 }
-                // For all other formats
+                // For all other formats (markdown, text)
                 else {
-                  console.log('Using default download handler');
-                  onDownload();
+                  console.log('DOWNLOAD STRATEGY: Using format-specific handler');
+
+                  try {
+                    console.log(`Calling handler for ${format} format`);
+                    await onDownload();
+                    downloadStarted = true;
+                    console.log('Format handler download completed');
+                  } catch (handlerError) {
+                    console.error(`${format} handler download failed:`, handlerError);
+                    throw handlerError; // Re-throw to be caught by outer try/catch
+                  }
                 }
 
-                // Log success after download completes
-                DanteLogger.success.ux(`Downloaded ${fileName}.${
-                  format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
-                }`);
+                // Log success if download started
+                if (downloadStarted) {
+                  console.log('Download successfully initiated');
+                  DanteLogger.success.ux(`Downloaded ${fileName}.${
+                    format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
+                  }`);
 
-                // Only close the modal after a longer delay to ensure download starts
-                console.log('Setting timeout to close modal');
-                setTimeout(() => {
-                  console.log('Closing modal after download');
-                  onClose();
-                }, 1200); // Further increased delay for more reliable downloads
+                  // Only close the modal after a longer delay to ensure download starts
+                  console.log('Setting timeout to close modal');
+                  setTimeout(() => {
+                    console.log('Closing modal after download');
+                    onClose();
+                  }, 2000); // Even longer delay for more reliable downloads
+                } else {
+                  console.error('No download method succeeded');
+                  throw new Error('No download method succeeded');
+                }
               } catch (error) {
-                console.error('Error during download:', error);
+                console.error('Error during download process:', error);
                 DanteLogger.error.runtime(`Download failed: ${error}`);
                 alert('There was an error downloading the file. Please try again.');
               }
