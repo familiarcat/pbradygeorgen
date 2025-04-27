@@ -27,6 +27,7 @@ interface PdfGenerationOptions {
   headerText?: string;
   footerText?: string;
   fileName?: string;
+  isDarkTheme?: boolean; // Added for explicit theme control
 }
 
 const defaultOptions: PdfGenerationOptions = {

@@ -254,7 +254,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
-          pageSize: 'letter',
+          pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
         };
 
@@ -300,7 +300,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
-          pageSize: 'letter',
+          pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
         };
 
