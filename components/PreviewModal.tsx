@@ -11,7 +11,8 @@ interface PreviewModalProps {
   content: string;
   format: 'markdown' | 'text' | 'pdf';
   fileName: string;
-  onDownload: () => void;
+  onDownload: () => void; // Default download handler
+  onDownloadWithDataUrl?: (dataUrl: string) => void; // Optional handler for downloading with data URL
   position?: 'left' | 'right' | 'center';
   pdfSource?: string; // Optional PDF source for preview (file path)
   pdfDataUrl?: string; // Optional PDF data URL for preview (takes precedence over pdfSource)
@@ -24,6 +25,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   format,
   fileName,
   onDownload,
+  onDownloadWithDataUrl,
   position = 'center',
   pdfSource = '/pbradygeorgen_resume.pdf', // Default to resume PDF
   pdfDataUrl // Optional PDF data URL
@@ -150,7 +152,14 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
           <button
             className={styles.downloadButton}
             onClick={() => {
-              onDownload();
+              // If we have a PDF data URL and a handler for it, use that for PDF downloads
+              if (format === 'pdf' && pdfDataUrl && onDownloadWithDataUrl) {
+                onDownloadWithDataUrl(pdfDataUrl);
+              } else {
+                // Otherwise use the default download handler
+                onDownload();
+              }
+
               DanteLogger.success.ux(`Downloaded ${fileName}.${
                 format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
               }`);

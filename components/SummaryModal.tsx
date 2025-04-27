@@ -51,23 +51,39 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       setIsGeneratingPdf(true);
       HesseLogger.summary.start('Exporting summary as PDF with dark theme');
 
-      // Use the markdown content directly with dark theme styling
-      // Note the different file name to distinguish it from the resume PDF
-      await PdfGenerator.generatePdfFromMarkdown(content, {
-        title: 'P. Brady Georgen - Cover Letter',
-        fileName: 'pbradygeorgen_cover_letter.pdf',
-        headerText: 'P. Brady Georgen - Cover Letter',
-        footerText: 'Generated with Salinger Design',
-        // Use letter size for US standard 8.5 x 11 inches
-        pageSize: 'letter',
-        // Use smaller margins to fit more content on a single page
-        margins: {
-          top: 8,
-          right: 8,
-          bottom: 8,
-          left: 8
-        }
-      });
+      // If we have a cached PDF data URL from the preview, use it for consistency
+      if (pdfDataUrl) {
+        DanteLogger.success.basic('Using cached PDF data URL for download');
+
+        // Create a link to download the PDF from the data URL
+        const link = document.createElement('a');
+        link.href = pdfDataUrl;
+        link.download = 'pbradygeorgen_cover_letter.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        // Generate a new PDF if we don't have a cached data URL
+        DanteLogger.success.basic('Generating new PDF for download');
+
+        // Use the markdown content directly with dark theme styling
+        // Note the different file name to distinguish it from the resume PDF
+        await PdfGenerator.generatePdfFromMarkdown(content, {
+          title: 'P. Brady Georgen - Cover Letter',
+          fileName: 'pbradygeorgen_cover_letter.pdf',
+          headerText: 'P. Brady Georgen - Cover Letter',
+          footerText: 'Generated with Salinger Design',
+          // Use letter size for US standard 8.5 x 11 inches
+          pageSize: 'letter',
+          // Use smaller margins to fit more content on a single page
+          margins: {
+            top: 8,
+            right: 8,
+            bottom: 8,
+            left: 8
+          }
+        });
+      }
 
       DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
       HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
@@ -120,6 +136,26 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
       HesseLogger.summary.error(`PDF preview failed: ${error}`);
       alert('There was an error generating the PDF preview. Please try again.');
+    }
+  };
+
+  // Function to handle downloading from a PDF data URL
+  const handleDownloadFromDataUrl = (dataUrl: string) => {
+    try {
+      DanteLogger.success.basic('Downloading PDF from data URL');
+
+      // Create a link to download the PDF from the data URL
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'pbradygeorgen_cover_letter.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      DanteLogger.success.ux('Downloaded PDF from preview data URL');
+    } catch (error) {
+      DanteLogger.error.runtime(`Error downloading PDF from data URL: ${error}`);
+      alert('There was an error downloading the PDF. Please try again.');
     }
   };
 
@@ -501,6 +537,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           format="pdf"
           fileName="pbradygeorgen_cover_letter"
           onDownload={handleExportToPdf}
+          onDownloadWithDataUrl={handleDownloadFromDataUrl} // Use the data URL download handler
           position="right"
           pdfDataUrl={pdfDataUrl || undefined} // Use the dynamically generated PDF data URL
         />
