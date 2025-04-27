@@ -46,54 +46,58 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
 
   // Function to handle PDF export
-  const handleExportToPdf = async () => {
-    try {
-      setIsGeneratingPdf(true);
-      HesseLogger.summary.start('Exporting summary as PDF with dark theme');
+  const handleExportToPdf = async (): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setIsGeneratingPdf(true);
+        HesseLogger.summary.start('Exporting summary as PDF with dark theme');
 
-      // If we have a cached PDF data URL from the preview, use it for consistency
-      if (pdfDataUrl) {
-        DanteLogger.success.basic('Using cached PDF data URL for download');
+        // If we have a cached PDF data URL from the preview, use it for consistency
+        if (pdfDataUrl) {
+          DanteLogger.success.basic('Using cached PDF data URL for download');
 
-        // Create a link to download the PDF from the data URL
-        const link = document.createElement('a');
-        link.href = pdfDataUrl;
-        link.download = 'pbradygeorgen_cover_letter.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        // Generate a new PDF if we don't have a cached data URL
-        DanteLogger.success.basic('Generating new PDF for download');
+          // Create a link to download the PDF from the data URL
+          const link = document.createElement('a');
+          link.href = pdfDataUrl;
+          link.download = 'pbradygeorgen_cover_letter.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          // Generate a new PDF if we don't have a cached data URL
+          DanteLogger.success.basic('Generating new PDF for download');
 
-        // Use the markdown content directly with dark theme styling
-        // Note the different file name to distinguish it from the resume PDF
-        await PdfGenerator.generatePdfFromMarkdown(content, {
-          title: 'P. Brady Georgen - Cover Letter',
-          fileName: 'pbradygeorgen_cover_letter.pdf',
-          headerText: 'P. Brady Georgen - Cover Letter',
-          footerText: 'Generated with Salinger Design',
-          // Use letter size for US standard 8.5 x 11 inches
-          pageSize: 'letter',
-          // Use smaller margins to fit more content on a single page
-          margins: {
-            top: 8,
-            right: 8,
-            bottom: 8,
-            left: 8
-          }
-        });
+          // Use the markdown content directly with dark theme styling
+          // Note the different file name to distinguish it from the resume PDF
+          await PdfGenerator.generatePdfFromMarkdown(content, {
+            title: 'P. Brady Georgen - Cover Letter',
+            fileName: 'pbradygeorgen_cover_letter.pdf',
+            headerText: 'P. Brady Georgen - Cover Letter',
+            footerText: 'Generated with Salinger Design',
+            // Use letter size for US standard 8.5 x 11 inches
+            pageSize: 'letter',
+            // Use smaller margins to fit more content on a single page
+            margins: {
+              top: 8,
+              right: 8,
+              bottom: 8,
+              left: 8
+            }
+          });
+        }
+
+        DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
+        HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
+        resolve();
+      } catch (error) {
+        DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
+        HesseLogger.summary.error(`PDF export failed: ${error}`);
+        alert('There was an error generating the PDF. Please try again.');
+        reject(error);
+      } finally {
+        setIsGeneratingPdf(false);
       }
-
-      DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
-      HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
-    } catch (error) {
-      DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
-      HesseLogger.summary.error(`PDF export failed: ${error}`);
-      alert('There was an error generating the PDF. Please try again.');
-    } finally {
-      setIsGeneratingPdf(false);
-    }
+    });
   };
 
   // Function to handle PDF preview
@@ -140,51 +144,59 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   };
 
   // Function to handle downloading from a PDF data URL
-  const handleDownloadFromDataUrl = (dataUrl: string) => {
-    try {
-      DanteLogger.success.basic('Downloading PDF from data URL');
+  const handleDownloadFromDataUrl = (dataUrl: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        DanteLogger.success.basic('Downloading PDF from data URL');
 
-      // Create a link to download the PDF from the data URL
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = 'pbradygeorgen_cover_letter.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+        // Create a link to download the PDF from the data URL
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'pbradygeorgen_cover_letter.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-      DanteLogger.success.ux('Downloaded PDF from preview data URL');
-    } catch (error) {
-      DanteLogger.error.runtime(`Error downloading PDF from data URL: ${error}`);
-      alert('There was an error downloading the PDF. Please try again.');
-    }
+        DanteLogger.success.ux('Downloaded PDF from preview data URL');
+        resolve();
+      } catch (error) {
+        DanteLogger.error.runtime(`Error downloading PDF from data URL: ${error}`);
+        alert('There was an error downloading the PDF. Please try again.');
+        reject(error);
+      }
+    });
   };
 
   // Function to handle Markdown export
-  const handleExportToMarkdown = async () => {
-    try {
-      setIsGeneratingMd(true);
-      HesseLogger.summary.start('Exporting summary as Markdown');
+  const handleExportToMarkdown = async (): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setIsGeneratingMd(true);
+        HesseLogger.summary.start('Exporting summary as Markdown');
 
-      // Create and download the file
-      const blob = new Blob([content], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'pbradygeorgen_cover_letter.md';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+        // Create and download the file
+        const blob = new Blob([content], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pbradygeorgen_cover_letter.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
 
-      DanteLogger.success.ux('Exported summary as Markdown');
-      HesseLogger.summary.complete('Summary exported as Markdown');
-    } catch (error) {
-      DanteLogger.error.runtime(`Error exporting to Markdown: ${error}`);
-      HesseLogger.summary.error(`Error exporting to Markdown: ${error}`);
-      alert('There was an error generating the Markdown file. Please try again.');
-    } finally {
-      setIsGeneratingMd(false);
-    }
+        DanteLogger.success.ux('Exported summary as Markdown');
+        HesseLogger.summary.complete('Summary exported as Markdown');
+        resolve();
+      } catch (error) {
+        DanteLogger.error.runtime(`Error exporting to Markdown: ${error}`);
+        HesseLogger.summary.error(`Error exporting to Markdown: ${error}`);
+        alert('There was an error generating the Markdown file. Please try again.');
+        reject(error);
+      } finally {
+        setIsGeneratingMd(false);
+      }
+    });
   };
 
   // Function to handle Markdown preview
@@ -202,42 +214,46 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   };
 
   // Function to handle Text export
-  const handleExportToText = async () => {
-    try {
-      setIsGeneratingTxt(true);
-      HesseLogger.summary.start('Exporting summary as Text');
+  const handleExportToText = async (): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setIsGeneratingTxt(true);
+        HesseLogger.summary.start('Exporting summary as Text');
 
-      // Convert markdown to plain text by removing markdown syntax
-      const plainText = content
-        .replace(/#{1,6}\s+/g, '') // Remove headers
-        .replace(/\*\*/g, '') // Remove bold
-        .replace(/\*/g, '') // Remove italic
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
-        .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
-        .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
-        .replace(/>/g, '') // Remove blockquotes
-        .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
+        // Convert markdown to plain text by removing markdown syntax
+        const plainText = content
+          .replace(/#{1,6}\s+/g, '') // Remove headers
+          .replace(/\*\*/g, '') // Remove bold
+          .replace(/\*/g, '') // Remove italic
+          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
+          .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
+          .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
+          .replace(/>/g, '') // Remove blockquotes
+          .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
 
-      // Create and download the file
-      const blob = new Blob([plainText], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'pbradygeorgen_cover_letter.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+        // Create and download the file
+        const blob = new Blob([plainText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pbradygeorgen_cover_letter.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
 
-      DanteLogger.success.ux('Exported summary as Text');
-      HesseLogger.summary.complete('Summary exported as Text');
-    } catch (error) {
-      DanteLogger.error.runtime(`Error exporting to Text: ${error}`);
-      HesseLogger.summary.error(`Error exporting to Text: ${error}`);
-      alert('There was an error generating the Text file. Please try again.');
-    } finally {
-      setIsGeneratingTxt(false);
-    }
+        DanteLogger.success.ux('Exported summary as Text');
+        HesseLogger.summary.complete('Summary exported as Text');
+        resolve();
+      } catch (error) {
+        DanteLogger.error.runtime(`Error exporting to Text: ${error}`);
+        HesseLogger.summary.error(`Error exporting to Text: ${error}`);
+        alert('There was an error generating the Text file. Please try again.');
+        reject(error);
+      } finally {
+        setIsGeneratingTxt(false);
+      }
+    });
   };
 
   // Function to handle Text preview

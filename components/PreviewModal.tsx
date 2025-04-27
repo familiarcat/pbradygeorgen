@@ -151,19 +151,35 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
         <div className={styles.modalFooter}>
           <button
             className={styles.downloadButton}
-            onClick={() => {
-              // If we have a PDF data URL and a handler for it, use that for PDF downloads
-              if (format === 'pdf' && pdfDataUrl && onDownloadWithDataUrl) {
-                onDownloadWithDataUrl(pdfDataUrl);
-              } else {
-                // Otherwise use the default download handler
-                onDownload();
-              }
+            onClick={async () => {
+              try {
+                // Log the start of download
+                console.log(`Starting download of ${fileName}.${
+                  format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
+                }`);
 
-              DanteLogger.success.ux(`Downloaded ${fileName}.${
-                format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
-              }`);
-              onClose();
+                // If we have a PDF data URL and a handler for it, use that for PDF downloads
+                if (format === 'pdf' && pdfDataUrl && onDownloadWithDataUrl) {
+                  await onDownloadWithDataUrl(pdfDataUrl);
+                } else {
+                  // Otherwise use the default download handler
+                  await onDownload();
+                }
+
+                // Log success after download completes
+                DanteLogger.success.ux(`Downloaded ${fileName}.${
+                  format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
+                }`);
+
+                // Only close the modal after a short delay to ensure download starts
+                setTimeout(() => {
+                  onClose();
+                }, 500);
+              } catch (error) {
+                console.error('Error during download:', error);
+                DanteLogger.error.runtime(`Download failed: ${error}`);
+                alert('There was an error downloading the file. Please try again.');
+              }
             }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
