@@ -59,13 +59,17 @@ interface ContentBlock {
  * Parse markdown content into structured blocks for PDF generation
  *
  * @param markdownContent The markdown content to parse
+ * @param skipFirstHeading Whether to skip the first heading (to avoid duplication with the PDF header)
  * @returns Array of content blocks
  */
-function parseMarkdownForPdf(markdownContent: string): ContentBlock[] {
+function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean = false): ContentBlock[] {
   const blocks: ContentBlock[] = [];
 
   // Split content into lines
   const lines = markdownContent.split('\n');
+
+  // Track if we've skipped the first heading
+  let hasSkippedFirstHeading = !skipFirstHeading;
 
   // Process each line
   for (let i = 0; i < lines.length; i++) {
@@ -76,6 +80,12 @@ function parseMarkdownForPdf(markdownContent: string): ContentBlock[] {
 
     // Check for headings
     if (line.startsWith('# ')) {
+      // Skip the first heading if requested
+      if (!hasSkippedFirstHeading) {
+        hasSkippedFirstHeading = true;
+        continue;
+      }
+
       blocks.push({
         type: 'heading1',
         content: line.substring(2).trim()
@@ -373,8 +383,8 @@ export async function generatePdfFromMarkdown(
       pdf.line(1, 1.2, 7.5, 1.2);
     }
 
-    // Parse the markdown content
-    const parsedContent = parseMarkdownForPdf(markdownContent);
+    // Parse the markdown content, skipping the first heading if a header text is provided
+    const parsedContent = parseMarkdownForPdf(markdownContent, !!options.headerText);
 
     // Set text color based on theme
     if (isDarkTheme) {
@@ -582,8 +592,8 @@ export async function generatePdfDataUrlFromMarkdown(
       pdf.line(1, 1.2, 7.5, 1.2);
     }
 
-    // Parse the markdown content
-    const parsedContent = parseMarkdownForPdf(markdownContent);
+    // Parse the markdown content, skipping the first heading if a header text is provided
+    const parsedContent = parseMarkdownForPdf(markdownContent, !!options.headerText);
 
     // Set text color based on theme
     if (isDarkTheme) {
