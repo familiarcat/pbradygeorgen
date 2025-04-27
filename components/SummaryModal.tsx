@@ -60,12 +60,12 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         footerText: 'Generated with Salinger Design',
         // Use letter size for US standard 8.5 x 11 inches
         pageSize: 'letter',
-        // Ensure proper margins for full bleed
+        // Use smaller margins to fit more content on a single page
         margins: {
-          top: 10,
-          right: 10,
-          bottom: 10,
-          left: 10
+          top: 8,
+          right: 8,
+          bottom: 8,
+          left: 8
         }
       });
 
@@ -86,7 +86,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Generating PDF preview with dark theme');
       console.log('Starting PDF preview generation for Cover Letter');
 
-      // Generate a real-time PDF preview
+      // Generate a real-time PDF preview optimized for a single page
       const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, {
         title: 'P. Brady Georgen - Cover Letter',
         fileName: 'pbradygeorgen_cover_letter.pdf',
@@ -94,12 +94,12 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         footerText: 'Generated with Salinger Design',
         // Use letter size for US standard 8.5 x 11 inches
         pageSize: 'letter',
-        // Ensure proper margins for full bleed
+        // Use smaller margins to fit more content on a single page
         margins: {
-          top: 10,
-          right: 10,
-          bottom: 10,
-          left: 10
+          top: 8,
+          right: 8,
+          bottom: 8,
+          left: 8
         }
       });
 

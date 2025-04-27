@@ -1,22 +1,22 @@
-Format the following resume content into a well-structured cover letter in markdown format following these specific guidelines:
+Format the following resume content into a well-structured cover letter in markdown format that will fit on a SINGLE 8.5x11" page when converted to PDF. Follow these specific guidelines:
 
 1. Use a first-person narrative style throughout with a warm, professional tone inspired by J.D. Salinger's direct and personal writing style
 2. Create clear section headers with ## for main sections
 3. Use bullet points for lists of skills, experiences, etc.
-4. Keep paragraphs concise (3-5 sentences) and focused
-5. Total length should be approximately 400-600 words (a professional cover letter length)
-6. Organize content into EXACTLY these sections in this order:
-   - Summary (1 paragraph, ~100 words): A compelling introduction that highlights my unique value proposition
-   - My Skills (5-7 bullet points): Focus on most relevant technical and soft skills
-   - Industries I've Worked In (4-5 bullet points): Brief list of industry experience
-   - My Career Journey (1-2 paragraphs, ~150 words): Highlight key achievements and growth
-   - My Education (1 paragraph, ~50 words): Brief overview of educational background
-   - What I'm Looking For (3-4 bullet points): Clear statement of career goals and ideal opportunities
+4. Keep paragraphs extremely concise (2-3 sentences maximum) and focused
+5. Total length must be 400-500 words maximum to ensure it fits on a single page
+6. Organize content into EXACTLY these sections in this order with strict word count limits:
+   - Summary (1 paragraph, ~75 words): A compelling introduction that highlights my unique value proposition
+   - My Skills (4-5 bullet points only): Focus on most relevant technical and soft skills
+   - Industries I've Worked In (3-4 bullet points only): Brief list of industry experience
+   - My Career Journey (1 paragraph, ~100 words): Highlight key achievements and growth
+   - My Education (1 short paragraph, ~30 words): Brief overview of educational background
+   - What I'm Looking For (2-3 bullet points only): Clear statement of career goals and ideal opportunities
 
-7. Use markdown formatting effectively:
-   - Bold (**text**) for emphasis on key points
-   - Proper spacing between sections (one blank line)
-   - Consistent bullet point formatting
+7. Use markdown formatting effectively but sparingly:
+   - Bold (**text**) for only 1-2 key points per section
+   - Proper spacing between sections (one blank line only)
+   - Keep bullet points to a single line each when possible
 
 Here's the raw content to format:
 

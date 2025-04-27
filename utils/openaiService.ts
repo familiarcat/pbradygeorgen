@@ -338,12 +338,12 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
       messages: [
         {
           role: "system",
-          content: "You are a professional cover letter writer that creates well-structured, compelling cover letters in markdown format. You follow the Salinger philosophy of writing: direct, personal, and authentic. Your cover letters are concise, focused, and highlight the unique value proposition of the candidate. Follow the instructions exactly and only return the formatted markdown."
+          content: "You are a professional cover letter writer that creates well-structured, compelling cover letters in markdown format. You follow the Salinger philosophy of writing: direct, personal, and authentic. Your cover letters are concise, focused, and highlight the unique value proposition of the candidate. You MUST create content that fits on a SINGLE 8.5x11\" page when converted to PDF. This means being extremely concise and prioritizing only the most important information. Follow the instructions exactly and only return the formatted markdown."
         },
         { role: "user", content: prompt }
       ],
       temperature: 0.4, // Slightly higher temperature for more natural writing style
-      max_tokens: 1500, // Ensure we have enough tokens for a detailed response
+      max_tokens: 1200, // Reduced token limit to ensure concise content
     });
 
     // Calculate response time
