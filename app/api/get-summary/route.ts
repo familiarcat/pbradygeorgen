@@ -55,34 +55,32 @@ export async function GET(request: NextRequest) {
 
           DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);
 
-          // Convert the analysis to markdown format
-          const markdown = `# P. Brady Georgen - Summary
+          // Convert the analysis to markdown format for a cover letter
+          const markdown = `# P. Brady Georgen - Cover Letter
 
-## Professional Summary
+## Summary
 
 ${analysis.summary}
 
-## Key Skills
+## My Skills
 
 ${analysis.keySkills.map(skill => `- ${skill}`).join('\n')}
 
-## Experience
-
-${analysis.yearsOfExperience}
-
-## Education
-
-${analysis.educationLevel}
-
-## Career Highlights
-
-${analysis.careerHighlights.map(highlight => `- ${highlight}`).join('\n')}
-
-## Industry Experience
+## Industries I've Worked In
 
 ${analysis.industryExperience.map(industry => `- ${industry}`).join('\n')}
 
-## Recommendations
+## My Career Journey
+
+I've been in the industry for over ${analysis.yearsOfExperience.replace(/^I've been in the industry for over /, '')}. During this time, I've had the privilege of working with major clients and growing both technically and as a leader. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
+
+${analysis.careerHighlights.slice(0, 2).map(highlight => highlight).join(' ')}
+
+## My Education
+
+${analysis.educationLevel}
+
+## What I'm Looking For
 
 ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
 `;
@@ -96,16 +94,16 @@ ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
         DanteLogger.error.runtime(`Error generating summary with OpenAI: ${error}`);
         HesseLogger.summary.error(`Summary generation failed: ${error}`);
 
-        // Fall back to a basic summary if OpenAI fails
+        // Fall back to a basic cover letter if OpenAI fails
         return NextResponse.json({
           success: true,
-          summary: `# P. Brady Georgen - Summary
+          summary: `# P. Brady Georgen - Cover Letter
 
-## Professional Summary
+## Summary
 
-I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology.
+I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.
 
-## Key Skills
+## My Skills
 
 - Full Stack Development
 - JavaScript/TypeScript
@@ -113,29 +111,24 @@ I'm a seasoned software developer with a passion for blending cutting-edge techn
 - AWS
 - UI/UX Design
 - Creative Technology
+- Problem-Solving
 
-## Experience
-
-I've been in the industry for over 15 years, continuously learning and evolving with technology.
-
-## Education
-
-I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
-
-## Career Highlights
-
-- I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader
-- I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard
-- My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions
-
-## Industry Experience
+## Industries I've Worked In
 
 - Business Solutions
 - Communications
 - Healthcare/Pharmaceutical
 - Financial Services
 
-## Recommendations
+## My Career Journey
+
+I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader. I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
+
+## My Education
+
+I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
+
+## What I'm Looking For
 
 - I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities
 - I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision
@@ -147,16 +140,16 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
       DanteLogger.warn.performance('OpenAI integration is disabled. Using fallback summary');
       HesseLogger.ai.warning('OpenAI integration is disabled. Using fallback summary');
 
-      // Return a basic summary if OpenAI is not available
+      // Return a basic cover letter if OpenAI is not available
       return NextResponse.json({
         success: true,
-        summary: `# P. Brady Georgen - Summary
+        summary: `# P. Brady Georgen - Cover Letter
 
-## Professional Summary
+## Summary
 
-I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology.
+I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.
 
-## Key Skills
+## My Skills
 
 - Full Stack Development
 - JavaScript/TypeScript
@@ -164,29 +157,24 @@ I'm a seasoned software developer with a passion for blending cutting-edge techn
 - AWS
 - UI/UX Design
 - Creative Technology
+- Problem-Solving
 
-## Experience
-
-I've been in the industry for over 15 years, continuously learning and evolving with technology.
-
-## Education
-
-I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
-
-## Career Highlights
-
-- I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader
-- I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard
-- My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions
-
-## Industry Experience
+## Industries I've Worked In
 
 - Business Solutions
 - Communications
 - Healthcare/Pharmaceutical
 - Financial Services
 
-## Recommendations
+## My Career Journey
+
+I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader. I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
+
+## My Education
+
+I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
+
+## What I'm Looking For
 
 - I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities
 - I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision

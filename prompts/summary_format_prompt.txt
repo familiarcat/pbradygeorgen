@@ -1,20 +1,25 @@
-Format the following resume content into a well-structured markdown document following these guidelines:
+Format the following resume content into a well-structured cover letter in markdown format following these specific guidelines:
 
-1. Use a first-person narrative style throughout
+1. Use a first-person narrative style throughout with a warm, professional tone inspired by J.D. Salinger's direct and personal writing style
 2. Create clear section headers with ## for main sections
 3. Use bullet points for lists of skills, experiences, etc.
-4. Maintain the personal tone and professional focus
-5. Organize content into these sections in this order:
-   - Professional Summary (introduction paragraph)
-   - Key Skills (bullet list)
-   - Experience (brief overview with years)
-   - Education (brief description)
-   - Career Highlights (bullet list)
-   - Industry Experience (bullet list)
-   - Recommendations (what I'm looking for - bullet list)
+4. Keep paragraphs concise (3-5 sentences) and focused
+5. Total length should be approximately 400-600 words (a professional cover letter length)
+6. Organize content into EXACTLY these sections in this order:
+   - Summary (1 paragraph, ~100 words): A compelling introduction that highlights my unique value proposition
+   - My Skills (5-7 bullet points): Focus on most relevant technical and soft skills
+   - Industries I've Worked In (4-5 bullet points): Brief list of industry experience
+   - My Career Journey (1-2 paragraphs, ~150 words): Highlight key achievements and growth
+   - My Education (1 paragraph, ~50 words): Brief overview of educational background
+   - What I'm Looking For (3-4 bullet points): Clear statement of career goals and ideal opportunities
+
+7. Use markdown formatting effectively:
+   - Bold (**text**) for emphasis on key points
+   - Proper spacing between sections (one blank line)
+   - Consistent bullet point formatting
 
 Here's the raw content to format:
 
 P. Brady GeorgenSummaryI'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.My SkillsFull Stack DevelopmentJavaScript/TypeScriptReact/React NativeAWSUI/UX DesignCreative TechnologyIndustries I've Worked InBusiness SolutionsCommunicationsHealthcare/PharmaceuticalFinancial ServicesMy Career JourneyI've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leaderI've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and MastercardMy career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutionsMy ExperienceI've been in the industry for over 15 years, continuously learning and evolving with technologyMy EducationI hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solvingWhat I'm Looking ForI'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilitiesI thrive in cross-functional teams where I can bridge the gap between technical implementation and creative visionMy experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference
 
-Format the content as a complete markdown document with the title "# P. Brady Georgen - Summary" at the top. Ensure all sections are properly formatted with appropriate headers, bullet points, and paragraph breaks.
+Format the content as a complete markdown document with the title "# P. Brady Georgen - Cover Letter" at the top. Ensure all sections are properly formatted with appropriate headers, bullet points, and paragraph breaks. The document should read as a cohesive cover letter that tells my professional story while highlighting my unique combination of technical expertise and creative background.
