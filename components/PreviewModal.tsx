@@ -153,16 +153,46 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
             className={styles.downloadButton}
             onClick={async () => {
               try {
-                // Log the start of download
-                console.log(`Starting download of ${fileName}.${
+                // Enhanced logging for debugging
+                console.log('Download button clicked with:', {
+                  format,
+                  fileName,
+                  hasPdfDataUrl: !!pdfDataUrl,
+                  hasDataUrlHandler: !!onDownloadWithDataUrl
+                });
+
+                DanteLogger.success.basic(`Starting download of ${fileName}.${
                   format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
                 }`);
 
-                // If we have a PDF data URL and a handler for it, use that for PDF downloads
+                // For PDF format with data URL
                 if (format === 'pdf' && pdfDataUrl && onDownloadWithDataUrl) {
-                  await onDownloadWithDataUrl(pdfDataUrl);
-                } else {
-                  // Otherwise use the default download handler
+                  console.log('Using data URL download handler');
+
+                  // Create a direct download link as a fallback mechanism
+                  const link = document.createElement('a');
+                  link.href = pdfDataUrl;
+                  link.download = `${fileName}.pdf`;
+
+                  try {
+                    // Try the handler first
+                    await onDownloadWithDataUrl(pdfDataUrl);
+                  } catch (handlerError) {
+                    console.error('Handler failed, using direct download:', handlerError);
+                    // If handler fails, use direct download
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }
+                }
+                // For PDF format without data URL but with source
+                else if (format === 'pdf' && !pdfDataUrl && pdfSource) {
+                  console.log('Using default download handler for PDF with source:', pdfSource);
+                  await onDownload();
+                }
+                // For all other formats
+                else {
+                  console.log('Using default download handler');
                   await onDownload();
                 }
 
@@ -171,10 +201,12 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                   format === 'markdown' ? 'md' : format === 'pdf' ? 'pdf' : 'txt'
                 }`);
 
-                // Only close the modal after a short delay to ensure download starts
+                // Only close the modal after a longer delay to ensure download starts
+                console.log('Setting timeout to close modal');
                 setTimeout(() => {
+                  console.log('Closing modal after download');
                   onClose();
-                }, 500);
+                }, 800); // Increased delay for more reliable downloads
               } catch (error) {
                 console.error('Error during download:', error);
                 DanteLogger.error.runtime(`Download failed: ${error}`);

@@ -552,8 +552,14 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content=""
           format="pdf"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={handleExportToPdf}
-          onDownloadWithDataUrl={handleDownloadFromDataUrl} // Use the data URL download handler
+          onDownload={() => {
+            console.log('PDF download triggered from preview modal');
+            return handleExportToPdf();
+          }}
+          onDownloadWithDataUrl={(dataUrl) => {
+            console.log('PDF data URL download triggered from preview modal');
+            return handleDownloadFromDataUrl(dataUrl);
+          }}
           position="right"
           pdfDataUrl={pdfDataUrl || undefined} // Use the dynamically generated PDF data URL
         />
@@ -566,7 +572,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content={content}
           format="markdown"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={handleExportToMarkdown}
+          onDownload={() => {
+            console.log('Markdown download triggered from preview modal');
+            return handleExportToMarkdown();
+          }}
           position="right"
         />
       )}
@@ -578,7 +587,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           content={previewContent}
           format="text"
           fileName="pbradygeorgen_cover_letter"
-          onDownload={handleExportToText}
+          onDownload={() => {
+            console.log('Text download triggered from preview modal');
+            return handleExportToText();
+          }}
           position="right"
         />
       )}
