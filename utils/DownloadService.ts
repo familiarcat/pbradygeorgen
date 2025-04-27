@@ -27,7 +27,7 @@ export const DownloadService = {
         // If we have a data URL, use it directly
         if (options.dataUrl) {
           DanteLogger.success.basic('Using provided PDF data URL for download');
-          
+
           // Create a link to download the PDF from the data URL
           const link = document.createElement('a');
           link.href = options.dataUrl;
@@ -38,8 +38,8 @@ export const DownloadService = {
         } else {
           // Generate a new PDF
           DanteLogger.success.basic('Generating new PDF for download');
-          
-          // Default options for PDF generation
+
+          // First generate a data URL to ensure consistent styling with preview
           const defaultOptions = {
             title: fileName,
             fileName: `${fileName}.pdf`,
@@ -54,9 +54,17 @@ export const DownloadService = {
             },
             ...options
           };
-          
-          // Generate and download the PDF
-          await PdfGenerator.generatePdfFromMarkdown(content, defaultOptions);
+
+          // Generate a data URL first to ensure consistency with preview
+          const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, defaultOptions);
+
+          // Then download using the data URL
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = `${fileName}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         }
 
         DanteLogger.success.ux(`Downloaded ${fileName}.pdf successfully`);
@@ -174,7 +182,7 @@ export const DownloadService = {
     try {
       HesseLogger.summary.start('Generating PDF data URL');
       DanteLogger.success.basic('Starting PDF data URL generation');
-      
+
       // Default options for PDF generation
       const defaultOptions = {
         title: 'Document',
@@ -190,10 +198,10 @@ export const DownloadService = {
         },
         ...options
       };
-      
+
       // Generate the PDF data URL
       const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, defaultOptions);
-      
+
       DanteLogger.success.ux('Generated PDF data URL successfully');
       HesseLogger.summary.complete('PDF data URL generated successfully');
       return dataUrl;

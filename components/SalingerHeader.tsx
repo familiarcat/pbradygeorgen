@@ -248,17 +248,20 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
       // If we already have the summary content, use it
       if (summaryContent) {
-        // Generate PDF data URL
-        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, {
+        // Define consistent options for both preview and download
+        const pdfOptions = {
           title: 'P. Brady Georgen - Cover Letter',
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter',
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
-        });
+        };
 
-        // Store the data URL
+        // Generate PDF data URL
+        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, pdfOptions);
+
+        // Store the data URL and options for later use in download
         setCoverLetterPdfDataUrl(dataUrl);
 
         // Show the preview modal
@@ -291,12 +294,22 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
       // If we have content but no data URL
       else if (summaryContent) {
-        await DownloadService.downloadPdf(summaryContent, 'pbradygeorgen_cover_letter', {
+        // Define consistent options for both preview and download - same as in preview function
+        const pdfOptions = {
           title: 'P. Brady Georgen - Cover Letter',
+          fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter',
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
+        };
+
+        // First generate the data URL to ensure consistency with preview
+        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, pdfOptions);
+
+        // Then download using the data URL
+        await DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', {
+          dataUrl: dataUrl
         });
       }
       // If we don't have content yet
