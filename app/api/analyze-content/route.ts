@@ -32,14 +32,25 @@ export async function POST(request: NextRequest) {
 
     // Check if we're requesting resume content
     if (filePath.includes('resume_content')) {
-      DanteLogger.success.basic('Using PDF content refresher for resume content');
+      DanteLogger.success.basic('Using enhanced PDF content refresher for resume content');
 
-      // Get fresh content from the PDF
+      // Log the request for content analysis
+      console.log(`📊 Analyzing PDF content with forceRefresh=${forceRefresh}`);
+
+      // Get fresh content from the PDF with enhanced logging
       content = await getExtractedContent(forceRefresh);
 
       if (!content) {
-        return NextResponse.json({ error: 'Failed to get fresh content from PDF' }, { status: 500 });
+        DanteLogger.error.dataFlow('Failed to get fresh content from PDF');
+        return NextResponse.json({
+          error: 'Failed to get fresh content from PDF',
+          details: 'Check server logs for extraction details'
+        }, { status: 500 });
       }
+
+      // Log success with content preview
+      console.log(`✅ Retrieved PDF content (${content.length} characters)`);
+      console.log(`📄 Content preview: ${content.substring(0, 100)}...`);
     } else {
       // For other files, read directly
       const publicDir = path.join(process.cwd(), 'public');
