@@ -10,9 +10,12 @@ export async function GET(request: NextRequest) {
   try {
     DanteLogger.success.basic('Summary API called');
 
-    // Check if we should force refresh based on query parameter
+    // Always force refresh to ensure we're using fresh content
     const searchParams = request.nextUrl.searchParams;
-    const forceRefresh = searchParams.has('t'); // If timestamp is present, force refresh
+    const timestampParam = searchParams.has('t'); // If timestamp is present, it's an additional signal to force refresh
+    const forceRefresh = true; // Always force refresh
+
+    DanteLogger.success.basic('Forcing PDF content refresh to ensure fresh content');
 
     // Get fresh content from the PDF
     DanteLogger.success.basic('Using PDF content refresher for resume content');

@@ -21,11 +21,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
     }
 
-    const { filePath, forceRefresh = false } = data;
+    const { filePath, forceRefresh: requestedForceRefresh = false } = data;
 
     if (!filePath) {
       return NextResponse.json({ error: 'File path is required' }, { status: 400 });
     }
+
+    // Always force refresh to ensure we're using fresh content
+    const forceRefresh = true;
 
     // Get content based on file type
     let content = '';
@@ -35,7 +38,8 @@ export async function POST(request: NextRequest) {
       DanteLogger.success.basic('Using enhanced PDF content refresher for resume content');
 
       // Log the request for content analysis
-      console.log(`📊 Analyzing PDF content with forceRefresh=${forceRefresh}`);
+      console.log(`📊 Analyzing PDF content with forceRefresh=${forceRefresh} (always true to ensure fresh content)`);
+      DanteLogger.success.basic('Forcing PDF content refresh to ensure fresh content');
 
       // Get fresh content from the PDF with enhanced logging
       content = await getExtractedContent(forceRefresh);
@@ -131,10 +135,10 @@ async function mockAnalyzeContent(content: string, forceRefresh = false) {
       console.log(`🔍 [Hesse] Content length: ${content.length} characters`);
       console.log(`🔍 [Hesse] Content preview: ${content.substring(0, 100)}...`);
 
-      // Use OpenAI to analyze the resume
-      console.log(`🔍 [Hesse] Force refresh: ${forceRefresh ? 'Yes' : 'No'}`);
+      // Use OpenAI to analyze the resume - always force refresh
+      console.log(`🔍 [Hesse] Force refresh: Yes (always forcing refresh to ensure fresh content)`);
       const startTime = Date.now();
-      const analysis = await analyzeResume(content, forceRefresh);
+      const analysis = await analyzeResume(content, true); // Always force refresh
       const endTime = Date.now();
 
       // Detailed technical logging

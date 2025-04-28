@@ -1,6 +1,6 @@
 /**
  * Dynamic Cache Service
- * 
+ *
  * This service extends the existing cache service to be aware of PDF changes
  * and invalidate caches when the PDF content changes.
  */
@@ -27,36 +27,61 @@ export class DynamicCacheService<T> {
 
   constructor(cacheName: string, cacheDurationMs?: number) {
     this.cacheFilePath = path.join(process.cwd(), '.cache', `${cacheName}.json`);
-    
+
     if (cacheDurationMs) {
       this.CACHE_DURATION_MS = cacheDurationMs;
     }
-    
+
     // Load the PDF fingerprint
     this.loadPdfFingerprint();
-    
+
     // Load the cache from disk
     this.loadCacheFromStorage();
-    
+
     // Log initialization
     DanteLogger.success.basic(`DynamicCacheService initialized: ${cacheName}`);
   }
 
   /**
    * Load the current PDF fingerprint
+   * @returns true if the fingerprint has changed, false otherwise
    */
-  private loadPdfFingerprint(): void {
+  private loadPdfFingerprint(): boolean {
     try {
       if (fs.existsSync(this.pdfFingerprintPath)) {
-        this.currentPdfFingerprint = fs.readFileSync(this.pdfFingerprintPath, 'utf8').trim();
-        HesseLogger.cache.hit(`Loaded PDF fingerprint: ${this.currentPdfFingerprint?.substring(0, 8)}...`);
+        const newFingerprint = fs.readFileSync(this.pdfFingerprintPath, 'utf8').trim();
+
+        // Check if the fingerprint has changed
+        const hasChanged = this.currentPdfFingerprint !== null &&
+                          this.currentPdfFingerprint !== newFingerprint;
+
+        // Store the previous fingerprint for logging
+        const oldFingerprint = this.currentPdfFingerprint;
+
+        // Update the fingerprint
+        this.currentPdfFingerprint = newFingerprint;
+
+        if (hasChanged) {
+          HesseLogger.cache.invalidate(`PDF fingerprint changed from ${oldFingerprint?.substring(0, 8)}... to ${newFingerprint.substring(0, 8)}...`);
+          DanteLogger.warn.deprecated('PDF content has changed, clearing all caches');
+
+          // Clear the entire cache when the PDF changes
+          this.clearCache();
+
+          return true;
+        } else {
+          HesseLogger.cache.hit(`Loaded PDF fingerprint: ${this.currentPdfFingerprint?.substring(0, 8)}...`);
+          return false;
+        }
       } else {
         this.currentPdfFingerprint = null;
         HesseLogger.cache.miss('No PDF fingerprint found');
+        return false;
       }
     } catch (error) {
       console.error('Error loading PDF fingerprint:', error);
       this.currentPdfFingerprint = null;
+      return false;
     }
   }
 
@@ -74,12 +99,12 @@ export class DynamicCacheService<T> {
       // Load the cache if it exists
       if (fs.existsSync(this.cacheFilePath)) {
         const cacheData = JSON.parse(fs.readFileSync(this.cacheFilePath, 'utf8'));
-        
+
         // Convert the object back to a Map
         for (const [key, value] of Object.entries(cacheData)) {
           this.cacheStorage.set(key, value as CachedItem<T>);
         }
-        
+
         // Invalidate cache items with different PDF fingerprint
         if (this.currentPdfFingerprint) {
           let invalidatedCount = 0;
@@ -89,12 +114,12 @@ export class DynamicCacheService<T> {
               invalidatedCount++;
             }
           }
-          
+
           if (invalidatedCount > 0) {
             HesseLogger.cache.invalidate(`Invalidated ${invalidatedCount} cache items due to PDF change`);
           }
         }
-        
+
         HesseLogger.cache.hit(`Loaded ${this.cacheStorage.size} items from cache`);
       } else {
         HesseLogger.cache.miss('No cache file found');
@@ -119,7 +144,7 @@ export class DynamicCacheService<T> {
 
       // Save the cache to disk
       fs.writeFileSync(this.cacheFilePath, JSON.stringify(cacheData, null, 2));
-      
+
       HesseLogger.cache.update(`Saved ${this.cacheStorage.size} items to cache`);
     } catch (error) {
       console.error('Error saving cache to storage:', error);
@@ -133,10 +158,10 @@ export class DynamicCacheService<T> {
    */
   public generateCacheKey(content: string): string {
     // Include the PDF fingerprint in the cache key if available
-    const contentToHash = this.currentPdfFingerprint 
-      ? `${content}_pdf_${this.currentPdfFingerprint}` 
+    const contentToHash = this.currentPdfFingerprint
+      ? `${content}_pdf_${this.currentPdfFingerprint}`
       : content;
-      
+
     return crypto.createHash('md5').update(contentToHash).digest('hex');
   }
 
@@ -173,8 +198,8 @@ export class DynamicCacheService<T> {
     }
 
     // Check if the PDF fingerprint matches
-    if (this.currentPdfFingerprint && 
-        cachedItem.pdfFingerprint && 
+    if (this.currentPdfFingerprint &&
+        cachedItem.pdfFingerprint &&
         cachedItem.pdfFingerprint !== this.currentPdfFingerprint) {
       HesseLogger.cache.invalidate(`Cache invalidated due to PDF change: ${key.substring(0, 8)}...`);
       this.cacheStorage.delete(key);
@@ -205,10 +230,18 @@ export class DynamicCacheService<T> {
   }
 
   /**
-   * Force refresh the PDF fingerprint
+   * Force refresh the PDF fingerprint and clear cache if it has changed
+   * @param forceRefresh Whether to force a cache refresh regardless of fingerprint change
    */
-  public refreshPdfFingerprint(): void {
-    this.loadPdfFingerprint();
+  public refreshPdfFingerprint(forceRefresh: boolean = false): void {
+    const hasChanged = this.loadPdfFingerprint();
+
+    if (forceRefresh && !hasChanged) {
+      HesseLogger.cache.invalidate('Force refresh requested, clearing cache');
+      DanteLogger.warn.deprecated('Force refresh requested, clearing all caches');
+      this.clearCache();
+    }
+
     HesseLogger.cache.update(`Refreshed PDF fingerprint: ${this.currentPdfFingerprint?.substring(0, 8) || 'none'}`);
   }
 }

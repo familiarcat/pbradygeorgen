@@ -75,6 +75,10 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       };
     }
 
+    // Always force refresh to ensure we're using fresh content
+    const alwaysForceRefresh = true;
+    forceRefresh = forceRefresh || alwaysForceRefresh;
+
     // Check for PDF content fingerprint to ensure we're using the right PDF
     try {
       const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
@@ -83,7 +87,7 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
         DanteLogger.success.basic(`Using PDF content fingerprint: ${fingerprint.substring(0, 8)}...`);
 
         // Force refresh of the PDF fingerprint in the dynamic cache
-        dynamicOpenAiCache.refreshPdfFingerprint();
+        dynamicOpenAiCache.refreshPdfFingerprint(forceRefresh);
       }
     } catch (error) {
       console.warn('Could not read PDF content fingerprint:', error);
@@ -92,20 +96,21 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
     // Generate a cache key based on the resume content using the dynamic cache
     const cacheKey = dynamicOpenAiCache.generateCacheKey(resumeContent);
 
-    // Check if we have a cached response and aren't forcing a refresh
-    if (!forceRefresh) {
+    // Always force refresh to ensure we're using fresh content
+    if (forceRefresh) {
+      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for key: ${cacheKey.substring(0, 8)}...`);
+      DanteLogger.success.core('Forcing fresh analysis to ensure current PDF content is used');
+
+      // Clear the cache if force refresh is requested
+      dynamicOpenAiCache.clearCache();
+    } else {
+      // This branch should never be reached with alwaysForceRefresh = true
       const cachedResponse = dynamicOpenAiCache.getItem(cacheKey);
       if (cachedResponse) {
         HesseLogger.cache.hit(`Using cached OpenAI response for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
       }
       HesseLogger.cache.miss(`Cache miss for key: ${cacheKey.substring(0, 8)}...`);
-    } else {
-      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for key: ${cacheKey.substring(0, 8)}...`);
-
-      // Clear the cache if force refresh is requested
-      dynamicOpenAiCache.clearCache();
-      DanteLogger.success.core('Cleared OpenAI cache for fresh analysis');
     }
     // Define the system message to set the context for the AI
     const systemMessage = `
@@ -318,6 +323,10 @@ export async function formatSummaryContent(
       forceRefresh = true;
     }
 
+    // Always force refresh to ensure we're using fresh content
+    const alwaysForceRefresh = true;
+    forceRefresh = forceRefresh || alwaysForceRefresh;
+
     // Check for PDF content fingerprint to ensure we're using the right PDF
     try {
       const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
@@ -326,7 +335,7 @@ export async function formatSummaryContent(
         DanteLogger.success.basic(`Using PDF content fingerprint for summary: ${fingerprint.substring(0, 8)}...`);
 
         // Force refresh of the PDF fingerprint in the dynamic cache
-        dynamicStringCache.refreshPdfFingerprint();
+        dynamicStringCache.refreshPdfFingerprint(forceRefresh);
       }
     } catch (error) {
       console.warn('Could not read PDF content fingerprint for summary:', error);
@@ -335,20 +344,21 @@ export async function formatSummaryContent(
     // Generate a cache key based on the content using the dynamic cache
     const cacheKey = dynamicStringCache.generateCacheKey(resumeContent);
 
-    // Check if we have a cached response and aren't forcing a refresh
-    if (!forceRefresh) {
+    // Always force refresh to ensure we're using fresh content
+    if (forceRefresh) {
+      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for formatted summary key: ${cacheKey.substring(0, 8)}...`);
+      DanteLogger.success.core('Forcing fresh summary to ensure current PDF content is used');
+
+      // Clear the cache if force refresh is requested
+      dynamicStringCache.clearCache();
+    } else {
+      // This branch should never be reached with alwaysForceRefresh = true
       const cachedResponse = dynamicStringCache.getItem(cacheKey);
       if (cachedResponse) {
         HesseLogger.cache.hit(`Using cached formatted summary for key: ${cacheKey.substring(0, 8)}...`);
         return cachedResponse;
       }
       HesseLogger.cache.miss(`Cache miss for formatted summary key: ${cacheKey.substring(0, 8)}...`);
-    } else {
-      HesseLogger.cache.invalidate(`Force refresh requested, skipping cache for formatted summary key: ${cacheKey.substring(0, 8)}...`);
-
-      // Clear the cache if force refresh is requested
-      dynamicStringCache.clearCache();
-      DanteLogger.success.core('Cleared string cache for fresh summary formatting');
     }
 
     // Read the prompt template
