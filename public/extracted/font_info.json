@@ -1,13 +1,13 @@
 {
   "hesseFont": {
-    "name": "Helvetica Neue",
+    "name": "Avenir",
     "isSerifFont": false,
     "isMonospace": false,
     "type": "sans-serif",
     "philosophy": "Hesse: Clarity and structure"
   },
   "salingerFont": {
-    "name": "Georgia",
+    "name": "Garamond",
     "isSerifFont": true,
     "isMonospace": false,
     "type": "serif",
