@@ -84,13 +84,35 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
       if (fs.existsSync(fingerprintPath)) {
         const fingerprint = fs.readFileSync(fingerprintPath, 'utf8').trim();
+        console.log(`🔑 Using PDF content fingerprint for analysis: ${fingerprint.substring(0, 8)}...`);
         DanteLogger.success.basic(`Using PDF content fingerprint: ${fingerprint.substring(0, 8)}...`);
 
+        // Get PDF information for logging
+        try {
+          const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+          if (fs.existsSync(pdfPath)) {
+            const stats = fs.statSync(pdfPath);
+            console.log(`📄 PDF file being used for analysis: ${pdfPath}`);
+            console.log(`📊 PDF size: ${stats.size} bytes`);
+            console.log(`⏱️ PDF last modified: ${new Date(stats.mtimeMs).toISOString()}`);
+          } else {
+            console.log(`⚠️ PDF file not found: ${pdfPath}`);
+          }
+        } catch (pdfError) {
+          console.error('Error checking PDF file:', pdfError);
+        }
+
         // Force refresh of the PDF fingerprint in the dynamic cache
+        console.log(`🔄 Force refreshing PDF fingerprint in dynamic cache (forceRefresh=${forceRefresh})`);
         dynamicOpenAiCache.refreshPdfFingerprint(forceRefresh);
+      } else {
+        console.error(`❌ Content fingerprint file not found: ${fingerprintPath}`);
+        throw new Error(`Content fingerprint file not found: ${fingerprintPath}`);
       }
     } catch (error) {
-      console.warn('Could not read PDF content fingerprint:', error);
+      console.error('Could not read PDF content fingerprint for analysis:', error);
+      DanteLogger.error.runtime(`Could not read PDF content fingerprint for analysis: ${error}`);
+      throw new Error(`Could not read PDF content fingerprint for analysis: ${error}`);
     }
 
     // Generate a cache key based on the resume content using the dynamic cache
@@ -165,6 +187,9 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
     // Expected response format is defined in the system message
 
     // Log the OpenAI request
+    console.log(`🤖 Sending request to OpenAI for resume analysis`);
+    console.log(`📝 Resume content length: ${resumeContent.length} characters`);
+    console.log(`📝 Resume content preview: "${resumeContent.substring(0, 100)}..."`);
     HesseLogger.openai.request(`Sending request to OpenAI for resume analysis (${resumeContent.length} chars)`);
 
     // Start timing the request
@@ -277,10 +302,19 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       throw new Error(`Failed to parse OpenAI response: ${parseError.message || 'Unknown error'}`);
     }
   } catch (error) {
-    console.error("Error analyzing resume with OpenAI:", error);
+    console.error(`❌ Error analyzing resume with OpenAI:`, error);
+    console.error(`📄 PDF file: ${path.join(process.cwd(), 'public', 'default_resume.pdf')}`);
+    console.error(`📝 Resume content length: ${resumeContent.length} characters`);
+    console.error(`📝 Resume content preview: "${resumeContent.substring(0, 100)}..."`);
+
     HesseLogger.openai.error(`Error analyzing resume with OpenAI: ${error instanceof Error ? error.message : String(error)}`);
     HesseLogger.summary.error(`Analysis failed: ${error instanceof Error ? error.message : String(error)}`);
-    throw error;
+
+    // Create a detailed error message
+    const errorMessage = `Failed to analyze resume with OpenAI: ${error instanceof Error ? error.message : String(error)}`;
+
+    // Throw a more detailed error
+    throw new Error(errorMessage);
   }
 }
 
@@ -332,13 +366,35 @@ export async function formatSummaryContent(
       const fingerprintPath = path.join(process.cwd(), 'public', 'extracted', 'content_fingerprint.txt');
       if (fs.existsSync(fingerprintPath)) {
         const fingerprint = fs.readFileSync(fingerprintPath, 'utf8').trim();
+        console.log(`🔑 Using PDF content fingerprint for summary: ${fingerprint.substring(0, 8)}...`);
         DanteLogger.success.basic(`Using PDF content fingerprint for summary: ${fingerprint.substring(0, 8)}...`);
 
+        // Get PDF information for logging
+        try {
+          const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+          if (fs.existsSync(pdfPath)) {
+            const stats = fs.statSync(pdfPath);
+            console.log(`📄 PDF file being used for summary: ${pdfPath}`);
+            console.log(`📊 PDF size: ${stats.size} bytes`);
+            console.log(`⏱️ PDF last modified: ${new Date(stats.mtimeMs).toISOString()}`);
+          } else {
+            console.log(`⚠️ PDF file not found: ${pdfPath}`);
+          }
+        } catch (pdfError) {
+          console.error('Error checking PDF file:', pdfError);
+        }
+
         // Force refresh of the PDF fingerprint in the dynamic cache
+        console.log(`🔄 Force refreshing PDF fingerprint in dynamic cache (forceRefresh=${forceRefresh})`);
         dynamicStringCache.refreshPdfFingerprint(forceRefresh);
+      } else {
+        console.error(`❌ Content fingerprint file not found: ${fingerprintPath}`);
+        throw new Error(`Content fingerprint file not found: ${fingerprintPath}`);
       }
     } catch (error) {
-      console.warn('Could not read PDF content fingerprint for summary:', error);
+      console.error('Could not read PDF content fingerprint for summary:', error);
+      DanteLogger.error.runtime(`Could not read PDF content fingerprint for summary: ${error}`);
+      throw new Error(`Could not read PDF content fingerprint for summary: ${error}`);
     }
 
     // Generate a cache key based on the content using the dynamic cache
@@ -402,6 +458,9 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
       : promptTemplate;
 
     // Log the OpenAI request
+    console.log(`🤖 Sending request to OpenAI for summary formatting`);
+    console.log(`📝 Resume content length: ${resumeContent.length} characters`);
+    console.log(`📝 Resume content preview: "${resumeContent.substring(0, 100)}..."`);
     HesseLogger.openai.request('Sending request to OpenAI for summary formatting');
 
     // Start timing the request
@@ -452,9 +511,19 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
 
     return content;
   } catch (error) {
+    console.error(`❌ Error formatting summary with OpenAI:`, error);
+    console.error(`📄 PDF file: ${path.join(process.cwd(), 'public', 'default_resume.pdf')}`);
+    console.error(`📝 Resume content length: ${resumeContent.length} characters`);
+    console.error(`📝 Resume content preview: "${resumeContent.substring(0, 100)}..."`);
+
     HesseLogger.openai.error(`Error formatting summary with OpenAI: ${error instanceof Error ? error.message : String(error)}`);
     HesseLogger.summary.error(`Formatting failed: ${error instanceof Error ? error.message : String(error)}`);
-    throw error;
+
+    // Create a detailed error message
+    const errorMessage = `Failed to format summary with OpenAI: ${error instanceof Error ? error.message : String(error)}`;
+
+    // Throw a more detailed error
+    throw new Error(errorMessage);
   }
 }
 
