@@ -8,12 +8,17 @@ import { getExtractedContent } from '@/utils/pdfContentRefresher';
 
 export async function GET(request: NextRequest) {
   try {
+    console.log(`🔄 GET /api/get-summary - Request received`);
     DanteLogger.success.basic('Summary API called');
 
     // Always force refresh to ensure we're using fresh content
     const searchParams = request.nextUrl.searchParams;
     const timestampParam = searchParams.has('t'); // If timestamp is present, it's an additional signal to force refresh
+    const timestamp = searchParams.get('t');
     const forceRefresh = true; // Always force refresh
+
+    console.log(`🔄 Timestamp parameter: ${timestamp}`);
+    console.log(`🔄 Force refresh: ${forceRefresh ? 'Yes' : 'No'}`);
 
     DanteLogger.success.basic('Forcing PDF content refresh to ensure fresh content');
 
@@ -261,6 +266,10 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
       });
     }
   } catch (error) {
+    console.error(`❌ Error in get-summary API:`, error);
+    console.error(`❌ Error details:`, error instanceof Error ? error.message : 'Unknown error');
+    console.error(`❌ Error stack:`, error instanceof Error ? error.stack : 'No stack trace');
+
     DanteLogger.error.runtime(`Error in get-summary API: ${error}`);
 
     return NextResponse.json({

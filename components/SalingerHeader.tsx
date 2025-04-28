@@ -70,29 +70,36 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
         // Fetch the summary content with proper error handling and cache busting
         const timestamp = new Date().getTime(); // Add timestamp to bust cache
+        console.log(`🔄 Fetching summary content with timestamp: ${timestamp}`);
+
         fetch(`/api/get-summary?t=${timestamp}`)
           .then(response => {
+            console.log(`📡 API response status: ${response.status}`);
             if (!response.ok) {
-              console.error(`API responded with status: ${response.status}`);
+              console.error(`❌ API responded with status: ${response.status}`);
               throw new Error(`API responded with status: ${response.status}`);
             }
             return response.json();
           })
           .then(data => {
+            console.log(`📊 API response data:`, data);
             if (data.success) {
-              console.log('Summary loaded successfully');
+              console.log(`✅ Summary loaded successfully (${data.summary.length} characters)`);
+              console.log(`📝 Summary preview: "${data.summary.substring(0, 100)}..."`);
               setSummaryContent(data.summary);
               setShowSummaryModal(true);
             } else {
-              console.error('API returned error:', data.error);
+              console.error('❌ API returned error:', data.error);
               throw new Error(data.error || 'Failed to load summary');
             }
           })
           .catch(error => {
-            console.error('Error loading summary:', error);
+            console.error('❌ Error loading summary:', error);
+            console.error('❌ Error details:', error.message);
+            console.error('❌ Error stack:', error.stack);
 
             // Try the analyze-content API as a fallback
-            console.log('Attempting to use analyze-content API as fallback...');
+            console.log('🔄 Attempting to use analyze-content API as fallback...');
 
             // Add timestamp to bust cache
             const fallbackTimestamp = new Date().getTime();
