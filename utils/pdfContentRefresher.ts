@@ -155,11 +155,13 @@ export async function checkContentFreshness(): Promise<ContentTimestamps> {
  */
 export async function forceRefreshContent(): Promise<boolean> {
   try {
+    console.log(`🔄 Starting forced content refresh`);
     DanteLogger.success.basic('PDF content is stale, refreshing...');
     HesseLogger.cache.invalidate('Forcing PDF content refresh');
 
     // Get PDF information for logging
     const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+    console.log(`📄 Processing PDF file: ${pdfPath}`);
 
     if (!fs.existsSync(pdfPath)) {
       DanteLogger.error.dataFlow('PDF file not found for refresh');
@@ -172,11 +174,16 @@ export async function forceRefreshContent(): Promise<boolean> {
     const pdfSize = pdfStats.size;
     const pdfModified = new Date(pdfStats.mtimeMs).toISOString();
 
+    console.log(`📊 PDF size: ${pdfSize} bytes`);
+    console.log(`⏱️ PDF last modified: ${pdfModified}`);
+
     // Generate a content fingerprint
     const contentFingerprint = crypto
       .createHash('sha256')
       .update(`${pdfPath}:${pdfSize}:${pdfModified}`)
       .digest('hex');
+
+    console.log(`🔑 Generated content fingerprint: ${contentFingerprint.substring(0, 8)}...`);
 
     // Initialize the extraction logger
     PdfExtractionLogger.init(pdfPath, pdfSize, pdfModified, contentFingerprint);
@@ -199,8 +206,14 @@ export async function forceRefreshContent(): Promise<boolean> {
     const scriptPath = path.join(process.cwd(), 'scripts', 'extract-pdf-text-improved.js');
 
     // Execute the script with the PDF path
+    console.log(`🔍 Running text extraction script: ${scriptPath}`);
     PdfExtractionLogger.addStep('info', 'Running text extraction script', { script: scriptPath });
+
+    const extractionStart = Date.now();
     const { stdout, stderr } = await execAsync(`node ${scriptPath} ${pdfPath}`);
+    const extractionTime = Date.now() - extractionStart;
+
+    console.log(`⏱️ Text extraction completed in ${extractionTime}ms`);
 
     if (stderr) {
       DanteLogger.error.dataFlow(`Error refreshing content: ${stderr}`);
@@ -218,8 +231,14 @@ export async function forceRefreshContent(): Promise<boolean> {
       // Log a preview of the extracted text
       const textContent = fs.readFileSync(textPath, 'utf8');
       const textPreview = textContent.substring(0, 200) + '...';
-      PdfExtractionLogger.addStep('success', 'Text extraction successful', { preview: textPreview });
+      console.log(`✅ Text extraction successful (${textContent.length} characters)`);
+      console.log(`📝 Text preview: "${textPreview}"`);
+      PdfExtractionLogger.addStep('success', 'Text extraction successful', {
+        preview: textPreview,
+        length: textContent.length
+      });
     } else {
+      console.error(`❌ Text file not found after extraction: ${textPath}`);
       PdfExtractionLogger.updateStatus('text', false);
       PdfExtractionLogger.addStep('error', 'Text file not found after extraction');
     }
@@ -230,8 +249,14 @@ export async function forceRefreshContent(): Promise<boolean> {
       // Log a preview of the markdown
       const markdownContent = fs.readFileSync(markdownPath, 'utf8');
       const markdownPreview = markdownContent.substring(0, 200) + '...';
-      PdfExtractionLogger.addStep('success', 'Markdown generation successful', { preview: markdownPreview });
+      console.log(`✅ Markdown generation successful (${markdownContent.length} characters)`);
+      console.log(`📝 Markdown preview: "${markdownPreview}"`);
+      PdfExtractionLogger.addStep('success', 'Markdown generation successful', {
+        preview: markdownPreview,
+        length: markdownContent.length
+      });
     } else {
+      console.error(`❌ Markdown file not found after extraction: ${markdownPath}`);
       PdfExtractionLogger.updateStatus('markdown', false);
       PdfExtractionLogger.addStep('error', 'Markdown file not found after extraction');
     }
@@ -307,6 +332,14 @@ export async function forceRefreshContent(): Promise<boolean> {
     // Print a summary of the extraction
     PdfExtractionLogger.printSummary();
 
+    console.log(`✅ PDF content refresh completed successfully`);
+    console.log(`📄 Text file: ${path.join(extractedDir, 'resume_content.txt')}`);
+    console.log(`📄 Markdown file: ${path.join(extractedDir, 'resume_content.md')}`);
+    console.log(`📄 Font info file: ${path.join(extractedDir, 'font_info.json')}`);
+    console.log(`📄 Color theme file: ${path.join(extractedDir, 'color_theme.json')}`);
+    console.log(`📄 Build info file: ${path.join(extractedDir, 'build_info.json')}`);
+    console.log(`📄 Content fingerprint file: ${path.join(extractedDir, 'content_fingerprint.txt')}`);
+
     DanteLogger.success.core('PDF content refreshed successfully');
     return true;
   } catch (error) {
@@ -329,32 +362,71 @@ export async function getExtractedContent(forceRefresh = false): Promise<string>
     // This ensures we're not using cached content that might be from a previous PDF
     const alwaysForceRefresh = true; // Changed to always force refresh
 
+    // Log the PDF file information
+    try {
+      const publicDir = path.join(process.cwd(), 'public');
+      const pdfPath = path.join(publicDir, 'default_resume.pdf');
+
+      if (fs.existsSync(pdfPath)) {
+        const stats = fs.statSync(pdfPath);
+        console.log(`📄 PDF file being processed: ${pdfPath}`);
+        console.log(`📊 PDF size: ${stats.size} bytes`);
+        console.log(`⏱️ PDF last modified: ${new Date(stats.mtimeMs).toISOString()}`);
+
+        PdfExtractionLogger.addStep('info', 'PDF file information', {
+          path: pdfPath,
+          size: stats.size,
+          lastModified: new Date(stats.mtimeMs).toISOString()
+        });
+      } else {
+        console.log(`⚠️ PDF file not found: ${pdfPath}`);
+        PdfExtractionLogger.addStep('error', 'PDF file not found', { path: pdfPath });
+        throw new Error(`PDF file not found: ${pdfPath}`);
+      }
+    } catch (error) {
+      console.error('Error checking PDF file:', error);
+      PdfExtractionLogger.addStep('error', 'Error checking PDF file', { error: String(error) });
+    }
+
     // Check if content is stale
     const freshness = await checkContentFreshness();
     const { isStale, contentFingerprint } = freshness;
 
     // Log the content fingerprint
     if (contentFingerprint) {
+      console.log(`🔑 Content fingerprint: ${contentFingerprint.substring(0, 8)}...`);
+      console.log(`🔄 Content is stale: ${isStale ? 'Yes' : 'No'}`);
+      console.log(`🔄 Force refresh requested: ${forceRefresh ? 'Yes' : 'No'}`);
+      console.log(`🔄 Always force refresh: ${alwaysForceRefresh ? 'Yes' : 'No'}`);
+
       PdfExtractionLogger.addStep('info', 'Content fingerprint check', {
         fingerprint: contentFingerprint.substring(0, 8) + '...',
         isStale,
         forceRefresh: alwaysForceRefresh || forceRefresh
       });
+    } else {
+      console.log(`⚠️ No content fingerprint available`);
+      PdfExtractionLogger.addStep('warning', 'No content fingerprint available');
     }
 
     // Force refresh if needed or always refresh for API calls
     if (isStale || alwaysForceRefresh || forceRefresh) {
+      console.log(`🔄 Refreshing PDF content: ${isStale ? 'content is stale' : 'force refresh requested'}`);
       DanteLogger.warn.deprecated(`PDF content refresh: ${isStale ? 'content is stale' : 'force refresh requested'}`);
       PdfExtractionLogger.addStep('info', 'Forcing content refresh to ensure fresh data');
 
       const refreshSuccess = await forceRefreshContent();
 
       if (!refreshSuccess) {
+        console.error(`❌ Failed to refresh PDF content`);
         DanteLogger.error.dataFlow('Failed to refresh PDF content');
         PdfExtractionLogger.addStep('error', 'Failed to refresh PDF content');
-        return '';
+        throw new Error('Failed to refresh PDF content');
+      } else {
+        console.log(`✅ Successfully refreshed PDF content`);
       }
     } else {
+      console.log(`✅ Using cached PDF content (still fresh)`);
       DanteLogger.success.basic('Using cached PDF content (still fresh)');
       PdfExtractionLogger.addStep('info', 'Using cached PDF content (still fresh)');
       HesseLogger.cache.hit('Using cached PDF content');

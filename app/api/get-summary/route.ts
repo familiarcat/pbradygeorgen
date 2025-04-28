@@ -19,14 +19,76 @@ export async function GET(request: NextRequest) {
 
     // Get fresh content from the PDF
     DanteLogger.success.basic('Using PDF content refresher for resume content');
-    const content = await getExtractedContent(forceRefresh);
 
+    // Log the current PDF file being used
+    try {
+      const publicDir = path.join(process.cwd(), 'public');
+      const pdfPath = path.join(publicDir, 'default_resume.pdf');
+
+      if (fs.existsSync(pdfPath)) {
+        const stats = fs.statSync(pdfPath);
+        console.log(`📄 Using PDF file: ${pdfPath}`);
+        console.log(`📊 Size: ${stats.size} bytes`);
+        console.log(`⏱️ Last modified: ${new Date(stats.mtimeMs).toISOString()}`);
+      } else {
+        console.log(`⚠️ PDF file not found: ${pdfPath}`);
+      }
+    } catch (error) {
+      console.error('Error checking PDF file:', error);
+    }
+
+    // Try to get fresh content with a timeout
+    let content: string | null = null;
+    let contentError: any = null;
+
+    try {
+      // Set a timeout for content extraction to prevent hanging
+      const contentPromise = getExtractedContent(forceRefresh);
+      const timeoutPromise = new Promise<null>((_, reject) => {
+        setTimeout(() => reject(new Error('PDF content extraction timed out after 10 seconds')), 10000);
+      });
+
+      content = await Promise.race([contentPromise, timeoutPromise]) as string;
+
+      if (content) {
+        console.log(`✅ Successfully extracted fresh content from PDF (${content.length} characters)`);
+        console.log(`📝 Content starts with: "${content.substring(0, 50)}..."`);
+      }
+    } catch (error) {
+      contentError = error;
+      console.error('Error extracting content from PDF:', error);
+      DanteLogger.error.runtime(`Failed to get fresh content from PDF: ${error}`);
+    }
+
+    // If content extraction failed, return an error message in the cover letter
     if (!content) {
-      DanteLogger.error.runtime('Failed to get fresh content from PDF');
+      DanteLogger.error.runtime('Failed to get fresh content from PDF, using error fallback');
+
       return NextResponse.json({
-        success: false,
-        error: 'Failed to get fresh content from PDF'
-      }, { status: 500 });
+        success: true, // Still return success to show the error message in the UI
+        summary: `# PDF Content Extraction Error
+
+## ⚠️ Error Extracting Content
+
+There was an error extracting content from the current PDF file. This could be due to:
+
+- The PDF file may be corrupted or in an unsupported format
+- The PDF extraction process timed out
+- There may be an issue with the server-side PDF processing
+
+### Technical Details
+
+${contentError ? `Error: ${contentError.message || 'Unknown error'}` : 'No content was extracted from the PDF'}
+
+### Next Steps
+
+- Try uploading a different PDF file
+- Check the extraction logs for more details
+- Contact the administrator if the problem persists
+
+*This error message is shown instead of reverting to outdated content from a previous PDF file.*
+`
+      });
     }
 
     // Check if we have an OpenAI API key and it's enabled
