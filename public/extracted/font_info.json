@@ -14,7 +14,7 @@
     "philosophy": "Salinger: Authenticity and directness"
   },
   "derridaFont": {
-    "name": "Courier New",
+    "name": "Roboto Mono",
     "isSerifFont": false,
     "isMonospace": true,
     "type": "monospace",
