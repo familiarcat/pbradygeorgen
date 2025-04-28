@@ -325,6 +325,10 @@ export async function getExtractedContent(forceRefresh = false): Promise<string>
   try {
     HesseLogger.cache.check('Getting extracted PDF content');
 
+    // Always force refresh for API calls to ensure we're using fresh content
+    // This ensures we're not using cached content that might be from a previous PDF
+    const alwaysForceRefresh = true; // Changed to always force refresh
+
     // Check if content is stale
     const freshness = await checkContentFreshness();
     const { isStale, contentFingerprint } = freshness;
@@ -334,13 +338,15 @@ export async function getExtractedContent(forceRefresh = false): Promise<string>
       PdfExtractionLogger.addStep('info', 'Content fingerprint check', {
         fingerprint: contentFingerprint.substring(0, 8) + '...',
         isStale,
-        forceRefresh
+        forceRefresh: alwaysForceRefresh || forceRefresh
       });
     }
 
-    // Force refresh if needed
-    if (isStale || forceRefresh) {
-      DanteLogger.warn.deprecated(`PDF content ${isStale ? 'is stale' : 'force refresh requested'}`);
+    // Force refresh if needed or always refresh for API calls
+    if (isStale || alwaysForceRefresh || forceRefresh) {
+      DanteLogger.warn.deprecated(`PDF content refresh: ${isStale ? 'content is stale' : 'force refresh requested'}`);
+      PdfExtractionLogger.addStep('info', 'Forcing content refresh to ensure fresh data');
+
       const refreshSuccess = await forceRefreshContent();
 
       if (!refreshSuccess) {

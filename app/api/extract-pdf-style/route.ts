@@ -21,6 +21,10 @@ export async function GET(request: NextRequest) {
     const pdfPath = searchParams.get('path') || 'default_resume.pdf';
     const forceRefresh = searchParams.get('refresh') === 'true';
 
+    // Always force refresh to ensure we're using fresh content
+    // This ensures we're not using cached content that might be from a previous PDF
+    const alwaysForceRefresh = true;
+
     // Construct the absolute path to the PDF
     const publicDir = path.join(process.cwd(), 'public');
     const absolutePdfPath = path.join(publicDir, pdfPath);
@@ -34,29 +38,23 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
+    // Get PDF stats for logging
+    const pdfStats = fs.statSync(absolutePdfPath);
+    const pdfSize = pdfStats.size;
+    const pdfModified = new Date(pdfStats.mtimeMs).toISOString();
+
+    // Log PDF information
+    console.log(`📄 PDF file: ${absolutePdfPath}`);
+    console.log(`📊 Size: ${pdfSize} bytes`);
+    console.log(`⏱️ Last modified: ${pdfModified}`);
+
     // Check if we need to refresh the extracted content
     const extractedDir = path.join(publicDir, 'extracted');
     const colorInfoPath = path.join(extractedDir, 'color_theme.json');
     const fontInfoPath = path.join(extractedDir, 'font_info.json');
 
-    let needsRefresh = forceRefresh;
-
-    if (!needsRefresh) {
-      // Check if the extracted files exist and are newer than the PDF
-      const pdfStats = fs.statSync(absolutePdfPath);
-
-      if (!fs.existsSync(colorInfoPath) || !fs.existsSync(fontInfoPath)) {
-        needsRefresh = true;
-      } else {
-        const colorStats = fs.statSync(colorInfoPath);
-        const fontStats = fs.statSync(fontInfoPath);
-
-        // If the PDF is newer than the extracted files, we need to refresh
-        if (pdfStats.mtime > colorStats.mtime || pdfStats.mtime > fontStats.mtime) {
-          needsRefresh = true;
-        }
-      }
-    }
+    // Always force refresh to ensure we're using fresh content
+    let needsRefresh = alwaysForceRefresh || forceRefresh;
 
     // If we need to refresh, run the extraction scripts
     if (needsRefresh) {

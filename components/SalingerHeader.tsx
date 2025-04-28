@@ -12,7 +12,6 @@ interface SalingerHeaderProps {
   onViewSummary?: () => void;
   onContact?: () => void;
   onUpload?: () => void;
-  onRefresh?: () => void;
   fileName?: string;
 }
 
@@ -21,7 +20,6 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   onViewSummary,
   onContact,
   onUpload,
-  onRefresh,
   fileName = 'resume'
 }) => {
   // Loading states for different download formats
@@ -55,20 +53,9 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
   const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
-  // Get the theme context
-  const { refreshTheme } = useServerTheme();
+  // Use server theme for dynamic theming
 
-  // Function to handle theme refresh
-  const handleRefreshTheme = async () => {
-    try {
-      HesseLogger.summary.start('Refreshing theme');
-      await refreshTheme();
-      DanteLogger.success.ux('Theme refreshed successfully');
-    } catch (error) {
-      DanteLogger.error.runtime(`Error refreshing theme: ${error}`);
-      console.error('Error refreshing theme:', error);
-    }
-  };
+  // Theme is now automatically refreshed during API calls
 
   const handleAction = (action: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -131,7 +118,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
                   // Convert the analysis to markdown format
                   const analysis = data.analysis;
-                  const markdown = `# P. Brady Georgen - Summary
+                  const markdown = `# ${useServerTheme().name || 'Professional'} - Summary
 
 ## Professional Summary
 
@@ -210,10 +197,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       case 'upload':
         if (onUpload) onUpload();
         break;
-      case 'refresh':
-        if (onRefresh) onRefresh();
-        else handleRefreshTheme();
-        break;
+      // Refresh case removed as it's now handled automatically
       default:
         break;
     }
@@ -808,21 +792,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           </svg>
           Contact
         </a>
-        <span className={styles.actionSeparator}>•</span>
-        <a
-          href="#"
-          className={styles.actionLink}
-          onClick={(e) => handleAction('refresh', e)}
-          aria-label="Refresh Theme"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M23 4v6h-6"></path>
-            <path d="M1 20v-6h6"></path>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
-            <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
-          </svg>
-          Refresh Theme
-        </a>
+
         {/* Upload PDF feature temporarily disabled
         <span className={styles.actionSeparator}>•</span>
         <a
