@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /extraction-logs
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://pbradygeorgen.com/sitemap.xml
