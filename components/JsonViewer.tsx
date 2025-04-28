@@ -20,21 +20,21 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Add a timestamp to bust cache
         const timestamp = new Date().getTime();
         const response = await fetch(`/api/get-pdf-json?t=${timestamp}`);
-        
+
         if (!response.ok) {
           throw new Error(`API responded with status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
+
         if (!data.success) {
           throw new Error(data.error || 'Unknown error');
         }
-        
+
         setJsonContent(data.content);
         DanteLogger.success.basic('JSON content loaded successfully');
       } catch (error) {
@@ -45,7 +45,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
         setLoading(false);
       }
     }
-    
+
     fetchJsonContent();
   }, []);
 
@@ -53,21 +53,21 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Add a timestamp to bust cache and force refresh
       const timestamp = new Date().getTime();
       const response = await fetch(`/api/get-pdf-json?t=${timestamp}&forceRefresh=true`);
-      
+
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       if (!data.success) {
         throw new Error(data.error || 'Unknown error');
       }
-      
+
       setJsonContent(data.content);
       DanteLogger.success.basic('JSON content refreshed successfully');
     } catch (error) {
@@ -81,9 +81,9 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
 
   const handleCopyJson = () => {
     if (!jsonContent) return;
-    
+
     let contentToCopy;
-    
+
     switch (activeTab) {
       case 'raw':
         contentToCopy = jsonContent.rawText;
@@ -97,12 +97,12 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       default:
         contentToCopy = JSON.stringify(jsonContent.structuredContent, null, 2);
     }
-    
+
     navigator.clipboard.writeText(contentToCopy)
       .then(() => {
         setCopySuccess(true);
         DanteLogger.success.ux('JSON content copied to clipboard');
-        
+
         // Reset the success message after 2 seconds
         setTimeout(() => {
           setCopySuccess(false);
@@ -110,13 +110,13 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       })
       .catch(err => {
         console.error('Error copying JSON content:', err);
-        DanteLogger.error.ux('Error copying JSON content', { error: err });
+        DanteLogger.error.runtime('Error copying JSON content', { error: err });
       });
   };
 
   const renderJsonContent = () => {
     if (!jsonContent) return null;
-    
+
     switch (activeTab) {
       case 'raw':
         return (
@@ -159,7 +159,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
           </button>
         )}
       </div>
-      
+
       <div className="flex justify-between items-center mb-4">
         <div className="flex space-x-2">
           <button
@@ -193,7 +193,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
             Full JSON
           </button>
         </div>
-        
+
         <div className="flex space-x-2">
           <button
             onClick={handleRefresh}
@@ -211,7 +211,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
           </button>
         </div>
       </div>
-      
+
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="w-12 h-12 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin"></div>
@@ -226,7 +226,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
           {renderJsonContent()}
         </div>
       )}
-      
+
       <div className="mt-4 text-sm text-[var(--text-tertiary)]">
         <p>
           This view shows the extracted PDF content in JSON format before it's converted to text or markdown.
