@@ -1,0 +1,178 @@
+{
+  "sections": {
+    "name": "BENJAMIN STEIN",
+    "header": [
+      "BENJAMIN STEIN",
+      "WORK EXPERIENCE"
+    ],
+    "about": [],
+    "contact": [
+      "2143 Alfred Ave. St. Louis, MO. 63110",
+      "+1 (314)-809-1836",
+      "benjaminsteinstl@gmail.com"
+    ],
+    "skills": [
+      "Implementation, maintenance, and training of web-based EHR system (Thrive)",
+      "Enterprise web browser (Island)",
+      "Google Enterprise",
+      "Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote",
+      "On / Off-boarding of all office and clinical users",
+      "Configuring securities and permissions",
+      "Communicating with third party vendors",
+      "Troubleshooting EMR, Network, Interfaces, PC’s, Hardware, and Web Applications",
+      "Creating, modifying, or running reports via TruBridge Report Builder",
+      "Support for clinical and office staff",
+      "Implementation of new functionality within Cerner suite",
+      "Design and interpret reports in SAP Business Objects and Discern Analytics",
+      "Develop training material",
+      "Track tickets using Service Now",
+      "Maintain inventory of all PC’s",
+      "Manage user sessions with Citrix Desktop Director"
+    ],
+    "experience": [
+      "CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current",
+      "Shriners Hospital for Children 4400 Clayton Ave, St. Louis, MO 63110 Clinical Analyst II MAR 2018 - MAR 2023",
+      "Advanced ICU Care 1 Cityplace Dr Suite 570 Suite 570, St. Louis, MO 63141 Clinical Analyst I APR 2012 - FEB 2015",
+      "Boeing Under Contract by RMS IT Specialist 2/17 - 2/18",
+      "Baked Tees Graphic Designer - 4/11 - 4/12",
+      "Tek Systems IT Specialist - 3/10 - 9/10",
+      "Nexicore Technology Mobile Technician - 4/09 - 11/09",
+      "Think Tank Design Graphic Designer - 2/07"
+    ],
+    "education": [
+      "Ranken Technical College 2010 - 2012 Network & Database Administration",
+      "St. Louis Community College. 2002 - 2005 Graphic Communications"
+    ],
+    "clients": [],
+    "other": [
+      "Certifications: M.C.T.S - Windows Xp M.C.T.S - VISTA M.C.T.S - Server 08 R2 M.C.T.S - Active Directory M.C.T.S - SQL CompTIA - A+ Dell Certified Systems Expert Sony-certified - laptop repair HIPAA Certified",
+      "References: Karen Johnson C.E.O. Homer G. Phillips Memorial Hospital +1 (314) 399-4288 Susan “Angie” Kinney Clinical Analyst II Shriners Hospital for Children +1 (618) 960-5628 Justin Thuli Manager of I.T. Advanced ICU Care +1 (608) 215-9302"
+    ]
+  },
+  "structuredContent": {
+    "name": "BENJAMIN STEIN",
+    "summary": "Experienced Clinical Informatics Specialist with a strong background in implementing and maintaining healthcare IT systems, providing support and training, and managing clinical informatics projects.",
+    "contact": [
+      {
+        "text": "benjaminsteinstl@gmail.com"
+      },
+      {
+        "text": "+1 (314)-809-1836"
+      },
+      {
+        "text": "2143 Alfred Ave. St. Louis, MO. 63110"
+      }
+    ],
+    "skills": [
+      {
+        "text": "Implementation and maintenance of EHR systems"
+      },
+      {
+        "text": "Enterprise web browser management"
+      },
+      {
+        "text": "Google Enterprise administration"
+      },
+      {
+        "text": "User onboarding and offboarding"
+      },
+      {
+        "text": "Security and permissions configuration"
+      },
+      {
+        "text": "Vendor communication"
+      },
+      {
+        "text": "Troubleshooting IT systems"
+      },
+      {
+        "text": "Report creation and modification"
+      },
+      {
+        "text": "Clinical staff support"
+      },
+      {
+        "text": "Cerner suite implementation"
+      },
+      {
+        "text": "Report design and interpretation"
+      },
+      {
+        "text": "Training material development"
+      },
+      {
+        "text": "Ticket tracking with Service Now"
+      },
+      {
+        "text": "PC inventory management"
+      },
+      {
+        "text": "Citrix Desktop Director management"
+      }
+    ],
+    "experience": [
+      {
+        "period": "MAR 2023 - Current",
+        "company": "Homer G. Phillips Memorial Hospital",
+        "title": "Clinical Informatics Specialist",
+        "description": "Responsible for all systems and technologies at the hospital, including EHR system implementation, user training, and IT support."
+      },
+      {
+        "period": "MAR 2018 - MAR 2023",
+        "company": "Shriners Hospital for Children",
+        "title": "Clinical Analyst II",
+        "description": "Provided 24x7 IT support for clinical staff, managed health information systems, and supported remote clinical staff."
+      },
+      {
+        "period": "APR 2012 - FEB 2015",
+        "company": "Advanced ICU Care",
+        "title": "Clinical Analyst I",
+        "description": "Supported tele-ICU services, managed health information integration engines, and provided remote support."
+      },
+      {
+        "period": "2/17 - 2/18",
+        "company": "Boeing (Under Contract by RMS)",
+        "title": "IT Specialist",
+        "description": "Provided IT support under contract."
+      },
+      {
+        "period": "4/11 - 4/12",
+        "company": "Baked Tees",
+        "title": "Graphic Designer",
+        "description": "Worked as a graphic designer."
+      },
+      {
+        "period": "3/10 - 9/10",
+        "company": "Tek Systems",
+        "title": "IT Specialist",
+        "description": "Worked as an IT Specialist."
+      },
+      {
+        "period": "4/09 - 11/09",
+        "company": "Nexicore Technology",
+        "title": "Mobile Technician",
+        "description": "Worked as a mobile technician."
+      },
+      {
+        "period": "2/07",
+        "company": "Think Tank Design",
+        "title": "Graphic Designer",
+        "description": "Worked as a graphic designer."
+      }
+    ],
+    "education": [
+      {
+        "degree": "Network & Database Administration",
+        "institution": "Ranken Technical College",
+        "period": "2010 - 2012"
+      },
+      {
+        "degree": "Graphic Communications",
+        "institution": "St. Louis Community College",
+        "period": "2002 - 2005"
+      }
+    ],
+    "clients": [],
+    "about": ""
+  }
+}

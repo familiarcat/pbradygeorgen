@@ -53,6 +53,17 @@ if [ ! -f "public/extracted/resume_content.md" ]; then
   exit 1
 fi
 
+# 3.5. Analyze content with ChatGPT
+echo "🧠 Analyzing content with ChatGPT..."
+node scripts/analyze-pdf-content.js
+
+# Note: We don't exit on failure here since this is an enhancement, not a critical feature
+if [ ! -f "public/extracted/resume_content_analyzed.json" ]; then
+  echo "⚠️ WARNING: ChatGPT analysis failed or was skipped"
+else
+  echo "✅ ChatGPT analysis completed successfully"
+fi
+
 # 4. Extract a content fingerprint to verify we're using the right PDF
 CONTENT_PREVIEW=$(head -n 20 public/extracted/resume_content.md)
 CONTENT_HASH=$(echo "$CONTENT_PREVIEW" | shasum -a 256 | cut -d' ' -f1)
@@ -104,7 +115,8 @@ cat >public/extracted/extraction_log.json <<EOL
     "textExtracted": $([ -f "public/extracted/resume_content.txt" ] && echo "true" || echo "false"),
     "markdownExtracted": $([ -f "public/extracted/resume_content.md" ] && echo "true" || echo "false"),
     "fontsExtracted": $([ -f "public/extracted/font_info.json" ] && echo "true" || echo "false"),
-    "colorsExtracted": $([ -f "public/extracted/color_theme.json" ] && echo "true" || echo "false")
+    "colorsExtracted": $([ -f "public/extracted/color_theme.json" ] && echo "true" || echo "false"),
+    "chatGptAnalyzed": $([ -f "public/extracted/resume_content_analyzed.json" ] && echo "true" || echo "false")
   },
   "extractionSteps": [
     {
@@ -156,6 +168,7 @@ EXTRACTED CONTENT:
 - Markdown: $([ -f "public/extracted/resume_content.md" ] && echo "✅" || echo "❌")
 - Fonts: $([ -f "public/extracted/font_info.json" ] && echo "✅" || echo "❌")
 - Colors: $([ -f "public/extracted/color_theme.json" ] && echo "✅" || echo "❌")
+- ChatGPT Analysis: $([ -f "public/extracted/resume_content_analyzed.json" ] && echo "✅" || echo "❌")
 
 EXTRACTION TIMELINE:
 $(date) - Extraction process completed

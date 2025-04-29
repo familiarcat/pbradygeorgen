@@ -322,7 +322,8 @@ export async function forceRefreshContent(): Promise<boolean> {
         textExtracted: fs.existsSync(textPath),
         markdownExtracted: fs.existsSync(markdownPath),
         fontsExtracted: fs.existsSync(path.join(extractedDir, 'font_info.json')),
-        colorsExtracted: fs.existsSync(path.join(extractedDir, 'color_theme.json'))
+        colorsExtracted: fs.existsSync(path.join(extractedDir, 'color_theme.json')),
+        chatGptAnalyzed: fs.existsSync(path.join(extractedDir, 'resume_content_analyzed.json'))
       }
     };
 

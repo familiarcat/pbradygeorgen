@@ -446,13 +446,100 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
   }
 
   try {
-    // Always use our own formatting for consistency
-    if (true) {
-      DanteLogger.warn.deprecated('Using custom resume formatting for consistency');
+    // Check if we have ChatGPT-analyzed content
+    const analyzedContentPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content_analyzed.json');
+    if (fs.existsSync(analyzedContentPath)) {
+      try {
+        DanteLogger.success.basic('Using ChatGPT-analyzed content for formatting');
 
-      // Create a more structured markdown with Salinger-inspired formatting
-      const lines = content.split('\n').filter(line => line.trim() !== '');
-      let formattedContent = '# P. Brady Georgen\n\n';
+        // Read the analyzed content
+        const analyzedContent = JSON.parse(fs.readFileSync(analyzedContentPath, 'utf8'));
+
+        // Use the analyzed content to create a more structured markdown
+        const { structuredContent } = analyzedContent;
+
+        // Start with the person's name
+        let formattedContent = `# ${structuredContent.name}\n\n`;
+
+        // Add professional summary
+        formattedContent += '## Professional Summary\n\n';
+        formattedContent += `${structuredContent.summary || 'Professional with extensive experience in the field.'}\n\n`;
+
+        // Add contact information
+        formattedContent += '## Contact Information\n\n';
+        if (structuredContent.contact && structuredContent.contact.length > 0) {
+          structuredContent.contact.forEach(contact => {
+            formattedContent += `${contact.text}  \n`;
+          });
+          formattedContent += '\n';
+        } else {
+          formattedContent += 'Contact information not available.\n\n';
+        }
+
+        // Add experience section
+        formattedContent += '## Experience\n\n';
+        if (structuredContent.experience && structuredContent.experience.length > 0) {
+          // Sort experience by date (most recent first)
+          const sortedExperience = [...structuredContent.experience].sort((a, b) => {
+            const aHasPresent = a.period.toLowerCase().includes('present') || a.period.toLowerCase().includes('current');
+            const bHasPresent = b.period.toLowerCase().includes('present') || b.period.toLowerCase().includes('current');
+
+            if (aHasPresent && !bHasPresent) return -1;
+            if (!aHasPresent && bHasPresent) return 1;
+
+            return 0; // Keep original order for now
+          });
+
+          sortedExperience.forEach(exp => {
+            formattedContent += `### ${exp.company}\n\n`;
+            formattedContent += `**${exp.title}** (${exp.period})\n\n`;
+            if (exp.description) {
+              formattedContent += `${exp.description}\n\n`;
+            }
+          });
+        } else {
+          formattedContent += 'Experience information not available.\n\n';
+        }
+
+        // Add skills section
+        formattedContent += '## Skills & Technologies\n\n';
+        if (structuredContent.skills && structuredContent.skills.length > 0) {
+          structuredContent.skills.forEach(skill => {
+            formattedContent += `- ${skill.text}\n`;
+          });
+          formattedContent += '\n';
+        } else {
+          formattedContent += 'Skills information not available.\n\n';
+        }
+
+        // Add education section
+        formattedContent += '## Education\n\n';
+        if (structuredContent.education && structuredContent.education.length > 0) {
+          structuredContent.education.forEach(edu => {
+            formattedContent += `### ${edu.degree || 'Degree'}\n\n`;
+            formattedContent += `**${edu.institution}** (${edu.period || 'N/A'})\n\n`;
+          });
+        } else {
+          formattedContent += 'Education information not available.\n\n';
+        }
+
+        return {
+          success: true,
+          data: formattedContent
+        };
+      } catch (analyzeError) {
+        console.error('Error using ChatGPT-analyzed content:', analyzeError);
+        DanteLogger.error.dataFlow('Error using ChatGPT-analyzed content, falling back to default formatting');
+        // Fall back to default formatting
+      }
+    }
+
+    // Always use our own formatting for consistency if ChatGPT analysis is not available
+    DanteLogger.warn.deprecated('Using custom resume formatting for consistency');
+
+    // Create a more structured markdown with Salinger-inspired formatting
+    const lines = content.split('\n').filter(line => line.trim() !== '');
+    let formattedContent = '# P. Brady Georgen\n\n';
 
       // Add professional summary
       formattedContent += '## Professional Summary\n\n';
@@ -708,15 +795,108 @@ async function formatContentAsText(content: string, contentType: string): Promis
   }
 
   try {
-    // Always use our own formatting for consistency
-    if (true) {
-      DanteLogger.warn.deprecated('Using custom resume text formatting for consistency');
+    // Check if we have ChatGPT-analyzed content
+    const analyzedContentPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content_analyzed.json');
+    if (fs.existsSync(analyzedContentPath)) {
+      try {
+        DanteLogger.success.basic('Using ChatGPT-analyzed content for text formatting');
 
-      // Create a more structured fallback text with Salinger-inspired formatting
-      // This matches the structure of the markdown formatting for consistency
-      const lines = content.split('\n').filter(line => line.trim() !== '');
-      let formattedContent = 'P. BRADY GEORGEN\n';
-      formattedContent += '=================\n\n\n';
+        // Read the analyzed content
+        const analyzedContent = JSON.parse(fs.readFileSync(analyzedContentPath, 'utf8'));
+
+        // Use the analyzed content to create a more structured text
+        const { structuredContent } = analyzedContent;
+
+        // Start with the person's name
+        let formattedContent = `${structuredContent.name.toUpperCase()}\n`;
+        formattedContent += '='.repeat(structuredContent.name.length) + '\n\n\n';
+
+        // Add professional summary
+        formattedContent += 'PROFESSIONAL SUMMARY\n';
+        formattedContent += '--------------------\n\n';
+        formattedContent += `${structuredContent.summary || 'Professional with extensive experience in the field.'}\n\n\n`;
+
+        // Add contact information
+        formattedContent += 'CONTACT INFORMATION\n';
+        formattedContent += '-------------------\n\n';
+        if (structuredContent.contact && structuredContent.contact.length > 0) {
+          structuredContent.contact.forEach(contact => {
+            formattedContent += `${contact.text}\n`;
+          });
+          formattedContent += '\n\n';
+        } else {
+          formattedContent += 'Contact information not available.\n\n\n';
+        }
+
+        // Add experience section
+        formattedContent += 'EXPERIENCE\n';
+        formattedContent += '----------\n\n';
+        if (structuredContent.experience && structuredContent.experience.length > 0) {
+          // Sort experience by date (most recent first)
+          const sortedExperience = [...structuredContent.experience].sort((a, b) => {
+            const aHasPresent = a.period.toLowerCase().includes('present') || a.period.toLowerCase().includes('current');
+            const bHasPresent = b.period.toLowerCase().includes('present') || b.period.toLowerCase().includes('current');
+
+            if (aHasPresent && !bHasPresent) return -1;
+            if (!aHasPresent && bHasPresent) return 1;
+
+            return 0; // Keep original order for now
+          });
+
+          sortedExperience.forEach(exp => {
+            formattedContent += `${exp.company}\n`;
+            formattedContent += `${exp.title} (${exp.period})\n\n`;
+            if (exp.description) {
+              formattedContent += `* ${exp.description}\n\n`;
+            }
+          });
+        } else {
+          formattedContent += 'Experience information not available.\n\n';
+        }
+
+        // Add skills section
+        formattedContent += 'SKILLS & TECHNOLOGIES\n';
+        formattedContent += '--------------------\n\n';
+        if (structuredContent.skills && structuredContent.skills.length > 0) {
+          structuredContent.skills.forEach(skill => {
+            formattedContent += `* ${skill.text}\n`;
+          });
+          formattedContent += '\n\n';
+        } else {
+          formattedContent += 'Skills information not available.\n\n\n';
+        }
+
+        // Add education section
+        formattedContent += 'EDUCATION\n';
+        formattedContent += '---------\n\n';
+        if (structuredContent.education && structuredContent.education.length > 0) {
+          structuredContent.education.forEach(edu => {
+            formattedContent += `${edu.degree || 'Degree'}\n\n`;
+            formattedContent += `${edu.institution} (${edu.period || 'N/A'})\n\n`;
+          });
+        } else {
+          formattedContent += 'Education information not available.\n\n';
+        }
+
+        return {
+          success: true,
+          data: formattedContent
+        };
+      } catch (analyzeError) {
+        console.error('Error using ChatGPT-analyzed content for text:', analyzeError);
+        DanteLogger.error.dataFlow('Error using ChatGPT-analyzed content for text, falling back to default formatting');
+        // Fall back to default formatting
+      }
+    }
+
+    // Always use our own formatting for consistency if ChatGPT analysis is not available
+    DanteLogger.warn.deprecated('Using custom resume text formatting for consistency');
+
+    // Create a more structured fallback text with Salinger-inspired formatting
+    // This matches the structure of the markdown formatting for consistency
+    const lines = content.split('\n').filter(line => line.trim() !== '');
+    let formattedContent = 'P. BRADY GEORGEN\n';
+    formattedContent += '=================\n\n\n';
 
       // Add professional summary
       formattedContent += 'PROFESSIONAL SUMMARY\n';
