@@ -14,7 +14,7 @@
     "philosophy": "Salinger: Authenticity and directness"
   },
   "derridaFont": {
-    "name": "IBM Plex Mono",
+    "name": "Fira Mono",
     "isSerifFont": false,
     "isMonospace": true,
     "type": "monospace",

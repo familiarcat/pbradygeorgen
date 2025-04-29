@@ -34,9 +34,8 @@ async function analyzeResumeContent() {
     const rawText = fs.readFileSync(textPath, 'utf8');
     console.log(`📄 Read ${rawText.length} characters from extracted text`);
 
-    // Import the OpenAI service dynamically
-    // We need to use require for CommonJS compatibility in the script
-    const { analyzeResumeContent, saveAnalyzedContent } = require('../utils/openaiPdfStructureService');
+    // Import the OpenAI service
+    const { analyzeResumeContent, saveAnalyzedContent } = require('./openai-pdf-analyzer');
 
     // Analyze the content
     console.log('🧠 Analyzing content with ChatGPT...');
