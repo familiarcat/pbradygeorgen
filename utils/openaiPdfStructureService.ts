@@ -191,6 +191,11 @@ Please ensure that:
 3. Dates, company names, job titles, etc. are correctly identified
 4. Skills are properly extracted and formatted
 5. The JSON is valid and properly formatted
+6. For experience entries, include a descriptive paragraph for each position
+7. For education entries, include degree, institution, and period
+8. For contact information, format as { "text": "contact info" }
+9. For skills, format each skill as { "text": "skill description" }
+10. Ensure all string values use escaped quotes for any internal quotation marks
 `;
 }
 
@@ -224,33 +229,81 @@ function createFallbackAnalysis(rawText: string) {
     name = 'Professional Resume';
   }
 
+  // Extract contact information
+  const contactLines = lines.filter(line =>
+    line.includes('@') ||
+    line.includes('.com') ||
+    line.match(/[0-9]{3}[-. ][0-9]{3}[-. ][0-9]{4}/)
+  );
+
+  // Extract skills
+  const skillLines = lines.filter(line =>
+    line.includes('•') ||
+    line.includes('*') ||
+    line.toLowerCase().includes('skill')
+  );
+
+  // Extract experience
+  const experienceLines = lines.filter(line =>
+    line.match(/^[0-9]{4}/) ||
+    line.includes('Experience') ||
+    line.includes('EXPERIENCE')
+  );
+
+  // Extract education
+  const educationLines = lines.filter(line =>
+    line.includes('Education') ||
+    line.includes('EDUCATION') ||
+    line.includes('University') ||
+    line.includes('College')
+  );
+
+  // Create a basic experience entry
+  const experienceEntries = [];
+  if (experienceLines.length > 0) {
+    experienceEntries.push({
+      period: "Present",
+      company: "Company",
+      title: "Professional",
+      description: "Professional experience extracted from resume."
+    });
+  }
+
+  // Create a basic education entry
+  const educationEntries = [];
+  if (educationLines.length > 0) {
+    educationEntries.push({
+      degree: "Degree",
+      institution: "Institution",
+      period: "Education Period"
+    });
+  }
+
   // Create a basic analysis
   return {
     sections: {
       name,
       header: lines.slice(0, 5),
       about: [],
-      contact: lines.filter(line => line.includes('@') || line.includes('.com') || line.match(/[0-9]{3}[-. ][0-9]{3}[-. ][0-9]{4}/)),
-      skills: lines.filter(line => line.includes('•') || line.includes('*')),
-      experience: lines.filter(line => line.match(/^[0-9]{4}/) || line.includes('Experience')),
-      education: lines.filter(line => line.includes('Education') || line.includes('University') || line.includes('College')),
+      contact: contactLines,
+      skills: skillLines,
+      experience: experienceLines,
+      education: educationLines,
       clients: [],
       other: []
     },
     structuredContent: {
       name,
       summary: lines.slice(0, 5).join(' '),
-      contact: lines.filter(line => line.includes('@') || line.includes('.com') || line.match(/[0-9]{3}[-. ][0-9]{3}[-. ][0-9]{4}/))
-        .map(line => ({ text: line.trim() })),
-      skills: lines.filter(line => line.includes('•') || line.includes('*'))
-        .map(line => {
-          if (line.startsWith('•') || line.startsWith('*')) {
-            return { text: line.substring(1).trim() };
-          }
-          return { text: line.trim() };
-        }),
-      experience: [],
-      education: [],
+      contact: contactLines.map(line => ({ text: line.trim() })),
+      skills: skillLines.map(line => {
+        if (line.startsWith('•') || line.startsWith('*')) {
+          return { text: line.substring(1).trim() };
+        }
+        return { text: line.trim() };
+      }),
+      experience: experienceEntries,
+      education: educationEntries,
       clients: [],
       about: ''
     }
