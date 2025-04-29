@@ -14,6 +14,9 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('structured');
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
+  const [showAnalyzed, setShowAnalyzed] = useState<boolean>(false);
+  const [analyzedContent, setAnalyzedContent] = useState<any>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJsonContent() {
@@ -49,6 +52,37 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
     fetchJsonContent();
   }, []);
 
+  const fetchAnalyzedContent = async (forceRefresh = false) => {
+    try {
+      setIsAnalyzing(true);
+      setError(null);
+
+      // Add a timestamp to bust cache
+      const timestamp = new Date().getTime();
+      const response = await fetch(`/api/analyze-pdf-content?t=${timestamp}${forceRefresh ? '&forceRefresh=true' : ''}`);
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error');
+      }
+
+      setAnalyzedContent(data.analyzedContent);
+      setShowAnalyzed(true);
+      DanteLogger.success.core('Analyzed content loaded successfully');
+    } catch (error) {
+      console.error('Error loading analyzed content:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load analyzed content');
+      DanteLogger.error.dataFlow('Error loading analyzed content', { error });
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   const handleRefresh = async () => {
     try {
       setLoading(true);
@@ -80,22 +114,26 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
   };
 
   const handleCopyJson = () => {
-    if (!jsonContent) return;
+    if (!jsonContent && !analyzedContent) return;
 
     let contentToCopy;
 
-    switch (activeTab) {
-      case 'raw':
-        contentToCopy = jsonContent.rawText;
-        break;
-      case 'structured':
-        contentToCopy = JSON.stringify(jsonContent.structuredContent, null, 2);
-        break;
-      case 'full':
-        contentToCopy = JSON.stringify(jsonContent, null, 2);
-        break;
-      default:
-        contentToCopy = JSON.stringify(jsonContent.structuredContent, null, 2);
+    if (showAnalyzed && analyzedContent) {
+      contentToCopy = JSON.stringify(analyzedContent, null, 2);
+    } else {
+      switch (activeTab) {
+        case 'raw':
+          contentToCopy = jsonContent.rawText;
+          break;
+        case 'structured':
+          contentToCopy = JSON.stringify(jsonContent.structuredContent, null, 2);
+          break;
+        case 'full':
+          contentToCopy = JSON.stringify(jsonContent, null, 2);
+          break;
+        default:
+          contentToCopy = JSON.stringify(jsonContent.structuredContent, null, 2);
+      }
     }
 
     navigator.clipboard.writeText(contentToCopy)
@@ -115,6 +153,14 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
   };
 
   const renderJsonContent = () => {
+    if (showAnalyzed && analyzedContent) {
+      return (
+        <pre className="bg-[var(--bg-secondary)] p-4 rounded-md overflow-auto max-h-[60vh] text-sm">
+          {JSON.stringify(analyzedContent, null, 2)}
+        </pre>
+      );
+    }
+
     if (!jsonContent) return null;
 
     switch (activeTab) {
@@ -162,49 +208,77 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
 
       <div className="flex justify-between items-center mb-4">
         <div className="flex space-x-2">
-          <button
-            onClick={() => setActiveTab('structured')}
-            className={`px-3 py-1 rounded ${
-              activeTab === 'structured'
-                ? 'bg-[var(--cta-primary)] text-white'
-                : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
-            }`}
-          >
-            Structured
-          </button>
-          <button
-            onClick={() => setActiveTab('raw')}
-            className={`px-3 py-1 rounded ${
-              activeTab === 'raw'
-                ? 'bg-[var(--cta-primary)] text-white'
-                : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
-            }`}
-          >
-            Raw Text
-          </button>
-          <button
-            onClick={() => setActiveTab('full')}
-            className={`px-3 py-1 rounded ${
-              activeTab === 'full'
-                ? 'bg-[var(--cta-primary)] text-white'
-                : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
-            }`}
-          >
-            Full JSON
-          </button>
+          {!showAnalyzed ? (
+            <>
+              <button
+                onClick={() => setActiveTab('structured')}
+                className={`px-3 py-1 rounded ${
+                  activeTab === 'structured'
+                    ? 'bg-[var(--cta-primary)] text-white'
+                    : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
+                }`}
+              >
+                Structured
+              </button>
+              <button
+                onClick={() => setActiveTab('raw')}
+                className={`px-3 py-1 rounded ${
+                  activeTab === 'raw'
+                    ? 'bg-[var(--cta-primary)] text-white'
+                    : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
+                }`}
+              >
+                Raw Text
+              </button>
+              <button
+                onClick={() => setActiveTab('full')}
+                className={`px-3 py-1 rounded ${
+                  activeTab === 'full'
+                    ? 'bg-[var(--cta-primary)] text-white'
+                    : 'bg-[var(--bg-secondary)] text-[var(--text-primary)]'
+                }`}
+              >
+                Full JSON
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => setShowAnalyzed(false)}
+              className="px-3 py-1 rounded bg-[var(--bg-secondary)] text-[var(--text-primary)]"
+            >
+              Back to Original
+            </button>
+          )}
         </div>
 
         <div className="flex space-x-2">
+          {!showAnalyzed ? (
+            <button
+              onClick={() => fetchAnalyzedContent()}
+              disabled={loading || isAnalyzing}
+              className="px-3 py-1 rounded bg-[var(--cta-accent)] text-white disabled:opacity-50"
+            >
+              {isAnalyzing ? 'Analyzing...' : 'Analyze with ChatGPT'}
+            </button>
+          ) : (
+            <button
+              onClick={() => fetchAnalyzedContent(true)}
+              disabled={loading || isAnalyzing}
+              className="px-3 py-1 rounded bg-[var(--cta-accent)] text-white disabled:opacity-50"
+            >
+              {isAnalyzing ? 'Analyzing...' : 'Re-Analyze'}
+            </button>
+          )}
           <button
             onClick={handleRefresh}
-            disabled={loading}
+            disabled={loading || isAnalyzing}
             className="px-3 py-1 rounded bg-[var(--cta-secondary)] text-white disabled:opacity-50"
           >
             {loading ? 'Refreshing...' : 'Refresh'}
           </button>
           <button
             onClick={handleCopyJson}
-            disabled={!jsonContent || loading}
+            disabled={(!jsonContent && !analyzedContent) || loading || isAnalyzing}
             className="px-3 py-1 rounded bg-[var(--cta-primary)] text-white disabled:opacity-50"
           >
             {copySuccess ? 'Copied!' : 'Copy JSON'}
@@ -215,6 +289,12 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="w-12 h-12 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin"></div>
+        </div>
+      ) : isAnalyzing ? (
+        <div className="flex flex-col justify-center items-center h-64">
+          <div className="w-12 h-12 border-t-4 border-[var(--cta-accent)] border-solid rounded-full animate-spin mb-4"></div>
+          <p className="text-[var(--text-secondary)]">Analyzing with ChatGPT...</p>
+          <p className="text-xs text-[var(--text-tertiary)] mt-2">This may take a few moments</p>
         </div>
       ) : error ? (
         <div className="bg-[var(--state-error-light)] text-[var(--state-error)] p-4 rounded-md">
@@ -228,10 +308,19 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       )}
 
       <div className="mt-4 text-sm text-[var(--text-tertiary)]">
-        <p>
-          This view shows the extracted PDF content in JSON format before it's converted to text or markdown.
-          Use this to diagnose issues with the content extraction and download functionality.
-        </p>
+        {showAnalyzed ? (
+          <p>
+            This view shows the PDF content analyzed by ChatGPT. The AI has structured the raw text into
+            sections and organized the content. Compare this with the original extraction to see how
+            ChatGPT interprets the resume content.
+          </p>
+        ) : (
+          <p>
+            This view shows the extracted PDF content in JSON format before it's converted to text or markdown.
+            Use this to diagnose issues with the content extraction and download functionality.
+            Click "Analyze with ChatGPT" to see how AI would structure this content.
+          </p>
+        )}
       </div>
     </div>
   );
