@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
+import ContentStatusDashboard from './ContentStatusDashboard';
 
 interface JsonViewerProps {
   onClose?: () => void;
@@ -17,6 +18,7 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
   const [showAnalyzed, setShowAnalyzed] = useState<boolean>(false);
   const [analyzedContent, setAnalyzedContent] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [showStatusDashboard, setShowStatusDashboard] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchJsonContent() {
@@ -74,6 +76,16 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       setAnalyzedContent(data.analyzedContent);
       setShowAnalyzed(true);
       DanteLogger.success.core('Analyzed content loaded successfully');
+
+      // Show success message
+      setError(null);
+
+      // If this was a force refresh, reload the page after a short delay to show the updated content
+      if (forceRefresh) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     } catch (error) {
       console.error('Error loading analyzed content:', error);
       setError(error instanceof Error ? error.message : 'Failed to load analyzed content');
@@ -194,7 +206,15 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
   return (
     <div className="json-viewer bg-[var(--bg-primary)] text-[var(--text-primary)] p-6 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">PDF Content JSON Viewer</h2>
+        <div className="flex items-center">
+          <h2 className="text-xl font-bold mr-4">PDF Content JSON Viewer</h2>
+          <button
+            onClick={() => setShowStatusDashboard(!showStatusDashboard)}
+            className="px-3 py-1 rounded bg-[var(--cta-secondary)] text-white text-sm"
+          >
+            {showStatusDashboard ? 'Hide Status Dashboard' : 'Show Status Dashboard'}
+          </button>
+        </div>
         {onClose && (
           <button
             onClick={onClose}
@@ -304,6 +324,12 @@ export default function JsonViewer({ onClose }: JsonViewerProps) {
       ) : (
         <div className="json-content">
           {renderJsonContent()}
+        </div>
+      )}
+
+      {showStatusDashboard && (
+        <div className="mt-6 mb-6">
+          <ContentStatusDashboard />
         </div>
       )}
 

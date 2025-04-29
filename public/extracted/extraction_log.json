@@ -1,28 +1,132 @@
 {
-  "timestamp": "2025-04-29T00:58:47Z",
+  "timestamp": "2025-04-29T15:23:32.331Z",
   "pdfInfo": {
-    "path": "public/default_resume.pdf",
+    "path": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf",
     "size": 119425,
-    "lastModified": "2025-04-28 18:13:57",
-    "contentFingerprint": "47da4fdc11fa5d6997708f8bfe53b2233c86433a3c8038a5ea4fa862c14f59b3"
-  },
-  "extractionStatus": {
-    "textExtracted": true,
-    "markdownExtracted": true,
-    "fontsExtracted": true,
-    "colorsExtracted": true,
-    "chatGptAnalyzed": true
+    "lastModified": "2025-04-28T23:13:57.081Z",
+    "contentFingerprint": "43e643523fb2906bea607489c0b6a8412004368f6dce1bc165e27799390a6554"
   },
   "extractionSteps": [
     {
-      "timestamp": "2025-04-29T00:58:47Z",
-      "type": "info",
-      "message": "Extraction process started"
+      "timestamp": "2025-04-29T15:23:32.331Z",
+      "type": "init",
+      "message": "PDF Extraction Logger initialized",
+      "details": {}
     },
     {
-      "timestamp": "2025-04-29T00:58:47Z",
+      "timestamp": "2025-04-29T15:23:32.331Z",
+      "type": "info",
+      "message": "Starting PDF content refresh",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-04-29T15:23:32.331Z",
+      "type": "info",
+      "message": "Saved content fingerprint",
+      "details": {
+        "fingerprint": "43e64352..."
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:32.331Z",
+      "type": "info",
+      "message": "Running text extraction script",
+      "details": {
+        "script": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-text-improved.js"
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:33.812Z",
       "type": "success",
-      "message": "Extraction process completed"
+      "message": "Text extraction successful",
+      "details": {
+        "preview": "BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current 2143 Alf...",
+        "length": 3327
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:33.812Z",
+      "type": "success",
+      "message": "Markdown generation successful",
+      "details": {
+        "preview": "# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF resume.*\n*Generated on: 4/29/2025*\n...",
+        "length": 117
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:33.813Z",
+      "type": "info",
+      "message": "Extracting font information",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.081Z",
+      "type": "success",
+      "message": "Font extraction successful",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.081Z",
+      "type": "info",
+      "message": "Extracting color information",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.287Z",
+      "type": "success",
+      "message": "Color extraction successful",
+      "details": {
+        "theme": {
+          "primary": "#2eb87a",
+          "secondary": "#6b3399",
+          "accent": "#d92677"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.288Z",
+      "type": "info",
+      "message": "Saved build info file",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.304Z",
+      "type": "success",
+      "message": "Retrieved extracted content",
+      "details": {
+        "preview": "# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF resume.*\n*Generate..."
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.313Z",
+      "type": "info",
+      "message": "PDF file information",
+      "details": {
+        "path": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf",
+        "size": 119425,
+        "lastModified": "2025-04-28T23:13:57.081Z",
+        "fingerprint": "43e643523fb2906bea607489c0b6a8412004368f6dce1bc165e27799390a6554"
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.314Z",
+      "type": "info",
+      "message": "Found stored content fingerprint",
+      "details": {
+        "fingerprint": "43e64352..."
+      }
+    },
+    {
+      "timestamp": "2025-04-29T15:23:34.314Z",
+      "type": "success",
+      "message": "PDF content is fresh",
+      "details": {}
     }
-  ]
+  ],
+  "extractedContent": {
+    "text": true,
+    "markdown": true,
+    "fonts": true,
+    "colors": true
+  }
 }

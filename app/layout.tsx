@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import { inter, roboto, merriweather, sourceSans } from './fonts';
 import "./globals.css";
 import InitialThemeLoader from "@/components/InitialThemeLoader";
+import PdfContentWrapper from "@/components/wrappers/PdfContentWrapper";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -25,7 +26,9 @@ export default function RootLayout({
         className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${sourceSans.variable} ${geistMono.variable} antialiased m-0 p-0 overflow-hidden`}
       >
         <InitialThemeLoader>
-          {children}
+          <PdfContentWrapper>
+            {children}
+          </PdfContentWrapper>
         </InitialThemeLoader>
       </body>
     </html>

@@ -1,14 +1,16 @@
 {
-  "buildTimestamp": "2025-04-29T00:58:47Z",
+  "buildTimestamp": "2025-04-29T15:23:34.287Z",
   "pdfInfo": {
-    "path": "public/default_resume.pdf",
+    "path": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf",
     "size": 119425,
-    "lastModified": "2025-04-28 18:13:57",
-    "contentFingerprint": "338b8e84ec15c6446dcf62f9bf4db8ca71e784bb1768631921b28a1308bcee0e"
+    "lastModified": "2025-04-28T23:13:57.081Z",
+    "contentFingerprint": "43e643523fb2906bea607489c0b6a8412004368f6dce1bc165e27799390a6554"
   },
   "extractionStatus": {
     "textExtracted": true,
+    "markdownExtracted": true,
     "fontsExtracted": true,
-    "colorsExtracted": true
+    "colorsExtracted": true,
+    "chatGptAnalyzed": true
   }
 }

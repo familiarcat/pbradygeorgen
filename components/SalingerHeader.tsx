@@ -551,6 +551,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setShowMdPreview(false); // Reset preview state
 
                   try {
+                    // Get the content from the file
+                    const contentResponse = await fetch('/extracted/resume_content.md');
+                    const content = await contentResponse.text();
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -558,7 +562,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                        filePath: '/extracted/resume_content.md',
+                        content,
+                        contentType: 'resume',
                         format: 'markdown'
                       }),
                     });
@@ -574,7 +579,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     }
 
                     // Set the preview content and show the preview modal
-                    setPreviewContent(result.formattedContent);
+                    setPreviewContent(result.data);
                     setShowMdPreview(true);
                   } catch (error) {
                     console.error('Error generating markdown preview:', error);
@@ -598,6 +603,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingMd(true);
 
                   try {
+                    // Get the content from the file
+                    const contentResponse = await fetch('/extracted/resume_content.md');
+                    const content = await contentResponse.text();
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -605,7 +614,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                        filePath: '/extracted/resume_content.md',
+                        content,
+                        contentType: 'resume',
                         format: 'markdown'
                       }),
                     });
@@ -624,7 +634,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     console.log(`Content type detected: ${result.contentType}`);
 
                     // Create and download the file
-                    const blob = new Blob([result.formattedContent], { type: 'text/markdown' });
+                    const blob = new Blob([result.data], { type: 'text/markdown' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
@@ -671,6 +681,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setShowTxtPreview(false); // Reset preview state
 
                   try {
+                    // Get the content from the file
+                    const contentResponse = await fetch('/extracted/resume_content.md');
+                    const content = await contentResponse.text();
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -678,7 +692,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                        filePath: '/extracted/resume_content.md',
+                        content,
+                        contentType: 'resume',
                         format: 'text'
                       }),
                     });
@@ -694,7 +709,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     }
 
                     // Set the preview content and show the preview modal
-                    setPreviewContent(result.formattedContent);
+                    setPreviewContent(result.data);
                     setShowTxtPreview(true);
                   } catch (error) {
                     console.error('Error generating text preview:', error);
@@ -718,6 +733,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingTxt(true);
 
                   try {
+                    // Get the content from the file
+                    const contentResponse = await fetch('/extracted/resume_content.md');
+                    const content = await contentResponse.text();
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -725,7 +744,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                        filePath: '/extracted/resume_content.md',
+                        content,
+                        contentType: 'resume',
                         format: 'text'
                       }),
                     });
@@ -744,7 +764,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     console.log(`Content type detected: ${result.contentType}`);
 
                     // Create and download the file
-                    const blob = new Blob([result.formattedContent], { type: 'text/plain' });
+                    const blob = new Blob([result.data], { type: 'text/plain' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;

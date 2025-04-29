@@ -18,7 +18,7 @@ node scripts/verify-pdf-content.js
 # Check if the verification was successful
 if [ $? -ne 0 ]; then
     echo "Error: PDF content verification failed"
-    exit 1  # Exit with error to fail the build
+    exit 1 # Exit with error to fail the build
 fi
 
 # Run the dynamic PDF extraction process
@@ -28,7 +28,17 @@ echo "Running dynamic PDF extraction process..."
 # Check if the extraction was successful
 if [ $? -ne 0 ]; then
     echo "Error: Dynamic PDF extraction failed"
-    exit 1  # Exit with error to fail the build
+    exit 1 # Exit with error to fail the build
+fi
+
+# Pre-process the PDF content with ChatGPT
+echo "Pre-processing PDF content with ChatGPT..."
+node scripts/preprocess-pdf-content.js
+
+# Check if the pre-processing was successful
+if [ $? -ne 0 ]; then
+    echo "Error: PDF content pre-processing failed"
+    exit 1 # Exit with error to fail the build
 fi
 
 # Exit with success
