@@ -259,7 +259,12 @@ function createFallbackAnalysis(rawText: string) {
   );
 
   // Create a basic experience entry
-  const experienceEntries = [];
+  const experienceEntries: Array<{
+    period: string;
+    company: string;
+    title: string;
+    description: string;
+  }> = [];
   if (experienceLines.length > 0) {
     experienceEntries.push({
       period: "Present",
@@ -270,7 +275,11 @@ function createFallbackAnalysis(rawText: string) {
   }
 
   // Create a basic education entry
-  const educationEntries = [];
+  const educationEntries: Array<{
+    degree: string;
+    institution: string;
+    period: string;
+  }> = [];
   if (educationLines.length > 0) {
     educationEntries.push({
       degree: "Degree",
