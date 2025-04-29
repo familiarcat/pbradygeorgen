@@ -652,6 +652,7 @@ async function formatContentAsMarkdown(content: string, contentType: string): Pr
     };
     }
 
+    // If we don't have ChatGPT-analyzed content or it failed, use OpenAI to format
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -1014,6 +1015,7 @@ async function formatContentAsText(content: string, contentType: string): Promis
     };
     }
 
+    // If we don't have ChatGPT-analyzed content or it failed, use OpenAI to format
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
