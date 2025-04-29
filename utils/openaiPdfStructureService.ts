@@ -1,57 +1,57 @@
 /**
  * OpenAI PDF Structure Service
- * 
+ *
  * This service uses OpenAI to analyze the raw text extracted from a PDF
  * and structure it into sections and structured content.
  */
 
 import { DanteLogger } from './DanteLogger';
 import { HesseLogger } from './HesseLogger';
-import { dynamicCacheService } from './dynamicCacheService';
+import { DynamicCacheService } from './dynamicCacheService';
 import { promises as fs } from 'fs';
 import path from 'path';
 
 // Check if OpenAI API key is available
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-// Cache service for OpenAI responses
-const openaiCache = dynamicCacheService.createCache('openai-pdf-structure');
+// Create a cache service for OpenAI responses
+const openaiCache = new DynamicCacheService<any>('openai-pdf-structure');
 
 /**
  * Analyze resume content using OpenAI
- * 
+ *
  * @param rawText The raw text extracted from the PDF
  * @returns The analyzed content with sections and structured content
  */
 export async function analyzeResumeContent(rawText: string) {
   try {
     HesseLogger.ai.start('Analyzing resume content with OpenAI');
-    
+
     // Check if OpenAI API key is available
     if (!OPENAI_API_KEY) {
       HesseLogger.ai.warning('OpenAI API key is not available');
       DanteLogger.warn.deprecated('OpenAI API key is not available, using fallback analysis');
       return createFallbackAnalysis(rawText);
     }
-    
+
     // Generate a cache key based on the content
     const contentHash = await generateContentHash(rawText);
     const cacheKey = `resume-analysis-${contentHash}`;
-    
+
     // Check if we have a cached response
-    const cachedResponse = await openaiCache.get(cacheKey);
+    const cachedResponse = openaiCache.getItem(cacheKey);
     if (cachedResponse) {
       HesseLogger.ai.progress('Using cached OpenAI analysis');
       return cachedResponse;
     }
-    
+
     // Create the prompt for OpenAI
     const prompt = createResumeAnalysisPrompt(rawText);
-    
+
     // Call OpenAI API
     const startTime = Date.now();
     HesseLogger.openai.request('Sending resume content to OpenAI for analysis');
-    
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -74,21 +74,21 @@ export async function analyzeResumeContent(rawText: string) {
         max_tokens: 4000
       })
     });
-    
+
     const endTime = Date.now();
-    
+
     // Check if the response is OK
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`OpenAI API error: ${response.status} ${errorText}`);
     }
-    
+
     // Parse the response
     const responseData = await response.json();
-    
+
     // Extract the content from the response
     const content = responseData.choices[0].message.content;
-    
+
     // Parse the JSON from the content
     let parsedContent;
     try {
@@ -101,14 +101,14 @@ export async function analyzeResumeContent(rawText: string) {
       DanteLogger.error.dataFlow('Error parsing OpenAI response', { error, content });
       return createFallbackAnalysis(rawText);
     }
-    
+
     // Log success
     HesseLogger.openai.response(`OpenAI analysis completed in ${endTime - startTime}ms`);
     DanteLogger.success.core('Resume content analyzed successfully with OpenAI');
-    
+
     // Cache the response
-    await openaiCache.set(cacheKey, parsedContent);
-    
+    openaiCache.setItem(cacheKey, parsedContent);
+
     return parsedContent;
   } catch (error) {
     HesseLogger.ai.error(`Error analyzing resume content: ${error}`);
@@ -119,7 +119,7 @@ export async function analyzeResumeContent(rawText: string) {
 
 /**
  * Create a prompt for OpenAI to analyze resume content
- * 
+ *
  * @param rawText The raw text extracted from the PDF
  * @returns The prompt for OpenAI
  */
@@ -196,14 +196,14 @@ Please ensure that:
 
 /**
  * Create a fallback analysis when OpenAI is not available
- * 
+ *
  * @param rawText The raw text extracted from the PDF
  * @returns A basic analysis of the content
  */
 function createFallbackAnalysis(rawText: string) {
   // Split the text into lines and clean them
   const lines = rawText.split('\n').map(line => line.trim()).filter(line => line);
-  
+
   // Extract name (assuming it's one of the first few lines)
   let name = '';
   // Look for a name in the first few lines
@@ -218,12 +218,12 @@ function createFallbackAnalysis(rawText: string) {
       break;
     }
   }
-  
+
   // If no name found, use a generic title
   if (!name) {
     name = 'Professional Resume';
   }
-  
+
   // Create a basic analysis
   return {
     sections: {
@@ -259,7 +259,7 @@ function createFallbackAnalysis(rawText: string) {
 
 /**
  * Generate a hash of the content for caching
- * 
+ *
  * @param content The content to hash
  * @returns A hash of the content
  */
@@ -272,7 +272,7 @@ async function generateContentHash(content: string): Promise<string> {
 
 /**
  * Save the analyzed content to a file for debugging
- * 
+ *
  * @param content The analyzed content
  */
 export async function saveAnalyzedContent(content: any): Promise<void> {
