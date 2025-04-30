@@ -30,6 +30,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - [Deployment](#deployment)
   - [Local Development](#local-development)
   - [AWS Amplify Deployment](#aws-amplify-deployment)
+  - [OpenAI API Key Setup](#openai-api-key-setup)
 
 ## Learn More
 
@@ -44,6 +45,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 - [Architecture Documentation](./docs/architecture/ARCHITECTURE.md) - comprehensive overview of the application architecture
 - [AWS Amplify Deployment Guide](./AMPLIFY.md) - instructions for deploying to AWS Amplify
+- [OpenAI API Key Setup for Amplify](./AMPLIFY_OPENAI.md) - setting up OpenAI API key for PDF analysis
 - [Development Guide](./DEVELOPMENT.md) - guide for local development
 
 ### Philosophical Approach

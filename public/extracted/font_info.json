@@ -1,20 +1,20 @@
 {
   "hesseFont": {
-    "name": "Open Sans",
+    "name": "Gill Sans",
     "isSerifFont": false,
     "isMonospace": false,
     "type": "sans-serif",
     "philosophy": "Hesse: Clarity and structure"
   },
   "salingerFont": {
-    "name": "Times New Roman",
+    "name": "Palatino",
     "isSerifFont": true,
     "isMonospace": false,
     "type": "serif",
     "philosophy": "Salinger: Authenticity and directness"
   },
   "derridaFont": {
-    "name": "Fira Mono",
+    "name": "Source Code Pro",
     "isSerifFont": false,
     "isMonospace": true,
     "type": "monospace",

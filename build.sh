@@ -14,6 +14,23 @@ fi
 echo "Node version $(node -v)"
 echo "NPM version $(npm -v)"
 
+# Check OpenAI API key
+echo "Checking OpenAI API key..."
+if [ -z "$OPENAI_API_KEY" ]; then
+  echo "Warning: OPENAI_API_KEY environment variable is not set"
+
+  # Check if it's in .env.local
+  if [ -f ".env.local" ] && grep -q "OPENAI_API_KEY" .env.local; then
+    echo "Found OPENAI_API_KEY in .env.local file"
+  else
+    echo "Warning: OPENAI_API_KEY not found in .env.local"
+    echo "Running OpenAI API key setup script..."
+    node scripts/amplify-openai-setup.js
+  fi
+else
+  echo "OPENAI_API_KEY environment variable is set"
+fi
+
 # Clean previous builds
 echo "Cleaning previous builds..."
 rm -rf .next

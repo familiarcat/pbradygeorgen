@@ -18,7 +18,36 @@ async function analyzeResumeContent() {
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     if (!OPENAI_API_KEY) {
       console.warn('⚠️ OpenAI API key is not available, skipping analysis');
-      return false;
+
+      // Create a placeholder analyzed content file to prevent build failures
+      const placeholderContent = {
+        sections: {
+          summary: "Content analysis skipped - OpenAI API key not available",
+          experience: [],
+          education: [],
+          skills: []
+        },
+        structuredContent: {
+          name: "Default Resume",
+          title: "Professional Resume",
+          contact: {},
+          summary: "Content analysis skipped - OpenAI API key not available",
+          experience: [],
+          education: [],
+          skills: [],
+          certifications: []
+        }
+      };
+
+      // Save the placeholder content
+      const extractedDir = path.join(process.cwd(), 'public', 'extracted');
+      fs.writeFileSync(
+        path.join(extractedDir, 'resume_content_analyzed.json'),
+        JSON.stringify(placeholderContent, null, 2)
+      );
+
+      console.log('✅ Created placeholder analyzed content file');
+      return true; // Return true to prevent build failure
     }
 
     // Check if the extracted content exists

@@ -22,7 +22,16 @@ PDF_MODIFIED=$(stat -f%m "$PDF_PATH" 2>/dev/null || stat -c%Y "$PDF_PATH")
 PDF_MODIFIED_DATE=$(date -r "$PDF_MODIFIED" "+%Y-%m-%d %H:%M:%S" 2>/dev/null || date -d "@$PDF_MODIFIED" "+%Y-%m-%d %H:%M:%S")
 
 # Generate a content fingerprint
-CONTENT_FINGERPRINT=$(echo "${PDF_PATH}:${PDF_SIZE}:${PDF_MODIFIED}" | shasum -a 256 | cut -d' ' -f1)
+# Use sha256sum if available, otherwise fall back to shasum, or just use a timestamp if neither is available
+if command -v sha256sum >/dev/null 2>&1; then
+  CONTENT_FINGERPRINT=$(echo "${PDF_PATH}:${PDF_SIZE}:${PDF_MODIFIED}" | sha256sum | cut -d' ' -f1)
+elif command -v shasum >/dev/null 2>&1; then
+  CONTENT_FINGERPRINT=$(echo "${PDF_PATH}:${PDF_SIZE}:${PDF_MODIFIED}" | shasum -a 256 | cut -d' ' -f1)
+else
+  # If neither sha256sum nor shasum is available, use a timestamp-based fingerprint
+  CONTENT_FINGERPRINT="timestamp-$(date +%s)-${PDF_SIZE}-${PDF_MODIFIED}"
+  echo "⚠️ WARNING: Neither sha256sum nor shasum available, using timestamp-based fingerprint"
+fi
 
 echo "📄 PDF file: $PDF_PATH"
 echo "📊 Size: $PDF_SIZE bytes"
@@ -66,7 +75,18 @@ fi
 
 # 4. Extract a content fingerprint to verify we're using the right PDF
 CONTENT_PREVIEW=$(head -n 20 public/extracted/resume_content.md)
-CONTENT_HASH=$(echo "$CONTENT_PREVIEW" | shasum -a 256 | cut -d' ' -f1)
+
+# Use sha256sum if available, otherwise fall back to shasum, or just use a timestamp if neither is available
+if command -v sha256sum >/dev/null 2>&1; then
+  CONTENT_HASH=$(echo "$CONTENT_PREVIEW" | sha256sum | cut -d' ' -f1)
+elif command -v shasum >/dev/null 2>&1; then
+  CONTENT_HASH=$(echo "$CONTENT_PREVIEW" | shasum -a 256 | cut -d' ' -f1)
+else
+  # If neither sha256sum nor shasum is available, use a timestamp-based hash
+  CONTENT_HASH="preview-hash-$(date +%s)"
+  echo "⚠️ WARNING: Neither sha256sum nor shasum available, using timestamp-based hash"
+fi
+
 echo "🔍 Content fingerprint: $CONTENT_HASH"
 echo "$CONTENT_HASH" >public/extracted/content_fingerprint.txt
 

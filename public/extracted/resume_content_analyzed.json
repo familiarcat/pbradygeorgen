@@ -1,9 +1,7 @@
 {
   "sections": {
     "name": "BENJAMIN STEIN",
-    "header": [
-      "BENJAMIN STEIN"
-    ],
+    "header": [],
     "about": [],
     "contact": [
       "2143 Alfred Ave. St. Louis, MO. 63110",
@@ -11,19 +9,22 @@
       "benjaminsteinstl@gmail.com"
     ],
     "skills": [
-      "Implementation, maintenance, and training of web-based EHR system",
+      "Implementation, maintenance, and training of web-based EHR system (Thrive)",
+      "Enterprise web browser (Island)",
+      "Google Enterprise",
       "Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote",
+      "On / Off-boarding of office and clinical users",
+      "Configuring securities and permissions",
+      "Communicating with third party vendors",
       "Troubleshooting EMR, Network, Interfaces, PC’s, Hardware, and Web Applications",
       "Creating, modifying, or running reports via TruBridge Report Builder",
-      "Design and interpret reports in SAP Business Objects and Discern Analytics",
-      "Track tickets issues using Service Now",
-      "Manage user sessions with Citrix Desktop Director",
-      "Hardware and OS issues support",
-      "Applications support for Epic, Meditech, and Mindray",
-      "Monitoring and maintaining health information integration engines",
-      "Remote support via Simple-Help remote desktop",
-      "Tasks within Active Directory, Exchange and SQL",
-      "Creation/configuration of virtual A/V servers"
+      "SAP Business Objects and Discern Analytics",
+      "Service Now",
+      "Citrix Desktop Director",
+      "Epic, Meditech, and Mindray",
+      "Corepoint and Rapsody/Orion",
+      "Active Directory, Exchange and SQL",
+      "Vidyo, STI, and Axis"
     ],
     "experience": [
       "CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current",
@@ -47,7 +48,7 @@
   },
   "structuredContent": {
     "name": "BENJAMIN STEIN",
-    "summary": "Experienced Clinical Informatics Specialist with a strong background in healthcare IT systems, including EHR implementation and support, health information integration, and clinical staff training.",
+    "summary": "Clinical Informatics Specialist with extensive experience in implementing and managing healthcare IT systems, providing support and training, and ensuring seamless integration of technology in clinical settings.",
     "contact": [
       {
         "text": "2143 Alfred Ave. St. Louis, MO. 63110"
@@ -61,10 +62,25 @@
     ],
     "skills": [
       {
-        "text": "Implementation, maintenance, and training of web-based EHR system"
+        "text": "Implementation, maintenance, and training of web-based EHR system (Thrive)"
+      },
+      {
+        "text": "Enterprise web browser (Island)"
+      },
+      {
+        "text": "Google Enterprise"
       },
       {
         "text": "Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote"
+      },
+      {
+        "text": "On / Off-boarding of office and clinical users"
+      },
+      {
+        "text": "Configuring securities and permissions"
+      },
+      {
+        "text": "Communicating with third party vendors"
       },
       {
         "text": "Troubleshooting EMR, Network, Interfaces, PC’s, Hardware, and Web Applications"
@@ -73,31 +89,25 @@
         "text": "Creating, modifying, or running reports via TruBridge Report Builder"
       },
       {
-        "text": "Design and interpret reports in SAP Business Objects and Discern Analytics"
+        "text": "SAP Business Objects and Discern Analytics"
       },
       {
-        "text": "Track tickets issues using Service Now"
+        "text": "Service Now"
       },
       {
-        "text": "Manage user sessions with Citrix Desktop Director"
+        "text": "Citrix Desktop Director"
       },
       {
-        "text": "Hardware and OS issues support"
+        "text": "Epic, Meditech, and Mindray"
       },
       {
-        "text": "Applications support for Epic, Meditech, and Mindray"
+        "text": "Corepoint and Rapsody/Orion"
       },
       {
-        "text": "Monitoring and maintaining health information integration engines"
+        "text": "Active Directory, Exchange and SQL"
       },
       {
-        "text": "Remote support via Simple-Help remote desktop"
-      },
-      {
-        "text": "Tasks within Active Directory, Exchange and SQL"
-      },
-      {
-        "text": "Creation/configuration of virtual A/V servers"
+        "text": "Vidyo, STI, and Axis"
       }
     ],
     "experience": [
@@ -105,19 +115,19 @@
         "period": "MAR 2023 - Current",
         "company": "Homer G. Phillips Memorial Hospital",
         "title": "Clinical Informatics Specialist",
-        "description": "Responsible for all systems and technologies used at the hospital. Tasks include EHR system implementation, user onboarding, security configuration, vendor communication, and troubleshooting."
+        "description": "Responsible for all systems and technologies used at the hospital. Tasks include implementation, maintenance, and training of EHR system, managing administrative roles, on/off-boarding users, configuring securities, troubleshooting, and providing day-to-day support."
       },
       {
         "period": "MAR 2018 - MAR 2023",
         "company": "Shriners Hospital for Children",
         "title": "Clinical Analyst II",
-        "description": "Provided 24x7 IT support for clinical staff, managed health information integration engines, and supported applications such as Epic and Meditech."
+        "description": "Provided 24x7 IT support for clinical staff, managed hardware and OS issues, supported health information systems, and maintained integration engines. Provided remote support and managed tasks within Active Directory, Exchange, and SQL."
       },
       {
         "period": "APR 2012 - FEB 2015",
         "company": "Advanced ICU Care",
         "title": "Clinical Analyst I",
-        "description": "Supported tele-ICU services, managed virtual A/V servers, and provided remote support to clinical staff."
+        "description": "Supported clinical staff with IT needs, managed virtual A/V servers, and provided advanced technical support."
       },
       {
         "period": "2/17 - 2/18",
@@ -135,7 +145,7 @@
         "period": "3/10 - 9/10",
         "company": "Tek Systems",
         "title": "IT Specialist",
-        "description": "Provided IT support services."
+        "description": "Worked as an IT specialist."
       },
       {
         "period": "4/09 - 11/09",

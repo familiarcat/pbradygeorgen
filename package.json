@@ -7,6 +7,7 @@
     "dev:smart": "./dev-with-build.sh",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",
+    "build:local": "./local-build.sh",
     "start": "next start",
     "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
@@ -16,6 +17,7 @@
     "env:pull": "node scripts/amplify-env-manager.js pull",
     "env:push": "node scripts/amplify-env-manager.js push",
     "env:list": "node scripts/amplify-env-manager.js list",
+    "env:openai": "node scripts/amplify-openai-setup.js",
     "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh"
   },
   "dependencies": {

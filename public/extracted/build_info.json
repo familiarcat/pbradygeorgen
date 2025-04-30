@@ -1,40 +1,25 @@
 {
-  "buildTimestamp": "2025-04-29T21:34:17Z",
+  "buildTimestamp": "2025-04-30T04:25:44.440Z",
   "pdfInfo": {
-    "path": "public/default_resume.pdf",
+    "path": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf",
     "size": 119425,
-    "lastModified": "2025-04-29 11:04:25",
-    "contentFingerprint": "22a76bd6acabceed28fa956267f98db0224ca531b74c943f7f4d6c55c9bc971b"
+    "lastModified": "2025-04-29T16:04:25.888Z",
+    "contentFingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa"
   },
   "extractionStatus": {
     "textExtracted": true,
+    "markdownExtracted": true,
     "fontsExtracted": true,
     "colorsExtracted": true,
     "chatGptAnalyzed": true
   },
-  "chatGptAnalysis": {
-    "timestamp": "2025-04-29T21:34:17.991Z",
-    "name": "BENJAMIN STEIN",
-    "sections": [
-      "name",
-      "header",
-      "about",
-      "contact",
-      "skills",
-      "experience",
-      "education",
-      "clients",
-      "other"
-    ],
-    "structuredSections": [
-      "name",
-      "summary",
-      "contact",
-      "skills",
-      "experience",
-      "education",
-      "clients",
-      "about"
-    ]
+  "contentState": {
+    "lastUpdated": "2025-04-30T04:25:44.434Z",
+    "fingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa",
+    "isProcessed": false,
+    "isAnalyzed": true,
+    "pdfPath": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf",
+    "pdfSize": 119425,
+    "pdfLastModified": "2025-04-29T16:04:25.888Z"
   }
 }
