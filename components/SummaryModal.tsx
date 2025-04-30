@@ -47,6 +47,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
 
+  // States for content freshness and loading
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isLoadingContent, setIsLoadingContent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [localContent, setContent] = useState(content);
+  const [contentFreshness, setContentFreshness] = useState<{
+    isStale: boolean;
+    reason?: string;
+    lastChecked: Date;
+  }>({
+    isStale: false,
+    lastChecked: new Date()
+  });
+
   // States for preview modals
   // Track which preview is active to prevent multiple previews from showing simultaneously
   const [activePreview, setActivePreview] = useState<'pdf' | 'markdown' | 'text' | null>(null);
@@ -94,7 +108,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           DanteLogger.success.basic('Generating new PDF data URL for download');
 
           // First generate a data URL to ensure consistency with preview
-          const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, pdfOptions);
+          const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(localContent, pdfOptions);
 
           // Then download using the data URL
           const link = document.createElement('a');
@@ -136,7 +150,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       };
 
       // Generate a real-time PDF preview optimized for a single page
-      const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, pdfOptions);
+      const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(localContent, pdfOptions);
 
       console.log('PDF data URL generated:', dataUrl ? `${dataUrl.substring(0, 50)}...` : 'null');
 
@@ -190,7 +204,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         HesseLogger.summary.start('Exporting summary as Markdown');
 
         // Create and download the file
-        const blob = new Blob([content], { type: 'text/markdown' });
+        const blob = new Blob([localContent], { type: 'text/markdown' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -218,7 +232,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const handleMarkdownPreview = async () => {
     try {
       HesseLogger.summary.start('Opening Markdown preview');
-      setPreviewContent(content);
+      setPreviewContent(localContent);
       setActivePreview('markdown');
       DanteLogger.success.ux('Opened Markdown preview with Salinger design');
     } catch (error) {
@@ -236,7 +250,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         HesseLogger.summary.start('Exporting summary as Text');
 
         // Convert markdown to plain text by removing markdown syntax
-        const plainText = content
+        const plainText = localContent
           .replace(/#{1,6}\s+/g, '') // Remove headers
           .replace(/\*\*/g, '') // Remove bold
           .replace(/\*/g, '') // Remove italic
@@ -277,7 +291,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Opening Text preview');
 
       // Convert markdown to plain text
-      const plainText = content
+      const plainText = localContent
         .replace(/#{1,6}\s+/g, '') // Remove headers
         .replace(/\*\*/g, '') // Remove bold
         .replace(/\*/g, '') // Remove italic
@@ -333,6 +347,130 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   }, [isOpen]);
 
+  // Function to check content freshness
+  const checkFreshness = async () => {
+    try {
+      setIsRefreshing(true);
+      HesseLogger.summary.start('Checking content freshness');
+
+      // Call the content freshness API
+      const response = await fetch('/api/content-freshness');
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to check content freshness');
+      }
+
+      // Update the state
+      setContentFreshness({
+        isStale: data.isStale,
+        reason: data.reason,
+        lastChecked: new Date()
+      });
+
+      // Log the result
+      if (data.isStale) {
+        console.warn(`Content is stale: ${data.reason}`);
+        HesseLogger.summary.progress('Content is stale and needs refresh');
+      } else {
+        console.log('Content is fresh');
+        HesseLogger.summary.complete('Content is fresh and up-to-date');
+      }
+
+      return {
+        isStale: data.isStale,
+        reason: data.reason
+      };
+    } catch (error) {
+      console.error('Error checking content freshness:', error);
+      HesseLogger.summary.error(`Error checking content freshness: ${error}`);
+
+      // Set a default state
+      setContentFreshness({
+        isStale: true,
+        reason: 'Error checking freshness',
+        lastChecked: new Date()
+      });
+
+      return { isStale: true, reason: 'Error checking freshness' };
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  // Function to refresh content
+  const handleRefreshContent = async () => {
+    try {
+      setIsRefreshing(true);
+      HesseLogger.summary.start('Refreshing content');
+
+      // Fetch the Cover Letter content with forceRefresh=true
+      await fetchCoverLetter(true);
+
+      console.log('Content refreshed successfully');
+      HesseLogger.summary.complete('Content refreshed successfully');
+    } catch (error) {
+      console.error('Error refreshing content:', error);
+      HesseLogger.summary.error(`Error refreshing content: ${error}`);
+      alert('There was an error refreshing the content. Please try again.');
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  // Function to fetch the Cover Letter content
+  const fetchCoverLetter = async (forceRefresh = false) => {
+    try {
+      setIsLoadingContent(true);
+      setError(null);
+
+      // Call the API to get the Cover Letter content
+      const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}`);
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to get Cover Letter content');
+      }
+
+      // Set the content
+      setContent(data.content);
+
+      // Update content freshness state
+      setContentFreshness({
+        isStale: data.isStale || false,
+        reason: data.isStale ? 'Content may be outdated' : undefined,
+        lastChecked: new Date()
+      });
+
+      console.log('Cover Letter content fetched successfully');
+    } catch (error) {
+      console.error('Error fetching Cover Letter content:', error);
+      setError(error instanceof Error ? error.message : 'Failed to fetch Cover Letter content');
+    } finally {
+      setIsLoadingContent(false);
+    }
+  };
+
+  // Check content freshness and fetch content when the modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      checkFreshness().then(freshnessResult => {
+        // If content is stale, force a refresh
+        fetchCoverLetter(freshnessResult.isStale);
+      });
+    }
+  }, [isOpen]);
+
   // Handle escape key to close
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
@@ -378,6 +516,44 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         }`}>
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Cover Letter</h2>
+
+          {/* Content Freshness Indicator */}
+          {contentFreshness.isStale && (
+            <div className={styles.freshnessWarning}>
+              <svg xmlns="http://www.w3.org/2000/svg" className={styles.warningIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <span>Content may be outdated</span>
+              <button
+                onClick={handleRefreshContent}
+                disabled={isRefreshing}
+                className={styles.refreshButton}
+              >
+                {isRefreshing ? (
+                  <span className={styles.loadingText}>
+                    <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Refreshing...
+                  </span>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.refreshIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M23 4v6h-6"></path>
+                      <path d="M1 20v-6h6"></path>
+                      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                      <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                    </svg>
+                    Refresh
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+
           <div className={styles.headerActions}>
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
@@ -562,7 +738,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           </div>
         </div>
         <div className={styles.modalBody}>
-          {isLoading ? (
+          {isLoading || isLoadingContent ? (
             <div className={styles.loadingContainer}>
               <div className={styles.loadingSpinner}>
                 <svg className="animate-spin h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -570,11 +746,26 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               </div>
-              <div className={styles.loadingText}>Generating summary...</div>
+              <div className={styles.loadingText}>Generating Cover Letter...</div>
+            </div>
+          ) : error ? (
+            <div className={styles.errorContainer}>
+              <div className={styles.errorIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <div className={styles.errorText}>{error}</div>
+              <button
+                onClick={() => fetchCoverLetter(true)}
+                className={styles.retryButton}
+              >
+                Try Again
+              </button>
             </div>
           ) : (
             <div ref={contentRef} className={styles.markdownPreview}>
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <ReactMarkdown>{localContent}</ReactMarkdown>
             </div>
           )}
         </div>
@@ -638,14 +829,14 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         <PreviewModal
           isOpen={showMdPreview}
           onClose={() => setActivePreview(null)}
-          content={content}
+          content={localContent}
           format="markdown"
           fileName="pbradygeorgen_cover_letter"
           onDownload={async () => {
             console.log('Markdown download triggered from preview modal');
             try {
               // Direct download approach
-              const blob = new Blob([content], { type: 'text/markdown' });
+              const blob = new Blob([localContent], { type: 'text/markdown' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;

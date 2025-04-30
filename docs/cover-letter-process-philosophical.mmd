@@ -1,0 +1,73 @@
+flowchart TD
+    %% Define styles for different components
+    classDef serverNode fill:#6A0DAD,color:white,stroke:#4B0082,stroke-width:2px
+    classDef clientNode fill:#FF8C00,color:white,stroke:#FF4500,stroke-width:2px
+    classDef dataNode fill:#1E90FF,color:white,stroke:#0000CD,stroke-width:2px
+    classDef decisionNode fill:#32CD32,color:white,stroke:#006400,stroke-width:2px
+    classDef hesseNode fill:#9370DB,color:white,stroke:#4B0082,stroke-width:2px,font-style:italic
+    classDef salingerNode fill:#FF6347,color:white,stroke:#8B0000,stroke-width:2px,font-style:italic
+    classDef derridaNode fill:#20B2AA,color:white,stroke:#008080,stroke-width:2px,font-style:italic
+    classDef danteNode fill:#B22222,color:white,stroke:#8B0000,stroke-width:2px,font-style:italic
+    classDef apiNode fill:#8A2BE2,color:white,stroke:#4B0082,stroke-width:2px,stroke-dasharray: 5 5
+
+    %% Server-side PDF Processing (Hesse's Balance)
+    subgraph ServerSide["Server-Side Processing (Next.js)"]
+        A[PDF File] -->|Extract| B[Extract Content]
+        B -->|Process| C[Process with ChatGPT]
+        C -->|Save| D[Save to JSON]
+        D -->|Validate| E[Validate Structure]
+
+        %% Content State Management (Derrida's Deconstruction)
+        E -->|Update| F[Content State Service]
+        F -->|Store| G[Content Fingerprint]
+        F -->|Track| H[Processing Status]
+        F -->|Monitor| I[Analysis Status]
+
+        %% Server-side Content Formatting (Hesse's Balance)
+        F -->|Format| P[Format Cover Letter]
+
+        %% API Endpoints (Dante's Framework)
+        subgraph APIEndpoints["API Endpoints"]
+            API1["/api/content-state"] -.->|Query| F
+            API2["/api/cover-letter"] -.->|Request| P
+        end
+    end
+
+    %% Client-side User Interaction (Salinger's Authenticity)
+    subgraph ClientSide["Client-Side Interaction (React)"]
+        J[User Action] -->|Open| K[Cover Letter Modal]
+
+        %% Content Freshness Check (Dante's Framework)
+        K -->|Check| M{Content Fresh?}
+        M -->|Yes| N[Use Cached Content]
+        M -->|No| O[Request Refresh]
+
+        %% Content Display
+        N -->|Display| R[Show Cover Letter]
+        O -->|Refresh| Q[Get Fresh Content]
+        Q -->|Display| R
+
+        %% Download Options
+        R -->|Export| S[PDF Download]
+        R -->|Export| T[Markdown Download]
+        R -->|Export| U[Text Download]
+    end
+
+    %% Cross-boundary Interactions
+    API1 -.->|State| M
+    M -.->|Query| API1
+    O -.->|Request| API2
+    API2 -.->|Content| Q
+
+    %% Apply styles to nodes
+    class A,B,C,D,E,F,P serverNode
+    class G,H,I dataNode
+    class J,K,R,S,T,U clientNode
+    class M,N,O,Q decisionNode
+    class API1,API2 apiNode
+
+    %% Apply philosophical styles
+    class A,B,C,D,E,P hesseNode
+    class J,K,R,S,T,U salingerNode
+    class F,G,H,I derridaNode
+    class M,N,O,Q,API1,API2 danteNode

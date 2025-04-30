@@ -3,9 +3,9 @@ import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
 import SummaryModal from './SummaryModal';
 import DownloadService from '@/utils/DownloadService';
-import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import { useServerTheme } from './ServerThemeProvider';
+import { formatContentAsMarkdown, formatContentAsText } from '@/app/actions/formatContentActions';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -247,7 +247,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    DanteLogger.success.ux(`Downloaded ${fileName}.pdf`);
+    console.log(`Downloaded ${fileName}.pdf`);
   };
 
   // Cover Letter download handlers
@@ -278,7 +278,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
         // Show the preview modal
         setShowCoverLetterPdfPreview(true);
-        DanteLogger.success.ux('Opened Cover Letter PDF preview');
+        console.log('Opened Cover Letter PDF preview');
       } else {
         // If we don't have the content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
@@ -286,7 +286,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
     } catch (error) {
       console.error('Error generating Cover Letter PDF preview:', error);
-      DanteLogger.error.runtime(`Error showing Cover Letter PDF preview: ${error}`);
+      console.error(`Error showing Cover Letter PDF preview: ${error}`);
       alert('There was an error generating the PDF preview. Please try again.');
     } finally {
       setIsGeneratingCoverLetterPdf(false);
@@ -331,10 +331,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         return;
       }
 
-      DanteLogger.success.ux('Downloaded Cover Letter PDF');
+      console.log('Downloaded Cover Letter PDF');
     } catch (error) {
       console.error('Error downloading Cover Letter PDF:', error);
-      DanteLogger.error.runtime(`Error downloading Cover Letter PDF: ${error}`);
+      console.error(`Error downloading Cover Letter PDF: ${error}`);
       alert('There was an error downloading the PDF. Please try again.');
     } finally {
       setIsGeneratingCoverLetterPdf(false);
@@ -350,7 +350,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       if (summaryContent) {
         setCoverLetterTextContent(summaryContent);
         setShowCoverLetterMdPreview(true);
-        DanteLogger.success.ux('Opened Cover Letter Markdown preview');
+        console.log('Opened Cover Letter Markdown preview');
       } else {
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
@@ -358,7 +358,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
     } catch (error) {
       console.error('Error showing Cover Letter Markdown preview:', error);
-      DanteLogger.error.runtime(`Error showing Cover Letter Markdown preview: ${error}`);
+      console.error(`Error showing Cover Letter Markdown preview: ${error}`);
       alert('There was an error generating the preview. Please try again.');
     } finally {
       setIsGeneratingCoverLetterMd(false);
@@ -373,7 +373,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       // If we have content, download it
       if (summaryContent) {
         await DownloadService.downloadMarkdown(summaryContent, 'cover_letter');
-        DanteLogger.success.ux('Downloaded Cover Letter Markdown');
+        console.log('Downloaded Cover Letter Markdown');
       } else {
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
@@ -381,7 +381,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
     } catch (error) {
       console.error('Error downloading Cover Letter Markdown:', error);
-      DanteLogger.error.runtime(`Error downloading Cover Letter Markdown: ${error}`);
+      console.error(`Error downloading Cover Letter Markdown: ${error}`);
       alert('There was an error downloading the file. Please try again.');
     } finally {
       setIsGeneratingCoverLetterMd(false);
@@ -398,7 +398,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         const plainText = DownloadService.convertMarkdownToText(summaryContent);
         setCoverLetterTextContent(plainText);
         setShowCoverLetterTxtPreview(true);
-        DanteLogger.success.ux('Opened Cover Letter Text preview');
+        console.log('Opened Cover Letter Text preview');
       } else {
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
@@ -406,7 +406,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
     } catch (error) {
       console.error('Error showing Cover Letter Text preview:', error);
-      DanteLogger.error.runtime(`Error showing Cover Letter Text preview: ${error}`);
+      console.error(`Error showing Cover Letter Text preview: ${error}`);
       alert('There was an error generating the preview. Please try again.');
     } finally {
       setIsGeneratingCoverLetterTxt(false);
@@ -422,7 +422,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       if (summaryContent) {
         const plainText = DownloadService.convertMarkdownToText(summaryContent);
         await DownloadService.downloadText(plainText, 'cover_letter');
-        DanteLogger.success.ux('Downloaded Cover Letter Text');
+        console.log('Downloaded Cover Letter Text');
       } else {
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
@@ -430,7 +430,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       }
     } catch (error) {
       console.error('Error downloading Cover Letter Text:', error);
-      DanteLogger.error.runtime(`Error downloading Cover Letter Text: ${error}`);
+      console.error(`Error downloading Cover Letter Text: ${error}`);
       alert('There was an error downloading the file. Please try again.');
     } finally {
       setIsGeneratingCoverLetterTxt(false);
@@ -555,24 +555,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const contentResponse = await fetch('/extracted/resume_content.md');
                     const content = await contentResponse.text();
 
-                    // Call our server-side API to format the content
-                    const apiResponse = await fetch('/api/format-content', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        content,
-                        contentType: 'resume',
-                        format: 'markdown'
-                      }),
-                    });
-
-                    if (!apiResponse.ok) {
-                      throw new Error(`API responded with status: ${apiResponse.status}`);
-                    }
-
-                    const result = await apiResponse.json();
+                    // Use the server action to format the content
+                    const result = await formatContentAsMarkdown(content, 'resume');
 
                     if (!result.success) {
                       throw new Error(result.error || 'Unknown error');
@@ -607,31 +591,12 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const contentResponse = await fetch('/extracted/resume_content.md');
                     const content = await contentResponse.text();
 
-                    // Call our server-side API to format the content
-                    const apiResponse = await fetch('/api/format-content', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        content,
-                        contentType: 'resume',
-                        format: 'markdown'
-                      }),
-                    });
-
-                    if (!apiResponse.ok) {
-                      throw new Error(`API responded with status: ${apiResponse.status}`);
-                    }
-
-                    const result = await apiResponse.json();
+                    // Use the server action to format the content
+                    const result = await formatContentAsMarkdown(content, 'resume');
 
                     if (!result.success) {
                       throw new Error(result.error || 'Unknown error');
                     }
-
-                    // Log the detected content type
-                    console.log(`Content type detected: ${result.contentType}`);
 
                     // Create and download the file
                     const blob = new Blob([result.data], { type: 'text/markdown' });
@@ -685,24 +650,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const contentResponse = await fetch('/extracted/resume_content.md');
                     const content = await contentResponse.text();
 
-                    // Call our server-side API to format the content
-                    const apiResponse = await fetch('/api/format-content', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        content,
-                        contentType: 'resume',
-                        format: 'text'
-                      }),
-                    });
-
-                    if (!apiResponse.ok) {
-                      throw new Error(`API responded with status: ${apiResponse.status}`);
-                    }
-
-                    const result = await apiResponse.json();
+                    // Use the server action to format the content
+                    const result = await formatContentAsText(content, 'resume');
 
                     if (!result.success) {
                       throw new Error(result.error || 'Unknown error');
@@ -737,31 +686,12 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const contentResponse = await fetch('/extracted/resume_content.md');
                     const content = await contentResponse.text();
 
-                    // Call our server-side API to format the content
-                    const apiResponse = await fetch('/api/format-content', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        content,
-                        contentType: 'resume',
-                        format: 'text'
-                      }),
-                    });
-
-                    if (!apiResponse.ok) {
-                      throw new Error(`API responded with status: ${apiResponse.status}`);
-                    }
-
-                    const result = await apiResponse.json();
+                    // Use the server action to format the content
+                    const result = await formatContentAsText(content, 'resume');
 
                     if (!result.success) {
                       throw new Error(result.error || 'Unknown error');
                     }
-
-                    // Log the detected content type
-                    console.log(`Content type detected: ${result.contentType}`);
 
                     // Create and download the file
                     const blob = new Blob([result.data], { type: 'text/plain' });

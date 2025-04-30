@@ -6,17 +6,23 @@
  * 2. Analyzes content with ChatGPT
  * 3. Validates the analyzed content against Zod schemas
  * 4. Saves the analyzed content for use in SSR
+ *
+ * Follows the philosophical approaches of:
+ * - Hesse: Balancing structure and flexibility in content processing
+ * - Salinger: Maintaining authenticity of the original content
+ * - Derrida: Deconstructing content into meaningful structures
+ * - Dante: Navigating through different "circles" of content processing
  */
 
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import crypto from 'crypto';
 import { z } from 'zod';
 import { DanteLogger } from './DanteLogger';
 import { HesseLogger } from './HesseLogger';
 import { analyzeResumeContent } from './openaiPdfStructureService';
+import { ContentStateService } from './ContentStateService';
 
 // Promisify exec
 const execAsync = promisify(exec);
@@ -96,55 +102,58 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
   error?: any;
 }> {
   try {
-    DanteLogger.success.core('Starting PDF processing pipeline');
+    console.log('Starting PDF processing pipeline');
     HesseLogger.summary.start('Processing PDF content');
 
     // 1. Check if the PDF exists
     if (!fs.existsSync(pdfPath)) {
       const error = `PDF file not found at ${pdfPath}`;
-      DanteLogger.error.dataFlow(error);
+      console.error(error);
       return { success: false, message: error };
     }
 
-    // 2. Get PDF metadata
+    // 2. Get the content state service
+    const contentStateService = ContentStateService.getInstance();
+
+    // 3. Get PDF metadata
     const stats = fs.statSync(pdfPath);
     const pdfSize = stats.size;
-    const pdfModified = stats.mtime.getTime();
-    const pdfModifiedDate = new Date(pdfModified).toISOString();
+    const pdfModified = stats.mtime;
+    const pdfBuffer = fs.readFileSync(pdfPath);
 
-    // 3. Generate content fingerprint
-    const contentFingerprint = crypto
-      .createHash('sha256')
-      .update(`${pdfPath}:${pdfSize}:${pdfModified}`)
-      .digest('hex');
+    // 4. Generate content fingerprint
+    const contentFingerprint = ContentStateService.generateContentFingerprint(pdfBuffer);
 
-    // 4. Check if we need to refresh the content
-    const buildInfoPath = path.join(process.cwd(), 'public', 'extracted', 'build_info.json');
+    // 5. Check if we need to refresh the content
     let needsRefresh = forceRefresh;
 
-    if (fs.existsSync(buildInfoPath)) {
-      const buildInfo = JSON.parse(fs.readFileSync(buildInfoPath, 'utf8'));
+    // Check if the content is stale by comparing fingerprints
+    const storedFingerprint = contentStateService.getFingerprint();
 
-      // Check if the fingerprint has changed
-      if (buildInfo.pdfInfo?.contentFingerprint !== contentFingerprint) {
-        DanteLogger.success.basic('PDF content has changed, refreshing');
-        needsRefresh = true;
-      }
-    } else {
-      // If build info doesn't exist, we need to refresh
-      DanteLogger.success.basic('Build info not found, refreshing content');
+    if (contentFingerprint !== storedFingerprint) {
+      console.log(`PDF content is stale: fingerprint changed`);
       needsRefresh = true;
+
+      // Update the content state with the new fingerprint
+      contentStateService.updateState({
+        fingerprint: contentFingerprint,
+        pdfPath,
+        pdfSize,
+        pdfLastModified: pdfModified,
+        isProcessed: false,
+        isAnalyzed: false
+      });
     }
 
-    // 5. Create the extracted directory if it doesn't exist
+    // 6. Create the extracted directory if it doesn't exist
     const extractedDir = path.join(process.cwd(), 'public', 'extracted');
     if (!fs.existsSync(extractedDir)) {
       fs.mkdirSync(extractedDir, { recursive: true });
     }
 
-    // 6. Extract content from the PDF if needed
+    // 7. Extract content from the PDF if needed
     if (needsRefresh) {
-      DanteLogger.success.basic('Extracting content from PDF');
+      console.log('Extracting content from PDF');
       HesseLogger.summary.progress('Extracting content from PDF');
 
       // Run the extraction script
@@ -153,48 +162,72 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
       const extractionTime = Date.now() - extractionStart;
 
       if (stderr) {
-        DanteLogger.error.dataFlow(`Error extracting content: ${stderr}`);
+        console.error(`Error extracting content: ${stderr}`);
         return { success: false, message: 'Error extracting content', error: stderr };
       }
 
-      DanteLogger.success.core(`Content extracted in ${extractionTime}ms`);
+      console.log(`Content extracted in ${extractionTime}ms`);
       HesseLogger.summary.progress(`Content extracted in ${extractionTime}ms`);
+
+      // Update the content state to indicate processing is complete
+      contentStateService.updateState({
+        isProcessed: true
+      });
     } else {
-      DanteLogger.success.basic('Using cached content extraction');
+      console.log('Using cached content extraction');
       HesseLogger.summary.progress('Using cached content extraction');
     }
 
-    // 7. Read the extracted content
+    // 8. Read the extracted content
     const jsonPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content.json');
 
     if (!fs.existsSync(jsonPath)) {
       const error = 'Extracted content not found';
-      DanteLogger.error.dataFlow(error);
+      console.error(error);
       return { success: false, message: error };
     }
 
     const extractedContent = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
-    // 8. Analyze the content with ChatGPT
-    DanteLogger.success.basic('Analyzing content with ChatGPT');
-    HesseLogger.ai.start('Analyzing content with ChatGPT');
+    // 9. Analyze the content with ChatGPT if needed
+    let analyzedContent;
+    const analyzedPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content_analyzed.json');
 
-    const rawText = extractedContent.rawText;
-    const analysisStart = Date.now();
-    const analyzedContent = await analyzeResumeContent(rawText);
-    const analysisTime = Date.now() - analysisStart;
+    if (needsRefresh || !fs.existsSync(analyzedPath) || !contentStateService.isContentAnalyzed()) {
+      console.log('Analyzing content with ChatGPT');
+      HesseLogger.ai.start('Analyzing content with ChatGPT');
 
-    DanteLogger.success.core(`Content analyzed in ${analysisTime}ms`);
-    HesseLogger.ai.success(`Content analyzed in ${analysisTime}ms`);
+      const rawText = extractedContent.rawText;
+      const analysisStart = Date.now();
+      analyzedContent = await analyzeResumeContent(rawText);
+      const analysisTime = Date.now() - analysisStart;
 
-    // 9. Validate the analyzed content
-    DanteLogger.success.basic('Validating analyzed content');
+      console.log(`Content analyzed in ${analysisTime}ms`);
+      HesseLogger.ai.success(`Content analyzed in ${analysisTime}ms`);
+
+      // Save the analyzed content
+      fs.writeFileSync(analyzedPath, JSON.stringify(analyzedContent, null, 2));
+
+      // Update the content state to indicate analysis is complete
+      contentStateService.updateState({
+        isAnalyzed: true
+      });
+    } else {
+      console.log('Using cached content analysis');
+      HesseLogger.summary.progress('Using cached content analysis');
+
+      // Read the cached analyzed content
+      analyzedContent = JSON.parse(fs.readFileSync(analyzedPath, 'utf8'));
+    }
+
+    // 10. Validate the analyzed content
+    console.log('Validating analyzed content');
     HesseLogger.summary.progress('Validating analyzed content');
 
     const validationResult = AnalyzedContentSchema.safeParse(analyzedContent);
 
     if (!validationResult.success) {
-      DanteLogger.error.dataFlow('Content validation failed');
+      console.error('Content validation failed');
       HesseLogger.summary.error('Content validation failed');
 
       // Format the validation errors
@@ -203,6 +236,11 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
         message: err.message,
         code: err.code
       }));
+
+      // Update the content state to indicate analysis failed
+      contentStateService.updateState({
+        isAnalyzed: false
+      });
 
       return {
         success: false,
@@ -217,20 +255,17 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
       };
     }
 
-    DanteLogger.success.core('Content validation successful');
+    console.log('Content validation successful');
     HesseLogger.summary.progress('Content validation successful');
 
-    // 10. Save the analyzed content
-    const analyzedPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content_analyzed.json');
-    fs.writeFileSync(analyzedPath, JSON.stringify(analyzedContent, null, 2));
-
     // 11. Update the build info
+    const buildInfoPath = path.join(process.cwd(), 'public', 'extracted', 'build_info.json');
     const buildInfo = {
       buildTimestamp: new Date().toISOString(),
       pdfInfo: {
         path: pdfPath,
         size: pdfSize,
-        lastModified: pdfModifiedDate,
+        lastModified: pdfModified.toISOString(),
         contentFingerprint
       },
       extractionStatus: {
@@ -239,13 +274,14 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
         fontsExtracted: fs.existsSync(path.join(process.cwd(), 'public', 'extracted', 'font_info.json')),
         colorsExtracted: fs.existsSync(path.join(process.cwd(), 'public', 'extracted', 'color_theme.json')),
         chatGptAnalyzed: true
-      }
+      },
+      contentState: contentStateService.getState()
     };
 
     fs.writeFileSync(buildInfoPath, JSON.stringify(buildInfo, null, 2));
 
     // 12. Return the results
-    DanteLogger.success.perfection('PDF processing pipeline completed successfully');
+    console.log('PDF processing pipeline completed successfully');
     HesseLogger.summary.complete('PDF processing completed successfully');
 
     return {
@@ -259,7 +295,7 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
       }
     };
   } catch (error) {
-    DanteLogger.error.system('Error processing PDF', error);
+    console.error('Error processing PDF:', error);
     HesseLogger.summary.error(`Error processing PDF: ${error}`);
 
     return {
@@ -278,8 +314,26 @@ export async function processPdf(pdfPath: string, forceRefresh: boolean = false)
  */
 export async function getAnalyzedContent(forceRefresh: boolean = false): Promise<any> {
   try {
+    HesseLogger.summary.start('Getting analyzed content');
+
     // Path to the default PDF
     const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+
+    // Get the content state service
+    const contentStateService = ContentStateService.getInstance();
+
+    // Check if we need to refresh the content
+    if (!forceRefresh) {
+      // Check if the content is stale by comparing fingerprints
+      const pdfBuffer = fs.readFileSync(pdfPath);
+      const currentFingerprint = ContentStateService.generateContentFingerprint(pdfBuffer);
+      const storedFingerprint = contentStateService.getFingerprint();
+
+      if (currentFingerprint !== storedFingerprint) {
+        console.log(`Content is stale: fingerprint changed`);
+        forceRefresh = true;
+      }
+    }
 
     // Process the PDF
     const result = await processPdf(pdfPath, forceRefresh);
@@ -288,9 +342,13 @@ export async function getAnalyzedContent(forceRefresh: boolean = false): Promise
       throw new Error(result.message);
     }
 
+    console.log('Analyzed content retrieved successfully');
+    HesseLogger.summary.complete('Analyzed content retrieved successfully');
+
     return result.analyzedContent;
   } catch (error) {
-    DanteLogger.error.system('Error getting analyzed content', error);
+    console.error('Error getting analyzed content:', error);
+    HesseLogger.summary.error(`Error getting analyzed content: ${error}`);
     throw error;
   }
 }
@@ -303,15 +361,44 @@ export async function getAnalyzedContent(forceRefresh: boolean = false): Promise
 export async function validateAnalyzedContent(): Promise<{
   valid: boolean;
   errors?: any[];
+  contentState?: any;
 }> {
   try {
+    HesseLogger.summary.start('Validating analyzed content');
+
+    // Get the content state service
+    const contentStateService = ContentStateService.getInstance();
+    const contentState = contentStateService.getState();
+
+    // Check if the content has been analyzed
+    if (!contentState.isAnalyzed) {
+      console.warn('Content has not been analyzed yet');
+      return {
+        valid: false,
+        contentState,
+        errors: [{
+          path: 'contentState',
+          message: 'Content has not been analyzed yet',
+          code: 'not_analyzed'
+        }]
+      };
+    }
+
     // Path to the analyzed content
     const analyzedPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content_analyzed.json');
 
     // Check if the file exists
     if (!fs.existsSync(analyzedPath)) {
+      console.error('Analyzed content file not found');
+
+      // Update the content state to indicate analysis is missing
+      contentStateService.updateState({
+        isAnalyzed: false
+      });
+
       return {
         valid: false,
+        contentState,
         errors: [{
           path: 'file',
           message: 'Analyzed content file not found',
@@ -327,6 +414,8 @@ export async function validateAnalyzedContent(): Promise<{
     const validationResult = AnalyzedContentSchema.safeParse(analyzedContent);
 
     if (!validationResult.success) {
+      console.error('Content validation failed');
+
       // Format the validation errors
       const formattedErrors = validationResult.error.errors.map(err => ({
         path: err.path.join('.'),
@@ -334,17 +423,28 @@ export async function validateAnalyzedContent(): Promise<{
         code: err.code
       }));
 
+      // Update the content state to indicate validation failed
+      contentStateService.updateState({
+        isAnalyzed: false
+      });
+
       return {
         valid: false,
+        contentState,
         errors: formattedErrors
       };
     }
 
+    console.log('Content validation successful');
+    HesseLogger.summary.complete('Content validation successful');
+
     return {
-      valid: true
+      valid: true,
+      contentState
     };
   } catch (error) {
-    DanteLogger.error.system('Error validating analyzed content', error);
+    console.error('Error validating analyzed content:', error);
+    HesseLogger.summary.error(`Error validating analyzed content: ${error}`);
 
     return {
       valid: false,
