@@ -1,0 +1,56 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Server running at http://localhost:3000/
+Available directories:
+  - .DS_Store
+  - .next
+  - next.config.js
+  - node_modules
+  - package.json
+  - public
+  - server.js
+Public directory contents:
+  - .DS_Store
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - next.svg
+  - pdf-worker
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+Extracted directory contents:
+  - build_info.json
+  - color_theme.json
+  - content_fingerprint.txt
+  - cover_letter.md
+  - extraction_log.json
+  - extraction_summary.txt
+  - font_info.json
+  - pdf_cache_marker.txt
+  - pdf_fonts.css
+  - resume_content.json
+  - resume_content.md
+  - resume_content.txt
+  - resume_content_analyzed.json
+Request: GET /
+Request: GET /
+Request: GET /json-view
+Request: GET /
+Request: GET /extracted/resume_content.md
+Request: GET /extracted/cover_letter.md
+Request: GET /
+Request: GET /favicon.ico
+Request: GET /
+Request: GET /
+Request: GET /
+ing: JSON view page may not be loading correctly
+[2025-05-02 15:35:35] 🎉 Application started successfully!
+[2025-05-02 15:35:35] The application is running at http://localhost:3000
+[2025-05-02 15:35:35] Press Ctrl+C to stop the server

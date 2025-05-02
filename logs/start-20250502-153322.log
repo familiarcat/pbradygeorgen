@@ -1,0 +1,17 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+/Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/next/dist/server/lib/router-utils/filesystem.js:148
+            throw Object.defineProperty(new Error(`Could not find a production build in the '${opts.config.distDir}' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id`), "__NEXT_ERROR_CODE", {
+                                        ^
+
+Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+    at setupFsCheck (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/next/dist/server/lib/router-utils/filesystem.js:148:41)
+    at async initialize (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/next/dist/server/lib/router-server.js:110:23)
+    at async NextCustomServer.prepare (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/next/dist/server/next.js:276:28)
+
+Node.js v20.19.1
+[2025-05-02 15:33:24] ❌ Server process died unexpectedly

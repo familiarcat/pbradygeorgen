@@ -1,0 +1,41 @@
+Environment: production
+Node version: v20.19.1
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Server running at http://localhost:3000/
+Available directories:
+  - .DS_Store
+  - .next
+  - next.config.js
+  - node_modules
+  - package.json
+  - public
+  - server.js
+Public directory contents:
+  - .DS_Store
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - next.svg
+  - pdf-worker
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+Request: GET /
+Request: GET /
+Request: GET /json-view
+Request: GET /
+Request: GET /
+Request: GET /
+Request: GET /extracted/resume_content.md
+Request: GET /
+Request: GET /
+Request: GET /
+loading correctly
+[2025-05-02 15:27:27] ⚠️ Warning: JSON view page may not be loading correctly
+[2025-05-02 15:27:27] 🎉 Application started successfully!
+[2025-05-02 15:27:27] The application is running at http://localhost:3000
+[2025-05-02 15:27:27] Press Ctrl+C to stop the server

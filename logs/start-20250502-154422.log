@@ -1,0 +1,72 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+> Ready on http://localhost:3000
+> Serving from directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+> Available directories:
+  - .DS_Store
+  - .cache
+  - .next
+  - logs
+  - next.config.js
+  - node_modules
+  - package.json
+  - prompts
+  - public
+  - scripts
+  - server.js
+> Public directory contents:
+  - .DS_Store
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - index.html
+  - next.svg
+  - pdf-worker
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+> Extracted directory contents:
+  - build_info.json
+  - color_theme.json
+  - content_fingerprint.txt
+  - cover_letter.md
+  - extraction_log.json
+  - extraction_summary.txt
+  - font_info.json
+  - pdf_cache_marker.txt
+  - pdf_fonts.css
+  - resume_content.json
+  - resume_content.md
+  - resume_content.txt
+  - resume_content_analyzed.json
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+[2025-05-02 15:44:23] ✅ Server started successfully
+[2025-05-02 15:44:23] 🔍 Running basic health checks...
+[2025-05-02 15:44:23] ✅ Home page loads successfully
+[2025-05-02 15:44:23] ⚠️ Warning: JSON view page may not be loading correctly
+[2025-05-02 15:44:23] 🎉 Application started successfully!
+[2025-05-02 15:44:23] The application is running at http://localhost:3000
+[2025-05-02 15:44:23] Press Ctrl+C to stop the server

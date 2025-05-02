@@ -1,0 +1,498 @@
+[2025-05-02 16:07:01] 🔍 Step 1: Skipping linting to ensure build completes...
+[2025-05-02 16:07:01] ✅ Linting skipped
+[2025-05-02 16:07:01] 🧹 Step 3: Cleaning up previous build artifacts...
+[2025-05-02 16:07:02] 🔍 Step 3.5: Ensuring extracted content exists...
+🔍 Ensuring extracted content exists...
+Creating fallback resume_content.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+Creating fallback cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+Creating fallback content_fingerprint.txt: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/content_fingerprint.txt
+Creating fallback build_info.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/build_info.json
+✅ Extracted content verification completed
+[2025-05-02 16:07:02] ✅ Extracted content verification completed
+[2025-05-02 16:07:02] 🔄 Step 4: Running prebuild script...
+Initial Node version: v20.19.1
+Initial NPM version: 10.8.2
+engine-strict=false
+ignore-engines=true
+Verifying PDF content...
+🔍 Verifying PDF content...
+📄 PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: Tue Apr 29 2025 11:04:25 GMT-0500 (Central Daylight Time)
+🔑 Content fingerprint: fallback-1746220022064
+📊 Build info:
+  - Build timestamp: 2025-05-02T21:07:02.064Z
+  - PDF size: 0 bytes
+  - PDF last modified: 2025-05-02T21:07:02.064Z
+  - Content fingerprint: fallback-1746220022064
+⚠️ WARNING: PDF size mismatch - content may be from a different PDF
+  - Current PDF size: 119425 bytes
+  - Extracted from PDF size: 0 bytes
+🔄 Forcing re-extraction due to PDF mismatch...
+🔄 AMPLIFY DYNAMIC PDF EXTRACTION PROCESS
+==========================================
+Build timestamp: Fri May  2 16:07:02 CDT 2025
+📄 PDF file: public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-04-29 11:04:25
+🔑 Content fingerprint: fbbe301f...
+🔑 Unique identifier: pdf_119425_1745942665
+🗑️ Removing all extracted content...
+🗑️ Removing Next.js cache...
+🗑️ Removing ChatGPT cache...
+📝 Extracting text content...
+Extracting text from: public/default_resume.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+JSON content saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json
+
+Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/2/2025*
+...
+🧠 Analyzing content with ChatGPT...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ ChatGPT analysis completed successfully
+🔍 Content fingerprint: c43f3278243db64b4f71b731a331f43ea5f0da846848eff006b62eb2e36b17d0
+🔤 Extracting font information...
+Extracting fonts from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Font information saved to: public/extracted/font_info.json
+No fonts found in PDF, applying philosophical font selection
+Selected philosophical fonts:
+- Hesse (sans-serif): "Avenir"
+- Salinger (serif): "Garamond"
+- Derrida (monospace): "Roboto Mono"
+Font information saved to: public/extracted/font_info.json
+CSS with font variables saved to: public/extracted/pdf_fonts.css
+Font extraction completed successfully.
+Fonts found:
+🎨 Extracting color information...
+Extracting colors from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Extracted 0 unique colors from PDF
+Applying philosophical color theory to 0 colors
+No colors found in PDF, generating philosophical theme based on Hesse, Salinger, and Derrida principles
+Base hue: 93° (philosophical seed)
+Generated philosophical color palette:
+- Primary: #6cb82e (Hesse's balance)
+- Secondary: #336199 (Salinger's authenticity)
+- Accent: #8826d9 (Derrida's deconstruction)
+- Background: #f2f4f1 (Hesse's space)
+- Text: #262c21 (Salinger's clarity)
+- Border: #cbd6c2 (Derrida's boundaries)
+Color theme saved to: public/extracted/color_theme.json
+Color extraction completed successfully.
+Theme generated:
+- Primary: #6cb82e
+- Secondary: #336199
+- Accent: #8826d9
+- Background: #f2f4f1
+- Text: #262c21
+- Dark theme: false
+📊 Build info saved to public/extracted/build_info.json
+✅ Extraction completed successfully
+📄 Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/2/2025*
+🎨 Color theme preview:
+  "primary": "#6cb82e",
+  "secondary": "#336199",
+  "accent": "#8826d9",
+  "background": "#f2f4f1",
+  "text": "#262c21",
+🔤 Font information preview:
+{
+  "hesseFont": {
+    "name": "Avenir",
+    "isSerifFont": false,
+    "isMonospace": false,
+    "type": "sans-serif",
+    "philosophy": "Hesse: Clarity and structure"
+  },
+  "salingerFont": {
+    "name": "Garamond",
+📋 Extraction summary saved to public/extracted/extraction_summary.txt
+✅ PDF content extraction process completed
+==========================================
+✅ Re-extraction completed successfully
+📄 Content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+...
+✅ PDF content verification completed
+Running dynamic PDF extraction process...
+🔄 AMPLIFY DYNAMIC PDF EXTRACTION PROCESS
+==========================================
+Build timestamp: Fri May  2 16:07:02 CDT 2025
+📄 PDF file: public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-04-29 11:04:25
+🔑 Content fingerprint: fbbe301f...
+🔑 Unique identifier: pdf_119425_1745942665
+🗑️ Removing all extracted content...
+🗑️ Removing Next.js cache...
+🗑️ Removing ChatGPT cache...
+📝 Extracting text content...
+Extracting text from: public/default_resume.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+JSON content saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json
+
+Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/2/2025*
+...
+🧠 Analyzing content with ChatGPT...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ ChatGPT analysis completed successfully
+🔍 Content fingerprint: c43f3278243db64b4f71b731a331f43ea5f0da846848eff006b62eb2e36b17d0
+🔤 Extracting font information...
+Extracting fonts from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Font information saved to: public/extracted/font_info.json
+No fonts found in PDF, applying philosophical font selection
+Selected philosophical fonts:
+- Hesse (sans-serif): "Avenir"
+- Salinger (serif): "Garamond"
+- Derrida (monospace): "Roboto Mono"
+Font information saved to: public/extracted/font_info.json
+CSS with font variables saved to: public/extracted/pdf_fonts.css
+Font extraction completed successfully.
+Fonts found:
+🎨 Extracting color information...
+Extracting colors from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Extracted 0 unique colors from PDF
+Applying philosophical color theory to 0 colors
+No colors found in PDF, generating philosophical theme based on Hesse, Salinger, and Derrida principles
+Base hue: 109° (philosophical seed)
+Generated philosophical color palette:
+- Primary: #47b82e (Hesse's balance)
+- Secondary: #334699 (Salinger's authenticity)
+- Accent: #b826d9 (Derrida's deconstruction)
+- Background: #f1f4f1 (Hesse's space)
+- Text: #232c21 (Salinger's clarity)
+- Border: #c6d6c2 (Derrida's boundaries)
+Color theme saved to: public/extracted/color_theme.json
+Color extraction completed successfully.
+Theme generated:
+- Primary: #47b82e
+- Secondary: #334699
+- Accent: #b826d9
+- Background: #f1f4f1
+- Text: #232c21
+- Dark theme: false
+📊 Build info saved to public/extracted/build_info.json
+✅ Extraction completed successfully
+📄 Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/2/2025*
+🎨 Color theme preview:
+  "primary": "#47b82e",
+  "secondary": "#334699",
+  "accent": "#b826d9",
+  "background": "#f1f4f1",
+  "text": "#232c21",
+🔤 Font information preview:
+{
+  "hesseFont": {
+    "name": "Avenir",
+    "isSerifFont": false,
+    "isMonospace": false,
+    "type": "sans-serif",
+    "philosophy": "Hesse: Clarity and structure"
+  },
+  "salingerFont": {
+    "name": "Garamond",
+📋 Extraction summary saved to public/extracted/extraction_summary.txt
+✅ PDF content extraction process completed
+==========================================
+Pre-processing PDF content with ChatGPT...
+🧠 Pre-processing PDF content with ChatGPT...
+🧠 Running analyze-pdf-content.js...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ PDF content pre-processed successfully
+📄 Name: BENJAMIN STEIN
+📄 Sections: name, header, about, contact, skills, experience, education, clients, other
+📄 Structured sections: name, summary, contact, skills, experience, education, clients, about
+📊 Build info updated
+[2025-05-02 16:07:03] ✅ Prebuild script completed
+[2025-05-02 16:07:03] 🏗️ Step 5: Building the application...
+   ▲ Next.js 15.3.1
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.0s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+   Generating static pages (0/32) ...
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+   Generating static pages (8/32) 
+   Generating static pages (16/32) 
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+   Generating static pages (24/32) 
+ ✓ Generating static pages (32/32)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      137 B         106 kB
+├ ○ /_not-found                            192 B         103 kB
+├ ƒ /api/analyze-content                   192 B         103 kB
+├ ƒ /api/analyze-pdf-content               192 B         103 kB
+├ ƒ /api/build-preprocess                  192 B         103 kB
+├ ƒ /api/content-freshness                 192 B         103 kB
+├ ƒ /api/content-state                     192 B         103 kB
+├ ƒ /api/cover-letter                      192 B         103 kB
+├ ƒ /api/extract-pdf-style                 192 B         103 kB
+├ ƒ /api/extraction-logs                   192 B         103 kB
+├ ƒ /api/format-content                    192 B         103 kB
+├ ƒ /api/get-analyzed-content              192 B         103 kB
+├ ƒ /api/get-pdf-json                      192 B         103 kB
+├ ƒ /api/get-summary                       192 B         103 kB
+├ ƒ /api/preprocess-pdf                    192 B         103 kB
+├ ƒ /api/refresh-content                   192 B         103 kB
+├ ƒ /api/ssr-preprocess                    192 B         103 kB
+├ ƒ /api/upload-pdf                        192 B         103 kB
+├ ƒ /api/validate-content                  192 B         103 kB
+├ ○ /axiom-demo                          6.13 kB         112 kB
+├ ○ /content-status                      2.46 kB         105 kB
+├ ○ /dante-agile                         11.4 kB         117 kB
+├ ○ /extraction-logs                     4.74 kB         107 kB
+├ ○ /json-view                           6.12 kB         108 kB
+├ ○ /sample                                138 B         106 kB
+├ ○ /test                                2.12 kB         111 kB
+├ ○ /test-ssr                            3.57 kB         106 kB
+├ ○ /upload                              1.06 kB         110 kB
+└ ○ /view                                1.75 kB         104 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1684-275f874d52f2cf59.js      46.4 kB
+  ├ chunks/4bd1b696-cdf9926425209539.js  53.2 kB
+  └ other shared chunks (total)          2.74 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[2025-05-02 16:07:16] ✅ Build completed successfully
+[2025-05-02 16:07:16] 📋 Step 6: Running postbuild script...
+Copying default_resume.pdf to standalone directory
+default_resume.pdf copied successfully
+Copying files from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Found 12 files to copy
+Copied build_info.json
+Copied color_theme.json
+Copied content_fingerprint.txt
+Copied extraction_log.json
+Copied extraction_summary.txt
+Copied font_info.json
+Copied pdf_cache_marker.txt
+Copied pdf_fonts.css
+Copied resume_content.json
+Copied resume_content.md
+Copied resume_content.txt
+Copied resume_content_analyzed.json
+All extracted files copied successfully
+[2025-05-02 16:07:16] ✅ Postbuild script completed successfully
+[2025-05-02 16:07:16] 📂 Step 6.5: Creating standalone directory structure...
+🔍 Creating standalone directory structure...
+Creating static directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/static
+Copying static assets from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/static to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/static
+Copying public directory from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public
+Missing extracted content files, running prepare-download-test.js...
+🔧 Preparing environment for download functionality tests...
+Creating cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+✅ Environment prepared for download functionality tests
+✅ Extracted content prepared successfully
+Copying extracted content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Copying server.js from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/server.js to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/server.js
+✅ Copied and modified server.js to standalone directory
+Creating index.html: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/index.html
+✅ Standalone directory structure created successfully
+[2025-05-02 16:07:17] 🔧 Step 7: Preparing environment for download functionality tests...
+🔧 Preparing environment for download functionality tests...
+✅ Environment prepared for download functionality tests
+[2025-05-02 16:07:17] 🧪 Step 8: Running download functionality tests...
+🚀 [2025-05-02T21:07:17.143Z] Starting download functionality tests
+🚀 [2025-05-02T21:07:17.145Z] Starting application in production mode...
+🚀 [2025-05-02T21:07:17.168Z] Preparing environment for download tests...
+📝 [2025-05-02T21:07:17.188Z] Prepare: 🔧 Preparing environment for download functionality tests...
+📝 [2025-05-02T21:07:17.188Z] Prepare: ✅ Environment prepared for download functionality tests
+✅ [2025-05-02T21:07:17.189Z] Environment prepared successfully
+✅ [2025-05-02T21:07:17.190Z] Environment prepared, starting application...
+❌ [2025-05-02T21:07:17.391Z] App error: rm: .next/standalone/node_modules/next: Permission denied
+❌ [2025-05-02T21:07:17.429Z] App error: rm: .next/standalone/node_modules: Permission denied
+❌ [2025-05-02T21:07:17.455Z] App error: rm: .next/standalone: Permission denied
+❌ [2025-05-02T21:07:17.477Z] App error: rm: .next: Permission denied
+❌ [2025-05-02T21:07:17.482Z] Application process exited with code 1
+❌ [2025-05-02T21:07:17.482Z] Test execution error: Process exited with code 1
+📝 [2025-05-02T21:07:17.482Z] Stopping application...
+❌ [2025-05-02T21:07:17.482Z] Unhandled error: kill ESRCH
+[2025-05-02 16:07:17] ⚠️ Download functionality tests failed. Review the test report for details.
+[2025-05-02 16:07:17] You can still proceed with the build, but some features may not work correctly.
+[2025-05-02 16:07:17] ❌ Error: server.js not found in standalone directory. Build may have failed.
