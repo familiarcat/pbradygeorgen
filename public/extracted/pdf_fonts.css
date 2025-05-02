@@ -4,9 +4,9 @@
 }
 
   /* Philosophical fonts based on Hesse, Salinger, and Derrida */
-  --pdf-font-1: "Futura", sans-serif; /* Hesse: Clarity and structure */
-  --pdf-font-2: "Baskerville", serif; /* Salinger: Authenticity and directness */
-  --pdf-font-3: "Source Code Pro", monospace; /* Derrida: Deconstruction and analysis */
+  --pdf-font-1: "Avenir", sans-serif; /* Hesse: Clarity and structure */
+  --pdf-font-2: "Garamond", serif; /* Salinger: Authenticity and directness */
+  --pdf-font-3: "Roboto Mono", monospace; /* Derrida: Deconstruction and analysis */
 }
 
 /* Philosophical font classes */

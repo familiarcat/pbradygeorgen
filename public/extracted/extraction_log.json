@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-05-02T21:08:45Z",
+  "timestamp": "2025-05-02T21:27:43Z",
   "pdfInfo": {
     "path": "public/default_resume.pdf",
     "size": 119425,
@@ -15,12 +15,12 @@
   },
   "extractionSteps": [
     {
-      "timestamp": "2025-05-02T21:08:45Z",
+      "timestamp": "2025-05-02T21:27:43Z",
       "type": "info",
       "message": "Extraction process started"
     },
     {
-      "timestamp": "2025-05-02T21:08:45Z",
+      "timestamp": "2025-05-02T21:27:43Z",
       "type": "success",
       "message": "Extraction process completed"
     }

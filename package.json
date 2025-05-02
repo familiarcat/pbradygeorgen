@@ -32,6 +32,7 @@
     "setup:git-hooks": "node scripts/setup-git-hooks.js",
     "fix:static": "chmod +x scripts/fix-static-assets.sh && ./scripts/fix-static-assets.sh",
     "fix:standalone": "node scripts/create-standalone.js",
+    "fix:standalone:directory": "node scripts/fix-standalone-directory.js",
     "rebuild": "chmod +x scripts/rebuild-app.sh && ./scripts/rebuild-app.sh",
     "log:build": "node scripts/enhanced-build-logger.js",
     "log:start": "node scripts/enhanced-start-logger.js",
