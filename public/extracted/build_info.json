@@ -1,5 +1,5 @@
 {
-  "buildTimestamp": "2025-05-02T19:54:34Z",
+  "buildTimestamp": "2025-05-02T20:07:57Z",
   "pdfInfo": {
     "path": "public/default_resume.pdf",
     "size": 119425,
@@ -13,7 +13,7 @@
     "chatGptAnalyzed": true
   },
   "chatGptAnalysis": {
-    "timestamp": "2025-05-02T19:54:35.050Z",
+    "timestamp": "2025-05-02T20:07:57.172Z",
     "name": "BENJAMIN STEIN",
     "sections": [
       "name",

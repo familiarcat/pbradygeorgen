@@ -929,3 +929,436 @@ Server Action: cover_letter content in text format retrieved successfully in 98m
 📝✅ [Hesse:Summary:Complete] Server Action: cover_letter content in text format retrieved successfully
 [32m[2025-05-02T19:58:45.364Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Server Action: cover_letter content in text format retrieved successfully[0m
 [DEBUG] Server Action: Preparing response with data (1625 chars)
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-02T20:06:57.353Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content validation successful
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T20:06:57.365Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m
+[32m[2025-05-02T20:06:57.365Z] 😇☀️ [Dante:Paradiso:4:Sun] Content validation successful[0m
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T20:06:57.365Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m
+🔄 GET /api/get-summary - Request received
+🔄 Timestamp parameter: 1746216422272
+🔄 Force refresh: Yes
+📄 Using PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-05-02T20:05:44.791Z
+📦🔍 [Derrida:Cache:Check] Getting extracted PDF content
+📄 PDF file being processed: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T20:05:44.791Z
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+📦🔍 [Derrida:Cache:Check] Checking PDF content freshness
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+PDF Extraction: Found stored content fingerprint {"fingerprint":"c43f3278..."}...
+PDF Extraction Warning: PDF content is stale due to fingerprint mismatch { currentFingerprint: 'd6d06e82...', storedFingerprint: 'c43f3278...' }
+🔑 Content fingerprint: d6d06e82...
+🔄 Content is stale: Yes
+🔄 Force refresh requested: Yes
+🔄 Always force refresh: Yes
+PDF Extraction: Content fingerprint check {"fingerprint":"d6d06e82...","isStale":true,"forceRefresh":true}...
+🔄 Refreshing PDF content: content is stale
+PDF Extraction: Forcing content refresh to ensure fresh data 
+🔄 Starting forced content refresh
+📦🗑️ [Derrida:Cache:Invalidate] Forcing PDF content refresh
+📄 Processing PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T20:05:44.791Z
+🔑 Generated content fingerprint: d6d06e82...
+PDF Extraction: PDF Extraction Logger initialized 
+PDF Extraction: Starting PDF content refresh 
+PDF Extraction: Saved content fingerprint {"fingerprint":"d6d06e82..."}...
+🔍 Running text extraction script: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js
+PDF Extraction: Running text extraction script {"script":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pd...
+⏱️ Text extraction completed in 280ms
+[31m[2025-05-02T20:07:02.598Z] 👑🌊 [Dante:Inferno:2:Lust] Error refreshing content: shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+[0m
+[31m[2025-05-02T20:07:02.598Z] 👑🌊 [Dante:Inferno:2:Lust] PDF Extraction: Text extraction failed[0m
+PDF Extraction Error: Text extraction failed {
+  error: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n'
+}
+❌ Failed to refresh PDF content
+[31m[2025-05-02T20:07:02.599Z] 👑🌊 [Dante:Inferno:2:Lust] Failed to refresh PDF content[0m
+[31m[2025-05-02T20:07:02.600Z] 👑🌊 [Dante:Inferno:2:Lust] PDF Extraction: Failed to refresh PDF content[0m
+PDF Extraction Error: Failed to refresh PDF content 
+[31m[2025-05-02T20:07:02.600Z] 👑🌊 [Dante:Inferno:2:Lust] Error getting extracted content: Error: Failed to refresh PDF content[0m
+[31m[2025-05-02T20:07:02.600Z] 👑🌊 [Dante:Inferno:2:Lust] PDF Extraction: Error getting extracted content[0m
+PDF Extraction Error: Error getting extracted content {
+  error: Error: Failed to refresh PDF content
+      at y (.next/server/chunks/693.js:1:12021)
+      at async y (.next/server/app/api/get-summary/route.js:1:1750)
+}
+[31m[2025-05-02T20:07:02.607Z] 👑💢 [Dante:Inferno:5:Wrath] Failed to get fresh content from PDF, using error fallback[0m
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=true, timestamp=1746216422613, includeMetadata=false
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = true
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = true
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: true,
+  isAnalyzed: true,
+  hasCoverLetter: true,
+  isContentStale: false
+}
+Cover Letter content needs refresh: Force refresh requested
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Error processing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+📝❌ [Hesse:Summary:Error] Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+
+[31m[2025-05-02T20:07:02.641Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+[0m
+processPdfContent result: {
+  success: false,
+  isStale: true,
+  hasExtractedContent: false,
+  hasAnalyzedContent: false
+}
+PDF processing failed: Error processing PDF content
+getFormattedContent result: {
+  success: false,
+  isStale: true,
+  contentLength: undefined,
+  format: undefined,
+  contentType: undefined
+}
+Error formatting Cover Letter content: Error processing PDF content
+[31m[2025-05-02T20:07:02.642Z] 👑🌊 [Dante:Inferno:2:Lust] Error formatting Cover Letter content: Error processing PDF content[0m
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=true, timestamp=1746216430277, includeMetadata=false
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = true
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = true
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: false,
+  isAnalyzed: false,
+  hasCoverLetter: true,
+  isContentStale: true
+}
+Cover Letter content needs refresh: Content has not been processed
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Error processing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+📝❌ [Hesse:Summary:Error] Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+
+[31m[2025-05-02T20:07:10.332Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+[0m
+processPdfContent result: {
+  success: false,
+  isStale: true,
+  hasExtractedContent: false,
+  hasAnalyzedContent: false
+}
+PDF processing failed: Error processing PDF content
+getFormattedContent result: {
+  success: false,
+  isStale: true,
+  contentLength: undefined,
+  format: undefined,
+  contentType: undefined
+}
+Error formatting Cover Letter content: Error processing PDF content
+[31m[2025-05-02T20:07:10.332Z] 👑🌊 [Dante:Inferno:2:Lust] Error formatting Cover Letter content: Error processing PDF content[0m
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=true, timestamp=1746216431206, includeMetadata=false
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = true
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = true
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: false,
+  isAnalyzed: false,
+  hasCoverLetter: true,
+  isContentStale: true
+}
+Cover Letter content needs refresh: Content has not been processed
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Error processing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+📝❌ [Hesse:Summary:Error] Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+
+[31m[2025-05-02T20:07:11.234Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error processing PDF content: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+[0m
+processPdfContent result: {
+  success: false,
+  isStale: true,
+  hasExtractedContent: false,
+  hasAnalyzedContent: false
+}
+PDF processing failed: Error processing PDF content
+getFormattedContent result: {
+  success: false,
+  isStale: true,
+  contentLength: undefined,
+  format: undefined,
+  contentType: undefined
+}
+Error formatting Cover Letter content: Error processing PDF content
+[31m[2025-05-02T20:07:11.234Z] 👑🌊 [Dante:Inferno:2:Lust] Error formatting Cover Letter content: Error processing PDF content[0m
