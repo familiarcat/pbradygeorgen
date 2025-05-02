@@ -136,7 +136,7 @@ export function getGoldenRatioColor(color: string): string {
   
   let h = 0;
   let s = 0;
-  let l = (max + min) / 2;
+  const l = (max + min) / 2;
   
   if (max !== min) {
     const d = max - min;
@@ -189,7 +189,7 @@ export function generateCtaBackground(baseColor: string, textColor: string = '#F
   // WCAG AA requires 4.5:1 for normal text
   if (contrastRatio < 4.5) {
     // Adjust lightness until we achieve sufficient contrast
-    let adjustment = 0.05;
+    const adjustment = 0.05;
     let maxIterations = 20; // Prevent infinite loops
     
     while (contrastRatio < 4.5 && maxIterations > 0) {

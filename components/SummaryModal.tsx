@@ -47,19 +47,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
 
-  // States for content freshness and loading
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  // States for loading and content
   const [isLoadingContent, setIsLoadingContent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [localContent, setContent] = useState(content);
-  const [contentFreshness, setContentFreshness] = useState<{
-    isStale: boolean;
-    reason?: string;
-    lastChecked: Date;
-  }>({
-    isStale: false,
-    lastChecked: new Date()
-  });
+  const [localContent, setLocalContent] = useState(content);
 
   // States for preview modals
   // Track which preview is active to prevent multiple previews from showing simultaneously
@@ -81,6 +72,17 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       try {
         setIsGeneratingPdf(true);
         HesseLogger.summary.start('Exporting summary as PDF with dark theme');
+        console.log('Starting PDF export for Cover Letter');
+
+        // Validate content before attempting to generate PDF
+        if (!localContent || localContent.trim() === '') {
+          const errorMsg = 'Cannot export PDF: Content is empty';
+          console.error(errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+          alert('Cannot export PDF: The content is empty. Please try refreshing the content.');
+          reject(new Error(errorMsg));
+          return;
+        }
 
         // Define consistent options for both preview and download
         const pdfOptions = {
@@ -88,44 +90,84 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
-          pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
+          pageSize: 'letter' as const, // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
         };
 
-        // If we have a cached PDF data URL from the preview, use it for consistency
-        if (pdfDataUrl) {
-          DanteLogger.success.basic('Using cached PDF data URL for download');
+        console.log('Exporting PDF with content length:', localContent.length);
 
-          // Create a link to download the PDF from the data URL
-          const link = document.createElement('a');
-          link.href = pdfDataUrl;
-          link.download = 'pbradygeorgen_cover_letter.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          // Generate a new PDF if we don't have a cached data URL
-          DanteLogger.success.basic('Generating new PDF data URL for download');
+        try {
+          // If we have a cached PDF data URL from the preview, use it for consistency
+          if (pdfDataUrl) {
+            DanteLogger.success.basic('Using cached PDF data URL for download');
+            console.log('Using cached PDF data URL for download');
 
-          // First generate a data URL to ensure consistency with preview
-          const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(localContent, pdfOptions);
+            // Create a link to download the PDF from the data URL
+            const link = document.createElement('a');
+            link.href = pdfDataUrl;
+            link.download = 'pbradygeorgen_cover_letter.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            // Generate a new PDF if we don't have a cached data URL
+            DanteLogger.success.basic('Generating new PDF data URL for download');
+            console.log('Generating new PDF data URL for download');
 
-          // Then download using the data URL
-          const link = document.createElement('a');
-          link.href = dataUrl;
-          link.download = 'pbradygeorgen_cover_letter.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+            // First generate a data URL to ensure consistency with preview
+            const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(localContent, pdfOptions);
+
+            if (!dataUrl) {
+              throw new Error('Failed to generate PDF data URL');
+            }
+
+            // Then download using the data URL
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = 'pbradygeorgen_cover_letter.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        } catch (pdfError) {
+          console.error('Error generating or downloading PDF:', pdfError);
+          DanteLogger.error.runtime(`Error generating or downloading PDF: ${pdfError}`);
+
+          // Fallback to text download if PDF generation fails
+          console.log('Falling back to text download');
+          DanteLogger.warn.deprecated('Falling back to text download due to PDF generation failure');
+
+          const plainText = localContent
+            .replace(/#{1,6}\s+/g, '') // Remove headers
+            .replace(/\*\*/g, '') // Remove bold
+            .replace(/\*/g, '') // Remove italic
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
+            .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
+            .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
+            .replace(/>/g, '') // Remove blockquotes
+            .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
+
+          const blob = new Blob([plainText], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'pbradygeorgen_cover_letter.txt';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          alert('Could not generate PDF. A text version has been downloaded instead.');
         }
 
         DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
         HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
         resolve();
       } catch (error) {
+        console.error('Error exporting to PDF:', error);
         DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
         HesseLogger.summary.error(`PDF export failed: ${error}`);
-        alert('There was an error generating the PDF. Please try again.');
+        alert(`There was an error generating the PDF: ${error instanceof Error ? error.message : 'Unknown error'}. Please try refreshing the content.`);
         reject(error);
       } finally {
         setIsGeneratingPdf(false);
@@ -139,18 +181,33 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Generating PDF preview with dark theme');
       console.log('Starting PDF preview generation for Cover Letter');
 
+      // Validate content before attempting to generate PDF
+      if (!localContent || localContent.trim() === '') {
+        const errorMsg = 'Cannot generate PDF preview: Content is empty';
+        console.error(errorMsg);
+        DanteLogger.error.runtime(errorMsg);
+        alert('Cannot generate PDF preview: The content is empty. Please try refreshing the content.');
+        return;
+      }
+
       // Define consistent options for both preview and download - same as in export function
       const pdfOptions = {
         title: 'P. Brady Georgen - Cover Letter',
         fileName: 'pbradygeorgen_cover_letter.pdf',
         headerText: 'P. Brady Georgen - Cover Letter',
         footerText: 'Generated with Salinger Design',
-        pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
+        pageSize: 'letter' as const, // Explicitly type as literal 'letter'
         margins: { top: 8, right: 8, bottom: 8, left: 8 }
       };
 
+      console.log('Generating PDF preview with content length:', localContent.length);
+
       // Generate a real-time PDF preview optimized for a single page
       const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(localContent, pdfOptions);
+
+      if (!dataUrl) {
+        throw new Error('Failed to generate PDF data URL');
+      }
 
       console.log('PDF data URL generated:', dataUrl ? `${dataUrl.substring(0, 50)}...` : 'null');
 
@@ -168,11 +225,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.error('Error in PDF preview generation:', error);
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
       HesseLogger.summary.error(`PDF preview failed: ${error}`);
-      alert('There was an error generating the PDF preview. Please try again.');
+      alert(`There was an error generating the PDF preview: ${error instanceof Error ? error.message : 'Unknown error'}. Please try refreshing the content.`);
     }
   };
 
   // Function to handle downloading from a PDF data URL
+  // This function is kept for future use but currently not called directly
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDownloadFromDataUrl = (dataUrl: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       try {
@@ -202,6 +261,19 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       try {
         setIsGeneratingMd(true);
         HesseLogger.summary.start('Exporting summary as Markdown');
+        console.log('Starting Markdown export for Cover Letter');
+
+        // Validate content before attempting to export
+        if (!localContent || localContent.trim() === '') {
+          const errorMsg = 'Cannot export Markdown: Content is empty';
+          console.error(errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+          alert('Cannot export Markdown: The content is empty. Please try refreshing the content.');
+          reject(new Error(errorMsg));
+          return;
+        }
+
+        console.log('Exporting Markdown with content length:', localContent.length);
 
         // Create and download the file
         const blob = new Blob([localContent], { type: 'text/markdown' });
@@ -216,11 +288,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
         DanteLogger.success.ux('Exported summary as Markdown');
         HesseLogger.summary.complete('Summary exported as Markdown');
+        console.log('Markdown export completed successfully');
         resolve();
       } catch (error) {
+        console.error('Error exporting to Markdown:', error);
         DanteLogger.error.runtime(`Error exporting to Markdown: ${error}`);
         HesseLogger.summary.error(`Error exporting to Markdown: ${error}`);
-        alert('There was an error generating the Markdown file. Please try again.');
+        alert(`There was an error generating the Markdown file: ${error instanceof Error ? error.message : 'Unknown error'}. Please try refreshing the content.`);
         reject(error);
       } finally {
         setIsGeneratingMd(false);
@@ -347,81 +421,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   }, [isOpen]);
 
-  // Function to check content freshness
-  const checkFreshness = async () => {
-    try {
-      setIsRefreshing(true);
-      HesseLogger.summary.start('Checking content freshness');
-
-      // Call the content freshness API
-      const response = await fetch('/api/content-freshness');
-
-      if (!response.ok) {
-        throw new Error(`API responded with status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to check content freshness');
-      }
-
-      // Update the state
-      setContentFreshness({
-        isStale: data.isStale,
-        reason: data.reason,
-        lastChecked: new Date()
-      });
-
-      // Log the result
-      if (data.isStale) {
-        console.warn(`Content is stale: ${data.reason}`);
-        HesseLogger.summary.progress('Content is stale and needs refresh');
-      } else {
-        console.log('Content is fresh');
-        HesseLogger.summary.complete('Content is fresh and up-to-date');
-      }
-
-      return {
-        isStale: data.isStale,
-        reason: data.reason
-      };
-    } catch (error) {
-      console.error('Error checking content freshness:', error);
-      HesseLogger.summary.error(`Error checking content freshness: ${error}`);
-
-      // Set a default state
-      setContentFreshness({
-        isStale: true,
-        reason: 'Error checking freshness',
-        lastChecked: new Date()
-      });
-
-      return { isStale: true, reason: 'Error checking freshness' };
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
-
-  // Function to refresh content
-  const handleRefreshContent = async () => {
-    try {
-      setIsRefreshing(true);
-      HesseLogger.summary.start('Refreshing content');
-
-      // Fetch the Cover Letter content with forceRefresh=true
-      await fetchCoverLetter(true);
-
-      console.log('Content refreshed successfully');
-      HesseLogger.summary.complete('Content refreshed successfully');
-    } catch (error) {
-      console.error('Error refreshing content:', error);
-      HesseLogger.summary.error(`Error refreshing content: ${error}`);
-      alert('There was an error refreshing the content. Please try again.');
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
+  // Content freshness checking removed as it's now handled server-side
 
   // Function to fetch the Cover Letter content
   const fetchCoverLetter = async (forceRefresh = false) => {
@@ -429,45 +429,74 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       setIsLoadingContent(true);
       setError(null);
 
-      // Call the API to get the Cover Letter content
-      const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}`);
+      // Clear PDF data URL when fetching new content
+      setPdfDataUrl(null);
+
+      console.log(`Fetching Cover Letter content (forceRefresh: ${forceRefresh})`);
+
+      // Call the API to get the Cover Letter content with cache-busting
+      const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}&t=${Date.now()}`);
 
       if (!response.ok) {
-        throw new Error(`API responded with status: ${response.status}`);
+        let errorText = '';
+        try {
+          errorText = await response.text();
+          console.error('API error response:', errorText);
+        } catch (textError) {
+          console.error('Could not read error response text:', textError);
+        }
+        throw new Error(`API responded with status: ${response.status}${errorText ? ` - ${errorText}` : ''}`);
       }
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('Error parsing JSON response:', jsonError);
+        throw new Error('Invalid response format from server');
+      }
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to get Cover Letter content');
       }
 
-      // Set the content
-      setContent(data.content);
+      // Validate content
+      if (!data.content || data.content.trim() === '') {
+        throw new Error('Received empty content from server');
+      }
 
-      // Update content freshness state
-      setContentFreshness({
-        isStale: data.isStale || false,
-        reason: data.isStale ? 'Content may be outdated' : undefined,
-        lastChecked: new Date()
-      });
+      console.log(`Received content (${data.content.length} characters)`);
+
+      // Set the content
+      setLocalContent(data.content);
 
       console.log('Cover Letter content fetched successfully');
+      DanteLogger.success.basic('Cover Letter content fetched successfully');
+      return true;
     } catch (error) {
       console.error('Error fetching Cover Letter content:', error);
+      DanteLogger.error.dataFlow(`Error fetching Cover Letter content: ${error}`);
       setError(error instanceof Error ? error.message : 'Failed to fetch Cover Letter content');
+      return false;
     } finally {
       setIsLoadingContent(false);
     }
   };
 
-  // Check content freshness and fetch content when the modal is opened
+  // Function to handle refresh button click
+  const handleRefresh = async () => {
+    console.log('Manual refresh requested');
+    await fetchCoverLetter(true);
+  };
+
+  // Fetch content when the modal is opened
   useEffect(() => {
     if (isOpen) {
-      checkFreshness().then(freshnessResult => {
-        // If content is stale, force a refresh
-        fetchCoverLetter(freshnessResult.isStale);
-      });
+      console.log('SummaryModal opened, fetching latest content');
+
+      // Always fetch content when modal is opened
+      // This ensures we're always showing the latest content
+      fetchCoverLetter(true);
     }
   }, [isOpen]);
 
@@ -517,44 +546,34 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>Cover Letter</h2>
 
-          {/* Content Freshness Indicator */}
-          {contentFreshness.isStale && (
-            <div className={styles.freshnessWarning}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={styles.warningIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-              </svg>
-              <span>Content may be outdated</span>
-              <button
-                onClick={handleRefreshContent}
-                disabled={isRefreshing}
-                className={styles.refreshButton}
-              >
-                {isRefreshing ? (
-                  <span className={styles.loadingText}>
-                    <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Refreshing...
-                  </span>
-                ) : (
-                  <>
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.refreshIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M23 4v6h-6"></path>
-                      <path d="M1 20v-6h6"></path>
-                      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
-                      <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
-                    </svg>
-                    Refresh
-                  </>
-                )}
-              </button>
-            </div>
-          )}
+          {/* Content freshness warning removed as it's now handled server-side */}
 
           <div className={styles.headerActions}>
+            {/* Refresh button */}
+            <button
+              className={styles.refreshActionButton}
+              onClick={handleRefresh}
+              disabled={isLoadingContent}
+              title="Refresh content"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`${styles.actionIcon} ${isLoadingContent ? styles.spinAnimation : ''}`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M23 4v6h-6"></path>
+                <path d="M1 20v-6h6"></path>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+              </svg>
+              {isLoadingContent ? 'Refreshing...' : 'Refresh'}
+            </button>
+
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
               <a

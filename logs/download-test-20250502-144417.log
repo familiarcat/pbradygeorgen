@@ -1,0 +1,48 @@
+[2025-05-02 14:44:17] 🔧 Step 1: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+Creating cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:44:17] ✅ Environment prepared successfully
+[2025-05-02 14:44:17] 🧪 Step 2: Running download functionality tests...
+🚀 [2025-05-02T19:44:17.903Z] Starting download functionality tests
+🚀 [2025-05-02T19:44:17.906Z] Starting application in production mode...
+🚀 [2025-05-02T19:44:17.943Z] Preparing environment for download tests...
+📝 [2025-05-02T19:44:17.962Z] Prepare: 🔧 Preparing environment for download functionality tests...
+📝 [2025-05-02T19:44:17.963Z] Prepare: ✅ Environment prepared for download functionality tests
+✅ [2025-05-02T19:44:17.964Z] Environment prepared successfully
+✅ [2025-05-02T19:44:17.964Z] Environment prepared, starting application...
+❌ [2025-05-02T19:44:18.553Z] App error: ❌ ERROR: Extracted content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+✅ [2025-05-02T19:45:18.015Z] Application is responding to requests
+🚀 [2025-05-02T19:45:18.018Z] Starting test: Download pdf - Normal content download
+✅ [2025-05-02T19:45:18.023Z] Test "Download pdf - Normal content download": PASSED
+🚀 [2025-05-02T19:45:18.023Z] Starting test: Download markdown - Normal content download
+✅ [2025-05-02T19:45:18.058Z] Test "Download markdown - Normal content download": PASSED
+🚀 [2025-05-02T19:45:18.058Z] Starting test: Download text - Normal content download
+✅ [2025-05-02T19:45:18.059Z] Test "Download text - Normal content download": PASSED
+🚀 [2025-05-02T19:45:18.059Z] Starting test: Download pdf - Empty content download (error handling)
+📝 [2025-05-02T19:45:18.060Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:45:18.060Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:45:18.061Z] Test "Download pdf - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:45:18.061Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:45:18.062Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:45:18.062Z] Starting test: Download markdown - Empty content download (error handling)
+📝 [2025-05-02T19:45:18.062Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:45:18.081Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:45:18.082Z] Test "Download markdown - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:45:18.083Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:45:18.083Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:45:18.083Z] Starting test: Download text - Empty content download (error handling)
+📝 [2025-05-02T19:45:18.083Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:45:18.083Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:45:18.084Z] Test "Download text - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:45:18.088Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:45:18.091Z] Restored public/extracted/resume_content_analyzed.json from backup
+✅ [2025-05-02T19:45:18.092Z] Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+✅ [2025-05-02T19:45:18.092Z] HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+🏁 [2025-05-02T19:45:18.093Z] Tests completed
+📝 [2025-05-02T19:45:18.093Z] Total: 6, Passed: 6, Failed: 0, Skipped: 0
+📝 [2025-05-02T19:45:18.093Z] Stopping application...
+✅ [2025-05-02T19:45:18.093Z] Application stopped
+[2025-05-02 14:45:18] ✅ Download functionality tests completed
+[2025-05-02 14:45:18] 🎉 Download tests completed successfully!
+[2025-05-02 14:45:18] Test log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/download-test-20250502-144417.log

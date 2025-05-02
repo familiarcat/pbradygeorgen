@@ -1,0 +1,48 @@
+[2025-05-02 14:42:34] 🔧 Step 1: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+Creating cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:42:35] ✅ Environment prepared successfully
+[2025-05-02 14:42:35] 🧪 Step 2: Running download functionality tests...
+🚀 [2025-05-02T19:42:35.057Z] Starting download functionality tests
+🚀 [2025-05-02T19:42:35.059Z] Starting application in production mode...
+🚀 [2025-05-02T19:42:35.088Z] Preparing environment for download tests...
+📝 [2025-05-02T19:42:35.110Z] Prepare: 🔧 Preparing environment for download functionality tests...
+📝 [2025-05-02T19:42:35.110Z] Prepare: ✅ Environment prepared for download functionality tests
+✅ [2025-05-02T19:42:35.112Z] Environment prepared successfully
+✅ [2025-05-02T19:42:35.112Z] Environment prepared, starting application...
+❌ [2025-05-02T19:42:35.744Z] App error: ❌ ERROR: Extracted content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+✅ [2025-05-02T19:43:35.148Z] Application is responding to requests
+🚀 [2025-05-02T19:43:35.149Z] Starting test: Download pdf - Normal content download
+✅ [2025-05-02T19:43:35.150Z] Test "Download pdf - Normal content download": PASSED
+🚀 [2025-05-02T19:43:35.150Z] Starting test: Download markdown - Normal content download
+❌ [2025-05-02T19:43:35.161Z] Test "Download markdown - Normal content download": FAILED
+❌ [2025-05-02T19:43:35.161Z] Error details: Missing expected patterns: Experience, Skills, Education
+🚀 [2025-05-02T19:43:35.161Z] Starting test: Download text - Normal content download
+❌ [2025-05-02T19:43:35.162Z] Test "Download text - Normal content download": FAILED
+❌ [2025-05-02T19:43:35.162Z] Error details: Missing expected patterns: P. Brady Georgen, Experience, Education
+🚀 [2025-05-02T19:43:35.162Z] Starting test: Download pdf - Empty content download (error handling)
+📝 [2025-05-02T19:43:35.162Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:43:35.163Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:43:35.164Z] Test "Download pdf - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:43:35.164Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:43:35.164Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:43:35.164Z] Starting test: Download markdown - Empty content download (error handling)
+📝 [2025-05-02T19:43:35.164Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:43:35.165Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:43:35.165Z] Test "Download markdown - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:43:35.165Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:43:35.165Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:43:35.165Z] Starting test: Download text - Empty content download (error handling)
+📝 [2025-05-02T19:43:35.166Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:43:35.166Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:43:35.166Z] Test "Download text - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:43:35.166Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:43:35.166Z] Restored public/extracted/resume_content_analyzed.json from backup
+✅ [2025-05-02T19:43:35.167Z] Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+✅ [2025-05-02T19:43:35.167Z] HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+🏁 [2025-05-02T19:43:35.168Z] Tests completed
+📝 [2025-05-02T19:43:35.168Z] Total: 6, Passed: 4, Failed: 2, Skipped: 0
+📝 [2025-05-02T19:43:35.168Z] Stopping application...
+✅ [2025-05-02T19:43:35.168Z] Application stopped
+[2025-05-02 14:43:35] ❌ Download functionality tests failed. See test report for details.

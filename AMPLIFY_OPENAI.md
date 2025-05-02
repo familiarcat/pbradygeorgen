@@ -59,7 +59,7 @@ If you see the warning "⚠️ OpenAI API key is not available, skipping analysi
 
 The application will still build and deploy successfully without the OpenAI API key, but the PDF analysis features will be limited.
 
-## Local Development
+## Local Development33a3aeb9-0a69-4958-b49c-acf998f7a871
 
 For local development, you can set the OpenAI API key in a `.env.local` file:
 

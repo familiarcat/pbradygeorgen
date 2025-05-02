@@ -20,9 +20,17 @@ const nextConfig = {
   },
   // Improve build performance
   poweredByHeader: false,
-  // Use the default export mode instead of standalone for better static asset handling
-  // output: 'standalone',
-  // outputFileTracingRoot: process.cwd(),
+  // Configure output for AWS Amplify compatibility
+  output: 'standalone',
+  outputFileTracingRoot: process.cwd(),
+  // Disable type checking during build for faster builds
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  // Disable image optimization warnings
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig;

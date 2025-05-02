@@ -419,7 +419,7 @@ export async function generatePdfFromMarkdown(
     const pageWidth = 8.5 - (margin * 2);
 
     // Track the previous block type to add section separators
-    let prevBlockType: string | null = null;
+    const prevBlockType: string | null = null;
 
     // Process each content block
     parsedContent.forEach((block, index) => {
@@ -581,6 +581,23 @@ export async function generatePdfDataUrlFromMarkdown(
 ): Promise<string> {
   try {
     DanteLogger.success.basic('Generating PDF data URL from markdown content');
+    console.log('[DEBUG] Generating PDF data URL from markdown', {
+      contentLength: markdownContent?.length || 0,
+      contentType: typeof markdownContent,
+      hasContent: !!markdownContent,
+      contentFirstChars: markdownContent ? markdownContent.substring(0, 50) + '...' : 'N/A',
+      options: JSON.stringify(options)
+    });
+
+    // Validate input
+    if (!markdownContent || markdownContent.trim() === '') {
+      const errorMsg = 'Cannot generate PDF: Markdown content is empty';
+      console.error('[DEBUG] PDF generation error:', errorMsg);
+      DanteLogger.error.runtime(errorMsg);
+      throw new Error(errorMsg);
+    }
+
+    console.log('[DEBUG] Markdown content validation passed, proceeding with PDF generation');
 
     // Determine if this is from the Summary modal or Cover Letter (dark theme) or regular content
     // Ensure consistent styling between preview and download by explicitly checking for cover_letter
@@ -651,7 +668,7 @@ export async function generatePdfDataUrlFromMarkdown(
     const pageWidth = 8.5 - (margin * 2);
 
     // Track the previous block type to add section separators
-    let prevBlockType: string | null = null;
+    const prevBlockType: string | null = null;
 
     // Process each content block
     parsedContent.forEach((block, index) => {
@@ -789,12 +806,32 @@ export async function generatePdfDataUrlFromMarkdown(
       pdf.text(options.footerText, 4.25, 10.6, { align: 'center' }); // Moved down
     }
 
-    // Return the PDF as a data URL
-    const dataUrl = pdf.output('datauristring');
-    DanteLogger.success.ux('Generated PDF data URL');
-    return dataUrl;
+    try {
+      // Return the PDF as a data URL
+      console.log('[DEBUG] Generating PDF data URL from jsPDF instance');
+      const dataUrl = pdf.output('datauristring');
+
+      if (!dataUrl || dataUrl.length < 100) {
+        console.error('[DEBUG] Generated PDF data URL is invalid or too short:', dataUrl);
+        throw new Error('Generated PDF data URL is invalid or too short');
+      }
+
+      console.log(`[DEBUG] PDF data URL generated successfully (${dataUrl.length} chars)`);
+      DanteLogger.success.ux('Generated PDF data URL');
+      return dataUrl;
+    } catch (outputError) {
+      console.error('[DEBUG] Error generating PDF data URL output:', outputError);
+      throw outputError;
+    }
   } catch (error) {
-    DanteLogger.error.runtime(`Error generating PDF data URL: ${error}`);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('[DEBUG] Error in generatePdfDataUrlFromMarkdown:', error);
+    console.error('[DEBUG] Error details:', {
+      errorType: typeof error,
+      errorMessage,
+      errorStack: error instanceof Error ? error.stack : 'No stack trace'
+    });
+    DanteLogger.error.runtime(`Error generating PDF data URL: ${errorMessage}`);
     return Promise.reject(error);
   }
 }

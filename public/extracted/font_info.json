@@ -1,13 +1,13 @@
 {
   "hesseFont": {
-    "name": "Gill Sans",
+    "name": "Futura",
     "isSerifFont": false,
     "isMonospace": false,
     "type": "sans-serif",
     "philosophy": "Hesse: Clarity and structure"
   },
   "salingerFont": {
-    "name": "Palatino",
+    "name": "Baskerville",
     "isSerifFont": true,
     "isMonospace": false,
     "type": "serif",

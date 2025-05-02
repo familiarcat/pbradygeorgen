@@ -103,11 +103,54 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Refresh action button - Primary CTA in header */
+.refreshActionButton {
+  background-color: rgba(95, 107, 84, 0.2); /* Ebony with transparency (matches --cta-secondary) */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refreshActionButton:hover {
+  background-color: #5F6B54; /* Ebony color (matches --cta-secondary) */
+  color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.refreshActionButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* Refresh icon */
 .refreshIcon {
   width: 1.25rem;
   height: 1.25rem;
   stroke-width: 2;
+}
+
+/* Spin animation for loading states */
+.spinAnimation {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Download container for dropdown functionality */

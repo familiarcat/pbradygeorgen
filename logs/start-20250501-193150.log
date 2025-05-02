@@ -1,0 +1,745 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 124ms
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: bc8a12b9...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-02T00:32:34.889Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-02T00:32:34.890Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Content has not been analyzed yet
+[31m[2025-05-02T00:32:34.890Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-02T00:32:34.890Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+[32m[2025-05-02T00:32:35.122Z] 😇☀️ [Dante:Paradiso:4:Sun] PDF content refreshed automatically[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-02T00:32:35.129Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+PDF content is stale: fingerprint changed
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 93ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 93ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦❌ [Derrida:Cache:Miss] Cache miss for key: resume-a...
+🤖🔍 [Hesse:OpenAI:Request] Sending resume content to OpenAI for analysis
+🤖✅ [Hesse:OpenAI:Response] OpenAI analysis completed in 12924ms
+[32m[2025-05-02T00:32:48.160Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: OpenAI analysis completed in 12924ms[0m
+[32m[2025-05-02T00:32:48.160Z] 😇☀️ [Dante:Paradiso:4:Sun] Resume content analyzed successfully with OpenAI[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: resume-a...
+Content analyzed in 12935ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 12935ms
+[32m[2025-05-02T00:32:48.161Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 12935ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:32:48.164Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+Analyzed content retrieved successfully
+📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
+[32m[2025-05-02T00:32:48.164Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Formatting content as markdown
+📝🔍 [Hesse:Summary:Start] Formatting content as markdown
+📦❌ [Derrida:Cache:Miss] Cache miss for key: 65bb8551...
+📦❌ [Derrida:Cache:Miss] Cache miss for key: 65bb8551...
+🤖✅ [Hesse:OpenAI:Response] Received response from OpenAI in 680ms
+[32m[2025-05-02T00:33:21.917Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: Received response from OpenAI in 680ms[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: 65bb8551...
+📦🔄 [Derrida:Cache:Update] Stored formatted content with key: 65bb8551...
+📝✅ [Hesse:Summary:Complete] Successfully formatted content as markdown
+[32m[2025-05-02T00:33:21.919Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Successfully formatted content as markdown[0m
+📝✅ [Hesse:Summary:Complete] Content formatted as markdown
+[32m[2025-05-02T00:33:21.919Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content formatted as markdown[0m
+📝🔍 [Hesse:Summary:Start] Formatting content as text
+📝🔍 [Hesse:Summary:Start] Formatting content as text
+📦❌ [Derrida:Cache:Miss] Cache miss for key: b86edfea...
+📦❌ [Derrida:Cache:Miss] Cache miss for key: b86edfea...
+🤖✅ [Hesse:OpenAI:Response] Received response from OpenAI in 5631ms
+[32m[2025-05-02T00:33:33.709Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: Received response from OpenAI in 5631ms[0m
+📦🔄 [Derrida:Cache:Update] Saved 2 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: b86edfea...
+📦🔄 [Derrida:Cache:Update] Stored formatted content with key: b86edfea...
+📝✅ [Hesse:Summary:Complete] Successfully formatted content as text
+[32m[2025-05-02T00:33:33.710Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Successfully formatted content as text[0m
+📝✅ [Hesse:Summary:Complete] Content formatted as text
+[32m[2025-05-02T00:33:33.710Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content formatted as text[0m
+🔄 GET /api/get-summary - Request received
+🔄 Timestamp parameter: 1746146023374
+🔄 Force refresh: Yes
+📄 Using PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-05-02T00:31:50.257Z
+📦🔍 [Derrida:Cache:Check] Getting extracted PDF content
+📄 PDF file being processed: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T00:31:50.257Z
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+📦🔍 [Derrida:Cache:Check] Checking PDF content freshness
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+PDF Extraction: Found stored content fingerprint {"fingerprint":"bc8a12b9..."}...
+PDF Extraction Warning: PDF content is stale due to fingerprint mismatch { currentFingerprint: '52113adc...', storedFingerprint: 'bc8a12b9...' }
+🔑 Content fingerprint: 52113adc...
+🔄 Content is stale: Yes
+🔄 Force refresh requested: Yes
+🔄 Always force refresh: Yes
+PDF Extraction: Content fingerprint check {"fingerprint":"52113adc...","isStale":true,"forceRefresh":true}...
+🔄 Refreshing PDF content: content is stale
+PDF Extraction: Forcing content refresh to ensure fresh data 
+🔄 Starting forced content refresh
+📦🗑️ [Derrida:Cache:Invalidate] Forcing PDF content refresh
+📄 Processing PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T00:31:50.257Z
+🔑 Generated content fingerprint: 52113adc...
+PDF Extraction: PDF Extraction Logger initialized 
+PDF Extraction: Starting PDF content refresh 
+PDF Extraction: Saved content fingerprint {"fingerprint":"52113adc..."}...
+🔍 Running text extraction script: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js
+PDF Extraction: Running text extraction script {"script":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pd...
+⏱️ Text extraction completed in 265ms
+✅ Text extraction successful (3327 characters)
+📝 Text preview: "BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current 2143 Alf..."
+PDF Extraction: Text extraction successful {"preview":"BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memoria...
+✅ Markdown generation successful (116 characters)
+📝 Markdown preview: "# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/1/2025*
+..."
+PDF Extraction: Markdown generation successful {"preview":"# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF re...
+PDF Extraction: Extracting font information 
+PDF Extraction: Font extraction successful 
+PDF Extraction: Extracting color information 
+[31m[2025-05-02T00:33:44.154Z] 👑🌊 [Dante:Inferno:2:Lust] PDF Extraction: Color extraction failed[0m
+PDF Extraction Error: Color extraction failed {
+  error: [Error: Command failed: node /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+  Error extracting colors: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'
+  Require stack:
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".
+      at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+  Color extraction failed: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'
+  Require stack:
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".
+      at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+  ] {
+    code: 1,
+    killed: false,
+    signal: null,
+    cmd: 'node /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf',
+    stdout: 'Extracting colors from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf\n',
+    stderr: `Error extracting colors: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'\n` +
+      'Require stack:\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".\n' +
+      '    at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+      `Color extraction failed: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'\n` +
+      'Require stack:\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".\n' +
+      '    at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n'
+  }
+}
+PDF Extraction: Saved build info file 
+
+📋 PDF EXTRACTION SUMMARY
+=======================
+📄 PDF: default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last Modified: 2025-05-02T00:31:50.257Z
+🔑 Content Fingerprint: 52113adc...
+
+📦 EXTRACTED CONTENT:
+📝 Text: ✅
+📄 Markdown: ✅
+🔤 Fonts: ✅
+🎨 Colors: ❌
+
+⏱️ EXTRACTION TIMELINE:
+✅ 7:33:43 PM: PDF Extraction Logger initialized
+✅ 7:33:43 PM: Starting PDF content refresh
+✅ 7:33:43 PM: Saved content fingerprint
+✅ 7:33:43 PM: Running text extraction script
+✅ 7:33:43 PM: Text extraction successful
+✅ 7:33:43 PM: Markdown generation successful
+✅ 7:33:43 PM: Extracting font information
+✅ 7:33:44 PM: Font extraction successful
+✅ 7:33:44 PM: Extracting color information
+❌ 7:33:44 PM: Color extraction failed
+✅ 7:33:44 PM: Saved build info file
+
+=======================
+📝🔍 [Hesse:Summary:Start] PDF Extraction Summary
+✅ PDF content refresh completed successfully
+📄 Text file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content.txt
+📄 Markdown file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content.md
+📄 Font info file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/font_info.json
+📄 Color theme file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/color_theme.json
+📄 Build info file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/build_info.json
+📄 Content fingerprint file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/content_fingerprint.txt
+[32m[2025-05-02T00:33:44.168Z] 😇☀️ [Dante:Paradiso:4:Sun] PDF content refreshed successfully[0m
+✅ Successfully refreshed PDF content
+PDF Extraction: Retrieved extracted content {"preview":"# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF re...
+✅ Successfully extracted fresh content from PDF (116 characters)
+📝 Content starts with: "# Professional Resume
+
+---
+
+*This document was aut..."
+🧠⚠️ [Hesse:AI:Warning] OpenAI integration is disabled. Using fallback summary
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=true, timestamp=1746146024175, includeMetadata=false
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = true
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = true
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: 'none' }
+Cover Letter content freshness check: {
+  fingerprintChanged: true,
+  isProcessed: false,
+  isAnalyzed: false,
+  hasCoverLetter: false,
+  isContentStale: true
+}
+Cover Letter content needs refresh: PDF content has changed
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 111ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 111ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦❌ [Derrida:Cache:Miss] Cache miss for key: resume-a...
+🤖🔍 [Hesse:OpenAI:Request] Sending resume content to OpenAI for analysis
+🤖✅ [Hesse:OpenAI:Response] OpenAI analysis completed in 13675ms
+[32m[2025-05-02T00:33:57.979Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: OpenAI analysis completed in 13675ms[0m
+[32m[2025-05-02T00:33:57.979Z] 😇☀️ [Dante:Paradiso:4:Sun] Resume content analyzed successfully with OpenAI[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: resume-a...
+Content analyzed in 13687ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 13687ms
+[32m[2025-05-02T00:33:57.981Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 13687ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:33:57.984Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (2423 characters) in 13804ms
+[32m[2025-05-02T00:33:57.985Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-02T00:33:57.986Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+getFormattedContent result: {
+  success: true,
+  isStale: true,
+  contentLength: 2423,
+  format: 'markdown',
+  contentType: 'cover_letter'
+}
+Cover Letter content retrieved successfully (2423 characters)
+[32m[2025-05-02T00:33:57.986Z] 😇☀️ [Dante:Paradiso:4:Sun] Cover Letter content retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content retrieved successfully
+[32m[2025-05-02T00:33:57.986Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Server Action: Getting cover_letter content in markdown format
+Server Action: getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = false
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: true,
+  isAnalyzed: true,
+  hasCoverLetter: false,
+  isContentStale: true
+}
+Cover Letter content needs refresh: Force refresh requested
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 116ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 116ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (2 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-05-02T00:34:35.132Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:34:35.133Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (1273 characters) in 120ms
+[32m[2025-05-02T00:34:35.134Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-02T00:34:35.134Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+Server Action: cover_letter content in markdown format retrieved successfully in 122ms
+[32m[2025-05-02T00:34:35.134Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Server Action: cover_letter content in markdown format retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Server Action: cover_letter content in markdown format retrieved successfully
+[32m[2025-05-02T00:34:35.134Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Server Action: cover_letter content in markdown format retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Server Action: Getting cover_letter content in markdown format
+Server Action: getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = false
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: true,
+  isAnalyzed: true,
+  hasCoverLetter: true,
+  isContentStale: false
+}
+Cover Letter content is fresh, using cached content
+Calling processPdfContent with shouldRefresh = false
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+📝🔍 [Hesse:Summary:Start] Checking content freshness
+Starting content freshness check
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Content freshness check details: {
+  fingerprintChanged: false,
+  isProcessed: true,
+  isAnalyzed: true,
+  isStale: false,
+  lastUpdated: '2025-05-02T00:34:35.134Z'
+}
+📝⏳ [Hesse:Summary:Progress] Content is fresh and up-to-date
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Using cached content extraction
+📝⏳ [Hesse:Summary:Progress] Using cached content extraction
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (2 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-05-02T00:34:39.975Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:34:39.975Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (1273 characters) in 3ms
+[32m[2025-05-02T00:34:39.976Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-02T00:34:39.976Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+Server Action: cover_letter content in markdown format retrieved successfully in 3ms
+[32m[2025-05-02T00:34:39.976Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Server Action: cover_letter content in markdown format retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Server Action: cover_letter content in markdown format retrieved successfully
+[32m[2025-05-02T00:34:39.976Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Server Action: cover_letter content in markdown format retrieved successfully[0m
+🔄 GET /api/get-summary - Request received
+🔄 Timestamp parameter: 1746146088122
+🔄 Force refresh: Yes
+📄 Using PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-05-02T00:31:50.257Z
+📦🔍 [Derrida:Cache:Check] Getting extracted PDF content
+📄 PDF file being processed: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T00:31:50.257Z
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+📦🔍 [Derrida:Cache:Check] Checking PDF content freshness
+PDF Extraction: PDF file information {"path":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resum...
+PDF Extraction: Found stored content fingerprint {"fingerprint":"52113adc..."}...
+PDF Extraction: PDF content is fresh 
+📦✅ [Derrida:Cache:Hit] PDF content is fresh and up-to-date
+🔑 Content fingerprint: 52113adc...
+🔄 Content is stale: No
+🔄 Force refresh requested: Yes
+🔄 Always force refresh: Yes
+PDF Extraction: Content fingerprint check {"fingerprint":"52113adc...","isStale":false,"forceRefresh":true}...
+🔄 Refreshing PDF content: force refresh requested
+PDF Extraction: Forcing content refresh to ensure fresh data 
+🔄 Starting forced content refresh
+📦🗑️ [Derrida:Cache:Invalidate] Forcing PDF content refresh
+📄 Processing PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+📊 PDF size: 119425 bytes
+⏱️ PDF last modified: 2025-05-02T00:31:50.257Z
+🔑 Generated content fingerprint: 52113adc...
+PDF Extraction: PDF Extraction Logger initialized 
+PDF Extraction: Starting PDF content refresh 
+PDF Extraction: Saved content fingerprint {"fingerprint":"52113adc..."}...
+🔍 Running text extraction script: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js
+PDF Extraction: Running text extraction script {"script":"/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pd...
+⏱️ Text extraction completed in 116ms
+✅ Text extraction successful (3327 characters)
+📝 Text preview: "BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current 2143 Alf..."
+PDF Extraction: Text extraction successful {"preview":"BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memoria...
+✅ Markdown generation successful (116 characters)
+📝 Markdown preview: "# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/1/2025*
+..."
+PDF Extraction: Markdown generation successful {"preview":"# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF re...
+PDF Extraction: Extracting font information 
+PDF Extraction: Font extraction successful 
+PDF Extraction: Extracting color information 
+[31m[2025-05-02T00:34:48.460Z] 👑🌊 [Dante:Inferno:2:Lust] PDF Extraction: Color extraction failed[0m
+PDF Extraction Error: Color extraction failed {
+  error: [Error: Command failed: node /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf
+  Error extracting colors: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'
+  Require stack:
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".
+      at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+  Color extraction failed: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'
+  Require stack:
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js
+  - /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".
+      at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+  ] {
+    code: 1,
+    killed: false,
+    signal: null,
+    cmd: 'node /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf',
+    stdout: 'Extracting colors from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf\n',
+    stderr: `Error extracting colors: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'\n` +
+      'Require stack:\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".\n' +
+      '    at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+      `Color extraction failed: Error: Setting up fake worker failed: "Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/node_modules/pdfjs-dist/build/pdf.worker.js'\n` +
+      'Require stack:\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js\n' +
+      '- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-colors.js".\n' +
+      '    at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/node_modules/pdfjs-dist/build/pdf.js:1927:36\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n'
+  }
+}
+PDF Extraction: Saved build info file 
+
+📋 PDF EXTRACTION SUMMARY
+=======================
+📄 PDF: default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last Modified: 2025-05-02T00:31:50.257Z
+🔑 Content Fingerprint: 52113adc...
+
+📦 EXTRACTED CONTENT:
+📝 Text: ✅
+📄 Markdown: ✅
+🔤 Fonts: ✅
+🎨 Colors: ❌
+
+⏱️ EXTRACTION TIMELINE:
+✅ 7:34:48 PM: PDF Extraction Logger initialized
+✅ 7:34:48 PM: Starting PDF content refresh
+✅ 7:34:48 PM: Saved content fingerprint
+✅ 7:34:48 PM: Running text extraction script
+✅ 7:34:48 PM: Text extraction successful
+✅ 7:34:48 PM: Markdown generation successful
+✅ 7:34:48 PM: Extracting font information
+✅ 7:34:48 PM: Font extraction successful
+✅ 7:34:48 PM: Extracting color information
+❌ 7:34:48 PM: Color extraction failed
+✅ 7:34:48 PM: Saved build info file
+
+=======================
+📝🔍 [Hesse:Summary:Start] PDF Extraction Summary
+✅ PDF content refresh completed successfully
+📄 Text file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content.txt
+📄 Markdown file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content.md
+📄 Font info file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/font_info.json
+📄 Color theme file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/color_theme.json
+📄 Build info file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/build_info.json
+📄 Content fingerprint file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/content_fingerprint.txt
+[32m[2025-05-02T00:34:48.461Z] 😇☀️ [Dante:Paradiso:4:Sun] PDF content refreshed successfully[0m
+✅ Successfully refreshed PDF content
+PDF Extraction: Retrieved extracted content {"preview":"# Professional Resume\n\n---\n\n*This document was automatically extracted from a PDF re...
+✅ Successfully extracted fresh content from PDF (116 characters)
+📝 Content starts with: "# Professional Resume
+
+---
+
+*This document was aut..."
+🧠⚠️ [Hesse:AI:Warning] OpenAI integration is disabled. Using fallback summary
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=true, timestamp=1746146088477, includeMetadata=false
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = true
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = true
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: true,
+  isAnalyzed: true,
+  hasCoverLetter: true,
+  isContentStale: false
+}
+Cover Letter content needs refresh: Force refresh requested
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 106ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 106ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (1 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-05-02T00:34:48.586Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:34:48.587Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (2423 characters) in 107ms
+[32m[2025-05-02T00:34:48.587Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-02T00:34:48.587Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+getFormattedContent result: {
+  success: true,
+  isStale: false,
+  contentLength: 2423,
+  format: 'markdown',
+  contentType: 'cover_letter'
+}
+Cover Letter content retrieved successfully (2423 characters)
+[32m[2025-05-02T00:34:48.587Z] 😇☀️ [Dante:Paradiso:4:Sun] Cover Letter content retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content retrieved successfully
+[32m[2025-05-02T00:34:48.587Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Server Action: Getting cover_letter content in text format
+Server Action: getFormattedContent with contentType = cover_letter, format = text, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in text format
+Starting getFormattedContent with contentType = cover_letter, format = text, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = false
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: '21e6d762...' }
+Cover Letter content freshness check: {
+  fingerprintChanged: false,
+  isProcessed: false,
+  isAnalyzed: true,
+  hasCoverLetter: true,
+  isContentStale: true
+}
+Cover Letter content needs refresh: Content has not been processed
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 126ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 126ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (3 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-05-02T00:35:31.457Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:35:31.457Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (1273 characters) in 131ms
+[32m[2025-05-02T00:35:31.458Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-02T00:35:31.458Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+Server Action: cover_letter content in text format retrieved successfully in 132ms
+[32m[2025-05-02T00:35:31.458Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Server Action: cover_letter content in text format retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Server Action: cover_letter content in text format retrieved successfully
+[32m[2025-05-02T00:35:31.458Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Server Action: cover_letter content in text format retrieved successfully[0m
+🧠🔍 [Hesse:AI:Start] Retrieving PDF JSON content
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-02T00:36:50.773Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content validation successful
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T00:36:50.778Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m
+[32m[2025-05-02T00:36:50.778Z] 😇☀️ [Dante:Paradiso:4:Sun] Content validation successful[0m
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T00:36:50.778Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m
+🧠✅ [Hesse:AI:Success] PDF JSON content retrieved successfully
+[32m[2025-05-02T00:36:50.781Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: PDF JSON content retrieved successfully[0m
+🧠🔍 [Hesse:AI:Start] Analyzing PDF content with ChatGPT
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Using cached content extraction
+📝⏳ [Hesse:Summary:Progress] Using cached content extraction
+Using cached content analysis
+📝⏳ [Hesse:Summary:Progress] Using cached content analysis
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T00:44:12.524Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+🧠✅ [Hesse:AI:Success] PDF content analysis retrieved successfully
+[32m[2025-05-02T00:44:12.524Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: PDF content analysis retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-02T16:36:54.246Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content validation successful
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T16:36:54.249Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m
+[32m[2025-05-02T16:36:54.249Z] 😇☀️ [Dante:Paradiso:4:Sun] Content validation successful[0m
+📝✅ [Hesse:Summary:Complete] Content validation successful
+[32m[2025-05-02T16:36:54.249Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Content validation successful[0m

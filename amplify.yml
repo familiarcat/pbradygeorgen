@@ -3,10 +3,15 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install
+        - echo "Node version $(node -v)"
+        - echo "NPM version $(npm -v)"
+        - chmod +x *.sh
+        - chmod +x scripts/*.sh
+        - chmod +x scripts/*.js
     build:
       commands:
-        - npm run build
+        - echo "Running custom build script..."
+        - ./amplify-build.sh
   artifacts:
     baseDirectory: .next
     files:
@@ -14,7 +19,14 @@ frontend:
       - '../public/**/*'
       - '../package.json'
       - '../next.config.js'
+      - '../server.js'
+      - '../node_modules/**/*'
   cache:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=0, must-revalidate'

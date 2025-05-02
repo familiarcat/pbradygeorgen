@@ -35,21 +35,30 @@ node scripts/extract-pdf-colors.js public/default_resume.pdf
 # Check if extraction was successful
 if [ -f "public/extracted/resume_content.md" ] && [ -f "public/extracted/pdf_fonts.css" ] && [ -f "public/extracted/color_theme.json" ]; then
   echo "✅ Extraction completed successfully"
-  
+
   # Print a preview of the extracted content
   echo "📄 Extracted content preview:"
   head -n 10 public/extracted/resume_content.md
-  
-  # Add the extracted content to git
-  echo "📦 Adding extracted content to git..."
-  git add public/extracted/*
-  
-  # Commit the changes if there are any
-  if [[ -n $(git status -s public/extracted/) ]]; then
-    git commit -m "Force refresh extracted content from default_resume.pdf"
-    echo "✅ Extracted content committed"
+
+  # Skip git operations in Amplify environment
+  if [ -z "$AWS_EXECUTION_ENV" ]; then
+    echo "📦 Adding extracted content to git..."
+    # Only run git commands in local environment, not in Amplify
+    if command -v git >/dev/null 2>&1; then
+      git add public/extracted/* || echo "⚠️ Git add failed, but continuing"
+
+      # Commit the changes if there are any
+      if [[ -n $(git status -s public/extracted/ 2>/dev/null) ]]; then
+        git commit -m "Force refresh extracted content from default_resume.pdf" || echo "⚠️ Git commit failed, but continuing"
+        echo "✅ Extracted content committed"
+      else
+        echo "ℹ️ No changes to commit"
+      fi
+    else
+      echo "⚠️ Git not available, skipping version control operations"
+    fi
   else
-    echo "ℹ️ No changes to commit"
+    echo "🚀 Running in Amplify environment, skipping git operations"
   fi
 else
   echo "❌ Extraction failed"

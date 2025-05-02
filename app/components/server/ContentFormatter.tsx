@@ -45,7 +45,7 @@ export const getFormattedContent = cache(async (
     const cacheKey = dynamicStringCache.generateCacheKey(`${content}_${format}_${contentType}`);
     
     // Check if we need to refresh the cache
-    let forceRefresh = currentFingerprint !== storedFingerprint;
+    const forceRefresh = currentFingerprint !== storedFingerprint;
     
     if (forceRefresh) {
       HesseLogger.cache.invalidate(`PDF content has changed, clearing cache`);

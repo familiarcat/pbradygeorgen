@@ -36,6 +36,52 @@ async function main() {
 
     console.log(`Extracting text from: ${pdfPath}`);
 
+    // Check if the PDF file exists
+    if (!fs.existsSync(pdfPath)) {
+      console.warn(`⚠️ WARNING: PDF file not found at ${pdfPath}`);
+      console.log('Using fallback content generation...');
+
+      // Use fallback content generation
+      let text = '';
+      let rawContent = { info: { fallback: true } };
+      let usedFallback = true;
+      let selectedPersona = null;
+
+      // Generate a philosophical persona
+      const philosophicalPersonas = [
+        {
+          name: "P. Brady Georgen",
+          title: "SR. SOFTWARE DEVELOPER",
+          organization: "Full Stack Development",
+          education: "Computer Science & Engineering",
+          skills: "JavaScript/TypeScript\nReact\nNode.js\nAWS\nUI/UX Design"
+        }
+      ];
+
+      // Select the persona
+      selectedPersona = philosophicalPersonas[0];
+      console.log(`Selected fallback persona: ${selectedPersona.name}`);
+
+      // Create fallback text
+      text = `${selectedPersona.name}\n\n${selectedPersona.title}\n${selectedPersona.organization}\n\nEDUCATION\n${selectedPersona.education}\n\nSKILLS\n${selectedPersona.skills}`;
+
+      console.log('Generated fallback content');
+
+      // Set the raw content
+      rawContent = {
+        info: {
+          fallback: true,
+          persona: selectedPersona.name
+        },
+        text: text,
+        persona: selectedPersona,
+        numpages: 1
+      };
+
+      // Continue with the rest of the function
+      return { text, rawContent, usedFallback, selectedPersona };
+    }
+
     // Read the PDF file
     const dataBuffer = fs.readFileSync(pdfPath);
 

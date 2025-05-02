@@ -1,0 +1,47 @@
+[2025-05-02 14:38:38] 🔧 Step 1: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:38:38] ✅ Environment prepared successfully
+[2025-05-02 14:38:38] 🧪 Step 2: Running download functionality tests...
+🚀 [2025-05-02T19:38:38.515Z] Starting download functionality tests
+🚀 [2025-05-02T19:38:38.518Z] Starting application in production mode...
+🚀 [2025-05-02T19:38:38.543Z] Preparing environment for download tests...
+📝 [2025-05-02T19:38:38.562Z] Prepare: 🔧 Preparing environment for download functionality tests...
+📝 [2025-05-02T19:38:38.563Z] Prepare: ✅ Environment prepared for download functionality tests
+✅ [2025-05-02T19:38:38.564Z] Environment prepared successfully
+✅ [2025-05-02T19:38:38.564Z] Environment prepared, starting application...
+❌ [2025-05-02T19:38:39.177Z] App error: ❌ ERROR: Extracted content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+✅ [2025-05-02T19:39:38.614Z] Application is responding to requests
+🚀 [2025-05-02T19:39:38.615Z] Starting test: Download pdf - Normal content download
+✅ [2025-05-02T19:39:38.616Z] Test "Download pdf - Normal content download": PASSED
+🚀 [2025-05-02T19:39:38.616Z] Starting test: Download markdown - Normal content download
+❌ [2025-05-02T19:39:38.644Z] Test "Download markdown - Normal content download": FAILED
+❌ [2025-05-02T19:39:38.644Z] Error details: Missing expected patterns: ## Experience, skills, education
+🚀 [2025-05-02T19:39:38.644Z] Starting test: Download text - Normal content download
+❌ [2025-05-02T19:39:38.645Z] Test "Download text - Normal content download": FAILED
+❌ [2025-05-02T19:39:38.645Z] Error details: Missing expected patterns: Experience, Education, Skills
+🚀 [2025-05-02T19:39:38.645Z] Starting test: Download pdf - Empty content download (error handling)
+📝 [2025-05-02T19:39:38.646Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:39:38.646Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:39:38.647Z] Test "Download pdf - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:39:38.647Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:39:38.647Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:39:38.647Z] Starting test: Download markdown - Empty content download (error handling)
+📝 [2025-05-02T19:39:38.648Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:39:38.648Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:39:38.648Z] Test "Download markdown - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:39:38.648Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:39:38.649Z] Restored public/extracted/resume_content_analyzed.json from backup
+🚀 [2025-05-02T19:39:38.649Z] Starting test: Download text - Empty content download (error handling)
+📝 [2025-05-02T19:39:38.649Z] Backed up and replaced public/extracted/resume_content.md
+📝 [2025-05-02T19:39:38.649Z] Backed up and replaced public/extracted/resume_content_analyzed.json
+✅ [2025-05-02T19:39:38.650Z] Test "Download text - Empty content download (error handling)": PASSED
+📝 [2025-05-02T19:39:38.650Z] Restored public/extracted/resume_content.md from backup
+📝 [2025-05-02T19:39:38.650Z] Restored public/extracted/resume_content_analyzed.json from backup
+✅ [2025-05-02T19:39:38.651Z] Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+✅ [2025-05-02T19:39:38.652Z] HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+🏁 [2025-05-02T19:39:38.653Z] Tests completed
+📝 [2025-05-02T19:39:38.653Z] Total: 6, Passed: 4, Failed: 2, Skipped: 0
+📝 [2025-05-02T19:39:38.653Z] Stopping application...
+✅ [2025-05-02T19:39:38.653Z] Application stopped
+[2025-05-02 14:39:38] ❌ Download functionality tests failed. See test report for details.

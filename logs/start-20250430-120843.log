@@ -1,0 +1,14 @@
+[2025-04-30 12:08:43] ⚠️ Warning: Standalone directory not found. Running 'npm run build' first...
+
+> next@0.1.0 prebuild
+> echo 'Running consolidated build script...'
+
+Running consolidated build script...
+
+> next@0.1.0 build
+> ./scripts/consolidated-build.sh
+
+🚀 CONSOLIDATED BUILD PROCESS
+=============================
+Build timestamp: Wed Apr 30 12:08:45 CDT 2025
+🔍 Step 1: Running linting...

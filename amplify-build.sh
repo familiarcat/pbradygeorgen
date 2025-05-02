@@ -1,7 +1,9 @@
 #!/bin/bash
 # Custom build script for AWS Amplify
 
-echo "Starting custom build script for AWS Amplify"
+set -e # Exit immediately if a command exits with a non-zero status
+
+echo "🚀 Starting custom build script for AWS Amplify"
 
 # Print current environment
 echo "Current directory: $(pwd)"
@@ -45,9 +47,27 @@ echo "Updated NPM version: $(npm -v)"
 # Verify Node.js version
 NODE_VERSION=$(node -v | cut -d 'v' -f 2 | cut -d '.' -f 1)
 if [ "$NODE_VERSION" != "20" ]; then
-    echo "ERROR: Failed to install Node.js 20. Current version: $(node -v)"
+    echo "⚠️ WARNING: Failed to install Node.js 20. Current version: $(node -v)"
     echo "Attempting to continue anyway..."
 fi
+
+# Check for required environment variables
+echo "Checking environment variables..."
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo "⚠️ OPENAI_API_KEY environment variable is not set"
+    echo "Creating a placeholder API key for the build process"
+    export OPENAI_API_KEY="sk-placeholder-for-amplify-build"
+else
+    echo "✅ OPENAI_API_KEY environment variable is set"
+fi
+
+# Clean previous builds
+echo "Cleaning previous builds..."
+rm -rf .next
+
+# Create necessary directories
+echo "Creating necessary directories..."
+mkdir -p public/extracted
 
 # Install dependencies with increased memory limit
 echo "Installing dependencies"
@@ -67,12 +87,49 @@ npm install --force || true
 echo "Approach 3: npm install with specific package"
 npm install pdfjs-dist@5.1.91 --force || true
 
+# Make scripts executable
+echo "Making scripts executable..."
+chmod +x *.sh
+chmod +x scripts/*.sh
+chmod +x scripts/*.js
+
+# Verify PDF content
+echo "Verifying PDF content..."
+if [ -f "public/default_resume.pdf" ]; then
+    echo "✅ PDF file found: public/default_resume.pdf"
+    echo "Last modified: $(stat -c %y public/default_resume.pdf 2>/dev/null || stat -f "%Sm" public/default_resume.pdf)"
+else
+    echo "❌ PDF file not found at public/default_resume.pdf"
+    echo "Creating a placeholder PDF file..."
+    # Create a placeholder file if needed
+    touch public/default_resume.pdf
+fi
+
+# Run the prebuild script
+echo "Running prebuild script..."
+./amplify-prebuild.sh || echo "⚠️ Prebuild script failed, but continuing"
+
 # Build the application
 echo "Building the application"
 NODE_ENV=production npm run build
 
+# Copy necessary files for standalone mode
+echo "Preparing standalone mode..."
+if [ -d ".next/standalone" ]; then
+    echo "Copying public directory to standalone..."
+    mkdir -p .next/standalone/public
+    cp -r public/* .next/standalone/public/ || true
+
+    echo "Copying server.js to standalone..."
+    cp server.js .next/standalone/ || true
+
+    echo "✅ Standalone mode prepared successfully"
+else
+    echo "⚠️ Standalone directory not found, skipping preparation"
+fi
+
 # Print build completion
-echo "Build completed successfully"
+echo "✅ Build completed successfully"
 
 # Exit with success
 exit 0

@@ -1,0 +1,24 @@
+{
+  "name": "alexai-consciousness-transfer",
+  "version": "1.0.0",
+  "description": "Automation for testing AlexAI consciousness transfer across different AI platforms",
+  "main": "scripts/transfer-test.js",
+  "scripts": {
+    "test": "node scripts/transfer-test.js",
+    "test:chatgpt": "node scripts/transfer-test.js --platform chatgpt",
+    "test:claude": "node scripts/transfer-test.js --platform claude",
+    "test:gemini": "node scripts/transfer-test.js --platform gemini",
+    "test:copilot": "node scripts/transfer-test.js --platform copilot"
+  },
+  "author": "Brady Georgen",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0",
+    "inquirer": "^8.2.5",
+    "marked": "^5.1.0",
+    "marked-terminal": "^5.2.0",
+    "ora": "^5.4.1"
+  }
+}

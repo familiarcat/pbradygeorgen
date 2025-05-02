@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
 import SummaryModal from './SummaryModal';
@@ -51,9 +51,26 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [isGeneratingCoverLetterMd, setIsGeneratingCoverLetterMd] = useState(false);
   const [isGeneratingCoverLetterTxt, setIsGeneratingCoverLetterTxt] = useState(false);
 
+  // This useEffect ensures that the loading states are properly tracked
+  // even though they're not directly used in the JSX
+  useEffect(() => {
+    // Log loading states for debugging purposes
+    if (isLoadingPreview || isGeneratingCoverLetterPdf ||
+        isGeneratingCoverLetterMd || isGeneratingCoverLetterTxt) {
+      console.debug('Loading states:', {
+        isLoadingPreview,
+        isGeneratingCoverLetterPdf,
+        isGeneratingCoverLetterMd,
+        isGeneratingCoverLetterTxt
+      });
+    }
+  }, [isLoadingPreview, isGeneratingCoverLetterPdf,
+      isGeneratingCoverLetterMd, isGeneratingCoverLetterTxt]);
+
   const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
   // Use server theme for dynamic theming
+  const serverTheme = useServerTheme();
 
   // Theme is now automatically refreshed during API calls
 
@@ -125,7 +142,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
                   // Convert the analysis to markdown format
                   const analysis = data.analysis;
-                  const markdown = `# ${useServerTheme().name || 'Professional'} - Summary
+                  const markdown = `# ${serverTheme.name || 'Professional'} - Summary
 
 ## Professional Summary
 
@@ -210,228 +227,255 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     }
   };
 
-  // Function to handle markdown download
-  const handleMarkdownDownload = () => {
-    // Create and download the file
-    const blob = new Blob([previewContent], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${fileName}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  // Function to handle markdown download using the unified approach
+  const handleMarkdownDownload = async () => {
+    try {
+      // Use the unified downloadContent method
+      await DownloadService.downloadContent('resume', 'markdown', fileName);
+      console.log(`Downloaded ${fileName}.md using unified approach`);
+    } catch (error) {
+      console.error('Error downloading markdown:', error);
+      alert('There was an error downloading the markdown file. Please try again.');
+    }
   };
 
-  // Function to handle text download
-  const handleTextDownload = () => {
-    // Create and download the file
-    const blob = new Blob([previewContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${fileName}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  // Function to handle text download using the unified approach
+  const handleTextDownload = async () => {
+    try {
+      // Use the unified downloadContent method
+      await DownloadService.downloadContent('resume', 'text', fileName);
+      console.log(`Downloaded ${fileName}.txt using unified approach`);
+    } catch (error) {
+      console.error('Error downloading text:', error);
+      alert('There was an error downloading the text file. Please try again.');
+    }
   };
 
-  // Function to handle PDF download
-  const handlePdfDownload = () => {
-    // Create a link to the PDF file and trigger download
-    const a = document.createElement('a');
-    a.href = `/default_resume.pdf?v=${Date.now()}`;
-    a.download = `${fileName}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    console.log(`Downloaded ${fileName}.pdf`);
+  // Function to handle PDF download using the unified approach
+  const handlePdfDownload = async () => {
+    try {
+      // Use the unified downloadContent method
+      await DownloadService.downloadContent('resume', 'pdf', fileName);
+      console.log(`Downloaded ${fileName}.pdf using unified approach`);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('There was an error downloading the PDF file. Please try again.');
+    }
   };
 
   // Cover Letter download handlers
 
-  // Function to handle Cover Letter PDF preview
+  // Function to handle Cover Letter PDF preview using the unified approach
   const handleCoverLetterPdfPreview = async () => {
     try {
       setIsGeneratingCoverLetterPdf(true);
       HesseLogger.summary.start('Generating Cover Letter PDF preview');
 
-      // If we already have the summary content, use it
-      if (summaryContent) {
-        // Define consistent options for both preview and download
-        const pdfOptions = {
-          title: `${useServerTheme().name || 'Professional'} - Cover Letter`,
-          fileName: 'cover_letter.pdf',
-          headerText: `${useServerTheme().name || 'Professional'} - Cover Letter`,
-          footerText: 'Generated with Salinger Design',
-          pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-          margins: { top: 8, right: 8, bottom: 8, left: 8 }
-        };
+      // Import the server action dynamically to avoid server/client mismatch
+      const { getFormattedContent } = await import('@/app/actions/contentActions');
 
-        // Generate PDF data URL
-        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, pdfOptions);
+      // Get the content from the ContentStateService via server action
+      const result = await getFormattedContent('cover_letter', 'markdown');
 
-        // Store the data URL and options for later use in download
-        setCoverLetterPdfDataUrl(dataUrl);
+      if (!result.success) {
+        const errorMsg = result.error || 'Failed to get cover letter content';
+        console.error(errorMsg);
 
-        // Show the preview modal
-        setShowCoverLetterPdfPreview(true);
-        console.log('Opened Cover Letter PDF preview');
-      } else {
-        // If we don't have the content yet, show the summary modal first
-        alert('Please open the Cover Letter first to generate content.');
-        setShowSummaryModal(true);
-      }
-    } catch (error) {
-      console.error('Error generating Cover Letter PDF preview:', error);
-      console.error(`Error showing Cover Letter PDF preview: ${error}`);
-      alert('There was an error generating the PDF preview. Please try again.');
-    } finally {
-      setIsGeneratingCoverLetterPdf(false);
-    }
-  };
-
-  // Function to handle Cover Letter PDF download
-  const handleCoverLetterPdfDownload = async () => {
-    try {
-      setIsGeneratingCoverLetterPdf(true);
-
-      // If we already have a data URL, use it
-      if (coverLetterPdfDataUrl) {
-        await DownloadService.downloadPdf('', 'cover_letter', {
-          dataUrl: coverLetterPdfDataUrl
-        });
-      }
-      // If we have content but no data URL
-      else if (summaryContent) {
-        // Define consistent options for both preview and download - same as in preview function
-        const pdfOptions = {
-          title: `${useServerTheme().name || 'Professional'} - Cover Letter`,
-          fileName: 'cover_letter.pdf',
-          headerText: `${useServerTheme().name || 'Professional'} - Cover Letter`,
-          footerText: 'Generated with Salinger Design',
-          pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-          margins: { top: 8, right: 8, bottom: 8, left: 8 }
-        };
-
-        // First generate the data URL to ensure consistency with preview
-        const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, pdfOptions);
-
-        // Then download using the data URL
-        await DownloadService.downloadPdf('', 'cover_letter', {
-          dataUrl: dataUrl
-        });
-      }
-      // If we don't have content yet
-      else {
+        // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
         setShowSummaryModal(true);
         return;
       }
 
-      console.log('Downloaded Cover Letter PDF');
+      // Get the theme name once before using it in multiple places
+      const themeName = serverTheme?.name || 'Professional';
+
+      // Define consistent options for both preview and download
+      const pdfOptions = {
+        title: `${themeName} - Cover Letter`,
+        fileName: 'cover_letter.pdf',
+        headerText: `${themeName} - Cover Letter`,
+        footerText: 'Generated with Salinger Design',
+        pageSize: 'letter' as const,
+        margins: { top: 8, right: 8, bottom: 8, left: 8 }
+      };
+
+      // Generate PDF data URL
+      const dataUrl = await DownloadService.generatePdfDataUrl(result.data || '', pdfOptions);
+
+      // Store the data URL and options for later use in download
+      setCoverLetterPdfDataUrl(dataUrl);
+
+      // Show the preview modal
+      setShowCoverLetterPdfPreview(true);
+      console.log('Opened Cover Letter PDF preview using unified approach');
     } catch (error) {
-      console.error('Error downloading Cover Letter PDF:', error);
-      console.error(`Error downloading Cover Letter PDF: ${error}`);
-      alert('There was an error downloading the PDF. Please try again.');
+      console.error('Error generating Cover Letter PDF preview:', error);
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error generating the PDF preview. Please try again.');
+      }
     } finally {
       setIsGeneratingCoverLetterPdf(false);
     }
   };
 
-  // Function to handle Cover Letter Markdown preview
-  const handleCoverLetterMarkdownPreview = () => {
+  // Function to handle Cover Letter PDF download using the unified approach
+  const handleCoverLetterPdfDownload = async () => {
+    try {
+      setIsGeneratingCoverLetterPdf(true);
+
+      // If we already have a data URL from the preview, use it
+      if (coverLetterPdfDataUrl) {
+        await DownloadService.downloadPdf('', 'cover_letter', {
+          dataUrl: coverLetterPdfDataUrl
+        });
+        console.log('Downloaded Cover Letter PDF using cached data URL');
+      } else {
+        // Use the unified downloadContent method
+        await DownloadService.downloadContent('cover_letter', 'pdf', 'cover_letter');
+        console.log('Downloaded Cover Letter PDF using unified approach');
+      }
+    } catch (error) {
+      console.error('Error downloading Cover Letter PDF:', error);
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error downloading the PDF. Please try again.');
+      }
+    } finally {
+      setIsGeneratingCoverLetterPdf(false);
+    }
+  };
+
+  // Function to handle Cover Letter Markdown preview using the unified approach
+  const handleCoverLetterMarkdownPreview = async () => {
     try {
       setIsGeneratingCoverLetterMd(true);
 
-      // If we have content, show the preview
-      if (summaryContent) {
-        setCoverLetterTextContent(summaryContent);
-        setShowCoverLetterMdPreview(true);
-        console.log('Opened Cover Letter Markdown preview');
-      } else {
+      // Import the server action dynamically to avoid server/client mismatch
+      const { getFormattedContent } = await import('@/app/actions/contentActions');
+
+      // Get the content from the ContentStateService via server action
+      const result = await getFormattedContent('cover_letter', 'markdown');
+
+      if (!result.success) {
+        const errorMsg = result.error || 'Failed to get cover letter content';
+        console.error(errorMsg);
+
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
         setShowSummaryModal(true);
+        return;
       }
+
+      // Set the preview content and show the preview modal
+      setCoverLetterTextContent(result.data || '');
+      setShowCoverLetterMdPreview(true);
+      console.log('Opened Cover Letter Markdown preview using unified approach');
     } catch (error) {
       console.error('Error showing Cover Letter Markdown preview:', error);
-      console.error(`Error showing Cover Letter Markdown preview: ${error}`);
-      alert('There was an error generating the preview. Please try again.');
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error generating the preview. Please try again.');
+      }
     } finally {
       setIsGeneratingCoverLetterMd(false);
     }
   };
 
-  // Function to handle Cover Letter Markdown download
+  // Function to handle Cover Letter Markdown download using the unified approach
   const handleCoverLetterMarkdownDownload = async () => {
     try {
       setIsGeneratingCoverLetterMd(true);
 
-      // If we have content, download it
-      if (summaryContent) {
-        await DownloadService.downloadMarkdown(summaryContent, 'cover_letter');
-        console.log('Downloaded Cover Letter Markdown');
-      } else {
-        // If we don't have content yet, show the summary modal first
-        alert('Please open the Cover Letter first to generate content.');
-        setShowSummaryModal(true);
-      }
+      // Use the unified downloadContent method
+      await DownloadService.downloadContent('cover_letter', 'markdown', 'cover_letter');
+      console.log('Downloaded Cover Letter Markdown using unified approach');
     } catch (error) {
       console.error('Error downloading Cover Letter Markdown:', error);
-      console.error(`Error downloading Cover Letter Markdown: ${error}`);
-      alert('There was an error downloading the file. Please try again.');
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error downloading the file. Please try again.');
+      }
     } finally {
       setIsGeneratingCoverLetterMd(false);
     }
   };
 
-  // Function to handle Cover Letter Text preview
-  const handleCoverLetterTextPreview = () => {
+  // Function to handle Cover Letter Text preview using the unified approach
+  const handleCoverLetterTextPreview = async () => {
     try {
       setIsGeneratingCoverLetterTxt(true);
 
-      // If we have content, convert to plain text and show the preview
-      if (summaryContent) {
-        const plainText = DownloadService.convertMarkdownToText(summaryContent);
-        setCoverLetterTextContent(plainText);
-        setShowCoverLetterTxtPreview(true);
-        console.log('Opened Cover Letter Text preview');
-      } else {
+      // Import the server action dynamically to avoid server/client mismatch
+      const { getFormattedContent } = await import('@/app/actions/contentActions');
+
+      // Get the content from the ContentStateService via server action
+      const result = await getFormattedContent('cover_letter', 'text');
+
+      if (!result.success) {
+        const errorMsg = result.error || 'Failed to get cover letter content';
+        console.error(errorMsg);
+
         // If we don't have content yet, show the summary modal first
         alert('Please open the Cover Letter first to generate content.');
         setShowSummaryModal(true);
+        return;
       }
+
+      // Set the preview content and show the preview modal
+      setCoverLetterTextContent(result.data || '');
+      setShowCoverLetterTxtPreview(true);
+      console.log('Opened Cover Letter Text preview using unified approach');
     } catch (error) {
       console.error('Error showing Cover Letter Text preview:', error);
-      console.error(`Error showing Cover Letter Text preview: ${error}`);
-      alert('There was an error generating the preview. Please try again.');
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error generating the preview. Please try again.');
+      }
     } finally {
       setIsGeneratingCoverLetterTxt(false);
     }
   };
 
-  // Function to handle Cover Letter Text download
+  // Function to handle Cover Letter Text download using the unified approach
   const handleCoverLetterTextDownload = async () => {
     try {
       setIsGeneratingCoverLetterTxt(true);
 
-      // If we have content, convert to plain text and download
-      if (summaryContent) {
-        const plainText = DownloadService.convertMarkdownToText(summaryContent);
-        await DownloadService.downloadText(plainText, 'cover_letter');
-        console.log('Downloaded Cover Letter Text');
-      } else {
-        // If we don't have content yet, show the summary modal first
-        alert('Please open the Cover Letter first to generate content.');
-        setShowSummaryModal(true);
-      }
+      // Use the unified downloadContent method
+      await DownloadService.downloadContent('cover_letter', 'text', 'cover_letter');
+      console.log('Downloaded Cover Letter Text using unified approach');
     } catch (error) {
       console.error('Error downloading Cover Letter Text:', error);
-      console.error(`Error downloading Cover Letter Text: ${error}`);
-      alert('There was an error downloading the file. Please try again.');
+
+      // If the error indicates missing content, show the summary modal
+      if (error instanceof Error && error.message.includes('Failed to get cover_letter content')) {
+        alert('Please open the Cover Letter first to generate content.');
+        setShowSummaryModal(true);
+      } else {
+        alert('There was an error downloading the file. Please try again.');
+      }
     } finally {
       setIsGeneratingCoverLetterTxt(false);
     }
@@ -441,7 +485,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     <>
       <header className={styles.salingerHeader}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.siteTitle}>{useServerTheme().name || 'Professional Resume'}</h1>
+          <h1 className={styles.siteTitle}>{serverTheme.name || 'Professional Resume'}</h1>
           <a
             href="#"
             className={styles.summaryLink}
@@ -587,27 +631,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingMd(true);
 
                   try {
-                    // Get the content from the file
-                    const contentResponse = await fetch('/extracted/resume_content.md');
-                    const content = await contentResponse.text();
-
-                    // Use the server action to format the content
-                    const result = await formatContentAsMarkdown(content, 'resume');
-
-                    if (!result.success) {
-                      throw new Error(result.error || 'Unknown error');
-                    }
-
-                    // Create and download the file
-                    const blob = new Blob([result.data], { type: 'text/markdown' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${fileName}.md`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
+                    // Use the unified downloadContent method
+                    await DownloadService.downloadContent('resume', 'markdown', fileName);
+                    console.log(`Downloaded ${fileName}.md using unified approach`);
                   } catch (error) {
                     console.error('Error generating markdown:', error);
                     alert('Failed to generate markdown. Please try again.');
@@ -682,27 +708,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingTxt(true);
 
                   try {
-                    // Get the content from the file
-                    const contentResponse = await fetch('/extracted/resume_content.md');
-                    const content = await contentResponse.text();
-
-                    // Use the server action to format the content
-                    const result = await formatContentAsText(content, 'resume');
-
-                    if (!result.success) {
-                      throw new Error(result.error || 'Unknown error');
-                    }
-
-                    // Create and download the file
-                    const blob = new Blob([result.data], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${fileName}.txt`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
+                    // Use the unified downloadContent method
+                    await DownloadService.downloadContent('resume', 'text', fileName);
+                    console.log(`Downloaded ${fileName}.txt using unified approach`);
                   } catch (error) {
                     console.error('Error generating text format:', error);
                     alert('Failed to generate text format. Please try again.');

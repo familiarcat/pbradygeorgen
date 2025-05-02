@@ -27,7 +27,7 @@ export async function generateFormattedMarkdown(content: string): Promise<string
     // Extract sections based on common patterns
     const lines = content.split('\n');
     let formatted = '';
-    let inList = false;
+    const inList = false;
 
     // Start with a clean header
     formatted += `# P. Brady Georgen\n\n`;
@@ -163,7 +163,7 @@ export async function generateFormattedText(content: string): Promise<string> {
     // Extract sections based on common patterns
     const lines = content.split('\n');
     let formatted = '';
-    let inList = false;
+    const inList = false;
 
     // Start with a clean header
     formatted += `P. BRADY GEORGEN\n${'='.repeat(16)}\n\n\n`;

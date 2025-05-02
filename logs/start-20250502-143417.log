@@ -1,0 +1,114 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Is standalone build: No
+Is in standalone directory: Yes
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Found pages/app directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/server/pages
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+> Ready on http://localhost:3000
+> Serving from directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+> Available directories:
+  - .DS_Store
+  - .cache
+  - .next
+  - logs
+  - node_modules
+  - package.json
+  - prompts
+  - public
+  - scripts
+  - server.js
+> Public directory contents:
+  - .DS_Store
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - index.html
+  - next.svg
+  - pdf-worker
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: c43f3278...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+Serving static file: /_next/static/chunks/webpack-f3db8c7cdff3085d.js
+Serving static file: /_next/static/chunks/9569-95fc79e373324d42.js
+Serving static file: /_next/static/chunks/app/layout-06d175291b0837f4.js
+Serving static file: /_next/static/chunks/3589.43374ef59cf004f4.js
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-02T19:34:24.522Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-02T19:34:24.522Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Content has not been analyzed yet
+[31m[2025-05-02T19:34:24.522Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-02T19:34:24.522Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+[32m[2025-05-02T19:34:24.650Z] 😇☀️ [Dante:Paradiso:4:Sun] PDF content refreshed automatically[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-02T19:34:24.657Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+PDF content is stale: fingerprint changed
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Serving static file: /_next/static/chunks/9043.bc80db82ac2aba4f.js
+Serving static file: /_next/static/chunks/5631.1b83bb5c23c0b200.js
+Content extracted in 95ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 95ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦❌ [Derrida:Cache:Miss] Cache miss for key: resume-a...
+🤖🔍 [Hesse:OpenAI:Request] Sending resume content to OpenAI for analysis
+🤖✅ [Hesse:OpenAI:Response] OpenAI analysis completed in 17169ms
+[32m[2025-05-02T19:34:41.927Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: OpenAI analysis completed in 17169ms[0m
+[32m[2025-05-02T19:34:41.927Z] 😇☀️ [Dante:Paradiso:4:Sun] Resume content analyzed successfully with OpenAI[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: resume-a...
+Content analyzed in 17173ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 17173ms
+[32m[2025-05-02T19:34:41.927Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 17173ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-02T19:34:41.929Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+Analyzed content retrieved successfully
+📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
+[32m[2025-05-02T19:34:41.929Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m

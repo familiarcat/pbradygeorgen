@@ -1,0 +1,20 @@
+[2025-05-02 14:35:32] 🔧 Step 1: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:35:32] ✅ Environment prepared successfully
+[2025-05-02 14:35:32] 🧪 Step 2: Running download functionality tests...
+/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-download-functionality.js:409
+  }
+  ^
+
+SyntaxError: missing ) after argument list
+    at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+    at Module._compile (node:internal/modules/cjs/loader:1501:20)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.19.1
+[2025-05-02 14:35:32] ❌ Download functionality tests failed. See test report for details.

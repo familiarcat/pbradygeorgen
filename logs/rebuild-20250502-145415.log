@@ -1,0 +1,98 @@
+[2025-05-02 14:54:15] 🧹 Step 1: Cleaning up build artifacts...
+[2025-05-02 14:54:15] ✅ Build artifacts cleaned up
+[2025-05-02 14:54:15] 📁 Step 2: Ensuring extracted directory exists...
+[2025-05-02 14:54:15] ✅ Extracted directory created
+[2025-05-02 14:54:15] 🔧 Step 3: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+Creating cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:54:15] ✅ Download test environment preparation attempted
+[2025-05-02 14:54:15] 🏗️ Step 4: Rebuilding the application...
+
+> next@0.1.0 prebuild
+> echo 'Running consolidated build script...'
+
+Running consolidated build script...
+
+> next@0.1.0 build
+> ./scripts/consolidated-build.sh
+
+🚀 CONSOLIDATED BUILD PROCESS
+=============================
+Build timestamp: Fri May  2 14:54:15 CDT 2025
+🔍 Step 1: Skipping linting to ensure build completes...
+✅ Linting skipped
+🧹 Step 3: Cleaning up previous build artifacts...
+🔍 Step 3.5: Ensuring extracted content exists...
+✅ Extracted content verification completed
+🔄 Step 4: Running prebuild script...
+✅ Prebuild script completed
+🏗️ Step 5: Building the application...
+✅ Build completed successfully
+📋 Step 6: Running postbuild script...
+✅ Postbuild script completed successfully
+📂 Step 6.5: Creating standalone directory structure...
+🔧 Step 7: Preparing environment for download functionality tests...
+🧪 Step 8: Running download functionality tests...
+🎉 Build completed successfully!
+You can now run 'npm start' to start the application
+Build log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/build-20250502-145415.log
+
+📊 BUILD SUMMARY
+================
+✅ Linting: Passed
+✅ Prebuild: Completed
+✅ Build: Completed
+✅ Postbuild: Completed
+✅ Tests: Passed
+
+Next steps:
+1. Run 'npm start' to start the application
+2. Open http://localhost:3000 in your browser
+3. Test the application functionality
+
+Build log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/build-20250502-145415.log
+
+🎭 Running enhanced build logger with Dante philosophy...
+Analyzing most recent build log: build-20250502-145415.log
+
+
+[1m[93m=== ENHANCED BUILD LOG ANALYSIS ====[0m
+
+
+[2m[2025-05-02T19:55:33.558Z][0m ⚠️⚡: [33mWARNING: PDF size mismatch - content may be from a different PDF[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.487Z] Test "Download pdf - Normal content download": PASSED[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.498Z] Test "Download markdown - Normal content download": PASSED[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.499Z] Test "Download text - Normal content download": PASSED[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.501Z] Test "Download pdf - Empty content download (error handling)": PASSED[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.502Z] Test "Download markdown - Empty content download (error handling)": PASSED[0m
+[2m[2025-05-02T19:55:33.559Z][0m 😇☀️: [92m[2025-05-02T19:55:33.504Z] Test "Download text - Empty content download (error handling)": PASSED[0m
+
+
+[2m[2025-05-02T19:55:33.560Z][0m ⚠️🔥: [93mBuild completed with warnings[0m
+
+
+[1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-02T19:55:33.560Z][0m ⚠️🌊: [33mPDF size mismatch detected[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mContext: The system detected a difference between the expected PDF size and the actual size.[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mReason: This typically happens when the content being processed is from a different PDF than what the system expected.[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mRecommendation: If you've uploaded a new PDF, this warning is normal and can be ignored. Otherwise, try running "npm run fix:standalone" to reset the content cache and rebuild the standalone directory.[0m
+[2m[2025-05-02T19:55:33.560Z][0m ⚠️⚡: [33mIssues with standalone directory creation[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mContext: The standalone directory is required for AWS Amplify deployment and local production testing.[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mReason: The build process was unable to create or properly populate the standalone directory structure.[0m
+[2m[2025-05-02T19:55:33.560Z][0m 🧠⏳: [36mRecommendation: Run "npm run fix:standalone" to manually create the standalone directory structure. This will ensure proper server-side rendering and deployment compatibility.[0m
+
+
+[1m[35m=== NEXT STEPS ====[0m
+[2m[2025-05-02T19:55:33.560Z][0m 📝✅: [32mRun "npm run start" to start the application[0m
+[2m[2025-05-02T19:55:33.560Z][0m 📝✅: [32mOpen http://localhost:3000 in your browser to test the application[0m
+
+
+
+> next@0.1.0 postbuild
+> echo 'Build completed. Run npm start to start the application.'
+
+Build completed. Run npm start to start the application.
+[2025-05-02 14:55:33] ✅ Application rebuilt successfully
+[2025-05-02 14:55:33] 🎉 Application rebuild completed!
+[2025-05-02 14:55:33] Rebuild log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/rebuild-20250502-145415.log

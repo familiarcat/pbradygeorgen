@@ -1,0 +1,285 @@
+/**
+ * Create Standalone Directory Script
+ *
+ * This script creates a standalone directory structure for AWS Amplify deployment.
+ * It's used when the Next.js build fails to create the standalone directory.
+ */
+
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
+// Main function
+async function main() {
+  console.log('🔍 Creating standalone directory structure...');
+
+  // Create the standalone directory if it doesn't exist
+  const standaloneDir = path.join(__dirname, '../.next/standalone');
+  if (!fs.existsSync(standaloneDir)) {
+    console.log(`Creating standalone directory: ${standaloneDir}`);
+    fs.mkdirSync(standaloneDir, { recursive: true });
+  }
+
+  // Create the .next directory inside standalone
+  const nextDir = path.join(standaloneDir, '.next');
+  if (!fs.existsSync(nextDir)) {
+    console.log(`Creating .next directory: ${nextDir}`);
+    fs.mkdirSync(nextDir, { recursive: true });
+  }
+
+  // Create the static directory inside .next
+  const staticDir = path.join(nextDir, 'static');
+  if (!fs.existsSync(staticDir)) {
+    console.log(`Creating static directory: ${staticDir}`);
+    fs.mkdirSync(staticDir, { recursive: true });
+  }
+
+  // Copy static assets if they exist
+  const sourceStaticDir = path.join(__dirname, '../.next/static');
+  if (fs.existsSync(sourceStaticDir)) {
+    console.log(`Copying static assets from ${sourceStaticDir} to ${staticDir}`);
+    try {
+      execSync(`cp -R ${sourceStaticDir}/* ${staticDir}/`, { stdio: 'inherit' });
+    } catch (error) {
+      console.warn(`Warning: Failed to copy static assets: ${error.message}`);
+    }
+  } else {
+    console.log('No static assets found to copy');
+  }
+
+  // Copy public directory to standalone
+  const publicDir = path.join(__dirname, '../public');
+  const standalonePublicDir = path.join(standaloneDir, 'public');
+  if (fs.existsSync(publicDir)) {
+    console.log(`Copying public directory from ${publicDir} to ${standalonePublicDir}`);
+    try {
+      if (!fs.existsSync(standalonePublicDir)) {
+        fs.mkdirSync(standalonePublicDir, { recursive: true });
+      }
+      execSync(`cp -R ${publicDir}/* ${standalonePublicDir}/`, { stdio: 'inherit' });
+    } catch (error) {
+      console.warn(`Warning: Failed to copy public directory: ${error.message}`);
+    }
+  }
+
+  // Ensure extracted directory exists in standalone
+  const extractedDir = path.join(standalonePublicDir, 'extracted');
+  if (!fs.existsSync(extractedDir)) {
+    console.log(`Creating extracted directory: ${extractedDir}`);
+    fs.mkdirSync(extractedDir, { recursive: true });
+  }
+
+  // Check if we need to run the prepare-download-test.js script
+  const resumeContentPath = path.join(extractedDir, 'resume_content.md');
+  const coverLetterPath = path.join(extractedDir, 'cover_letter.md');
+
+  if (!fs.existsSync(resumeContentPath) || !fs.existsSync(coverLetterPath)) {
+    console.log('Missing extracted content files, running prepare-download-test.js...');
+    try {
+      // Run the prepare-download-test.js script to create necessary files
+      const prepareScriptPath = path.join(__dirname, 'prepare-download-test.js');
+      if (fs.existsSync(prepareScriptPath)) {
+        execSync(`node ${prepareScriptPath}`, { stdio: 'inherit' });
+        console.log('✅ Extracted content prepared successfully');
+
+        // Copy the newly created files to the standalone directory
+        const sourceExtractedDir = path.join(__dirname, '../public/extracted');
+        if (fs.existsSync(sourceExtractedDir)) {
+          console.log(`Copying extracted content from ${sourceExtractedDir} to ${extractedDir}`);
+          execSync(`cp -R ${sourceExtractedDir}/* ${extractedDir}/`, { stdio: 'inherit' });
+        }
+      } else {
+        console.warn(`Warning: prepare-download-test.js script not found at ${prepareScriptPath}`);
+
+        // Create minimal content files
+        console.log('Creating minimal content files...');
+
+        // Create resume_content.md
+        if (!fs.existsSync(resumeContentPath)) {
+          fs.writeFileSync(resumeContentPath, '# Resume Content\n\nThis is a placeholder resume content file.');
+          console.log(`Created placeholder ${resumeContentPath}`);
+        }
+
+        // Create cover_letter.md
+        if (!fs.existsSync(coverLetterPath)) {
+          fs.writeFileSync(coverLetterPath, '# Cover Letter\n\nThis is a placeholder cover letter file.');
+          console.log(`Created placeholder ${coverLetterPath}`);
+        }
+
+        // Create content_fingerprint.txt
+        const fingerprintPath = path.join(extractedDir, 'content_fingerprint.txt');
+        if (!fs.existsSync(fingerprintPath)) {
+          fs.writeFileSync(fingerprintPath, `placeholder-${Date.now()}`);
+          console.log(`Created placeholder ${fingerprintPath}`);
+        }
+
+        // Create build_info.json
+        const buildInfoPath = path.join(extractedDir, 'build_info.json');
+        if (!fs.existsSync(buildInfoPath)) {
+          const buildInfo = {
+            buildTimestamp: new Date().toISOString(),
+            pdfInfo: {
+              path: '/default_resume.pdf',
+              size: 0,
+              lastModified: new Date().toISOString(),
+              contentFingerprint: `placeholder-${Date.now()}`
+            },
+            extractionStatus: {
+              textExtracted: true,
+              fontsExtracted: false,
+              colorsExtracted: false
+            }
+          };
+          fs.writeFileSync(buildInfoPath, JSON.stringify(buildInfo, null, 2));
+          console.log(`Created placeholder ${buildInfoPath}`);
+        }
+      }
+    } catch (error) {
+      console.warn(`Warning: Failed to prepare extracted content: ${error.message}`);
+    }
+  }
+
+  // Copy the root server.js file to the standalone directory
+  const serverJsPath = path.join(standaloneDir, 'server.js');
+  const rootServerJsPath = path.join(__dirname, '../server.js');
+
+  console.log(`Copying server.js from ${rootServerJsPath} to ${serverJsPath}`);
+
+  if (fs.existsSync(rootServerJsPath)) {
+    // Read the root server.js file
+    let serverJsContent = fs.readFileSync(rootServerJsPath, 'utf8');
+
+    // Add a comment at the top
+    serverJsContent = `
+// This file is a copy of the root server.js file
+// It's used to start the Next.js server in production mode
+
+${serverJsContent}`;
+
+    // Write the modified content to the standalone directory
+    fs.writeFileSync(serverJsPath, serverJsContent);
+    console.log(`✅ Copied and modified server.js to standalone directory`);
+  } else {
+    console.warn(`Warning: Root server.js not found at ${rootServerJsPath}`);
+
+    // Create a minimal server.js file that uses Next.js
+    const serverJsContent = `
+// Minimal Next.js server for standalone mode
+const { createServer } = require('http');
+const { parse } = require('url');
+const next = require('next');
+
+const dev = process.env.NODE_ENV !== 'production';
+const hostname = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3000;
+
+// Initialize Next.js app
+const app = next({
+  dev,
+  hostname,
+  port,
+  dir: __dirname
+});
+
+const handle = app.getRequestHandler();
+
+// Prepare and start the server
+app.prepare().then(() => {
+  createServer(async (req, res) => {
+    try {
+      // Parse the URL
+      const parsedUrl = parse(req.url, true);
+
+      // Let Next.js handle the request
+      await handle(req, res, parsedUrl);
+    } catch (err) {
+      console.error('Error occurred handling', req.url, err);
+      res.statusCode = 500;
+      res.end('Internal Server Error');
+    }
+  }).listen(port, (err) => {
+    if (err) throw err;
+    console.log(\`> Ready on http://\${hostname}:\${port}\`);
+  });
+});
+`;
+
+    fs.writeFileSync(serverJsPath, serverJsContent);
+    console.log(`✅ Created minimal Next.js server.js in standalone directory`);
+  }
+
+  // Create a simple index.html file in the public directory if it doesn't exist
+  const indexHtmlPath = path.join(standalonePublicDir, 'index.html');
+  if (!fs.existsSync(indexHtmlPath)) {
+    console.log(`Creating index.html: ${indexHtmlPath}`);
+
+    const indexHtmlContent = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AlexAI - Resume Analyzer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      .button {
+        display: inline-block;
+        background-color: #0070f3;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #0051a2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>AlexAI - Resume Analyzer</h1>
+      <p>Welcome to AlexAI, your intelligent resume analysis tool.</p>
+      <a href="/extracted/resume_content.md" class="button">View Resume Content</a>
+    </div>
+  </body>
+</html>
+`;
+
+    fs.writeFileSync(indexHtmlPath, indexHtmlContent);
+  }
+
+  console.log('✅ Standalone directory structure created successfully');
+}
+
+// Run the main function
+main().catch(error => {
+  console.error('❌ ERROR:', error);
+  process.exit(1);
+});

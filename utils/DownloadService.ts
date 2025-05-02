@@ -3,10 +3,216 @@ import { HesseLogger } from './HesseLogger';
 import PdfGenerator from './PdfGenerator';
 
 /**
- * Centralized service for handling all download operations in the application.
- * Follows the Hesse philosophy of harmonizing disparate elements into a cohesive whole.
+ * DownloadService
+ *
+ * A centralized service for handling all download operations in the application.
+ *
+ * Philosophical Framework:
+ *
+ * - Hesse's Glass Bead Game (Structure and Balance):
+ *   The service creates a harmonious integration between different download formats,
+ *   maintaining balance between consistency and format-specific requirements.
+ *   Like Hesse's Glass Bead Game, it connects seemingly disparate elements (PDF, Markdown, Text)
+ *   into a cohesive whole through structured, balanced interfaces.
+ *
+ * - Salinger's Authenticity:
+ *   The service ensures authentic representation of content across different formats,
+ *   preserving the genuine essence of the content regardless of the output format.
+ *   It rejects "phony" representations by validating content and providing meaningful fallbacks.
+ *
+ * - Derrida's Deconstruction:
+ *   The service deconstructs content into different formats while preserving its essential meaning.
+ *   It examines the spaces between formats to ensure consistent representation and handles
+ *   the transformation between formats with careful attention to content integrity.
+ *
+ * - Dante's Divine Comedy (Navigation):
+ *   The service guides content through different stages of the download process,
+ *   from validation to transformation to delivery, with clear error handling and recovery paths.
+ *   The logging system provides emotional context for technical processes, humanizing the journey.
  */
 export const DownloadService = {
+  /**
+   * Download content of any type in any format
+   *
+   * This unified method handles downloading content of any type in any format.
+   * It uses the server actions to get the content from the ContentStateService.
+   *
+   * @param contentType The type of content ('resume' or 'cover_letter')
+   * @param format The format to download ('pdf', 'markdown', or 'text')
+   * @param fileName Optional file name (defaults to contentType)
+   * @param options Additional options for the download
+   * @returns Promise that resolves when download is complete
+   */
+  downloadContent: async (
+    contentType: 'resume' | 'cover_letter',
+    format: 'pdf' | 'markdown' | 'text',
+    fileName?: string,
+    options: any = {}
+  ): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // Begin the journey (Dante's navigation)
+        const startTime = Date.now();
+        HesseLogger.summary.start(`Downloading ${contentType} as ${format}`);
+        DanteLogger.success.basic(`Starting ${contentType} download as ${format}`);
+        console.log(`Starting downloadContent with contentType = ${contentType}, format = ${format}`);
+
+        // Use the provided file name or default to the content type
+        const defaultFileName = fileName || contentType;
+
+        // Import the server action dynamically to avoid server/client mismatch
+        const { getFormattedContent } = await import('@/app/actions/contentActions');
+
+        // Get the content from the ContentStateService via server action
+        console.log(`[DEBUG] Calling getFormattedContent for ${contentType} in ${format} format`);
+        const result = await getFormattedContent(contentType, format);
+        console.log(`[DEBUG] getFormattedContent result:`, {
+          success: result.success,
+          hasData: !!result.data,
+          dataLength: result.data ? result.data.length : 0,
+          error: result.error,
+          metadata: result.metadata
+        });
+
+        if (!result.success) {
+          const errorMsg = result.error || `Failed to get ${contentType} content in ${format} format`;
+          console.error(`[DEBUG] Download error:`, errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+          reject(new Error(errorMsg));
+          return;
+        }
+
+        // Validate that we have content data
+        if (!result.data && format !== 'pdf') {
+          const errorMsg = `No content data returned for ${contentType} in ${format} format`;
+          console.error(`[DEBUG] Download error:`, errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+          reject(new Error(errorMsg));
+          return;
+        }
+
+        // Use the appropriate download method based on the format
+        if (format === 'pdf') {
+          if (contentType === 'resume') {
+            // For resume PDF, we just download the default PDF file
+            const a = document.createElement('a');
+            a.href = `/default_resume.pdf?v=${Date.now()}`;
+            a.download = `${defaultFileName}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            console.log(`Downloaded ${defaultFileName}.pdf`);
+            DanteLogger.success.ux(`Downloaded ${defaultFileName}.pdf`);
+            HesseLogger.summary.complete(`${defaultFileName}.pdf downloaded successfully`);
+            resolve();
+          } else {
+            // For cover letter PDF, we need to generate it from the markdown content
+            if (!result.data) {
+              const errorMsg = 'Cover letter content is empty';
+              console.error(`[DEBUG] ${errorMsg}`);
+              DanteLogger.error.runtime(errorMsg);
+              reject(new Error(errorMsg));
+              return;
+            }
+
+            try {
+              console.log(`[DEBUG] Generating PDF for cover letter from markdown content (${result.data.length} chars)`);
+
+              // Check if the result data is already a data URL (starts with "data:")
+              if (result.data.startsWith('data:')) {
+                console.log(`[DEBUG] Result data appears to be a data URL, using directly`);
+
+                // Use the data URL directly
+                const link = document.createElement('a');
+                link.href = result.data;
+                link.download = `${defaultFileName}.pdf`;
+                document.body.appendChild(link);
+                console.log(`[DEBUG] Triggering download click for data URL`);
+                link.click();
+                document.body.removeChild(link);
+                console.log(`[DEBUG] PDF download link clicked`);
+                resolve();
+                return;
+              }
+
+              // First generate a data URL to ensure consistent styling with preview
+              console.log(`[DEBUG] Generating PDF data URL from markdown content`);
+              const dataUrl = await DownloadService.generatePdfDataUrl(result.data, {
+                title: 'Cover Letter',
+                fileName: `${defaultFileName}.pdf`,
+                headerText: 'Cover Letter',
+                footerText: 'Generated with Salinger Design',
+                isDarkTheme: true, // Cover letters use dark theme
+                ...options
+              });
+
+              console.log(`[DEBUG] PDF data URL generated successfully (${dataUrl.length} chars)`);
+
+              // Then download using the data URL
+              await DownloadService.downloadPdf(result.data, defaultFileName, {
+                ...options,
+                dataUrl
+              });
+              resolve();
+            } catch (pdfError) {
+              const errorMessage = pdfError instanceof Error ? pdfError.message : String(pdfError);
+              console.error(`[DEBUG] Error generating PDF for cover letter:`, pdfError);
+              console.error(`[DEBUG] Error details:`, {
+                errorType: typeof pdfError,
+                errorMessage,
+                errorStack: pdfError instanceof Error ? pdfError.stack : 'No stack trace',
+                dataLength: result.data?.length || 0
+              });
+              DanteLogger.error.runtime(`Error generating PDF for cover letter: ${errorMessage}`);
+
+              // Fallback to text download
+              try {
+                console.log(`[DEBUG] Falling back to text download for cover letter`);
+                const blob = new Blob([result.data], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${defaultFileName}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                console.log(`[DEBUG] Fallback text download completed`);
+                resolve();
+              } catch (fallbackError) {
+                console.error(`[DEBUG] Fallback text download also failed:`, fallbackError);
+                reject(new Error(`Error generating PDF for cover letter: ${errorMessage}`));
+              }
+            }
+          }
+        } else if (format === 'markdown') {
+          await DownloadService.downloadMarkdown(
+            result.data,
+            defaultFileName,
+            {
+              useServerFormatting: false, // Already formatted by server action
+              contentType,
+              addTimestamp: true,
+              fallbackToText: true,
+              ...options
+            }
+          );
+          resolve();
+        } else if (format === 'text') {
+          await DownloadService.downloadText(result.data, defaultFileName);
+          resolve();
+        } else {
+          reject(new Error(`Unsupported format: ${format}`));
+        }
+      } catch (error) {
+        console.error(`Error downloading ${contentType} as ${format}:`, error);
+        DanteLogger.error.runtime(`Error downloading ${contentType} as ${format}: ${error}`);
+        HesseLogger.summary.error(`Error downloading ${contentType} as ${format}: ${error}`);
+        reject(error);
+      }
+    });
+  },
   /**
    * Download a PDF file from markdown content
    * @param content Markdown content to convert to PDF
@@ -23,20 +229,52 @@ export const DownloadService = {
       try {
         HesseLogger.summary.start(`Exporting ${fileName} as PDF`);
         DanteLogger.success.basic(`Starting PDF download for ${fileName}`);
+        console.log(`[DEBUG] Starting PDF download for ${fileName}`, {
+          contentLength: content?.length,
+          contentType: typeof content,
+          hasDataUrl: !!options.dataUrl,
+          dataUrlLength: options.dataUrl ? options.dataUrl.length : 0,
+          options: JSON.stringify(options)
+        });
+
+        // Validate content if we're not using a data URL
+        if (!options.dataUrl && (!content || content.trim() === '')) {
+          const errorMsg = 'Cannot generate PDF: Content is empty';
+          console.error(errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+          reject(new Error(errorMsg));
+          return;
+        }
 
         // If we have a data URL, use it directly
         if (options.dataUrl) {
+          console.log(`[DEBUG] Using provided PDF data URL for download (${options.dataUrl.length} chars)`);
           DanteLogger.success.basic('Using provided PDF data URL for download');
 
-          // Create a link to download the PDF from the data URL
-          const link = document.createElement('a');
-          link.href = options.dataUrl;
-          link.download = `${fileName}.pdf`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          // Validate the data URL
+          if (!options.dataUrl.startsWith('data:')) {
+            console.error(`[DEBUG] Invalid data URL format, doesn't start with 'data:'`);
+            throw new Error('Invalid data URL format');
+          }
+
+          try {
+            // Create a link to download the PDF from the data URL
+            console.log(`[DEBUG] Creating download link for PDF data URL`);
+            const link = document.createElement('a');
+            link.href = options.dataUrl;
+            link.download = `${fileName}.pdf`;
+            document.body.appendChild(link);
+            console.log(`[DEBUG] Triggering download click for data URL`);
+            link.click();
+            document.body.removeChild(link);
+            console.log(`[DEBUG] PDF download link clicked`);
+          } catch (linkError) {
+            console.error(`[DEBUG] Error creating download link:`, linkError);
+            throw linkError;
+          }
         } else {
           // Generate a new PDF
+          console.log(`[DEBUG] No data URL provided, generating new PDF for download`);
           DanteLogger.success.basic('Generating new PDF for download');
 
           // First generate a data URL to ensure consistent styling with preview
@@ -55,16 +293,54 @@ export const DownloadService = {
             ...options
           };
 
-          // Generate a data URL first to ensure consistency with preview
-          const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, defaultOptions);
+          try {
+            console.log(`[DEBUG] Generating PDF data URL from markdown content (${content.length} chars)`);
 
-          // Then download using the data URL
-          const link = document.createElement('a');
-          link.href = dataUrl;
-          link.download = `${fileName}.pdf`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+            // Generate a data URL first to ensure consistency with preview
+            const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, defaultOptions);
+            console.log(`[DEBUG] PDF data URL generated successfully (${dataUrl.length} chars)`);
+
+            if (!dataUrl || dataUrl.length < 100) {
+              throw new Error(`Generated PDF data URL is invalid or too short: ${dataUrl}`);
+            }
+
+            // Then download using the data URL
+            console.log(`[DEBUG] Creating download link for PDF`);
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = `${fileName}.pdf`;
+            document.body.appendChild(link);
+            console.log(`[DEBUG] Triggering download click`);
+            link.click();
+            document.body.removeChild(link);
+            console.log(`[DEBUG] PDF download link clicked`);
+          } catch (pdfError) {
+            const errorMessage = pdfError instanceof Error ? pdfError.message : String(pdfError);
+            DanteLogger.error.runtime(`Error generating PDF: ${errorMessage}`);
+            console.error(`[DEBUG] Error generating PDF:`, pdfError);
+            console.error(`[DEBUG] Error details:`, {
+              errorType: typeof pdfError,
+              errorMessage,
+              errorStack: pdfError instanceof Error ? pdfError.stack : 'No stack trace',
+              contentLength: content?.length || 0
+            });
+
+            // Fallback to simple text download if PDF generation fails
+            DanteLogger.warn.deprecated('Falling back to text download due to PDF generation failure');
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileName}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Still resolve the promise since we provided a fallback
+            resolve();
+            return;
+          }
         }
 
         DanteLogger.success.ux(`Downloaded ${fileName}.pdf successfully`);
@@ -80,20 +356,83 @@ export const DownloadService = {
 
   /**
    * Download a Markdown file
+   *
+   * This method embodies all four philosophical approaches:
+   * - Hesse: Balancing structure (markdown format) with flexibility (content adaptation)
+   * - Salinger: Ensuring authentic representation of the content in markdown format
+   * - Derrida: Deconstructing content into markdown syntax while preserving meaning
+   * - Dante: Guiding the content through the journey from raw data to downloaded file
+   *
    * @param content Markdown content
    * @param fileName Base file name without extension
+   * @param options Additional options for markdown formatting
    * @returns Promise that resolves when download is complete
    */
   downloadMarkdown: async (
     content: string,
-    fileName: string = 'document'
+    fileName: string = 'document',
+    options: {
+      useServerFormatting?: boolean;
+      contentType?: string;
+      addTimestamp?: boolean;
+      fallbackToText?: boolean;
+    } = {}
   ): Promise<void> => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
+        // Begin the journey (Dante's navigation)
+        const startTime = Date.now();
         HesseLogger.summary.start(`Exporting ${fileName} as Markdown`);
         DanteLogger.success.basic(`Starting Markdown download for ${fileName}`);
+        console.log(`Starting Markdown download for ${fileName}`, {
+          contentLength: content?.length,
+          useServerFormatting: options.useServerFormatting,
+          contentType: options.contentType
+        });
 
-        // Create and download the file
+        // Validate content (Salinger's authenticity principle)
+        if (!content || content.trim() === '') {
+          const errorMsg = 'Cannot download markdown: Content is empty';
+          console.error(errorMsg);
+          DanteLogger.error.runtime(errorMsg);
+
+          // Create a minimal markdown file with an error message (Salinger's authentic fallback)
+          content = `# Error: Empty Content\n\nThe markdown content was empty. This is a placeholder file.\n\nGenerated on: ${new Date().toLocaleString()}`;
+          console.log('Content is empty, using placeholder content');
+          DanteLogger.warn.deprecated('Content is empty, using placeholder content');
+        }
+
+        // Use server-side formatting if requested (Hesse's balanced approach)
+        if (options.useServerFormatting && options.contentType) {
+          try {
+            DanteLogger.success.basic('Using server-side formatting for markdown content');
+            console.log('Requesting server-side formatting for markdown content');
+
+            // Import dynamically to avoid server/client mismatch
+            const { formatContentAsMarkdown } = await import('@/app/actions/formatContentActions');
+            const result = await formatContentAsMarkdown(content, options.contentType);
+
+            if (result.success) {
+              DanteLogger.success.ux('Server-side formatting successful');
+              content = result.data;
+            } else {
+              DanteLogger.warn.deprecated(`Server-side formatting failed: ${result.error}`);
+              console.warn('Server-side formatting failed, using original content');
+            }
+          } catch (formattingError) {
+            DanteLogger.error.runtime(`Error in server-side formatting: ${formattingError}`);
+            console.error('Error in server-side formatting:', formattingError);
+            // Continue with original content
+          }
+        }
+
+        // Add timestamp if requested (Derrida's deconstruction of time into content)
+        if (options.addTimestamp) {
+          const timestamp = new Date().toLocaleString();
+          content += `\n\n---\n\n*Generated on: ${timestamp}*`;
+        }
+
+        // Create and download the file (Salinger's authentic delivery)
         const blob = new Blob([content], { type: 'text/markdown' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -104,13 +443,66 @@ export const DownloadService = {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        DanteLogger.success.ux(`Downloaded ${fileName}.md successfully`);
+        // Calculate download time (Dante's journey metrics)
+        const downloadTime = Date.now() - startTime;
+
+        console.log(`Downloaded ${fileName}.md successfully in ${downloadTime}ms`);
+        DanteLogger.success.ux(`Downloaded ${fileName}.md successfully in ${downloadTime}ms`);
         HesseLogger.summary.complete(`${fileName}.md downloaded successfully`);
         resolve();
       } catch (error) {
+        console.error('Error downloading Markdown:', error);
         DanteLogger.error.runtime(`Error downloading Markdown: ${error}`);
         HesseLogger.summary.error(`Markdown download failed: ${error}`);
-        reject(error);
+
+        // Only fallback to text if option is enabled or not specified (default behavior)
+        if (options.fallbackToText !== false) {
+          try {
+            // Dante's journey through Purgatorio (recovery from failure)
+            console.log('Markdown download failed, falling back to text download');
+            DanteLogger.warn.deprecated('Markdown download failed, falling back to text download');
+
+            // Convert content to plain text or use a fallback message (Derrida's deconstruction)
+            const textContent = content
+              ? DownloadService.convertMarkdownToText(content)
+              : `Markdown download failed. This is a fallback text file.\n\nGenerated on: ${new Date().toLocaleString()}`;
+
+            // Add a header explaining the fallback (Salinger's authenticity)
+            const fallbackContent =
+              `FALLBACK TEXT VERSION\n` +
+              `===================\n\n` +
+              `Note: This is a plain text version created because the markdown download failed.\n\n` +
+              `${textContent}`;
+
+            // Create and download as text (Hesse's balanced fallback)
+            const blob = new Blob([fallbackContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileName}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Calculate fallback time (Dante's journey metrics)
+            const fallbackTime = Date.now() - startTime;
+
+            console.log(`Fallback: Downloaded ${fileName}.txt successfully in ${fallbackTime}ms`);
+            DanteLogger.success.ux(`Fallback: Downloaded ${fileName}.txt successfully in ${fallbackTime}ms`);
+
+            // Still resolve the promise since we provided a fallback
+            resolve();
+          } catch (fallbackError) {
+            console.error('Fallback text download also failed:', fallbackError);
+            DanteLogger.error.system('Both markdown and fallback text downloads failed');
+            reject(error); // Reject with the original error
+          }
+        } else {
+          // No fallback requested, reject with the original error
+          DanteLogger.error.runtime('Markdown download failed and fallback was disabled');
+          reject(error);
+        }
       }
     });
   },
@@ -154,19 +546,46 @@ export const DownloadService = {
 
   /**
    * Convert markdown to plain text by removing markdown syntax
+   *
+   * This method embodies Derrida's deconstruction philosophy by breaking down
+   * markdown syntax into its essential textual meaning, preserving the content
+   * while removing the structural elements.
+   *
    * @param markdownContent Markdown content to convert
    * @returns Plain text content
    */
   convertMarkdownToText: (markdownContent: string): string => {
+    if (!markdownContent) return '';
+
+    // Derrida's deconstruction of markdown into plain text
     return markdownContent
-      .replace(/#{1,6}\s+/g, '') // Remove headers
+      // Structure elements
+      .replace(/#{1,6}\s+(.+)$/gm, '$1\n') // Convert headers to text with line break
       .replace(/\*\*/g, '') // Remove bold
       .replace(/\*/g, '') // Remove italic
+      .replace(/__(.+?)__/g, '$1') // Remove underline
+      .replace(/_(.+?)_/g, '$1') // Remove italic with underscore
+
+      // Link elements
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
       .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
-      .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
+
+      // Code elements
+      .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove inline code
+      .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+
+      // Block elements
       .replace(/>/g, '') // Remove blockquotes
-      .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
+      .replace(/- /g, '• ') // Convert dashes in lists to bullets
+      .replace(/\n\s*\n/g, '\n\n') // Normalize line breaks
+
+      // Table elements
+      .replace(/\|/g, ' ') // Replace table separators with spaces
+      .replace(/^[- |:]+$/gm, '') // Remove table formatting lines
+
+      // Final cleanup
+      .replace(/\n{3,}/g, '\n\n') // Remove excessive line breaks
+      .trim(); // Trim extra whitespace
   },
 
   /**
@@ -182,6 +601,19 @@ export const DownloadService = {
     try {
       HesseLogger.summary.start('Generating PDF data URL');
       DanteLogger.success.basic('Starting PDF data URL generation');
+      console.log(`[DEBUG] Starting PDF data URL generation with content (${content?.length || 0} chars)`, {
+        contentType: typeof content,
+        contentFirstChars: content ? content.substring(0, 50) + '...' : 'N/A',
+        options: JSON.stringify(options)
+      });
+
+      // Validate content
+      if (!content || content.trim() === '') {
+        const errorMsg = 'Cannot generate PDF data URL: Content is empty';
+        console.error(`[DEBUG] ${errorMsg}`);
+        DanteLogger.error.runtime(errorMsg);
+        throw new Error(errorMsg);
+      }
 
       // Default options for PDF generation
       const defaultOptions = {
@@ -199,15 +631,33 @@ export const DownloadService = {
         ...options
       };
 
+      console.log(`[DEBUG] PDF generation options:`, defaultOptions);
+
       // Generate the PDF data URL
+      console.log(`[DEBUG] Calling PdfGenerator.generatePdfDataUrlFromMarkdown`);
       const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, defaultOptions);
 
+      if (!dataUrl || dataUrl.length < 100) {
+        const errorMsg = `Generated PDF data URL is invalid or too short: ${dataUrl}`;
+        console.error(`[DEBUG] ${errorMsg}`);
+        throw new Error(errorMsg);
+      }
+
+      console.log(`[DEBUG] PDF data URL generated successfully (${dataUrl.length} chars)`);
       DanteLogger.success.ux('Generated PDF data URL successfully');
       HesseLogger.summary.complete('PDF data URL generated successfully');
       return dataUrl;
     } catch (error) {
-      DanteLogger.error.runtime(`Error generating PDF data URL: ${error}`);
-      HesseLogger.summary.error(`PDF data URL generation failed: ${error}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error(`[DEBUG] Error generating PDF data URL:`, error);
+      console.error(`[DEBUG] Error details:`, {
+        errorType: typeof error,
+        errorMessage,
+        errorStack: error instanceof Error ? error.stack : 'No stack trace',
+        contentLength: content?.length || 0
+      });
+      DanteLogger.error.runtime(`Error generating PDF data URL: ${errorMessage}`);
+      HesseLogger.summary.error(`PDF data URL generation failed: ${errorMessage}`);
       throw error;
     }
   }

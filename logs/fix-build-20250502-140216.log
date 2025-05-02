@@ -1,0 +1,24 @@
+[2025-05-02 14:02:16] 🔧 Step 1: Fixing PDF size mismatch...
+🔧 Fixing PDF size mismatch...
+📊 Actual PDF file size: 119425 bytes
+🔑 Generated content fingerprint: 21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa
+📄 Loaded existing build_info.json
+✅ Updated build_info.json with correct PDF size and fingerprint
+✅ Updated content_fingerprint.txt with new fingerprint
+✅ PDF size mismatch fixed successfully
+[2025-05-02 14:02:16] ✅ PDF size mismatch fix attempted
+[2025-05-02 14:02:16] 🔧 Step 2: Preparing environment for download tests...
+🔧 Preparing environment for download functionality tests...
+✅ Environment prepared for download functionality tests
+[2025-05-02 14:02:16] ✅ Download test environment preparation attempted
+[2025-05-02 14:02:16] 🔧 Step 3: Fixing standalone directory...
+🔍 Creating standalone directory structure...
+Copying static assets from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/static to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/static
+Copying public directory from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public
+Creating server.js: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/server.js
+✅ Standalone directory structure created successfully
+[2025-05-02 14:02:17] ✅ Standalone directory fix attempted
+[2025-05-02 14:02:17] 🧹 Step 4: Cleaning up temporary files...
+[2025-05-02 14:02:18] ✅ Cleanup completed
+[2025-05-02 14:02:18] 🎉 Build issue fixes completed!
+[2025-05-02 14:02:18] Fix log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/fix-build-20250502-140216.log

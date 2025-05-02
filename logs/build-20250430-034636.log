@@ -1,0 +1,324 @@
+[2025-04-30 03:46:36] 🔍 Step 1: Running linting...
+
+> next@0.1.0 lint:fix
+> next lint --fix
+
+(node:19882) ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the "ignores" property in "eslint.config.js": https://eslint.org/docs/latest/use/configure/migration-guide#ignoring-files
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+./components/CenteredPDFViewer.tsx
+16:9  Error: 'showControls' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+17:10  Error: 'showUI' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+18:10  Error: 'uiTimeout' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+18:21  Error: 'setUiTimeout' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+22:10  Error: 'pdfLoaded' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/ContentStateMonitor.tsx
+87:6  Warning: React Hook useEffect has a missing dependency: 'fetchContentState'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/ContentStatusDashboard.tsx
+7:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:60  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+13:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+164:6  Warning: React Hook useEffect has missing dependencies: 'fetchContentStatus', 'fetchJsonPreview', and 'validateContent'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+311:64  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+322:56  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+322:73  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+347:53  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+347:72  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./components/ExtractionLogs.tsx
+19:36  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+182:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/JsonViewer.tsx
+5:10  Error: 'HesseLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+13:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+19:58  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+345:79  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+347:19  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+347:40  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./components/PDFViewer.tsx
+23:10  Error: 'initialAnimationComplete' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/SalingerHeader.tsx
+48:10  Error: 'isLoadingPreview' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+50:10  Error: 'isGeneratingCoverLetterPdf' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+51:10  Error: 'isGeneratingCoverLetterMd' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+52:10  Error: 'isGeneratingCoverLetterTxt' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+128:41  Error: React Hook "useServerTheme" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function.  react-hooks/rules-of-hooks
+275:19  Error: React Hook "useServerTheme" is called in function "handleCoverLetterPdfPreview" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+277:24  Error: React Hook "useServerTheme" is called in function "handleCoverLetterPdfPreview" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+./components/ServerThemeProvider.tsx
+10:15  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+11:13  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+34:17  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+35:15  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+89:31  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+89:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+135:58  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+136:57  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+137:57  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+141:98  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+145:95  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+149:92  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+155:39  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+155:90  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+170:6  Warning: React Hook useEffect has missing dependencies: 'initialTheme' and 'refreshTheme'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/SimplePDFViewer.tsx
+11:18  Error: 'setPdfUrl' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+12:19  Error: 'setPdfName' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/SummaryModal.tsx
+242:9  Error: 'handleDownloadFromDataUrl' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/UploadModal.tsx
+4:8  Error: 'PDFUploader' is defined but never used.  @typescript-eslint/no-unused-vars
+14:10  Error: 'uploadSuccess' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+55:9  Error: 'handlePdfUploaded' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/axiom-ui/AxiomProvider.tsx
+3:54  Error: 'useEffect' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/axiom-ui/AxiomSelector.tsx
+63:9  Error: 'handleSelect' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+75:9  Error: 'handleClear' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/dante-agile/CeremonyGuide.tsx
+135:43  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+135:54  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+174:100  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+243:44  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+292:54  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+292:63  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+311:75  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+346:23  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+346:68  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+347:23  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+347:31  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+347:67  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+348:23  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+348:92  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+401:59  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/dante-agile/DanteAgileLayout.tsx
+3:10  Error: 'useState' is defined but never used.  @typescript-eslint/no-unused-vars
+9:10  Error: 'DanteLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./components/dante-agile/SprintDashboard.tsx
+8:25  Error: 'setCurrentSprint' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/dante-agile/TaskManager.tsx
+8:17  Error: 'setTasks' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+116:56  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+322:43  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/dante-agile/TeamBoard.tsx
+4:10  Error: 'DanteLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+8:20  Error: 'setTeamData' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./components/server/AnalyzedPdfContent.tsx
+29:9  Error: 'result' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./app/actions/contentActions.ts
+24:14  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/analyze-content/route.ts
+24:37  Error: 'requestedForceRefresh' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+96:52  Error: 'forceRefresh' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/analyze-pdf-content/route.ts
+5:22  Error: 'getAnalyzedContent' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/build-preprocess/route.ts
+11:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/content-freshness/route.ts
+5:10  Error: 'DanteLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+11:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/content-state/route.ts
+12:59  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+104:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/extraction-logs/route.ts
+10:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+68:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/format-content/route.ts
+2:10  Error: 'HesseLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/get-pdf-json/route.ts
+37:14  Error: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/get-summary/route.ts
+16:11  Error: 'timestampParam' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+47:23  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/refresh-content/route.ts
+106:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/ssr-preprocess/route.ts
+11:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/api/validate-content/route.ts
+9:27  Error: 'request' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/axiom-demo/page.tsx
+58:19  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+60:56  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/content-status/page.tsx
+4:10  Error: 'DanteLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+7:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:60  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+13:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+162:6  Warning: React Hook useEffect has missing dependencies: 'fetchContentStatus', 'fetchJsonPreview', and 'validateContent'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+309:64  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+320:56  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+320:73  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+345:53  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+345:72  Error: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./app/dante-agile/page.tsx
+4:8  Error: 'Link' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./app/extraction-logs/page.tsx
+17:11  Error: Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+./app/test-ssr/page.tsx
+7:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+8:54  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/upload/page.tsx
+9:10  Error: 'isUploading' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+9:23  Error: 'setIsUploading' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./utils/ContentStateService.ts
+312:24  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+313:23  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+370:26  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+371:31  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+375:17  Error: 'stdout' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+402:7  Error: 'extractedContent' is never reassigned. Use 'const' instead.  prefer-const
+936:32  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+945:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/DanteLogger.ts
+82:10  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+83:15  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+201:66  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+221:72  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+241:68  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+264:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+265:40  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+266:41  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+267:39  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+268:39  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+269:38  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+270:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+271:40  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+272:38  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+275:59  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+280:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+281:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+282:41  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+283:36  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+284:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+285:38  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+286:40  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+289:63  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+294:37  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+295:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+296:34  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+297:36  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+298:40  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+299:38  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+300:44  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+301:39  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+302:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+303:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+306:60  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/DanteLoggerConfig.ts
+54:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+61:56  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+62:59  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+63:58  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/DanteLoggerExample.ts
+9:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+30:43  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+30:51  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+85:47  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+116:45  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/DanteLoggerGlobalExample.ts
+65:34  Error: 'data' is defined but never used.  @typescript-eslint/no-unused-vars
+
+./utils/DownloadService.ts
+50:14  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+55:15  Error: 'startTime' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+134:14  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+468:14  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/HesseColorTheory.ts
+294:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./utils/PdfExtractionLogger.ts
+62:59  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+158:40  Error: 'index' is defined but never used.  @typescript-eslint/no-unused-vars
+191:15  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/PdfGenerator.ts
+422:11  Error: 'prevBlockType' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+667:11  Error: 'prevBlockType' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+815:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./utils/SimplePDFColorExtractor.ts
+40:11  Error: 'cacheBustedUrl' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./utils/axiomSelectionAlgorithm.ts
+165:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./utils/dynamicCacheService.ts
+250:59  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/formatDownloads.ts
+15:5  Error: 'openai' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+28:11  Error: 'lines' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+30:11  Error: 'inList' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+164:11  Error: 'lines' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+166:11  Error: 'inList' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./utils/openaiPdfStructureService.ts
+18:45  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+331:18  Error: A `require()` style import is forbidden.  @typescript-eslint/no-require-imports
+340:52  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./utils/openaiService.ts
+4:10  Error: 'cacheService' is defined but never used.  @typescript-eslint/no-unused-vars
+5:10  Error: 'stringCacheService' is defined but never used.  @typescript-eslint/no-unused-vars
+326:16  Error: 'createHash' is defined but never used.  @typescript-eslint/no-unused-vars
+530:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./utils/pdfContentProcessor.ts
+22:10  Error: 'DanteLogger' is defined but never used.  @typescript-eslint/no-unused-vars
+99:22  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+100:21  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+101:22  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+102:11  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+161:15  Error: 'stdout' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+315:82  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+363:12  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+364:18  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+460:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+./utils/pdfContentRefresher.ts
+213:13  Error: 'stdout' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+460:1  Warning: Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     const fontInfoPath = path.join(extractedDir, 'font_info.json');
 
     // Always force refresh to ensure we're using fresh content
-    let needsRefresh = alwaysForceRefresh || forceRefresh;
+    const needsRefresh = alwaysForceRefresh || forceRefresh;
 
     // If we need to refresh, run the extraction scripts
     if (needsRefresh) {

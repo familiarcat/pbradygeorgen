@@ -27,6 +27,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - [Project Documentation](#project-documentation)
   - [Philosophical Approach](#philosophical-approach)
   - [Color Theory Legend](#philosophical-color-theory-legend)
+- [Simplified Development Workflow](#simplified-development-workflow)
 - [Deployment](#deployment)
   - [Local Development](#local-development)
   - [AWS Amplify Deployment](#aws-amplify-deployment)
@@ -44,9 +45,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Project Documentation
 
 - [Architecture Documentation](./docs/architecture/ARCHITECTURE.md) - comprehensive overview of the application architecture
+- [Workflow Guide](./WORKFLOW.md) - detailed guide for the development workflow
+- [Build and Run Guide](./BUILD_AND_RUN.md) - instructions for building and running the application
+- [Automated Testing Guide](./AUTOMATED_TESTING.md) - guide for using the automated testing tools
 - [AWS Amplify Deployment Guide](./AMPLIFY.md) - instructions for deploying to AWS Amplify
 - [OpenAI API Key Setup for Amplify](./AMPLIFY_OPENAI.md) - setting up OpenAI API key for PDF analysis
-- [Development Guide](./DEVELOPMENT.md) - guide for local development
 
 ### Philosophical Approach
 
@@ -111,23 +114,79 @@ flowchart LR
 
 For more detailed information about how these philosophical approaches are applied throughout the architecture, see the [Architecture Documentation](./docs/architecture/ARCHITECTURE.md).
 
+## Simplified Development Workflow
+
+The development workflow has been streamlined to two main commands:
+
+### 1. Build and Test
+
+```bash
+npm run build
+```
+
+This consolidated build script:
+- Runs linting to ensure code quality
+- Cleans up previous build artifacts
+- Runs the prebuild script (PDF extraction and analysis)
+- Builds the application with Next.js
+- Runs the postbuild script to copy extracted files
+- Tests the download functionality
+- Generates a detailed test report
+
+### 2. Start and Verify
+
+```bash
+npm run start
+```
+
+This consolidated start script:
+- Starts the application in production mode
+- Runs basic health checks to ensure the application is working correctly
+- Provides real-time feedback on the application status
+
+For more detailed information, see the [Workflow Guide](./WORKFLOW.md).
+
 ## Deployment
 
 ### Local Development
 
 ```bash
-# Install dependencies
-npm install
-
-# Run development server
+# Development mode (for UI changes with hot reloading)
 npm run dev
 
-# Build for production
+# Build and test (comprehensive build with testing)
 npm run build
 
-# Serve production build locally
-npm start
+# Start and verify (start in production mode with health checks)
+npm run start
 ```
+
+#### Development Modes
+
+- **Development Mode** (`npm run dev`): For UI changes and local development with hot reloading. Uses mock data for some features to avoid relying on external APIs.
+- **Production Mode** (`npm run build` followed by `npm run start`): For testing the full SSR functionality with real API calls in a way that mirrors AWS Amplify deployment.
+
+#### Running with Standalone Output
+
+The application is configured to use `output: 'standalone'` in next.config.js, which is optimized for AWS Amplify deployment. The consolidated build and start scripts handle this automatically:
+
+```bash
+# Build the application (includes testing and validation)
+npm run build
+
+# Start the standalone server (includes health checks)
+npm run start
+```
+
+The build process includes:
+- Linting to ensure code quality
+- Prebuild script for PDF extraction and analysis
+- Next.js build
+- Postbuild script to copy extracted files
+- Download functionality testing
+- Detailed test reporting
+
+Note: When using `output: 'standalone'`, the standard Next.js server (`next start`) will show a warning and may not work correctly. Always use `npm run start` for the best experience.
 
 ### AWS Amplify Deployment
 

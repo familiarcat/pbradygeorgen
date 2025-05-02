@@ -1,0 +1,67 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 232ms
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦✅ [Derrida:Cache:Hit] Loaded 2 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦✅ [Derrida:Cache:Hit] Loaded 1 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦✅ [Derrida:Cache:Hit] Loaded 2 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 0353faa2...
+📦✅ [Derrida:Cache:Hit] Loaded 1 items from cache
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-04-30T17:30:13.044Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-04-30T17:30:13.045Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Content has not been analyzed yet
+[31m[2025-04-30T17:30:13.047Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-04-30T17:30:13.047Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+[32m[2025-04-30T17:30:14.575Z] 😇☀️ [Dante:Paradiso:4:Sun] PDF content refreshed automatically[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-04-30T17:30:14.588Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+PDF content is stale: fingerprint changed
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 219ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 219ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (744 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-04-30T17:30:14.810Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-04-30T17:30:14.813Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+Analyzed content retrieved successfully
+📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
+[32m[2025-04-30T17:30:14.813Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m
