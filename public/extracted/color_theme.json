@@ -1,0 +1,28 @@
+{
+  "primary": "#5c2eb8",
+  "secondary": "#995533",
+  "accent": "#9dd926",
+  "background": "#f2f1f4",
+  "text": "#24212c",
+  "border": "#c9c2d6",
+  "isDark": false,
+  "rawColors": [
+    "#5c2eb8",
+    "#995533",
+    "#9dd926",
+    "#f2f1f4",
+    "#24212c",
+    "#c9c2d6"
+  ],
+  "philosophy": {
+    "baseHue": 260,
+    "complementaryHue": 80,
+    "triadicHue1": 20,
+    "triadicHue2": 140,
+    "principles": [
+      "Hesse's harmony and balance",
+      "Salinger's authenticity and directness",
+      "Derrida's deconstruction and reconstruction"
+    ]
+  }
+}

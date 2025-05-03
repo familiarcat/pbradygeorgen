@@ -48,3 +48,6 @@ amplify-build-config.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+amplify_outputs*
+amplifyconfiguration*
