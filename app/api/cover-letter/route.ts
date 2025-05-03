@@ -4,14 +4,15 @@ import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import path from 'path';
 import fs from 'fs';
-import { processPdfForAmplify } from '@/utils/amplifyPdfProcessor';
+import { AmplifyStorageService } from '@/utils/amplifyStorageService';
+import { getCoverLetterFromAmplify, processPdfWithAmplify } from '@/utils/amplifyGenPdfProcessor';
 
 /**
  * API route to get the Cover Letter content
  *
  * This endpoint handles the generation of Cover Letter content,
  * ensuring it uses the latest PDF content and properly formats it.
- * It's been updated to work with AWS Amplify deployment.
+ * It's been updated to work with AWS Amplify deployment using S3 storage.
  *
  * Philosophical Framework:
  * - Hesse: Balancing structure (API response) with flexibility (dynamic generation)
@@ -38,32 +39,75 @@ export async function GET(request: NextRequest) {
     // Get the content state service (Hesse's structured approach)
     const contentStateService = ContentStateService.getInstance();
 
-    // If we're running in AWS Amplify or forceRefresh is true, ensure the PDF is processed
-    if (isAmplify || forceRefresh) {
-      console.log('Running in AWS Amplify or forceRefresh is true, ensuring PDF is processed');
-      DanteLogger.success.basic('Ensuring PDF is processed for Amplify compatibility');
+    // Get the current content fingerprint
+    const contentFingerprint = contentStateService.getFingerprint() || '';
 
-      // Path to the default PDF
-      const pdfPath = path.join(process.cwd(), 'public', 'default_resume.pdf');
+    // Get the Amplify storage service
+    const amplifyStorageService = AmplifyStorageService.getInstance();
 
-      // Process the PDF using the Amplify-compatible processor
-      const processingResult = await processPdfForAmplify(pdfPath, forceRefresh);
+    // Check if Amplify Storage is available and should be used
+    const useAmplify = amplifyStorageService.isAmplifyStorageReady() &&
+                      (isAmplify || process.env.AMPLIFY_USE_STORAGE === 'true');
 
-      if (!processingResult.success) {
-        console.error('Error processing PDF:', processingResult.message);
-        DanteLogger.error.dataFlow(`Error processing PDF: ${processingResult.message}`);
+    if (useAmplify) {
+      console.log('Using Amplify storage for content');
+      DanteLogger.success.basic('Using Amplify storage for content');
 
-        return NextResponse.json({
-          success: false,
-          error: `Error processing PDF content: ${processingResult.message}`,
-          isStale: true,
+      try {
+        // Get the cover letter from Amplify
+        const amplifyResult = await getCoverLetterFromAmplify(contentFingerprint, forceRefresh);
+
+        if (!amplifyResult.success) {
+          throw new Error(amplifyResult.message);
+        }
+
+        // Calculate request duration
+        const requestDuration = Date.now() - requestStart;
+
+        // Construct response
+        const responseData = {
+          success: true,
+          content: amplifyResult.content,
+          isStale: amplifyResult.isStale,
           timestamp: new Date().toISOString(),
-          requestDuration: Date.now() - requestStart
-        }, { status: 500 });
-      }
+          requestDuration,
 
-      console.log('PDF processed successfully for Amplify compatibility');
-      DanteLogger.success.core('PDF processed successfully for Amplify compatibility');
+          // Include metadata if requested
+          ...(includeMetadata && amplifyResult.metadata ? {
+            metadata: {
+              ...amplifyResult.metadata,
+              contentLength: amplifyResult.content?.length || 0,
+              processingStage: 'amplify_storage'
+            }
+          } : {})
+        };
+
+        // Return the Cover Letter content
+        return new NextResponse(
+          JSON.stringify(responseData),
+          {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0',
+              'X-Processing-Time': `${requestDuration}ms`,
+              'X-Storage-Type': 'amplify'
+            }
+          }
+        );
+      } catch (amplifyError) {
+        console.error('Error using Amplify storage:', amplifyError);
+        DanteLogger.error.dataFlow(`Error using Amplify storage: ${amplifyError}`);
+
+        // Fall back to the standard approach
+        console.log('Falling back to standard approach');
+        DanteLogger.warn.deprecated('Falling back to standard approach');
+      }
+    } else {
+      console.log('Using local file system for content');
+      DanteLogger.success.basic('Using local file system for content');
     }
 
     // Try to get the Cover Letter content using the unified approach first
@@ -159,9 +203,23 @@ Applicant
 
           // Save the fallback cover letter for future use
           try {
-            fs.writeFileSync(coverLetterPath, coverLetterContent);
-            console.log('Saved fallback cover letter');
-            DanteLogger.success.basic('Saved fallback cover letter');
+            // Try to save to Amplify storage if we're in Amplify
+            if (isAmplify || useAmplify) {
+              const coverLetterStorageKey = amplifyStorageService.getCoverLetterStorageKey(contentFingerprint, 'cover_letter.md');
+              await amplifyStorageService.uploadMarkdown(coverLetterContent, coverLetterStorageKey);
+              console.log('Saved fallback cover letter to Amplify storage');
+              DanteLogger.success.basic('Saved fallback cover letter to Amplify storage');
+            } else {
+              // Ensure the extracted directory exists
+              const extractedDir = path.join(process.cwd(), 'public', 'extracted');
+              if (!fs.existsSync(extractedDir)) {
+                fs.mkdirSync(extractedDir, { recursive: true });
+              }
+
+              fs.writeFileSync(path.join(extractedDir, 'cover_letter.md'), coverLetterContent);
+              console.log('Saved fallback cover letter');
+              DanteLogger.success.basic('Saved fallback cover letter');
+            }
           } catch (writeError) {
             console.error('Error saving fallback cover letter:', writeError);
             DanteLogger.error.dataFlow(`Error saving fallback cover letter: ${writeError}`);
@@ -215,15 +273,23 @@ Applicant
 
         // Save the fallback cover letter for future use
         try {
-          // Ensure the extracted directory exists
-          const extractedDir = path.join(process.cwd(), 'public', 'extracted');
-          if (!fs.existsSync(extractedDir)) {
-            fs.mkdirSync(extractedDir, { recursive: true });
-          }
+          // Try to save to Amplify storage if we're in Amplify
+          if (isAmplify || useAmplify) {
+            const coverLetterStorageKey = amplifyStorageService.getCoverLetterStorageKey(contentFingerprint, 'cover_letter.md');
+            await amplifyStorageService.uploadMarkdown(coverLetterContent, coverLetterStorageKey);
+            console.log('Saved fallback cover letter to Amplify storage');
+            DanteLogger.success.basic('Saved fallback cover letter to Amplify storage');
+          } else {
+            // Ensure the extracted directory exists
+            const extractedDir = path.join(process.cwd(), 'public', 'extracted');
+            if (!fs.existsSync(extractedDir)) {
+              fs.mkdirSync(extractedDir, { recursive: true });
+            }
 
-          fs.writeFileSync(path.join(extractedDir, 'cover_letter.md'), coverLetterContent);
-          console.log('Saved fallback cover letter');
-          DanteLogger.success.basic('Saved fallback cover letter');
+            fs.writeFileSync(path.join(extractedDir, 'cover_letter.md'), coverLetterContent);
+            console.log('Saved fallback cover letter');
+            DanteLogger.success.basic('Saved fallback cover letter');
+          }
         } catch (writeError) {
           console.error('Error saving fallback cover letter:', writeError);
           DanteLogger.error.dataFlow(`Error saving fallback cover letter: ${writeError}`);
@@ -297,7 +363,8 @@ Applicant
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache',
           'Expires': '0',
-          'X-Processing-Time': `${requestDuration}ms`
+          'X-Processing-Time': `${requestDuration}ms`,
+          'X-Storage-Type': 'local'
         }
       }
     );

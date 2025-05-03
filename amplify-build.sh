@@ -123,9 +123,36 @@ if [ -d ".next/standalone" ]; then
     echo "Copying server.js to standalone..."
     cp server.js .next/standalone/ || true
 
+    echo "Running fix-standalone-directory.js script..."
+    node scripts/fix-standalone-directory.js || true
+
+    echo "Installing AWS SDK for S3 storage..."
+    cd .next/standalone
+    npm install @aws-sdk/client-s3 --no-save || true
+    cd ../..
+
     echo "✅ Standalone mode prepared successfully"
 else
-    echo "⚠️ Standalone directory not found, skipping preparation"
+    echo "⚠️ Standalone directory not found, creating it..."
+    node scripts/fix-standalone-directory.js || true
+
+    if [ -d ".next/standalone" ]; then
+        echo "Copying public directory to standalone..."
+        mkdir -p .next/standalone/public
+        cp -r public/* .next/standalone/public/ || true
+
+        echo "Copying server.js to standalone..."
+        cp server.js .next/standalone/ || true
+
+        echo "Installing AWS SDK for S3 storage..."
+        cd .next/standalone
+        npm install @aws-sdk/client-s3 --no-save || true
+        cd ../..
+
+        echo "✅ Standalone mode created successfully"
+    else
+        echo "❌ Failed to create standalone directory"
+    fi
 fi
 
 # Print build completion

@@ -1,0 +1,9 @@
+{
+  "storage": {
+    "alexaiStorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
+}

@@ -24,6 +24,7 @@
     "env:push": "node scripts/amplify-env-manager.js push",
     "env:list": "node scripts/amplify-env-manager.js list",
     "env:openai": "node scripts/amplify-openai-setup.js",
+    "env:s3": "node scripts/setup-s3-bucket.js",
     "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh",
     "amplify:local": "./amplify-local-test.sh",
     "test:download": "chmod +x scripts/run-download-tests.sh && ./scripts/run-download-tests.sh",
@@ -39,7 +40,9 @@
     "log:analyze": "node scripts/enhanced-build-logger.js && node scripts/enhanced-start-logger.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.802.0",
     "autoprefixer": "^10.4.21",
+    "aws-amplify": "^6.14.4",
     "docx": "^9.4.1",
     "html-to-pdf": "^0.1.11",
     "html2canvas": "^1.4.1",

@@ -1,20 +1,20 @@
 {
   "hesseFont": {
-    "name": "Avenir",
+    "name": "Roboto",
     "isSerifFont": false,
     "isMonospace": false,
     "type": "sans-serif",
     "philosophy": "Hesse: Clarity and structure"
   },
   "salingerFont": {
-    "name": "Garamond",
+    "name": "Merriweather",
     "isSerifFont": true,
     "isMonospace": false,
     "type": "serif",
     "philosophy": "Salinger: Authenticity and directness"
   },
   "derridaFont": {
-    "name": "Roboto Mono",
+    "name": "IBM Plex Mono",
     "isSerifFont": false,
     "isMonospace": true,
     "type": "monospace",
