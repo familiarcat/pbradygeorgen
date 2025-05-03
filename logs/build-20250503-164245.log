@@ -1,0 +1,399 @@
+[2025-05-03 16:42:45] 🔍 Step 1: Skipping linting to ensure build completes...
+[2025-05-03 16:42:45] ✅ Linting skipped
+[2025-05-03 16:42:45] 🧹 Step 3: Cleaning up previous build artifacts...
+[2025-05-03 16:42:45] 🔍 Step 3.5: Ensuring extracted content exists...
+🔍 Ensuring extracted content exists...
+Creating fallback resume_content.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+Creating fallback cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+Creating fallback content_fingerprint.txt: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/content_fingerprint.txt
+Creating fallback build_info.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/build_info.json
+✅ Extracted content verification completed
+[2025-05-03 16:42:45] ✅ Extracted content verification completed
+[2025-05-03 16:42:45] 📄 Step 3.6: Running PDF pre-build processor...
+
+[35m[1m🔄 PDF PRE-BUILD PROCESSING[0m
+[35m=============================
+Build timestamp: 5/3/2025, 4:42:45 PM
+[36m[1m🔍 [Hesse:Summary:Start] Starting PDF pre-build processing[0m
+[36m⏳ [Hesse:Summary:Progress] Found default resume PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf[0m
+[32m😇☀️ [Dante:Paradiso:4:Sun] Found default resume PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf[0m
+
+[36m[1m🔄 PROCESSING DEFAULT RESUME PDF[0m
+[36m=============================
+Executing PDF processor script...
+Processing PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf
+Force refresh: true
+Extracting text from PDF...
+Content fingerprint: 21e6d762
+Text extraction completed successfully
+Creating analyzed content...
+Analysis placeholder created successfully
+Creating cover letter placeholder...
+Cover letter placeholder created successfully
+PDF processing completed successfully
+[36m⏳ [Hesse:Summary:Progress] PDF processed successfully using process-pdf.js[0m
+[32m😇🌟 [Dante:Paradiso:5:Mars] PDF processed successfully[0m
+
+[36m[1m🔄 GENERATING DOWNLOAD FORMATS[0m
+[36m=============================
+[31m❌ [Hesse:Summary:Error] PDF pre-build processing failed: Extracted JSON content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json[0m
+[31m👑💢 [Dante:Inferno:1:Limbo] PDF pre-build processing failed: Error: Extracted JSON content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json[0m
+
+[31m[1m❌ PDF PRE-BUILD PROCESSING FAILED[0m
+[31m=============================
+Error: Extracted JSON content not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json
+[2025-05-03 16:42:45] ⚠️ Warning: PDF pre-build processor failed. Some features may not work correctly.
+[2025-05-03 16:42:45] ✅ PDF pre-build processing completed
+[2025-05-03 16:42:45] 🔄 Step 4: Running prebuild script...
+Initial Node version: v20.19.1
+Initial NPM version: 10.8.2
+engine-strict=false
+ignore-engines=true
+Verifying PDF content...
+🔍 Verifying PDF content...
+📄 PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: Tue Apr 29 2025 11:04:25 GMT-0500 (Central Daylight Time)
+🔑 Content fingerprint: 21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa
+📊 Build info:
+  - Build timestamp: 2025-05-03T21:42:45.483Z
+  - PDF size: 0 bytes
+  - PDF last modified: 2025-05-03T21:42:45.483Z
+  - Content fingerprint: fallback-1746308565483
+⚠️ WARNING: PDF size mismatch - content may be from a different PDF
+  - Current PDF size: 119425 bytes
+  - Extracted from PDF size: 0 bytes
+🔄 Forcing re-extraction due to PDF mismatch...
+🔄 AMPLIFY DYNAMIC PDF EXTRACTION PROCESS
+==========================================
+Build timestamp: Sat May  3 16:42:45 CDT 2025
+📄 PDF file: public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-04-29 11:04:25
+🔑 Content fingerprint: fbbe301f...
+🔑 Unique identifier: pdf_119425_1745942665
+🗑️ Removing all extracted content...
+🗑️ Removing Next.js cache...
+🗑️ Removing ChatGPT cache...
+📝 Extracting text content...
+Extracting text from: public/default_resume.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+JSON content saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json
+
+Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/3/2025*
+...
+🧠 Analyzing content with ChatGPT...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ ChatGPT analysis completed successfully
+🔍 Content fingerprint: 39e0364a6ada3089b6972028173cbb1223a1328b790eae230c3e78d14106fb83
+🔤 Extracting font information...
+Extracting fonts from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Font information saved to: public/extracted/font_info.json
+No fonts found in PDF, applying philosophical font selection
+Selected philosophical fonts:
+- Hesse (sans-serif): "Gill Sans"
+- Salinger (serif): "Palatino"
+- Derrida (monospace): "Fira Mono"
+Font information saved to: public/extracted/font_info.json
+CSS with font variables saved to: public/extracted/pdf_fonts.css
+Font extraction completed successfully.
+Fonts found:
+🎨 Extracting color information...
+Extracting colors from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Extracted 0 unique colors from PDF
+Applying philosophical color theory to 0 colors
+No colors found in PDF, generating philosophical theme based on Hesse, Salinger, and Derrida principles
+Base hue: 221° (philosophical seed)
+Generated philosophical color palette:
+- Primary: #2e5ab8 (Hesse's balance)
+- Secondary: #993353 (Salinger's authenticity)
+- Accent: #d9a026 (Derrida's deconstruction)
+- Background: #f1f2f4 (Hesse's space)
+- Text: #21242c (Salinger's clarity)
+- Border: #c2c8d6 (Derrida's boundaries)
+Color theme saved to: public/extracted/color_theme.json
+Color extraction completed successfully.
+Theme generated:
+- Primary: #2e5ab8
+- Secondary: #993353
+- Accent: #d9a026
+- Background: #f1f2f4
+- Text: #21242c
+- Dark theme: false
+📊 Build info saved to public/extracted/build_info.json
+✅ Extraction completed successfully
+📄 Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/3/2025*
+🎨 Color theme preview:
+  "primary": "#2e5ab8",
+  "secondary": "#993353",
+  "accent": "#d9a026",
+  "background": "#f1f2f4",
+  "text": "#21242c",
+🔤 Font information preview:
+{
+  "hesseFont": {
+    "name": "Gill Sans",
+    "isSerifFont": false,
+    "isMonospace": false,
+    "type": "sans-serif",
+    "philosophy": "Hesse: Clarity and structure"
+  },
+  "salingerFont": {
+    "name": "Palatino",
+📋 Extraction summary saved to public/extracted/extraction_summary.txt
+✅ PDF content extraction process completed
+==========================================
+✅ Re-extraction completed successfully
+📄 Content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+...
+✅ PDF content verification completed
+Running dynamic PDF extraction process...
+🔄 AMPLIFY DYNAMIC PDF EXTRACTION PROCESS
+==========================================
+Build timestamp: Sat May  3 16:42:46 CDT 2025
+📄 PDF file: public/default_resume.pdf
+📊 Size: 119425 bytes
+⏱️ Last modified: 2025-04-29 11:04:25
+🔑 Content fingerprint: fbbe301f...
+🔑 Unique identifier: pdf_119425_1745942665
+🗑️ Removing all extracted content...
+🗑️ Removing Next.js cache...
+🗑️ Removing ChatGPT cache...
+📝 Extracting text content...
+Extracting text from: public/default_resume.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+JSON content saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.json
+
+Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/3/2025*
+...
+🧠 Analyzing content with ChatGPT...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ ChatGPT analysis completed successfully
+🔍 Content fingerprint: 39e0364a6ada3089b6972028173cbb1223a1328b790eae230c3e78d14106fb83
+🔤 Extracting font information...
+Extracting fonts from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Font information saved to: public/extracted/font_info.json
+No fonts found in PDF, applying philosophical font selection
+Selected philosophical fonts:
+- Hesse (sans-serif): "Gill Sans"
+- Salinger (serif): "Palatino"
+- Derrida (monospace): "Fira Mono"
+Font information saved to: public/extracted/font_info.json
+CSS with font variables saved to: public/extracted/pdf_fonts.css
+Font extraction completed successfully.
+Fonts found:
+🎨 Extracting color information...
+Extracting colors from: public/default_resume.pdf
+PDF loaded successfully. Number of pages: 1
+Extracted 0 unique colors from PDF
+Applying philosophical color theory to 0 colors
+No colors found in PDF, generating philosophical theme based on Hesse, Salinger, and Derrida principles
+Base hue: 236° (philosophical seed)
+Generated philosophical color palette:
+- Primary: #2e37b8 (Hesse's balance)
+- Secondary: #99333a (Salinger's authenticity)
+- Accent: #d9cd26 (Derrida's deconstruction)
+- Background: #f1f1f4 (Hesse's space)
+- Text: #21212c (Salinger's clarity)
+- Border: #c2c3d6 (Derrida's boundaries)
+Color theme saved to: public/extracted/color_theme.json
+Color extraction completed successfully.
+Theme generated:
+- Primary: #2e37b8
+- Secondary: #99333a
+- Accent: #d9cd26
+- Background: #f1f1f4
+- Text: #21212c
+- Dark theme: false
+📊 Build info saved to public/extracted/build_info.json
+✅ Extraction completed successfully
+📄 Extracted content preview:
+# Professional Resume
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/3/2025*
+🎨 Color theme preview:
+  "primary": "#2e37b8",
+  "secondary": "#99333a",
+  "accent": "#d9cd26",
+  "background": "#f1f1f4",
+  "text": "#21212c",
+🔤 Font information preview:
+{
+  "hesseFont": {
+    "name": "Gill Sans",
+    "isSerifFont": false,
+    "isMonospace": false,
+    "type": "sans-serif",
+    "philosophy": "Hesse: Clarity and structure"
+  },
+  "salingerFont": {
+    "name": "Palatino",
+📋 Extraction summary saved to public/extracted/extraction_summary.txt
+✅ PDF content extraction process completed
+==========================================
+Pre-processing PDF content with ChatGPT...
+🧠 Pre-processing PDF content with ChatGPT...
+🧠 Running analyze-pdf-content.js...
+🧠 Starting PDF content analysis with ChatGPT...
+📄 Read 3327 characters from extracted text
+🧠 Analyzing content with ChatGPT...
+🧠 Analyzing resume content with OpenAI
+🧠 Using cached OpenAI analysis
+✅ Analyzed content saved to file
+✅ Content analysis completed successfully
+📄 Analyzed content saved to public/extracted/resume_content_analyzed.json
+📝 Analyzed content preview:
+{
+  "name": "BENJAMIN STEIN",
+  "sections": [
+    "name",
+    "header",
+    "about",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "other"
+  ],
+  "structuredContent": [
+    "name",
+    "summary",
+    "contact",
+    "skills",
+    "experience",
+    "education",
+    "clients",
+    "about"
+  ]
+}
+✅ PDF content pre-processed successfully
+📄 Name: BENJAMIN STEIN
+📄 Sections: name, header, about, contact, skills, experience, education, clients, other
+📄 Structured sections: name, summary, contact, skills, experience, education, clients, about
+📊 Build info updated
+[2025-05-03 16:42:46] ✅ Prebuild script completed
+[2025-05-03 16:42:46] 🏗️ Step 5: Building the application...
+   ▲ Next.js 15.3.1
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/download-test/page.tsx
+Error:   [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/download-test/page.tsx[0m:229:1]
+ [2m226[0m |   }
+ [2m227[0m | 
+ [2m228[0m |   return (
+ [2m229[0m |     <div className="flex flex-col h-screen bg-gray-50">
+     : [35;1m     ^^^[0m
+ [2m230[0m |       {/* Fixed header */}
+ [2m231[0m |       <header className="bg-white border-b border-gray-200 shadow-sm">
+ [2m232[0m |         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/download-test/page.tsx
+
+
+> Build failed because of webpack errors
+[2025-05-03 16:42:52] ❌ Build failed. See /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/build-20250503-164245.log for details.

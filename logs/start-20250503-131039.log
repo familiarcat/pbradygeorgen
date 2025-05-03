@@ -1,0 +1,161 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Is standalone build: No
+Is in standalone directory: Yes
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Found pages/app directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/server/pages
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+> Ready on http://localhost:3000
+> Serving from directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+> Available directories:
+  - .DS_Store
+  - .cache
+  - .next
+  - amplifyconfiguration.json
+  - logs
+  - node_modules
+  - package.json
+  - prompts
+  - public
+  - scripts
+  - server.js
+> Public directory contents:
+  - .DS_Store
+  - analyzed
+  - cover-letters
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - index.html
+  - next.svg
+  - pdf-worker
+  - pdfs
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+Failed to import pdf-parse: Error: ENOENT: no such file or directory, open './test/data/05-versions-space.pdf'
+    at 36188 (.next/server/app/api/cover-letter/route.js:99:632068)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at 18832 (.next/server/app/api/cover-letter/route.js:19:42822)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at r (.next/server/app/api/cover-letter/route.js:114:35882)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:114:35924)
+    at t.X (.next/server/webpack-runtime.js:1:1285)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:114:35895) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: './test/data/05-versions-space.pdf'
+}
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📝🔍 [Hesse:Summary:Start] Getting Cover Letter content
+Cover Letter API called with forceRefresh=false, timestamp=null, includeMetadata=false, isAmplify=false
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-03T18:10:50.667Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Configuring Amplify for production environment (isAmplify: false)
+Amplify configuration: {
+  region: 'us-east-1',
+  bucket: 'alexai-pdf-storage-prod',
+  bucketRegion: 'us-east-1'
+}
+Amplify configured successfully
+[32m[2025-05-03T18:10:50.667Z] 😇☀️ [Dante:Paradiso:4:Sun] Amplify configured successfully[0m
+AmplifyStorageService initialized in local mode (no Amplify Storage support)
+Using local file system for content
+Calling getFormattedContent for cover_letter...
+📝🔍 [Hesse:Summary:Start] Getting cover_letter content in markdown format
+Starting getFormattedContent with contentType = cover_letter, format = markdown, forceRefresh = false
+📝🔍 [Hesse:Summary:Start] Formatting Cover Letter content
+Starting formatCoverLetterContent with forceRefresh = false
+Read PDF file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf (119425 bytes)
+Cover Letter fingerprint comparison: { currentFingerprint: '21e6d762...', storedFingerprint: 'none' }
+Cover Letter content freshness check: {
+  fingerprintChanged: true,
+  isProcessed: false,
+  isAnalyzed: false,
+  hasCoverLetter: false,
+  isContentStale: true
+}
+Cover Letter content needs refresh: PDF content has changed
+Calling processPdfContent with shouldRefresh = true
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 91ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 91ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦❌ [Derrida:Cache:Miss] Cache miss for key: resume-a...
+🤖🔍 [Hesse:OpenAI:Request] Sending resume content to OpenAI for analysis
+🤖✅ [Hesse:OpenAI:Response] OpenAI analysis completed in 24541ms
+[32m[2025-05-03T18:11:15.312Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: OpenAI analysis completed in 24541ms[0m
+[32m[2025-05-03T18:11:15.312Z] 😇☀️ [Dante:Paradiso:4:Sun] Resume content analyzed successfully with OpenAI[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: resume-a...
+Content analyzed in 24552ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 24552ms
+[32m[2025-05-03T18:11:15.312Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 24552ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+PDF processing completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-03T18:11:15.313Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+processPdfContent result: {
+  success: true,
+  isStale: false,
+  hasExtractedContent: true,
+  hasAnalyzedContent: true
+}
+Loading analyzed content from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/resume_content_analyzed.json
+Successfully loaded analyzed content from file
+Formatting Cover Letter content from analyzed data
+Saving Cover Letter content to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted/cover_letter.md
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Cover Letter content formatted successfully (2368 characters) in 24646ms
+[32m[2025-05-03T18:11:15.314Z] 😇🌈 [Dante:Paradiso:10:Empyrean] Cover Letter content formatted successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content formatted successfully
+[32m[2025-05-03T18:11:15.314Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content formatted successfully[0m
+getFormattedContent result: {
+  success: true,
+  isStale: true,
+  contentLength: 2368,
+  format: 'markdown',
+  contentType: 'cover_letter'
+}
+Cover Letter content retrieved successfully (2368 characters)
+[32m[2025-05-03T18:11:15.314Z] 😇☀️ [Dante:Paradiso:4:Sun] Cover Letter content retrieved successfully[0m
+📝✅ [Hesse:Summary:Complete] Cover Letter content retrieved successfully
+[32m[2025-05-03T18:11:15.314Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Cover Letter content retrieved successfully[0m

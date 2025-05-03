@@ -1,0 +1,89 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 82ms
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+Failed to import pdf-parse: Error: ENOENT: no such file or directory, open './test/data/05-versions-space.pdf'
+    at 36188 (.next/server/app/api/cover-letter/route.js:79:533602)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at 10491 (.next/server/app/api/cover-letter/route.js:1:859)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at r (.next/server/app/api/cover-letter/route.js:81:106)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:81:158)
+    at t.X (.next/server/webpack-runtime.js:1:1285)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:81:119) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: './test/data/05-versions-space.pdf'
+}
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-03T21:52:53.452Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-03T21:52:53.452Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Content has not been analyzed yet
+[31m[2025-05-03T21:52:53.452Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-03T21:52:53.452Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+ContentStateService initialized
+📝🔍 [Hesse:Summary:Start] Content state service initialized
+[32m[2025-05-03T21:52:53.472Z] 😇🪐 [Dante:Paradiso:7:Saturn] ContentStateService initialized - beginning the journey[0m
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+PDF content is stale: fingerprint changed
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 94ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 94ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦❌ [Derrida:Cache:Miss] Cache miss for key: resume-a...
+🤖🔍 [Hesse:OpenAI:Request] Sending resume content to OpenAI for analysis
+🤖✅ [Hesse:OpenAI:Response] OpenAI analysis completed in 20349ms
+[32m[2025-05-03T21:53:13.920Z] 😇☀️ [Dante:Paradiso:4:Sun] OpenAI response received: OpenAI analysis completed in 20349ms[0m
+[32m[2025-05-03T21:53:13.920Z] 😇☀️ [Dante:Paradiso:4:Sun] Resume content analyzed successfully with OpenAI[0m
+📦🔄 [Derrida:Cache:Update] Saved 1 items to cache
+📦🔄 [Derrida:Cache:Update] Stored item with key: resume-a...
+Content analyzed in 20354ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 20354ms
+[32m[2025-05-03T21:53:13.921Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 20354ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-03T21:53:13.924Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+Analyzed content retrieved successfully
+📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
+[32m[2025-05-03T21:53:13.924Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m

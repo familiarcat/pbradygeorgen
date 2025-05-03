@@ -1,0 +1,736 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Link from 'next/link';
+
+/**
+ * Download Functionality Test Report Page
+ *
+ * This page displays a report of the download functionality test results,
+ * including previews of the various download formats.
+ *
+ * Philosophical Framework:
+ * - Salinger: Simplifying the interface to focus on content
+ * - Hesse: Balancing structure (test report) with flexibility (preview options)
+ * - Derrida: Deconstructing the download formats
+ * - Dante: Guiding the user through the download options
+ */
+export default function DownloadTestPage() {
+  const [testReport, setTestReport] = useState<any>(null);
+  const [previewContent, setPreviewContent] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>('report');
+  const [activePreviewTab, setActivePreviewTab] = useState<string>('text');
+
+  useEffect(() => {
+    const fetchTestReport = async () => {
+      try {
+        setLoading(true);
+
+        // Fetch the test report
+        const reportResponse = await fetch('/downloads/download_test_report.json');
+
+        if (!reportResponse.ok) {
+          throw new Error(`Failed to fetch test report: ${reportResponse.status} ${reportResponse.statusText}`);
+        }
+
+        const reportData = await reportResponse.json();
+        setTestReport(reportData);
+
+        // Fetch the preview content
+        const previewResponse = await fetch('/downloads/preview_content.json');
+
+        if (!previewResponse.ok) {
+          throw new Error(`Failed to fetch preview content: ${previewResponse.status} ${previewResponse.statusText}`);
+        }
+
+        const previewData = await previewResponse.json();
+        setPreviewContent(previewData);
+
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching test report:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        setLoading(false);
+      }
+    };
+
+    fetchTestReport();
+  }, []);
+
+  const renderFormatStatus = (format: any) => {
+    if (!format) return null;
+
+    return (
+      <div className="flex items-center space-x-2">
+        <span className={`inline-block w-4 h-4 rounded-full ${format.available ? 'bg-green-500' : 'bg-red-500'}`}></span>
+        <span>{format.available ? 'Available' : 'Not Available'}</span>
+        {format.available && (
+          <span className="text-gray-500 text-sm">({format.size} bytes)</span>
+        )}
+      </div>
+    );
+  };
+
+  const renderDownloadLink = (format: any, label: string) => {
+    if (!format || !format.available) return null;
+
+    return (
+      <Link
+        href={format.path}
+        className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Download {label}
+      </Link>
+    );
+  };
+
+  const renderPreviewContent = () => {
+    if (!previewContent) return null;
+
+    switch (activePreviewTab) {
+      case 'text':
+        return (
+          <div>
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+              <h3 className="text-md font-medium text-blue-800 mb-2">OpenAI-Enhanced Text Format</h3>
+              <p className="text-blue-700">
+                This text format has been enhanced by OpenAI during the build process to provide a professionally formatted resume.
+              </p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded">
+              <pre className="whitespace-pre-wrap overflow-auto" style={{ maxHeight: '60vh' }}>{previewContent.formats.text}</pre>
+            </div>
+          </div>
+        );
+      case 'markdown':
+        return (
+          <div>
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+              <h3 className="text-md font-medium text-blue-800 mb-2">OpenAI-Enhanced Markdown Format</h3>
+              <p className="text-blue-700">
+                This markdown format has been enhanced by OpenAI during the build process to provide a professionally formatted resume.
+              </p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded">
+              <div className="overflow-auto" style={{ maxHeight: '60vh' }}>
+                <SyntaxHighlighter language="markdown" style={tomorrow}>
+                  {previewContent.formats.markdown}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+          </div>
+        );
+      case 'json':
+        return (
+          <div>
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+              <h3 className="text-md font-medium text-blue-800 mb-2">OpenAI-Enhanced JSON Format</h3>
+              <p className="text-blue-700">
+                This JSON format contains the structured data extracted and enhanced by OpenAI during the build process.
+              </p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded">
+              <div className="overflow-auto" style={{ maxHeight: '60vh' }}>
+                <SyntaxHighlighter language="json" style={tomorrow}>
+                  {previewContent.formats.json}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+          </div>
+        );
+      case 'coverLetter':
+        return (
+          <div>
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+              <h3 className="text-md font-medium text-blue-800 mb-2">OpenAI-Generated Cover Letter</h3>
+              <p className="text-blue-700">
+                This cover letter has been generated by OpenAI during the build process based on the resume content.
+              </p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded">
+              <div className="overflow-auto" style={{ maxHeight: '60vh' }}>
+                <SyntaxHighlighter language="markdown" style={tomorrow}>
+                  {previewContent.formats.coverLetter}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 className="text-2xl font-bold text-gray-900">Download Functionality Test Report</h1>
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="bg-white shadow rounded-lg p-6">
+              <div className="flex flex-col justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                <span className="mt-4 text-gray-600">Loading report data...</span>
+                <p className="mt-2 text-sm text-gray-500">This may take a moment as we process the PDF content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 className="text-2xl font-bold text-gray-900">Download Functionality Test Report</h1>
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong className="font-bold">Error: </strong>
+                <span className="block sm:inline">{error}</span>
+              </div>
+              <div className="mt-6">
+                <p className="text-gray-600">
+                  Please try refreshing the page or check the console for more details.
+                </p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                >
+                  Refresh Page
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-screen bg-gray-50">
+      {/* Fixed header */}
+      <header className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <h1 className="text-2xl font-bold text-gray-900">Download Functionality Test Report</h1>
+
+            {/* Quick links for better accessibility */}
+            <div className="mt-2 md:mt-0 flex flex-wrap gap-2">
+              <button
+                className="text-sm text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1 rounded-full"
+                onClick={() => {
+                  const contentElement = document.getElementById('content-container');
+                  if (contentElement) contentElement.scrollTop = 0;
+                }}
+              >
+                ↑ Top
+              </button>
+              <button
+                className="text-sm text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1 rounded-full"
+                onClick={() => {
+                  const contentElement = document.getElementById('content-container');
+                  if (contentElement) contentElement.scrollTop = contentElement.scrollHeight;
+                }}
+              >
+                ↓ Bottom
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Tab navigation */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex flex-wrap">
+            <button
+              className={`px-4 md:px-6 py-3 border-b-2 font-medium text-sm ${
+                activeTab === 'report'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+              onClick={() => setActiveTab('report')}
+            >
+              Test Report
+            </button>
+            <button
+              className={`px-4 md:px-6 py-3 border-b-2 font-medium text-sm ${
+                activeTab === 'preview'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+              onClick={() => setActiveTab('preview')}
+            >
+              Content Preview
+            </button>
+            <button
+              className={`px-4 md:px-6 py-3 border-b-2 font-medium text-sm ${
+                activeTab === 'download'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+              onClick={() => setActiveTab('download')}
+            >
+              Download Links
+            </button>
+            <button
+              className={`px-4 md:px-6 py-3 border-b-2 font-medium text-sm ${
+                activeTab === 'validation'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+              onClick={() => setActiveTab('validation')}
+            >
+              Zod Validation
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      {/* Main content area - explicitly scrollable */}
+      <div
+        id="content-container"
+        className="flex-1 overflow-y-auto"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="bg-white shadow rounded-lg">
+            <div className="p-4 md:p-6">
+            {activeTab === 'report' && testReport && (
+              <div>
+                {/* OpenAI Analysis Status */}
+                <div className="mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4">OpenAI Analysis</h2>
+                  <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+                    <div className="flex items-center mb-2">
+                      <span className={`inline-block w-4 h-4 rounded-full mr-2 ${testReport.analysis?.performed ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                      <span className="font-medium">OpenAI Analysis: {testReport.analysis?.performed ? 'Completed' : 'Not Performed'}</span>
+                    </div>
+                    <p className="text-blue-700">
+                      The PDF content has been analyzed by OpenAI during the build process to extract structured information and generate enhanced download formats.
+                    </p>
+
+                    {/* Analysis Details */}
+                    {testReport.analysis?.performed && (
+                      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="bg-white p-3 rounded shadow-sm">
+                          <div className="text-sm text-gray-500">Model</div>
+                          <div className="font-medium">{testReport.analysis.model || 'Unknown'}</div>
+                        </div>
+                        <div className="bg-white p-3 rounded shadow-sm">
+                          <div className="text-sm text-gray-500">Timestamp</div>
+                          <div className="font-medium">{testReport.analysis.timestamp ? new Date(testReport.analysis.timestamp).toLocaleString() : 'Unknown'}</div>
+                        </div>
+                        <div className="bg-white p-3 rounded shadow-sm">
+                          <div className="text-sm text-gray-500">Status</div>
+                          <div className="font-medium flex flex-wrap gap-2">
+                            {testReport.analysis.cached && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                Cached
+                              </span>
+                            )}
+                            {testReport.analysis.simulated && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                Simulated
+                              </span>
+                            )}
+                            {testReport.analysis.fallback && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                Fallback
+                              </span>
+                            )}
+                            {!testReport.analysis.cached && !testReport.analysis.simulated && !testReport.analysis.fallback && (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Live API
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4">Test Summary</h2>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">All Formats Available</div>
+                        <div className="mt-1 flex items-center">
+                          <span className={`inline-block w-4 h-4 rounded-full mr-2 ${testReport.tests.allFormatsAvailable ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                          <span className="text-lg font-medium">{testReport.tests.allFormatsAvailable ? 'Yes' : 'No'}</span>
+                        </div>
+                      </div>
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">Format Count</div>
+                        <div className="mt-1 text-lg font-medium">{testReport.tests.formatCount}</div>
+                      </div>
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">Total Size</div>
+                        <div className="mt-1 text-lg font-medium">{testReport.tests.totalSize} bytes</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4">Format Details</h2>
+                  <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-300">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Format</th>
+                          <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                          <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Path</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200 bg-white">
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">PDF</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.pdf)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.pdf?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Text</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.text)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.text?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Markdown</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.markdown)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.markdown?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">JSON</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.json)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.json?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">HTML</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.html)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.html?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Cover Letter</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.coverLetter)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.coverLetter?.path}</td>
+                        </tr>
+                        <tr>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Cover Letter HTML</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{renderFormatStatus(testReport.formats.coverLetterHtml)}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{testReport.formats.coverLetterHtml?.path}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Philosophical Framework */}
+                <div className="mt-6 mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4">Philosophical Framework</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-white p-4 rounded shadow">
+                      <h3 className="font-medium text-gray-800 mb-2">Derrida</h3>
+                      <p className="text-gray-600">
+                        Deconstructing the PDF content through OpenAI's interpretation, revealing deeper meaning and structure.
+                      </p>
+                    </div>
+                    <div className="bg-white p-4 rounded shadow">
+                      <h3 className="font-medium text-gray-800 mb-2">Hesse</h3>
+                      <p className="text-gray-600">
+                        Balancing structure (schema validation) with flexibility (AI interpretation) to create harmonious content.
+                      </p>
+                    </div>
+                    <div className="bg-white p-4 rounded shadow">
+                      <h3 className="font-medium text-gray-800 mb-2">Salinger</h3>
+                      <p className="text-gray-600">
+                        Presenting a clean, user-focused interface that hides complexity while delivering meaningful content.
+                      </p>
+                    </div>
+                    <div className="bg-white p-4 rounded shadow">
+                      <h3 className="font-medium text-gray-800 mb-2">Dante</h3>
+                      <p className="text-gray-600">
+                        Guiding the content through different processing stages, from extraction to analysis to presentation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 text-sm text-gray-500">
+                  <p>Test report generated at: {new Date(testReport.timestamp).toLocaleString()}</p>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'preview' && previewContent && (
+              <div>
+                <div className="border-b border-gray-200 mb-6 overflow-x-auto">
+                  <nav className="flex -mb-px">
+                    <button
+                      className={`mr-8 py-2 border-b-2 font-medium text-sm ${
+                        activePreviewTab === 'text'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
+                      onClick={() => setActivePreviewTab('text')}
+                    >
+                      Text
+                    </button>
+                    <button
+                      className={`mr-8 py-2 border-b-2 font-medium text-sm ${
+                        activePreviewTab === 'markdown'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
+                      onClick={() => setActivePreviewTab('markdown')}
+                    >
+                      Markdown
+                    </button>
+                    <button
+                      className={`mr-8 py-2 border-b-2 font-medium text-sm ${
+                        activePreviewTab === 'json'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
+                      onClick={() => setActivePreviewTab('json')}
+                    >
+                      JSON
+                    </button>
+                    <button
+                      className={`mr-8 py-2 border-b-2 font-medium text-sm ${
+                        activePreviewTab === 'coverLetter'
+                          ? 'border-blue-500 text-blue-600'
+                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }`}
+                      onClick={() => setActivePreviewTab('coverLetter')}
+                    >
+                      Cover Letter
+                    </button>
+                  </nav>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                    Preview: {activePreviewTab === 'coverLetter' ? 'Cover Letter' : activePreviewTab.charAt(0).toUpperCase() + activePreviewTab.slice(1)}
+                  </h2>
+                  <div className="overflow-auto max-h-[60vh]">
+                    {renderPreviewContent()}
+                  </div>
+                </div>
+
+                <div className="mt-6 text-sm text-gray-500">
+                  <p>Preview content generated at: {new Date(previewContent.timestamp).toLocaleString()}</p>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'download' && testReport && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">Download Links</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h3 className="font-medium text-gray-800 mb-2">Resume Formats</h3>
+                    <div className="space-y-2">
+                      {renderDownloadLink(testReport.formats.pdf, 'PDF')}
+                      {renderDownloadLink(testReport.formats.text, 'Text')}
+                      {renderDownloadLink(testReport.formats.markdown, 'Markdown')}
+                      {renderDownloadLink(testReport.formats.json, 'JSON')}
+                      {renderDownloadLink(testReport.formats.html, 'HTML')}
+                    </div>
+                  </div>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <h3 className="font-medium text-gray-800 mb-2">Cover Letter Formats</h3>
+                    <div className="space-y-2">
+                      {renderDownloadLink(testReport.formats.coverLetter, 'Markdown')}
+                      {renderDownloadLink(testReport.formats.coverLetterHtml, 'HTML')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'validation' && testReport && (
+              <div className="overflow-y-auto">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">Zod Schema Validation</h2>
+
+                {/* Analysis Information */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-medium text-gray-800 mb-2">OpenAI Analysis</h3>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">Analysis Performed</div>
+                        <div className="mt-1 flex items-center">
+                          <span className={`inline-block w-4 h-4 rounded-full mr-2 ${testReport.analysis?.performed ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                          <span className="text-lg font-medium">{testReport.analysis?.performed ? 'Yes' : 'No'}</span>
+                        </div>
+                      </div>
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">Model</div>
+                        <div className="mt-1 text-lg font-medium">{testReport.analysis?.model || 'Unknown'}</div>
+                      </div>
+                      <div className="bg-white p-4 rounded shadow">
+                        <div className="text-sm text-gray-500">Timestamp</div>
+                        <div className="mt-1 text-sm font-medium">
+                          {testReport.analysis?.timestamp ? new Date(testReport.analysis.timestamp).toLocaleString() : 'Unknown'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Analysis Flags */}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {testReport.analysis?.cached && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          Cached
+                        </span>
+                      )}
+                      {testReport.analysis?.simulated && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                          Simulated
+                        </span>
+                      )}
+                      {testReport.analysis?.fallback && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                          Fallback
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Validation Results */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-medium text-gray-800 mb-2">Validation Results</h3>
+
+                  {testReport.validation ? (
+                    <div>
+                      <div className="bg-gray-100 p-4 rounded mb-4">
+                        <div className="flex items-center space-x-2">
+                          <span className={`inline-block w-4 h-4 rounded-full ${testReport.validation.success ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                          <span className="font-medium">{testReport.validation.success ? 'Validation Passed' : 'Validation Failed'}</span>
+                        </div>
+
+                        {testReport.validation.timestamp && (
+                          <div className="mt-2 text-sm text-gray-500">
+                            Validated at: {new Date(testReport.validation.timestamp).toLocaleString()}
+                          </div>
+                        )}
+                      </div>
+
+                      {!testReport.validation.success && testReport.validation.error && (
+                        <div className="bg-red-50 border border-red-200 rounded p-4 mb-4">
+                          <h4 className="text-md font-medium text-red-800 mb-2">Validation Errors</h4>
+                          <pre className="text-sm text-red-700 whitespace-pre-wrap overflow-auto max-h-96">
+                            {typeof testReport.validation.error === 'string'
+                              ? testReport.validation.error
+                              : JSON.stringify(testReport.validation.error, null, 2)}
+                          </pre>
+                        </div>
+                      )}
+
+                      {testReport.validation.success && (
+                        <div className="bg-green-50 border border-green-200 rounded p-4">
+                          <h4 className="text-md font-medium text-green-800 mb-2">Schema Validation Successful</h4>
+                          <p className="text-green-700">
+                            The analyzed content successfully validates against the Zod schema.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="bg-yellow-50 border border-yellow-200 rounded p-4">
+                      <h4 className="text-md font-medium text-yellow-800 mb-2">Validation Results Not Available</h4>
+                      <p className="text-yellow-700">
+                        No validation results were found in the test report. This may indicate that the OpenAI analysis was not performed during the build process.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Schema Information */}
+                <div>
+                  <h3 className="text-lg font-medium text-gray-800 mb-2">Schema Information</h3>
+                  <div className="bg-gray-100 p-4 rounded">
+                    <p className="mb-2">The content is validated against the following Zod schema:</p>
+                    <div className="bg-gray-800 text-white p-4 rounded overflow-auto max-h-96">
+                      <SyntaxHighlighter language="typescript" style={tomorrow}>
+{`const ResumeSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  summary: z.string().min(1, "Summary is required"),
+  skills: z.array(z.string().min(1)).min(1, "At least one skill is required"),
+  experience: z.array(
+    z.object({
+      title: z.string().min(1, "Job title is required"),
+      company: z.string().min(1, "Company name is required"),
+      period: z.string().min(1, "Employment period is required"),
+      responsibilities: z.array(z.string().min(1)).min(1, "At least one responsibility is required")
+    })
+  ).min(1, "At least one experience entry is required"),
+  education: z.array(
+    z.object({
+      degree: z.string().min(1, "Degree is required"),
+      institution: z.string().min(1, "Institution is required"),
+      period: z.string().min(1, "Education period is required")
+    })
+  ).min(1, "At least one education entry is required"),
+  contact: z.object({
+    email: z.string().email("Invalid email address").optional(),
+    phone: z.string().optional(),
+    linkedin: z.string().optional(),
+    website: z.string().optional(),
+    github: z.string().optional(),
+    twitter: z.string().optional(),
+    location: z.string().optional()
+  })
+});`}
+                      </SyntaxHighlighter>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Footer with navigation links */}
+        <div id="bottom" className="mt-8 mb-8 flex justify-between items-center">
+          <div className="text-sm text-gray-500">
+            <p>Download Functionality Test Report</p>
+            <p>Generated with the Salinger philosophy of information transparency</p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              className="text-sm text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1 rounded-full"
+              onClick={() => {
+                const contentElement = document.getElementById('content-container');
+                if (contentElement) contentElement.scrollTop = 0;
+              }}
+            >
+              ↑ Back to Top
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

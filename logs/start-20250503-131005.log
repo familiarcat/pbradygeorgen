@@ -1,0 +1,72 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Is standalone build: No
+Is in standalone directory: Yes
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Found pages/app directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/server/pages
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+> Ready on http://localhost:3000
+> Serving from directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+> Available directories:
+  - .DS_Store
+  - .cache
+  - .next
+  - amplifyconfiguration.json
+  - logs
+  - node_modules
+  - package.json
+  - prompts
+  - public
+  - scripts
+  - server.js
+> Public directory contents:
+  - .DS_Store
+  - analyzed
+  - cover-letters
+  - default_resume.pdf
+  - extracted
+  - file.svg
+  - globe.svg
+  - index.html
+  - next.svg
+  - pdf-worker
+  - pdfs
+  - robots.txt
+  - test-pdfs
+  - uploads
+  - vercel.svg
+  - window.svg
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+Failed to import pdf-parse: Error: ENOENT: no such file or directory, open './test/data/05-versions-space.pdf'
+    at 36188 (.next/server/app/api/cover-letter/route.js:99:632068)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at 18832 (.next/server/app/api/cover-letter/route.js:19:42822)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at r (.next/server/app/api/cover-letter/route.js:114:35882)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:114:35924)
+    at t.X (.next/server/webpack-runtime.js:1:1285)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:114:35895) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: './test/data/05-versions-space.pdf'
+}
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache

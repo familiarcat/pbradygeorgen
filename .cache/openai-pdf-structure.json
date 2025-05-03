@@ -3,9 +3,7 @@
     "data": {
       "sections": {
         "name": "BENJAMIN STEIN",
-        "header": [
-          "BENJAMIN STEIN"
-        ],
+        "header": [],
         "about": [],
         "contact": [
           "2143 Alfred Ave. St. Louis, MO. 63110",
@@ -24,13 +22,13 @@
           "Creating, modifying, or running reports via TruBridge Report Builder",
           "Support for clinical and office staff",
           "Implementation of new functionality within Cerner suite",
-          "Training and access for newly onboarded clinical staff",
+          "Training and access for clinical staff",
           "Design and interpret reports in SAP Business Objects and Discern Analytics",
           "Develop training material",
           "Track tickets using Service Now",
           "Maintain inventory of PCs",
           "Manage user sessions with Citrix Desktop Director",
-          "Support for hardware and OS issues",
+          "Hardware and OS issues support",
           "Applications support for Epic, Meditech, and Mindray",
           "Monitoring and maintaining health information integration engines",
           "Remote support via Simple-Help remote desktop",
@@ -38,9 +36,9 @@
           "Creation/configuration of virtual A/V servers"
         ],
         "experience": [
-          "CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital MAR 2023 - Current",
-          "Clinical Analyst II Shriners Hospital for Children MAR 2018 - MAR 2023",
-          "Clinical Analyst I Advanced ICU Care APR 2012 - FEB 2015",
+          "CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106 Clinical Informatics Specialist MAR 2023 - Current",
+          "Shriners Hospital for Children 4400 Clayton Ave, St. Louis, MO 63110 Clinical Analyst II MAR 2018 - MAR 2023",
+          "Advanced ICU Care 1 Cityplace Dr Suite 570 Suite 570, St. Louis, MO 63141 Clinical Analyst I APR 2012 - FEB 2015",
           "Boeing Under Contract by RMS IT Specialist 2/17 - 2/18",
           "Baked Tees Graphic Designer - 4/11 - 4/12",
           "Tek Systems IT Specialist - 3/10 - 9/10",
@@ -53,77 +51,90 @@
         ],
         "clients": [],
         "other": [
-          "Certifications: M.C.T.S - Windows Xp, M.C.T.S - VISTA, M.C.T.S - Server 08 R2, M.C.T.S - Active Directory, M.C.T.S - SQL, CompTIA - A+, Dell Certified Systems Expert, Sony-certified - laptop repair, HIPAA Certified",
-          "References: Karen Johnson C.E.O. Homer G. Phillips Memorial Hospital +1 (314) 399-4288",
-          "Susan “Angie” Kinney Clinical Analyst II Shriners Hospital for Children +1 (618) 960-5628",
-          "Justin Thuli Manager of I.T. Advanced ICU Care +1 (608) 215-9302"
+          "Certifications: M.C.T.S - Windows Xp M.C.T.S - VISTA M.C.T.S - Server 08 R2 M.C.T.S - Active Directory M.C.T.S - SQL CompTIA - A+ Dell Certified Systems Expert Sony-certified - laptop repair HIPAA Certified",
+          "References: Karen Johnson C.E.O. Homer G. Phillips Memorial Hospital +1 (314) 399-4288 Susan “Angie” Kinney Clinical Analyst II Shriners Hospital for Children +1 (618) 960-5628 Justin Thuli Manager of I.T. Advanced ICU Care +1 (608) 215-9302"
         ]
       },
       "structuredContent": {
         "name": "BENJAMIN STEIN",
-        "summary": "Clinical Informatics Specialist with extensive experience in healthcare IT systems, EHR implementation, and clinical support.",
+        "summary": "Clinical Informatics Specialist with extensive experience in IT support, system implementation, and user training within healthcare environments.",
         "contact": [
           {
             "text": "benjaminsteinstl@gmail.com"
           },
           {
             "text": "+1 (314)-809-1836"
-          },
-          {
-            "text": "2143 Alfred Ave. St. Louis, MO. 63110"
           }
         ],
         "skills": [
           {
-            "text": "EHR system implementation and maintenance"
+            "text": "Implementation, maintenance, and training of web-based EHR system (Thrive)"
           },
           {
-            "text": "Enterprise web browser management"
+            "text": "Enterprise web browser (Island)"
           },
           {
-            "text": "Google Enterprise administration"
+            "text": "Google Enterprise"
           },
           {
-            "text": "User onboarding and offboarding"
+            "text": "Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote"
           },
           {
-            "text": "Security and permissions configuration"
+            "text": "On / Off-boarding of office and clinical users"
           },
           {
-            "text": "Vendor communication"
+            "text": "Configuring securities and permissions"
           },
           {
-            "text": "Troubleshooting IT systems"
+            "text": "Communicating with third party vendors"
           },
           {
-            "text": "Report creation and modification"
+            "text": "Troubleshooting EMR, Network, Interfaces, PC’s, Hardware, and Web Applications"
           },
           {
-            "text": "Clinical staff support"
+            "text": "Creating, modifying, or running reports via TruBridge Report Builder"
           },
           {
-            "text": "Cerner suite implementation"
+            "text": "Support for clinical and office staff"
           },
           {
-            "text": "Training material development"
+            "text": "Implementation of new functionality within Cerner suite"
           },
           {
-            "text": "Service Now ticket tracking"
+            "text": "Training and access for clinical staff"
           },
           {
-            "text": "PC inventory management"
+            "text": "Design and interpret reports in SAP Business Objects and Discern Analytics"
           },
           {
-            "text": "Citrix Desktop Director session management"
+            "text": "Develop training material"
           },
           {
-            "text": "Remote desktop support"
+            "text": "Track tickets using Service Now"
           },
           {
-            "text": "Active Directory and SQL tasks"
+            "text": "Maintain inventory of PCs"
           },
           {
-            "text": "Virtual A/V server configuration"
+            "text": "Manage user sessions with Citrix Desktop Director"
+          },
+          {
+            "text": "Hardware and OS issues support"
+          },
+          {
+            "text": "Applications support for Epic, Meditech, and Mindray"
+          },
+          {
+            "text": "Monitoring and maintaining health information integration engines"
+          },
+          {
+            "text": "Remote support via Simple-Help remote desktop"
+          },
+          {
+            "text": "Tasks within Active Directory, Exchange and SQL"
+          },
+          {
+            "text": "Creation/configuration of virtual A/V servers"
           }
         ],
         "experience": [
@@ -131,23 +142,23 @@
             "period": "MAR 2023 - Current",
             "company": "Homer G. Phillips Memorial Hospital",
             "title": "Clinical Informatics Specialist",
-            "description": "Responsible for all systems and technologies at the hospital, including EHR system implementation, user onboarding, and IT support."
+            "description": "Responsible for all systems and technologies used at the hospital, including implementation, maintenance, and training of web-based EHR system, enterprise web browser, and Google Enterprise. Managed administrative roles and typical tasks such as user onboarding, configuring securities, vendor communication, and troubleshooting."
           },
           {
             "period": "MAR 2018 - MAR 2023",
             "company": "Shriners Hospital for Children",
             "title": "Clinical Analyst II",
-            "description": "Provided 24x7 IT support for clinical staff, managed health information systems, and supported remote clinical staff."
+            "description": "Provided 24x7 IT support for clinical staff, handling hardware and OS issues, and applications associated with hospital health information systems. Managed health information integration engines and provided remote support."
           },
           {
             "period": "APR 2012 - FEB 2015",
             "company": "Advanced ICU Care",
             "title": "Clinical Analyst I",
-            "description": "Supported tele-ICU services, managed integration engines, and provided remote support."
+            "description": "Supported clinical staff with IT needs, including hardware, OS, and application issues. Managed integration engines and provided remote support."
           },
           {
             "period": "2/17 - 2/18",
-            "company": "Boeing Under Contract by RMS",
+            "company": "Boeing (Under Contract by RMS)",
             "title": "IT Specialist",
             "description": "Provided IT support under contract."
           },
@@ -161,7 +172,7 @@
             "period": "3/10 - 9/10",
             "company": "Tek Systems",
             "title": "IT Specialist",
-            "description": "Provided IT support services."
+            "description": "Worked as an IT Specialist."
           },
           {
             "period": "4/09 - 11/09",
@@ -192,7 +203,7 @@
         "about": ""
       }
     },
-    "timestamp": 1745989598536,
-    "pdfFingerprint": "0353faa259cc323790c5bb664f39a7450d7b1e394e9276585d579fb8ccff19e4"
+    "timestamp": 1746303409929,
+    "pdfFingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa"
   }
 }

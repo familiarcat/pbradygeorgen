@@ -1,0 +1,33 @@
+# John Doe
+
+[john.doe@example.com](mailto:john.doe@example.com) | (123) 456-7890 | [LinkedIn](https://linkedin.com/in/johndoe) | 123 Main Street, City, State 12345
+
+## Summary
+
+John Doe is a seasoned software developer specializing in the development of high-performance web applications using JavaScript, React, and Node.js. With strong expertise in AWS and CI/CD pipelines, John excels in creating scalable solutions and improving software delivery processes. A dedicated team player and mentor, John is committed to coding excellence and innovation.
+
+## Experience
+
+### Senior Software Developer
+**ABC Company** | 2020 - Present
+
+- Led the development and maintenance of responsive web applications using React and Node.js, improving user engagement by 30%.
+- Implemented robust CI/CD pipelines with GitHub Actions, reducing deployment time by 40%.
+- Optimized AWS deployments using Amplify, enhancing scalability and reducing costs by 20%.
+- Collaborated with cross-functional teams to deliver high-quality software on schedule.
+- Mentored junior developers, conducted code reviews, and fostered a culture of continuous improvement.
+
+### Software Developer
+**XYZ Company** | 2018 - 2020
+
+- Developed intuitive front-end applications with React, boosting overall user satisfaction by 25%.
+- Designed and developed RESTful APIs using Node.js, enhancing interoperability across systems.
+- Managed data storage solutions using MongoDB and PostgreSQL, improving data retrieval speed by 15%.
+- Actively participated in Agile development processes, contributing to a 20% increase in project delivery efficiency.
+- Collaborated on open-source projects, expanding the company's technical influence and innovation.
+
+## Education
+
+### Bachelor of Science in Computer Science
+**University of Technology** | 2014 - 2018
+

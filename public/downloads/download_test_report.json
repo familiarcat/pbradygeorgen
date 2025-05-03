@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-05-03T19:25:29.536Z",
+  "formats": {
+    "pdf": {
+      "available": true,
+      "path": "/default_resume.pdf",
+      "size": 119425
+    },
+    "text": {
+      "available": true,
+      "path": "/downloads/resume.txt",
+      "size": 781
+    },
+    "markdown": {
+      "available": true,
+      "path": "/downloads/resume.md",
+      "size": 781
+    },
+    "json": {
+      "available": true,
+      "path": "/downloads/resume.json",
+      "size": 2425
+    },
+    "html": {
+      "available": true,
+      "path": "/downloads/resume.html",
+      "size": 1721
+    },
+    "coverLetter": {
+      "available": true,
+      "path": "/downloads/cover_letter.md",
+      "size": 890
+    },
+    "coverLetterHtml": {
+      "available": true,
+      "path": "/downloads/cover_letter.html",
+      "size": 1566
+    }
+  },
+  "tests": {
+    "allFormatsAvailable": true,
+    "totalSize": 127589,
+    "formatCount": 7
+  },
+  "analysis": {
+    "performed": true,
+    "timestamp": "2025-05-03T19:25:29.534Z",
+    "model": "unknown",
+    "cached": false,
+    "simulated": false,
+    "fallback": true
+  },
+  "validation": {
+    "success": false,
+    "error": "[object Object]",
+    "timestamp": "2025-05-03T19:25:29.534Z"
+  }
+}

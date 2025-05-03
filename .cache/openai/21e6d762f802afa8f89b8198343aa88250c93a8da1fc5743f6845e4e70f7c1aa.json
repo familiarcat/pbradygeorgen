@@ -1,0 +1,116 @@
+{
+  "success": false,
+  "data": {
+    "name": "John Doe",
+    "summary": "John Doe is a seasoned software developer specializing in the development of high-performance web applications using JavaScript, React, and Node.js. With strong expertise in AWS and CI/CD pipelines, John excels in creating scalable solutions and improving software delivery processes. A dedicated team player and mentor, John is committed to coding excellence and innovation.",
+    "skills": {
+      "technical": [
+        "JavaScript/TypeScript",
+        "React/Next.js",
+        "Node.js",
+        "AWS/Cloud Computing",
+        "CI/CD Pipelines",
+        "RESTful APIs",
+        "MongoDB",
+        "PostgreSQL",
+        "Git/GitHub"
+      ],
+      "soft": [
+        "Problem-solving",
+        "Team collaboration",
+        "Mentorship"
+      ]
+    },
+    "experience": [
+      {
+        "title": "Senior Software Developer",
+        "company": "ABC Company",
+        "period": "2020 - Present",
+        "responsibilities": [
+          "Led the development and maintenance of responsive web applications using React and Node.js, improving user engagement by 30%.",
+          "Implemented robust CI/CD pipelines with GitHub Actions, reducing deployment time by 40%.",
+          "Optimized AWS deployments using Amplify, enhancing scalability and reducing costs by 20%.",
+          "Collaborated with cross-functional teams to deliver high-quality software on schedule.",
+          "Mentored junior developers, conducted code reviews, and fostered a culture of continuous improvement."
+        ]
+      },
+      {
+        "title": "Software Developer",
+        "company": "XYZ Company",
+        "period": "2018 - 2020",
+        "responsibilities": [
+          "Developed intuitive front-end applications with React, boosting overall user satisfaction by 25%.",
+          "Designed and developed RESTful APIs using Node.js, enhancing interoperability across systems.",
+          "Managed data storage solutions using MongoDB and PostgreSQL, improving data retrieval speed by 15%.",
+          "Actively participated in Agile development processes, contributing to a 20% increase in project delivery efficiency.",
+          "Collaborated on open-source projects, expanding the company's technical influence and innovation."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Computer Science",
+        "institution": "University of Technology",
+        "period": "2014 - 2018",
+        "details": "GPA: 3.8/4.0; Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems"
+      }
+    ],
+    "contact": {
+      "email": "john.doe@example.com",
+      "phone": "(123) 456-7890",
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "location": "123 Main Street, City, State 12345"
+    },
+    "certifications": [
+      "AWS Certified Developer - Associate",
+      "MongoDB Certified Developer"
+    ],
+    "projects": [
+      {
+        "name": "Personal Portfolio",
+        "description": "Developed a personal portfolio website using Next.js and Tailwind CSS, showcasing professional projects and technical expertise."
+      },
+      {
+        "name": "Task Manager",
+        "description": "Created a full-stack task management application with React, Node.js, and MongoDB, streamlining task management and collaboration."
+      },
+      {
+        "name": "Weather App",
+        "description": "Built a dynamic weather application using React and the OpenWeather API, providing real-time weather data to users."
+      }
+    ]
+  },
+  "validationResult": {
+    "success": false,
+    "error": {
+      "issues": [
+        {
+          "code": "invalid_type",
+          "expected": "array",
+          "received": "object",
+          "path": [
+            "skills"
+          ],
+          "message": "Expected array, received object"
+        }
+      ],
+      "name": "ZodError"
+    },
+    "timestamp": "2025-05-03T20:15:49.400Z"
+  },
+  "contentFingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa",
+  "error": {
+    "issues": [
+      {
+        "code": "invalid_type",
+        "expected": "array",
+        "received": "object",
+        "path": [
+          "skills"
+        ],
+        "message": "Expected array, received object"
+      }
+    ],
+    "name": "ZodError"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "success": false,
+  "data": {
+    "name": "",
+    "summary": "",
+    "skills": [
+      "JavaScript/TypeScript",
+      "React",
+      "Node.js",
+      "AWS",
+      "Next.js"
+    ],
+    "experience": [
+      {
+        "title": "Senior Software Developer",
+        "company": "ABC Company",
+        "duration": "2020 - Present",
+        "responsibilities": [
+          "Developed and maintained web applications using React and Node.js",
+          "Implemented CI/CD pipelines using GitHub Actions",
+          "Deployed applications to AWS using Amplify"
+        ]
+      },
+      {
+        "title": "Software Developer",
+        "company": "XYZ Company",
+        "duration": "2018 - 2020",
+        "responsibilities": [
+          "Developed front-end applications using React",
+          "Implemented RESTful APIs using Node.js",
+          "Worked with MongoDB and PostgreSQL databases"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Computer Science",
+        "institution": "University of Technology",
+        "duration": "2014 - 2018"
+      }
+    ],
+    "contact": {
+      "email": "example@example.com",
+      "phone": "(123) 456-7890",
+      "linkedin": "linkedin.com/in/example"
+    }
+  },
+  "validationResult": {
+    "success": false,
+    "error": {
+      "issues": [
+        {
+          "code": "too_small",
+          "minimum": 1,
+          "type": "string",
+          "inclusive": true,
+          "exact": false,
+          "message": "Name is required",
+          "path": [
+            "name"
+          ]
+        },
+        {
+          "code": "too_small",
+          "minimum": 1,
+          "type": "string",
+          "inclusive": true,
+          "exact": false,
+          "message": "Summary is required",
+          "path": [
+            "summary"
+          ]
+        },
+        {
+          "code": "invalid_type",
+          "expected": "string",
+          "received": "undefined",
+          "path": [
+            "experience",
+            0,
+            "period"
+          ],
+          "message": "Required"
+        },
+        {
+          "code": "invalid_type",
+          "expected": "string",
+          "received": "undefined",
+          "path": [
+            "experience",
+            1,
+            "period"
+          ],
+          "message": "Required"
+        },
+        {
+          "code": "invalid_type",
+          "expected": "string",
+          "received": "undefined",
+          "path": [
+            "education",
+            0,
+            "period"
+          ],
+          "message": "Required"
+        }
+      ],
+      "name": "ZodError"
+    },
+    "timestamp": "2025-05-03T19:13:34.138Z"
+  },
+  "error": {
+    "issues": [
+      {
+        "code": "too_small",
+        "minimum": 1,
+        "type": "string",
+        "inclusive": true,
+        "exact": false,
+        "message": "Name is required",
+        "path": [
+          "name"
+        ]
+      },
+      {
+        "code": "too_small",
+        "minimum": 1,
+        "type": "string",
+        "inclusive": true,
+        "exact": false,
+        "message": "Summary is required",
+        "path": [
+          "summary"
+        ]
+      },
+      {
+        "code": "invalid_type",
+        "expected": "string",
+        "received": "undefined",
+        "path": [
+          "experience",
+          0,
+          "period"
+        ],
+        "message": "Required"
+      },
+      {
+        "code": "invalid_type",
+        "expected": "string",
+        "received": "undefined",
+        "path": [
+          "experience",
+          1,
+          "period"
+        ],
+        "message": "Required"
+      },
+      {
+        "code": "invalid_type",
+        "expected": "string",
+        "received": "undefined",
+        "path": [
+          "education",
+          0,
+          "period"
+        ],
+        "message": "Required"
+      }
+    ],
+    "name": "ZodError"
+  }
+}

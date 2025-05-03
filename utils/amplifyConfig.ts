@@ -1,9 +1,9 @@
 /**
  * Amplify Configuration Utility
- * 
+ *
  * This utility configures AWS Amplify for the application, ensuring consistent
  * storage configuration across environments.
- * 
+ *
  * Philosophical Framework:
  * - Hesse: Balancing structure (configuration) with flexibility (environment-specific settings)
  * - Salinger: Ensuring authentic representation through consistent storage
@@ -44,7 +44,7 @@ export function configureAmplify() {
     const environment = process.env.NODE_ENV || 'development';
     const isProduction = environment === 'production';
     const isAmplify = !!process.env.AWS_EXECUTION_ENV;
-    
+
     console.log(`Configuring Amplify for ${environment} environment (isAmplify: ${isAmplify})`);
     DanteLogger.success.basic(`Configuring Amplify for ${environment} environment`);
 
@@ -53,12 +53,12 @@ export function configureAmplify() {
 
     // Replace ${env} placeholders with the actual environment
     const envSuffix = isProduction ? 'prod' : 'dev';
-    
+
     // Update the S3 bucket name
     if (envConfig.aws_user_files_s3_bucket) {
       envConfig.aws_user_files_s3_bucket = envConfig.aws_user_files_s3_bucket.replace('${env}', envSuffix);
     }
-    
+
     if (envConfig.Storage?.AWSS3?.bucket) {
       envConfig.Storage.AWSS3.bucket = envConfig.Storage.AWSS3.bucket.replace('${env}', envSuffix);
     }
@@ -70,7 +70,7 @@ export function configureAmplify() {
         envConfig.Storage.AWSS3.bucket = process.env.S3_BUCKET_NAME;
       }
     }
-    
+
     if (process.env.S3_REGION) {
       envConfig.aws_user_files_s3_bucket_region = process.env.S3_REGION;
       if (envConfig.Storage?.AWSS3) {
@@ -85,12 +85,24 @@ export function configureAmplify() {
       bucketRegion: envConfig.aws_user_files_s3_bucket_region
     });
 
+    // Add AWS credentials if available
+    if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+      if (process.env.DEBUG_LOGGING === 'true') {
+        console.log('🔍 [AmplifyConfig] Adding AWS credentials');
+      }
+
+      envConfig.credentials = {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      };
+    }
+
     // Configure Amplify
     Amplify.configure(envConfig);
-    
+
     console.log('Amplify configured successfully');
     DanteLogger.success.core('Amplify configured successfully');
-    
+
     return true;
   } catch (error) {
     console.error('Error configuring Amplify:', error);
@@ -107,15 +119,15 @@ export function getS3BucketName(): string {
   if (process.env.S3_BUCKET_NAME) {
     return process.env.S3_BUCKET_NAME;
   }
-  
+
   // Determine the environment
   const environment = process.env.NODE_ENV || 'development';
   const isProduction = environment === 'production';
-  
+
   // Get from configuration
   const envSuffix = isProduction ? 'prod' : 'dev';
   const bucketName = config.aws_user_files_s3_bucket.replace('${env}', envSuffix);
-  
+
   return bucketName;
 }
 
@@ -127,7 +139,7 @@ export function getS3Region(): string {
   if (process.env.S3_REGION) {
     return process.env.S3_REGION;
   }
-  
+
   // Get from configuration
   return config.aws_user_files_s3_bucket_region;
 }

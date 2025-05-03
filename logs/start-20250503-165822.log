@@ -1,0 +1,50 @@
+Environment: production
+Running in AWS Amplify: No
+Node version: v20.19.1
+Is standalone build: No
+Is in standalone directory: Yes
+Current directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Found pages/app directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/server/pages
+Initializing Next.js app with directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+Extracted directory already exists: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/extracted
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+ ⨯ uncaughtException:  Error: listen EADDRINUSE: address already in use :::3000
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
+    at <unknown> (server.js:202:6) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+Failed to import pdf-parse: Error: ENOENT: no such file or directory, open './test/data/05-versions-space.pdf'
+    at 36188 (.next/server/app/api/cover-letter/route.js:79:533602)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at 10491 (.next/server/app/api/cover-letter/route.js:1:859)
+    at t (.next/server/webpack-runtime.js:1:143)
+    at r (.next/server/app/api/cover-letter/route.js:81:106)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:81:158)
+    at t.X (.next/server/webpack-runtime.js:1:1285)
+    at <unknown> (.next/server/app/api/cover-letter/route.js:81:119) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: './test/data/05-versions-space.pdf'
+}
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦❌ [Derrida:Cache:Miss] No cache file found
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 2 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache
+📦✅ [Derrida:Cache:Hit] Loaded PDF fingerprint: 39e0364a...
+📦🗑️ [Derrida:Cache:Invalidate] Invalidated 1 cache items due to PDF change
+📦✅ [Derrida:Cache:Hit] Loaded 0 items from cache

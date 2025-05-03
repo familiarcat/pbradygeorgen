@@ -49,13 +49,32 @@ export async function GET(request: NextRequest) {
     const useAmplify = amplifyStorageService.isAmplifyStorageReady() &&
                       (isAmplify || process.env.AMPLIFY_USE_STORAGE === 'true');
 
+    if (process.env.DEBUG_LOGGING === 'true') {
+      console.log(`🔍 [CoverLetterAPI] isAmplifyStorageReady: ${amplifyStorageService.isAmplifyStorageReady()}`);
+      console.log(`🔍 [CoverLetterAPI] isAmplify: ${isAmplify}`);
+      console.log(`🔍 [CoverLetterAPI] AMPLIFY_USE_STORAGE: ${process.env.AMPLIFY_USE_STORAGE}`);
+      console.log(`🔍 [CoverLetterAPI] useAmplify: ${useAmplify}`);
+      console.log(`🔍 [CoverLetterAPI] contentFingerprint: ${contentFingerprint}`);
+    }
+
     if (useAmplify) {
       console.log('Using Amplify storage for content');
       DanteLogger.success.basic('Using Amplify storage for content');
 
       try {
+        if (process.env.DEBUG_LOGGING === 'true') {
+          console.log(`🔍 [CoverLetterAPI] Getting cover letter from Amplify with fingerprint: ${contentFingerprint}`);
+          console.log(`🔍 [CoverLetterAPI] forceRefresh: ${forceRefresh}`);
+        }
+
         // Get the cover letter from Amplify
         const amplifyResult = await getCoverLetterFromAmplify(contentFingerprint, forceRefresh);
+
+        if (process.env.DEBUG_LOGGING === 'true') {
+          console.log(`🔍 [CoverLetterAPI] Amplify result success: ${amplifyResult.success}`);
+          console.log(`🔍 [CoverLetterAPI] Amplify result message: ${amplifyResult.message}`);
+          console.log(`🔍 [CoverLetterAPI] Amplify result content length: ${amplifyResult.content?.length || 0}`);
+        }
 
         if (!amplifyResult.success) {
           throw new Error(amplifyResult.message);
