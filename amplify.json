@@ -5,5 +5,41 @@
     "hosting": {
       "type": "ssr"
     }
+  },
+  "features": {
+    "graphqltransformer": {
+      "addmissingownerfields": true,
+      "improvepluralization": false,
+      "validatetypenamereservedwords": true,
+      "useexperimentalpipelinedtransformer": true,
+      "enableiterativegsiupdates": true,
+      "secondarykeyasgsi": true,
+      "skipoverridemutationinputtypes": true,
+      "transformerversion": 2,
+      "suppressschemamigrationprompt": true
+    },
+    "auth": {
+      "enablecaseinsensitivity": true,
+      "useinclusiveterminology": true,
+      "breakcirculardependency": true,
+      "useenabledmfas": true
+    },
+    "codegen": {
+      "useappsyncmodelgenplugin": true,
+      "usedocsgeneratorplugin": true,
+      "usetypesgeneratorplugin": true,
+      "cleangeneratedmodelsdirectory": true,
+      "retaincasestyle": true,
+      "addtimestampfields": true,
+      "handlelistnullabilitytransparently": true,
+      "emitauthprovider": true,
+      "generateindexrules": true
+    },
+    "appsync": {
+      "generategraphqlpermissions": true
+    },
+    "project": {
+      "overrides": true
+    }
   }
 }

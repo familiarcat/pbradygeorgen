@@ -3,10 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install
+        - chmod +x amplify-build.sh
+        - ./amplify-build.sh
     build:
       commands:
-        - npm run build
+        - echo "Build already completed in preBuild phase"
   artifacts:
     baseDirectory: .next
     files:
@@ -14,6 +15,8 @@ frontend:
       - '../public/**/*'
       - '../package.json'
       - '../next.config.js'
+      - '../node_modules/**/*'
+      - '../server.js'
   cache:
     paths:
       - node_modules/**/*

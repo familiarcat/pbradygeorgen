@@ -1,82 +1,176 @@
-# P. Brady Georgen
+# I strive to continuously drive innovation by blending
 
-## Professional Summary
+cutting-edge technology with creative design and Agile
 
-I strive to continuously drive innovation by blending cutting-edge technology with creative design and Agile best practices, focused on delivering enterprise-grade solutions and digital transformations that empower teams and organizations.
+best practices, focused on delivering enterprise-grade
 
-## Contact Information
+solutions and digital transformations that empower
 
-- 4350 A De Tonty St, St. Louis, MO
-- (314) 580-0608
-- [pbradygeorgen.com](https://pbradygeorgen.com)
-- brady@pbradygeorgen.com
+teams and organizations.
 
-## Skills & Technologies
+P. Brady Georgen
 
-### Areas of Expertise
-- Full Stack Development
-- JavaScript/TypeScript
-- Graphic Design & UI/UX
-- Illustration
-- Creative/Technical writing
 
-### Technical Skills
-- React, React Native
-- AWS, AWS Amplify
-- SOA, CI/CD
-- MongoDB, SQL
-- Docker, Terraform, Jenkins
-- Shell Automation
-- Node, Ruby, Java
-- Adobe Creative Suite
-- UI/UX Prototyping
+## AREA EXPERTISE
 
-## Professional Experience
 
-### Digital Ronan (freelance) (2022 - Present)
-**Consultant & Creative Technologist**
+## EXTENDED EXPERIENCE
 
-Providing strategic digital consultancy for local businesses, applying skills in web development, networking, and design.
 
-### Daugherty Business Solutions (2014 - 2023)
-**Sr. Software Developer (III)**
+## ABOUT ME
 
-#### Client Work:
+4350 A De Tonty St,
 
-##### Cox Communications
-Implemented scaffolding framework for modular React applications integrating with Adobe Content Manager.
+St. Louis, MO 63110
 
-##### Bayer
-Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures, upholding Agile best practices.
 
-##### Charter Communications
-Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities.
+## (314) 580-0608
 
-##### Mastercard
-Developed comprehensive onboarding documentation, sample code, and API integration to support the MasterPass online purchasing initiative.
+www.pbradygeorgen.com
 
-### Deliveries on Demand (2013 - 2014)
-**Lead Software Developer**
+brady@pbradygeorgen.com
 
-### Infuze (2011 - 2013)
-**Sr. Developer/Asst. Art Director**
 
-### Touchwood Creative (2009 - 2011)
-**Lead Software Developer**
+## WORK EPERIENCE
 
-### ThinkTank (freelance) (2008 - 2009)
-**Software and Creative Director**
 
-### Asynchrony Solutions (2005 - 2008)
-**Designer/Developer/Marketing Asst.**
+## EDUCATION
 
-## Education
 
-### BFA Graphic Design
-**Webster University (2001-2005)**
+## SKILLS / TECHNOLOGIES
 
-### BA Philosophy
-**Webster University (2001-2005)**
+•Full Stack Development
 
-### ASSC Motion Graphics
-**Saint Louis Community College (1999-2001)**
+•Javascript/Typescript
+
+•Graphic Design & UI/UX
+
+•Illustration
+
+•Creative/Technical
+
+writing
+
+Providing strategic digital consultancy for
+
+local businesses, applying skills in web
+
+development, networking, and design.
+
+BFA Graphic Design
+
+Webster University
+
+
+## 2001-2005
+
+2023 - Present
+
+Digital Ronan (freelance)
+
+Consultant & Creative Technoligist
+
+
+## 2013 - 2014
+
+Deliveries on Demand
+
+Lead Software Developer
+
+
+## 2011 - 2013
+
+Infuze
+
+Sr. Developer/Asst. Art Director
+
+
+## 2009 - 2011
+
+Touchwood Creative
+
+Lead Software Developer
+
+
+## 2008 - 2009
+
+ThinkTank (freelance)
+
+Software and Creative Director
+
+
+## 2005 - 2008
+
+Asynchrony Solutions
+
+Designer/Developer/Marketing Asst.
+
+React, React Native, AWS, AWS
+
+Amplify, SOA, CI/CD, MongoDB, SQL,
+
+Docker, Terraform, Jenkins, Shell
+
+Automation, Node, Ruby, Java,
+
+Javascript, Typescript, Adobe CS,
+
+UI/UX Prototyping
+
+Cox Communications
+
+Implemented scaffolding framework for modular
+
+React applications integrating with Adobe
+
+Content Manager
+
+Bayer
+
+Architected, developed, migrated, and main-
+
+tained various enterprise scale applications
+
+utilizing React, AWS, and SOA architectures:
+
+upholding Agile best practices.
+
+Charter Communications
+
+Engineered interactive call center solutions
+
+empowering representatives to provide
+
+enhanced customer service capabilities.
+
+Mastercard
+
+Developed comprehensive onboarding documen-
+
+tation, sample code, and API integration to
+
+support the MasterPass online purchasing
+
+initiative.
+
+
+## 2014 - 2023
+
+Daugherty Business Solutions
+
+Sr. Software Developer (III)
+
+BA Philosophy
+
+Webster University
+
+
+## 2001-2005
+
+ASSC Motion Graphics
+
+Saint Louis Community College
+
+
+## 1999-2001
+

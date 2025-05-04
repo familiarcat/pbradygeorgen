@@ -1,78 +1,101 @@
 #!/bin/bash
 # Custom build script for AWS Amplify
+# Following Dante's philosophy of guiding through different stages with clear logging
 
-echo "Starting custom build script for AWS Amplify"
+echo "👑🌊 [Dante:Purgatorio] Starting custom build script for AWS Amplify"
 
 # Print current environment
-echo "Current directory: $(pwd)"
-echo "Initial Node version: $(node -v)"
-echo "Initial NPM version: $(npm -v)"
+echo "👑🌊 [Dante:Purgatorio] Current directory: $(pwd)"
+echo "👑🌊 [Dante:Purgatorio] Initial Node version: $(node -v)"
+echo "👑🌊 [Dante:Purgatorio] Initial NPM version: $(npm -v)"
 
 # Setup NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Force Node.js 20 installation - try multiple approaches
-echo "Installing Node.js 20 using multiple approaches"
+# Force Node.js 18 installation - try multiple approaches
+echo "👑🌊 [Dante:Purgatorio] Installing Node.js 18 using multiple approaches"
 
 # Approach 1: Use NVM
-echo "Approach 1: Using NVM"
-nvm install 20 || true
-nvm use 20 || true
-nvm alias default 20 || true
+echo "👑🌊 [Dante:Purgatorio] Approach 1: Using NVM"
+nvm install 18 || true
+nvm use 18 || true
+nvm alias default 18 || true
 
 # Approach 2: Use n (Node version manager)
-echo "Approach 2: Using n (if available)"
+echo "👑🌊 [Dante:Purgatorio] Approach 2: Using n (if available)"
 if command -v n &>/dev/null; then
-    n 20 || true
+    n 18 || true
 fi
 
 # Approach 3: Direct download if needed
-echo "Approach 3: Direct download if needed"
+echo "👑🌊 [Dante:Purgatorio] Approach 3: Direct download if needed"
 NODE_VERSION=$(node -v | cut -d 'v' -f 2 | cut -d '.' -f 1)
-if [ "$NODE_VERSION" != "20" ]; then
-    echo "Node.js 20 not installed via NVM or n, attempting direct download"
+if [ "$NODE_VERSION" != "18" ]; then
+    echo "👑🌊 [Dante:Purgatorio] Node.js 18 not installed via NVM or n, attempting direct download"
     mkdir -p $HOME/nodejs
-    curl -o $HOME/nodejs/node-v20.19.0-linux-x64.tar.xz https://nodejs.org/dist/v20.19.0/node-v20.19.0-linux-x64.tar.xz
-    tar -xJf $HOME/nodejs/node-v20.19.0-linux-x64.tar.xz -C $HOME/nodejs
-    export PATH=$HOME/nodejs/node-v20.19.0-linux-x64/bin:$PATH
+    curl -o $HOME/nodejs/node-v18.19.1-linux-x64.tar.xz https://nodejs.org/dist/v18.19.1/node-v18.19.1-linux-x64.tar.xz
+    tar -xJf $HOME/nodejs/node-v18.19.1-linux-x64.tar.xz -C $HOME/nodejs
+    export PATH=$HOME/nodejs/node-v18.19.1-linux-x64/bin:$PATH
 fi
 
 # Print updated environment
-echo "Updated Node version: $(node -v)"
-echo "Updated NPM version: $(npm -v)"
+echo "👑⭐ [Dante:Paradiso] Updated Node version: $(node -v)"
+echo "👑⭐ [Dante:Paradiso] Updated NPM version: $(npm -v)"
 
 # Verify Node.js version
 NODE_VERSION=$(node -v | cut -d 'v' -f 2 | cut -d '.' -f 1)
-if [ "$NODE_VERSION" != "20" ]; then
-    echo "ERROR: Failed to install Node.js 20. Current version: $(node -v)"
-    echo "Attempting to continue anyway..."
+if [ "$NODE_VERSION" != "18" ]; then
+    echo "👑🔥 [Dante:Inferno:Error] Failed to install Node.js 18. Current version: $(node -v)"
+    echo "👑🌊 [Dante:Purgatorio] Attempting to continue anyway..."
+fi
+
+# Set up Amplify environment
+echo "👑🌊 [Dante:Purgatorio] Setting up Amplify environment..."
+node scripts/setup-amplify-env.js
+
+if [ $? -eq 0 ]; then
+    echo "👑⭐ [Dante:Paradiso] Amplify environment set up successfully"
+else
+    echo "👑🔥 [Dante:Inferno:Warning] Amplify environment setup failed, but continuing build"
 fi
 
 # Install dependencies with increased memory limit
-echo "Installing dependencies"
+echo "👑🌊 [Dante:Purgatorio] Installing dependencies"
 export NODE_OPTIONS=--max_old_space_size=4096
-echo "Creating .npmrc file"
+echo "👑🌊 [Dante:Purgatorio] Creating .npmrc file"
 echo "engine-strict=false" >.npmrc
 echo "ignore-engines=true" >>.npmrc
 cat .npmrc
 
+# Run the prebuild script
+echo "👑🌊 [Dante:Purgatorio] Running prebuild script..."
+./amplify-prebuild.sh
+
+if [ $? -ne 0 ]; then
+    echo "👑🔥 [Dante:Inferno:Warning] Prebuild script failed, but continuing"
+fi
+
 # Try different npm install approaches
-echo "Approach 1: npm ci with --ignore-engines"
+echo "👑🌊 [Dante:Purgatorio] Approach 1: npm ci with --ignore-engines"
 npm ci --production=false --ignore-engines || true
 
-echo "Approach 2: npm install with --force"
+echo "👑🌊 [Dante:Purgatorio] Approach 2: npm install with --force"
 npm install --force || true
 
-echo "Approach 3: npm install with specific package"
-npm install pdfjs-dist@5.1.91 --force || true
+echo "👑🌊 [Dante:Purgatorio] Approach 3: npm install with specific packages"
+npm install uuid@9.0.1 glob@10.3.10 rimraf@5.0.5 lru-cache@10.2.0 --force || true
 
 # Build the application
-echo "Building the application"
+echo "👑🌊 [Dante:Purgatorio] Building the application"
 NODE_ENV=production npm run build
 
-# Print build completion
-echo "Build completed successfully"
+if [ $? -eq 0 ]; then
+    echo "👑⭐ [Dante:Paradiso] Build completed successfully"
+else
+    echo "👑🔥 [Dante:Inferno:Error] Build failed"
+    exit 1
+fi
 
 # Exit with success
 exit 0

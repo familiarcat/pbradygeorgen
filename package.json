@@ -16,16 +16,19 @@
     "env:pull": "node scripts/amplify-env-manager.js pull",
     "env:push": "node scripts/amplify-env-manager.js push",
     "env:list": "node scripts/amplify-env-manager.js list",
-    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh"
+    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh",
+    "setup": "chmod +x scripts/setup-git-hooks.sh && ./scripts/setup-git-hooks.sh",
+    "postinstall": "npm run setup"
   },
   "dependencies": {
+    "@aws-amplify/backend": "^1.16.0",
     "autoprefixer": "^10.4.21",
     "docx": "^9.4.1",
-    "html-to-pdf": "^0.1.11",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
+    "lru-cache": "^10.2.0",
     "next": "15.3.1",
-    "openai": "^4.95.1",
+    "openai": "^4.97.0",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^3.11.174",
     "postcss": "^8.5.3",
@@ -34,6 +37,7 @@
     "react-markdown": "^10.1.0",
     "react-pdf": "^9.2.1",
     "react-syntax-highlighter": "^15.6.1",
+    "uuid": "^9.0.1",
     "zod": "^3.24.3"
   },
   "devDependencies": {
@@ -44,22 +48,34 @@
     "@types/react-dom": "^19",
     "@types/react-pdf": "^6.2.0",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "add": "^2.0.6",
+    "@types/uuid": "^9.0.8",
     "dotenv": "^16.5.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
     "serve": "^14.2.4",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "overrides": {
-    "pdfjs-dist": "^3.11.174"
+    "pdfjs-dist": "^3.11.174",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "uuid": "^9.0.1",
+    "inflight": "npm:lru-cache@^10.2.0",
+    "node-domexception": "npm:domexception@^4.0.0"
   },
   "resolutions": {
-    "pdfjs-dist": "^3.11.174"
+    "pdfjs-dist": "^3.11.174",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
+    "uuid": "^9.0.1",
+    "inflight": "npm:lru-cache@^10.2.0",
+    "node-domexception": "npm:domexception@^4.0.0"
   }
 }

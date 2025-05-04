@@ -6,8 +6,15 @@ import { defineStorage } from '@aws-amplify/backend';
  */
 export const storage = defineStorage({
   name: 'alexai-storage',
-  access: (allow) => {
-    allow.guest().to(['read']);
-    allow.authenticated().to(['create', 'read', 'update', 'delete']);
-  },
+  access: (allow) => ({
+    // Allow guest access for public PDF viewing
+    'public/*': [
+      allow.guest.to(['read']),
+      allow.authenticated.to(['read', 'write', 'delete'])
+    ],
+    // Allow authenticated users to access their private files
+    'private/{entity_id}/*': [
+      allow.entity('identity').to(['read', 'write', 'delete'])
+    ]
+  })
 });

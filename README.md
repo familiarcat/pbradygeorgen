@@ -37,6 +37,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 # Install dependencies
 npm install
 
+# Set up Git hooks (automatically run after npm install)
+npm run setup
+
 # Run development server
 npm run dev
 
@@ -45,6 +48,19 @@ npm run build
 
 # Serve production build locally
 npm start
+```
+
+### Git Hooks
+
+This project uses Git hooks to ensure code quality:
+
+- **Pre-commit**: Runs TypeScript type checking, ESLint, and PDF reference management before each commit
+- **Setup**: Run `npm run setup` to install the Git hooks manually
+
+If you encounter issues with Git hooks, make sure the scripts in the `scripts` directory are executable:
+
+```bash
+chmod +x scripts/*.sh
 ```
 
 ### AWS Amplify Deployment
