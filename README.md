@@ -63,24 +63,56 @@ If you encounter issues with Git hooks, make sure the scripts in the `scripts` d
 chmod +x scripts/*.sh
 ```
 
-### AWS Amplify Deployment
+## PDF Management
+
+### Changing the Source PDF
+
+The application uses a source PDF file as the record of truth for generating content. To change the source PDF:
+
+```bash
+# List available source PDFs
+node scripts/update-source-pdf.js list
+
+# Update the source PDF with a new file
+node scripts/update-source-pdf.js update <path-to-pdf>
+```
+
+The update process will:
+
+1. Create a backup of the current PDFs
+2. Copy the new PDF to the public directory
+3. Process the PDF with OpenAI to extract content
+4. Update the build configuration
+5. Sync the PDFs with S3 (if AWS credentials are configured)
+
+### PDF Processing Flow
+
+The PDF processing flow is as follows:
+
+1. Source PDF is placed in the `source-pdfs` directory
+2. During the build process, the latest source PDF is used
+3. The PDF is processed with OpenAI to extract content
+4. The extracted content is saved to the `public/extracted` directory
+5. The content is used to generate the download options
+6. The PDFs are synced with S3 for AWS Amplify deployment
+
+## AWS Amplify Deployment
 
 This project is configured for deployment on AWS Amplify. For detailed instructions, see [AMPLIFY.md](./AMPLIFY.md).
 
 ```bash
 # Simulate Amplify build process locally
-npm run amplify:build
-
-# Serve the built files locally
-npm run amplify:serve
+npm run build
+npm run start
 
 # Deploy to Amplify (requires AWS credentials)
-./deploy.sh pdf-next.js
+./scripts/deploy-to-amplify.sh
 ```
 
 The deployment process will:
 
-1. Build the static site
-2. Push to the specified branch
-3. Trigger Amplify's CI/CD pipeline
-4. Deploy to your custom domain
+1. Build the static site with the latest source PDF
+2. Process the PDF with OpenAI to extract content
+3. Sync the PDFs and extracted content with S3
+4. Deploy the application to AWS Amplify
+5. Make the content available through the Amplify URL

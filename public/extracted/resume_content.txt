@@ -10,9 +10,9 @@ AREA EXPERTISE
 EXTENDED EXPERIENCE
 ABOUT ME
 4350 A De Tonty St, 
-St. Louis, MO 63110
+St. Louis, MO
 (314) 580-0608
-www.pbradygeorgen.com
+pbradygeorgen.com
 brady@pbradygeorgen.com
 WORK EPERIENCE
 EDUCATION
@@ -29,7 +29,7 @@ development, networking, and design.
 BFA Graphic Design
 Webster University
 2001-2005
-2023 - Present
+2022 - Present
 Digital Ronan (freelance)
 Consultant & Creative Technoligist
 2013 - 2014

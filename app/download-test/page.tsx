@@ -16,9 +16,17 @@ interface DownloadTestReport {
   timestamp: string;
 }
 
+interface BuildInfo {
+  sourcePdf: string;
+  lastUpdated: string;
+  buildMode: string;
+  processedWithOpenAI: boolean;
+}
+
 export default function DownloadTest() {
   const router = useRouter();
   const [report, setReport] = useState<DownloadTestReport | null>(null);
+  const [buildInfo, setBuildInfo] = useState<BuildInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [previewContent, setPreviewContent] = useState<any>(null);
@@ -34,15 +42,44 @@ export default function DownloadTest() {
         const reportData = await reportResponse.json();
         setReport(reportData);
 
-        // Load the preview content
-        const previewResponse = await fetch('/downloads/preview_content.json');
-        if (!previewResponse.ok) {
-          throw new Error(`Failed to load preview content: ${previewResponse.status}`);
+        // Load the build info
+        try {
+          const buildInfoResponse = await fetch('/extracted/build_info.json');
+          if (buildInfoResponse.ok) {
+            const buildInfoData = await buildInfoResponse.json();
+            setBuildInfo(buildInfoData);
+            console.log('👑🌊 [Dante:Purgatorio] Build info loaded:', buildInfoData);
+          } else {
+            console.warn('👑🔥 [Dante:Inferno:Warning] Failed to load build info:', buildInfoResponse.status);
+          }
+        } catch (buildInfoErr) {
+          console.warn('👑🔥 [Dante:Inferno:Warning] Error loading build info:', buildInfoErr);
         }
-        const previewData = await previewResponse.json();
-        setPreviewContent(previewData);
+
+        // Load the preview content
+        try {
+          const previewResponse = await fetch('/extracted/resume_content.json');
+          if (previewResponse.ok) {
+            const previewData = await previewResponse.json();
+            setPreviewContent(previewData);
+            console.log('👑⭐ [Dante:Paradiso] Preview content loaded successfully');
+          } else {
+            // Fallback to downloads directory
+            const fallbackResponse = await fetch('/downloads/preview_content.json');
+            if (fallbackResponse.ok) {
+              const fallbackData = await fallbackResponse.json();
+              setPreviewContent(fallbackData);
+              console.log('👑🌊 [Dante:Purgatorio] Preview content loaded from fallback location');
+            } else {
+              throw new Error(`Failed to load preview content: ${previewResponse.status}`);
+            }
+          }
+        } catch (previewErr) {
+          console.error('👑🔥 [Dante:Inferno:Error] Error loading preview content:', previewErr);
+          throw previewErr;
+        }
       } catch (err) {
-        console.error('Error loading data:', err);
+        console.error('👑🔥 [Dante:Inferno:Error] Error loading data:', err);
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);
@@ -165,11 +202,31 @@ export default function DownloadTest() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 border-b pb-2">Download Options</h2>
             {report ? (
               <>
-                <p className="text-sm text-gray-700 mb-4 bg-gray-50 p-3 rounded">
+                <div className="text-sm text-gray-700 mb-4 bg-gray-50 p-3 rounded">
                   <strong>Source:</strong> {report.pdfSource}
                   <br />
                   <strong>Last updated:</strong> {new Date(report.timestamp).toLocaleString()}
-                </p>
+
+                  {buildInfo && (
+                    <>
+                      <hr className="my-2 border-gray-200" />
+                      <strong>Build Info:</strong>
+                      <ul className="mt-1 space-y-1">
+                        <li><span className="font-medium">Source PDF:</span> {buildInfo.sourcePdf}</li>
+                        <li><span className="font-medium">Build Mode:</span> {buildInfo.buildMode}</li>
+                        <li><span className="font-medium">Last Updated:</span> {new Date(buildInfo.lastUpdated).toLocaleString()}</li>
+                        <li>
+                          <span className="font-medium">OpenAI Processing:</span>{' '}
+                          {buildInfo.processedWithOpenAI ? (
+                            <span className="text-green-600">✓ Enabled</span>
+                          ) : (
+                            <span className="text-red-600">✗ Disabled</span>
+                          )}
+                        </li>
+                      </ul>
+                    </>
+                  )}
+                </div>
                 <div className="space-y-4">
                   {report.formats.map((format, index) => (
                     <div

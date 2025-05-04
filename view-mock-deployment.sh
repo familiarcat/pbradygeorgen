@@ -28,35 +28,36 @@ log_error() {
 # Main function
 main() {
   log_info "Viewing mock deployment log..."
-  
+
   # Check if the log file exists
-  if [ ! -f "amplify-job-mock.log" ]; then
+  if [ ! -f "amplify-deployment-mock.log" ]; then
     log_error "Mock deployment log not found."
     exit 1
   fi
-  
+
   # Display the log file
   log_info "Deployment log:"
   echo ""
-  
+
   # Read the log file line by line
   while IFS= read -r line; do
     # Extract the timestamp and message
-    timestamp=$(echo "$line" | grep -o '\[.*\]' | head -1)
-    message=$(echo "$line" | sed "s/$timestamp//")
-    
-    # Color-code the message based on its content
-    if [[ "$message" == *"error"* ]] || [[ "$message" == *"Error"* ]] || [[ "$message" == *"ERROR"* ]]; then
-      echo -e "${RED}${timestamp}${message}${NC}"
-    elif [[ "$message" == *"warning"* ]] || [[ "$message" == *"Warning"* ]] || [[ "$message" == *"WARNING"* ]]; then
-      echo -e "${YELLOW}${timestamp}${message}${NC}"
-    elif [[ "$message" == *"success"* ]] || [[ "$message" == *"Success"* ]] || [[ "$message" == *"SUCCESS"* ]] || [[ "$message" == *"completed successfully"* ]]; then
-      echo -e "${GREEN}${timestamp}${message}${NC}"
+    timestamp=$(echo "$line" | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}.[0-9]\{3\}Z' || echo "")
+    level=$(echo "$line" | grep -o '\[INFO\]\|\[WARNING\]\|\[ERROR\]' || echo "")
+    message=$(echo "$line" | sed "s/$timestamp//g" | sed "s/$level//g")
+
+    # Color-code the message based on its level
+    if [[ "$level" == "[ERROR]" ]]; then
+      echo -e "${RED}${timestamp} ${level}${message}${NC}"
+    elif [[ "$level" == "[WARNING]" ]]; then
+      echo -e "${YELLOW}${timestamp} ${level}${message}${NC}"
+    elif [[ "$line" == *"success"* ]] || [[ "$line" == *"Success"* ]] || [[ "$line" == *"SUCCESS"* ]] || [[ "$line" == *"completed successfully"* ]]; then
+      echo -e "${GREEN}${timestamp} ${level}${message}${NC}"
     else
-      echo -e "${BLUE}${timestamp}${NC}${message}"
+      echo -e "${BLUE}${timestamp} ${level}${NC}${message}"
     fi
-  done < "amplify-job-mock.log"
-  
+  done <"amplify-deployment-mock.log"
+
   echo ""
   log_success "Deployment completed successfully."
 }

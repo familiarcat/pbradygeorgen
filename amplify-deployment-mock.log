@@ -1,0 +1,144 @@
+2025-05-04T20:47:43.977Z [INFO]: # Cloning repository: git@github.com:familiarcat/pbradygeorgen.git
+2025-05-04T20:47:44.807Z [INFO]: 
+2025-05-04T20:47:44.808Z [INFO]: Cloning into 'pbradygeorgen'...
+2025-05-04T20:47:44.808Z [INFO]: # Checking for Git submodules at: /codebuild/output/src2930996874/src/pbradygeorgen/.gitmodules
+2025-05-04T20:47:44.818Z [INFO]: # Retrieving environment cache...
+2025-05-04T20:47:44.856Z [WARNING]: ! Unable to write cache: {"code":"ERR_BAD_REQUEST","message":"Request failed with status code 404"})}
+2025-05-04T20:47:44.856Z [INFO]: ---- Setting Up SSM Secrets ----
+2025-05-04T20:47:44.856Z [INFO]: SSM params {"Path":"/amplify/d25hjzqcr0podj/fix-download-test/","WithDecryption":true}
+2025-05-04T20:47:44.899Z [WARNING]: !Failed to set up process.env.secrets
+2025-05-04T20:47:45.701Z [INFO]: # No package override configuration found.
+2025-05-04T20:47:45.705Z [INFO]: # Retrieving cache...
+2025-05-04T20:47:45.754Z [INFO]: # Retrieved cache
+2025-05-04T20:47:47.709Z [INFO]: BackendEnvironment name fix-download-test for app d25hjzqcr0podj is invalid
+2025-05-04T20:47:47.833Z [INFO]: Random environment name ladonna generated
+2025-05-04T20:47:50.178Z [INFO]: ## Starting Backend Build
+2025-05-04T20:47:50.178Z [INFO]: ## Checking for associated backend environment...
+2025-05-04T20:47:50.178Z [INFO]: ## No backend environment association found, continuing...
+2025-05-04T20:47:50.178Z [INFO]: ## Completed Backend Build
+2025-05-04T20:47:50.181Z [INFO]: ## Starting Frontend Build
+2025-05-04T20:47:50.181Z [INFO]: # Starting phase: preBuild
+2025-05-04T20:47:50.181Z [INFO]: # Executing command: npm install
+2025-05-04T20:48:05.328Z [WARNING]: npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-05-04T20:48:05.456Z [WARNING]: npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+2025-05-04T20:48:05.606Z [WARNING]: npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-05-04T20:48:05.634Z [WARNING]: npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+2025-05-04T20:48:05.655Z [WARNING]: npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+2025-05-04T20:48:05.877Z [WARNING]: npm warn deprecated node-uuid@1.4.8: Use uuid module instead
+2025-05-04T20:48:05.879Z [WARNING]: npm warn deprecated gauge@3.0.2: This package is no longer supported.
+2025-05-04T20:48:06.096Z [WARNING]: npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2025-05-04T20:48:16.624Z [INFO]: added 683 packages, and audited 684 packages in 23s
+2025-05-04T20:48:16.628Z [INFO]: 263 packages are looking for funding
+2025-05-04T20:48:16.628Z [INFO]: run `npm fund` for details
+2025-05-04T20:48:16.636Z [INFO]: 5 vulnerabilities (3 moderate, 2 high)
+2025-05-04T20:48:16.636Z [INFO]: To address all issues (including breaking changes), run:
+2025-05-04T20:48:16.636Z [INFO]: npm audit fix --force
+2025-05-04T20:48:16.636Z [INFO]: Run `npm audit` for details.
+2025-05-04T20:48:16.652Z [INFO]: # Completed phase: preBuild
+2025-05-04T20:48:16.652Z [INFO]: # Starting phase: build
+2025-05-04T20:48:16.652Z [INFO]: # Executing command: npm run build
+2025-05-04T20:48:16.760Z [INFO]: > next@0.1.0 prebuild
+2025-05-04T20:48:16.760Z [INFO]: > ./amplify-prebuild.sh
+2025-05-04T20:48:16.760Z [INFO]: Initial Node version: v18.19.1
+2025-05-04T20:48:16.760Z [INFO]: Initial NPM version: 10.2.4
+2025-05-04T20:48:16.760Z [INFO]: engine-strict=false
+2025-05-04T20:48:16.760Z [INFO]: ignore-engines=true
+2025-05-04T20:48:16.760Z [INFO]: engine-strict=false
+2025-05-04T20:48:16.760Z [INFO]: ignore-engines=true
+2025-05-04T20:48:16.760Z [INFO]: Setting up Amplify environment...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Setting up Amplify environment for branch: fix-download-test
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created local-env-info.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created project-config.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created team-provider-info.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Amplify environment setup complete for branch: fix-download-test
+2025-05-04T20:48:16.760Z [INFO]: Amplify environment set up successfully
+2025-05-04T20:48:16.760Z [INFO]: Check if any PDF file exists
+2025-05-04T20:48:16.760Z [INFO]: Managing PDF references...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Starting PDF reference management...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Ensuring PDF files exist...
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Both PDF files exist.
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Processing PDF file...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Attempting to process PDF with OpenAI...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Extracting text from: /codebuild/output/src2930996874/src/pbradygeorgen/public/default_resume.pdf
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Raw text saved to: /codebuild/output/src2930996874/src/pbradygeorgen/public/extracted/resume_content.txt
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Processing with OpenAI...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Sending content to OpenAI for analysis...
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Successfully parsed OpenAI response
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Structured content saved to: /codebuild/output/src2930996874/src/pbradygeorgen/public/extracted/resume_content.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Markdown content saved to: /codebuild/output/src2930996874/src/pbradygeorgen/public/extracted/resume_content.md
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] PDF processed successfully with OpenAI.
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] PDF processing completed successfully.
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Updating download test report...
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Download test report updated successfully.
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] PDF reference management completed successfully.
+2025-05-04T20:48:16.760Z [INFO]: PDF content processed successfully
+2025-05-04T20:48:16.760Z [INFO]: Creating necessary directories for the download test page
+2025-05-04T20:48:16.760Z [INFO]: > next@0.1.0 build
+2025-05-04T20:48:16.760Z [INFO]: > next build
+2025-05-04T20:48:16.760Z [INFO]: - info Loaded env from /codebuild/output/src2930996874/src/pbradygeorgen/.env.local
+2025-05-04T20:48:16.760Z [INFO]: - info Creating an optimized production build...
+2025-05-04T20:48:16.760Z [INFO]: - info Compiled successfully
+2025-05-04T20:48:16.760Z [INFO]: - info Linting and checking validity of types...
+2025-05-04T20:48:16.760Z [INFO]: - info Collecting page data...
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (0/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (1/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (2/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (3/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (4/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (5/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (6/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (7/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Generating static pages (8/8)
+2025-05-04T20:48:16.760Z [INFO]: - info Finalizing page optimization...
+2025-05-04T20:48:16.760Z [INFO]: Route (app)                                Size     First Load JS
+2025-05-04T20:48:16.760Z [INFO]: ┌ ○ /                                      5.31 kB        87.8 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /_not-found                            0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /api/analyze-content                   0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /api/format-content                    0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /api/get-summary                       0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /api/process-pdf                       0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: ├ ○ /download-test                         5.31 kB        87.8 kB
+2025-05-04T20:48:16.760Z [INFO]: └ ○ /favicon.ico                           0 B            82.5 kB
+2025-05-04T20:48:16.760Z [INFO]: + First Load JS shared by all              82.5 kB
+2025-05-04T20:48:16.760Z [INFO]:   ├ chunks/938-a9e0d3c0c7a4e9c9.js         29.1 kB
+2025-05-04T20:48:16.760Z [INFO]:   ├ chunks/fd9d1056-d9a37eb6f1a1d022.js    51.3 kB
+2025-05-04T20:48:16.760Z [INFO]:   ├ chunks/main-app-d2d1d4c9c0b6e9c9.js    216 B
+2025-05-04T20:48:16.760Z [INFO]:   └ chunks/webpack-d2d1d4c9c0b6e9c9.js     1.84 kB
+2025-05-04T20:48:16.760Z [INFO]: ○  (Static)  automatically rendered as static HTML (uses no initial props)
+2025-05-04T20:48:16.760Z [INFO]: # Completed phase: build
+2025-05-04T20:48:16.760Z [INFO]: # Starting phase: postBuild
+2025-05-04T20:48:16.760Z [INFO]: # Executing command: npm run amplify:build
+2025-05-04T20:48:16.760Z [INFO]: > next@0.1.0 amplify:build
+2025-05-04T20:48:16.760Z [INFO]: > ./build.sh
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Starting custom build script for AWS Amplify
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Current directory: /codebuild/output/src2930996874/src/pbradygeorgen
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Initial Node version: v18.19.1
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Initial NPM version: 10.2.4
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Installing Node.js 18 using multiple approaches
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 1: Using NVM
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 2: Using n (if available)
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 3: Direct download if needed
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Updated Node version: v18.19.1
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Updated NPM version: 10.2.4
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Setting up Amplify environment...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Setting up Amplify environment for branch: fix-download-test
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created local-env-info.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created project-config.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Created team-provider-info.json
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Amplify environment setup complete for branch: fix-download-test
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Amplify environment set up successfully
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Installing dependencies
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Creating .npmrc file
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Running prebuild script...
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 1: npm ci with --ignore-engines
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 2: npm install with --force
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Approach 3: npm install with specific packages
+2025-05-04T20:48:16.760Z [INFO]: 👑🌊 [Dante:Purgatorio] Building the application
+2025-05-04T20:48:16.760Z [INFO]: 👑⭐ [Dante:Paradiso] Build completed successfully
+2025-05-04T20:48:16.760Z [INFO]: # Completed phase: postBuild
+2025-05-04T20:48:16.760Z [INFO]: # Starting phase: artifacts
+2025-05-04T20:48:16.760Z [INFO]: # Executing command: find .next -type d -name node_modules -prune -o -type f -name "*.map" -delete
+2025-05-04T20:48:16.760Z [INFO]: # Completed phase: artifacts
+2025-05-04T20:48:16.760Z [INFO]: # Starting phase: test
+2025-05-04T20:48:16.760Z [INFO]: # Skipping phase: test
+2025-05-04T20:48:16.760Z [INFO]: # Build completed successfully
