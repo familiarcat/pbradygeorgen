@@ -81,6 +81,67 @@ export const courierNew = {
   }
 }
 
+// Create a simplified version of the layout.tsx file
+const layoutPath = path.join(process.cwd(), 'app', 'layout.tsx');
+if (fs.existsSync(layoutPath)) {
+  console.log('📝 Updating layout.tsx file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'app', 'layout.tsx.bak');
+  fs.copyFileSync(layoutPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'app', 'layout.stub.tsx');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(layoutPath, stubContent);
+    console.log('✅ layout.tsx file updated');
+  } else {
+    console.log('⚠️ layout.stub.tsx not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedLayout = `import type { Metadata } from "next";
+import { Geist_Mono } from "next/font/google";
+import { inter, roboto, merriweather, ibmPlexMono } from './fonts';
+import "./globals.css";
+import InitialThemeLoader from "@/components/InitialThemeLoader";
+import PdfContentWrapper from "@/components/wrappers/PdfContentWrapper";
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Resume - Brady Georgen",
+  description: "Professional resume for Brady Georgen",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={\`\${inter.variable} \${roboto.variable} \${merriweather.variable} \${ibmPlexMono.variable} \${geistMono.variable} antialiased m-0 p-0 overflow-hidden\`}
+      >
+        <InitialThemeLoader>
+          <PdfContentWrapper>
+            {children}
+          </PdfContentWrapper>
+        </InitialThemeLoader>
+      </body>
+    </html>
+  );
+}`;
+
+    fs.writeFileSync(layoutPath, simplifiedLayout);
+    console.log('✅ layout.tsx file updated');
+  }
+}
+
 // Create a simplified version of the globals.css file
 const cssPath = path.join(process.cwd(), 'app', 'globals.css');
 if (fs.existsSync(cssPath)) {
