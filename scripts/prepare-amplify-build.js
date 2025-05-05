@@ -22,10 +22,19 @@ if (fs.existsSync(fontsPath)) {
   const backupPath = path.join(process.cwd(), 'app', 'fonts.ts.bak');
   fs.copyFileSync(fontsPath, backupPath);
 
-  // Create a simplified version of the file
-  const simplifiedFonts = `
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'app', 'fonts.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(fontsPath, stubContent);
+    console.log('✅ fonts.ts file updated');
+  } else {
+    console.log('⚠️ fonts.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedFonts = `
 // Simplified fonts.ts file for AWS Amplify build
-import { Inter, Roboto, Source_Sans_3 } from 'next/font/google';
+import { Inter, Roboto, Merriweather, IBM_Plex_Mono } from 'next/font/google';
 
 export const inter = Inter({
   subsets: ['latin'],
@@ -40,16 +49,36 @@ export const roboto = Roboto({
   variable: '--font-roboto',
 });
 
-export const sourceSans = Source_Sans_3({
-  weight: ['400', '600'],
+export const merriweather = Merriweather({
+  weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-source-sans',
+  variable: '--font-merriweather',
 });
+
+export const ibmPlexMono = IBM_Plex_Mono({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-ibm-plex-mono',
+});
+
+export const helvetica = {
+  variable: '--font-helvetica',
+};
+
+export const georgia = {
+  variable: '--font-georgia',
+};
+
+export const courierNew = {
+  variable: '--font-courier-new',
+};
 `;
 
-  fs.writeFileSync(fontsPath, simplifiedFonts);
-  console.log('✅ fonts.ts file updated');
+    fs.writeFileSync(fontsPath, simplifiedFonts);
+    console.log('✅ fonts.ts file updated');
+  }
 }
 
 // Create a simplified version of the globals.css file
