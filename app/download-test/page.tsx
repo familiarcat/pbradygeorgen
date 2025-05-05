@@ -29,7 +29,7 @@ export default function DownloadTest() {
   const [buildInfo, setBuildInfo] = useState<BuildInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [previewContent, setPreviewContent] = useState<any>(null);
+  const [previewContent, setPreviewContent] = useState<Record<string, unknown> | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -141,7 +141,7 @@ export default function DownloadTest() {
 
                 {previewContent.sections && Array.isArray(previewContent.sections) ? (
                   // Handle array format
-                  previewContent.sections.map((section: any, index: number) => (
+                  previewContent.sections.map((section: Record<string, unknown>, index: number) => (
                     <div key={index} className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-900 bg-gray-50 p-2 rounded">{section.title}</h4>
                       <div className="pl-4 border-l-2 border-blue-600 mt-2">
@@ -159,7 +159,7 @@ export default function DownloadTest() {
                   ))
                 ) : previewContent.sections && typeof previewContent.sections === 'object' ? (
                   // Handle object format
-                  Object.entries(previewContent.sections).map(([key, value]: [string, any], index: number) => {
+                  Object.entries(previewContent.sections).map(([key, value]: [string, unknown], index: number) => {
                     if (Array.isArray(value) && value.length === 0) return null;
                     return (
                       <div key={index} className="mb-6">

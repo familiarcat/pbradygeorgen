@@ -25,9 +25,9 @@ solutions and digital transform...
     {
       "title": "EDUCATION",
       "content": [
-        "BFA Graphic Design, Webster University, 2001-2005",
-        "BA Philosophy, Webster University, 2001-2005",
-        "ASSC Motion Graphics, Saint Louis Community College, 1999-2001"
+        "BFA Graphic Design - Webster University (2001-2005)",
+        "BA Philosophy - Webster University (2001-2005)",
+        "ASSC Motion Graphics - Saint Louis Community College (1999-2001)"
       ]
     },
     {
@@ -38,7 +38,25 @@ solutions and digital transform...
         "Graphic Design & UI/UX",
         "Illustration",
         "Creative/Technical writing",
-        "React, React Native, AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Shell Automation, Node, Ruby, Java, Javascript, Typescript, Adobe CS, UI/UX Prototyping"
+        "React",
+        "React Native",
+        "AWS",
+        "AWS Amplify",
+        "SOA",
+        "CI/CD",
+        "MongoDB",
+        "SQL",
+        "Docker",
+        "Terraform",
+        "Jenkins",
+        "Shell Automation",
+        "Node",
+        "Ruby",
+        "Java",
+        "Javascript",
+        "Typescript",
+        "Adobe CS",
+        "UI/UX Prototyping"
       ]
     }
   ]

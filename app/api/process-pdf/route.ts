@@ -45,7 +45,7 @@ export async function POST() {
 
     // Read the extracted content
     const extractedContentPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content.json');
-    let extractedContent: any = {};
+    let extractedContent: Record<string, unknown> = {};
 
     if (fs.existsSync(extractedContentPath)) {
       try {
@@ -118,11 +118,12 @@ export async function POST() {
     DanteLogger.success.core('PDF processing completed via API');
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error processing PDF';
     DanteLogger.error.system('Error processing PDF via API', { error });
     return NextResponse.json({
       success: false,
-      error: error?.message || 'Unknown error processing PDF'
+      error: errorMessage
     }, { status: 500 });
   }
 }

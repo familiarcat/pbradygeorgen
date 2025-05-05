@@ -1,42 +1,31 @@
 {
-  "projectType": "javascript",
-  "framework": "next",
-  "frontend": {
-    "hosting": {
-      "type": "ssr"
+  "projectName": "alexai",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": ".",
+      "DistributionDir": ".next",
+      "BuildCommand": "npm run build",
+      "StartCommand": "npm run start"
     }
   },
+  "providers": [
+    "awscloudformation"
+  ],
+  "hosting": {
+    "type": "ssr"
+  },
   "features": {
-    "graphqltransformer": {
-      "addmissingownerfields": true,
-      "improvepluralization": false,
-      "validatetypenamereservedwords": true,
-      "useexperimentalpipelinedtransformer": true,
-      "enableiterativegsiupdates": true,
-      "secondarykeyasgsi": true,
-      "skipoverridemutationinputtypes": true,
-      "transformerversion": 2,
-      "suppressschemamigrationprompt": true
-    },
     "auth": {
       "enablecaseinsensitivity": true,
       "useinclusiveterminology": true,
       "breakcirculardependency": true,
       "useenabledmfas": true
     },
-    "codegen": {
-      "useappsyncmodelgenplugin": true,
-      "usedocsgeneratorplugin": true,
-      "usetypesgeneratorplugin": true,
-      "cleangeneratedmodelsdirectory": true,
-      "retaincasestyle": true,
-      "addtimestampfields": true,
-      "handlelistnullabilitytransparently": true,
-      "emitauthprovider": true,
-      "generateindexrules": true
-    },
-    "appsync": {
-      "generategraphqlpermissions": true
+    "storage": {
+      "enableAutoIndexing": true
     },
     "project": {
       "overrides": true

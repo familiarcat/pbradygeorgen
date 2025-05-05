@@ -18,7 +18,11 @@
     "env:list": "node scripts/amplify-env-manager.js list",
     "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh",
     "setup": "chmod +x scripts/setup-git-hooks.sh && ./scripts/setup-git-hooks.sh",
-    "postinstall": "npm run setup"
+    "postinstall": "npm run setup",
+    "s3:sync": "node scripts/s3-sync.js",
+    "deploy:amplify": "chmod +x scripts/deploy-to-amplify-gen2.sh && ./scripts/deploy-to-amplify-gen2.sh",
+    "logs:amplify": "amplify console",
+    "e2e:test": "npm run build && npm run start"
   },
   "dependencies": {
     "@aws-amplify/backend": "^1.16.0",
@@ -69,7 +73,11 @@
     "rimraf": "^5.0.5",
     "uuid": "^9.0.1",
     "inflight": "npm:lru-cache@^10.2.0",
-    "node-domexception": "npm:domexception@^4.0.0"
+    "node-domexception": "npm:domexception@^4.0.0",
+    "are-we-there-yet": "npm:progress-tracker@^2.0.1",
+    "npmlog": "npm:winston@^3.11.0",
+    "gauge": "npm:progress@^2.0.3",
+    "node-uuid": "npm:uuid@^9.0.1"
   },
   "resolutions": {
     "pdfjs-dist": "^3.11.174",
@@ -77,6 +85,10 @@
     "rimraf": "^5.0.5",
     "uuid": "^9.0.1",
     "inflight": "npm:lru-cache@^10.2.0",
-    "node-domexception": "npm:domexception@^4.0.0"
+    "node-domexception": "npm:domexception@^4.0.0",
+    "are-we-there-yet": "npm:progress-tracker@^2.0.1",
+    "npmlog": "npm:winston@^3.11.0",
+    "gauge": "npm:progress@^2.0.3",
+    "node-uuid": "npm:uuid@^9.0.1"
   }
 }

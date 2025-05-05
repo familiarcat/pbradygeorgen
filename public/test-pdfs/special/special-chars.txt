@@ -1,8 +1,0 @@
-Test PDF: Special Characters
-Category: special
-ID: special-chars
-
-This is a placeholder PDF for testing purposes.
-In a real implementation, this would be a carefully designed PDF that tests special characters.
-
-For now, we're using a copy of the sample resume PDF.
