@@ -84,8 +84,9 @@ npm ci --production=false --ignore-engines || true
 echo "Approach 2: npm install with --force"
 npm install --force || true
 
-echo "Approach 3: npm install with specific package"
-npm install pdfjs-dist@5.1.91 --force || true
+echo "Approach 3: Install specific packages needed for build"
+npm install postcss@8.4.31 autoprefixer@10.4.16 tailwindcss@3.3.5 --no-save || true
+npm install @aws-sdk/client-s3 --no-save || true
 
 # Make scripts executable
 echo "Making scripts executable..."

@@ -8,6 +8,12 @@ const nextConfig = {
     // Ignore express dependency in dante-logger
     config.resolve.alias.express = false;
 
+    // Handle postcss and tailwindcss
+    config.resolve.alias['@tailwindcss/postcss'] = false;
+    config.resolve.alias['tailwindcss'] = require.resolve('tailwindcss');
+    config.resolve.alias['postcss'] = require.resolve('postcss');
+    config.resolve.alias['autoprefixer'] = require.resolve('autoprefixer');
+
     return config;
   },
   // React strict mode

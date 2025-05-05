@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.802.0",
-    "autoprefixer": "^10.4.21",
     "aws-amplify": "^6.14.4",
     "docx": "^9.4.1",
     "html-to-pdf": "^0.1.11",
@@ -54,7 +53,6 @@
     "openai": "^4.97.0",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^3.11.174",
-    "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
@@ -64,18 +62,19 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-pdf": "^6.2.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "add": "^2.0.6",
+    "autoprefixer": "^10.4.16",
     "dotenv": "^16.5.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "postcss": "^8.4.31",
     "serve": "^14.2.4",
-    "tailwindcss": "^4.1.4",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5"
   },
   "engines": {
