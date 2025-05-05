@@ -1,11 +1,13 @@
-# Build output
+# Build outputs
 .next/
 out/
 build/
 dist/
+coverage/
 
-# Node modules
+# Dependencies
 node_modules/
+packages/
 
 # Cache
 .cache/
@@ -21,3 +23,15 @@ node_modules/
 
 # Generated files
 public/extracted/
+public/downloads/
+
+# AWS Amplify
+.amplify/
+amplify/
+
+# Minified files
+**/*.min.js
+**/*.bundle.js
+
+# Archive
+scripts/archive/
