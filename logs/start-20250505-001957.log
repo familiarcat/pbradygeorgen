@@ -171,3 +171,251 @@ PDF processing pipeline completed successfully
 Analyzed content retrieved successfully
 📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
 [32m[2025-05-05T05:20:30.952Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-05T12:36:52.750Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content has not been analyzed yet
+[31m[2025-05-05T12:36:52.750Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-05T12:36:52.750Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Content extracted in 293ms
+📝⏳ [Hesse:Summary:Progress] Content extracted in 293ms
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing content with ChatGPT
+🧠🔍 [Hesse:AI:Start] Analyzing resume content with OpenAI
+📦✅ [Derrida:Cache:Hit] Cache hit for key: resume-a... (436 minutes old)
+🧠⏳ [Hesse:AI:Progress] Using cached OpenAI analysis
+Content analyzed in 0ms
+🧠✅ [Hesse:AI:Success] Content analyzed in 0ms
+[32m[2025-05-05T12:36:53.094Z] 😇☀️ [Dante:Paradiso:4:Sun] AI operation succeeded: Content analyzed in 0ms[0m
+Content state saved to file
+Content state updated
+📝⏳ [Hesse:Summary:Progress] Content state updated
+Validating analyzed content
+📝⏳ [Hesse:Summary:Progress] Validating analyzed content
+Content validation successful
+📝⏳ [Hesse:Summary:Progress] Content validation successful
+PDF processing pipeline completed successfully
+📝✅ [Hesse:Summary:Complete] PDF processing completed successfully
+[32m[2025-05-05T12:36:53.096Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: PDF processing completed successfully[0m
+Analyzed content retrieved successfully
+📝✅ [Hesse:Summary:Complete] Analyzed content retrieved successfully
+[32m[2025-05-05T12:36:53.096Z] 😇☀️ [Dante:Paradiso:4:Sun] Summary generation completed: Analyzed content retrieved successfully[0m
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-05T20:14:03.453Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content has not been analyzed yet
+[31m[2025-05-05T20:14:03.454Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-05T20:14:03.454Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Error processing PDF: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+📝❌ [Hesse:Summary:Error] Error processing PDF: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+
+[31m[2025-05-05T20:14:03.568Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error processing PDF: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+[0m
+Error getting analyzed content: Error: Error processing PDF
+    at w (.next/server/chunks/5183.js:1:7000)
+    at async j (.next/server/chunks/5183.js:1:8858)
+📝❌ [Hesse:Summary:Error] Error getting analyzed content: Error: Error processing PDF
+[31m[2025-05-05T20:14:03.576Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error getting analyzed content: Error: Error processing PDF[0m
+[31m[2025-05-05T20:14:03.576Z] 👑❄️ [Dante:Inferno:9:Treachery] Error getting analyzed PDF content[0m
+Error: Error processing PDF
+    at w (.next/server/chunks/5183.js:1:7000)
+    at async j (.next/server/chunks/5183.js:1:8858)
+📝🔍 [Hesse:Summary:Start] Validating PDF content
+[32m[2025-05-05T20:14:05.333Z] 😇☀️ [Dante:Paradiso:4:Sun] Starting content validation[0m
+📝🔍 [Hesse:Summary:Start] Validating analyzed content
+Content has not been analyzed yet
+[31m[2025-05-05T20:14:05.333Z] 👑🌊 [Dante:Inferno:2:Lust] Content validation failed[0m
+📝❌ [Hesse:Summary:Error] Content validation failed
+[31m[2025-05-05T20:14:05.333Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Content validation failed[0m
+📝🔍 [Hesse:Summary:Start] Getting analyzed content
+Starting PDF processing pipeline
+📝🔍 [Hesse:Summary:Start] Processing PDF content
+Extracting content from PDF
+📝⏳ [Hesse:Summary:Progress] Extracting content from PDF
+Error processing PDF: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+📝❌ [Hesse:Summary:Error] Error processing PDF: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+
+[31m[2025-05-05T20:14:05.380Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error processing PDF: Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+[0m
+Error getting analyzed content: Error: Error processing PDF
+    at w (.next/server/chunks/5183.js:1:7000)
+    at async j (.next/server/chunks/5183.js:1:8858)
+📝❌ [Hesse:Summary:Error] Error getting analyzed content: Error: Error processing PDF
+[31m[2025-05-05T20:14:05.381Z] 👑💢 [Dante:Inferno:5:Wrath] Summary generation failed: Error getting analyzed content: Error: Error processing PDF[0m
+[31m[2025-05-05T20:14:05.381Z] 👑❄️ [Dante:Inferno:9:Treachery] Error getting analyzed PDF content[0m
+Error: Error processing PDF
+    at w (.next/server/chunks/5183.js:1:7000)
+    at async j (.next/server/chunks/5183.js:1:8858)
