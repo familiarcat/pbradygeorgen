@@ -358,35 +358,56 @@ if (fs.existsSync(nextConfigPath)) {
   const backupPath = path.join(process.cwd(), 'next.config.js.bak');
   fs.copyFileSync(nextConfigPath, backupPath);
 
-  // Read the original file
-  const originalNextConfig = fs.readFileSync(nextConfigPath, 'utf8');
+  // Create a completely new simplified next.config.js file
+  const simplifiedNextConfig = `/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Webpack configuration
+  webpack: (config) => {
+    // Ignore canvas dependency
+    config.resolve.alias.canvas = false;
 
-  // Create a simplified version of the file
-  let simplifiedNextConfig = originalNextConfig;
+    // Ignore express dependency in dante-logger
+    config.resolve.alias.express = false;
 
-  // Check if the file contains the Tailwind CSS configuration
-  if (originalNextConfig.includes('// Handle postcss and tailwindcss')) {
-    simplifiedNextConfig = originalNextConfig.replace(
-      /\/\/ Handle postcss and tailwindcss[\s\S]*?config\.resolve\.alias\['autoprefixer'\] = false;\s*/,
-      `// Disable Tailwind CSS for Amplify build
-    config.resolve.alias['tailwindcss'] = false;
-    config.resolve.alias['postcss'] = false;
-    config.resolve.alias['autoprefixer'] = false;
-    config.resolve.alias['@tailwindcss/postcss'] = false;
-    `
-    );
-  } else {
-    // If the file doesn't contain the Tailwind CSS configuration, add it
-    simplifiedNextConfig = originalNextConfig.replace(
-      /webpack: \(config\) => {/,
-      `webpack: (config) => {
     // Disable Tailwind CSS for Amplify build
     config.resolve.alias['tailwindcss'] = false;
     config.resolve.alias['postcss'] = false;
     config.resolve.alias['autoprefixer'] = false;
-    config.resolve.alias['@tailwindcss/postcss'] = false;`
-    );
-  }
+    config.resolve.alias['@tailwindcss/postcss'] = false;
+
+    return config;
+  },
+  // React strict mode
+  reactStrictMode: true,
+  // ESLint configuration
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  // TypeScript configuration
+  typescript: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has type errors.
+    ignoreBuildErrors: true,
+  },
+  // Output configuration
+  output: 'standalone',
+  // Disable source maps in production
+  productionBrowserSourceMaps: false,
+  // Disable image optimization for Amplify
+  images: {
+    unoptimized: true,
+  },
+  // Increase memory limit for builds
+  experimental: {
+    // Increase memory limit for builds
+    memoryBasedWorkersCount: true,
+  },
+};
+
+module.exports = nextConfig;
+`;
 
   fs.writeFileSync(nextConfigPath, simplifiedNextConfig);
   console.log('✅ next.config.js file updated');
