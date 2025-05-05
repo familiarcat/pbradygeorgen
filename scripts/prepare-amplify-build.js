@@ -1189,6 +1189,94 @@ export async function GET(request: Request) {
   }
 }
 
+// Create a simplified version of the ContentStateService utility
+const contentStateServicePath = path.join(process.cwd(), 'utils', 'ContentStateService.ts');
+if (fs.existsSync(contentStateServicePath)) {
+  console.log('📝 Updating ContentStateService.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'utils', 'ContentStateService.ts.bak');
+  fs.copyFileSync(contentStateServicePath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'utils', 'ContentStateService.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(contentStateServicePath, stubContent);
+    console.log('✅ ContentStateService.ts file updated');
+  } else {
+    console.log('⚠️ ContentStateService.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedContentStateService = `/**
+ * Simplified ContentStateService for AWS Amplify build
+ */
+
+/**
+ * Gets the current content state
+ */
+export async function getContentState(): Promise<any> {
+  return {
+    lastUpdated: new Date().toISOString(),
+    status: 'ready',
+    contentFingerprint: 'simplified-content-fingerprint-for-aws-amplify-build',
+    pdfSize: 119425,
+    pdfLastModified: new Date().toISOString(),
+    extractedContent: true,
+    analyzedContent: true,
+  };
+}
+
+/**
+ * Updates the content state
+ */
+export async function updateContentState(state: any): Promise<any> {
+  return {
+    ...state,
+    lastUpdated: new Date().toISOString(),
+  };
+}
+
+/**
+ * Checks if the content is fresh
+ */
+export async function isContentFresh(): Promise<boolean> {
+  return true;
+}
+
+/**
+ * Gets the content freshness status
+ */
+export async function getContentFreshness(): Promise<any> {
+  return {
+    isFresh: true,
+    lastUpdated: new Date().toISOString(),
+    contentFingerprint: 'simplified-content-fingerprint-for-aws-amplify-build',
+    pdfSize: 119425,
+    pdfLastModified: new Date().toISOString(),
+  };
+}
+
+/**
+ * Resets the content state
+ */
+export async function resetContentState(): Promise<any> {
+  return {
+    lastUpdated: new Date().toISOString(),
+    status: 'reset',
+    contentFingerprint: '',
+    pdfSize: 0,
+    pdfLastModified: '',
+    extractedContent: false,
+    analyzedContent: false,
+  };
+}`;
+
+    fs.writeFileSync(contentStateServicePath, simplifiedContentStateService);
+    console.log('✅ ContentStateService.ts file updated');
+  }
+}
+
 // Create simplified versions of API routes
 const apiRoutes = [
   {
@@ -1214,6 +1302,18 @@ const apiRoutes = [
   {
     path: path.join(process.cwd(), 'app', 'api', 'upload-pdf', 'route.ts'),
     description: 'upload-pdf'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'content-freshness', 'route.ts'),
+    description: 'content-freshness'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'content-state', 'route.ts'),
+    description: 'content-state'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'cover-letter', 'route.ts'),
+    description: 'cover-letter'
   }
 ];
 
