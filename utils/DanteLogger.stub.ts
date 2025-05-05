@@ -34,6 +34,31 @@ export class DanteLogger {
     db: (message: string) => console.error(`❌ [DB] ${message}`),
     auth: (message: string) => console.error(`❌ [Auth] ${message}`),
     ux: (message: string) => console.error(`❌ [UX] ${message}`),
+    // Add missing functions that are used in the application
+    runtime: (message: string, error?: any) => {
+      console.error(`❌ [Runtime] ${message}`, error || '');
+      return { message, error };
+    },
+    dataFlow: (message: string, error?: any) => {
+      console.error(`❌ [DataFlow] ${message}`, error || '');
+      return { message, error };
+    },
+    network: (message: string, error?: any) => {
+      console.error(`❌ [Network] ${message}`, error || '');
+      return { message, error };
+    },
+    validation: (message: string, error?: any) => {
+      console.error(`❌ [Validation] ${message}`, error || '');
+      return { message, error };
+    },
+    security: (message: string, error?: any) => {
+      console.error(`❌ [Security] ${message}`, error || '');
+      return { message, error };
+    },
+    config: (message: string, error?: any) => {
+      console.error(`❌ [Config] ${message}`, error || '');
+      return { message, error };
+    }
   };
 
   static debug = {
@@ -42,5 +67,11 @@ export class DanteLogger {
     db: (message: string) => console.debug(`🔍 [DB] ${message}`),
     auth: (message: string) => console.debug(`🔍 [Auth] ${message}`),
     ux: (message: string) => console.debug(`🔍 [UX] ${message}`),
+    runtime: (message: string) => console.debug(`🔍 [Runtime] ${message}`),
+    dataFlow: (message: string) => console.debug(`🔍 [DataFlow] ${message}`),
+    network: (message: string) => console.debug(`🔍 [Network] ${message}`),
+    validation: (message: string) => console.debug(`🔍 [Validation] ${message}`),
+    security: (message: string) => console.debug(`🔍 [Security] ${message}`),
+    config: (message: string) => console.debug(`🔍 [Config] ${message}`)
   };
 }

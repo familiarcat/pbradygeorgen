@@ -1721,6 +1721,10 @@ const apiRoutes = [
   {
     path: path.join(process.cwd(), 'app', 'api', 'refresh-content', 'route.ts'),
     description: 'refresh-content'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'validate-content', 'route.ts'),
+    description: 'validate-content'
   }
 ];
 
