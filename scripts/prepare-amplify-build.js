@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Prepare Amplify Build
- * 
+ *
  * This script prepares the application for building in AWS Amplify by:
  * 1. Creating a simplified version of the app that doesn't rely on Tailwind CSS
  * 2. Updating the fonts.ts file to not use Tailwind CSS
@@ -17,11 +17,11 @@ console.log('🚀 Preparing application for AWS Amplify build');
 const fontsPath = path.join(process.cwd(), 'app', 'fonts.ts');
 if (fs.existsSync(fontsPath)) {
   console.log('📝 Updating fonts.ts file');
-  
+
   // Create a backup of the original file
   const backupPath = path.join(process.cwd(), 'app', 'fonts.ts.bak');
   fs.copyFileSync(fontsPath, backupPath);
-  
+
   // Create a simplified version of the file
   const simplifiedFonts = `
 // Simplified fonts.ts file for AWS Amplify build
@@ -47,7 +47,7 @@ export const sourceSans = Source_Sans_3({
   variable: '--font-source-sans',
 });
 `;
-  
+
   fs.writeFileSync(fontsPath, simplifiedFonts);
   console.log('✅ fonts.ts file updated');
 }
@@ -56,11 +56,11 @@ export const sourceSans = Source_Sans_3({
 const cssPath = path.join(process.cwd(), 'app', 'globals.css');
 if (fs.existsSync(cssPath)) {
   console.log('📝 Updating globals.css file');
-  
+
   // Create a backup of the original file
   const backupPath = path.join(process.cwd(), 'app', 'globals.css.bak');
   fs.copyFileSync(cssPath, backupPath);
-  
+
   // Create a simplified version of the file
   const simplifiedCss = `
 /* Simplified globals.css file for AWS Amplify build */
@@ -263,7 +263,7 @@ pre, code {
   border-color: var(--primary-color);
 }
 `;
-  
+
   fs.writeFileSync(cssPath, simplifiedCss);
   console.log('✅ globals.css file updated');
 }
@@ -272,11 +272,11 @@ pre, code {
 const tailwindConfigPath = path.join(process.cwd(), 'tailwind.config.js');
 if (fs.existsSync(tailwindConfigPath)) {
   console.log('📝 Updating tailwind.config.js file');
-  
+
   // Create a backup of the original file
   const backupPath = path.join(process.cwd(), 'tailwind.config.js.bak');
   fs.copyFileSync(tailwindConfigPath, backupPath);
-  
+
   // Create a simplified version of the file
   const simplifiedTailwindConfig = `
 /** @type {import('tailwindcss').Config} */
@@ -322,7 +322,7 @@ module.exports = {
   plugins: [],
 };
 `;
-  
+
   fs.writeFileSync(tailwindConfigPath, simplifiedTailwindConfig);
   console.log('✅ tailwind.config.js file updated');
 }
@@ -331,11 +331,11 @@ module.exports = {
 const postcssConfigPath = path.join(process.cwd(), 'postcss.config.js');
 if (fs.existsSync(postcssConfigPath)) {
   console.log('📝 Updating postcss.config.js file');
-  
+
   // Create a backup of the original file
   const backupPath = path.join(process.cwd(), 'postcss.config.js.bak');
   fs.copyFileSync(postcssConfigPath, backupPath);
-  
+
   // Create a simplified version of the file
   const simplifiedPostcssConfig = `
 module.exports = {
@@ -344,7 +344,7 @@ module.exports = {
   },
 };
 `;
-  
+
   fs.writeFileSync(postcssConfigPath, simplifiedPostcssConfig);
   console.log('✅ postcss.config.js file updated');
 }
@@ -353,27 +353,41 @@ module.exports = {
 const nextConfigPath = path.join(process.cwd(), 'next.config.js');
 if (fs.existsSync(nextConfigPath)) {
   console.log('📝 Updating next.config.js file');
-  
+
   // Create a backup of the original file
   const backupPath = path.join(process.cwd(), 'next.config.js.bak');
   fs.copyFileSync(nextConfigPath, backupPath);
-  
+
   // Read the original file
   const originalNextConfig = fs.readFileSync(nextConfigPath, 'utf8');
-  
+
   // Create a simplified version of the file
-  const simplifiedNextConfig = originalNextConfig.replace(
-    /\/\/ Handle postcss and tailwindcss[\s\S]*?config\.resolve\.alias\['autoprefixer'\] = false;\s*}/,
-    `// Disable Tailwind CSS for Amplify build
+  let simplifiedNextConfig = originalNextConfig;
+
+  // Check if the file contains the Tailwind CSS configuration
+  if (originalNextConfig.includes('// Handle postcss and tailwindcss')) {
+    simplifiedNextConfig = originalNextConfig.replace(
+      /\/\/ Handle postcss and tailwindcss[\s\S]*?config\.resolve\.alias\['autoprefixer'\] = false;\s*/,
+      `// Disable Tailwind CSS for Amplify build
     config.resolve.alias['tailwindcss'] = false;
     config.resolve.alias['postcss'] = false;
     config.resolve.alias['autoprefixer'] = false;
     config.resolve.alias['@tailwindcss/postcss'] = false;
-    
-    return config;
-  }`
-  );
-  
+    `
+    );
+  } else {
+    // If the file doesn't contain the Tailwind CSS configuration, add it
+    simplifiedNextConfig = originalNextConfig.replace(
+      /webpack: \(config\) => {/,
+      `webpack: (config) => {
+    // Disable Tailwind CSS for Amplify build
+    config.resolve.alias['tailwindcss'] = false;
+    config.resolve.alias['postcss'] = false;
+    config.resolve.alias['autoprefixer'] = false;
+    config.resolve.alias['@tailwindcss/postcss'] = false;`
+    );
+  }
+
   fs.writeFileSync(nextConfigPath, simplifiedNextConfig);
   console.log('✅ next.config.js file updated');
 }
