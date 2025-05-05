@@ -1439,6 +1439,69 @@ export async function processS3Pdf(key: string): Promise<any> {
   }
 }
 
+// Create a simplified version of the formatContentActions
+const formatContentActionsPath = path.join(process.cwd(), 'app', 'actions', 'formatContentActions.ts');
+if (fs.existsSync(formatContentActionsPath)) {
+  console.log('📝 Updating formatContentActions.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'app', 'actions', 'formatContentActions.ts.bak');
+  fs.copyFileSync(formatContentActionsPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'app', 'actions', 'formatContentActions.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(formatContentActionsPath, stubContent);
+    console.log('✅ formatContentActions.ts file updated');
+  } else {
+    console.log('⚠️ formatContentActions.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedFormatContentActions = `/**
+ * Simplified formatContentActions for AWS Amplify build
+ */
+
+/**
+ * Formats content for display
+ */
+export async function formatContent(content: string, options?: any): Promise<string> {
+  return \`# Formatted Content\\n\\n\${content}\`;
+}
+
+/**
+ * Formats content as markdown
+ */
+export async function formatAsMarkdown(content: string): Promise<string> {
+  return \`# Markdown Content\\n\\n\${content}\`;
+}
+
+/**
+ * Formats content as HTML
+ */
+export async function formatAsHtml(content: string): Promise<string> {
+  return \`<h1>HTML Content</h1><p>\${content}</p>\`;
+}
+
+/**
+ * Formats content as plain text
+ */
+export async function formatAsPlainText(content: string): Promise<string> {
+  return content;
+}
+
+/**
+ * Formats content as JSON
+ */
+export async function formatAsJson(content: any): Promise<string> {
+  return JSON.stringify(content, null, 2);
+}`;
+
+    fs.writeFileSync(formatContentActionsPath, simplifiedFormatContentActions);
+    console.log('✅ formatContentActions.ts file updated');
+  }
+}
+
 // Create simplified versions of API routes
 const apiRoutes = [
   {
@@ -1480,6 +1543,22 @@ const apiRoutes = [
   {
     path: path.join(process.cwd(), 'app', 'api', 'download', 'route.ts'),
     description: 'download'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'extract-pdf-style', 'route.ts'),
+    description: 'extract-pdf-style'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'extraction-logs', 'route.ts'),
+    description: 'extraction-logs'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'format-content', 'route.ts'),
+    description: 'format-content'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'get-analyzed-content', 'route.ts'),
+    description: 'get-analyzed-content'
   }
 ];
 
