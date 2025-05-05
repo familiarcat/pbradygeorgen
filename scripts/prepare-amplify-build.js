@@ -360,6 +360,8 @@ if (fs.existsSync(nextConfigPath)) {
 
   // Create a completely new simplified next.config.js file
   const simplifiedNextConfig = `/** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   // Webpack configuration
   webpack: (config) => {
@@ -374,6 +376,14 @@ const nextConfig = {
     config.resolve.alias['postcss'] = false;
     config.resolve.alias['autoprefixer'] = false;
     config.resolve.alias['@tailwindcss/postcss'] = false;
+
+    // Add explicit path aliases for AWS Amplify compatibility
+    config.resolve.alias['@/utils'] = path.join(__dirname, 'utils');
+    config.resolve.alias['@/components'] = path.join(__dirname, 'components');
+    config.resolve.alias['@/app'] = path.join(__dirname, 'app');
+    config.resolve.alias['@/hooks'] = path.join(__dirname, 'hooks');
+    config.resolve.alias['@/styles'] = path.join(__dirname, 'styles');
+    config.resolve.alias['@/public'] = path.join(__dirname, 'public');
 
     return config;
   },
@@ -411,6 +421,52 @@ module.exports = nextConfig;
 
   fs.writeFileSync(nextConfigPath, simplifiedNextConfig);
   console.log('✅ next.config.js file updated');
+}
+
+// Create or update jsconfig.json file
+const jsconfigPath = path.join(process.cwd(), 'jsconfig.json');
+if (!fs.existsSync(jsconfigPath)) {
+  console.log('📝 Creating jsconfig.json file');
+
+  // Create a simplified version of the file
+  const simplifiedJsconfig = `{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}`;
+
+  fs.writeFileSync(jsconfigPath, simplifiedJsconfig);
+  console.log('✅ jsconfig.json file created');
+} else {
+  console.log('📝 Updating jsconfig.json file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'jsconfig.json.bak');
+  fs.copyFileSync(jsconfigPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'jsconfig.stub.json');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(jsconfigPath, stubContent);
+    console.log('✅ jsconfig.json file updated');
+  } else {
+    // Create a simplified version of the file
+    const simplifiedJsconfig = `{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}`;
+
+    fs.writeFileSync(jsconfigPath, simplifiedJsconfig);
+    console.log('✅ jsconfig.json file updated');
+  }
 }
 
 // Create a simplified version of the DanteLogger
