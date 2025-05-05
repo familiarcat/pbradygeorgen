@@ -85,8 +85,51 @@ echo "Approach 2: npm install with --force"
 npm install --force || true
 
 echo "Approach 3: Install specific packages needed for build"
-npm install postcss@8.4.31 autoprefixer@10.4.16 tailwindcss@3.3.5 --no-save || true
-npm install @aws-sdk/client-s3 --no-save || true
+npm install postcss@8.4.31 autoprefixer@10.4.16 tailwindcss@3.3.5 --no-save --force || true
+npm install @aws-sdk/client-s3 --no-save --force || true
+
+echo "Approach 4: Create minimal Tailwind CSS configuration if needed"
+# Ensure tailwind.config.js exists
+if [ ! -f tailwind.config.js ]; then
+    echo "Creating minimal tailwind.config.js"
+    cat >tailwind.config.js <<'EOL'
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+EOL
+fi
+
+# Ensure postcss.config.js exists
+if [ ! -f postcss.config.js ]; then
+    echo "Creating minimal postcss.config.js"
+    cat >postcss.config.js <<'EOL'
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+EOL
+fi
+
+# Create a minimal CSS file if needed
+if [ ! -f app/globals.css ]; then
+    echo "Creating minimal globals.css"
+    mkdir -p app
+    cat >app/globals.css <<'EOL'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+EOL
+fi
 
 # Make scripts executable
 echo "Making scripts executable..."

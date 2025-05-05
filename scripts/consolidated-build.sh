@@ -77,9 +77,51 @@ log "🔄 Step 4: Running prebuild script..."
 }
 log "✅ Prebuild script completed"
 
+# Step 4.5: Ensure Tailwind CSS is properly configured
+log "🎨 Step 4.5: Ensuring Tailwind CSS is properly configured..."
+
+# Ensure tailwind.config.js exists
+if [ ! -f tailwind.config.js ]; then
+  log "Creating minimal tailwind.config.js"
+  cat >tailwind.config.js <<'EOL'
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+EOL
+fi
+
+# Ensure postcss.config.js exists
+if [ ! -f postcss.config.js ]; then
+  log "Creating minimal postcss.config.js"
+  cat >postcss.config.js <<'EOL'
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+EOL
+fi
+
+# Install Tailwind CSS dependencies
+log "Installing Tailwind CSS dependencies..."
+npm install tailwindcss@3.3.5 postcss@8.4.31 autoprefixer@10.4.16 --no-save --force >>"$BUILD_LOG" 2>&1 || {
+  log "⚠️ Warning: Failed to install Tailwind CSS dependencies. Build may fail."
+}
+
+log "✅ Tailwind CSS configuration completed"
+
 # Step 5: Build the application
 log "🏗️ Step 5: Building the application..."
-next build >>"$BUILD_LOG" 2>&1 || {
+NODE_OPTIONS="--max_old_space_size=4096" next build >>"$BUILD_LOG" 2>&1 || {
   log "❌ Build failed. See $BUILD_LOG for details."
   exit 1
 }

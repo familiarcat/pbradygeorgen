@@ -10,9 +10,28 @@ const nextConfig = {
 
     // Handle postcss and tailwindcss
     config.resolve.alias['@tailwindcss/postcss'] = false;
-    config.resolve.alias['tailwindcss'] = require.resolve('tailwindcss');
-    config.resolve.alias['postcss'] = require.resolve('postcss');
-    config.resolve.alias['autoprefixer'] = require.resolve('autoprefixer');
+
+    // Safely handle module resolution
+    try {
+      config.resolve.alias['tailwindcss'] = require.resolve('tailwindcss');
+    } catch (error) {
+      console.warn('Warning: tailwindcss module not found, using fallback');
+      config.resolve.alias['tailwindcss'] = false;
+    }
+
+    try {
+      config.resolve.alias['postcss'] = require.resolve('postcss');
+    } catch (error) {
+      console.warn('Warning: postcss module not found, using fallback');
+      config.resolve.alias['postcss'] = false;
+    }
+
+    try {
+      config.resolve.alias['autoprefixer'] = require.resolve('autoprefixer');
+    } catch (error) {
+      console.warn('Warning: autoprefixer module not found, using fallback');
+      config.resolve.alias['autoprefixer'] = false;
+    }
 
     return config;
   },
