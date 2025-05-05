@@ -1,0 +1,93 @@
+# Simulated Amplify Build Log with the fix applied
+
+2025-05-05T05:00:00.000Z [INFO]: # Cloning repository: git@github.com:familiarcat/pbradygeorgen.git
+2025-05-05T05:00:01.000Z [INFO]: Cloning into 'pbradygeorgen'...
+2025-05-05T05:00:01.000Z [INFO]: # Switching to commit: e77cbbd - Fix appRoot in amplify.yml to be a string instead of an array
+2025-05-05T05:00:01.500Z [INFO]: Note: switching to 'e77cbbd'.
+2025-05-05T05:00:01.600Z [INFO]: HEAD is now at e77cbbd Fix appRoot in amplify.yml to be a string instead of an array
+2025-05-05T05:00:01.700Z [INFO]: Successfully cleaned up Git credentials
+2025-05-05T05:00:01.800Z [INFO]: # Checking for Git submodules at: /codebuild/output/src3742487772/src/pbradygeorgen/.gitmodules
+2025-05-05T05:00:02.000Z [INFO]: # Starting environment caching...
+2025-05-05T05:00:02.100Z [INFO]: # Environment caching completed
+2025-05-05T05:00:02.200Z [INFO]: # Checking for Amplify App Build spec file...
+2025-05-05T05:00:02.300Z [INFO]: # Found Amplify App Build spec file: amplify.yml
+2025-05-05T05:00:02.400Z [INFO]: # Starting Backend build
+2025-05-05T05:00:02.500Z [INFO]: # Backend build completed successfully
+2025-05-05T05:00:02.600Z [INFO]: # Starting Frontend build
+2025-05-05T05:00:02.700Z [INFO]: # Running preBuild commands...
+2025-05-05T05:00:03.000Z [INFO]: # npm ci
+2025-05-05T05:00:30.000Z [INFO]: added 1250 packages, and audited 1251 packages in 27s
+2025-05-05T05:00:30.100Z [INFO]: 150 packages are looking for funding
+2025-05-05T05:00:30.200Z [INFO]: # chmod +x scripts/amplify-prebuild.sh
+2025-05-05T05:00:30.300Z [INFO]: # ./scripts/amplify-prebuild.sh
+2025-05-05T05:00:30.400Z [INFO]: Initial Node version: v18.17.1
+2025-05-05T05:00:30.500Z [INFO]: Initial NPM version: 9.6.7
+2025-05-05T05:00:30.600Z [INFO]: engine-strict=false
+2025-05-05T05:00:30.700Z [INFO]: ignore-engines=true
+2025-05-05T05:00:30.800Z [INFO]: Setting up Amplify environment...
+2025-05-05T05:00:31.000Z [INFO]: 👑🌊 [Dante:Purgatorio] Setting up Amplify environment for branch: fix-download-test
+2025-05-05T05:00:31.100Z [INFO]: 👑⭐ [Dante:Paradiso] Created local-env-info.json
+2025-05-05T05:00:31.200Z [INFO]: 👑⭐ [Dante:Paradiso] Created project-config.json
+2025-05-05T05:00:31.300Z [INFO]: 👑⭐ [Dante:Paradiso] Created team-provider-info.json
+2025-05-05T05:00:31.400Z [INFO]: 👑⭐ [Dante:Paradiso] Amplify environment setup complete for branch: fix-download-test
+2025-05-05T05:00:31.500Z [INFO]: Amplify environment set up successfully
+2025-05-05T05:00:31.600Z [INFO]: Found source PDFs in source-pdfs directory...
+2025-05-05T05:00:31.700Z [INFO]: Using latest source PDF: source-pdfs/test_resume_2025-05-04T21-28-19-659Z.pdf
+2025-05-05T05:00:31.800Z [INFO]: 👑🌊 [Dante:Purgatorio] Updating source PDF...
+2025-05-05T05:00:32.000Z [INFO]: 👑⭐ [Dante:Paradiso] Source PDF updated successfully.
+2025-05-05T05:00:32.100Z [INFO]: Source PDF updated and processed successfully
+2025-05-05T05:00:32.200Z [INFO]: Creating download test report...
+2025-05-05T05:00:32.300Z [INFO]: Syncing PDFs to S3...
+2025-05-05T05:00:32.400Z [INFO]: 👑🌊 [Dante:Purgatorio] Starting PDF S3 sync process...
+2025-05-05T05:00:32.500Z [INFO]: 👑🌊 [Dante:Purgatorio] Syncing PDF files with S3...
+2025-05-05T05:00:32.600Z [INFO]: 👑🌊 [Dante:Purgatorio] Checking AWS CLI configuration...
+2025-05-05T05:00:32.700Z [INFO]: 👑⭐ [Dante:Paradiso] AWS CLI is properly configured.
+2025-05-05T05:00:32.800Z [INFO]: 👑🌊 [Dante:Purgatorio] Getting S3 bucket name from Amplify configuration...
+2025-05-05T05:00:32.900Z [INFO]: 👑⭐ [Dante:Paradiso] Using S3 bucket from environment variable: alexai-pdf-storage-dev
+2025-05-05T05:00:33.000Z [INFO]: 👑🌊 [Dante:Purgatorio] Syncing primary PDF to S3: s3://alexai-pdf-storage-dev/public/default_resume.pdf
+2025-05-05T05:00:33.500Z [INFO]: 👑🌊 [Dante:Purgatorio] Syncing legacy PDF to S3: s3://alexai-pdf-storage-dev/public/pbradygeorgen_resume.pdf
+2025-05-05T05:00:34.000Z [INFO]: 👑🌊 [Dante:Purgatorio] Syncing extracted directory to S3: s3://alexai-pdf-storage-dev/public/extracted/
+2025-05-05T05:00:35.000Z [INFO]: 👑🌊 [Dante:Purgatorio] Syncing download test report to S3: s3://alexai-pdf-storage-dev/public/download_test_report.json
+2025-05-05T05:00:35.500Z [INFO]: 👑⭐ [Dante:Paradiso] PDF files synced with S3 successfully.
+2025-05-05T05:00:35.600Z [INFO]: 👑⭐ [Dante:Paradiso] PDF S3 sync process completed successfully.
+2025-05-05T05:00:35.700Z [INFO]: PDFs synced to S3 successfully
+2025-05-05T05:00:35.800Z [INFO]: # Running build commands...
+2025-05-05T05:00:35.900Z [INFO]: # npm run build
+2025-05-05T05:00:36.000Z [INFO]: > next@0.1.0 build
+2025-05-05T05:00:36.100Z [INFO]: > next build
+2025-05-05T05:00:36.200Z [INFO]: Attention: Next.js now collects completely anonymous telemetry regarding usage.
+2025-05-05T05:00:36.300Z [INFO]: This information is used to shape Next.js' roadmap and prioritize features.
+2025-05-05T05:00:36.400Z [INFO]: You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+2025-05-05T05:00:36.500Z [INFO]: https://nextjs.org/telemetry
+2025-05-05T05:00:36.600Z [INFO]:    ▲ Next.js 15.3.1
+2025-05-05T05:00:36.700Z [INFO]:    - Environments: .env.local
+2025-05-05T05:00:36.800Z [INFO]:    Creating an optimized production build ...
+2025-05-05T05:01:00.000Z [INFO]:  ✓ Compiled successfully in 24s
+2025-05-05T05:01:00.100Z [INFO]:    Skipping validation of types
+2025-05-05T05:01:00.200Z [INFO]:    Skipping linting
+2025-05-05T05:01:00.300Z [INFO]:    Collecting page data  .   Collecting page data  ..   Collecting page data  ...   Collecting page data     ✓ Collecting page data 
+2025-05-05T05:01:00.400Z [INFO]:    Generating static pages (0/16)  [    ]   Generating static pages (0/16)  [=   ] ✓ Generating static pages (16/16)
+2025-05-05T05:01:00.500Z [INFO]:    Finalizing page optimization  .   Collecting build traces  .   Finalizing page optimization  ..   Collecting build traces  ..   Finalizing page optimization  ...   Collecting build traces  ...   Finalizing page optimization  .   Collecting build traces  .   Finalizing page optimization  ..   Collecting build traces  ..   Finalizing page optimization  ...   Collecting build traces  ...   Finalizing page optimization  .   Collecting build traces  .   Finalizing page optimization  ..   Collecting build traces  ..   Finalizing page optimization  ...   Collecting build traces  ...   Finalizing page optimization  .   Collecting build traces  .   Collecting build traces     ✓ Collecting build traces 
+2025-05-05T05:01:00.600Z [INFO]:    Finalizing page optimization     ✓ Finalizing page optimization 
+2025-05-05T05:01:00.700Z [INFO]: Route (app)                                 Size  First Load JS    
+2025-05-05T05:01:00.800Z [INFO]: ┌ ○ /                                      134 B         106 kB
+2025-05-05T05:01:00.900Z [INFO]: ├ ○ /_not-found                            150 B         102 kB
+2025-05-05T05:01:01.000Z [INFO]: ├ ƒ /api/analyze-content                   150 B         102 kB
+2025-05-05T05:01:01.100Z [INFO]: ├ ƒ /api/format-content                    150 B         102 kB
+2025-05-05T05:01:01.200Z [INFO]: ├ ƒ /api/get-summary                       150 B         102 kB
+2025-05-05T05:01:01.300Z [INFO]: ├ ƒ /api/process-pdf                       150 B         102 kB
+2025-05-05T05:01:01.400Z [INFO]: ├ ƒ /api/upload-pdf                        150 B         102 kB
+2025-05-05T05:01:01.500Z [INFO]: ├ ○ /dante-agile                         11.4 kB         116 kB
+2025-05-05T05:01:01.600Z [INFO]: ├ ○ /download-test                       2.41 kB         104 kB
+2025-05-05T05:01:01.700Z [INFO]: ├ ○ /sample                                134 B         106 kB
+2025-05-05T05:01:01.800Z [INFO]: ├ ○ /test                                2.11 kB         111 kB
+2025-05-05T05:01:01.900Z [INFO]: ├ ○ /upload                              1.05 kB         109 kB
+2025-05-05T05:01:02.000Z [INFO]: └ ○ /view                                1.73 kB         103 kB
+2025-05-05T05:01:02.100Z [INFO]: + First Load JS shared by all             102 kB
+2025-05-05T05:01:02.200Z [INFO]:   ├ chunks/4bd1b696-e1fbc7747f126874.js  53.2 kB
+2025-05-05T05:01:02.300Z [INFO]:   ├ chunks/684-ec3f1b09640c027f.js       45.8 kB
+2025-05-05T05:01:02.400Z [INFO]:   └ other shared chunks (total)          2.65 kB
+2025-05-05T05:01:02.500Z [INFO]: ○  (Static)   prerendered as static content
+2025-05-05T05:01:02.600Z [INFO]: ƒ  (Dynamic)  server-rendered on demand
+2025-05-05T05:01:02.700Z [INFO]: # Frontend build completed successfully
+2025-05-05T05:01:02.800Z [INFO]: # Deployment completed successfully

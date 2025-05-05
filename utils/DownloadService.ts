@@ -49,166 +49,146 @@ export const DownloadService = {
     fileName?: string,
     options: any = {}
   ): Promise<void> => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        // Begin the journey (Dante's navigation)
-        const startTime = Date.now();
-        HesseLogger.summary.start(`Downloading ${contentType} as ${format}`);
-        DanteLogger.success.basic(`Starting ${contentType} download as ${format}`);
-        console.log(`Starting downloadContent with contentType = ${contentType}, format = ${format}`);
+    // Begin the journey (Dante's navigation)
+    const startTime = Date.now();
+    HesseLogger.summary.start(`Downloading ${contentType} as ${format}`);
+    DanteLogger.success.basic(`Starting ${contentType} download as ${format}`);
+    console.log(`Starting downloadContent with contentType = ${contentType}, format = ${format}`);
 
-        // Use the provided file name or default to the content type
-        const defaultFileName = fileName || contentType;
+    // Use the provided file name or default to the content type
+    const defaultFileName = fileName || contentType;
 
-        // Import the server action dynamically to avoid server/client mismatch
-        const { getFormattedContent } = await import('@/app/actions/contentActions');
+    try {
+      // Import the server action dynamically to avoid server/client mismatch
+      const { getFormattedContent } = await import('@/app/actions/contentActions');
 
-        // Get the content from the ContentStateService via server action
-        console.log(`[DEBUG] Calling getFormattedContent for ${contentType} in ${format} format`);
-        const result = await getFormattedContent(contentType, format);
-        console.log(`[DEBUG] getFormattedContent result:`, {
-          success: result.success,
-          hasData: !!result.data,
-          dataLength: result.data ? result.data.length : 0,
-          error: result.error,
-          metadata: result.metadata
-        });
+      // Get the content from the ContentStateService via server action
+      console.log(`[DEBUG] Calling getFormattedContent for ${contentType} in ${format} format`);
+      const result = await getFormattedContent(contentType, format);
+      console.log(`[DEBUG] getFormattedContent result:`, {
+        success: result.success,
+        hasData: !!result.data,
+        dataLength: result.data ? result.data.length : 0,
+        error: result.error,
+        metadata: result.metadata
+      });
 
-        if (!result.success) {
-          const errorMsg = result.error || `Failed to get ${contentType} content in ${format} format`;
-          console.error(`[DEBUG] Download error:`, errorMsg);
-          DanteLogger.error.runtime(errorMsg);
-          reject(new Error(errorMsg));
-          return;
-        }
+      if (!result.success) {
+        const errorMsg = result.error || `Failed to get ${contentType} content in ${format} format`;
+        console.error(`[DEBUG] Download error:`, errorMsg);
+        DanteLogger.error.runtime(errorMsg);
+        throw new Error(errorMsg);
+      }
 
-        // Validate that we have content data
-        if (!result.data && format !== 'pdf') {
-          const errorMsg = `No content data returned for ${contentType} in ${format} format`;
-          console.error(`[DEBUG] Download error:`, errorMsg);
-          DanteLogger.error.runtime(errorMsg);
-          reject(new Error(errorMsg));
-          return;
-        }
+      // Validate that we have content data
+      if (!result.data && format !== 'pdf') {
+        const errorMsg = `No content data returned for ${contentType} in ${format} format`;
+        console.error(`[DEBUG] Download error:`, errorMsg);
+        DanteLogger.error.runtime(errorMsg);
+        throw new Error(errorMsg);
+      }
 
-        // Use the appropriate download method based on the format
-        if (format === 'pdf') {
-          if (contentType === 'resume') {
-            // For resume PDF, we just download the default PDF file
-            const a = document.createElement('a');
-            a.href = `/default_resume.pdf?v=${Date.now()}`;
-            a.download = `${defaultFileName}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            console.log(`Downloaded ${defaultFileName}.pdf`);
-            DanteLogger.success.ux(`Downloaded ${defaultFileName}.pdf`);
-            HesseLogger.summary.complete(`${defaultFileName}.pdf downloaded successfully`);
-            resolve();
-          } else {
-            // For cover letter PDF, we need to generate it from the markdown content
-            if (!result.data) {
-              const errorMsg = 'Cover letter content is empty';
-              console.error(`[DEBUG] ${errorMsg}`);
-              DanteLogger.error.runtime(errorMsg);
-              reject(new Error(errorMsg));
-              return;
-            }
-
-            try {
-              console.log(`[DEBUG] Generating PDF for cover letter from markdown content (${result.data.length} chars)`);
-
-              // Check if the result data is already a data URL (starts with "data:")
-              if (result.data.startsWith('data:')) {
-                console.log(`[DEBUG] Result data appears to be a data URL, using directly`);
-
-                // Use the data URL directly
-                const link = document.createElement('a');
-                link.href = result.data;
-                link.download = `${defaultFileName}.pdf`;
-                document.body.appendChild(link);
-                console.log(`[DEBUG] Triggering download click for data URL`);
-                link.click();
-                document.body.removeChild(link);
-                console.log(`[DEBUG] PDF download link clicked`);
-                resolve();
-                return;
-              }
-
-              // First generate a data URL to ensure consistent styling with preview
-              console.log(`[DEBUG] Generating PDF data URL from markdown content`);
-              const dataUrl = await DownloadService.generatePdfDataUrl(result.data, {
-                title: 'Cover Letter',
-                fileName: `${defaultFileName}.pdf`,
-                headerText: 'Cover Letter',
-                footerText: 'Generated with Salinger Design',
-                isDarkTheme: true, // Cover letters use dark theme
-                ...options
-              });
-
-              console.log(`[DEBUG] PDF data URL generated successfully (${dataUrl.length} chars)`);
-
-              // Then download using the data URL
-              await DownloadService.downloadPdf(result.data, defaultFileName, {
-                ...options,
-                dataUrl
-              });
-              resolve();
-            } catch (pdfError) {
-              const errorMessage = pdfError instanceof Error ? pdfError.message : String(pdfError);
-              console.error(`[DEBUG] Error generating PDF for cover letter:`, pdfError);
-              console.error(`[DEBUG] Error details:`, {
-                errorType: typeof pdfError,
-                errorMessage,
-                errorStack: pdfError instanceof Error ? pdfError.stack : 'No stack trace',
-                dataLength: result.data?.length || 0
-              });
-              DanteLogger.error.runtime(`Error generating PDF for cover letter: ${errorMessage}`);
-
-              // Fallback to text download
-              try {
-                console.log(`[DEBUG] Falling back to text download for cover letter`);
-                const blob = new Blob([result.data], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${defaultFileName}.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                console.log(`[DEBUG] Fallback text download completed`);
-                resolve();
-              } catch (fallbackError) {
-                console.error(`[DEBUG] Fallback text download also failed:`, fallbackError);
-                reject(new Error(`Error generating PDF for cover letter: ${errorMessage}`));
-              }
-            }
-          }
-        } else if (format === 'markdown') {
-          await DownloadService.downloadMarkdown(
-            result.data,
-            defaultFileName,
-            {
-              useServerFormatting: false, // Already formatted by server action
-              contentType,
-              addTimestamp: true,
-              fallbackToText: true,
-              ...options
-            }
-          );
-          resolve();
-        } else if (format === 'text') {
-          await DownloadService.downloadText(result.data, defaultFileName);
-          resolve();
+      // Use the appropriate download method based on the format
+      if (format === 'pdf') {
+        if (contentType === 'resume') {
+          // For resume PDF, we just download the default PDF file
+          await DownloadService.downloadFile(`/default_resume.pdf?v=${Date.now()}`, `${defaultFileName}.pdf`);
+          console.log(`Downloaded ${defaultFileName}.pdf`);
+          DanteLogger.success.ux(`Downloaded ${defaultFileName}.pdf`);
+          HesseLogger.summary.complete(`${defaultFileName}.pdf downloaded successfully`);
         } else {
-          reject(new Error(`Unsupported format: ${format}`));
+          // For cover letter PDF, we need to generate it from the markdown content
+          if (!result.data) {
+            throw new Error('Cover letter content is empty');
+          }
+
+          // Check if the result data is already a data URL (starts with "data:")
+          if (result.data.startsWith('data:')) {
+            console.log(`[DEBUG] Result data appears to be a data URL, using directly`);
+            await DownloadService.downloadFile(result.data, `${defaultFileName}.pdf`);
+          } else {
+            // Generate a PDF from the markdown content
+            console.log(`[DEBUG] Generating PDF for cover letter from markdown content (${result.data.length} chars)`);
+
+            // Generate a data URL for the PDF
+            const dataUrl = await DownloadService.generatePdfDataUrl(result.data, {
+              title: 'Cover Letter',
+              fileName: `${defaultFileName}.pdf`,
+              headerText: 'Cover Letter',
+              footerText: 'Generated with Salinger Design',
+              isDarkTheme: true, // Cover letters use dark theme
+              ...options
+            });
+
+            // Download the PDF using the data URL
+            await DownloadService.downloadFile(dataUrl, `${defaultFileName}.pdf`);
+          }
         }
+      } else if (format === 'markdown') {
+        await DownloadService.downloadMarkdown(
+          result.data,
+          defaultFileName,
+          {
+            useServerFormatting: false, // Already formatted by server action
+            contentType,
+            addTimestamp: true,
+            fallbackToText: true,
+            ...options
+          }
+        );
+      } else if (format === 'text') {
+        await DownloadService.downloadText(result.data, defaultFileName);
+      } else {
+        throw new Error(`Unsupported format: ${format}`);
+      }
+    } catch (error) {
+      console.error(`Error downloading ${contentType} as ${format}:`, error);
+      DanteLogger.error.runtime(`Error downloading ${contentType} as ${format}: ${error}`);
+      HesseLogger.summary.error(`Error downloading ${contentType} as ${format}: ${error}`);
+
+      // Try to provide a fallback download if possible
+      if (format !== 'text') {
+        try {
+          console.log(`[DEBUG] Attempting fallback to text download for ${contentType}`);
+          DanteLogger.warn.deprecated(`Falling back to text download for ${contentType}`);
+
+          // Get plain text content
+          const { getFormattedContent } = await import('@/app/actions/contentActions');
+          const textResult = await getFormattedContent(contentType, 'text');
+
+          if (textResult.success && textResult.data) {
+            await DownloadService.downloadText(textResult.data, defaultFileName);
+            console.log(`[DEBUG] Fallback text download completed successfully`);
+            return; // Success with fallback
+          }
+        } catch (fallbackError) {
+          console.error(`[DEBUG] Fallback text download also failed:`, fallbackError);
+          throw error; // Throw the original error
+        }
+      }
+
+      // If we get here, both the original download and fallback failed
+      throw error;
+    }
+  },
+
+  /**
+   * Helper function to download a file from a URL
+   * @param url The URL of the file to download
+   * @param fileName The name to save the file as
+   * @returns Promise that resolves when download is complete
+   */
+  downloadFile: async (url: string, fileName: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        resolve();
       } catch (error) {
-        console.error(`Error downloading ${contentType} as ${format}:`, error);
-        DanteLogger.error.runtime(`Error downloading ${contentType} as ${format}: ${error}`);
-        HesseLogger.summary.error(`Error downloading ${contentType} as ${format}: ${error}`);
         reject(error);
       }
     });

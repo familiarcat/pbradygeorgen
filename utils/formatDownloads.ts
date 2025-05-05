@@ -24,116 +24,188 @@ if (apiKey) {
 export async function generateFormattedMarkdown(content: string): Promise<string> {
   // Define the formatBasicMarkdown function here
   function formatBasicMarkdown(content: string): string {
-    // Extract sections based on common patterns
-    const lines = content.split('\n');
+    // Check if content is empty or undefined
+    if (!content || content.trim() === '') {
+      console.warn('Empty content provided to formatBasicMarkdown, using placeholder');
+      return `# Resume Content\n\nNo content was available to format. This is a placeholder.\n\n*Generated on: ${new Date().toLocaleString()}*`;
+    }
+
+    try {
+      // Try to parse the content as JSON first (in case it's already structured)
+      try {
+        const jsonContent = JSON.parse(content);
+
+        // If we have structured JSON content, format it nicely
+        if (jsonContent.structuredContent) {
+          return formatStructuredContent(jsonContent.structuredContent);
+        }
+      } catch (jsonError) {
+        // Not JSON, continue with text processing
+        console.log('Content is not JSON, processing as text');
+      }
+
+      // Process the content as text
+      const lines = content.split('\n');
+      let formatted = '';
+
+      // Extract name from the content or use default
+      const nameMatch = content.match(/^#\s+(.+)$/m) || content.match(/^(.+)$/m);
+      const name = nameMatch ? nameMatch[1].trim() : 'P. Brady Georgen';
+
+      // Start with the name as header
+      formatted += `# ${name}\n\n`;
+
+      // Look for sections in the content
+      const sections = {
+        summary: extractSection(content, 'summary', 'professional summary', 'about me'),
+        experience: extractSection(content, 'experience', 'work experience', 'employment'),
+        skills: extractSection(content, 'skills', 'technologies', 'expertise'),
+        education: extractSection(content, 'education', 'academic background', 'qualifications'),
+        contact: extractSection(content, 'contact', 'contact information', 'personal information')
+      };
+
+      // Add sections to the formatted content
+      if (sections.summary) {
+        formatted += `## Professional Summary\n\n${sections.summary}\n\n`;
+      }
+
+      if (sections.contact) {
+        formatted += `## Contact Information\n\n${sections.contact}\n\n`;
+      }
+
+      if (sections.experience) {
+        formatted += `## Experience\n\n${sections.experience}\n\n`;
+      }
+
+      if (sections.skills) {
+        formatted += `## Skills & Technologies\n\n${sections.skills}\n\n`;
+      }
+
+      if (sections.education) {
+        formatted += `## Education\n\n${sections.education}\n\n`;
+      }
+
+      // Add generation timestamp
+      formatted += `\n\n*Generated on: ${new Date().toLocaleString()}*`;
+
+      return formatted;
+    } catch (error) {
+      console.error('Error formatting markdown:', error);
+      // Return a simple formatted version of the original content
+      return `# Resume\n\n${content}\n\n*Generated on: ${new Date().toLocaleString()}*`;
+    }
+  }
+
+  // Helper function to extract sections from content
+  function extractSection(content: string, ...sectionNames: string[]): string {
+    // Create a regex pattern to match any of the section names
+    const sectionPattern = new RegExp(`(?:^|\\n)##?\\s+(${sectionNames.join('|')}).*?\\n([\\s\\S]*?)(?=\\n##|$)`, 'i');
+    const match = content.match(sectionPattern);
+
+    if (match && match[2]) {
+      return match[2].trim();
+    }
+
+    return '';
+  }
+
+  // Format structured content from JSON
+  function formatStructuredContent(data: any): string {
     let formatted = '';
-    const inList = false;
 
-    // Start with a clean header
-    formatted += `# P. Brady Georgen\n\n`;
-    formatted += `## Professional Summary\n\n`;
-    formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n`;
+    // Name and title
+    formatted += `# ${data.name || 'Resume'}\n\n`;
 
-    // Add contact information
-    formatted += `## Contact Information\n\n`;
-    formatted += `4350 A De Tonty St  \n`;
-    formatted += `St. Louis, MO  \n`;
-    formatted += `(314) 580-0608  \n`;
-    formatted += `pbradygeorgen.com  \n`;
-    formatted += `brady@pbradygeorgen.com\n\n`;
+    if (data.title) {
+      formatted += `*${data.title}*\n\n`;
+    }
 
-    // Add experience section
-    formatted += `## Experience\n\n`;
+    // Contact information
+    if (data.contact) {
+      formatted += `## Contact Information\n\n`;
 
-    // Always add Daugherty first with client work nested
-    formatted += `### Daugherty Business Solutions\n\n`;
-    formatted += `**Sr. Software Developer (III)** (2014 - 2023)\n\n`;
-    formatted += `- Led development of enterprise applications\n`;
-    formatted += `- Implemented solutions using modern web technologies\n`;
-    formatted += `- Collaborated with cross-functional teams to deliver high-quality software solutions\n\n`;
+      if (data.contact.address) formatted += `${data.contact.address}  \n`;
+      if (data.contact.city && data.contact.state) formatted += `${data.contact.city}, ${data.contact.state}  \n`;
+      if (data.contact.phone) formatted += `${data.contact.phone}  \n`;
+      if (data.contact.email) formatted += `${data.contact.email}  \n`;
+      if (data.contact.website) formatted += `${data.contact.website}  \n`;
 
-    // Client work nested under Daugherty with "Client:" prefix
-    formatted += `#### Client: Bayer\n\n`;
-    formatted += `- Architected, developed, migrated, and maintained various enterprise scale applications utilizing React, AWS, and SOA architectures\n`;
-    formatted += `- Upheld Agile best practices throughout development lifecycle\n\n`;
+      formatted += `\n`;
+    }
 
-    formatted += `#### Client: Charter Communications\n\n`;
-    formatted += `- Engineered interactive call center solutions empowering representatives to provide enhanced customer service capabilities\n`;
-    formatted += `- Implemented user-friendly interfaces for call center operations\n\n`;
+    // Summary
+    if (data.summary) {
+      formatted += `## Professional Summary\n\n${data.summary}\n\n`;
+    }
 
-    formatted += `#### Client: Mastercard\n\n`;
-    formatted += `- Developed comprehensive onboarding documentation, sample code, and API integration\n`;
-    formatted += `- Supported the MasterPass online purchasing initiative\n\n`;
+    // Experience
+    if (data.experience && data.experience.length > 0) {
+      formatted += `## Experience\n\n`;
 
-    formatted += `#### Client: Cox Communications\n\n`;
-    formatted += `- Implemented scaffolding framework for modular React applications\n`;
-    formatted += `- Integrated with Adobe Content Manager\n`;
-    formatted += `- Developed reusable component libraries\n\n`;
+      data.experience.forEach((job: any) => {
+        if (job.company) formatted += `### ${job.company}\n\n`;
+        if (job.title) {
+          formatted += `**${job.title}**`;
+          if (job.dates) formatted += ` (${job.dates})`;
+          formatted += `\n\n`;
+        }
 
-    // Digital Ronan (second, even though it's more recent by date)
-    formatted += `### Digital Ronan (freelance)\n\n`;
-    formatted += `**Consultant & Creative Technologist** (2022 - Present)\n\n`;
-    formatted += `- Providing strategic digital consultancy for local businesses\n`;
-    formatted += `- Applying skills in web development, networking, and design\n`;
-    formatted += `- Creating custom digital solutions for small to medium businesses\n\n`;
+        if (job.description) {
+          if (Array.isArray(job.description)) {
+            job.description.forEach((item: string) => {
+              formatted += `- ${item}\n`;
+            });
+          } else {
+            formatted += `${job.description}\n`;
+          }
+          formatted += `\n`;
+        }
+      });
+    }
 
-    // Add other experience entries chronologically
-    formatted += `### Deliveries on Demand\n\n`;
-    formatted += `**Lead Software Developer** (2013 - 2014)\n\n`;
-    formatted += `- Developed and maintained delivery management software\n`;
-    formatted += `- Led a team of developers in creating mobile applications\n\n`;
+    // Skills
+    if (data.skills && data.skills.length > 0) {
+      formatted += `## Skills & Technologies\n\n`;
 
-    formatted += `### Infuze\n\n`;
-    formatted += `**Sr. Developer/Asst. Art Director** (2011 - 2013)\n\n`;
-    formatted += `- Combined technical development with creative design direction\n`;
-    formatted += `- Created digital marketing solutions for clients\n\n`;
+      if (Array.isArray(data.skills)) {
+        data.skills.forEach((skill: any) => {
+          if (typeof skill === 'string') {
+            formatted += `- ${skill}\n`;
+          } else if (skill.category && skill.items) {
+            formatted += `### ${skill.category}\n\n`;
+            skill.items.forEach((item: string) => {
+              formatted += `- ${item}\n`;
+            });
+            formatted += `\n`;
+          }
+        });
+      } else {
+        formatted += `${data.skills}\n`;
+      }
 
-    formatted += `### Touchwood Creative\n\n`;
-    formatted += `**Lead Software Developer** (2008 - 2009)\n\n`;
-    formatted += `- Developed custom web applications for clients\n`;
-    formatted += `- Implemented creative digital solutions\n\n`;
+      formatted += `\n`;
+    }
 
-    formatted += `### ThinkTank (freelance)\n\n`;
-    formatted += `**Software and Creative Director** (2005 - 2008)\n\n`;
-    formatted += `- Provided software development and creative direction services\n`;
-    formatted += `- Managed client relationships and project deliverables\n\n`;
+    // Education
+    if (data.education && data.education.length > 0) {
+      formatted += `## Education\n\n`;
 
-    formatted += `### Asynchrony Solutions\n\n`;
-    formatted += `**Designer/Developer/Marketing Asst.** (2004 - 2005)\n\n`;
-    formatted += `- Assisted with design, development, and marketing initiatives\n`;
-    formatted += `- Contributed to various software projects\n\n`;
+      data.education.forEach((edu: any) => {
+        if (edu.degree) formatted += `### ${edu.degree}\n\n`;
+        if (edu.institution) {
+          formatted += `**${edu.institution}**`;
+          if (edu.dates) formatted += ` (${edu.dates})`;
+          formatted += `\n\n`;
+        }
 
-    // Add skills section with Core Skills and Technical Skills subsections
-    formatted += `## Skills & Technologies\n\n`;
+        if (edu.description) {
+          formatted += `${edu.description}\n\n`;
+        }
+      });
+    }
 
-    // Core Skills subsection
-    formatted += `### Core Skills\n\n`;
-    formatted += `- **Full Stack Development**\n`;
-    formatted += `- **JavaScript/TypeScript**\n`;
-    formatted += `- **Graphic Design & UI/UX**\n`;
-    formatted += `- **React & React Native**\n`;
-    formatted += `- **AWS & Cloud Architecture**\n`;
-    formatted += `- **Illustration**\n`;
-    formatted += `- **Creative/Technical Writing**\n\n`;
-
-    // Technical Skills subsection with grouped technologies
-    formatted += `### Technical Skills\n\n`;
-    formatted += `- **Frontend**: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n`;
-    formatted += `- **Backend**: Node.js, Ruby, Java\n`;
-    formatted += `- **Cloud & Infrastructure**: AWS, AWS Amplify, Docker, Terraform\n`;
-    formatted += `- **Database**: MongoDB, SQL\n`;
-    formatted += `- **DevOps**: CI/CD, Jenkins, Shell Automation\n`;
-    formatted += `- **Architecture**: SOA (Service-Oriented Architecture)\n`;
-    formatted += `- **Design**: Adobe Creative Suite\n\n`;
-
-    // Add education section
-    formatted += `## Education\n\n`;
-    formatted += `### BFA Graphic Design\n\n`;
-    formatted += `**Webster University** (2001-2005)\n\n`;
-    formatted += `### BA Philosophy\n\n`;
-    formatted += `**Webster University** (2001-2005)\n\n`;
-    formatted += `### ASSC Motion Graphics\n\n`;
-    formatted += `**Saint Louis Community College** (1999-2001)\n\n`;
+    // Add generation timestamp
+    formatted += `\n\n*Generated on: ${new Date().toLocaleString()}*`;
 
     return formatted;
   }
@@ -160,117 +232,194 @@ export async function generateFormattedMarkdown(content: string): Promise<string
 export async function generateFormattedText(content: string): Promise<string> {
   // Define the formatBasicText function here
   function formatBasicText(content: string): string {
-    // Extract sections based on common patterns
-    const lines = content.split('\n');
+    // Check if content is empty or undefined
+    if (!content || content.trim() === '') {
+      console.warn('Empty content provided to formatBasicText, using placeholder');
+      return `RESUME CONTENT\n\nNo content was available to format. This is a placeholder.\n\nGenerated on: ${new Date().toLocaleString()}`;
+    }
+
+    try {
+      // Try to parse the content as JSON first (in case it's already structured)
+      try {
+        const jsonContent = JSON.parse(content);
+
+        // If we have structured JSON content, format it nicely as text
+        if (jsonContent.structuredContent) {
+          return formatStructuredContentAsText(jsonContent.structuredContent);
+        }
+      } catch (jsonError) {
+        // Not JSON, continue with text processing
+        console.log('Content is not JSON, processing as text');
+      }
+
+      // Process the content as text
+      const lines = content.split('\n');
+      let formatted = '';
+
+      // Extract name from the content or use default
+      const nameMatch = content.match(/^#\s+(.+)$/m) || content.match(/^(.+)$/m);
+      const name = nameMatch ? nameMatch[1].trim().toUpperCase() : 'P. BRADY GEORGEN';
+
+      // Start with the name as header
+      formatted += `${name}\n${'='.repeat(name.length)}\n\n\n`;
+
+      // Look for sections in the content
+      const sections = {
+        summary: extractSection(content, 'summary', 'professional summary', 'about me'),
+        experience: extractSection(content, 'experience', 'work experience', 'employment'),
+        skills: extractSection(content, 'skills', 'technologies', 'expertise'),
+        education: extractSection(content, 'education', 'academic background', 'qualifications'),
+        contact: extractSection(content, 'contact', 'contact information', 'personal information')
+      };
+
+      // Add sections to the formatted content
+      if (sections.summary) {
+        formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n${sections.summary}\n\n\n`;
+      }
+
+      if (sections.contact) {
+        formatted += `CONTACT INFORMATION\n${'-'.repeat(19)}\n\n${sections.contact}\n\n\n`;
+      }
+
+      if (sections.experience) {
+        formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n${sections.experience}\n\n\n`;
+      }
+
+      if (sections.skills) {
+        formatted += `SKILLS & TECHNOLOGIES\n${'-'.repeat(20)}\n\n${sections.skills}\n\n\n`;
+      }
+
+      if (sections.education) {
+        formatted += `EDUCATION\n${'-'.repeat(9)}\n\n${sections.education}\n\n\n`;
+      }
+
+      // Add generation timestamp
+      formatted += `Generated on: ${new Date().toLocaleString()}`;
+
+      return formatted;
+    } catch (error) {
+      console.error('Error formatting text:', error);
+      // Return a simple formatted version of the original content
+      return `RESUME\n\n${content}\n\nGenerated on: ${new Date().toLocaleString()}`;
+    }
+  }
+
+  // Format structured content from JSON as plain text
+  function formatStructuredContentAsText(data: any): string {
     let formatted = '';
-    const inList = false;
 
-    // Start with a clean header
-    formatted += `P. BRADY GEORGEN\n${'='.repeat(16)}\n\n\n`;
+    // Name and title
+    const name = (data.name || 'RESUME').toUpperCase();
+    formatted += `${name}\n${'='.repeat(name.length)}\n\n`;
 
-    // Add professional summary
-    formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n`;
-    formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n\n`;
+    if (data.title) {
+      formatted += `${data.title}\n\n`;
+    }
 
-    // Add contact information
-    formatted += `CONTACT INFORMATION\n${'-'.repeat(19)}\n\n`;
-    formatted += `  4350 A De Tonty St\n`;
-    formatted += `  St. Louis, MO\n`;
-    formatted += `  (314) 580-0608\n`;
-    formatted += `  pbradygeorgen.com\n`;
-    formatted += `  brady@pbradygeorgen.com\n\n\n`;
+    // Contact information
+    if (data.contact) {
+      formatted += `CONTACT INFORMATION\n${'-'.repeat(19)}\n\n`;
 
-    // Add experience section
-    formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;
+      if (data.contact.address) formatted += `  ${data.contact.address}\n`;
+      if (data.contact.city && data.contact.state) formatted += `  ${data.contact.city}, ${data.contact.state}\n`;
+      if (data.contact.phone) formatted += `  ${data.contact.phone}\n`;
+      if (data.contact.email) formatted += `  ${data.contact.email}\n`;
+      if (data.contact.website) formatted += `  ${data.contact.website}\n`;
 
-    // Always add Daugherty first with client work nested
-    formatted += `  Daugherty Business Solutions\n`;
-    formatted += `    Sr. Software Developer (III) (2014 - 2023)\n\n`;
-    formatted += `      * Led development of enterprise applications\n`;
-    formatted += `      * Implemented solutions using modern web technologies\n`;
-    formatted += `      * Collaborated with cross-functional teams to deliver high-quality software solutions\n\n`;
+      formatted += `\n\n`;
+    }
 
-    // Client work nested under Daugherty with "Client:" prefix
-    formatted += `      Client: Bayer\n`;
-    formatted += `        * Architected, developed, migrated, and maintained various enterprise scale\n`;
-    formatted += `          applications utilizing React, AWS, and SOA architectures\n`;
-    formatted += `        * Upheld Agile best practices throughout development lifecycle\n\n`;
+    // Summary
+    if (data.summary) {
+      formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n${data.summary}\n\n\n`;
+    }
 
-    formatted += `      Client: Charter Communications\n`;
-    formatted += `        * Engineered interactive call center solutions empowering representatives\n`;
-    formatted += `          to provide enhanced customer service capabilities\n`;
-    formatted += `        * Implemented user-friendly interfaces for call center operations\n\n`;
+    // Experience
+    if (data.experience && data.experience.length > 0) {
+      formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;
 
-    formatted += `      Client: Mastercard\n`;
-    formatted += `        * Developed comprehensive onboarding documentation, sample code, and API\n`;
-    formatted += `          integration\n`;
-    formatted += `        * Supported the MasterPass online purchasing initiative\n\n`;
+      data.experience.forEach((job: any) => {
+        if (job.company) formatted += `  ${job.company}\n`;
+        if (job.title) {
+          formatted += `    ${job.title}`;
+          if (job.dates) formatted += ` (${job.dates})`;
+          formatted += `\n\n`;
+        }
 
-    formatted += `      Client: Cox Communications\n`;
-    formatted += `        * Implemented scaffolding framework for modular React applications\n`;
-    formatted += `        * Integrated with Adobe Content Manager\n`;
-    formatted += `        * Developed reusable component libraries\n\n`;
+        if (job.description) {
+          if (Array.isArray(job.description)) {
+            job.description.forEach((item: string) => {
+              formatted += `      * ${item}\n`;
+            });
+          } else {
+            formatted += `      * ${job.description}\n`;
+          }
+          formatted += `\n`;
+        }
+      });
 
-    // Digital Ronan (second, even though it's more recent by date)
-    formatted += `  Digital Ronan (freelance)\n`;
-    formatted += `    Consultant & Creative Technologist (2022 - Present)\n\n`;
-    formatted += `      * Providing strategic digital consultancy for local businesses\n`;
-    formatted += `      * Applying skills in web development, networking, and design\n`;
-    formatted += `      * Creating custom digital solutions for small to medium businesses\n\n`;
+      formatted += `\n`;
+    }
 
-    // Add other experience entries chronologically
-    formatted += `  Deliveries on Demand\n`;
-    formatted += `    Lead Software Developer (2013 - 2014)\n\n`;
-    formatted += `      * Developed and maintained delivery management software\n`;
-    formatted += `      * Led a team of developers in creating mobile applications\n\n`;
+    // Skills
+    if (data.skills && data.skills.length > 0) {
+      formatted += `SKILLS & TECHNOLOGIES\n${'-'.repeat(20)}\n\n`;
 
-    formatted += `  Infuze\n`;
-    formatted += `    Sr. Developer/Asst. Art Director (2011 - 2013)\n\n`;
-    formatted += `      * Combined technical development with creative design direction\n`;
-    formatted += `      * Created digital marketing solutions for clients\n\n`;
+      if (Array.isArray(data.skills)) {
+        // Group skills by category if possible
+        const categories: {[key: string]: string[]} = {};
+        let uncategorized: string[] = [];
 
-    formatted += `  Touchwood Creative\n`;
-    formatted += `    Lead Software Developer (2008 - 2009)\n\n`;
-    formatted += `      * Developed custom web applications for clients\n`;
-    formatted += `      * Implemented creative digital solutions\n\n`;
+        data.skills.forEach((skill: any) => {
+          if (typeof skill === 'string') {
+            uncategorized.push(skill);
+          } else if (skill.category && skill.items) {
+            categories[skill.category] = skill.items;
+          }
+        });
 
-    formatted += `  ThinkTank (freelance)\n`;
-    formatted += `    Software and Creative Director (2005 - 2008)\n\n`;
-    formatted += `      * Provided software development and creative direction services\n`;
-    formatted += `      * Managed client relationships and project deliverables\n\n`;
+        // Add uncategorized skills first
+        if (uncategorized.length > 0) {
+          formatted += `  CORE COMPETENCIES:\n`;
+          uncategorized.forEach((skill: string) => {
+            formatted += `    * ${skill}\n`;
+          });
+          formatted += `\n`;
+        }
 
-    formatted += `  Asynchrony Solutions\n`;
-    formatted += `    Designer/Developer/Marketing Asst. (2004 - 2005)\n\n`;
-    formatted += `      * Assisted with design, development, and marketing initiatives\n`;
-    formatted += `      * Contributed to various software projects\n\n\n`;
+        // Add categorized skills
+        Object.entries(categories).forEach(([category, items]) => {
+          formatted += `  ${category.toUpperCase()}:\n`;
+          items.forEach((item: string) => {
+            formatted += `    * ${item}\n`;
+          });
+          formatted += `\n`;
+        });
+      } else {
+        formatted += `  ${data.skills}\n\n`;
+      }
+    }
 
-    // Add skills section
-    formatted += `SKILLS & TECHNOLOGIES\n${'-'.repeat(20)}\n\n`;
-    formatted += `  CORE COMPETENCIES:\n`;
-    formatted += `    * Full Stack Development\n`;
-    formatted += `    * JavaScript/TypeScript\n`;
-    formatted += `    * Graphic Design & UI/UX\n`;
-    formatted += `    * React & React Native\n`;
-    formatted += `    * AWS & Cloud Architecture\n`;
-    formatted += `    * Illustration\n`;
-    formatted += `    * Creative/Technical Writing\n\n`;
-    formatted += `  TECHNOLOGIES:\n`;
-    formatted += `    * Frontend: React, React Native, JavaScript, TypeScript, UI/UX Prototyping\n`;
-    formatted += `    * Backend: Node.js, Ruby, Java\n`;
-    formatted += `    * Cloud & Infrastructure: AWS, AWS Amplify, Docker, Terraform\n`;
-    formatted += `    * Database: MongoDB, SQL\n`;
-    formatted += `    * DevOps: CI/CD, Jenkins, Shell Automation\n`;
-    formatted += `    * Architecture: SOA (Service-Oriented Architecture)\n`;
-    formatted += `    * Design: Adobe Creative Suite\n\n\n`;
+    // Education
+    if (data.education && data.education.length > 0) {
+      formatted += `EDUCATION\n${'-'.repeat(9)}\n\n`;
 
-    // Add education section
-    formatted += `EDUCATION\n${'-'.repeat(9)}\n\n`;
-    formatted += `  BFA Graphic Design\n`;
-    formatted += `    Webster University (2001-2005)\n\n`;
-    formatted += `  BA Philosophy\n`;
-    formatted += `    Webster University (2001-2005)\n\n`;
-    formatted += `  ASSC Motion Graphics\n`;
-    formatted += `    Saint Louis Community College (1999-2001)\n\n`;
+      data.education.forEach((edu: any) => {
+        if (edu.degree) formatted += `  ${edu.degree}\n`;
+        if (edu.institution) {
+          formatted += `    ${edu.institution}`;
+          if (edu.dates) formatted += ` (${edu.dates})`;
+          formatted += `\n\n`;
+        }
+
+        if (edu.description) {
+          formatted += `    ${edu.description}\n\n`;
+        }
+      });
+    }
+
+    // Add generation timestamp
+    formatted += `Generated on: ${new Date().toLocaleString()}`;
 
     return formatted;
   }
