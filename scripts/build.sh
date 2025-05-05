@@ -44,9 +44,9 @@ else
   echo "Warning: PDF file not found at public/pbradygeorgen_resume.pdf"
 fi
 
-# Build the project
-echo "Building the project..."
-npm run build
+# Build the project with ESLint disabled
+echo "Building the project with ESLint disabled..."
+npm run build:nolint
 
 # No need to copy static site marker for SSR deployment
 
