@@ -934,45 +934,292 @@ export async function getApiUsage(): Promise<any> {
   }
 }
 
-// Create a simplified version of the analyze-content API route
-const analyzeContentRoutePath = path.join(process.cwd(), 'app', 'api', 'analyze-content', 'route.ts');
-if (fs.existsSync(analyzeContentRoutePath)) {
-  console.log('📝 Updating analyze-content route.ts file');
+// Create a simplified version of the HesseLogger utility
+const hesseLoggerPath = path.join(process.cwd(), 'utils', 'HesseLogger.ts');
+if (fs.existsSync(hesseLoggerPath)) {
+  console.log('📝 Updating HesseLogger.ts file');
 
   // Create a backup of the original file
-  const backupPath = path.join(process.cwd(), 'app', 'api', 'analyze-content', 'route.ts.bak');
-  fs.copyFileSync(analyzeContentRoutePath, backupPath);
+  const backupPath = path.join(process.cwd(), 'utils', 'HesseLogger.ts.bak');
+  fs.copyFileSync(hesseLoggerPath, backupPath);
 
-  // Create a simplified version of the file
-  const simplifiedAnalyzeContentRoute = `import { NextResponse } from 'next/server';
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'utils', 'HesseLogger.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(hesseLoggerPath, stubContent);
+    console.log('✅ HesseLogger.ts file updated');
+  } else {
+    console.log('⚠️ HesseLogger.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedHesseLogger = `/**
+ * Simplified HesseLogger for AWS Amplify build
+ */
+
+export class HesseLogger {
+  static info = {
+    system: (message: string) => console.log(\`ℹ️ [Hesse:System] \${message}\`),
+    api: (message: string) => console.log(\`ℹ️ [Hesse:API] \${message}\`),
+    db: (message: string) => console.log(\`ℹ️ [Hesse:DB] \${message}\`),
+    auth: (message: string) => console.log(\`ℹ️ [Hesse:Auth] \${message}\`),
+    ux: (message: string) => console.log(\`ℹ️ [Hesse:UX] \${message}\`),
+  };
+
+  static success = {
+    system: (message: string) => console.log(\`✅ [Hesse:System] \${message}\`),
+    api: (message: string) => console.log(\`✅ [Hesse:API] \${message}\`),
+    db: (message: string) => console.log(\`✅ [Hesse:DB] \${message}\`),
+    auth: (message: string) => console.log(\`✅ [Hesse:Auth] \${message}\`),
+    ux: (message: string) => console.log(\`✅ [Hesse:UX] \${message}\`),
+  };
+
+  static warning = {
+    system: (message: string) => console.warn(\`⚠️ [Hesse:System] \${message}\`),
+    api: (message: string) => console.warn(\`⚠️ [Hesse:API] \${message}\`),
+    db: (message: string) => console.warn(\`⚠️ [Hesse:DB] \${message}\`),
+    auth: (message: string) => console.warn(\`⚠️ [Hesse:Auth] \${message}\`),
+    ux: (message: string) => console.warn(\`⚠️ [Hesse:UX] \${message}\`),
+  };
+
+  static error = {
+    system: (message: string) => console.error(\`❌ [Hesse:System] \${message}\`),
+    api: (message: string) => console.error(\`❌ [Hesse:API] \${message}\`),
+    db: (message: string) => console.error(\`❌ [Hesse:DB] \${message}\`),
+    auth: (message: string) => console.error(\`❌ [Hesse:Auth] \${message}\`),
+    ux: (message: string) => console.error(\`❌ [Hesse:UX] \${message}\`),
+  };
+
+  static debug = {
+    system: (message: string) => console.debug(\`🔍 [Hesse:System] \${message}\`),
+    api: (message: string) => console.debug(\`🔍 [Hesse:API] \${message}\`),
+    db: (message: string) => console.debug(\`🔍 [Hesse:DB] \${message}\`),
+    auth: (message: string) => console.debug(\`🔍 [Hesse:Auth] \${message}\`),
+    ux: (message: string) => console.debug(\`🔍 [Hesse:UX] \${message}\`),
+  };
+}`;
+
+    fs.writeFileSync(hesseLoggerPath, simplifiedHesseLogger);
+    console.log('✅ HesseLogger.ts file updated');
+  }
+}
+
+// Create a simplified version of the pdfContentProcessor utility
+const pdfContentProcessorPath = path.join(process.cwd(), 'utils', 'pdfContentProcessor.ts');
+if (fs.existsSync(pdfContentProcessorPath)) {
+  console.log('📝 Updating pdfContentProcessor.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'utils', 'pdfContentProcessor.ts.bak');
+  fs.copyFileSync(pdfContentProcessorPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'utils', 'pdfContentProcessor.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(pdfContentProcessorPath, stubContent);
+    console.log('✅ pdfContentProcessor.ts file updated');
+  } else {
+    console.log('⚠️ pdfContentProcessor.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedPdfContentProcessor = `/**
+ * Simplified pdfContentProcessor for AWS Amplify build
+ */
 
 /**
- * Simplified analyze-content API route for AWS Amplify build
+ * Extracts text content from a PDF file
+ */
+export async function extractTextFromPdf(pdfPath: string): Promise<string> {
+  return "This is a simplified version of the extractTextFromPdf function for AWS Amplify build.";
+}
+
+/**
+ * Analyzes PDF content using OpenAI
+ */
+export async function analyzePdfContent(pdfPath: string): Promise<any> {
+  return {
+    name: "Sample Name",
+    sections: ["header", "summary", "skills", "experience", "education"],
+    structuredContent: {
+      header: "Sample header content",
+      summary: "Sample summary content",
+      skills: ["Skill 1", "Skill 2", "Skill 3"],
+      experience: ["Experience 1", "Experience 2"],
+      education: ["Education 1", "Education 2"],
+    },
+  };
+}
+
+/**
+ * Extracts font information from a PDF
+ */
+export async function extractFontInfo(pdfPath: string): Promise<any> {
+  return {
+    hesseFont: {
+      name: "Helvetica",
+      isSerifFont: false,
+      isMonospace: false,
+      type: "sans-serif",
+      philosophy: "Hesse: Clarity and structure",
+    },
+    salingerFont: {
+      name: "Times New Roman",
+      isSerifFont: true,
+      isMonospace: false,
+      type: "serif",
+      philosophy: "Salinger: Authenticity and tradition",
+    },
+    derridaFont: {
+      name: "Courier New",
+      isSerifFont: false,
+      isMonospace: true,
+      type: "monospace",
+      philosophy: "Derrida: Deconstruction and analysis",
+    },
+  };
+}
+
+/**
+ * Extracts color information from a PDF
+ */
+export async function extractColorInfo(pdfPath: string): Promise<any> {
+  return {
+    primary: "#b82e63",
+    secondary: "#5a9933",
+    accent: "#26d994",
+    background: "#f4f1f2",
+    text: "#2c2125",
+    border: "#d6c2ca",
+    isDarkTheme: false,
+  };
+}
+
+/**
+ * Generates a content fingerprint for a PDF
+ */
+export function generateContentFingerprint(pdfPath: string): string {
+  return "simplified-content-fingerprint-for-aws-amplify-build";
+}
+
+/**
+ * Processes a PDF file and extracts all relevant information
+ */
+export async function processPdfFile(pdfPath: string): Promise<any> {
+  return {
+    text: "This is a simplified version of the processPdfFile function for AWS Amplify build.",
+    analysis: {
+      name: "Sample Name",
+      sections: ["header", "summary", "skills", "experience", "education"],
+    },
+    fonts: {
+      hesseFont: { name: "Helvetica" },
+      salingerFont: { name: "Times New Roman" },
+      derridaFont: { name: "Courier New" },
+    },
+    colors: {
+      primary: "#b82e63",
+      secondary: "#5a9933",
+      accent: "#26d994",
+    },
+    fingerprint: "simplified-content-fingerprint-for-aws-amplify-build",
+  };
+}`;
+
+    fs.writeFileSync(pdfContentProcessorPath, simplifiedPdfContentProcessor);
+    console.log('✅ pdfContentProcessor.ts file updated');
+  }
+}
+
+// Function to create a simplified API route
+function createSimplifiedApiRoute(routePath, routeDescription) {
+  if (fs.existsSync(routePath)) {
+    console.log(`📝 Updating ${routePath} file`);
+
+    // Create a backup of the original file
+    const backupPath = `${routePath}.bak`;
+    fs.copyFileSync(routePath, backupPath);
+
+    // Create a simplified version of the file
+    const simplifiedApiRoute = `import { NextResponse } from 'next/server';
+
+/**
+ * Simplified ${routeDescription} API route for AWS Amplify build
  */
 export async function POST(request: Request) {
   try {
     // Return a mock response
     return NextResponse.json({
       success: true,
-      message: "This is a simplified version of the analyze-content API route for AWS Amplify build.",
-      analysis: {
-        summary: "Content summary would appear here.",
-        keywords: ["keyword1", "keyword2", "keyword3"],
-        sentiment: "positive",
+      message: "This is a simplified version of the ${routeDescription} API route for AWS Amplify build.",
+      data: {
         timestamp: new Date().toISOString(),
       }
     });
   } catch (error) {
-    console.error('Error in analyze-content API route:', error);
+    console.error('Error in ${routeDescription} API route:', error);
     return NextResponse.json(
-      { error: 'Failed to analyze content' },
+      { error: 'Failed to process request' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    // Return a mock response
+    return NextResponse.json({
+      success: true,
+      message: "This is a simplified version of the ${routeDescription} API route for AWS Amplify build.",
+      data: {
+        timestamp: new Date().toISOString(),
+      }
+    });
+  } catch (error) {
+    console.error('Error in ${routeDescription} API route:', error);
+    return NextResponse.json(
+      { error: 'Failed to process request' },
       { status: 500 }
     );
   }
 }`;
 
-  fs.writeFileSync(analyzeContentRoutePath, simplifiedAnalyzeContentRoute);
-  console.log('✅ analyze-content route.ts file updated');
+    fs.writeFileSync(routePath, simplifiedApiRoute);
+    console.log(`✅ ${routePath} file updated`);
+  }
 }
+
+// Create simplified versions of API routes
+const apiRoutes = [
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'analyze-content', 'route.ts'),
+    description: 'analyze-content'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'analyze-pdf-content', 'route.ts'),
+    description: 'analyze-pdf-content'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'build-preprocess', 'route.ts'),
+    description: 'build-preprocess'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'extract-pdf', 'route.ts'),
+    description: 'extract-pdf'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'generate-cover-letter', 'route.ts'),
+    description: 'generate-cover-letter'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'upload-pdf', 'route.ts'),
+    description: 'upload-pdf'
+  }
+];
+
+// Create simplified versions of all API routes
+apiRoutes.forEach(route => {
+  createSimplifiedApiRoute(route.path, route.description);
+});
 
 console.log('✅ Application prepared for AWS Amplify build');
