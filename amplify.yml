@@ -1,10 +1,4 @@
-version: 2
-appRoot: .
-backend:
-  phases:
-    build:
-      commands:
-        - amplify build
+version: 1
 frontend:
   phases:
     preBuild:

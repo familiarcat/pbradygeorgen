@@ -1,0 +1,63 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-alexai-dev-authRole",
+      "UnauthRoleName": "amplify-alexai-dev-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::*:role/amplify-alexai-dev-authRole",
+      "UnauthRoleArn": "arn:aws:iam::*:role/amplify-alexai-dev-unauthRole",
+      "Region": "us-east-1"
+    }
+  },
+  "auth": {
+    "alexaiauth": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": ["EMAIL"],
+        "signupAttributes": ["EMAIL"],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [],
+        "verificationMechanisms": ["EMAIL"]
+      }
+    }
+  },
+  "api": {
+    "alexaiapi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authalexaiauth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "storage": {
+    "alexaistorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
+}
