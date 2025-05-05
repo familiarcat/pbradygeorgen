@@ -1,10 +1,20 @@
 version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - echo "No backend build required"
 frontend:
   phases:
     preBuild:
       commands:
         - echo "Node version $(node -v)"
         - echo "NPM version $(npm -v)"
+        - echo "Creating necessary directories"
+        - mkdir -p public/extracted
+        - echo "Installing dependencies"
+        - npm ci --production=false --ignore-engines || npm install --force
+        - echo "Making scripts executable"
         - chmod +x *.sh
         - chmod +x scripts/*.sh
         - chmod +x scripts/*.js
@@ -17,6 +27,10 @@ frontend:
         - echo "Running post-build commands"
         - node scripts/fix-standalone-directory.js
         - echo "Standalone directory fixed"
+        - echo "Verifying standalone directory structure"
+        - ls -la .next/standalone
+        - echo "Verifying server.js exists"
+        - ls -la .next/standalone/server.js || cp server.js .next/standalone/
   artifacts:
     baseDirectory: .next/standalone
     files:
@@ -49,3 +63,8 @@ frontend:
       AMPLIFY_USE_LOCAL: 'false'
       AMPLIFY_USE_STORAGE: 'true'
       S3_BUCKET_NAME: 'alexai-pdf-storage-prod'
+      DEBUG_LOGGING: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_SHARP_PATH: './node_modules/sharp'
+      NEXT_PUBLIC_AMPLIFY_DEPLOYED: 'true'
+      NEXT_PUBLIC_DEPLOYMENT_ENV: 'production'

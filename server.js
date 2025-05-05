@@ -159,33 +159,50 @@ app.prepare().then(() => {
       }
 
       // Special handling for extracted files
-      if (req.url.startsWith('/public/extracted/')) {
-        const filePath = path.join(
-          isInStandaloneDir ? __dirname : path.join(__dirname, '.next', 'standalone'),
-          req.url
-        );
+      if (req.url.startsWith('/public/extracted/') || req.url.startsWith('/extracted/')) {
+        // Normalize the path to handle both /public/extracted/ and /extracted/ URLs
+        const normalizedPath = req.url.startsWith('/public/')
+          ? req.url
+          : `/public${req.url}`;
 
-        console.log(`Looking for extracted file: ${filePath}`);
+        // Try multiple possible locations for the file
+        const possiblePaths = [
+          // Direct path in current directory
+          path.join(__dirname, normalizedPath),
+          // Path in standalone directory
+          path.join(__dirname, '.next', 'standalone', normalizedPath),
+          // Alternative path without 'public' prefix
+          path.join(__dirname, req.url),
+          // Alternative path in standalone directory without 'public' prefix
+          path.join(__dirname, '.next', 'standalone', req.url)
+        ];
 
-        if (fs.existsSync(filePath)) {
-          console.log(`Serving extracted file: ${filePath}`);
-          const content = fs.readFileSync(filePath);
+        // Try each possible path
+        for (const filePath of possiblePaths) {
+          console.log(`Looking for extracted file: ${filePath}`);
 
-          // Set appropriate content type
-          if (filePath.endsWith('.json')) {
-            res.setHeader('Content-Type', 'application/json');
-          } else if (filePath.endsWith('.md')) {
-            res.setHeader('Content-Type', 'text/markdown');
-          } else if (filePath.endsWith('.pdf')) {
-            res.setHeader('Content-Type', 'application/pdf');
-          } else {
-            res.setHeader('Content-Type', 'text/plain');
+          if (fs.existsSync(filePath)) {
+            console.log(`Serving extracted file: ${filePath}`);
+            const content = fs.readFileSync(filePath);
+
+            // Set appropriate content type
+            if (filePath.endsWith('.json')) {
+              res.setHeader('Content-Type', 'application/json');
+            } else if (filePath.endsWith('.md')) {
+              res.setHeader('Content-Type', 'text/markdown');
+            } else if (filePath.endsWith('.pdf')) {
+              res.setHeader('Content-Type', 'application/pdf');
+            } else {
+              res.setHeader('Content-Type', 'text/plain');
+            }
+
+            res.statusCode = 200;
+            res.end(content);
+            return;
           }
-
-          res.statusCode = 200;
-          res.end(content);
-          return;
         }
+
+        console.log(`File not found in any location: ${req.url}`);
       }
 
       // Let Next.js handle the request
