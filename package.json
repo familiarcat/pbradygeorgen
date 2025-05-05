@@ -22,7 +22,8 @@
     "s3:sync": "node scripts/s3-sync.js",
     "deploy:amplify": "chmod +x scripts/deploy-to-amplify-gen2.sh && ./scripts/deploy-to-amplify-gen2.sh",
     "logs:amplify": "amplify console",
-    "e2e:test": "npm run build && npm run start"
+    "e2e:test": "npm run build && npm run start",
+    "check:build": "chmod +x scripts/check-amplify-build.sh && ./scripts/check-amplify-build.sh"
   },
   "dependencies": {
     "@aws-amplify/backend": "^1.16.0",
