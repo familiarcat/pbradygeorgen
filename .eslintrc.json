@@ -62,6 +62,10 @@
     "dist/",
     "node_modules/",
     ".cache/",
-    ".eslintcache"
+    ".eslintcache",
+    "public/extracted/",
+    "public/downloads/",
+    "packages/",
+    "scripts/archive/"
   ]
 }

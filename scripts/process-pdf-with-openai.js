@@ -1,6 +1,6 @@
 /**
  * PDF Processing with OpenAI
- * 
+ *
  * This script processes a PDF file using OpenAI to extract structured content.
  * It follows Derrida's philosophy of deconstruction by breaking down the PDF
  * into its component parts and analyzing them separately.
@@ -78,15 +78,15 @@ async function main() {
 
     // Process with OpenAI
     log.info('Processing with OpenAI...');
-    
+
     // Check if we have a valid API key
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'sk-placeholder-for-amplify-build') {
       log.warning('No valid OpenAI API key found. Using fallback processing method.');
-      
+
       // Use the fallback method
       const improvedMarkdown = createImprovedMarkdown(text);
       fs.writeFileSync(markdownPath, improvedMarkdown);
-      
+
       // Create a basic JSON structure
       const jsonContent = {
         title: 'Resume',
@@ -107,29 +107,29 @@ async function main() {
         ],
         timestamp: new Date().toISOString()
       };
-      
+
       fs.writeFileSync(jsonPath, JSON.stringify(jsonContent, null, 2));
       log.success(`Basic JSON content saved to: ${jsonPath}`);
-      
+
       log.success(`Improved markdown saved to: ${markdownPath}`);
       log.info('\nExtracted content preview:');
       log.info(improvedMarkdown.substring(0, 500) + '...');
-      
+
       return;
     }
-    
+
     // Process with OpenAI
     const structuredContent = await processWithOpenAI(text);
-    
+
     // Save the structured content as JSON
     fs.writeFileSync(jsonPath, JSON.stringify(structuredContent, null, 2));
     log.success(`Structured content saved to: ${jsonPath}`);
-    
+
     // Generate markdown from the structured content
     const markdown = generateMarkdown(structuredContent);
     fs.writeFileSync(markdownPath, markdown);
     log.success(`Markdown content saved to: ${markdownPath}`);
-    
+
     log.info('\nExtracted content preview:');
     log.info(markdown.substring(0, 500) + '...');
 
@@ -146,7 +146,7 @@ async function main() {
 async function processWithOpenAI(text) {
   try {
     log.info('Sending content to OpenAI for analysis...');
-    
+
     const prompt = `
     You are an expert resume analyzer. Extract structured information from the following resume text.
     Format the output as a JSON object with the following structure:
@@ -160,14 +160,14 @@ async function processWithOpenAI(text) {
         }
       ]
     }
-    
+
     For skills, education, and similar list-based sections, use arrays for the content.
     For experience and other paragraph-based sections, use strings for the content.
-    
+
     Resume text:
     ${text}
     `;
-    
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -177,18 +177,31 @@ async function processWithOpenAI(text) {
       temperature: 0.3,
       max_tokens: 2000
     });
-    
+
     const content = response.choices[0].message.content;
-    
+
     // Parse the JSON response
     try {
-      const jsonContent = JSON.parse(content);
+      // Check if the response is wrapped in markdown code blocks
+      let jsonString = content;
+
+      // Remove markdown code blocks if present
+      const jsonRegex = /```(?:json)?\s*([\s\S]*?)```/;
+      const match = content.match(jsonRegex);
+
+      if (match && match[1]) {
+        jsonString = match[1].trim();
+        log.info('Extracted JSON from markdown code blocks');
+      }
+
+      const jsonContent = JSON.parse(jsonString);
       log.success('Successfully parsed OpenAI response');
       return jsonContent;
     } catch (error) {
       log.error(`Failed to parse OpenAI response: ${error.message}`);
-      log.info('OpenAI response:', content);
-      
+      log.info('OpenAI response:');
+      console.log(content);
+
       // Return a basic structure
       return {
         title: 'Resume',
@@ -208,7 +221,7 @@ async function processWithOpenAI(text) {
     }
   } catch (error) {
     log.error(`OpenAI API error: ${error.message}`);
-    
+
     // Return a basic structure
     return {
       title: 'Resume',
@@ -233,15 +246,15 @@ async function processWithOpenAI(text) {
  */
 function generateMarkdown(content) {
   let markdown = `# ${content.title || 'Resume'}\n\n`;
-  
+
   if (content.summary) {
     markdown += `${content.summary}\n\n`;
   }
-  
+
   if (content.sections && Array.isArray(content.sections)) {
     for (const section of content.sections) {
       markdown += `## ${section.title}\n\n`;
-      
+
       if (Array.isArray(section.content)) {
         for (const item of section.content) {
           markdown += `- ${item}\n`;
@@ -249,16 +262,16 @@ function generateMarkdown(content) {
       } else {
         markdown += `${section.content}\n`;
       }
-      
+
       markdown += '\n';
     }
   }
-  
+
   // Add metadata
   markdown += `---\n\n`;
   markdown += `*This document was automatically extracted from a PDF resume using OpenAI.*\n`;
   markdown += `*Generated on: ${new Date().toLocaleDateString()}*\n`;
-  
+
   return markdown;
 }
 
@@ -309,7 +322,7 @@ function createImprovedMarkdown(text) {
     } else if (line.includes('EDUCATION')) {
       currentSection = 'education';
       continue;
-    } else if (line.match(/^[0-9]{4}/) && lines[i+1] && !lines[i+1].match(/^[0-9]{4}/)) {
+    } else if (line.match(/^[0-9]{4}/) && lines[i + 1] && !lines[i + 1].match(/^[0-9]{4}/)) {
       // Lines starting with years are likely experience entries
       currentSection = 'experience';
     } else if (line.includes('@') || line.includes('.com') || line.includes('St. Louis')) {
@@ -367,8 +380,8 @@ function createImprovedMarkdown(text) {
       // Check if this line starts with a year range
       if (line.match(/^[0-9]{4}/)) {
         const period = line.trim();
-        const company = sections.experience[i+1]?.trim() || '';
-        const title = sections.experience[i+2]?.trim() || '';
+        const company = sections.experience[i + 1]?.trim() || '';
+        const title = sections.experience[i + 2]?.trim() || '';
 
         markdown += `### ${company} (${period})\n`;
         markdown += `**${title}**\n\n`;
@@ -405,9 +418,9 @@ function createImprovedMarkdown(text) {
       const line = sections.education[i];
 
       if (line.includes('University') || line.includes('College')) {
-        const degree = sections.education[i-1]?.trim() || '';
+        const degree = sections.education[i - 1]?.trim() || '';
         const institution = line.trim();
-        const period = sections.education[i+1]?.trim() || '';
+        const period = sections.education[i + 1]?.trim() || '';
 
         markdown += `### ${degree}\n`;
         markdown += `**${institution}** (${period})\n\n`;
