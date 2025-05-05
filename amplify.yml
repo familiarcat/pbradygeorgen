@@ -1,6 +1,5 @@
 version: 2
-appRoot:
-  - .
+appRoot: .
 backend:
   phases:
     build:
