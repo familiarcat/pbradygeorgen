@@ -484,28 +484,28 @@ export class DanteLogger {
   }
 }
 
-// Create a simplified version of the axiom-demo page
-const axiomDemoPath = path.join(process.cwd(), 'app', 'axiom-demo', 'page.tsx');
-if (fs.existsSync(axiomDemoPath)) {
-  console.log('📝 Updating axiom-demo page.tsx file');
+// Function to create a simplified page
+function createSimplifiedPage(pagePath, pageTitle, pageDescription) {
+  if (fs.existsSync(pagePath)) {
+    console.log(`📝 Updating ${pagePath} file`);
 
-  // Create a backup of the original file
-  const backupPath = path.join(process.cwd(), 'app', 'axiom-demo', 'page.tsx.bak');
-  fs.copyFileSync(axiomDemoPath, backupPath);
+    // Create a backup of the original file
+    const backupPath = `${pagePath}.bak`;
+    fs.copyFileSync(pagePath, backupPath);
 
-  // Create a simplified version of the file
-  const simplifiedAxiomDemo = `'use client';
+    // Create a simplified version of the file
+    const simplifiedPage = `'use client';
 
 import React from 'react';
 import Link from 'next/link';
 
-export default function AxiomDemoPage() {
+export default function SimplifiedPage() {
   return (
     <div className="min-h-screen bg-[#F5F3E7] text-[#49423D] flex flex-col">
       {/* Header */}
       <header className="bg-[#D4D1BE] p-6 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold font-mono">Axiom of Choice UI</h1>
+          <h1 className="text-3xl font-bold font-mono">${pageTitle}</h1>
           <Link
             href="/"
             className="px-4 py-2 bg-[#7E4E2D] text-white rounded hover:bg-[#8F5A35] transition-colors"
@@ -520,26 +520,19 @@ export default function AxiomDemoPage() {
         <div className="max-w-7xl mx-auto">
           {/* Introduction */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 font-mono">The Axiom of Choice in UI Design</h2>
+            <h2 className="text-2xl font-bold mb-4 font-mono">${pageTitle}</h2>
             <p className="mb-4">
-              The Axiom of Choice is a mathematical principle that states that for any collection of non-empty sets,
-              it's possible to select exactly one element from each set to form a new set. In UI terms, this translates
-              to dynamically selecting optimal UI elements based on context, creating fluid transitions between states,
-              and anticipating user needs before they're explicitly expressed.
-            </p>
-            <p>
-              This demo showcases how the Axiom of Choice can be applied to create responsive,
-              animated UI structures that adapt to user behavior and content.
+              ${pageDescription}
             </p>
           </section>
 
-          {/* Demo area */}
+          {/* Content area */}
           <section className="relative min-h-[500px] border-2 border-[#D4D1BE] rounded-lg bg-white p-4">
-            <h3 className="text-xl font-bold mb-4 font-mono">Demo Area</h3>
+            <h3 className="text-xl font-bold mb-4 font-mono">Content Area</h3>
 
             <div className="absolute inset-0 flex items-center justify-center">
               <p className="text-lg text-[#7E6233]">
-                Demo temporarily unavailable in AWS Amplify build
+                This page is temporarily unavailable in AWS Amplify build
               </p>
             </div>
           </section>
@@ -550,7 +543,7 @@ export default function AxiomDemoPage() {
       <footer className="bg-[#D4D1BE] p-6 mt-auto">
         <div className="max-w-7xl mx-auto text-center">
           <p>
-            Axiom of Choice UI Demo - Implementing mathematical principles in user interface design
+            AlexAI - PDF Processing and Analysis
           </p>
         </div>
       </footer>
@@ -558,8 +551,128 @@ export default function AxiomDemoPage() {
   );
 }`;
 
-  fs.writeFileSync(axiomDemoPath, simplifiedAxiomDemo);
-  console.log('✅ axiom-demo page.tsx file updated');
+    fs.writeFileSync(pagePath, simplifiedPage);
+    console.log(`✅ ${pagePath} file updated`);
+  }
 }
+
+// Create a simplified version of the axiom-demo page
+const axiomDemoPath = path.join(process.cwd(), 'app', 'axiom-demo', 'page.tsx');
+createSimplifiedPage(
+  axiomDemoPath,
+  "Axiom of Choice UI",
+  "The Axiom of Choice is a mathematical principle that states that for any collection of non-empty sets, it's possible to select exactly one element from each set to form a new set. In UI terms, this translates to dynamically selecting optimal UI elements based on context, creating fluid transitions between states, and anticipating user needs before they're explicitly expressed."
+);
+
+// Create a simplified version of the dante-agile page
+const danteAgilePath = path.join(process.cwd(), 'app', 'dante-agile', 'page.tsx');
+createSimplifiedPage(
+  danteAgilePath,
+  "Dante Agile Framework",
+  "The Dante Agile Framework is a philosophical approach to agile development inspired by Dante Alighieri's Divine Comedy. It structures the development process into three phases: Inferno (identifying problems), Purgatorio (refining solutions), and Paradiso (achieving excellence)."
+);
+
+// Create a simplified version of the json-view page
+const jsonViewPath = path.join(process.cwd(), 'app', 'json-view', 'page.tsx');
+createSimplifiedPage(
+  jsonViewPath,
+  "JSON Viewer",
+  "The JSON Viewer provides a structured, interactive way to explore JSON data extracted from PDF files. It allows you to navigate complex nested structures and visualize the relationships between different data elements."
+);
+
+// Create a simplified version of the test-ssr page
+const testSsrPath = path.join(process.cwd(), 'app', 'test-ssr', 'page.tsx');
+createSimplifiedPage(
+  testSsrPath,
+  "Server-Side Rendering Test",
+  "This page tests the server-side rendering capabilities of the application, ensuring that content is properly generated on the server before being sent to the client."
+);
+
+// Create a simplified version of the JsonViewer component
+const jsonViewerPath = path.join(process.cwd(), 'components', 'JsonViewer.tsx');
+if (fs.existsSync(jsonViewerPath)) {
+  console.log('📝 Updating JsonViewer.tsx file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'components', 'JsonViewer.tsx.bak');
+  fs.copyFileSync(jsonViewerPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'components', 'JsonViewer.stub.tsx');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(jsonViewerPath, stubContent);
+    console.log('✅ JsonViewer.tsx file updated');
+  } else {
+    console.log('⚠️ JsonViewer.stub.tsx not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedJsonViewer = `'use client';
+
+import React from 'react';
+
+interface JsonViewerProps {
+  data: any;
+  title?: string;
+  expanded?: boolean;
+}
+
+/**
+ * Simplified JsonViewer component for AWS Amplify build
+ */
+export default function JsonViewer({ data, title = 'JSON Data', expanded = false }: JsonViewerProps) {
+  return (
+    <div className="border border-gray-300 rounded-lg p-4 bg-white">
+      <h3 className="text-lg font-bold mb-2">{title}</h3>
+      <div className="bg-gray-100 p-4 rounded overflow-auto max-h-[500px]">
+        <pre className="text-sm">{JSON.stringify(data, null, 2)}</pre>
+      </div>
+    </div>
+  );
+}`;
+
+    fs.writeFileSync(jsonViewerPath, simplifiedJsonViewer);
+    console.log('✅ JsonViewer.tsx file updated');
+  }
+}
+
+// Create a simplified version of the DanteAgileLayout component
+const danteAgileLayoutPath = path.join(process.cwd(), 'components', 'dante-agile', 'DanteAgileLayout.tsx');
+// Ensure the directory exists
+const danteAgileDir = path.join(process.cwd(), 'components', 'dante-agile');
+if (!fs.existsSync(danteAgileDir)) {
+  fs.mkdirSync(danteAgileDir, { recursive: true });
+}
+
+// Create the simplified component
+const simplifiedDanteAgileLayout = `'use client';
+
+import React, { ReactNode } from 'react';
+
+interface DanteAgileLayoutProps {
+  children: ReactNode;
+}
+
+/**
+ * Simplified DanteAgileLayout component for AWS Amplify build
+ */
+export default function DanteAgileLayout({ children }: DanteAgileLayoutProps) {
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-white shadow-md p-4">
+        <h1 className="text-2xl font-bold">Dante Agile Framework</h1>
+      </header>
+      <main className="container mx-auto p-4">
+        {children}
+      </main>
+      <footer className="bg-white p-4 text-center">
+        <p>Dante Agile Framework - Inspired by Dante's Divine Comedy</p>
+      </footer>
+    </div>
+  );
+}`;
+
+fs.writeFileSync(danteAgileLayoutPath, simplifiedDanteAgileLayout);
+console.log('✅ DanteAgileLayout.tsx file created');
 
 console.log('✅ Application prepared for AWS Amplify build');
