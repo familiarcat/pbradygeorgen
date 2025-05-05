@@ -1567,6 +1567,14 @@ const apiRoutes = [
   {
     path: path.join(process.cwd(), 'app', 'api', 'get-summary', 'route.ts'),
     description: 'get-summary'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'preprocess-pdf', 'route.ts'),
+    description: 'preprocess-pdf'
+  },
+  {
+    path: path.join(process.cwd(), 'app', 'api', 'refresh-content', 'route.ts'),
+    description: 'refresh-content'
   }
 ];
 
