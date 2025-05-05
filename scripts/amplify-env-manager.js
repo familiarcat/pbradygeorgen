@@ -43,7 +43,7 @@ try {
 }
 
 // Parse command line arguments
-const [,, action = 'help', envName = 'dev'] = process.argv;
+const [, , action = 'help', envName = 'dev'] = process.argv;
 
 // Validate inputs
 if (!['pull', 'push', 'list', 'help'].includes(action)) {
@@ -92,10 +92,10 @@ if (!APP_ID) {
 // Helper function to run AWS CLI commands
 function runAwsCommand(command) {
   try {
-    return execSync(command, { 
+    return execSync(command, {
       encoding: 'utf8',
-      env: { 
-        ...process.env, 
+      env: {
+        ...process.env,
         AWS_PROFILE,
         AWS_REGION
       }
@@ -126,7 +126,7 @@ function writeEnvFile(filePath, envVars) {
   const content = Object.entries(envVars)
     .map(([key, value]) => `${key}=${value}`)
     .join('\n');
-  
+
   fs.writeFileSync(filePath, content);
   console.log(`Updated ${filePath}`);
 }
@@ -141,18 +141,18 @@ function getBranchInfo() {
 // List environment variables in Amplify
 function listEnvVars() {
   console.log(`Listing environment variables for app ${APP_ID} branch ${BRANCH}...`);
-  
+
   const branchData = getBranchInfo();
-  
+
   if (!branchData.branch || !branchData.branch.environmentVariables) {
     console.log('No environment variables found for this branch.');
     return;
   }
-  
+
   const envVars = branchData.branch.environmentVariables;
   console.log('\nEnvironment Variables:');
   console.log('=====================');
-  
+
   Object.entries(envVars).forEach(([key, value]) => {
     // Mask sensitive values
     const maskedValue = key.includes('KEY') || key.includes('SECRET') || key.includes('PASSWORD')
@@ -165,53 +165,53 @@ function listEnvVars() {
 // Pull environment variables from Amplify
 function pullEnvVars() {
   console.log(`Pulling environment variables from app ${APP_ID} branch ${BRANCH}...`);
-  
+
   const branchData = getBranchInfo();
-  
+
   if (!branchData.branch || !branchData.branch.environmentVariables) {
     console.error('No environment variables found for this branch.');
     process.exit(1);
   }
-  
+
   const amplifyEnvVars = branchData.branch.environmentVariables;
-  
+
   // Read existing .env.local file
   const localEnvPath = path.join(process.cwd(), '.env.local');
   const localEnvVars = parseEnvFile(localEnvPath);
-  
+
   // Merge environment variables, prioritizing Amplify values
   const mergedEnvVars = { ...localEnvVars, ...amplifyEnvVars };
-  
+
   // Write updated .env.local file
   writeEnvFile(localEnvPath, mergedEnvVars);
-  
+
   console.log('Environment variables pulled successfully!');
 }
 
 // Push environment variables to Amplify
 function pushEnvVars() {
   console.log(`Pushing environment variables to app ${APP_ID} branch ${BRANCH}...`);
-  
+
   // Read .env.local file
   const localEnvPath = path.join(process.cwd(), '.env.local');
   const localEnvVars = parseEnvFile(localEnvPath);
-  
+
   if (Object.keys(localEnvVars).length === 0) {
     console.error('No environment variables found in .env.local');
     process.exit(1);
   }
-  
+
   // Get current environment variables from Amplify
   const branchData = getBranchInfo();
-  
+
   // Merge environment variables, prioritizing local values
   const amplifyEnvVars = branchData.branch?.environmentVariables || {};
   const mergedEnvVars = { ...amplifyEnvVars, ...localEnvVars };
-  
+
   // Update environment variables in Amplify
   const envVarsJson = JSON.stringify(mergedEnvVars);
   runAwsCommand(`aws amplify update-branch --app-id ${APP_ID} --branch-name ${BRANCH} --environment-variables '${envVarsJson}'`);
-  
+
   console.log('Environment variables pushed successfully!');
 }
 
