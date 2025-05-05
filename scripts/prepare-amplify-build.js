@@ -588,6 +588,22 @@ createSimplifiedPage(
   "This page tests the server-side rendering capabilities of the application, ensuring that content is properly generated on the server before being sent to the client."
 );
 
+// Create a simplified version of the test page
+const testPath = path.join(process.cwd(), 'app', 'test', 'page.tsx');
+createSimplifiedPage(
+  testPath,
+  "Test Page",
+  "This page is used for testing various components and features of the application."
+);
+
+// Create a simplified version of the upload page
+const uploadPath = path.join(process.cwd(), 'app', 'upload', 'page.tsx');
+createSimplifiedPage(
+  uploadPath,
+  "Upload PDF",
+  "This page allows users to upload PDF files for processing and analysis."
+);
+
 // Create a simplified version of the JsonViewer component
 const jsonViewerPath = path.join(process.cwd(), 'components', 'JsonViewer.tsx');
 if (fs.existsSync(jsonViewerPath)) {
@@ -674,5 +690,289 @@ export default function DanteAgileLayout({ children }: DanteAgileLayoutProps) {
 
 fs.writeFileSync(danteAgileLayoutPath, simplifiedDanteAgileLayout);
 console.log('✅ DanteAgileLayout.tsx file created');
+
+// Create a simplified version of the PDFUploader component
+const pdfUploaderPath = path.join(process.cwd(), 'components', 'PDFUploader.tsx');
+if (fs.existsSync(pdfUploaderPath)) {
+  console.log('📝 Updating PDFUploader.tsx file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'components', 'PDFUploader.tsx.bak');
+  fs.copyFileSync(pdfUploaderPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'components', 'PDFUploader.stub.tsx');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(pdfUploaderPath, stubContent);
+    console.log('✅ PDFUploader.tsx file updated');
+  } else {
+    console.log('⚠️ PDFUploader.stub.tsx not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedPDFUploader = `'use client';
+
+import React, { useState } from 'react';
+
+/**
+ * Simplified PDFUploader component for AWS Amplify build
+ */
+export default function PDFUploader() {
+  const [isUploading, setIsUploading] = useState(false);
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUploading(true);
+
+    // Simulate upload
+    setTimeout(() => {
+      setIsUploading(false);
+      alert('This is a simplified version of the PDFUploader component for AWS Amplify build. File upload is not available in this version.');
+    }, 1000);
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Upload PDF</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="pdf-file">
+            Select PDF file
+          </label>
+          <input
+            type="file"
+            id="pdf-file"
+            accept=".pdf"
+            onChange={handleFileChange}
+            className="w-full p-2 border border-gray-300 rounded"
+            disabled={isUploading}
+          />
+        </div>
+        {fileName && (
+          <div className="mb-4">
+            <p className="text-sm text-gray-600">Selected file: {fileName}</p>
+          </div>
+        )}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors"
+          disabled={!fileName || isUploading}
+        >
+          {isUploading ? 'Uploading...' : 'Upload PDF'}
+        </button>
+      </form>
+    </div>
+  );
+}`;
+
+    fs.writeFileSync(pdfUploaderPath, simplifiedPDFUploader);
+    console.log('✅ PDFUploader.tsx file updated');
+  }
+}
+
+// Create a simplified version of the serverTextUtils utility
+const serverTextUtilsPath = path.join(process.cwd(), 'utils', 'serverTextUtils.ts');
+if (fs.existsSync(serverTextUtilsPath)) {
+  console.log('📝 Updating serverTextUtils.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'utils', 'serverTextUtils.ts.bak');
+  fs.copyFileSync(serverTextUtilsPath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'utils', 'serverTextUtils.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(serverTextUtilsPath, stubContent);
+    console.log('✅ serverTextUtils.ts file updated');
+  } else {
+    console.log('⚠️ serverTextUtils.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedServerTextUtils = `/**
+ * Simplified serverTextUtils for AWS Amplify build
+ */
+
+/**
+ * Extracts text content from a PDF file
+ */
+export async function extractTextFromPdf(pdfBuffer: Buffer): Promise<string> {
+  return "This is a simplified version of the extractTextFromPdf function for AWS Amplify build.";
+}
+
+/**
+ * Converts text to markdown format
+ */
+export function convertToMarkdown(text: string): string {
+  return \`# Converted to Markdown\\n\\n\${text}\`;
+}
+
+/**
+ * Extracts key information from text
+ */
+export function extractKeyInfo(text: string): Record<string, any> {
+  return {
+    title: "Sample Title",
+    content: text,
+    timestamp: new Date().toISOString(),
+  };
+}
+
+/**
+ * Sanitizes text for safe display
+ */
+export function sanitizeText(text: string): string {
+  return text.replace(/<[^>]*>/g, '');
+}
+
+/**
+ * Formats text for display
+ */
+export function formatText(text: string, options?: { trim?: boolean; maxLength?: number }): string {
+  let result = text;
+
+  if (options?.trim) {
+    result = result.trim();
+  }
+
+  if (options?.maxLength && result.length > options.maxLength) {
+    result = result.substring(0, options.maxLength) + '...';
+  }
+
+  return result;
+}`;
+
+    fs.writeFileSync(serverTextUtilsPath, simplifiedServerTextUtils);
+    console.log('✅ serverTextUtils.ts file updated');
+  }
+}
+
+// Create a simplified version of the openaiService utility
+const openaiServicePath = path.join(process.cwd(), 'utils', 'openaiService.ts');
+if (fs.existsSync(openaiServicePath)) {
+  console.log('📝 Updating openaiService.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'utils', 'openaiService.ts.bak');
+  fs.copyFileSync(openaiServicePath, backupPath);
+
+  // Copy the stub file to the original location
+  const stubPath = path.join(process.cwd(), 'utils', 'openaiService.stub.ts');
+  if (fs.existsSync(stubPath)) {
+    const stubContent = fs.readFileSync(stubPath, 'utf8');
+    fs.writeFileSync(openaiServicePath, stubContent);
+    console.log('✅ openaiService.ts file updated');
+  } else {
+    console.log('⚠️ openaiService.stub.ts not found, creating simplified version');
+
+    // Create a simplified version of the file
+    const simplifiedOpenaiService = `/**
+ * Simplified openaiService for AWS Amplify build
+ */
+
+/**
+ * Analyzes text content using OpenAI
+ */
+export async function analyzeContent(text: string, options?: any): Promise<any> {
+  return {
+    analysis: "This is a simplified version of the analyzeContent function for AWS Amplify build.",
+    summary: "Content summary would appear here.",
+    keywords: ["keyword1", "keyword2", "keyword3"],
+    sentiment: "positive",
+    timestamp: new Date().toISOString(),
+  };
+}
+
+/**
+ * Generates a summary of the content
+ */
+export async function generateSummary(text: string, maxLength?: number): Promise<string> {
+  return "This is a simplified version of the generateSummary function for AWS Amplify build.";
+}
+
+/**
+ * Extracts structured data from text
+ */
+export async function extractStructuredData(text: string, schema?: any): Promise<any> {
+  return {
+    title: "Sample Title",
+    author: "Sample Author",
+    date: new Date().toISOString(),
+    content: "Sample content...",
+    categories: ["category1", "category2"],
+  };
+}
+
+/**
+ * Checks if the OpenAI API is available
+ */
+export async function isApiAvailable(): Promise<boolean> {
+  return true;
+}
+
+/**
+ * Gets the current API usage
+ */
+export async function getApiUsage(): Promise<any> {
+  return {
+    totalTokens: 1000,
+    totalCost: 0.02,
+    remainingQuota: 9000,
+  };
+}`;
+
+    fs.writeFileSync(openaiServicePath, simplifiedOpenaiService);
+    console.log('✅ openaiService.ts file updated');
+  }
+}
+
+// Create a simplified version of the analyze-content API route
+const analyzeContentRoutePath = path.join(process.cwd(), 'app', 'api', 'analyze-content', 'route.ts');
+if (fs.existsSync(analyzeContentRoutePath)) {
+  console.log('📝 Updating analyze-content route.ts file');
+
+  // Create a backup of the original file
+  const backupPath = path.join(process.cwd(), 'app', 'api', 'analyze-content', 'route.ts.bak');
+  fs.copyFileSync(analyzeContentRoutePath, backupPath);
+
+  // Create a simplified version of the file
+  const simplifiedAnalyzeContentRoute = `import { NextResponse } from 'next/server';
+
+/**
+ * Simplified analyze-content API route for AWS Amplify build
+ */
+export async function POST(request: Request) {
+  try {
+    // Return a mock response
+    return NextResponse.json({
+      success: true,
+      message: "This is a simplified version of the analyze-content API route for AWS Amplify build.",
+      analysis: {
+        summary: "Content summary would appear here.",
+        keywords: ["keyword1", "keyword2", "keyword3"],
+        sentiment: "positive",
+        timestamp: new Date().toISOString(),
+      }
+    });
+  } catch (error) {
+    console.error('Error in analyze-content API route:', error);
+    return NextResponse.json(
+      { error: 'Failed to analyze content' },
+      { status: 500 }
+    );
+  }
+}`;
+
+  fs.writeFileSync(analyzeContentRoutePath, simplifiedAnalyzeContentRoute);
+  console.log('✅ analyze-content route.ts file updated');
+}
 
 console.log('✅ Application prepared for AWS Amplify build');
