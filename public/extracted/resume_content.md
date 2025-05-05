@@ -38,7 +38,25 @@ solutions and digital transform...
         "Graphic Design & UI/UX",
         "Illustration",
         "Creative/Technical writing",
-        "React, React Native, AWS, AWS Amplify, SOA, CI/CD, MongoDB, SQL, Docker, Terraform, Jenkins, Shell Automation, Node, Ruby, Java, Javascript, Typescript, Adobe CS, UI/UX Prototyping"
+        "React",
+        "React Native",
+        "AWS",
+        "AWS Amplify",
+        "SOA",
+        "CI/CD",
+        "MongoDB",
+        "SQL",
+        "Docker",
+        "Terraform",
+        "Jenkins",
+        "Shell Automation",
+        "Node",
+        "Ruby",
+        "Java",
+        "Javascript",
+        "Typescript",
+        "Adobe CS",
+        "UI/UX Prototyping"
       ]
     }
   ]
