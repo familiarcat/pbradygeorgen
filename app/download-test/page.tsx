@@ -136,21 +136,21 @@ export default function DownloadTest() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 border-b pb-2">Content Preview</h2>
             {previewContent ? (
               <div className="prose max-w-none">
-                <h3 className="text-xl font-bold text-gray-900">{previewContent.title}</h3>
-                <p className="text-gray-800 italic mb-4">{previewContent.summary}</p>
+                <h3 className="text-xl font-bold text-gray-900">{String(previewContent.title || 'Resume')}</h3>
+                <p className="text-gray-800 italic mb-4">{String(previewContent.summary || 'Resume content preview')}</p>
 
                 {previewContent.sections && Array.isArray(previewContent.sections) ? (
                   // Handle array format
                   previewContent.sections.map((section: Record<string, unknown>, index: number) => (
                     <div key={index} className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-900 bg-gray-50 p-2 rounded">{section.title}</h4>
+                      <h4 className="text-lg font-semibold text-gray-900 bg-gray-50 p-2 rounded">{String(section.title || 'Section')}</h4>
                       <div className="pl-4 border-l-2 border-blue-600 mt-2">
                         {section.content && typeof section.content === 'string' ? (
-                          <p className="text-gray-800">{section.content}</p>
+                          <p className="text-gray-800">{String(section.content)}</p>
                         ) : section.content && Array.isArray(section.content) ? (
                           <ul className="list-disc pl-5 text-gray-800">
-                            {section.content.map((item: string, i: number) => (
-                              <li key={i} className="mb-1">{item}</li>
+                            {section.content.map((item: unknown, i: number) => (
+                              <li key={i} className="mb-1">{String(item)}</li>
                             ))}
                           </ul>
                         ) : null}
@@ -169,12 +169,12 @@ export default function DownloadTest() {
                         <div className="pl-4 border-l-2 border-blue-600 mt-2">
                           {Array.isArray(value) ? (
                             <ul className="list-disc pl-5 text-gray-800">
-                              {value.map((item: string, i: number) => (
-                                <li key={i} className="mb-1">{item}</li>
+                              {value.map((item: unknown, i: number) => (
+                                <li key={i} className="mb-1">{String(item)}</li>
                               ))}
                             </ul>
                           ) : typeof value === 'string' ? (
-                            <p className="text-gray-800">{value}</p>
+                            <p className="text-gray-800">{String(value)}</p>
                           ) : (
                             <p className="text-gray-500 italic">No content available</p>
                           )}
