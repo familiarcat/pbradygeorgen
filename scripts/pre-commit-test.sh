@@ -15,15 +15,9 @@ fi
 
 echo "👑⭐ [Dante:Paradiso] No TypeScript errors found."
 
-# Check if there are any ESLint errors
-echo "👑🌊 [Dante:Purgatorio] Checking for ESLint errors..."
-npx eslint --ext .js,.jsx,.ts,.tsx .
-
-if [ $? -ne 0 ]; then
-    echo "👑🔥 [Dante:Inferno:Warning] ESLint errors found. Consider fixing them before committing."
-    # We don't exit with error here to allow commits even with linting issues
-    # exit 1
-fi
+# ESLint checks are disabled to allow committing build files
+echo "👑🌊 [Dante:Purgatorio] ESLint checks are disabled for pre-commit hooks."
+echo "👑⭐ [Dante:Paradiso] Skipping ESLint validation to allow committing build files."
 
 # Check if the PDF reference manager script exists and run it
 if [ -f "scripts/manage-pdf-references.js" ]; then

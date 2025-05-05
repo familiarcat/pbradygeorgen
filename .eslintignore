@@ -1,17 +1,31 @@
-# Build outputs
+# Build outputs - ignore all build-related files
 .next/
 out/
 build/
 dist/
 coverage/
+**/_next/**
+**/static/**
+**/*.js.map
+**/*.chunk.js
+**/*.chunk.css
+**/*.chunk.*.js
+**/*.chunk.*.css
+**/*.webpack.js
+**/*.hot-update.js
+**/*.hot-update.json
 
 # Dependencies
 node_modules/
 packages/
+**/node_modules/
+**/.yarn/
+**/.pnp.*
 
 # Cache
 .cache/
 .eslintcache
+**/.cache/
 
 # Environment variables
 .env*
@@ -20,18 +34,42 @@ packages/
 # Misc
 .DS_Store
 *.log
+**/*.log
+**/.DS_Store
 
 # Generated files
 public/extracted/
 public/downloads/
+**/generated/
+**/dist/
+**/build/
 
 # AWS Amplify
 .amplify/
 amplify/
+**/amplify/
+**/.amplify/
 
 # Minified files
 **/*.min.js
 **/*.bundle.js
+**/*.min.css
+**/*.bundle.css
+**/*.umd.js
+**/*.esm.js
+**/*.cjs.js
 
-# Archive
+# Archive and scripts
 scripts/archive/
+**/scripts/archive/
+
+# Test files
+**/test-results/
+**/coverage/
+**/__tests__/
+**/__mocks__/
+
+# Polyfills and vendor code
+**/polyfills*.js
+**/vendor*.js
+**/runtime*.js

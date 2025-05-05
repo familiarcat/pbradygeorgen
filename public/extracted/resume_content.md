@@ -9,7 +9,7 @@ I strive to continuously drive innovation by blending cutting-edge technology wi
 - Infuze - Sr. Developer/Asst. Art Director (2009 - 2011)
 - Touchwood Creative - Lead Software Developer (2008 - 2009)
 - ThinkTank (freelance) - Software and Creative Director (2005 - 2008)
-- Asynchrony Solutions - Designer/Developer/Marketing Asst. (2004 - 2005)
+- Asynchrony Solutions - Designer/Developer/Marketing Asst. (2014 - 2023)
 
 ## EDUCATION
 
