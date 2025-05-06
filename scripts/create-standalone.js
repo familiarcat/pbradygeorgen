@@ -390,6 +390,15 @@ server.listen(port, hostname, () => {
     fs.writeFileSync(indexHtmlPath, indexHtmlContent);
   }
 
+  // Copy enhanced-pdf-viewer.html from the project's public directory if it exists
+  const enhancedPdfViewerHtmlPath = path.join(standalonePublicDir, 'enhanced-pdf-viewer.html');
+  const projectEnhancedPdfViewerHtmlPath = path.join(process.cwd(), 'public', 'enhanced-pdf-viewer.html');
+
+  if (fs.existsSync(projectEnhancedPdfViewerHtmlPath)) {
+    console.log(`Copying enhanced-pdf-viewer.html from ${projectEnhancedPdfViewerHtmlPath} to ${enhancedPdfViewerHtmlPath}`);
+    fs.copyFileSync(projectEnhancedPdfViewerHtmlPath, enhancedPdfViewerHtmlPath);
+  }
+
   // Copy pdf-viewer.html from the project's public directory if it exists
   const projectPdfViewerHtmlPath = path.join(process.cwd(), 'public', 'pdf-viewer.html');
   if (fs.existsSync(projectPdfViewerHtmlPath)) {

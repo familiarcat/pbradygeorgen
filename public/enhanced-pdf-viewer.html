@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlexAI - Resume Analyzer</title>
+  <style>
+    :root {
+      --bg-primary: #f5f5f5;
+      --text-primary: #333333;
+      --header-bg: rgba(212, 209, 190, 0.95);
+      --header-text: #49423D;
+      --cta-primary: #b82e63;
+      --cta-secondary: #5A7682;
+      --cta-tertiary: #7E6233;
+      --accent-color: #8A8151;
+      --pdf-background: #ffffff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Salinger Header Styles */
+    .salinger-header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.875rem;
+      background: var(--header-bg);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid rgba(73, 66, 61, 0.15);
+      z-index: 100;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: var(--header-text);
+      transition: all 0.3s ease;
+    }
+    
+    .site-title {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      margin: 0;
+      color: var(--header-text);
+      font-family: 'Courier New', monospace;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .summary-link {
+      color: var(--header-text);
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(90, 118, 130, 0.2);
+    }
+    
+    .summary-link:hover {
+      color: #FFFFFF;
+      background-color: var(--cta-secondary);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .download-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .action-link {
+      color: var(--header-text);
+      text-decoration: none;
+      position: relative;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(126, 98, 51, 0.2);
+    }
+    
+    .action-link:hover {
+      color: #FFFFFF;
+      background-color: var(--cta-tertiary);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .action-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke-width: 2;
+    }
+    
+    .action-separator {
+      color: var(--accent-color);
+      font-size: 0.8rem;
+    }
+    
+    /* PDF Container Styles */
+    .pdf-container-wrapper {
+      flex: 1;
+      display: flex;
+      padding: 1rem;
+      overflow: auto;
+      height: calc(100vh - 4.5rem);
+    }
+    
+    .pdf-container {
+      margin: 0 auto;
+      background-color: var(--pdf-background);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .pdf-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* Dropdown Menu Styles */
+    .download-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.5rem;
+      background: var(--header-bg);
+      border: 1px solid rgba(73, 66, 61, 0.15);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      min-width: 280px;
+      z-index: 100;
+      display: none;
+    }
+    
+    .download-container:hover .download-menu {
+      display: block;
+    }
+    
+    .download-option {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--header-text);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 1rem;
+      gap: 0.5rem;
+      background-color: rgba(95, 107, 84, 0.15);
+    }
+    
+    .download-option:hover {
+      background: #5F6B54;
+      color: #FFFFFF;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .salinger-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+      }
+      
+      .site-title {
+        font-size: 1.5rem;
+      }
+      
+      .header-left {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .pdf-container-wrapper {
+        padding: 0.5rem;
+      }
+    }
+    
+    /* Print Styles */
+    @media print {
+      .salinger-header {
+        display: none;
+      }
+      
+      .pdf-container-wrapper {
+        padding: 0;
+        height: 100%;
+      }
+      
+      .pdf-container {
+        box-shadow: none;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Salinger Header -->
+  <header class="salinger-header">
+    <div class="header-left">
+      <h1 class="site-title">Professional Resume</h1>
+      <a href="#" class="summary-link" onclick="showSummary(); return false;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        Summary
+      </a>
+    </div>
+    
+    <nav class="header-actions">
+      <div class="download-container">
+        <a href="#" class="action-link" onclick="return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download Resume
+        </a>
+        
+        <div class="download-menu">
+          <div class="download-option-group">
+            <a href="/extracted/resume_content.md" class="download-option" download>
+              <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Markdown Format
+            </a>
+            
+            <a href="/extracted/resume_content.txt" class="download-option" download>
+              <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Text Format
+            </a>
+            
+            <a href="/default_resume.pdf" class="download-option" download>
+              <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              PDF Format
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <span class="action-separator">•</span>
+      
+      <a href="/json-view" class="action-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <path d="M8 12h8"></path>
+          <path d="M8 16h8"></path>
+          <path d="M8 20h8"></path>
+        </svg>
+        View JSON
+      </a>
+      
+      <span class="action-separator">•</span>
+      
+      <a href="/download-test" class="action-link">
+        <svg xmlns="http://www.w3.org/2000/svg" class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+        Download Test
+      </a>
+    </nav>
+  </header>
+  
+  <!-- PDF Container -->
+  <div class="pdf-container-wrapper">
+    <div class="pdf-container">
+      <iframe src="/default_resume.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" class="pdf-iframe" title="PDF Viewer"></iframe>
+    </div>
+  </div>
+  
+  <script>
+    // Function to show summary
+    function showSummary() {
+      alert('Resume Summary:\n\nThis is a professional resume showcasing skills and experience in software development, with a focus on full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS.');
+    }
+    
+    // Function to handle downloads
+    function downloadFile(format) {
+      let fileUrl = '';
+      let fileName = '';
+      
+      switch(format) {
+        case 'markdown':
+          fileUrl = '/extracted/resume_content.md';
+          fileName = 'resume.md';
+          break;
+        case 'text':
+          fileUrl = '/extracted/resume_content.txt';
+          fileName = 'resume.txt';
+          break;
+        case 'pdf':
+          fileUrl = '/default_resume.pdf';
+          fileName = 'resume.pdf';
+          break;
+        default:
+          console.error('Unknown format:', format);
+          return;
+      }
+      
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = fileName;
+      
+      // Append to the document
+      document.body.appendChild(link);
+      
+      // Trigger the download
+      link.click();
+      
+      // Clean up
+      document.body.removeChild(link);
+    }
+    
+    // Log a message to indicate this is the standalone version
+    console.log('AlexAI Resume Analyzer - Enhanced Standalone Mode');
+    console.log('This is a simplified version of the application running in standalone mode.');
+    console.log('For the full experience, please run the application with a complete Next.js build.');
+  </script>
+</body>
+</html>

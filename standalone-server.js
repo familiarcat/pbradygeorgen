@@ -58,12 +58,21 @@ const server = http.createServer((req, res) => {
   // Normalize the URL
   let url = req.url;
 
-  // Default to PDF viewer for the root path
+  // Default to enhanced PDF viewer for the root path
   if (url === '/') {
-    // Redirect to the PDF viewer page
-    res.writeHead(302, { 'Location': '/pdf-viewer.html' });
-    res.end();
-    return;
+    // Check if enhanced-pdf-viewer.html exists
+    const enhancedViewerPath = path.join(__dirname, 'public', 'enhanced-pdf-viewer.html');
+    if (fs.existsSync(enhancedViewerPath)) {
+      // Redirect to the enhanced PDF viewer page
+      res.writeHead(302, { 'Location': '/enhanced-pdf-viewer.html' });
+      res.end();
+      return;
+    } else {
+      // Fall back to the basic PDF viewer page
+      res.writeHead(302, { 'Location': '/pdf-viewer.html' });
+      res.end();
+      return;
+    }
   }
 
   // Remove query parameters
