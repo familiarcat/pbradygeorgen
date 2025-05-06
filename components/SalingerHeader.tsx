@@ -101,9 +101,17 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           .then(data => {
             console.log(`📊 API response data:`, data);
             if (data.success) {
-              console.log(`✅ Summary loaded successfully (${data.summary.length} characters)`);
-              console.log(`📝 Summary preview: "${data.summary.substring(0, 100)}..."`);
-              setSummaryContent(data.summary);
+              // Check if summary exists and has a length property
+              if (data.summary && typeof data.summary === 'string') {
+                console.log(`✅ Summary loaded successfully (${data.summary.length} characters)`);
+                console.log(`📝 Summary preview: "${data.summary.substring(0, 100)}..."`);
+                setSummaryContent(data.summary);
+              } else {
+                // Use a default summary if none is provided
+                console.log('⚠️ No summary found in API response, using default');
+                const defaultSummary = `# Professional Resume - Summary\n\nThis is a placeholder summary. The API did not return any content.`;
+                setSummaryContent(defaultSummary);
+              }
               setShowSummaryModal(true);
             } else {
               console.error('❌ API returned error:', data.error);
