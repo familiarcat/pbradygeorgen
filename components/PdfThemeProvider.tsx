@@ -60,7 +60,7 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
     const extractTheme = async () => {
       try {
         setIsLoading(true);
-        DanteLogger.info.basic(`Extracting theme from PDF: ${pdfUrl}`);
+        console.log(`Extracting theme from PDF: ${pdfUrl}`);
 
         // Extract colors from PDF
         const extractedColors = await extractColorsFromPDF(pdfUrl);
@@ -69,11 +69,11 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
         // Simulate font extraction (in a real app, this would use PDF.js)
         // For now, we'll use default fonts based on the PDF URL
         const filename = pdfUrl.split('/').pop()?.toLowerCase() || '';
-        
+
         let primaryFont = 'var(--font-source-sans)';
         let secondaryFont = 'var(--font-merriweather)';
         let headingFont = 'var(--font-roboto)';
-        
+
         if (filename.includes('resume')) {
           // Resume-like documents often use clean sans-serif fonts
           primaryFont = 'var(--font-source-sans)';
@@ -83,7 +83,7 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
           primaryFont = 'var(--font-merriweather)';
           secondaryFont = 'var(--font-source-sans)';
         }
-        
+
         setFonts({
           primaryFont,
           secondaryFont,
@@ -92,7 +92,7 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
           isLoading: false,
         });
 
-        DanteLogger.success.basic('Theme extraction complete');
+        console.log('Theme extraction complete');
         setIsLoading(false);
       } catch (error) {
         DanteLogger.error.runtime(`Failed to extract theme: ${error}`);
@@ -109,10 +109,10 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
 
     // Get the document root element
     const root = document.documentElement;
-    
+
     // Add theme transition class
     document.body.classList.add('theme-transition-container');
-    
+
     // Apply dark mode class if needed
     if (isDarkMode) {
       document.body.classList.add('pdf-dark-theme');
@@ -148,7 +148,7 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
     root.style.setProperty('--pdf-mono-font', fonts.monoFont);
 
     // Log theme application
-    DanteLogger.success.basic('Applied PDF theme to CSS variables');
+    console.log('Applied PDF theme to CSS variables');
 
     // Clean up function
     return () => {
@@ -176,12 +176,12 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
 function hexToRgb(hex: string) {
   // Remove # if present
   hex = hex.replace(/^#/, '');
-  
+
   // Parse hex values
   const bigint = parseInt(hex, 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
   const b = bigint & 255;
-  
+
   return { r, g, b };
 }

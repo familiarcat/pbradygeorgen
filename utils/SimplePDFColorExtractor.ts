@@ -34,7 +34,7 @@ export const defaultColorTheme: ColorTheme = {
 export async function extractColorsFromPDF(pdfUrl: string): Promise<ColorTheme> {
   try {
     // Log the extraction attempt with the PDF URL
-    DanteLogger.success.basic(`Extracting colors from PDF: ${pdfUrl}`);
+    console.log(`Extracting colors from PDF: ${pdfUrl}`);
 
     // Ensure we're using the latest PDF by adding a cache-busting parameter
     const cacheBustedUrl = `${pdfUrl}?v=${Date.now()}`;
