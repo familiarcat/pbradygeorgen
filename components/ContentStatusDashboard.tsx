@@ -65,7 +65,7 @@ export default function ContentStatusDashboard() {
         DanteLogger.success.core('Content validation successful');
       } else {
         addLog(`Content validation failed: ${data.errors?.length || 0} errors found ❌`);
-        DanteLogger.error.dataFlow('Content validation failed');
+        DanteLogger.error.dataFlow('Content validation failed', '');
       }
 
       return data;
