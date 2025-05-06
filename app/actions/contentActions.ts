@@ -43,7 +43,7 @@ export async function getFormattedContent(
   try {
     // Begin the journey (Dante's navigation)
     const startTime = Date.now();
-    HesseLogger.summary.start(`Server Action: Getting ${contentType} content in ${format} format`);
+    console.log(`Server Action: Getting ${contentType} content in ${format} format`);
     DanteLogger.success.basic(`Server Action: Starting ${contentType} content retrieval in ${format} format`);
     console.log(`Server Action: getFormattedContent with contentType = ${contentType}, format = ${format}, forceRefresh = ${forceRefresh}`);
 
@@ -88,8 +88,8 @@ export async function getFormattedContent(
     // Calculate processing time
     const processingTime = Date.now() - startTime;
     console.log(`Server Action: ${contentType} content in ${format} format retrieved successfully in ${processingTime}ms`);
-    DanteLogger.success.perfection(`Server Action: ${contentType} content in ${format} format retrieved successfully`);
-    HesseLogger.summary.complete(`Server Action: ${contentType} content in ${format} format retrieved successfully`);
+    DanteLogger.success.basic(`Server Action: ${contentType} content in ${format} format retrieved successfully`);
+    console.log(`Server Action: ${contentType} content in ${format} format retrieved successfully`);
 
     // Prepare the data to return
     const responseData = result.content || result.dataUrl || '';
@@ -111,7 +111,7 @@ export async function getFormattedContent(
   } catch (error) {
     console.error(`Server Action: Unhandled error getting ${contentType} content in ${format} format:`, error);
     DanteLogger.error.system(`Server Action: Unhandled error getting ${contentType} content in ${format} format: ${error}`);
-    HesseLogger.summary.error(`Server Action: Unhandled error getting ${contentType} content in ${format} format: ${error}`);
+    console.error(`Server Action: Unhandled error getting ${contentType} content in ${format} format: ${error}`);
 
     return {
       success: false,

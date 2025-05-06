@@ -1,138 +1,53 @@
 /**
- * HesseLogger: A Hermann Hesse-inspired logging system for AI operations
- *
- * This system provides specialized logging for AI operations, inspired by
- * Hermann Hesse's philosophical approach to knowledge and understanding.
- *
- * The logger categorizes AI operations into different stages and provides
- * meaningful context through carefully chosen emoji combinations.
+ * Simplified HesseLogger for AWS Amplify build
  */
 
-import { DanteLogger } from './DanteLogger';
+export class HesseLogger {
+  static info = {
+    system: (message: string) => console.log(`ℹ️ [Hesse:System] ${message}`),
+    api: (message: string) => console.log(`ℹ️ [Hesse:API] ${message}`),
+    db: (message: string) => console.log(`ℹ️ [Hesse:DB] ${message}`),
+    auth: (message: string) => console.log(`ℹ️ [Hesse:Auth] ${message}`),
+    ux: (message: string) => console.log(`ℹ️ [Hesse:UX] ${message}`),
+  };
 
-export const HesseLogger = {
-  // AI operation stages
-  ai: {
-    // Starting an AI operation
-    start: (message: string) => {
-      console.log(`🧠🔍 [Hesse:AI:Start] ${message}`);
-      DanteLogger.success.basic(`AI operation started: ${message}`);
-    },
+  static summary = {
+    start: (message: string) => console.log(`🔄 [Hesse:Summary] ${message}`),
+    complete: (message: string) => console.log(`✅ [Hesse:Summary] ${message}`),
+    error: (message: string) => console.error(`❌ [Hesse:Summary] ${message}`),
+    warning: (message: string) => console.warn(`⚠️ [Hesse:Summary] ${message}`),
+    info: (message: string) => console.log(`ℹ️ [Hesse:Summary] ${message}`),
+  };
 
-    // AI operation in progress
-    progress: (message: string) => {
-      console.log(`🧠⏳ [Hesse:AI:Progress] ${message}`);
-    },
+  static success = {
+    system: (message: string) => console.log(`✅ [Hesse:System] ${message}`),
+    api: (message: string) => console.log(`✅ [Hesse:API] ${message}`),
+    db: (message: string) => console.log(`✅ [Hesse:DB] ${message}`),
+    auth: (message: string) => console.log(`✅ [Hesse:Auth] ${message}`),
+    ux: (message: string) => console.log(`✅ [Hesse:UX] ${message}`),
+  };
 
-    // AI operation completed successfully
-    success: (message: string) => {
-      console.log(`🧠✅ [Hesse:AI:Success] ${message}`);
-      DanteLogger.success.core(`AI operation succeeded: ${message}`);
-    },
+  static warning = {
+    system: (message: string) => console.warn(`⚠️ [Hesse:System] ${message}`),
+    api: (message: string) => console.warn(`⚠️ [Hesse:API] ${message}`),
+    db: (message: string) => console.warn(`⚠️ [Hesse:DB] ${message}`),
+    auth: (message: string) => console.warn(`⚠️ [Hesse:Auth] ${message}`),
+    ux: (message: string) => console.warn(`⚠️ [Hesse:UX] ${message}`),
+  };
 
-    // AI operation completed with warnings
-    warning: (message: string) => {
-      console.warn(`🧠⚠️ [Hesse:AI:Warning] ${message}`);
-      DanteLogger.warn.performance(`AI operation warning: ${message}`);
-    },
+  static error = {
+    system: (message: string) => console.error(`❌ [Hesse:System] ${message}`),
+    api: (message: string) => console.error(`❌ [Hesse:API] ${message}`),
+    db: (message: string) => console.error(`❌ [Hesse:DB] ${message}`),
+    auth: (message: string) => console.error(`❌ [Hesse:Auth] ${message}`),
+    ux: (message: string) => console.error(`❌ [Hesse:UX] ${message}`),
+  };
 
-    // AI operation failed
-    error: (message: string) => {
-      console.error(`🧠❌ [Hesse:AI:Error] ${message}`);
-      DanteLogger.error.runtime(`AI operation failed: ${message}`);
-    },
-
-    // AI operation metrics/analytics
-    metrics: (message: string) => {
-      console.log(`🧠📊 [Hesse:AI:Metrics] ${message}`);
-    },
-  },
-
-  // Cache operations
-  cache: {
-    // Cache hit
-    hit: (message: string) => {
-      console.log(`📦✅ [Derrida:Cache:Hit] ${message}`);
-    },
-
-    // Cache miss
-    miss: (message: string) => {
-      console.log(`📦❌ [Derrida:Cache:Miss] ${message}`);
-    },
-
-    // Cache update
-    update: (message: string) => {
-      console.log(`📦🔄 [Derrida:Cache:Update] ${message}`);
-    },
-
-    // Cache invalidation
-    invalidate: (message: string) => {
-      console.log(`📦🗑️ [Derrida:Cache:Invalidate] ${message}`);
-    },
-
-    // Cache check
-    check: (message: string) => {
-      console.log(`📦🔍 [Derrida:Cache:Check] ${message}`);
-    },
-  },
-
-  // OpenAI specific logging
-  openai: {
-    // Request to OpenAI
-    request: (message: string) => {
-      console.log(`🤖🔍 [Hesse:OpenAI:Request] ${message}`);
-      DanteLogger.success.basic(`OpenAI request: ${message}`);
-    },
-
-    // Response from OpenAI
-    response: (message: string) => {
-      console.log(`🤖✅ [Hesse:OpenAI:Response] ${message}`);
-      DanteLogger.success.core(`OpenAI response received: ${message}`);
-    },
-
-    // Error from OpenAI
-    error: (message: string) => {
-      console.error(`🤖❌ [Hesse:OpenAI:Error] ${message}`);
-      DanteLogger.error.runtime(`OpenAI error: ${message}`);
-    },
-
-    // Rate limit warning
-    rateLimit: (message: string) => {
-      console.warn(`🤖⏱️ [Hesse:OpenAI:RateLimit] ${message}`);
-      DanteLogger.warn.performance(`OpenAI rate limit: ${message}`);
-    },
-
-    // Token usage metrics
-    tokens: (message: string) => {
-      console.log(`🤖💰 [Hesse:OpenAI:Tokens] ${message}`);
-    },
-  },
-
-  // Summary generation logging
-  summary: {
-    // Starting summary generation
-    start: (message: string) => {
-      console.log(`📝🔍 [Hesse:Summary:Start] ${message}`);
-      DanteLogger.success.basic(`Summary generation started: ${message}`);
-    },
-
-    // Summary generation in progress
-    progress: (message: string) => {
-      console.log(`📝⏳ [Hesse:Summary:Progress] ${message}`);
-    },
-
-    // Summary generation completed
-    complete: (message: string) => {
-      console.log(`📝✅ [Hesse:Summary:Complete] ${message}`);
-      DanteLogger.success.core(`Summary generation completed: ${message}`);
-    },
-
-    // Summary generation failed
-    error: (message: string) => {
-      console.error(`📝❌ [Hesse:Summary:Error] ${message}`);
-      DanteLogger.error.runtime(`Summary generation failed: ${message}`);
-    },
-  }
-};
-
-export default HesseLogger;
+  static debug = {
+    system: (message: string) => console.debug(`🔍 [Hesse:System] ${message}`),
+    api: (message: string) => console.debug(`🔍 [Hesse:API] ${message}`),
+    db: (message: string) => console.debug(`🔍 [Hesse:DB] ${message}`),
+    auth: (message: string) => console.debug(`🔍 [Hesse:Auth] ${message}`),
+    ux: (message: string) => console.debug(`🔍 [Hesse:UX] ${message}`),
+  };
+}

@@ -277,7 +277,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   const handleCoverLetterPdfPreview = async () => {
     try {
       setIsGeneratingCoverLetterPdf(true);
-      HesseLogger.summary.start('Generating Cover Letter PDF preview');
+      console.log('Generating Cover Letter PDF preview');
 
       // Import the server action dynamically to avoid server/client mismatch
       const { getFormattedContent } = await import('@/app/actions/contentActions');
