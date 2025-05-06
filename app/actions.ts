@@ -12,7 +12,7 @@ export async function checkAndRefreshPdfContent() {
     const isStale = isPdfContentStale();
 
     if (isStale) {
-      DanteLogger.success.basic('PDF content is stale, refreshing...');
+      console.log('PDF content is stale, refreshing...');
       const success = await refreshPdfContent();
 
       return {
@@ -21,7 +21,7 @@ export async function checkAndRefreshPdfContent() {
         message: success ? 'PDF content refreshed successfully' : 'Failed to refresh PDF content'
       };
     } else {
-      DanteLogger.success.basic('PDF content is up to date');
+      console.log('PDF content is up to date');
       return {
         refreshed: false,
         timestamp: Date.now(),
