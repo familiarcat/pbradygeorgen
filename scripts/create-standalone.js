@@ -39,12 +39,75 @@ async function main() {
   if (fs.existsSync(sourceStaticDir)) {
     console.log(`Copying static assets from ${sourceStaticDir} to ${staticDir}`);
     try {
-      execSync(`cp -R ${sourceStaticDir}/* ${staticDir}/`, { stdio: 'inherit' });
+      // Check if the directory has any files
+      const files = fs.readdirSync(sourceStaticDir);
+      if (files.length > 0) {
+        execSync(`cp -R ${sourceStaticDir}/* ${staticDir}/`, { stdio: 'inherit' });
+      } else {
+        console.log('Static directory exists but is empty');
+        createMinimalStaticAssets(staticDir);
+      }
     } catch (error) {
       console.warn(`Warning: Failed to copy static assets: ${error.message}`);
+      createMinimalStaticAssets(staticDir);
     }
   } else {
     console.log('No static assets found to copy');
+    createMinimalStaticAssets(staticDir);
+  }
+
+  // Function to create minimal static assets
+  function createMinimalStaticAssets(dir) {
+    console.log('Creating minimal static assets...');
+
+    // Create CSS directory
+    const cssDir = path.join(dir, 'css');
+    if (!fs.existsSync(cssDir)) {
+      fs.mkdirSync(cssDir, { recursive: true });
+    }
+
+    // Create a minimal CSS file
+    const cssFilePath = path.join(cssDir, 'minimal.css');
+    const cssContent = `
+/* Minimal CSS file created by create-standalone.js */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+`;
+    fs.writeFileSync(cssFilePath, cssContent);
+    console.log(`Created minimal CSS file: ${cssFilePath}`);
+
+    // Create JS directory
+    const jsDir = path.join(dir, 'js');
+    if (!fs.existsSync(jsDir)) {
+      fs.mkdirSync(jsDir, { recursive: true });
+    }
+
+    // Create a minimal JS file
+    const jsFilePath = path.join(jsDir, 'minimal.js');
+    const jsContent = `
+// Minimal JS file created by create-standalone.js
+console.log('AlexAI - Resume Analyzer');
+`;
+    fs.writeFileSync(jsFilePath, jsContent);
+    console.log(`Created minimal JS file: ${jsFilePath}`);
   }
 
   // Copy public directory to standalone

@@ -92,7 +92,16 @@ log "The application will be available at http://localhost:3000"
 # Copy static assets to the standalone directory
 log "📂 Copying static assets to standalone directory..."
 mkdir -p .next/standalone/.next/static
-cp -R .next/static/* .next/standalone/.next/static/
+
+# Check if .next/static exists before copying
+if [ -d ".next/static" ] && [ "$(ls -A .next/static 2>/dev/null)" ]; then
+  cp -R .next/static/* .next/standalone/.next/static/ 2>/dev/null || log "⚠️ Warning: No static assets found to copy"
+else
+  log "⚠️ Warning: No static assets directory found (.next/static)"
+  # Create a minimal CSS file to avoid errors
+  mkdir -p .next/standalone/.next/static/css
+  echo "/* Minimal CSS file created by consolidated-start.sh */" >.next/standalone/.next/static/css/minimal.css
+fi
 
 # Copy public directory to standalone
 log "📂 Copying public directory to standalone..."
