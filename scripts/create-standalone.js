@@ -202,13 +202,22 @@ console.log('AlexAI - Resume Analyzer');
     }
   }
 
-  // Copy the root server.js file to the standalone directory
+  // Copy the standalone server.js file to the standalone directory
   const serverJsPath = path.join(standaloneDir, 'server.js');
+  const standaloneServerJsPath = path.join(__dirname, '../standalone-server.js');
   const rootServerJsPath = path.join(__dirname, '../server.js');
 
-  console.log(`Copying server.js from ${rootServerJsPath} to ${serverJsPath}`);
+  console.log(`Checking for standalone-server.js at ${standaloneServerJsPath}`);
 
-  if (fs.existsSync(rootServerJsPath)) {
+  if (fs.existsSync(standaloneServerJsPath)) {
+    // Use the standalone-server.js file
+    console.log(`Copying standalone-server.js from ${standaloneServerJsPath} to ${serverJsPath}`);
+    fs.copyFileSync(standaloneServerJsPath, serverJsPath);
+    console.log(`✅ Copied standalone-server.js to standalone directory`);
+  } else if (fs.existsSync(rootServerJsPath)) {
+    // Use the root server.js file
+    console.log(`Copying server.js from ${rootServerJsPath} to ${serverJsPath}`);
+
     // Read the root server.js file
     let serverJsContent = fs.readFileSync(rootServerJsPath, 'utf8');
 
@@ -223,47 +232,79 @@ ${serverJsContent}`;
     fs.writeFileSync(serverJsPath, serverJsContent);
     console.log(`✅ Copied and modified server.js to standalone directory`);
   } else {
-    console.warn(`Warning: Root server.js not found at ${rootServerJsPath}`);
+    console.warn(`Warning: Neither standalone-server.js nor server.js found`);
 
-    // Create a minimal server.js file that uses Next.js
+    // Create a minimal server.js file
     const serverJsContent = `
-// Minimal Next.js server for standalone mode
-const { createServer } = require('http');
-const { parse } = require('url');
-const next = require('next');
+/**
+ * Simplified standalone server for AlexAI
+ * This server is used when a full Next.js build is not available
+ */
 
-const dev = process.env.NODE_ENV !== 'production';
-const hostname = process.env.HOST || 'localhost';
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+// Configuration
 const port = process.env.PORT || 3000;
+const hostname = process.env.HOST || 'localhost';
 
-// Initialize Next.js app
-const app = next({
-  dev,
-  hostname,
-  port,
-  dir: __dirname
+// Create the server
+const server = http.createServer((req, res) => {
+  // Serve a simple HTML page
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end(\`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>AlexAI - Resume Analyzer</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            color: #333;
+          }
+          .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+          }
+          h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+          p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>AlexAI - Resume Analyzer</h1>
+          <p>Welcome to AlexAI, your intelligent resume analysis tool.</p>
+          <p>This is a simplified version of the application running in standalone mode.</p>
+          <p>Server is running at http://\${hostname}:\${port}</p>
+        </div>
+      </body>
+    </html>
+  \`);
 });
 
-const handle = app.getRequestHandler();
-
-// Prepare and start the server
-app.prepare().then(() => {
-  createServer(async (req, res) => {
-    try {
-      // Parse the URL
-      const parsedUrl = parse(req.url, true);
-
-      // Let Next.js handle the request
-      await handle(req, res, parsedUrl);
-    } catch (err) {
-      console.error('Error occurred handling', req.url, err);
-      res.statusCode = 500;
-      res.end('Internal Server Error');
-    }
-  }).listen(port, (err) => {
-    if (err) throw err;
-    console.log(\`> Ready on http://\${hostname}:\${port}\`);
-  });
+// Start the server
+server.listen(port, hostname, () => {
+  console.log(\`Server running at http://\${hostname}:\${port}/\`);
+  console.log(\`Serving files from: \${__dirname}\`);
 });
 `;
 
