@@ -10,15 +10,6 @@ export class DanteLogger {
     db: (message: string) => console.log(`ℹ️ [DB] ${message}`),
     auth: (message: string) => console.log(`ℹ️ [Auth] ${message}`),
     ux: (message: string) => console.log(`ℹ️ [UX] ${message}`),
-    // Add missing methods
-    basic: (message: string) => console.log(`ℹ️ [Basic] ${message}`),
-    runtime: (message: string) => console.log(`ℹ️ [Runtime] ${message}`),
-    dataFlow: (message: string) => console.log(`ℹ️ [DataFlow] ${message}`),
-    network: (message: string) => console.log(`ℹ️ [Network] ${message}`),
-    validation: (message: string) => console.log(`ℹ️ [Validation] ${message}`),
-    security: (message: string) => console.log(`ℹ️ [Security] ${message}`),
-    config: (message: string) => console.log(`ℹ️ [Config] ${message}`),
-    core: (message: string) => console.log(`ℹ️ [Core] ${message}`),
   };
 
   static success = {
@@ -27,15 +18,12 @@ export class DanteLogger {
     db: (message: string) => console.log(`✅ [DB] ${message}`),
     auth: (message: string) => console.log(`✅ [Auth] ${message}`),
     ux: (message: string) => console.log(`✅ [UX] ${message}`),
-    // Add missing methods
-    basic: (message: string) => console.log(`✅ [Basic] ${message}`),
-    runtime: (message: string) => console.log(`✅ [Runtime] ${message}`),
-    dataFlow: (message: string) => console.log(`✅ [DataFlow] ${message}`),
-    network: (message: string) => console.log(`✅ [Network] ${message}`),
-    validation: (message: string) => console.log(`✅ [Validation] ${message}`),
-    security: (message: string) => console.log(`✅ [Security] ${message}`),
-    config: (message: string) => console.log(`✅ [Config] ${message}`),
+    // Add missing functions that are used in the application
     core: (message: string) => console.log(`✅ [Core] ${message}`),
+    basic: (message: string) => console.log(`✅ [Basic] ${message}`),
+    perfection: (message: string) => console.log(`✅ [Perfection] ${message}`),
+    performance: (message: string) => console.log(`✅ [Performance] ${message}`),
+    dataFlow: (message: string) => console.log(`✅ [DataFlow] ${message}`),
   };
 
   static warning = {
@@ -44,15 +32,10 @@ export class DanteLogger {
     db: (message: string) => console.warn(`⚠️ [DB] ${message}`),
     auth: (message: string) => console.warn(`⚠️ [Auth] ${message}`),
     ux: (message: string) => console.warn(`⚠️ [UX] ${message}`),
-    // Add missing methods
-    basic: (message: string) => console.warn(`⚠️ [Basic] ${message}`),
-    runtime: (message: string) => console.warn(`⚠️ [Runtime] ${message}`),
-    dataFlow: (message: string) => console.warn(`⚠️ [DataFlow] ${message}`),
-    network: (message: string) => console.warn(`⚠️ [Network] ${message}`),
-    validation: (message: string) => console.warn(`⚠️ [Validation] ${message}`),
-    security: (message: string) => console.warn(`⚠️ [Security] ${message}`),
-    config: (message: string) => console.warn(`⚠️ [Config] ${message}`),
+    // Add missing functions that are used in the application
     core: (message: string) => console.warn(`⚠️ [Core] ${message}`),
+    performance: (message: string) => console.warn(`⚠️ [Performance] ${message}`),
+    dataFlow: (message: string) => console.warn(`⚠️ [DataFlow] ${message}`),
   };
 
   static error = {
@@ -85,14 +68,6 @@ export class DanteLogger {
     config: (message: string, error?: any) => {
       console.error(`❌ [Config] ${message}`, error || '');
       return { message, error };
-    },
-    core: (message: string, error?: any) => {
-      console.error(`❌ [Core] ${message}`, error || '');
-      return { message, error };
-    },
-    basic: (message: string, error?: any) => {
-      console.error(`❌ [Basic] ${message}`, error || '');
-      return { message, error };
     }
   };
 
@@ -107,8 +82,6 @@ export class DanteLogger {
     network: (message: string) => console.debug(`🔍 [Network] ${message}`),
     validation: (message: string) => console.debug(`🔍 [Validation] ${message}`),
     security: (message: string) => console.debug(`🔍 [Security] ${message}`),
-    config: (message: string) => console.debug(`🔍 [Config] ${message}`),
-    basic: (message: string) => console.debug(`🔍 [Basic] ${message}`),
-    core: (message: string) => console.debug(`🔍 [Core] ${message}`)
+    config: (message: string) => console.debug(`🔍 [Config] ${message}`)
   };
 }
