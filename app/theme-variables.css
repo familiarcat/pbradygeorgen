@@ -1,0 +1,161 @@
+/* 
+ * Theme Variables CSS
+ * 
+ * This file defines all CSS variables used throughout the application.
+ * It follows Next.js (2025) best practices for theming.
+ */
+
+:root {
+  /* Base colors - these will be overridden by dynamic values */
+  --pdf-primary-color: #b82e63;
+  --pdf-secondary-color: #5a9933;
+  --pdf-accent-color: #26d994;
+  --pdf-background-color: #f4f1f2;
+  --pdf-text-color: #2c2125;
+  --pdf-border-color: #d6c2ca;
+  
+  /* Derived colors using Hesse method */
+  --pdf-primary-light: rgba(184, 46, 99, 0.8);
+  --pdf-primary-dark: rgb(133, 0, 48);
+  --pdf-secondary-light: rgb(141, 202, 102);
+  --pdf-secondary-dark: rgb(39, 102, 0);
+  --pdf-accent-light: rgb(89, 255, 199);
+  --pdf-accent-dark: rgb(0, 166, 115);
+  
+  /* CTA colors */
+  --cta-primary: var(--pdf-primary-color);
+  --cta-primary-hover: var(--pdf-primary-dark);
+  --cta-primary-active: var(--pdf-primary-dark);
+  --cta-primary-bg: rgba(184, 46, 99, 0.1);
+  
+  --cta-secondary: var(--pdf-secondary-color);
+  --cta-secondary-hover: var(--pdf-secondary-dark);
+  --cta-secondary-active: var(--pdf-secondary-dark);
+  --cta-secondary-bg: rgba(90, 153, 51, 0.1);
+  
+  --cta-tertiary: var(--pdf-accent-color);
+  --cta-tertiary-hover: var(--pdf-accent-dark);
+  --cta-tertiary-active: var(--pdf-accent-dark);
+  --cta-tertiary-bg: rgba(38, 217, 148, 0.1);
+  
+  /* Font variables */
+  --pdf-primary-font: var(--font-source-sans), system-ui, sans-serif;
+  --pdf-secondary-font: var(--font-merriweather), Georgia, serif;
+  --pdf-heading-font: var(--font-roboto), system-ui, sans-serif;
+  --pdf-mono-font: var(--font-geist-mono), monospace;
+  
+  /* UI component variables */
+  --header-bg: rgba(212, 209, 190, 0.95);
+  --header-text: var(--pdf-text-color);
+  --modal-bg: var(--pdf-background-color);
+  --modal-text: var(--pdf-text-color);
+  --modal-border: var(--pdf-border-color);
+  
+  /* Animation variables */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
+  
+  /* Spacing variables */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border radius variables */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadow variables */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Z-index variables */
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-fixed: 300;
+  --z-index-modal-backdrop: 400;
+  --z-index-modal: 500;
+  --z-index-popover: 600;
+  --z-index-tooltip: 700;
+}
+
+/* Dark theme variables - will be applied when .pdf-dark-theme class is present */
+.pdf-dark-theme {
+  --pdf-background-color: #1a1a1a;
+  --pdf-text-color: #f0f0f0;
+  --pdf-border-color: #444444;
+  
+  /* Adjust other colors for dark mode */
+  --pdf-primary-light: rgba(184, 46, 99, 0.6);
+  --pdf-secondary-light: rgba(90, 153, 51, 0.6);
+  --pdf-accent-light: rgba(38, 217, 148, 0.6);
+  
+  /* UI component variables for dark mode */
+  --header-bg: rgba(40, 40, 40, 0.95);
+  --modal-bg: #2a2a2a;
+}
+
+/* Theme transition class - applied to the root element */
+.theme-transition-container * {
+  transition: 
+    color var(--transition-medium),
+    background-color var(--transition-medium),
+    border-color var(--transition-medium),
+    box-shadow var(--transition-medium);
+}
+
+/* Apply PDF styling to common elements */
+body {
+  background-color: var(--pdf-background-color);
+  color: var(--pdf-text-color);
+  font-family: var(--pdf-primary-font);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--pdf-heading-font);
+  color: var(--pdf-primary-color);
+}
+
+a {
+  color: var(--pdf-secondary-color);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--pdf-secondary-dark);
+}
+
+button, .btn {
+  font-family: var(--pdf-primary-font);
+}
+
+code, pre {
+  font-family: var(--pdf-mono-font);
+}
+
+/* Utility classes for PDF theme colors */
+.pdf-bg-primary { background-color: var(--pdf-primary-color); }
+.pdf-bg-secondary { background-color: var(--pdf-secondary-color); }
+.pdf-bg-accent { background-color: var(--pdf-accent-color); }
+.pdf-bg-background { background-color: var(--pdf-background-color); }
+
+.pdf-text-primary { color: var(--pdf-primary-color); }
+.pdf-text-secondary { color: var(--pdf-secondary-color); }
+.pdf-text-accent { color: var(--pdf-accent-color); }
+.pdf-text-background { color: var(--pdf-background-color); }
+
+.pdf-border-primary { border-color: var(--pdf-primary-color); }
+.pdf-border-secondary { border-color: var(--pdf-secondary-color); }
+.pdf-border-accent { border-color: var(--pdf-accent-color); }
+.pdf-border-background { border-color: var(--pdf-background-color); }
+
+/* Font utility classes */
+.pdf-font-primary { font-family: var(--pdf-primary-font); }
+.pdf-font-secondary { font-family: var(--pdf-secondary-font); }
+.pdf-font-heading { font-family: var(--pdf-heading-font); }
+.pdf-font-mono { font-family: var(--pdf-mono-font); }

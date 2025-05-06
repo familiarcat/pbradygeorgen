@@ -37,6 +37,22 @@ interface ServerThemeProviderProps {
   };
 }
 
+// Helper function to convert hex color to RGB
+function hexToRgb(hex: string) {
+  if (!hex) return null;
+
+  // Remove # if present
+  hex = hex.replace(/^#/, '');
+
+  // Parse hex values
+  const bigint = parseInt(hex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+
+  return { r, g, b };
+}
+
 export default function ServerThemeProvider({
   children,
   initialTheme
@@ -91,12 +107,34 @@ export default function ServerThemeProvider({
 
     // Apply colors
     if (colors) {
+      // Apply to our new theme variables
+      document.documentElement.style.setProperty('--pdf-primary-color', colors.primary || '#3a6ea5');
+      document.documentElement.style.setProperty('--pdf-secondary-color', colors.secondary || '#004e98');
+      document.documentElement.style.setProperty('--pdf-accent-color', colors.accent || '#ff6700');
+      document.documentElement.style.setProperty('--pdf-background-color', colors.background || '#f6f6f6');
+      document.documentElement.style.setProperty('--pdf-text-color', colors.text || '#333333');
+      document.documentElement.style.setProperty('--pdf-border-color', colors.border || '#c0c0c0');
+
+      // Also set legacy variables for backward compatibility
       document.documentElement.style.setProperty('--dynamic-primary', colors.primary || '#3a6ea5');
       document.documentElement.style.setProperty('--dynamic-secondary', colors.secondary || '#004e98');
       document.documentElement.style.setProperty('--dynamic-accent', colors.accent || '#ff6700');
       document.documentElement.style.setProperty('--dynamic-background', colors.background || '#f6f6f6');
       document.documentElement.style.setProperty('--dynamic-text', colors.text || '#333333');
       document.documentElement.style.setProperty('--dynamic-border', colors.border || '#c0c0c0');
+
+      // Generate derived colors using Hesse method
+      const primaryRgb = hexToRgb(colors.primary);
+      if (primaryRgb) {
+        document.documentElement.style.setProperty('--pdf-primary-light', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.8)`);
+        document.documentElement.style.setProperty('--pdf-primary-dark', `rgb(${Math.max(0, primaryRgb.r - 51)}, ${Math.max(0, primaryRgb.g - 51)}, ${Math.max(0, primaryRgb.b - 51)})`);
+      }
+
+      const secondaryRgb = hexToRgb(colors.secondary);
+      if (secondaryRgb) {
+        document.documentElement.style.setProperty('--pdf-secondary-light', `rgb(${Math.min(255, secondaryRgb.r + 51)}, ${Math.min(255, secondaryRgb.g + 51)}, ${Math.min(255, secondaryRgb.b + 51)})`);
+        document.documentElement.style.setProperty('--pdf-secondary-dark', `rgb(${Math.max(0, secondaryRgb.r - 51)}, ${Math.max(0, secondaryRgb.g - 51)}, ${Math.max(0, secondaryRgb.b - 51)})`);
+      }
 
       // Apply CTA colors if available
       if (colors.ctaColors) {
@@ -136,7 +174,32 @@ export default function ServerThemeProvider({
       const sansFont = Object.values(fonts).find((font: any) => !font.isSerifFont && !font.isMonospace);
       const monoFont = Object.values(fonts).find((font: any) => font.isMonospace);
 
-      // Apply the fonts
+      // Apply the fonts to our new theme variables
+      if (serifFont) {
+        document.documentElement.style.setProperty('--pdf-secondary-font', `"${(serifFont as any).name}", var(--font-merriweather), serif`);
+      } else {
+        document.documentElement.style.setProperty('--pdf-secondary-font', `var(--font-merriweather), serif`);
+      }
+
+      if (sansFont) {
+        document.documentElement.style.setProperty('--pdf-primary-font', `"${(sansFont as any).name}", var(--font-source-sans), sans-serif`);
+      } else {
+        document.documentElement.style.setProperty('--pdf-primary-font', `var(--font-source-sans), sans-serif`);
+      }
+
+      if (monoFont) {
+        document.documentElement.style.setProperty('--pdf-mono-font', `"${(monoFont as any).name}", var(--font-geist-mono), monospace`);
+      } else {
+        document.documentElement.style.setProperty('--pdf-mono-font', `var(--font-geist-mono), monospace`);
+      }
+
+      // Use the serif font for headings if available, otherwise use the sans font
+      document.documentElement.style.setProperty(
+        '--pdf-heading-font',
+        serifFont ? `"${(serifFont as any).name}", var(--font-roboto), serif` : (sansFont ? `"${(sansFont as any).name}", var(--font-roboto), sans-serif` : 'var(--font-roboto)')
+      );
+
+      // Also set legacy variables for backward compatibility
       if (serifFont) {
         document.documentElement.style.setProperty('--dynamic-secondary-font', `"${(serifFont as any).name}", serif`);
       }
@@ -149,7 +212,6 @@ export default function ServerThemeProvider({
         document.documentElement.style.setProperty('--dynamic-mono-font', `"${(monoFont as any).name}", monospace`);
       }
 
-      // Use the serif font for headings if available, otherwise use the sans font
       document.documentElement.style.setProperty(
         '--dynamic-heading-font',
         serifFont ? `"${(serifFont as any).name}", serif` : (sansFont ? `"${(sansFont as any).name}", sans-serif` : 'var(--font-roboto)')
@@ -158,6 +220,7 @@ export default function ServerThemeProvider({
 
     // Set loading state
     document.body.classList.add('theme-loaded');
+    document.body.classList.add('theme-transition-container');
   };
 
   // Apply the theme on initial load

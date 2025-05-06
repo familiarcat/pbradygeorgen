@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { getAnalyzedPdfContent } from '@/app/actions/pdfContentActions';
+import PdfThemeProvider from '@/components/PdfThemeProvider';
 
 interface PdfContentLayoutProps {
   children: React.ReactNode;
@@ -24,17 +25,17 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
     const checkContentStatus = async () => {
       try {
         setIsLoading(true);
-        
+
         // Add a timestamp to bust cache
         const timestamp = new Date().getTime();
         const response = await fetch(`/api/validate-content?t=${timestamp}`);
-        
+
         if (!response.ok) {
           throw new Error(`API responded with status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
+
         if (data.valid) {
           setContentStatus({
             isValid: true,
@@ -47,7 +48,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
             message: 'Content validation failed, refreshing...'
           });
           DanteLogger.error.dataFlow('PDF content validation failed, refreshing');
-          
+
           // Refresh the content
           await refreshContent();
         }
@@ -55,26 +56,26 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         setError(errorMessage);
         DanteLogger.error.dataFlow(`Error checking content status: ${errorMessage}`);
-        
+
         // Try to refresh the content
         await refreshContent();
       } finally {
         setIsLoading(false);
       }
     };
-    
+
     checkContentStatus();
   }, []);
-  
+
   // Refresh content
   const refreshContent = async () => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       // Call the server action to get the analyzed content
       const result = await getAnalyzedPdfContent(true);
-      
+
       if (result.success) {
         setContentStatus({
           isValid: true,
@@ -109,20 +110,23 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
           Processing PDF content...
         </div>
       )}
-      
+
       {error && (
         <div className="fixed top-0 left-0 w-full bg-[var(--state-error)] text-white text-center py-1 z-50">
           Error: {error}
         </div>
       )}
-      
+
       {!isLoading && !error && contentStatus.isValid && (
         <div className="fixed top-0 left-0 w-full bg-[var(--state-success)] text-white text-center py-1 z-50 opacity-0 transition-opacity duration-1000 animate-fade-out">
           {contentStatus.message}
         </div>
       )}
-      
-      {children}
+
+      {/* Wrap children with PdfThemeProvider */}
+      <PdfThemeProvider pdfUrl="/default_resume.pdf">
+        {children}
+      </PdfThemeProvider>
     </div>
   );
 }

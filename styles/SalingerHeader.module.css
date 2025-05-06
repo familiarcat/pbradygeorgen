@@ -1,4 +1,4 @@
-/* Salinger-inspired header styles */
+/* Salinger-inspired header styles using theme variables */
 .salingerHeader {
   position: sticky;
   top: 0;
@@ -6,14 +6,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem 1.875rem;
-  background: rgba(212, 209, 190, 0.95); /* Ecru background with transparency */
+  background: var(--header-bg, rgba(212, 209, 190, 0.95));
   backdrop-filter: blur(5px);
-  border-bottom: 1px solid rgba(73, 66, 61, 0.15); /* Subtle ebony border */
-  z-index: 100;
-  font-family: 'Courier New', monospace;
+  border-bottom: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.15));
+  z-index: var(--z-index-sticky, 100);
+  font-family: var(--pdf-primary-font, 'Courier New', monospace);
   font-weight: bold;
-  color: #49423D; /* Ebony - dark, earthy tone */
-  transition: all 0.3s ease;
+  color: var(--pdf-text-color, #49423D);
+  transition: all var(--transition-medium, 0.3s) ease;
 }
 
 .siteTitle {
@@ -21,8 +21,8 @@
   font-size: 1.8rem;
   letter-spacing: -0.5px;
   margin: 0;
-  color: #49423D; /* Ebony */
-  font-family: 'Courier New', monospace;
+  color: var(--pdf-text-color, #49423D);
+  font-family: var(--pdf-heading-font, 'Courier New', monospace);
 }
 
 .headerLeft {
@@ -32,24 +32,24 @@
 }
 
 .summaryLink {
-  color: #49423D; /* Ebony */
+  color: var(--pdf-text-color, #49423D);
   text-decoration: none;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium, 0.3s) ease;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 4px);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: rgba(90, 118, 130, 0.2); /* Increased opacity for better CTA visibility */
+  background-color: var(--cta-secondary-bg, rgba(90, 118, 130, 0.2));
 }
 
 .summaryLink:hover {
-  color: #FFFFFF; /* White text for contrast */
-  background-color: #5A7682; /* Blue accent color (matches --cta-secondary) */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  background-color: var(--pdf-secondary-color, #5A7682);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .headerActions {
@@ -65,18 +65,18 @@
 }
 
 .actionLink {
-  color: #49423D; /* Ebony */
+  color: var(--pdf-text-color, #49423D);
   text-decoration: none;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium, 0.3s) ease;
   font-size: 1.1rem;
   font-weight: bold;
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 4px);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: rgba(126, 98, 51, 0.2); /* Increased opacity for better CTA visibility */
+  background-color: var(--cta-primary-bg, rgba(126, 98, 51, 0.2));
 }
 
 .actionLink::after {
@@ -86,14 +86,14 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: #8A8151; /* Reseda green for underline */
-  transition: width 0.3s ease;
+  background: var(--pdf-accent-color, #8A8151);
+  transition: width var(--transition-medium, 0.3s) ease;
 }
 
 .actionLink:hover {
-  color: #FFFFFF; /* White text for contrast */
-  background-color: #7E6233; /* Coyote color (matches --cta-tertiary) */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  background-color: var(--pdf-primary-color, #7E6233);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .actionLink:hover::after {
@@ -102,9 +102,9 @@
 
 .actionLink:focus {
   outline: none;
-  color: #FFFFFF; /* White text for contrast */
-  background-color: #7E6233; /* Coyote color (matches --cta-tertiary) */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  background-color: var(--pdf-primary-color, #7E6233);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .actionLink:focus::after {
@@ -117,16 +117,16 @@
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  background: rgba(212, 209, 190, 0.95); /* Ecru background with transparency */
-  border: 1px solid rgba(73, 66, 61, 0.15); /* Subtle ebony border */
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--header-bg, rgba(212, 209, 190, 0.95));
+  border: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.15));
+  border-radius: var(--radius-sm, 4px);
+  box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.1));
   min-width: 280px;
-  z-index: 100;
+  z-index: var(--z-index-dropdown, 100);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium, 0.3s) ease;
 }
 
 /* Show dropdown on hover */
@@ -140,7 +140,7 @@
 .downloadOptionGroup {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
+  border-bottom: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.1));
 }
 
 .downloadOptionGroup:last-child {
@@ -154,22 +154,22 @@
   justify-content: center;
   gap: 0.25rem;
   padding: 0.75rem 0.5rem;
-  color: #49423D; /* Ebony */
+  color: var(--pdf-text-color, #49423D);
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-family: 'Courier New', monospace;
+  transition: all var(--transition-fast, 0.2s) ease;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace);
   font-weight: bold;
   font-size: 0.9rem;
-  background-color: rgba(126, 78, 45, 0.2); /* Increased opacity for better CTA visibility */
-  border-right: 1px solid rgba(73, 66, 61, 0.1);
+  background-color: var(--cta-primary-bg, rgba(126, 78, 45, 0.2));
+  border-right: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.1));
   flex: 0 0 auto;
   width: 90px;
   text-align: center;
 }
 
 .previewButton:hover {
-  background: #7E4E2D; /* Terracotta color (matches --cta-primary) */
-  color: #FFFFFF; /* White text for contrast */
+  background: var(--pdf-primary-color, #7E4E2D);
+  color: #FFFFFF;
 }
 
 /* Download options styling - Secondary CTA */
@@ -177,15 +177,15 @@
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: #49423D; /* Ebony */
+  color: var(--pdf-text-color, #49423D);
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-family: 'Courier New', monospace;
+  transition: all var(--transition-fast, 0.2s) ease;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace);
   font-weight: bold;
   font-size: 1rem;
   flex: 1;
   gap: 0.5rem;
-  background-color: rgba(95, 107, 84, 0.15); /* Increased opacity for better CTA visibility */
+  background-color: var(--cta-secondary-bg, rgba(95, 107, 84, 0.15));
 }
 
 /* Action icons */
@@ -210,9 +210,9 @@
 }
 
 .downloadOption:hover {
-  background: #5F6B54; /* Ebony color (matches --cta-secondary) */
-  color: #FFFFFF; /* White text for contrast */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--pdf-secondary-color, #5F6B54);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* Loading text styling */
@@ -221,7 +221,7 @@
   align-items: center;
   justify-content: center;
   font-style: italic;
-  color: #49423D; /* Ebony */
+  color: var(--pdf-text-color, #49423D);
 }
 
 /* Loading spinner animation */
@@ -239,7 +239,7 @@
 }
 
 .actionSeparator {
-  color: #8F7E4F; /* Lion - warm, muted gold */
+  color: var(--pdf-accent-color, #8F7E4F);
   font-size: 0.8rem;
 }
 
@@ -249,7 +249,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
-    padding: 1rem 1.25rem;
+    padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.25rem);
   }
 
   .siteTitle {

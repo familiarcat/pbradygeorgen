@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
-import { inter, roboto, merriweather, sourceSans } from './fonts';
+import { inter, roboto, merriweather, ibmPlexMono } from './fonts';
 import "./globals.css";
+import "./theme-variables.css";
 import InitialThemeLoader from "@/components/InitialThemeLoader";
 import PdfContentWrapper from "@/components/wrappers/PdfContentWrapper";
 
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${sourceSans.variable} ${geistMono.variable} antialiased m-0 p-0 overflow-hidden`}
+        className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${ibmPlexMono.variable} ${geistMono.variable} antialiased m-0 p-0 overflow-hidden`}
       >
         <InitialThemeLoader>
           <PdfContentWrapper>
