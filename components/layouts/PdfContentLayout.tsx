@@ -47,7 +47,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
             isValid: false,
             message: 'Content validation failed, refreshing...'
           });
-          DanteLogger.error.dataFlow('PDF content validation failed, refreshing');
+          DanteLogger.error.dataFlow('PDF content validation failed, refreshing', '');
 
           // Refresh the content
           await refreshContent();
@@ -55,7 +55,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         setError(errorMessage);
-        DanteLogger.error.dataFlow(`Error checking content status: ${errorMessage}`);
+        DanteLogger.error.dataFlow(`Error checking content status: ${errorMessage}`, '');
 
         // Try to refresh the content
         await refreshContent();
@@ -88,7 +88,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
           message: 'Content refresh failed'
         });
         setError(result.error || 'Content refresh failed');
-        DanteLogger.error.dataFlow(`Content refresh failed: ${result.error}`);
+        DanteLogger.error.dataFlow(`Content refresh failed: ${result.error}`, '');
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -97,7 +97,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
         isValid: false,
         message: 'Content refresh failed'
       });
-      DanteLogger.error.dataFlow(`Error refreshing content: ${errorMessage}`);
+      DanteLogger.error.dataFlow(`Error refreshing content: ${errorMessage}`, '');
     } finally {
       setIsLoading(false);
     }
