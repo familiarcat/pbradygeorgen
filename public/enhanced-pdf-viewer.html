@@ -4,103 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AlexAI - Resume Analyzer</title>
-  <style>
-    :root {
-      --bg-primary: #f5f5f5;
-      --text-primary: #333333;
-      --header-bg: rgba(212, 209, 190, 0.95);
-      --header-text: #49423D;
-      --cta-primary: #b82e63;
-      --cta-secondary: #5A7682;
-      --cta-tertiary: #7E6233;
-      --accent-color: #8A8151;
-      --pdf-background: #ffffff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* PDF Container Styles */
-    .pdf-container-wrapper {
-      flex: 1;
-      display: flex;
-      padding: 1rem;
-      overflow: auto;
-      height: calc(100vh - 4.5rem);
-    }
-
-    .pdf-container {
-      margin: 0 auto;
-      background-color: var(--pdf-background);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 800px;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .pdf-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .pdf-container-wrapper {
-        padding: 0.5rem;
-      }
-    }
-
-    /* Print Styles */
-    @media print {
-      .salinger-header {
-        display: none;
-      }
-
-      .pdf-container-wrapper {
-        padding: 0;
-        height: 100%;
-      }
-
-      .pdf-container {
-        box-shadow: none;
-        max-width: 100%;
-      }
-    }
-  </style>
-
-  <!-- Load component scripts -->
-  <script src="/components/PreviewModal.js"></script>
-  <script src="/components/CoverLetterModal.js"></script>
-  <script src="/components/SalingerHeader.js"></script>
-  <script src="/components/AppMain.js"></script>
+  <script>
+    // Redirect to root
+    window.location.href = '/';
+  </script>
 </head>
 <body>
-  <!-- Salinger Header Container -->
-  <div id="salinger-header-container"></div>
-
-  <!-- PDF Container -->
-  <div class="pdf-container-wrapper">
-    <div class="pdf-container">
-      <iframe src="/default_resume.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" class="pdf-iframe" title="PDF Viewer"></iframe>
-    </div>
-  </div>
-
-
+  <p>Redirecting to home page...</p>
 </body>
 </html>
