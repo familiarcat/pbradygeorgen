@@ -29,20 +29,20 @@ const mimeTypes = {
 // Create the server
 const server = http.createServer((req, res) => {
   console.log(`Request: ${req.method} ${req.url}`);
-  
+
   // Handle CORS for API routes
   if (req.url.startsWith('/api/')) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
+
     // Handle OPTIONS requests for CORS preflight
     if (req.method === 'OPTIONS') {
       res.statusCode = 204;
       res.end();
       return;
     }
-    
+
     // Simple API response for all API routes
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = 200;
@@ -54,21 +54,24 @@ const server = http.createServer((req, res) => {
     }));
     return;
   }
-  
+
   // Normalize the URL
   let url = req.url;
-  
-  // Default to index.html for the root path
+
+  // Default to PDF viewer for the root path
   if (url === '/') {
-    url = '/index.html';
+    // Redirect to the PDF viewer page
+    res.writeHead(302, { 'Location': '/pdf-viewer.html' });
+    res.end();
+    return;
   }
-  
+
   // Remove query parameters
   url = url.split('?')[0];
-  
+
   // Determine the file path
   let filePath;
-  
+
   if (url.startsWith('/public/')) {
     // Remove the /public prefix
     filePath = path.join(__dirname, url.substring(7));
@@ -79,20 +82,20 @@ const server = http.createServer((req, res) => {
     // Serve from the public directory
     filePath = path.join(__dirname, 'public', url);
   }
-  
+
   // Get the file extension
   const extname = path.extname(filePath);
-  
+
   // Set the content type based on the file extension
   const contentType = mimeTypes[extname] || 'text/plain';
-  
+
   // Read the file
   fs.readFile(filePath, (err, content) => {
     if (err) {
       // If the file doesn't exist, try to serve the index.html file
       if (err.code === 'ENOENT') {
         console.log(`File not found: ${filePath}`);
-        
+
         // Try to serve index.html
         fs.readFile(path.join(__dirname, 'public', 'index.html'), (err, content) => {
           if (err) {
@@ -101,20 +104,20 @@ const server = http.createServer((req, res) => {
             res.end('404 Not Found');
             return;
           }
-          
+
           // Serve index.html
           res.writeHead(200, { 'Content-Type': 'text/html' });
           res.end(content, 'utf-8');
         });
         return;
       }
-      
+
       // For other errors, return a 500
       res.writeHead(500);
       res.end(`Server Error: ${err.code}`);
       return;
     }
-    
+
     // Serve the file
     res.writeHead(200, { 'Content-Type': contentType });
     res.end(content, 'utf-8');
@@ -125,7 +128,7 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
   console.log(`Serving files from: ${__dirname}`);
-  
+
   // Log available directories
   console.log('Available directories:');
   fs.readdirSync(__dirname).forEach(file => {
@@ -135,7 +138,7 @@ server.listen(port, hostname, () => {
       console.log(`  - ${file}`);
     }
   });
-  
+
   // Log public directory contents if it exists
   const publicDir = path.join(__dirname, 'public');
   if (fs.existsSync(publicDir) && fs.statSync(publicDir).isDirectory()) {
