@@ -56,7 +56,7 @@ export default function PDFViewerWrapper() {
   }, []);
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full h-screen overflow-hidden flex flex-col">
       <Suspense fallback={<Loading />}>
         {isRefreshing ? (
           <Loading />

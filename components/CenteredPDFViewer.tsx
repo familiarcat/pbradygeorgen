@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import PDFAnalyzer from './PDFAnalyzer';
-import DynamicThemeProvider from './DynamicThemeProvider';
 import SalingerHeader from './SalingerHeader';
 import UploadModal from './UploadModal';
 import { DanteLogger } from '@/utils/DanteLogger';
@@ -296,104 +295,102 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   }, [headerBgColor]);
 
   return (
-    <DynamicThemeProvider pdfUrl={pdfUrl}>
-      <div
-        className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
-        style={{
-          backgroundColor: headerBgColor,
-          minHeight: 'calc(var(--vh, 1vh) * 100)'
-        }}
-      >
-        {/* Salinger Header */}
-        <SalingerHeader
-          onDownload={handleDownload}
-          onViewSummary={handleViewSummary}
-          onContact={handleContact}
-          onUpload={handleUpload}
-          fileName={baseFileName}
-        />
+    <div
+      className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
+      style={{
+        backgroundColor: headerBgColor,
+        minHeight: 'calc(var(--vh, 1vh) * 100)'
+      }}
+    >
+      {/* Salinger Header */}
+      <SalingerHeader
+        onDownload={handleDownload}
+        onViewSummary={handleViewSummary}
+        onContact={handleContact}
+        onUpload={handleUpload}
+        fileName={baseFileName}
+      />
 
-        {/* Upload Modal */}
-        <UploadModal
-          isOpen={showUploadModal}
-          onClose={() => setShowUploadModal(false)}
-          onPdfUploaded={handlePdfUploaded}
-        />
+      {/* Upload Modal */}
+      <UploadModal
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        onPdfUploaded={handlePdfUploaded}
+      />
 
-        {/* Loading indicator - shown until PDF is loaded */}
-        {!pdfVisible && (
-          <div className="absolute inset-0 flex justify-center items-center z-20" style={{ backgroundColor: headerBgColor }}>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
-              <p className="text-[var(--text-primary)] text-lg font-medium">Loading PDF...</p>
-            </div>
-          </div>
-        )}
-
-        {/* PDF Analyzer - positioned on the left side */}
-        {showAnalyzer && (
-          <div className="absolute top-4 left-4 z-20 w-[32rem] max-w-[90vw]">
-            <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
-          </div>
-        )}
-
-        {/* PDF Viewer Container - takes remaining vertical space */}
-        <div
-          className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
-          style={{
-            backgroundColor: headerBgColor,
-            opacity: pdfVisible ? 1 : 0,
-            transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
-            height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
-            minHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Ensure minimum height
-            paddingTop: '0.5rem',
-            paddingBottom: '0.5rem',
-            flex: 1
-          }}
-        >
-          {/* PDF Viewer - centered horizontally with responsive width and proper margins */}
-          <div
-            className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
-            style={{
-              backgroundColor: headerBgColor, // Use the header background color directly
-              width: pdfWidth,
-              maxWidth: '1000px', // Maximum width constraint
-              minWidth: '320px', // Minimum width constraint
-              height: '100%',
-              minHeight: '100%',
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              // Add a subtle border for visual separation
-              border: '1px solid rgba(0, 0, 0, 0.1)',
-              // Center the container
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}
-          >
-            <iframe
-              ref={iframeRef}
-              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-              className="w-full h-full flex-grow pdf-iframe"
-              style={{
-                border: 'none',
-                backgroundColor: headerBgColor, // Use the header background color directly
-                margin: 0,
-                padding: 0,
-                display: 'block', // Ensures proper rendering in all browsers
-                minHeight: '100%',
-                flex: 1,
-                position: 'relative',
-                // Ensure the iframe content is properly scaled
-                width: '100%',
-                height: '100%'
-              }}
-              title="PDF Viewer"
-              onLoad={handlePdfLoad}
-            />
+      {/* Loading indicator - shown until PDF is loaded */}
+      {!pdfVisible && (
+        <div className="absolute inset-0 flex justify-center items-center z-20" style={{ backgroundColor: headerBgColor }}>
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
+            <p className="text-[var(--text-primary)] text-lg font-medium">Loading PDF...</p>
           </div>
         </div>
+      )}
+
+      {/* PDF Analyzer - positioned on the left side */}
+      {showAnalyzer && (
+        <div className="absolute top-4 left-4 z-20 w-[32rem] max-w-[90vw]">
+          <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
+        </div>
+      )}
+
+      {/* PDF Viewer Container - takes remaining vertical space */}
+      <div
+        className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
+        style={{
+          backgroundColor: headerBgColor,
+          opacity: pdfVisible ? 1 : 0,
+          transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
+          height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
+          minHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Ensure minimum height
+          paddingTop: '0.5rem',
+          paddingBottom: '0.5rem',
+          flex: 1
+        }}
+      >
+        {/* PDF Viewer - centered horizontally with responsive width and proper margins */}
+        <div
+          className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
+          style={{
+            backgroundColor: headerBgColor, // Use the header background color directly
+            width: pdfWidth,
+            maxWidth: '1000px', // Maximum width constraint
+            minWidth: '320px', // Minimum width constraint
+            height: '100%',
+            minHeight: '100%',
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            // Add a subtle border for visual separation
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            // Center the container
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}
+        >
+          <iframe
+            ref={iframeRef}
+            src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
+            className="w-full h-full flex-grow pdf-iframe"
+            style={{
+              border: 'none',
+              backgroundColor: headerBgColor, // Use the header background color directly
+              margin: 0,
+              padding: 0,
+              display: 'block', // Ensures proper rendering in all browsers
+              minHeight: '100%',
+              flex: 1,
+              position: 'relative',
+              // Ensure the iframe content is properly scaled
+              width: '100%',
+              height: '100%'
+            }}
+            title="PDF Viewer"
+            onLoad={handlePdfLoad}
+          />
+        </div>
       </div>
-    </DynamicThemeProvider>
+    </div>
   );
 }

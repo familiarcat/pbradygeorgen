@@ -104,7 +104,7 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
   };
 
   return (
-    <div className="pdf-content-layout">
+    <div className="pdf-content-layout flex flex-col min-h-screen">
       {isLoading && (
         <div className="fixed top-0 left-0 w-full bg-[var(--cta-primary)] text-white text-center py-1 z-50">
           Processing PDF content...
