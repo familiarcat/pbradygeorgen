@@ -34,45 +34,42 @@ export async function GET(request: Request) {
     return NextResponse.json({
       success: true,
       message: "This is a simplified version of the cover-letter API route for AWS Amplify build.",
-      content: `# Professional Cover Letter
+      content: `# P. Brady Georgen - Cover Letter
 
-## P. Brady Georgen
-Senior Software Developer
+## Summary
 
----
+I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.
 
-Dear Hiring Manager,
+## My Skills
 
-I am writing to express my interest in the Senior Software Developer position at your company. With over 10 years of experience in full-stack development, JavaScript/TypeScript, UI/UX design, React, and AWS, I believe I would be a valuable addition to your team.
+- Full Stack Development
+- JavaScript/TypeScript
+- React/React Native
+- AWS
+- UI/UX Design
+- Creative Technology
+- Problem-Solving
 
-## Professional Experience
+## Industries I've Worked In
 
-Throughout my career, I have demonstrated a strong ability to develop robust, scalable applications that meet business needs while providing exceptional user experiences. My expertise includes:
+- Business Solutions
+- Communications
+- Healthcare/Pharmaceutical
+- Financial Services
 
-- Building responsive web applications using modern JavaScript frameworks
-- Implementing cloud-native architectures on AWS
-- Designing intuitive user interfaces with a focus on accessibility
-- Leading development teams and mentoring junior developers
-- Optimizing application performance and security
+## My Career Journey
 
-## Technical Skills
+I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader. I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
 
-- **Languages**: JavaScript, TypeScript, HTML, CSS, Python
-- **Frameworks**: React, Next.js, Node.js, Express
-- **Cloud Services**: AWS (Lambda, S3, DynamoDB, Amplify)
-- **Tools**: Git, Docker, Webpack, Jest
-- **Methodologies**: Agile, TDD, CI/CD
+## My Education
 
-## Why I'm Interested
+I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
 
-Your company's commitment to innovation and user-centered design aligns perfectly with my professional values. I am particularly impressed by your recent projects in [specific area] and would be excited to contribute to similar initiatives.
+## What I'm Looking For
 
-I am confident that my technical expertise, problem-solving abilities, and collaborative approach would make me a strong fit for your team. I look forward to the opportunity to discuss how my skills and experience could benefit your organization.
-
-Thank you for considering my application.
-
-Sincerely,
-P. Brady Georgen`,
+- I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities
+- I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision
+- My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference`,
       data: {
         timestamp: new Date().toISOString(),
       }
