@@ -32,27 +32,55 @@ export default function PDFViewerWrapper() {
 
   // Check if PDF content needs to be refreshed on page load
   useEffect(() => {
-    async function refreshIfNeeded() {
-      try {
-        setIsRefreshing(true);
-        const result = await checkAndRefreshPdfContent();
+    // Use a flag to prevent multiple refreshes
+    let isRefreshingContent = false;
 
-        if (result.refreshed) {
-          // If content was refreshed, update the timestamp to trigger a re-render
-          setRefreshTimestamp(result.timestamp);
-          console.log('PDF content refreshed automatically:', result.message);
+    async function refreshIfNeeded() {
+      // If already refreshing, don't start another refresh
+      if (isRefreshingContent) return;
+
+      try {
+        isRefreshingContent = true;
+        setIsRefreshing(true);
+
+        // Add a check to prevent excessive refreshes
+        const lastRefreshKey = 'lastPdfContentRefresh';
+        const lastRefresh = localStorage.getItem(lastRefreshKey);
+        const now = Date.now();
+
+        // Only refresh if it's been more than 5 minutes since the last refresh
+        if (!lastRefresh || (now - parseInt(lastRefresh)) > 5 * 60 * 1000) {
+          console.log('PDF content check: Checking if refresh is needed');
+          const result = await checkAndRefreshPdfContent();
+
+          if (result.refreshed) {
+            // If content was refreshed, update the timestamp to trigger a re-render
+            setRefreshTimestamp(result.timestamp);
+            console.log('PDF content refreshed automatically:', result.message);
+            // Store the refresh time
+            localStorage.setItem(lastRefreshKey, now.toString());
+          } else {
+            console.log('PDF content check:', result.message);
+          }
         } else {
-          console.log('PDF content check:', result.message);
+          console.log('PDF content check: Skipped (refreshed recently)');
+          DanteLogger.success.core('PDF content refreshed recently, skipping check');
         }
       } catch (error) {
         console.error('Error checking PDF content:', error);
         DanteLogger.error.system('Error in automatic PDF refresh', { error });
       } finally {
         setIsRefreshing(false);
+        isRefreshingContent = false;
       }
     }
 
     refreshIfNeeded();
+
+    // Cleanup function
+    return () => {
+      isRefreshingContent = true; // Prevent any pending refreshes
+    };
   }, []);
 
   return (

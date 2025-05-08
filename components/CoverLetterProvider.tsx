@@ -79,10 +79,10 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
       // Try to fetch from API first
       try {
         const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}&t=${Date.now()}`);
-        
+
         if (response.ok) {
           const data = await response.json();
-          
+
           if (data.success && data.content && data.content.trim() !== '') {
             console.log(`Received content from API (${data.content.length} characters)`);
             setContent(data.content);
@@ -90,7 +90,7 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
             return;
           }
         }
-        
+
         console.log('API response did not contain valid content, using default');
       } catch (apiError) {
         console.error('Error fetching from API:', apiError);
@@ -99,10 +99,10 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
       // If API fails, try to fetch from static file
       try {
         const response = await fetch(`/extracted/cover_letter.md?t=${Date.now()}`);
-        
+
         if (response.ok) {
           const text = await response.text();
-          
+
           if (text && text.trim() !== '') {
             console.log(`Received content from static file (${text.length} characters)`);
             setContent(text);
@@ -110,7 +110,7 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
             return;
           }
         }
-        
+
         console.log('Static file response did not contain valid content, using default');
       } catch (fileError) {
         console.error('Error fetching from static file:', fileError);
@@ -129,9 +129,43 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
     }
   };
 
-  // Fetch content on initial load
+  // Fetch content on initial load with debounce
   useEffect(() => {
-    fetchCoverLetter(false);
+    // Use a flag to prevent multiple fetches
+    let isFetching = false;
+
+    // Add a check to prevent excessive fetches
+    const lastFetchKey = 'lastCoverLetterFetch';
+    const lastFetch = localStorage.getItem(lastFetchKey);
+    const now = Date.now();
+
+    // Only fetch if it's been more than 5 minutes since the last fetch
+    const fetchContent = async () => {
+      if (isFetching) return;
+
+      try {
+        isFetching = true;
+
+        if (!lastFetch || (now - parseInt(lastFetch)) > 5 * 60 * 1000) {
+          console.log('Cover Letter: Fetching content');
+          await fetchCoverLetter(false);
+          // Store the fetch time
+          localStorage.setItem(lastFetchKey, now.toString());
+        } else {
+          console.log('Cover Letter: Skipped fetch (fetched recently)');
+          if (DanteLogger) DanteLogger.success.basic('Cover Letter content fetched recently, skipping fetch');
+        }
+      } finally {
+        isFetching = false;
+      }
+    };
+
+    fetchContent();
+
+    // Cleanup function
+    return () => {
+      isFetching = true; // Prevent any pending fetches
+    };
   }, []);
 
   // Context value
