@@ -1,25 +1,36 @@
-COVER LETTER
+P. BRADY GEORGEN - COVER LETTER
 
-Dear Hiring Manager,
+SUMMARY
 
-INTRODUCTION
-I am writing to express my interest in the Senior Software Developer position at Your Company. With my background in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS, I am confident that I would be a valuable addition to your team.
+I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.
 
-PROFESSIONAL BACKGROUND
-I am a seasoned software developer specializing in the development of high-performance web applications using JavaScript, React, and Node.js. With strong expertise in AWS and CI/CD pipelines, I excel in creating scalable solutions and improving software delivery processes. A dedicated team player and mentor, I am committed to coding excellence and innovation.
+MY SKILLS
 
-WHY I'M A GREAT FIT
-Throughout my career, I have demonstrated leadership in the development and maintenance of responsive web applications using React and Node.js, improving user engagement by 30%. I am particularly drawn to Your Company because of your reputation for innovation and excellence in the industry.
+- Full Stack Development
+- JavaScript/TypeScript
+- React/React Native
+- AWS
+- UI/UX Design
+- Creative Technology
+- Problem-Solving
 
-SKILLS AND QUALIFICATIONS
-My key qualifications that align with this role include:
-- Full-stack development expertise
-- JavaScript/TypeScript proficiency
-- Strong communication skills
+INDUSTRIES I'VE WORKED IN
 
-CLOSING
-I am excited about the opportunity to bring my unique skills and experience to Your Company. I would welcome the chance to discuss how my background and qualifications would be a good match for this position.
+- Business Solutions
+- Communications
+- Healthcare/Pharmaceutical
+- Financial Services
 
-Sincerely,
+MY CAREER JOURNEY
 
-Your Name
+I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader. I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
+
+MY EDUCATION
+
+I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
+
+WHAT I'M LOOKING FOR
+
+- I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities
+- I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision
+- My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference

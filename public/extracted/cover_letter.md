@@ -1,17 +1,36 @@
-# Cover Letter
+# P. Brady Georgen - Cover Letter
 
-Dear Hiring Manager,
+## Summary
 
-I am writing to express my interest in the Software Developer position at your company. With my experience in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS, I believe I would be a valuable addition to your team.
+I'm a seasoned software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions.
 
-My experience includes developing and maintaining web applications using React, Next.js, and AWS. I have a strong background in UI/UX design and am passionate about creating intuitive and user-friendly interfaces.
+## My Skills
 
-I look forward to discussing how my skills and experience align with your needs.
+- Full Stack Development
+- JavaScript/TypeScript
+- React/React Native
+- AWS
+- UI/UX Design
+- Creative Technology
+- Problem-Solving
 
-Sincerely,
-P. Brady Georgen
+## Industries I've Worked In
 
----
+- Business Solutions
+- Communications
+- Healthcare/Pharmaceutical
+- Financial Services
 
-*This document was automatically generated for testing.*
-*Generated on: 5/5/2025*
+## My Career Journey
+
+I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader. I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard. My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions.
+
+## My Education
+
+I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving.
+
+## What I'm Looking For
+
+- I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities
+- I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision
+- My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference
