@@ -41,6 +41,7 @@
     "fix:standalone": "node scripts/create-standalone.js",
     "fix:standalone:directory": "node scripts/fix-standalone-directory.js",
     "rebuild": "chmod +x scripts/rebuild-app.sh && ./scripts/rebuild-app.sh",
+    "refresh:pdf": "node scripts/force-refresh-pdf.js",
     "log:build": "node scripts/enhanced-build-logger.js",
     "log:start": "node scripts/enhanced-start-logger.js",
     "log:analyze": "node scripts/enhanced-build-logger.js && node scripts/enhanced-start-logger.js"

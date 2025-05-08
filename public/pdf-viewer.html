@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlexAI - Resume Analyzer</title>
+  <title>AlexAI - PDF Viewer</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -15,7 +15,7 @@
       flex-direction: column;
       min-height: 100vh;
     }
-    
+
     header {
       background-color: #b82e63;
       color: white;
@@ -25,17 +25,17 @@
       align-items: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     .header-title {
       font-size: 1.5rem;
       font-weight: bold;
     }
-    
+
     .header-actions {
       display: flex;
       gap: 1rem;
     }
-    
+
     .button {
       background-color: white;
       color: #b82e63;
@@ -46,17 +46,17 @@
       font-weight: bold;
       transition: background-color 0.2s;
     }
-    
+
     .button:hover {
       background-color: #f0f0f0;
     }
-    
+
     main {
       flex: 1;
       display: flex;
       padding: 2rem;
     }
-    
+
     .pdf-container {
       flex: 1;
       background-color: white;
@@ -69,7 +69,7 @@
       justify-content: center;
       min-height: 70vh;
     }
-    
+
     .pdf-placeholder {
       width: 100%;
       max-width: 600px;
@@ -83,17 +83,17 @@
       text-align: center;
       padding: 2rem;
     }
-    
+
     .pdf-placeholder h2 {
       margin-top: 0;
       color: #b82e63;
     }
-    
+
     .pdf-placeholder p {
       margin-bottom: 2rem;
       color: #666;
     }
-    
+
     .upload-button {
       background-color: #b82e63;
       color: white;
@@ -104,11 +104,11 @@
       font-weight: bold;
       transition: background-color 0.2s;
     }
-    
+
     .upload-button:hover {
       background-color: #a02857;
     }
-    
+
     footer {
       background-color: #333;
       color: white;
@@ -116,29 +116,29 @@
       text-align: center;
       font-size: 0.875rem;
     }
-    
+
     .footer-links {
       display: flex;
       justify-content: center;
       gap: 1rem;
       margin-top: 0.5rem;
     }
-    
+
     .footer-links a {
       color: #ddd;
       text-decoration: none;
     }
-    
+
     .footer-links a:hover {
       color: white;
       text-decoration: underline;
     }
-    
+
     @media (max-width: 768px) {
       main {
         padding: 1rem;
       }
-      
+
       .pdf-container {
         padding: 1rem;
       }
@@ -153,18 +153,18 @@
       <button class="button" onclick="location.href='/json-view'">JSON View</button>
     </div>
   </header>
-  
+
   <main>
     <div class="pdf-container">
       <div class="pdf-placeholder">
-        <h2>Welcome to AlexAI Resume Analyzer</h2>
-        <p>This is a simplified version of the application running in standalone mode. In the full application, you would see your resume PDF displayed here.</p>
-        <p>The application is designed to analyze your resume and provide insights based on various philosophical frameworks.</p>
-        <button class="upload-button" onclick="alert('Upload functionality is not available in standalone mode.')">Upload Resume</button>
+        <h2>Redirecting to PDF Viewer</h2>
+        <p>You are being redirected to the new PDF Viewer page...</p>
+        <p>If you are not redirected automatically, please click the button below.</p>
+        <button class="upload-button" onclick="window.location.href='/pdf-viewer'">Go to PDF Viewer</button>
       </div>
     </div>
   </main>
-  
+
   <footer>
     <div>&copy; 2025 AlexAI Resume Analyzer</div>
     <div class="footer-links">
@@ -173,15 +173,16 @@
       <a href="/terms">Terms</a>
     </div>
   </footer>
-  
+
   <script>
-    // Simple script to simulate the application behavior
+    // Redirect to the new PDF viewer page
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('AlexAI Resume Analyzer - Standalone Mode');
-      
-      // Log a message to indicate this is the standalone version
-      console.log('This is a simplified version of the application running in standalone mode.');
-      console.log('For the full experience, please run the application with a complete Next.js build.');
+      console.log('AlexAI Resume Analyzer - Redirecting to PDF Viewer');
+
+      // Redirect to the new PDF viewer page after a short delay
+      setTimeout(function() {
+        window.location.href = '/pdf-viewer';
+      }, 1500);
     });
   </script>
 </body>
