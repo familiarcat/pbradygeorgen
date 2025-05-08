@@ -20,6 +20,7 @@ import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 export default function DownloadTestPage() {
   const [testReport, setTestReport] = useState(null);
   const [previewContent, setPreviewContent] = useState(null);
+  const [contentManifest, setContentManifest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('downloads');
@@ -53,6 +54,17 @@ export default function DownloadTestPage() {
           setPreviewContent(previewData);
         } else {
           console.warn(`⚠️ [Dante:Warning] Failed to fetch preview content: ${previewResponse.status}`);
+        }
+
+        // Fetch the content manifest
+        console.log('🔍 [Dante:Debug] Fetching content manifest from /content_manifest.json');
+        const manifestResponse = await fetch('/content_manifest.json');
+        if (manifestResponse.ok) {
+          const manifestData = await manifestResponse.json();
+          console.log('✅ [Dante:Success] Content manifest fetched successfully');
+          setContentManifest(manifestData);
+        } else {
+          console.warn(`⚠️ [Dante:Warning] Failed to fetch content manifest: ${manifestResponse.status}`);
         }
 
         setLoading(false);
@@ -144,6 +156,16 @@ export default function DownloadTestPage() {
                 onClick={() => setActiveTab('report')}
               >
                 Test Report
+              </button>
+              <button
+                className={`px-6 py-3 border-b-2 font-medium text-sm whitespace-nowrap ${
+                  activeTab === 'manifest'
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+                onClick={() => setActiveTab('manifest')}
+              >
+                Content Manifest
               </button>
             </nav>
           </div>
@@ -388,6 +410,120 @@ export default function DownloadTestPage() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Content Manifest Tab */}
+          {activeTab === 'manifest' && contentManifest && (
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Content Manifest</h2>
+              <p className="mb-6">Generated at: {new Date(contentManifest.timestamp).toLocaleString()}</p>
+
+              <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                <h3 className="text-xl font-semibold mb-4">Source PDF</h3>
+                <div className="bg-white p-4 rounded shadow">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-sm text-gray-500">Path</div>
+                      <div className="mt-1 text-lg font-medium">{contentManifest.source.pdf.path}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-500">Size</div>
+                      <div className="mt-1 text-lg font-medium">{contentManifest.source.pdf.size} bytes</div>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <Link
+                      href={contentManifest.source.pdf.path}
+                      className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                      target="_blank"
+                    >
+                      View PDF
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                <h3 className="text-xl font-semibold mb-4">Extracted Content</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-white p-4 rounded shadow">
+                    <h4 className="font-semibold mb-2">Raw Text</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      <div>
+                        <div className="text-sm text-gray-500">Path</div>
+                        <div className="mt-1">{contentManifest.extracted.raw_text.path}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-500">Size</div>
+                        <div className="mt-1">{contentManifest.extracted.raw_text.size} bytes</div>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <Link
+                        href={contentManifest.extracted.raw_text.path}
+                        className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                        target="_blank"
+                      >
+                        View Raw Text
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-4 rounded shadow">
+                    <h4 className="font-semibold mb-2">Analysis</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      <div>
+                        <div className="text-sm text-gray-500">Path</div>
+                        <div className="mt-1">{contentManifest.extracted.analysis.path}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-500">Size</div>
+                        <div className="mt-1">{contentManifest.extracted.analysis.size} bytes</div>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <Link
+                        href={contentManifest.extracted.analysis.path}
+                        className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                        target="_blank"
+                      >
+                        View Analysis
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-4">Downloads</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {Object.entries(contentManifest.downloads || {}).map(([key, value]) => (
+                    <div key={key} className="bg-white p-4 rounded shadow">
+                      <h4 className="font-semibold mb-2">{key}</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        <div>
+                          <div className="text-sm text-gray-500">Path</div>
+                          <div className="mt-1">{value.path}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Size</div>
+                          <div className="mt-1">{value.size} bytes</div>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <Link
+                          href={value.path}
+                          className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                          target="_blank"
+                        >
+                          View Content
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
