@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   // Webpack configuration
   webpack: (config) => {
@@ -8,30 +10,19 @@ const nextConfig = {
     // Ignore express dependency in dante-logger
     config.resolve.alias.express = false;
 
-    // Handle postcss and tailwindcss
+    // Disable Tailwind CSS for Amplify build
+    config.resolve.alias['tailwindcss'] = false;
+    config.resolve.alias['postcss'] = false;
+    config.resolve.alias['autoprefixer'] = false;
     config.resolve.alias['@tailwindcss/postcss'] = false;
 
-    // Safely handle module resolution
-    try {
-      config.resolve.alias['tailwindcss'] = require.resolve('tailwindcss');
-    } catch (error) {
-      console.warn('Warning: tailwindcss module not found, using fallback');
-      config.resolve.alias['tailwindcss'] = false;
-    }
-
-    try {
-      config.resolve.alias['postcss'] = require.resolve('postcss');
-    } catch (error) {
-      console.warn('Warning: postcss module not found, using fallback');
-      config.resolve.alias['postcss'] = false;
-    }
-
-    try {
-      config.resolve.alias['autoprefixer'] = require.resolve('autoprefixer');
-    } catch (error) {
-      console.warn('Warning: autoprefixer module not found, using fallback');
-      config.resolve.alias['autoprefixer'] = false;
-    }
+    // Add explicit path aliases for AWS Amplify compatibility
+    config.resolve.alias['@/utils'] = path.join(__dirname, 'utils');
+    config.resolve.alias['@/components'] = path.join(__dirname, 'components');
+    config.resolve.alias['@/app'] = path.join(__dirname, 'app');
+    config.resolve.alias['@/hooks'] = path.join(__dirname, 'hooks');
+    config.resolve.alias['@/styles'] = path.join(__dirname, 'styles');
+    config.resolve.alias['@/public'] = path.join(__dirname, 'public');
 
     return config;
   },
@@ -39,22 +30,28 @@ const nextConfig = {
   reactStrictMode: true,
   // ESLint configuration
   eslint: {
-    // Ignore ESLint errors during builds to prevent blocking deployment
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
     ignoreDuringBuilds: true,
-    dirs: ['pages', 'components', 'app', 'utils', 'hooks'],
   },
-  // Improve build performance
-  poweredByHeader: false,
-  // Configure output for AWS Amplify compatibility
-  output: 'standalone',
-  outputFileTracingRoot: process.cwd(),
-  // Disable type checking during build for faster builds
+  // TypeScript configuration
   typescript: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has type errors.
     ignoreBuildErrors: true,
   },
-  // Disable image optimization warnings
+  // Output configuration
+  output: 'standalone',
+  // Disable source maps in production
+  productionBrowserSourceMaps: false,
+  // Disable image optimization for Amplify
   images: {
     unoptimized: true,
+  },
+  // Increase memory limit for builds
+  experimental: {
+    // Increase memory limit for builds
+    memoryBasedWorkersCount: true,
   },
 };
 

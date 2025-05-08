@@ -5,82 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AlexAI - Resume Analyzer</title>
   <style>
-    :root {
-      --bg-primary: #f5f5f5;
-      --text-primary: #333333;
-      --header-bg: rgba(212, 209, 190, 0.95);
-      --header-text: #49423D;
-      --cta-primary: #b82e63;
-      --cta-secondary: #5A7682;
-      --cta-tertiary: #7E6233;
-      --accent-color: #8A8151;
-      --pdf-background: #ffffff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      overflow: hidden;
-      height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #d4d1be;
+      color: #49423D;
       display: flex;
       flex-direction: column;
-    }
-
-    /* PDF Container Styles */
-    .pdf-container-wrapper {
-      flex: 1;
-      display: flex;
-      padding: 1rem;
-      overflow: auto;
-      height: calc(100vh - 4.5rem);
-    }
-
-    .pdf-container {
-      margin: 0 auto;
-      background-color: var(--pdf-background);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 800px;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .pdf-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Loading Indicator */
-    .loading-indicator {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--header-bg);
-      display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 1000;
-      transition: opacity 0.5s ease-in-out;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
     }
 
     .loading-spinner {
-      width: 4rem;
-      height: 4rem;
-      border: 0.375rem solid rgba(184, 46, 99, 0.2);
-      border-top-color: var(--cta-primary);
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(184, 46, 99, 0.2);
+      border-top-color: #b82e63;
       border-radius: 50%;
       animation: spin 1s linear infinite;
+      margin-bottom: 20px;
     }
 
     @keyframes spin {
@@ -89,96 +35,29 @@
       }
     }
 
-    .loading-text {
-      margin-top: 1rem;
-      font-size: 1.125rem;
-      color: var(--text-primary);
+    h1 {
+      margin-bottom: 15px;
+      color: #49423D;
     }
 
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .pdf-container-wrapper {
-        padding: 0.5rem;
-      }
-    }
-
-    /* Print Styles */
-    @media print {
-      .salinger-header {
-        display: none;
-      }
-
-      .pdf-container-wrapper {
-        padding: 0;
-        height: 100%;
-      }
-
-      .pdf-container {
-        box-shadow: none;
-        max-width: 100%;
-      }
+    p {
+      margin-bottom: 30px;
+      font-size: 18px;
+      max-width: 600px;
     }
   </style>
-
-  <!-- Load component scripts -->
-  <script src="/components/PreviewModal.js"></script>
-  <script src="/components/CoverLetterModal.js"></script>
-  <script src="/components/SalingerHeader.js"></script>
-  <script src="/components/AppMain.js"></script>
+  <script>
+    // Redirect to download-test page with a slight delay to show the loading animation
+    window.onload = function() {
+      setTimeout(function() {
+        window.location.href = '/download-test';
+      }, 1500);
+    };
+  </script>
 </head>
 <body>
-  <!-- Loading Indicator -->
-  <div id="loading-indicator" class="loading-indicator">
-    <div class="loading-content">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">Loading PDF Viewer...</div>
-    </div>
-  </div>
-
-  <!-- Salinger Header Container -->
-  <div id="salinger-header-container"></div>
-
-  <!-- PDF Container -->
-  <div class="pdf-container-wrapper">
-    <div class="pdf-container">
-      <iframe src="/default_resume.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" class="pdf-iframe" title="PDF Viewer" id="pdf-iframe"></iframe>
-    </div>
-  </div>
-
-  <script>
-    // Initialize the application when the DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize the application
-      if (window.appMain) {
-        window.appMain.init().then(() => {
-          // Hide loading indicator when everything is loaded
-          const loadingIndicator = document.getElementById('loading-indicator');
-          if (loadingIndicator) {
-            loadingIndicator.style.opacity = '0';
-            setTimeout(() => {
-              loadingIndicator.style.display = 'none';
-            }, 500);
-          }
-        });
-      }
-
-      // Handle PDF iframe load event
-      const pdfIframe = document.getElementById('pdf-iframe');
-      if (pdfIframe) {
-        pdfIframe.addEventListener('load', () => {
-          console.log('PDF loaded successfully');
-
-          // Hide loading indicator when PDF is loaded
-          const loadingIndicator = document.getElementById('loading-indicator');
-          if (loadingIndicator) {
-            loadingIndicator.style.opacity = '0';
-            setTimeout(() => {
-              loadingIndicator.style.display = 'none';
-            }, 500);
-          }
-        });
-      }
-    });
-  </script>
+  <div class="loading-spinner"></div>
+  <h1>AlexAI Download Functionality Test</h1>
+  <p>Redirecting to the Download Functionality Test page...</p>
 </body>
 </html>
