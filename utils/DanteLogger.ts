@@ -18,12 +18,13 @@ export class DanteLogger {
     db: (message: string) => console.log(`✅ [DB] ${message}`),
     auth: (message: string) => console.log(`✅ [Auth] ${message}`),
     ux: (message: string) => console.log(`✅ [UX] ${message}`),
-    // Add missing functions that are used in the application
     core: (message: string) => console.log(`✅ [Core] ${message}`),
     basic: (message: string) => console.log(`✅ [Basic] ${message}`),
-    perfection: (message: string) => console.log(`✅ [Perfection] ${message}`),
     performance: (message: string) => console.log(`✅ [Performance] ${message}`),
-    dataFlow: (message: string) => console.log(`✅ [DataFlow] ${message}`),
+    security: (message: string) => console.log(`✅ [Security] ${message}`),
+    architecture: (message: string) => console.log(`✅ [Architecture] ${message}`),
+    release: (message: string) => console.log(`✅ [Release] ${message}`),
+    perfection: (message: string) => console.log(`✅ [Perfection] ${message}`),
   };
 
   static warning = {
@@ -32,10 +33,6 @@ export class DanteLogger {
     db: (message: string) => console.warn(`⚠️ [DB] ${message}`),
     auth: (message: string) => console.warn(`⚠️ [Auth] ${message}`),
     ux: (message: string) => console.warn(`⚠️ [UX] ${message}`),
-    // Add missing functions that are used in the application
-    core: (message: string) => console.warn(`⚠️ [Core] ${message}`),
-    performance: (message: string) => console.warn(`⚠️ [Performance] ${message}`),
-    dataFlow: (message: string) => console.warn(`⚠️ [DataFlow] ${message}`),
   };
 
   static error = {
