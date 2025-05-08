@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
-import SummaryModal from './SummaryModal';
+import SummaryModalWrapper from './SummaryModalWrapper';
 import DownloadService from '@/utils/DownloadService';
-import { HesseLogger } from '@/utils/HesseLogger';
 import { useServerTheme } from './ServerThemeProvider';
 import { formatContentAsMarkdown, formatContentAsText } from '@/app/actions/formatContentActions';
 
@@ -836,21 +835,11 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       pdfSource="/default_resume.pdf" // Explicitly set to resume PDF
     />
 
-    {/* Summary Modal - Using the new dark-themed SummaryModal */}
-    <SummaryModal
+    {/* Summary Modal - Using the SummaryModalWrapper with CoverLetterProvider */}
+    <SummaryModalWrapper
       isOpen={showSummaryModal}
       onClose={() => setShowSummaryModal(false)}
-      content={summaryContent}
-      isLoading={isLoadingSummary}
       position="left"
-
-      // Pass the Cover Letter download handlers
-      onPdfPreview={handleCoverLetterPdfPreview}
-      onPdfDownload={handleCoverLetterPdfDownload}
-      onMarkdownPreview={handleCoverLetterMarkdownPreview}
-      onMarkdownDownload={handleCoverLetterMarkdownDownload}
-      onTextPreview={handleCoverLetterTextPreview}
-      onTextDownload={handleCoverLetterTextDownload}
     />
 
     {/* Cover Letter Preview Modals */}
