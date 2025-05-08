@@ -69,6 +69,14 @@ node scripts/new-pdf-prebuild-processor.js >>"$BUILD_LOG" 2>&1 || {
 }
 log "✅ PDF pre-build processing completed"
 
+# Step 3.7: Ensure cover letter content exists
+log "📝 Step 3.7: Ensuring cover letter content exists..."
+node scripts/ensure-cover-letter.js >>"$BUILD_LOG" 2>&1 || {
+  log "⚠️ Warning: Failed to ensure cover letter content. Some features may not work correctly."
+  # Don't exit, as we have fallbacks in place
+}
+log "✅ Cover letter content verification completed"
+
 # Step 4: Run the prebuild script
 log "🔄 Step 4: Running prebuild script..."
 ./amplify-prebuild.sh >>"$BUILD_LOG" 2>&1 || {
