@@ -11,8 +11,8 @@ interface PreviewModalProps {
   content: string;
   format: 'markdown' | 'text' | 'pdf';
   fileName: string;
-  onDownload: () => void; // Default download handler
-  onDownloadWithDataUrl?: (dataUrl: string) => void; // Optional handler for downloading with data URL
+  onDownload: () => Promise<void>; // Default download handler
+  onDownloadWithDataUrl?: (dataUrl: string) => Promise<void>; // Optional handler for downloading with data URL
   position?: 'left' | 'right' | 'center';
   pdfSource?: string; // Optional PDF source for preview (file path)
   pdfDataUrl?: string; // Optional PDF data URL for preview (takes precedence over pdfSource)
@@ -114,7 +114,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
         <div className={styles.modalBody}>
           {format === 'markdown' ? (
             <div ref={markdownRef} className={styles.markdownPreview}>
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <ReactMarkdown>{content || 'No content available for preview'}</ReactMarkdown>
             </div>
           ) : format === 'pdf' ? (
             <div className={styles.pdfPreview}>
@@ -135,17 +135,25 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                   src={pdfDataUrl}
                   className={styles.pdfFrame}
                   title="PDF Preview (Data URL)"
+                  onError={(e) => {
+                    console.error('Error loading PDF iframe from data URL:', e);
+                    DanteLogger.error.runtime('Error loading PDF iframe from data URL');
+                  }}
                 />
               ) : (
                 <iframe
                   src={`${pdfSource}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                   className={styles.pdfFrame}
                   title="PDF Preview (File)"
+                  onError={(e) => {
+                    console.error('Error loading PDF iframe from file source:', e);
+                    DanteLogger.error.runtime('Error loading PDF iframe from file source');
+                  }}
                 />
               )}
             </div>
           ) : (
-            <pre ref={textRef} className={styles.textPreview}>{content}</pre>
+            <pre ref={textRef} className={styles.textPreview}>{content || 'No content available for preview'}</pre>
           )}
         </div>
         <div className={styles.modalFooter}>

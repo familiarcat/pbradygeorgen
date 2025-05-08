@@ -2,10 +2,10 @@
 
 /**
  * Enhanced PDF Processor
- * 
+ *
  * This script provides an enhanced PDF processing pipeline that ensures all content
  * is properly extracted, analyzed, and made available for the Download Functionality Test Report.
- * 
+ *
  * Philosophical Framework:
  * - Derrida: Deconstructing and reconstructing PDF content with precision
  * - Hesse: Balancing structure with flexibility in a harmonious system
@@ -113,96 +113,110 @@ async function enhancedPdfProcessing() {
   try {
     console.log(`\n${colors.cyan}${colors.bright}🔄 ENHANCED PDF PROCESSING${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     danteLogger.success.basic('Starting enhanced PDF processing');
-    
+
     // 1. Set up directories
     const publicDir = path.join(process.cwd(), 'public');
     const extractedDir = path.join(publicDir, 'extracted');
     const downloadsDir = path.join(publicDir, 'downloads');
-    
+
     // Ensure directories exist
     if (!fs.existsSync(publicDir)) {
       fs.mkdirSync(publicDir, { recursive: true });
     }
-    
+
     if (!fs.existsSync(extractedDir)) {
       fs.mkdirSync(extractedDir, { recursive: true });
     }
-    
+
     if (!fs.existsSync(downloadsDir)) {
       fs.mkdirSync(downloadsDir, { recursive: true });
     }
-    
+
     // 2. Get the default resume path
     const defaultResumePath = path.join(publicDir, 'default_resume.pdf');
-    
+
     // Check if the default resume exists
     if (!fs.existsSync(defaultResumePath)) {
       danteLogger.error.system('Default resume not found');
       throw new Error(`Default resume not found at ${defaultResumePath}`);
     }
-    
+
     // 3. Extract text from PDF
     console.log(`\n${colors.cyan}${colors.bright}🔄 EXTRACTING TEXT FROM PDF${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     const pdfExtractor = new PdfExtractor({
       outputDir: extractedDir,
       debug: process.env.DEBUG_LOGGING === 'true'
     });
-    
+
     const extractionResult = await pdfExtractor.extractText(defaultResumePath, false);
-    
+
     if (!extractionResult.success) {
       danteLogger.error.system('PDF extraction failed', extractionResult.error);
       throw new Error(`PDF extraction failed: ${extractionResult.error}`);
     }
-    
+
     // Save the raw text to the extracted directory for direct access
     fs.writeFileSync(path.join(extractedDir, 'raw_text.txt'), extractionResult.text);
     danteLogger.success.core('Saved raw text to extracted directory');
-    
+
     // 4. Analyze with OpenAI
     console.log(`\n${colors.cyan}${colors.bright}🔄 ANALYZING WITH OPENAI${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     const openaiAnalyzer = new OpenAIAnalyzer({
       outputDir: extractedDir,
       cacheEnabled: true,
       debug: process.env.DEBUG_LOGGING === 'true'
     });
-    
+
     const analysisResult = await openaiAnalyzer.analyzeContent(extractionResult);
-    
+
     // Save the analysis result to the extracted directory for direct access
     fs.writeFileSync(
       path.join(extractedDir, 'analysis_result.json'),
       JSON.stringify(analysisResult, null, 2)
     );
     danteLogger.success.core('Saved analysis result to extracted directory');
-    
+
+    // Save the OpenAI query and response for display in the Download Functionality Test screen
+    if (analysisResult.openaiQuery) {
+      fs.writeFileSync(
+        path.join(extractedDir, 'openai_query.json'),
+        JSON.stringify({
+          timestamp: new Date().toISOString(),
+          query: analysisResult.openaiQuery,
+          response: analysisResult.openaiResponse || 'No response available',
+          model: analysisResult.model || 'gpt-4o'
+        }, null, 2)
+      );
+      danteLogger.success.core('Saved OpenAI query and response for display in Download Functionality Test');
+    }
+
     // 5. Generate content formats
     console.log(`\n${colors.cyan}${colors.bright}🔄 GENERATING CONTENT FORMATS${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     const contentGenerator = new ContentGenerator({
       inputDir: extractedDir,
       outputDir: downloadsDir,
       debug: process.env.DEBUG_LOGGING === 'true'
     });
-    
+
     const contentResult = await contentGenerator.generateContent(analysisResult);
-    
+
     if (!contentResult.success) {
       danteLogger.error.system('Content generation failed', contentResult.error);
       throw new Error(`Content generation failed: ${contentResult.error}`);
     }
-    
+
     // 6. Copy content to extracted directory for direct access
     console.log(`\n${colors.cyan}${colors.bright}🔄 COPYING CONTENT TO EXTRACTED DIRECTORY${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     // Copy all generated content from downloads to extracted
     const filesToCopy = [
       'resume.txt',
@@ -212,51 +226,68 @@ async function enhancedPdfProcessing() {
       'cover_letter.md',
       'cover_letter.html'
     ];
-    
+
+    // Always ensure cover_letter.md exists in both downloads and extracted directories
+    const coverLetterDownloadPath = path.join(downloadsDir, 'cover_letter.md');
+    const coverLetterExtractedPath = path.join(extractedDir, 'cover_letter.md');
+
+    // Create cover_letter.md in downloads directory if it doesn't exist
+    if (!fs.existsSync(coverLetterDownloadPath)) {
+      fs.writeFileSync(coverLetterDownloadPath, DEFAULT_COVER_LETTER);
+      danteLogger.success.basic('Created default cover letter in downloads directory');
+    }
+
+    // Create cover_letter.md in extracted directory (copy from downloads or create new)
+    if (fs.existsSync(coverLetterDownloadPath)) {
+      fs.copyFileSync(coverLetterDownloadPath, coverLetterExtractedPath);
+      danteLogger.success.basic('Copied cover letter from downloads to extracted directory');
+    } else {
+      fs.writeFileSync(coverLetterExtractedPath, DEFAULT_COVER_LETTER);
+      danteLogger.success.basic('Created default cover letter in extracted directory');
+    }
+
+    // Copy the rest of the files
     filesToCopy.forEach(file => {
+      // Skip cover_letter.md as we've already handled it
+      if (file === 'cover_letter.md') return;
+
       const sourcePath = path.join(downloadsDir, file);
       const destPath = path.join(extractedDir, file);
-      
+
       if (fs.existsSync(sourcePath)) {
         fs.copyFileSync(sourcePath, destPath);
         danteLogger.success.basic(`Copied ${file} to extracted directory`);
       } else {
         danteLogger.warn.deprecated(`${file} not found in downloads directory`);
-        
-        // Create default content for missing files
-        if (file === 'cover_letter.md') {
-          fs.writeFileSync(destPath, DEFAULT_COVER_LETTER);
-          danteLogger.success.basic('Created default cover letter in extracted directory');
-        }
       }
     });
-    
+
     // 7. Generate test report
     console.log(`\n${colors.cyan}${colors.bright}🔄 GENERATING TEST REPORT${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     const testReportGenerator = new TestReportGenerator({
       extractedDir,
       downloadsDir,
       publicDir,
       debug: process.env.DEBUG_LOGGING === 'true'
     });
-    
+
     const reportResult = await testReportGenerator.generateReport(
       extractionResult,
       analysisResult,
       contentResult
     );
-    
+
     if (!reportResult.success) {
       danteLogger.error.system('Test report generation failed', reportResult.error);
       throw new Error(`Test report generation failed: ${reportResult.error}`);
     }
-    
+
     // 8. Create a content manifest for the Download Functionality Test
     console.log(`\n${colors.cyan}${colors.bright}🔄 CREATING CONTENT MANIFEST${colors.reset}`);
     console.log(`${colors.cyan}=============================`);
-    
+
     const contentManifest = {
       timestamp: new Date().toISOString(),
       source: {
@@ -273,7 +304,15 @@ async function enhancedPdfProcessing() {
         analysis: {
           path: '/extracted/analysis_result.json',
           size: fs.statSync(path.join(extractedDir, 'analysis_result.json')).size
-        }
+        },
+        openai_query: fs.existsSync(path.join(extractedDir, 'openai_query.json')) ? {
+          path: '/extracted/openai_query.json',
+          size: fs.statSync(path.join(extractedDir, 'openai_query.json')).size
+        } : null,
+        cover_letter: fs.existsSync(path.join(extractedDir, 'cover_letter.md')) ? {
+          path: '/extracted/cover_letter.md',
+          size: fs.statSync(path.join(extractedDir, 'cover_letter.md')).size
+        } : null
       },
       downloads: {},
       preview: {
@@ -285,7 +324,7 @@ async function enhancedPdfProcessing() {
         path: '/download_test_report.json'
       }
     };
-    
+
     // Add all download formats to the manifest
     filesToCopy.forEach(file => {
       const filePath = path.join(downloadsDir, file);
@@ -296,14 +335,14 @@ async function enhancedPdfProcessing() {
         };
       }
     });
-    
+
     // Save the content manifest
     fs.writeFileSync(
       path.join(publicDir, 'content_manifest.json'),
       JSON.stringify(contentManifest, null, 2)
     );
     danteLogger.success.core('Created content manifest');
-    
+
     // 9. Final output
     console.log(`\n${colors.green}${colors.bright}✅ ENHANCED PDF PROCESSING COMPLETED${colors.reset}`);
     console.log(`${colors.green}=============================`);
@@ -313,9 +352,9 @@ async function enhancedPdfProcessing() {
     console.log(`Download test report saved to: ${reportResult.reportPath}`);
     console.log(`Preview content saved to: ${reportResult.previewPath}`);
     console.log(`Content manifest saved to: ${path.join(publicDir, 'content_manifest.json')}`);
-    
+
     danteLogger.success.perfection('Enhanced PDF processing completed successfully');
-    
+
     return {
       success: true,
       extractionResult,
@@ -328,11 +367,11 @@ async function enhancedPdfProcessing() {
     console.error(`\n${colors.red}${colors.bright}❌ ENHANCED PDF PROCESSING FAILED${colors.reset}`);
     console.error(`${colors.red}=============================`);
     console.error(`Error: ${error.message}`);
-    
+
     if (process.env.DEBUG_LOGGING === 'true') {
       console.error(error.stack);
     }
-    
+
     process.exit(1);
   }
 }

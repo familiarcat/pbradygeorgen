@@ -25,6 +25,7 @@ export default function DownloadTestPage() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('downloads');
   const [activePreviewTab, setActivePreviewTab] = useState('text');
+  const [openaiData, setOpenaiData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,6 +64,23 @@ export default function DownloadTestPage() {
           const manifestData = await manifestResponse.json();
           console.log('✅ [Dante:Success] Content manifest fetched successfully');
           setContentManifest(manifestData);
+
+          // If the manifest indicates OpenAI query data is available, fetch it
+          if (manifestData.extracted?.openai_query) {
+            console.log('🔍 [Dante:Debug] Fetching OpenAI query data from', manifestData.extracted.openai_query.path);
+            try {
+              const openaiResponse = await fetch(manifestData.extracted.openai_query.path);
+              if (openaiResponse.ok) {
+                const openaiData = await openaiResponse.json();
+                console.log('✅ [Dante:Success] OpenAI query data fetched successfully');
+                setOpenaiData(openaiData);
+              } else {
+                console.warn(`⚠️ [Dante:Warning] Failed to fetch OpenAI query data: ${openaiResponse.status}`);
+              }
+            } catch (openaiError) {
+              console.error('❌ [Dante:Error] Error fetching OpenAI query data:', openaiError);
+            }
+          }
         } else {
           console.warn(`⚠️ [Dante:Warning] Failed to fetch content manifest: ${manifestResponse.status}`);
         }
@@ -166,6 +184,17 @@ export default function DownloadTestPage() {
                 onClick={() => setActiveTab('manifest')}
               >
                 Content Manifest
+              </button>
+              <button
+                className={`px-6 py-3 border-b-2 font-medium text-sm whitespace-nowrap ${
+                  activeTab === 'openai'
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+                onClick={() => setActiveTab('openai')}
+                disabled={!openaiData}
+              >
+                OpenAI Analysis
               </button>
             </nav>
           </div>
@@ -494,6 +523,56 @@ export default function DownloadTestPage() {
                       </Link>
                     </div>
                   </div>
+
+                  {contentManifest.extracted.openai_query && (
+                    <div className="bg-white p-4 rounded shadow">
+                      <h4 className="font-semibold mb-2">OpenAI Query</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        <div>
+                          <div className="text-sm text-gray-500">Path</div>
+                          <div className="mt-1">{contentManifest.extracted.openai_query.path}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Size</div>
+                          <div className="mt-1">{contentManifest.extracted.openai_query.size} bytes</div>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <Link
+                          href={contentManifest.extracted.openai_query.path}
+                          className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                          target="_blank"
+                        >
+                          View OpenAI Query
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+
+                  {contentManifest.extracted.cover_letter && (
+                    <div className="bg-white p-4 rounded shadow">
+                      <h4 className="font-semibold mb-2">Cover Letter</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        <div>
+                          <div className="text-sm text-gray-500">Path</div>
+                          <div className="mt-1">{contentManifest.extracted.cover_letter.path}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Size</div>
+                          <div className="mt-1">{contentManifest.extracted.cover_letter.size} bytes</div>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <Link
+                          href={contentManifest.extracted.cover_letter.path}
+                          className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                          target="_blank"
+                        >
+                          View Cover Letter
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -524,6 +603,52 @@ export default function DownloadTestPage() {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* OpenAI Analysis Tab */}
+          {activeTab === 'openai' && openaiData && (
+            <div>
+              <h2 className="text-2xl font-bold mb-4">OpenAI Analysis</h2>
+              <p className="mb-6">Generated at: {new Date(openaiData.timestamp).toLocaleString()}</p>
+
+              <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                <h3 className="text-xl font-semibold mb-4">Model Information</h3>
+                <div className="bg-white p-4 rounded shadow">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-sm text-gray-500">Model</div>
+                      <div className="mt-1 text-lg font-medium">{openaiData.model}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-500">Timestamp</div>
+                      <div className="mt-1 text-lg font-medium">{new Date(openaiData.timestamp).toLocaleString()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                <h3 className="text-xl font-semibold mb-4">Query</h3>
+                <div className="bg-white p-4 rounded shadow">
+                  <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-4 rounded overflow-auto max-h-96">
+                    {typeof openaiData.query === 'string'
+                      ? openaiData.query
+                      : JSON.stringify(openaiData.query, null, 2)}
+                  </pre>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-4">Response</h3>
+                <div className="bg-white p-4 rounded shadow">
+                  <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-4 rounded overflow-auto max-h-96">
+                    {typeof openaiData.response === 'string'
+                      ? openaiData.response
+                      : JSON.stringify(openaiData.response, null, 2)}
+                  </pre>
                 </div>
               </div>
             </div>

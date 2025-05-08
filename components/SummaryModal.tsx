@@ -254,6 +254,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.log('PDF data URL stored in state');
 
       // Show the preview modal
+      setShowPdfPreview(true);
       setActivePreview('pdf');
       console.log('Active preview set to PDF');
 
@@ -345,6 +346,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     try {
       HesseLogger.summary.start('Opening Markdown preview');
       setPreviewContent(localContent);
+      setShowMdPreview(true);
       setActivePreview('markdown');
       DanteLogger.success.ux('Opened Markdown preview with Salinger design');
     } catch (error) {
@@ -414,6 +416,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
 
       setPreviewContent(plainText);
+      setShowTxtPreview(true);
       setActivePreview('text');
       DanteLogger.success.ux('Opened Text preview with Salinger design');
     } catch (error) {
