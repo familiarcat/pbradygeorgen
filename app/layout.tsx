@@ -22,6 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* No hardcoded background color here - we'll let the PdfContentLayout handle it */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          html, body {
+            transition: background-color 0.5s ease;
+          }
+        `}} />
+        <script src="/debug-styles.js" defer></script>
+      </head>
       <body
         className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${ibmPlexMono.variable} ${geistMono.variable} antialiased m-0 p-0 overflow-hidden`}
       >

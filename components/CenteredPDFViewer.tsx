@@ -5,6 +5,7 @@ import PDFAnalyzer from './PDFAnalyzer';
 import SalingerHeader from './SalingerHeader';
 import UploadModal from './UploadModal';
 import { DanteLogger } from '@/utils/DanteLogger';
+import { useSalingerTheme } from './SalingerThemeProvider';
 
 interface CenteredPDFViewerProps {
   pdfUrl: string;
@@ -145,8 +146,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // State for header height
   const [headerHeight, setHeaderHeight] = useState('5rem');
 
-  // Get the header background color from CSS - exact color from screenshot
-  const headerBgColor = '#d4d1be'; // Ecru background color from header
+  // Get the background color from the SalingerTheme provider
+  const salingerTheme = useSalingerTheme();
+  // Use the extracted background color or fall back to a default if not available
+  const headerBgColor = salingerTheme.backgroundColor || '#f1f2f4';
 
   // Update dimensions on window resize
   useEffect(() => {
@@ -188,17 +191,46 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     };
 
+    // Add specific styles for mobile devices
+    const addMobileStyles = () => {
+      if (isMobileDevice()) {
+        // Create a style element if it doesn't exist
+        if (!document.getElementById('mobile-pdf-styles')) {
+          const styleEl = document.createElement('style');
+          styleEl.id = 'mobile-pdf-styles';
+          styleEl.textContent = `
+            @media (max-width: 768px) {
+              .pdf-iframe {
+                height: auto !important;
+                min-height: auto !important;
+              }
+              .pdf-container {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: calc(var(--vh, 1vh) * 100 - ${headerHeight}) !important;
+              }
+            }
+          `;
+          document.head.appendChild(styleEl);
+        }
+      }
+    };
+
     // Function to apply background color to all relevant elements
     const applyBackgroundColor = () => {
-      // Set background color on body and html to match the header background
-      document.body.style.backgroundColor = headerBgColor;
-      document.documentElement.style.backgroundColor = headerBgColor;
+      // Get the current background color from the theme
+      const currentBgColor = salingerTheme.backgroundColor || '#f1f2f4';
+      console.log('Applying PDF-extracted background color to PDF viewer:', currentBgColor);
+
+      // Set background color on body and html to match the extracted background color
+      document.body.style.backgroundColor = currentBgColor;
+      document.documentElement.style.backgroundColor = currentBgColor;
 
       // Target any potential container elements that might show through
       const containers = document.querySelectorAll('.pdf-container, .pdf-iframe, iframe');
       containers.forEach(container => {
         if (container instanceof HTMLElement) {
-          container.style.backgroundColor = headerBgColor;
+          container.style.backgroundColor = currentBgColor;
         }
       });
 
@@ -211,13 +243,13 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         backgroundEl.style.left = '0';
         backgroundEl.style.width = '100%';
         backgroundEl.style.height = '100%';
-        backgroundEl.style.backgroundColor = headerBgColor;
+        backgroundEl.style.backgroundColor = currentBgColor;
         backgroundEl.style.zIndex = '-1';
         document.body.appendChild(backgroundEl);
       } else {
         const backgroundEl = document.getElementById('full-height-background');
         if (backgroundEl) {
-          backgroundEl.style.backgroundColor = headerBgColor;
+          backgroundEl.style.backgroundColor = currentBgColor;
         }
       }
 
@@ -232,9 +264,14 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           extensionEl.style.left = '0';
           extensionEl.style.width = '100%';
           extensionEl.style.height = '100vh'; // Extra height to ensure coverage
-          extensionEl.style.backgroundColor = headerBgColor;
+          extensionEl.style.backgroundColor = currentBgColor;
           extensionEl.style.zIndex = '-2'; // Below the main background
           document.body.appendChild(extensionEl);
+        } else {
+          const extensionEl = document.getElementById('portrait-mode-extension');
+          if (extensionEl) {
+            extensionEl.style.backgroundColor = currentBgColor;
+          }
         }
       } else {
         // Remove the extension if not in portrait mode
@@ -243,11 +280,20 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           document.body.removeChild(extensionEl);
         }
       }
+
+      // Also apply the background color to the PDF viewer elements
+      const pdfViewerElements = document.querySelectorAll('.pdf-viewer-container, .pdf-container, .pdf-iframe');
+      pdfViewerElements.forEach(element => {
+        if (element instanceof HTMLElement) {
+          element.style.backgroundColor = currentBgColor;
+        }
+      });
     };
 
     // Initial set
     setVH();
     applyBackgroundColor();
+    addMobileStyles();
 
     // Handle orientation change specifically
     const handleOrientationChange = () => {
@@ -291,8 +337,46 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       // Reset body and html background colors
       document.body.style.backgroundColor = '';
       document.documentElement.style.backgroundColor = '';
+
+      // Remove mobile styles
+      const mobileStyles = document.getElementById('mobile-pdf-styles');
+      if (mobileStyles) {
+        document.head.removeChild(mobileStyles);
+      }
     };
-  }, [headerBgColor]);
+  }, [salingerTheme, headerHeight]);
+
+  // Update background color when salingerTheme changes
+  useEffect(() => {
+    // Create a style element to force the background color
+    const styleElement = document.createElement('style');
+    styleElement.id = 'pdf-viewer-background-color';
+    styleElement.textContent = `
+      .pdf-container, .pdf-iframe, iframe, .flex-grow.flex.flex-col.overflow-auto {
+        background-color: ${salingerTheme.backgroundColor} !important;
+      }
+    `;
+
+    // Remove any existing style element
+    const existingStyle = document.getElementById('pdf-viewer-background-color');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+
+    // Add the new style element
+    document.head.appendChild(styleElement);
+
+    // Log the background color
+    console.log('PDF viewer background color updated:', salingerTheme.backgroundColor);
+
+    return () => {
+      // Clean up
+      const styleElement = document.getElementById('pdf-viewer-background-color');
+      if (styleElement) {
+        styleElement.remove();
+      }
+    };
+  }, [salingerTheme.backgroundColor]);
 
   return (
     <div
@@ -337,16 +421,19 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
       {/* PDF Viewer Container - takes remaining vertical space */}
       <div
-        className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
+        className="flex-grow flex flex-col overflow-auto transition-all duration-1500 ease-in-out"
         style={{
           backgroundColor: headerBgColor,
           opacity: pdfVisible ? 1 : 0,
           transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
           height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
-          minHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Ensure minimum height
+          maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Limit maximum height
           paddingTop: '0.5rem',
           paddingBottom: '0.5rem',
-          flex: 1
+          flex: 1,
+          display: 'flex',
+          alignItems: 'flex-start', // Align content to the top
+          justifyContent: 'center' // Center horizontally
         }}
       >
         {/* PDF Viewer - centered horizontally with responsive width and proper margins */}
@@ -357,8 +444,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             width: pdfWidth,
             maxWidth: '1000px', // Maximum width constraint
             minWidth: '320px', // Minimum width constraint
-            height: '100%',
-            minHeight: '100%',
+            height: 'auto', // Allow height to adjust to content
+            maxHeight: '100%', // Prevent overflow
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
@@ -372,19 +459,20 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           <iframe
             ref={iframeRef}
             src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-            className="w-full h-full flex-grow pdf-iframe"
+            className="w-full flex-grow pdf-iframe"
             style={{
               border: 'none',
               backgroundColor: headerBgColor, // Use the header background color directly
               margin: 0,
               padding: 0,
               display: 'block', // Ensures proper rendering in all browsers
-              minHeight: '100%',
               flex: 1,
               position: 'relative',
               // Ensure the iframe content is properly scaled
               width: '100%',
-              height: '100%'
+              height: 'auto', // Allow height to adjust to content
+              maxHeight: '100%', // Prevent overflow
+              objectFit: 'contain' // Ensure content is contained within the iframe
             }}
             title="PDF Viewer"
             onLoad={handlePdfLoad}
