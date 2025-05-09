@@ -7,6 +7,8 @@ import { HesseLogger } from '@/utils/HesseLogger';
 import ReactMarkdown from 'react-markdown';
 import PdfGenerator from '@/utils/PdfGenerator';
 import PreviewModal from './PreviewModal';
+import { useSalingerTheme } from './SalingerThemeProvider';
+import { useAdmin } from '@/contexts/AdminContext';
 
 // Default cover letter content for fallback
 const DEFAULT_COVER_LETTER = `# Benjamin Stein
@@ -80,6 +82,12 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Use Salinger theme for consistent styling
+  const salingerTheme = useSalingerTheme();
+
+  // Get admin mode state
+  const { isAdminMode } = useAdmin();
+
   // States for download operations
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
@@ -107,6 +115,16 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
   // State for dropdown
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState<'left' | 'right' | 'breakout'>('left');
+  const downloadContainerRef = useRef<HTMLDivElement>(null);
+
+  // Reset dropdown state when modal is opened/closed
+  useEffect(() => {
+    if (!isOpen) {
+      setShowDownloadOptions(false);
+    }
+  }, [isOpen]);
 
   // Function to handle PDF export
   const handleExportToPdf = async (): Promise<void> => {
@@ -429,9 +447,121 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   };
 
-  // Handle click outside to close modal or dropdown
+  // Function to calculate dropdown position
+  const calculateDropdownPosition = () => {
+    if (!downloadContainerRef.current || !modalRef.current) return;
+
+    const containerRect = downloadContainerRef.current.getBoundingClientRect();
+    const modalRect = modalRef.current.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+
+    // Calculate available space to the right of the dropdown
+    const availableSpaceRight = windowWidth - containerRect.right;
+    const dropdownWidth = 280; // Minimum width of dropdown
+
+    // Check if there's enough space to the right within the modal
+    const rightEdgeWithinModal = containerRect.left + dropdownWidth;
+    const exceedsModalRight = rightEdgeWithinModal > modalRect.right;
+
+    // Check if there's enough space to the right of the screen
+    const exceedsWindowRight = containerRect.left + dropdownWidth > windowWidth;
+
+    // Check if there's enough space to the left
+    const availableSpaceLeft = containerRect.left;
+    const exceedsModalLeft = containerRect.right - dropdownWidth < modalRect.left;
+    const exceedsWindowLeft = containerRect.right - dropdownWidth < 0;
+
+    // Log the calculations for debugging
+    console.log('Dropdown position calculation:', {
+      containerLeft: containerRect.left,
+      containerRight: containerRect.right,
+      modalLeft: modalRect.left,
+      modalRight: modalRect.right,
+      windowWidth,
+      availableSpaceRight,
+      availableSpaceLeft,
+      exceedsModalRight,
+      exceedsWindowRight,
+      exceedsModalLeft,
+      exceedsWindowLeft
+    });
+
+    // Decision logic for dropdown position
+    if (exceedsModalRight) {
+      // Not enough space to the right within modal
+      if (availableSpaceRight >= dropdownWidth) {
+        // Enough space to break out of modal to the right
+        console.log('Setting dropdown position to breakout');
+        setDropdownPosition('breakout');
+
+        // Set the dropdown position using inline styles
+        // This needs to be done after the state update and render
+        setTimeout(() => {
+          if (downloadContainerRef.current) {
+            const dropdown = downloadContainerRef.current.querySelector(`.${styles.downloadMenu}`);
+            if (dropdown && dropdown instanceof HTMLElement) {
+              dropdown.style.left = `${containerRect.left}px`;
+              dropdown.style.top = `${containerRect.bottom}px`;
+
+              // Don't force the dropdown to be visible - let the state handle it
+            }
+          }
+        }, 0);
+      } else {
+        // Not enough space to break out, align to right
+        console.log('Setting dropdown position to right');
+        setDropdownPosition('right');
+      }
+    } else {
+      // Default left alignment
+      console.log('Setting dropdown position to left');
+      setDropdownPosition('left');
+    }
+  };
+
+  // Detect mobile view and calculate dropdown position
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const checkMobileView = () => {
+      // Check if the device is mobile or the screen is small
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSmallScreen = window.innerWidth <= 768;
+      setIsMobileView(isMobile || isSmallScreen);
+
+      // Calculate dropdown position
+      calculateDropdownPosition();
+    };
+
+    // Initial check
+    checkMobileView();
+
+    // Add resize listener
+    window.addEventListener('resize', checkMobileView);
+
+    return () => {
+      window.removeEventListener('resize', checkMobileView);
+    };
+  }, []);
+
+  // Initialize dropdown state when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Ensure dropdown is hidden when modal opens
+      setShowDownloadOptions(false);
+      // Calculate position for when it will be shown
+      calculateDropdownPosition();
+    }
+  }, [isOpen]);
+
+  // Recalculate dropdown position when its visibility changes
+  useEffect(() => {
+    if (isOpen && showDownloadOptions) {
+      calculateDropdownPosition();
+    }
+  }, [isOpen, showDownloadOptions]);
+
+  // Handle click/touch outside to close modal or dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       // Close the modal if clicking outside
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         onClose();
@@ -447,11 +577,15 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     };
 
     if (isOpen) {
+      // Add both mouse and touch event listeners for mobile compatibility
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
     }
 
     return () => {
+      // Clean up both event listeners
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isOpen, onClose, showDownloadOptions]);
 
@@ -630,8 +764,23 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.log('📄 PDF download requested');
       if (DanteLogger) DanteLogger.success.basic('Cover letter PDF download requested');
 
+      // Import the DownloadService dynamically
+      const { DownloadService } = await import('@/utils/DownloadService');
+
       // Use the DownloadService to download the cover letter as PDF
-      await DownloadService.downloadContent('cover_letter', 'pdf', 'cover_letter');
+      await DownloadService.downloadContent(
+        'cover_letter',
+        'pdf',
+        'benjamin_stein_cover_letter',
+        {
+          title: 'Benjamin Stein - Cover Letter',
+          headerText: 'Benjamin Stein - Cover Letter',
+          footerText: 'Generated with Salinger Design',
+          pageSize: 'letter',
+          margins: { top: 8, right: 8, bottom: 8, left: 8 },
+          isDarkTheme: true
+        }
+      );
 
       console.log('✅ Cover letter PDF downloaded successfully');
       if (DanteLogger) DanteLogger.success.core('Cover letter PDF downloaded successfully');
@@ -648,8 +797,19 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.log('📄 Markdown download requested');
       if (DanteLogger) DanteLogger.success.basic('Cover letter Markdown download requested');
 
+      // Import the DownloadService dynamically
+      const { DownloadService } = await import('@/utils/DownloadService');
+
       // Use the DownloadService to download the cover letter as Markdown
-      await DownloadService.downloadContent('cover_letter', 'markdown', 'cover_letter');
+      await DownloadService.downloadContent(
+        'cover_letter',
+        'markdown',
+        'benjamin_stein_cover_letter',
+        {
+          addTimestamp: true,
+          contentType: 'cover_letter'
+        }
+      );
 
       console.log('✅ Cover letter Markdown downloaded successfully');
       if (DanteLogger) DanteLogger.success.core('Cover letter Markdown downloaded successfully');
@@ -666,8 +826,15 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.log('📄 Text download requested');
       if (DanteLogger) DanteLogger.success.basic('Cover letter Text download requested');
 
+      // Import the DownloadService dynamically
+      const { DownloadService } = await import('@/utils/DownloadService');
+
       // Use the DownloadService to download the cover letter as Text
-      await DownloadService.downloadContent('cover_letter', 'text', 'cover_letter');
+      await DownloadService.downloadContent(
+        'cover_letter',
+        'text',
+        'benjamin_stein_cover_letter'
+      );
 
       console.log('✅ Cover letter Text downloaded successfully');
       if (DanteLogger) DanteLogger.success.core('Cover letter Text downloaded successfully');
@@ -744,33 +911,79 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           {/* Content freshness warning removed as it's now handled server-side */}
 
           <div className={styles.headerActions}>
-            {/* Regenerate button */}
-            <button
-              className={styles.regenerateActionButton}
-              onClick={handleRegenerate}
-              disabled={isLoadingContent}
-              title="Regenerate cover letter with OpenAI"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`${styles.actionIcon} ${isLoadingContent ? styles.spinAnimation : ''}`}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {/* Regenerate button - only visible in Admin mode */}
+            {isAdminMode && (
+              <button
+                className={styles.regenerateActionButton}
+                onClick={handleRegenerate}
+                disabled={isLoadingContent}
+                title="Regenerate cover letter with OpenAI"
               >
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-              </svg>
-              {isLoadingContent ? 'Regenerating...' : 'Regenerate'}
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`${styles.actionIcon} ${isLoadingContent ? styles.spinAnimation : ''}`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+                {isLoadingContent ? <span>Regenerating...</span> : <span>Regenerate</span>}
+              </button>
+            )}
 
             {/* Download dropdown */}
-            <div className={styles.downloadContainer}>
+            <div className={styles.downloadContainer} ref={downloadContainerRef}>
               <button
-                className={styles.downloadButton}
-                disabled={isLoadingContent}
+                className={styles.actionLink}
+                onClick={(e) => {
+                  // Only toggle dropdown on click for mobile devices
+                  if (isMobileView) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent event bubbling
+                    console.log('Download button clicked on mobile, toggling dropdown');
+                    setShowDownloadOptions(!showDownloadOptions);
+                    // Recalculate position when toggling
+                    setTimeout(calculateDropdownPosition, 0);
+                  }
+                }}
+                onMouseEnter={() => {
+                  // For desktop, we use CSS hover, but we also set the state for consistency
+                  if (!isMobileView) {
+                    console.log('Download button hovered on desktop');
+                    // Recalculate position on hover
+                    setTimeout(calculateDropdownPosition, 0);
+                    // Set dropdown to visible for desktop as a fallback
+                    // Only set state if it's not already set to prevent unnecessary renders
+                    if (!showDownloadOptions) {
+                      setShowDownloadOptions(true);
+                    }
+                  }
+                }}
+                onMouseLeave={() => {
+                  // For desktop, we use CSS hover, but we also set the state for consistency
+                  if (!isMobileView) {
+                    console.log('Download button unhovered on desktop');
+                    // Add a small delay to prevent flickering
+                    setTimeout(() => {
+                      // Check if the mouse is still outside the dropdown container
+                      const downloadContainer = downloadContainerRef.current;
+                      if (downloadContainer && !downloadContainer.matches(':hover')) {
+                        setShowDownloadOptions(false);
+                      }
+                    }, 150);
+                  }
+                }}
+                onTouchStart={(e) => {
+                  // For iOS devices, ensure touch events work properly
+                  e.stopPropagation();
+                }}
+                aria-label="Download Cover Letter"
+                aria-haspopup="true"
+                aria-expanded={showDownloadOptions}
                 title="Download cover letter"
               >
                 <svg
@@ -787,16 +1000,48 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                Download
+                <span>Download</span>
               </button>
 
-              <div className={styles.downloadMenu}>
+              <div
+                className={`
+                  ${styles.downloadMenu}
+                  ${showDownloadOptions ? styles.downloadMenuVisible : ''}
+                  ${dropdownPosition === 'right' ? styles.downloadMenuRight : ''}
+                  ${dropdownPosition === 'breakout' ? styles.downloadMenuBreakout : ''}
+                `}
+                onMouseEnter={() => {
+                  // Keep dropdown open when mouse enters the dropdown
+                  if (!isMobileView) {
+                    if (!showDownloadOptions) {
+                      setShowDownloadOptions(true);
+                    }
+                  }
+                }}
+                onMouseLeave={() => {
+                  // Close dropdown when mouse leaves the dropdown
+                  if (!isMobileView) {
+                    setTimeout(() => {
+                      // Only close if the mouse is not over the download button
+                      const downloadButton = downloadContainerRef.current?.querySelector(`.${styles.actionLink}`);
+                      if (downloadButton && !downloadButton.matches(':hover')) {
+                        setShowDownloadOptions(false);
+                      }
+                    }, 150);
+                  }
+                }}>
                 <div className={styles.downloadOptionGroup}>
                   <a
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
                       handlePdfPreview();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
                     }}
                     className={styles.previewButton}
                   >
@@ -808,7 +1053,16 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   </a>
                   <a
                     href="#"
-                    onClick={handlePdfDownload}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
+                      handlePdfDownload();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
+                    }}
                     className={styles.downloadOption}
                   >
                     <svg
@@ -834,7 +1088,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
                       handleMarkdownPreview();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
                     }}
                     className={styles.previewButton}
                   >
@@ -846,7 +1106,16 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   </a>
                   <a
                     href="#"
-                    onClick={handleMarkdownDownload}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
+                      handleMarkdownDownload();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
+                    }}
                     className={styles.downloadOption}
                   >
                     <svg
@@ -873,7 +1142,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
                       handleTextPreview();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
                     }}
                     className={styles.previewButton}
                   >
@@ -885,7 +1160,16 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   </a>
                   <a
                     href="#"
-                    onClick={handleTextDownload}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation(); // Prevent event bubbling
+                      handleTextDownload();
+                      setShowDownloadOptions(false); // Close dropdown after selection
+                    }}
+                    onTouchStart={(e) => {
+                      // For iOS devices, ensure touch events work properly
+                      e.stopPropagation();
+                    }}
                     className={styles.downloadOption}
                   >
                     <svg
@@ -931,186 +1215,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <line x1="12" y1="16" x2="12" y2="12"></line>
                   <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
-                {showMetadata ? 'Hide Info' : 'Show Info'}
+                <span>{showMetadata ? 'Hide Info' : 'Show Info'}</span>
               </button>
             )}
 
-            {/* Download dropdown container - Styled like SalingerHeader */}
-            <div className={styles.downloadContainer}>
-              <a
-                href="#"
-                className={styles.actionLink}
-                onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
-                aria-label="Download Summary"
-                aria-haspopup="true"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Download Cover Letter
-              </a>
-
-              {/* Dropdown menu with Salinger-inspired styling */}
-              <div className={styles.downloadMenu}>
-                <div className={styles.downloadOptionGroup}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onPdfPreview) {
-                        onPdfPreview();
-                      } else {
-                        handlePdfPreview(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.previewButton}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                      <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    Preview
-                  </a>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onPdfDownload) {
-                        onPdfDownload();
-                      } else {
-                        handleExportToPdf(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.downloadOption}
-                  >
-                    {isGeneratingPdf ? (
-                      <span className={styles.loadingText}>
-                        <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Downloading...
-                      </span>
-                    ) : (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        PDF Format
-                      </>
-                    )}
-                  </a>
-                </div>
-
-                <div className={styles.downloadOptionGroup}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onMarkdownPreview) {
-                        onMarkdownPreview();
-                      } else {
-                        handleMarkdownPreview(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.previewButton}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                      <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    Preview
-                  </a>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onMarkdownDownload) {
-                        onMarkdownDownload();
-                      } else {
-                        handleExportToMarkdown(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.downloadOption}
-                  >
-                    {isGeneratingMd ? (
-                      <span className={styles.loadingText}>
-                        <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Downloading...
-                      </span>
-                    ) : (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Markdown Format
-                      </>
-                    )}
-                  </a>
-                </div>
-
-                <div className={styles.downloadOptionGroup}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onTextPreview) {
-                        onTextPreview();
-                      } else {
-                        handleTextPreview(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.previewButton}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                      <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    Preview
-                  </a>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (onTextDownload) {
-                        onTextDownload();
-                      } else {
-                        handleExportToText(); // Fallback to internal handler
-                      }
-                    }}
-                    className={styles.downloadOption}
-                  >
-                    {isGeneratingTxt ? (
-                      <span className={styles.loadingText}>
-                        <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Downloading...
-                      </span>
-                    ) : (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Text Format
-                      </>
-                    )}
-                  </a>
-                </div>
-              </div>
-            </div>
+            {/* Redundant Download Cover Letter button removed */}
 
             <button className={styles.closeButton} onClick={onClose} aria-label="Close">
               &times;

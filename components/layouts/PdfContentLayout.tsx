@@ -227,7 +227,8 @@ export default function PdfContentLayout({ children }: PdfContentLayoutProps) {
         </div>
       )}
 
-      {!isLoading && !error && contentStatus.isValid && (
+      {/* Success message is not displayed, but we keep the logic for Hesse and Dante logging */}
+      {!isLoading && !error && contentStatus.isValid && contentStatus.message !== 'Content is valid and ready for display' && (
         <div className="fixed top-0 left-0 w-full bg-[var(--state-success)] text-white text-center py-1 z-50 opacity-0 transition-opacity duration-1000 animate-fade-out">
           {contentStatus.message}
         </div>
