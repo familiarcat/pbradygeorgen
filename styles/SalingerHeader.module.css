@@ -10,7 +10,7 @@
   backdrop-filter: blur(5px);
   border-bottom: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.15));
   z-index: var(--z-index-sticky, 100);
-  font-family: var(--pdf-primary-font, 'Courier New', monospace);
+  font-family: var(--pdf-primary-font, var(--font-source-sans));
   font-weight: bold;
   color: var(--pdf-text-color, #49423D);
   transition: all var(--transition-medium, 0.3s) ease;
@@ -23,6 +23,10 @@
   margin: 0;
   color: var(--pdf-text-color, #49423D);
   font-family: var(--pdf-heading-font, 'Courier New', monospace);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .headerLeft {
@@ -76,7 +80,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--cta-primary-bg, rgba(126, 98, 51, 0.2));
+  background-color: var(--cta-secondary-bg, rgba(95, 107, 84, 0.15));
+  border: none;
+  cursor: pointer;
+  font-family: var(--pdf-primary-font, var(--font-source-sans));
 }
 
 .actionLink::after {
@@ -92,7 +99,7 @@
 
 .actionLink:hover {
   color: #FFFFFF;
-  background-color: var(--pdf-primary-color, #7E6233);
+  background-color: var(--cta-secondary-hover, #5F6B54);
   box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
@@ -127,13 +134,30 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all var(--transition-medium, 0.3s) ease;
+  display: none; /* Changed from flex to none */
+  flex-direction: column;
+  -webkit-transform: translateY(-10px); /* For Safari/iOS */
+  -webkit-transition: all 0.3s ease; /* For Safari/iOS */
 }
 
-/* Show dropdown on hover */
-.downloadContainer:hover .downloadMenu {
+/* Show dropdown when visible class is applied */
+.downloadMenuVisible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  display: flex;
+  -webkit-transform: translateY(0); /* For Safari/iOS */
+}
+
+/* Show dropdown on hover for desktop */
+@media (hover: hover) and (min-width: 769px) {
+  .downloadContainer:hover .downloadMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    display: flex;
+    -webkit-transform: translateY(0); /* For Safari/iOS */
+  }
 }
 
 /* Download option group styling */
@@ -243,27 +267,175 @@
   font-size: 0.8rem;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - Bento layout pattern */
+@media (max-width: 1024px) {
+  .salingerHeader {
+    padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.25rem);
+  }
+
+  .siteTitle {
+    font-size: 1.6rem;
+  }
+
+  .actionLink, .summaryLink {
+    font-size: 1rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .actionIcon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .salingerHeader {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 0.75rem;
     padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.25rem);
   }
 
   .siteTitle {
     font-size: 1.5rem;
+    flex: 1 1 auto;
+    margin-right: auto;
+    max-width: calc(100% - 150px); /* Allow space for the Cover Letter button */
   }
 
   .headerLeft {
-    width: 100%;
+    flex: 1 1 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 0.5rem;
+    width: 100%;
   }
 
   .headerActions {
-    width: 100%;
+    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
     justify-content: space-between;
+  }
+
+  .actionLink, .summaryLink {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px; /* Minimum touch target size */
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    justify-content: center; /* Center content */
+  }
+
+  .actionSeparator {
+    display: none;
+  }
+
+  /* Adjust dropdown menu for tablets */
+  .downloadMenu {
+    min-width: 250px;
+    right: 0;
+    left: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .salingerHeader {
+    padding: var(--spacing-sm, 0.75rem) var(--spacing-md, 1rem);
+  }
+
+  .siteTitle {
+    font-size: 1.3rem;
+    max-width: calc(100% - 120px); /* Allow space for the Cover Letter button */
+  }
+
+  .headerActions {
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .actionLink, .summaryLink {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px; /* Minimum touch target size */
+    flex: 1;
+  }
+
+  .actionIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Improved mobile dropdown positioning using Bento layout pattern */
+  .downloadMenu {
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    max-width: none;
+    bottom: 5%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    backdrop-filter: blur(10px); /* Add blur effect for better readability */
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+
+  /* Adjust download option groups for mobile */
+  .downloadOptionGroup {
+    flex-direction: column; /* Stack preview and download buttons on mobile */
+  }
+
+  .previewButton {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--pdf-border-color, rgba(73, 66, 61, 0.1));
+  }
+
+  /* Ensure touch targets are large enough */
+  .downloadOption, .previewButton {
+    min-height: 54px; /* Larger touch target for mobile */
+    padding: 0.75rem;
+    justify-content: center;
+  }
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .downloadMenu {
+    /* Fix for iOS dropdown positioning */
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  .downloadMenuVisible {
+    /* Fix for iOS dropdown visibility */
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .actionLink, .summaryLink {
+    /* Fix for iOS button styling */
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .downloadOption, .previewButton {
+    /* Ensure touch targets are large enough on iOS */
+    min-height: 44px;
   }
 }
 

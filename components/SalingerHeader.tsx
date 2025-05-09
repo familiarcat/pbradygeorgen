@@ -4,7 +4,9 @@ import PreviewModal from './PreviewModal';
 import SummaryModalWrapper from './SummaryModalWrapper';
 import DownloadService from '@/utils/DownloadService';
 import { useServerTheme } from './ServerThemeProvider';
+import { useSalingerTheme } from './SalingerThemeProvider';
 import { formatContentAsMarkdown, formatContentAsText } from '@/app/actions/formatContentActions';
+import { usePlatformInfo, useViewportHeight } from '@/utils/ResponsiveStyles';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -26,6 +28,10 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
   const [isLoadingPdf, setIsLoadingPdf] = useState(false);
 
+  // State for dropdown
+  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+
   // Resume preview states
   const [showMdPreview, setShowMdPreview] = useState(false);
   const [showTxtPreview, setShowTxtPreview] = useState(false);
@@ -39,6 +45,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
 
   // Content states
   const [previewContent, setPreviewContent] = useState('');
+  // summaryContent is used in the API response handler for the cover letter
   const [summaryContent, setSummaryContent] = useState('');
   const [coverLetterPdfDataUrl, setCoverLetterPdfDataUrl] = useState<string | null>(null);
   const [coverLetterTextContent, setCoverLetterTextContent] = useState('');
@@ -66,10 +73,98 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   }, [isLoadingPreview, isGeneratingCoverLetterPdf,
       isGeneratingCoverLetterMd, isGeneratingCoverLetterTxt]);
 
+  // Use the platform detection hook from ResponsiveStyles
+  const { isMobile, isIOS, isAndroid, hasTouchCapability } = usePlatformInfo();
+
+  // Set isMobileView based on the platform detection
+  useEffect(() => {
+    setIsMobileView(isMobile);
+
+    // Log platform information using Dante-inspired logging format
+    console.log(`📱 Device platform detected:`);
+    console.log(`   - Mobile: ${isMobile}`);
+    console.log(`   - iOS: ${isIOS}`);
+    console.log(`   - Android: ${isAndroid}`);
+    console.log(`   - Touch capability: ${hasTouchCapability}`);
+  }, [isMobile, isIOS, isAndroid, hasTouchCapability]);
+
+  // Use the viewport height hook to handle mobile browser viewport issues
+  useViewportHeight();
+
+  // Enhanced click outside handler with improved mobile support
+  useEffect(() => {
+    // Only add listeners if the dropdown is open
+    if (!showDownloadOptions) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      // Close the dropdown if clicking outside the dropdown container
+      const dropdownContainer = document.querySelector(`.${styles.downloadContainer}`);
+
+      if (dropdownContainer && !dropdownContainer.contains(event.target as Node)) {
+        console.log('📥 Click detected outside dropdown, closing menu');
+        setShowDownloadOptions(false);
+      }
+    };
+
+    // Use capture phase to ensure we get the events before they're stopped
+    document.addEventListener('mousedown', handleClickOutside, true);
+    document.addEventListener('touchstart', handleClickOutside, true);
+
+    // Add escape key handler for accessibility
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        console.log('📥 Escape key pressed, closing dropdown');
+        setShowDownloadOptions(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      // Clean up all event listeners
+      document.removeEventListener('mousedown', handleClickOutside, true);
+      document.removeEventListener('touchstart', handleClickOutside, true);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [showDownloadOptions, styles.downloadContainer]);
+
   const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
   // Use server theme for dynamic theming
   const serverTheme = useServerTheme();
+
+  // Use Salinger theme for consistent styling and PDF-extracted colors
+  const salingerTheme = useSalingerTheme();
+
+  // Apply PDF-extracted background color to header
+  useEffect(() => {
+    // Apply the extracted background color to the header if available
+    if (salingerTheme.backgroundColor) {
+      console.log(`🎨 Applying PDF-extracted background color to header: ${salingerTheme.backgroundColor}`);
+
+      // Create a style element to apply the background color
+      const styleElement = document.createElement('style');
+      styleElement.id = 'header-background-color';
+      styleElement.textContent = `
+        .${styles.salingerHeader} {
+          background-color: ${salingerTheme.backgroundColor}ee !important; /* With transparency */
+          color: ${salingerTheme.textColor} !important;
+        }
+        .${styles.siteTitle} {
+          color: ${salingerTheme.textColor} !important;
+        }
+      `;
+
+      // Remove any existing style element
+      const existingStyle = document.getElementById('header-background-color');
+      if (existingStyle) {
+        existingStyle.remove();
+      }
+
+      // Add the style element to the document head
+      document.head.appendChild(styleElement);
+    }
+  }, [salingerTheme.backgroundColor, salingerTheme.textColor, styles.salingerHeader, styles.siteTitle]);
 
   // Theme is now automatically refreshed during API calls
 
@@ -273,6 +368,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   // Cover Letter download handlers
 
   // Function to handle Cover Letter PDF preview using the unified approach
+  // This function is used by the Cover Letter dropdown in the SummaryModal
+  // It's defined here for consistency with other download handlers
   const handleCoverLetterPdfPreview = async () => {
     try {
       setIsGeneratingCoverLetterPdf(true);
@@ -363,6 +460,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   };
 
   // Function to handle Cover Letter Markdown preview using the unified approach
+  // This function is used by the Cover Letter dropdown in the SummaryModal
+  // It's defined here for consistency with other download handlers
   const handleCoverLetterMarkdownPreview = async () => {
     try {
       setIsGeneratingCoverLetterMd(true);
@@ -426,6 +525,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   };
 
   // Function to handle Cover Letter Text preview using the unified approach
+  // This function is used by the Cover Letter dropdown in the SummaryModal
+  // It's defined here for consistency with other download handlers
   const handleCoverLetterTextPreview = async () => {
     try {
       setIsGeneratingCoverLetterTxt(true);
@@ -492,7 +593,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     <>
       <header className={styles.salingerHeader}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.siteTitle}>{serverTheme.name || 'Professional Resume'}</h1>
+          <h1 className={styles.siteTitle}>{serverTheme.name ? `${serverTheme.name}'s Resume` : 'Professional Resume'}</h1>
           <a
             href="#"
             className={styles.summaryLink}
@@ -524,12 +625,47 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
         <nav className={styles.headerActions}>
         <div className={styles.downloadContainer}>
-          <a
-            href="#"
+          <button
             className={styles.actionLink}
-            onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
+            onClick={(e) => {
+              // Toggle dropdown on click for all devices for better accessibility
+              e.preventDefault();
+              e.stopPropagation(); // Prevent event bubbling
+
+              // Log the action using Dante-inspired logging format
+              console.log(`📥 Download button clicked on ${isMobileView ? 'mobile' : 'desktop'}, toggling dropdown`);
+
+              // Toggle dropdown state
+              setShowDownloadOptions(!showDownloadOptions);
+            }}
+            onMouseEnter={() => {
+              // For desktop, we can still use hover to show the dropdown
+              if (!isMobileView && !showDownloadOptions) {
+                console.log('📥 Download button hovered on desktop');
+                setShowDownloadOptions(true);
+              }
+            }}
+            onMouseLeave={(e) => {
+              // Check if the related target is within the dropdown container
+              // to prevent closing when moving from button to dropdown
+              const relatedTarget = e.relatedTarget as Node;
+              const dropdownContainer = document.querySelector(`.${styles.downloadContainer}`);
+
+              if (!isMobileView && dropdownContainer && !dropdownContainer.contains(relatedTarget)) {
+                console.log('📥 Download button unhovered on desktop, cursor left container');
+                // Use a small delay to allow for movement to the dropdown
+                setTimeout(() => {
+                  setShowDownloadOptions(false);
+                }, 100);
+              }
+            }}
+            onTouchStart={(e) => {
+              // For iOS devices, ensure touch events work properly
+              e.stopPropagation();
+            }}
             aria-label="Download Resume"
             aria-haspopup="true"
+            aria-expanded={showDownloadOptions}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -537,10 +673,10 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
             Download Resume
-          </a>
+          </button>
 
           {/* Dropdown menu with Salinger-inspired styling */}
-          <div className={styles.downloadMenu}>
+          <div className={`${styles.downloadMenu} ${showDownloadOptions ? styles.downloadMenuVisible : ''}`}>
             <div className={styles.downloadOptionGroup}>
               <a
                 href="#"
@@ -750,24 +886,6 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
           </div>
         </div>
-
-        <span className={styles.actionSeparator}>•</span>
-        <a
-          href="/json-view"
-          className={styles.actionLink}
-          aria-label="View JSON"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <path d="M8 12h8"></path>
-            <path d="M8 16h8"></path>
-            <path d="M8 20h8"></path>
-          </svg>
-          View JSON
-        </a>
-
-        <span className={styles.actionSeparator}>•</span>
         <a
           ref={contactButtonRef}
           href="#"

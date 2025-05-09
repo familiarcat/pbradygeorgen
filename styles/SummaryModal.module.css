@@ -16,7 +16,7 @@
 
 /* Modal content container - Dark theme */
 .modalContent {
-  background-color: #333333; /* Dark background */
+  background-color: var(--pdf-background-color, #333333); /* Use PDF-extracted background color */
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   width: 80%; /* Increased width to accommodate all header items */
@@ -25,14 +25,14 @@
   display: flex;
   flex-direction: column;
   animation: slideIn 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
-  font-family: 'Courier New', monospace;
+  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted font */
   position: absolute; /* Use absolute positioning */
   top: 5vh; /* Position from top */
   left: 0; /* Will be overridden by left/right classes */
   right: 0; /* Will be overridden by left/right classes */
   margin: 0 auto; /* Center by default */
-  color: #F5F3E7; /* Light text color */
+  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
   overflow: hidden; /* Prevent content from overflowing */
 }
 
@@ -62,8 +62,8 @@
   align-items: center;
   padding: 1rem 1.5rem;
   padding-right: 3.5rem; /* Add extra padding on the right for the close button */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
-  background-color: #222222; /* Darker header */
+  border-bottom: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  background-color: var(--pdf-secondary-dark, #222222); /* Use PDF-extracted secondary dark color */
   overflow: visible; /* Allow dropdowns to be visible */
   gap: 0.75rem; /* Add gap between wrapped items */
   min-height: 4rem; /* Ensure minimum height for header */
@@ -73,7 +73,7 @@
 /* Modal title - Dark theme */
 .modalTitle {
   margin: 0;
-  color: #F5F3E7; /* Light text color */
+  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -83,6 +83,8 @@
   min-width: 120px; /* Minimum width for title */
   max-width: 100%; /* Ensure it doesn't overflow on small screens */
   order: 1; /* Control the order in flex layout */
+  font-family: var(--pdf-heading-font, 'Courier New', monospace); /* Use PDF-extracted heading font */
+  white-space: nowrap; /* Prevent title from wrapping */
 }
 
 /* Header actions container */
@@ -99,13 +101,13 @@
 
 /* Refresh button - Secondary CTA */
 .refreshButton {
-  background-color: rgba(95, 107, 84, 0.2); /* Ebony with transparency (matches --cta-secondary) */
-  color: #F5F3E7; /* Light text color */
+  background-color: var(--cta-secondary-bg, rgba(95, 107, 84, 0.2)); /* Use PDF-extracted secondary CTA background */
+  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
   border: none;
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Courier New', monospace;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
   font-size: 0.9rem;
   font-weight: bold;
   transition: all 0.2s ease;
@@ -116,7 +118,7 @@
 }
 
 .refreshButton:hover {
-  background-color: #5F6B54; /* Ebony color (matches --cta-secondary) */
+  background-color: var(--cta-secondary-hover, #5F6B54); /* Use PDF-extracted secondary CTA hover */
   color: #FFFFFF; /* White text for contrast */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -152,13 +154,13 @@
 
 /* Regenerate action button - Primary CTA in header */
 .regenerateActionButton {
-  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency */
-  color: #F5F3E7; /* Light text color */
+  background-color: var(--cta-primary-bg, rgba(126, 78, 45, 0.2)); /* Use PDF-extracted primary CTA background */
+  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
   border: none;
   padding: 0.4rem 0.6rem; /* Reduced padding */
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Courier New', monospace;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
   font-size: 0.85rem; /* Slightly smaller font */
   font-weight: bold;
   transition: all 0.2s ease;
@@ -171,7 +173,7 @@
 }
 
 .regenerateActionButton:hover {
-  background-color: #7E4E2D; /* Terracotta color */
+  background-color: var(--cta-primary-hover, #7E4E2D); /* Use PDF-extracted primary CTA hover */
   color: #FFFFFF; /* White text for contrast */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -220,13 +222,13 @@
 
 /* Download button */
 .downloadButton {
-  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency */
-  color: #F5F3E7; /* Light text color */
+  background-color: var(--cta-primary-bg, rgba(126, 78, 45, 0.2)); /* Use PDF-extracted primary CTA background */
+  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
   border: none;
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Courier New', monospace;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
   font-size: 0.9rem;
   font-weight: bold;
   transition: all 0.2s ease;
@@ -236,7 +238,7 @@
 }
 
 .downloadButton:hover {
-  background-color: #7E4E2D; /* Terracotta color */
+  background-color: var(--cta-primary-hover, #7E4E2D); /* Use PDF-extracted primary CTA hover */
   color: #FFFFFF; /* White text for contrast */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
