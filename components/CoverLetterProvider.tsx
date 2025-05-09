@@ -74,56 +74,108 @@ export function CoverLetterProvider({ children }: CoverLetterProviderProps) {
       setIsLoading(true);
       setError(null);
 
-      console.log(`Fetching Cover Letter content (forceRefresh: ${forceRefresh})`);
+      console.log(`🔍 Fetching Cover Letter content (forceRefresh: ${forceRefresh})`);
+      if (DanteLogger) DanteLogger.success.basic(`Fetching Cover Letter content (forceRefresh: ${forceRefresh})`);
 
-      // Try to fetch from API first
+      // Try to fetch from our S3-integrated API
       try {
-        const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}&t=${Date.now()}`);
+        // Add a timestamp to prevent caching
+        const timestamp = Date.now();
+        const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}&t=${timestamp}`);
+
+        // Log the response status
+        console.log(`📡 API response status: ${response.status}`);
 
         if (response.ok) {
           const data = await response.json();
 
           if (data.success && data.content && data.content.trim() !== '') {
-            console.log(`Received content from API (${data.content.length} characters)`);
+            // Success! We got content from our S3-integrated API
+            console.log(`📄 Received content from API (${data.content.length} characters)`);
+            if (DanteLogger) DanteLogger.success.core('Cover Letter content fetched from S3 successfully');
+
+            // Set the content
             setContent(data.content);
-            if (DanteLogger) DanteLogger.success.basic('Cover Letter content fetched from API successfully');
+
+            // Log metadata if available (Derrida's deconstruction)
+            if (data.metadata) {
+              console.log('📋 Content metadata:', data.metadata);
+            }
+
             return;
+          } else if (data.error) {
+            // The API returned an error
+            console.error(`❌ API error: ${data.error}`);
+            if (DanteLogger) DanteLogger.error.dataFlow(`API error: ${data.error}`);
+
+            // Set the error message
+            setError(data.message || data.error);
+
+            // If we have a specific error about running the prebuild processor,
+            // we'll still try the fallback options
+            if (!data.message?.includes('run the prebuild processor')) {
+              return;
+            }
           }
+        } else {
+          // The API returned a non-200 status code
+          console.error(`❌ API responded with status: ${response.status}`);
+          if (DanteLogger) DanteLogger.error.dataFlow(`API responded with status: ${response.status}`);
         }
 
-        console.log('API response did not contain valid content, using default');
+        console.log('⚠️ API response did not contain valid content, trying fallbacks');
+        if (DanteLogger) DanteLogger.warn.deprecated('API response did not contain valid content, trying fallbacks');
       } catch (apiError) {
-        console.error('Error fetching from API:', apiError);
+        console.error('❌ Error fetching from API:', apiError);
+        if (DanteLogger) DanteLogger.error.system('Error fetching from API', apiError);
       }
 
-      // If API fails, try to fetch from static file
+      // If the S3-integrated API fails, try to fetch from the static file
+      // This is a fallback for local development
       try {
+        console.log('🔍 Trying to fetch from static file');
+        if (DanteLogger) DanteLogger.warn.deprecated('Trying to fetch from static file');
+
         const response = await fetch(`/extracted/cover_letter.md?t=${Date.now()}`);
 
         if (response.ok) {
           const text = await response.text();
 
           if (text && text.trim() !== '') {
-            console.log(`Received content from static file (${text.length} characters)`);
-            setContent(text);
+            console.log(`📄 Received content from static file (${text.length} characters)`);
             if (DanteLogger) DanteLogger.success.basic('Cover Letter content fetched from static file successfully');
+
+            // Set the content
+            setContent(text);
             return;
           }
         }
 
-        console.log('Static file response did not contain valid content, using default');
+        console.log('⚠️ Static file response did not contain valid content');
+        if (DanteLogger) DanteLogger.warn.deprecated('Static file response did not contain valid content');
       } catch (fileError) {
-        console.error('Error fetching from static file:', fileError);
+        console.error('❌ Error fetching from static file:', fileError);
+        if (DanteLogger) DanteLogger.error.system('Error fetching from static file', fileError);
       }
 
       // If all else fails, use the default content
-      console.log('Using default cover letter content');
+      // This is a last resort for when we can't get content from anywhere else
+      console.log('⚠️ Using default cover letter content');
+      if (DanteLogger) DanteLogger.warn.deprecated('Using default cover letter content');
+
+      // Set the content to the default
       setContent(DEFAULT_COVER_LETTER);
-      if (DanteLogger) DanteLogger.success.basic('Using default Cover Letter content');
+
+      // Set an error message to inform the user
+      if (!error) {
+        setError('Could not fetch cover letter content. Using default content instead.');
+      }
     } catch (error) {
-      console.error('Error in fetchCoverLetter:', error);
+      console.error('❌ Error in fetchCoverLetter:', error);
+      if (DanteLogger) DanteLogger.error.system('Error in fetchCoverLetter', error);
+
+      // Set the error message
       setError(error instanceof Error ? error.message : 'Failed to fetch Cover Letter content');
-      if (DanteLogger) DanteLogger.error.dataFlow(`Error fetching Cover Letter content: ${error}`);
     } finally {
       setIsLoading(false);
     }

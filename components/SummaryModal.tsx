@@ -9,7 +9,7 @@ import PdfGenerator from '@/utils/PdfGenerator';
 import PreviewModal from './PreviewModal';
 
 // Default cover letter content for fallback
-const DEFAULT_COVER_LETTER = `# P. Brady Georgen - Cover Letter
+const DEFAULT_COVER_LETTER = `# Benjamin Stein
 
 ## Summary
 
@@ -90,6 +90,10 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [localContent, setLocalContent] = useState(content);
 
+  // States for OpenAI metadata
+  const [contentMetadata, setContentMetadata] = useState<any>(null);
+  const [showMetadata, setShowMetadata] = useState(false);
+
   // States for preview modals
   // Track which preview is active to prevent multiple previews from showing simultaneously
   const [activePreview, setActivePreview] = useState<'pdf' | 'markdown' | 'text' | null>(null);
@@ -124,9 +128,9 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
         // Define consistent options for both preview and download
         const pdfOptions = {
-          title: 'P. Brady Georgen - Cover Letter',
-          fileName: 'pbradygeorgen_cover_letter.pdf',
-          headerText: 'P. Brady Georgen - Cover Letter',
+          title: 'Benjamin Stein - Cover Letter',
+          fileName: 'benjamin_stein_cover_letter.pdf',
+          headerText: 'Benjamin Stein - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as const, // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 }
@@ -143,7 +147,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
             // Create a link to download the PDF from the data URL
             const link = document.createElement('a');
             link.href = pdfDataUrl;
-            link.download = 'pbradygeorgen_cover_letter.pdf';
+            link.download = 'benjamin_stein_cover_letter.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -162,7 +166,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
             // Then download using the data URL
             const link = document.createElement('a');
             link.href = dataUrl;
-            link.download = 'pbradygeorgen_cover_letter.pdf';
+            link.download = 'benjamin_stein_cover_letter.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -189,7 +193,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = 'pbradygeorgen_cover_letter.txt';
+          a.download = 'benjamin_stein_cover_letter.txt';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
@@ -230,9 +234,9 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
       // Define consistent options for both preview and download - same as in export function
       const pdfOptions = {
-        title: 'P. Brady Georgen - Cover Letter',
-        fileName: 'pbradygeorgen_cover_letter.pdf',
-        headerText: 'P. Brady Georgen - Cover Letter',
+        title: 'Benjamin Stein - Cover Letter',
+        fileName: 'benjamin_stein_cover_letter.pdf',
+        headerText: 'Benjamin Stein - Cover Letter',
         footerText: 'Generated with Salinger Design',
         pageSize: 'letter' as const, // Explicitly type as literal 'letter'
         margins: { top: 8, right: 8, bottom: 8, left: 8 }
@@ -254,7 +258,6 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       console.log('PDF data URL stored in state');
 
       // Show the preview modal
-      setShowPdfPreview(true);
       setActivePreview('pdf');
       console.log('Active preview set to PDF');
 
@@ -319,7 +322,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_cover_letter.md';
+        a.download = 'benjamin_stein_cover_letter.md';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -379,7 +382,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_cover_letter.txt';
+        a.download = 'benjamin_stein_cover_letter.txt';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -473,11 +476,18 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       // Clear PDF data URL when fetching new content
       setPdfDataUrl(null);
 
+      // Clear any preview states
+      setActivePreview(null);
+      setPreviewContent('');
+
       console.log(`Fetching Cover Letter content (forceRefresh: ${forceRefresh})`);
 
+      // Add a timestamp to ensure we're not getting cached results
+      const timestamp = Date.now();
+
       try {
-        // Call the API to get the Cover Letter content with cache-busting
-        const response = await fetch(`/api/cover-letter?forceRefresh=${forceRefresh}&t=${Date.now()}`);
+        // Call the new generic cover letter API with cache-busting
+        const response = await fetch(`/api/generic-cover-letter?t=${timestamp}`);
 
         if (response.ok) {
           let data;
@@ -485,9 +495,18 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
             data = await response.json();
 
             if (data.success && data.content && data.content.trim() !== '') {
-              console.log(`Received content from API (${data.content.length} characters)`);
+              console.log(`📄 Received content from API (${data.content.length} characters)`);
+
+              // Set the content
               setLocalContent(data.content);
-              console.log('Cover Letter content fetched successfully from API');
+
+              // Store metadata if available
+              if (data.metadata) {
+                console.log('📋 Content metadata:', data.metadata);
+                setContentMetadata(data.metadata);
+              }
+
+              console.log('✅ Cover Letter content fetched successfully from API');
               DanteLogger.success.basic('Cover Letter content fetched successfully from API');
               return true;
             }
@@ -548,10 +567,115 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   };
 
-  // Function to handle refresh button click
-  const handleRefresh = async () => {
-    console.log('Manual refresh requested');
-    await fetchCoverLetter(true);
+  // Function to handle regeneration button click
+  const handleRegenerate = async () => {
+    try {
+      console.log('🔄 Regeneration requested');
+      if (DanteLogger) DanteLogger.success.basic('Cover letter regeneration requested');
+
+      setIsLoadingContent(true);
+      setError(null);
+
+      // Clear any cached data
+      setPdfDataUrl(null);
+
+      // Add a timestamp to ensure we're not getting cached results
+      const timestamp = Date.now();
+
+      // Call the new generic cover letter API to regenerate the cover letter
+      const response = await fetch(`/api/generic-cover-letter`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: timestamp // Add timestamp to prevent caching and ensure a different variation
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.success) {
+          console.log('✅ Cover letter regenerated successfully');
+          if (DanteLogger) DanteLogger.success.core('Cover letter regenerated successfully');
+
+          // Fetch the newly generated cover letter with cache busting
+          await fetchCoverLetter(true);
+
+          // Show success message
+          if (DanteLogger) DanteLogger.success.perfection('Generated a new universal cover letter');
+        } else {
+          console.error('❌ Error regenerating cover letter:', data.error);
+          if (DanteLogger) DanteLogger.error.dataFlow(`Error regenerating cover letter: ${data.error}`);
+          setError(data.message || 'Failed to regenerate cover letter');
+        }
+      } else {
+        console.error('❌ API responded with status:', response.status);
+        if (DanteLogger) DanteLogger.error.dataFlow(`API responded with status: ${response.status}`);
+        setError('Failed to regenerate cover letter. Please try again later.');
+      }
+    } catch (error) {
+      console.error('❌ Error in handleRegenerate:', error);
+      if (DanteLogger) DanteLogger.error.system('Error in handleRegenerate', error);
+      setError(error instanceof Error ? error.message : 'Failed to regenerate cover letter');
+    } finally {
+      setIsLoadingContent(false);
+    }
+  };
+
+  // Function to handle PDF download
+  const handlePdfDownload = async () => {
+    try {
+      console.log('📄 PDF download requested');
+      if (DanteLogger) DanteLogger.success.basic('Cover letter PDF download requested');
+
+      // Use the DownloadService to download the cover letter as PDF
+      await DownloadService.downloadContent('cover_letter', 'pdf', 'cover_letter');
+
+      console.log('✅ Cover letter PDF downloaded successfully');
+      if (DanteLogger) DanteLogger.success.core('Cover letter PDF downloaded successfully');
+    } catch (error) {
+      console.error('❌ Error downloading PDF:', error);
+      if (DanteLogger) DanteLogger.error.system('Error downloading PDF', error);
+      setError(error instanceof Error ? error.message : 'Failed to download PDF');
+    }
+  };
+
+  // Function to handle Markdown download
+  const handleMarkdownDownload = async () => {
+    try {
+      console.log('📄 Markdown download requested');
+      if (DanteLogger) DanteLogger.success.basic('Cover letter Markdown download requested');
+
+      // Use the DownloadService to download the cover letter as Markdown
+      await DownloadService.downloadContent('cover_letter', 'markdown', 'cover_letter');
+
+      console.log('✅ Cover letter Markdown downloaded successfully');
+      if (DanteLogger) DanteLogger.success.core('Cover letter Markdown downloaded successfully');
+    } catch (error) {
+      console.error('❌ Error downloading Markdown:', error);
+      if (DanteLogger) DanteLogger.error.system('Error downloading Markdown', error);
+      setError(error instanceof Error ? error.message : 'Failed to download Markdown');
+    }
+  };
+
+  // Function to handle Text download
+  const handleTextDownload = async () => {
+    try {
+      console.log('📄 Text download requested');
+      if (DanteLogger) DanteLogger.success.basic('Cover letter Text download requested');
+
+      // Use the DownloadService to download the cover letter as Text
+      await DownloadService.downloadContent('cover_letter', 'text', 'cover_letter');
+
+      console.log('✅ Cover letter Text downloaded successfully');
+      if (DanteLogger) DanteLogger.success.core('Cover letter Text downloaded successfully');
+    } catch (error) {
+      console.error('❌ Error downloading Text:', error);
+      if (DanteLogger) DanteLogger.error.system('Error downloading Text', error);
+      setError(error instanceof Error ? error.message : 'Failed to download Text');
+    }
   };
 
   // Initialize with default content and fetch when the modal is opened
@@ -620,12 +744,12 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           {/* Content freshness warning removed as it's now handled server-side */}
 
           <div className={styles.headerActions}>
-            {/* Refresh button */}
+            {/* Regenerate button */}
             <button
-              className={styles.refreshActionButton}
-              onClick={handleRefresh}
+              className={styles.regenerateActionButton}
+              onClick={handleRegenerate}
               disabled={isLoadingContent}
-              title="Refresh content"
+              title="Regenerate cover letter with OpenAI"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -637,13 +761,179 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M23 4v6h-6"></path>
-                <path d="M1 20v-6h6"></path>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
-                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
               </svg>
-              {isLoadingContent ? 'Refreshing...' : 'Refresh'}
+              {isLoadingContent ? 'Regenerating...' : 'Regenerate'}
             </button>
+
+            {/* Download dropdown */}
+            <div className={styles.downloadContainer}>
+              <button
+                className={styles.downloadButton}
+                disabled={isLoadingContent}
+                title="Download cover letter"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={styles.actionIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download
+              </button>
+
+              <div className={styles.downloadMenu}>
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePdfPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={handlePdfDownload}
+                    className={styles.downloadOption}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={styles.downloadIcon}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <path d="M12 18v-6"></path>
+                      <path d="M8 15h8"></path>
+                    </svg>
+                    PDF Format
+                  </a>
+                </div>
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleMarkdownPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={handleMarkdownDownload}
+                    className={styles.downloadOption}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={styles.downloadIcon}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Markdown Format
+                  </a>
+                </div>
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleTextPreview();
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={handleTextDownload}
+                    className={styles.downloadOption}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={styles.downloadIcon}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Text Format
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Metadata toggle button - only show if we have metadata */}
+            {contentMetadata && (
+              <button
+                className={`${styles.metadataToggleButton} ${showMetadata ? styles.metadataActive : ''}`}
+                onClick={() => setShowMetadata(!showMetadata)}
+                title={showMetadata ? "Hide OpenAI metadata" : "Show OpenAI metadata"}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={styles.actionIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                {showMetadata ? 'Hide Info' : 'Show Info'}
+              </button>
+            )}
 
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
@@ -854,9 +1144,59 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               </button>
             </div>
           ) : (
-            <div ref={contentRef} className={styles.markdownPreview}>
-              <ReactMarkdown>{localContent}</ReactMarkdown>
-            </div>
+            <>
+              {/* Metadata panel - only shown when toggled */}
+              {showMetadata && contentMetadata && (
+                <div className={styles.metadataPanel}>
+                  <h3 className={styles.metadataPanelTitle}>OpenAI Generation Metadata</h3>
+                  <div className={styles.metadataContent}>
+                    {contentMetadata.contentFingerprint && (
+                      <div className={styles.metadataItem}>
+                        <span className={styles.metadataLabel}>Content Fingerprint:</span>
+                        <span className={styles.metadataValue}>{contentMetadata.contentFingerprint.substring(0, 8)}...</span>
+                      </div>
+                    )}
+                    {contentMetadata.timestamp && (
+                      <div className={styles.metadataItem}>
+                        <span className={styles.metadataLabel}>Generated:</span>
+                        <span className={styles.metadataValue}>
+                          {new Date(contentMetadata.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+                    )}
+                    {contentMetadata.source && (
+                      <div className={styles.metadataItem}>
+                        <span className={styles.metadataLabel}>Source:</span>
+                        <span className={styles.metadataValue}>{contentMetadata.source}</span>
+                      </div>
+                    )}
+                    {contentMetadata.params && (
+                      <>
+                        <div className={styles.metadataItem}>
+                          <span className={styles.metadataLabel}>Company:</span>
+                          <span className={styles.metadataValue}>{contentMetadata.params.company || 'Not specified'}</span>
+                        </div>
+                        <div className={styles.metadataItem}>
+                          <span className={styles.metadataLabel}>Position:</span>
+                          <span className={styles.metadataValue}>{contentMetadata.params.position || 'Not specified'}</span>
+                        </div>
+                        {contentMetadata.params.hiringManager && (
+                          <div className={styles.metadataItem}>
+                            <span className={styles.metadataLabel}>Hiring Manager:</span>
+                            <span className={styles.metadataValue}>{contentMetadata.params.hiringManager}</span>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Main content */}
+              <div ref={contentRef} className={styles.markdownPreview}>
+                <ReactMarkdown>{localContent}</ReactMarkdown>
+              </div>
+            </>
           )}
         </div>
       </div>

@@ -1,0 +1,195 @@
+{
+  "systemPrompt": "You are an expert resume analyzer and formatter. Your task is to analyze the raw text extracted from a resume PDF and convert it into a well-structured, properly formatted JSON object.\n\nFollow these guidelines:\n1. Carefully analyze the resume content to identify key sections and information\n2. Properly format names, job titles, companies, and other entities with correct capitalization\n3. Preserve the original intent and information while improving formatting and structure\n4. Return a JSON object with the following structure:\n\n{\n  \"name\": \"Full Name\",\n  \"contact\": {\n    \"email\": \"email@example.com\",\n    \"phone\": \"phone number\",\n    \"location\": \"City, State\",\n    \"linkedin\": \"LinkedIn URL (if available)\",\n    \"website\": \"Personal website (if available)\"\n  },\n  \"summary\": \"Professional summary paragraph\",\n  \"skills\": [\"Skill 1\", \"Skill 2\", ...],\n  \"experience\": [\n    {\n      \"title\": \"Job Title\",\n      \"company\": \"Company Name\",\n      \"location\": \"City, State\",\n      \"dates\": \"Start Date - End Date\",\n      \"responsibilities\": [\"Responsibility 1\", \"Responsibility 2\", ...]\n    },\n    ...\n  ],\n  \"education\": [\n    {\n      \"degree\": \"Degree Name\",\n      \"institution\": \"Institution Name\",\n      \"location\": \"City, State\",\n      \"dates\": \"Start Date - End Date\",\n      \"details\": [\"Detail 1\", \"Detail 2\", ...]\n    },\n    ...\n  ],\n  \"certifications\": [\n    {\n      \"name\": \"Certification Name\",\n      \"issuer\": \"Issuing Organization\",\n      \"date\": \"Issue Date\",\n      \"expires\": \"Expiration Date (if applicable)\"\n    },\n    ...\n  ],\n  \"projects\": [\n    {\n      \"name\": \"Project Name\",\n      \"description\": \"Project Description\",\n      \"technologies\": [\"Technology 1\", \"Technology 2\", ...],\n      \"url\": \"Project URL (if available)\"\n    },\n    ...\n  ]\n}\n\nIf certain sections are not present in the resume, include them as empty arrays or objects. If you're uncertain about any information, make your best guess based on context but mark it with \"(inferred)\" at the end.\n\nReturn ONLY the JSON object without any additional text or explanation.",
+  "userPrompt": "Here is the raw text extracted from a resume PDF. Please analyze it and convert it into a well-structured JSON object according to the format specified:\n\nBENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106  Clinical Informatics Specialist  MAR 2023 - Current 2143 Alfred Ave. St. Louis, MO. 63110 +1 (314)-809-1836   benjaminsteinstl@gmail.com As one of the first employees hired at HGPMH myself and the CISO are solely responsible for all systems and technologies used at the hospital. Implementation, maintenance, and training of our web-based EHR system (Thrive), Enterprise web browser (Island), & Google Enterprise. Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote. Typical tasks would include the On / Off-boarding of all office and clinical users. Configuring securities and permissions for each user. Communicating with third party vendors. Troubleshooting any issues related to the EMR, Network, Interfaces, PC’s, Hardware, and Web Applications. Creating, modifying, or running reports as needed via the TruBridge Report Builder. Provide day-to-day support for the entire clinical and office staff. Lead / Participate in the implementation of new functionality within the Cerner suite (PowerChart, Surginet, Anesthesia Module etc.) Provide training and access for any newly on boarded clinical staff. Design and interpret reports in SAP Business Objects and Discern Analytics. Develop training material as needed. Track tickets issues using Service Now. Maintain an active inventory of all PC’s in the hospital. Manage user sessions with Citrix Desktop Director. Shriners Hospital for Children 4400 Clayton Ave, St. Louis, MO 63110  Clinical Analyst II  MAR 2018 - MAR 2023 At AICU, I was one of four analysts responsible for providing 24x7 IT support for the clinical staff of the largest provider of tele-ICU services in the nation. Areas of support included: Hardware and OS issues. Applications associated with various hospital health Information systems such as Epic, Meditech, and Mindray. Monitoring and Maintaining health information integration engines, such as Corepoint and Rapsody/Orion, including management and manipulation of HL7 messages, VPN repair and eCare integration. Remote support of NY and India clinical staff via Simple-Help remote desktop. Tasks within Active Directory, Exchange and SQL. Creation/configuration of virtual A/V servers, such as Vidyo, STI, and Axis. Advanced ICU Care 1 Cityplace Dr Suite 570 Suite 570, St. Louis, MO 63141  Clinical Analyst I  APR 2012 - FEB 2015  Experience extended: Boeing  Under Contract by RMS IT Specialist 2/17 - 2/18  Baked Tees  Graphic Designer - 4/11 - 4/12  Tek Systems  IT Specialist - 3/10 - 9/10  Nexicore Technology  Mobile Technician - 4/09 - 11/09  Think Tank Design  Graphic Designer - 2/07  Education:  Ranken Technical College 2010 - 2012 Network & Database Administration St. Louis Community College. 2002 - 2005 Graphic Communications  Certifications:  M.C.T.S - Windows Xp M.C.T.S - VISTA M.C.T.S - Server 08 R2 M.C.T.S - Active Directory M.C.T.S - SQL CompTIA - A+ Dell Certified Systems Expert Sony-certified - laptop repair HIPAA Certified  References:  Karen Johnson C.E.O. Homer G. Phillips Memorial Hospital +1 (314) 399-4288 Susan “Angie” Kinney Clinical Analyst II Shriners Hospital for Children +1 (618) 960-5628 Justin Thuli Manager of I.T. Advanced ICU Care +1 (608) 215-9302\n\n",
+  "rawResponse": "{\n  \"name\": \"Benjamin Stein\",\n  \"contact\": {\n    \"email\": \"benjaminsteinstl@gmail.com\",\n    \"phone\": \"+1 (314)-809-1836\",\n    \"location\": \"St. Louis, MO\",\n    \"linkedin\": \"\",\n    \"website\": \"\"\n  },\n  \"summary\": \"As one of the first employees hired at HGPMH, I am responsible for all systems and technologies used at the hospital, including implementation, maintenance, and training of various web-based systems and applications.\",\n  \"skills\": [\n    \"Clinical Informatics\",\n    \"EHR Systems\",\n    \"Enterprise Web Browsers\",\n    \"Google Enterprise\",\n    \"Administrative Tools\",\n    \"Security Configuration\",\n    \"Vendor Communication\",\n    \"Troubleshooting\",\n    \"Report Creation\",\n    \"Training Material Development\",\n    \"Inventory Management\",\n    \"User Session Management\",\n    \"Health Information Systems\",\n    \"Remote Desktop Support\",\n    \"Active Directory\",\n    \"Exchange\",\n    \"SQL\",\n    \"Virtual Server Configuration\"\n  ],\n  \"experience\": [\n    {\n      \"title\": \"Clinical Informatics Specialist\",\n      \"company\": \"Homer G. Phillips Memorial Hospital\",\n      \"location\": \"St. Louis, MO\",\n      \"dates\": \"Mar 2023 - Current\",\n      \"responsibilities\": [\n        \"Responsible for all systems and technologies at the hospital\",\n        \"Implementation, maintenance, and training of the web-based EHR system (Thrive), Enterprise web browser (Island), & Google Enterprise\",\n        \"Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote\",\n        \"On/Off-boarding of all office and clinical users\",\n        \"Configuring securities and permissions for each user\",\n        \"Communicating with third party vendors\",\n        \"Troubleshooting issues related to the EMR, Network, Interfaces, PCs, Hardware, and Web Applications\",\n        \"Creating, modifying, or running reports via the TruBridge Report Builder\",\n        \"Day-to-day support for clinical and office staff\",\n        \"Lead/Participate in new functionality implementation within the Cerner suite\",\n        \"Provide training and access for newly onboarded clinical staff\",\n        \"Design and interpret reports in SAP Business Objects and Discern Analytics\",\n        \"Develop training material\",\n        \"Track ticket issues using Service Now\",\n        \"Maintain active inventory of all PCs in the hospital\",\n        \"Manage user sessions with Citrix Desktop Director\"\n      ]\n    },\n    {\n      \"title\": \"Clinical Analyst II\",\n      \"company\": \"Shriners Hospital for Children\",\n      \"location\": \"St. Louis, MO\",\n      \"dates\": \"Mar 2018 - Mar 2023\",\n      \"responsibilities\": [\n        \"Provided 24x7 IT support for clinical staff\",\n        \"Supported hardware and OS issues\",\n        \"Applications support for hospital health information systems like Epic, Meditech, and Mindray\",\n        \"Monitored and maintained health information integration engines such as Corepoint and Rapsody/Orion\",\n        \"Managed and manipulated HL7 messages, VPN repair, and eCare integration\",\n        \"Remote support of NY and India clinical staff via Simple-Help remote desktop\",\n        \"Tasks within Active Directory, Exchange, and SQL\",\n        \"Creation/configuration of virtual A/V servers like Vidyo, STI, and Axis\"\n      ]\n    },\n    {\n      \"title\": \"Clinical Analyst I\",\n      \"company\": \"Advanced ICU Care\",\n      \"location\": \"St. Louis, MO\",\n      \"dates\": \"Apr 2012 - Feb 2015\",\n      \"responsibilities\": []\n    },\n    {\n      \"title\": \"IT Specialist\",\n      \"company\": \"Boeing\",\n      \"location\": \"Under Contract by RMS\",\n      \"dates\": \"Feb 2017 - Feb 2018\",\n      \"responsibilities\": []\n    },\n    {\n      \"title\": \"Graphic Designer\",\n      \"company\": \"Baked Tees\",\n      \"location\": \"\",\n      \"dates\": \"Apr 2011 - Apr 2012\",\n      \"responsibilities\": []\n    },\n    {\n      \"title\": \"IT Specialist\",\n      \"company\": \"Tek Systems\",\n      \"location\": \"\",\n      \"dates\": \"Mar 2010 - Sep 2010\",\n      \"responsibilities\": []\n    },\n    {\n      \"title\": \"Mobile Technician\",\n      \"company\": \"Nexicore Technology\",\n      \"location\": \"\",\n      \"dates\": \"Apr 2009 - Nov 2009\",\n      \"responsibilities\": []\n    },\n    {\n      \"title\": \"Graphic Designer\",\n      \"company\": \"Think Tank Design\",\n      \"location\": \"\",\n      \"dates\": \"Feb 2007\",\n      \"responsibilities\": []\n    }\n  ],\n  \"education\": [\n    {\n      \"degree\": \"Network & Database Administration\",\n      \"institution\": \"Ranken Technical College\",\n      \"location\": \"St. Louis, MO\",\n      \"dates\": \"2010 - 2012\",\n      \"details\": []\n    },\n    {\n      \"degree\": \"Graphic Communications\",\n      \"institution\": \"St. Louis Community College\",\n      \"location\": \"St. Louis, MO\",\n      \"dates\": \"2002 - 2005\",\n      \"details\": []\n    }\n  ],\n  \"certifications\": [\n    {\n      \"name\": \"MCTS - Windows XP\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"MCTS - VISTA\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"MCTS - Server 08 R2\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"MCTS - Active Directory\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"MCTS - SQL\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"CompTIA - A+\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"Dell Certified Systems Expert\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n      \"name\": \"Sony-certified - laptop repair\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    },\n    {\n\n      \"name\": \"HIPAA Certified\",\n      \"issuer\": \"\",\n      \"date\": \"\",\n      \"expires\": \"\"\n    }\n  ],\n  \"projects\": []\n}",
+  "parsedResponse": {
+    "name": "Benjamin Stein",
+    "contact": {
+      "email": "benjaminsteinstl@gmail.com",
+      "phone": "+1 (314)-809-1836",
+      "location": "St. Louis, MO",
+      "linkedin": "",
+      "website": ""
+    },
+    "summary": "As one of the first employees hired at HGPMH, I am responsible for all systems and technologies used at the hospital, including implementation, maintenance, and training of various web-based systems and applications.",
+    "skills": [
+      "Clinical Informatics",
+      "EHR Systems",
+      "Enterprise Web Browsers",
+      "Google Enterprise",
+      "Administrative Tools",
+      "Security Configuration",
+      "Vendor Communication",
+      "Troubleshooting",
+      "Report Creation",
+      "Training Material Development",
+      "Inventory Management",
+      "User Session Management",
+      "Health Information Systems",
+      "Remote Desktop Support",
+      "Active Directory",
+      "Exchange",
+      "SQL",
+      "Virtual Server Configuration"
+    ],
+    "experience": [
+      {
+        "title": "Clinical Informatics Specialist",
+        "company": "Homer G. Phillips Memorial Hospital",
+        "location": "St. Louis, MO",
+        "dates": "Mar 2023 - Current",
+        "responsibilities": [
+          "Responsible for all systems and technologies at the hospital",
+          "Implementation, maintenance, and training of the web-based EHR system (Thrive), Enterprise web browser (Island), & Google Enterprise",
+          "Administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, Chartnote",
+          "On/Off-boarding of all office and clinical users",
+          "Configuring securities and permissions for each user",
+          "Communicating with third party vendors",
+          "Troubleshooting issues related to the EMR, Network, Interfaces, PCs, Hardware, and Web Applications",
+          "Creating, modifying, or running reports via the TruBridge Report Builder",
+          "Day-to-day support for clinical and office staff",
+          "Lead/Participate in new functionality implementation within the Cerner suite",
+          "Provide training and access for newly onboarded clinical staff",
+          "Design and interpret reports in SAP Business Objects and Discern Analytics",
+          "Develop training material",
+          "Track ticket issues using Service Now",
+          "Maintain active inventory of all PCs in the hospital",
+          "Manage user sessions with Citrix Desktop Director"
+        ]
+      },
+      {
+        "title": "Clinical Analyst II",
+        "company": "Shriners Hospital for Children",
+        "location": "St. Louis, MO",
+        "dates": "Mar 2018 - Mar 2023",
+        "responsibilities": [
+          "Provided 24x7 IT support for clinical staff",
+          "Supported hardware and OS issues",
+          "Applications support for hospital health information systems like Epic, Meditech, and Mindray",
+          "Monitored and maintained health information integration engines such as Corepoint and Rapsody/Orion",
+          "Managed and manipulated HL7 messages, VPN repair, and eCare integration",
+          "Remote support of NY and India clinical staff via Simple-Help remote desktop",
+          "Tasks within Active Directory, Exchange, and SQL",
+          "Creation/configuration of virtual A/V servers like Vidyo, STI, and Axis"
+        ]
+      },
+      {
+        "title": "Clinical Analyst I",
+        "company": "Advanced ICU Care",
+        "location": "St. Louis, MO",
+        "dates": "Apr 2012 - Feb 2015",
+        "responsibilities": []
+      },
+      {
+        "title": "IT Specialist",
+        "company": "Boeing",
+        "location": "Under Contract by RMS",
+        "dates": "Feb 2017 - Feb 2018",
+        "responsibilities": []
+      },
+      {
+        "title": "Graphic Designer",
+        "company": "Baked Tees",
+        "location": "",
+        "dates": "Apr 2011 - Apr 2012",
+        "responsibilities": []
+      },
+      {
+        "title": "IT Specialist",
+        "company": "Tek Systems",
+        "location": "",
+        "dates": "Mar 2010 - Sep 2010",
+        "responsibilities": []
+      },
+      {
+        "title": "Mobile Technician",
+        "company": "Nexicore Technology",
+        "location": "",
+        "dates": "Apr 2009 - Nov 2009",
+        "responsibilities": []
+      },
+      {
+        "title": "Graphic Designer",
+        "company": "Think Tank Design",
+        "location": "",
+        "dates": "Feb 2007",
+        "responsibilities": []
+      }
+    ],
+    "education": [
+      {
+        "degree": "Network & Database Administration",
+        "institution": "Ranken Technical College",
+        "location": "St. Louis, MO",
+        "dates": "2010 - 2012",
+        "details": []
+      },
+      {
+        "degree": "Graphic Communications",
+        "institution": "St. Louis Community College",
+        "location": "St. Louis, MO",
+        "dates": "2002 - 2005",
+        "details": []
+      }
+    ],
+    "certifications": [
+      {
+        "name": "MCTS - Windows XP",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "MCTS - VISTA",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "MCTS - Server 08 R2",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "MCTS - Active Directory",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "MCTS - SQL",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "CompTIA - A+",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "Dell Certified Systems Expert",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "Sony-certified - laptop repair",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      },
+      {
+        "name": "HIPAA Certified",
+        "issuer": "",
+        "date": "",
+        "expires": ""
+      }
+    ],
+    "projects": []
+  },
+  "model": "gpt-4-turbo",
+  "timestamp": "2025-05-09T01:24:11.806Z"
+}

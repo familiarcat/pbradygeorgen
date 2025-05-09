@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-05-05T20:00:00Z",
+  "timestamp": "2025-05-09T00:00:46Z",
   "pdfInfo": {
     "path": "public/default_resume.pdf",
     "size": 119425,
-    "lastModified": "2025-05-05 00:00:18",
-    "contentFingerprint": "f0c32d27b0833e1f68ba50ef43a099873b970be20cef41a64ae2db2e1b9a6875"
+    "lastModified": "2025-05-08 11:30:06",
+    "contentFingerprint": "81a1083cbffb139fb3fa4b4c65a73a6c993c2aff3992240da8c023f5c3e23ed3"
   },
   "extractionStatus": {
     "textExtracted": true,
@@ -15,12 +15,12 @@
   },
   "extractionSteps": [
     {
-      "timestamp": "2025-05-05T20:00:00Z",
+      "timestamp": "2025-05-09T00:00:46Z",
       "type": "info",
       "message": "Extraction process started"
     },
     {
-      "timestamp": "2025-05-05T20:00:00Z",
+      "timestamp": "2025-05-09T00:00:46Z",
       "type": "success",
       "message": "Extraction process completed"
     }

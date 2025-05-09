@@ -88,7 +88,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         const timestamp = new Date().getTime(); // Add timestamp to bust cache
         console.log(`🔄 Fetching summary content with timestamp: ${timestamp}`);
 
-        fetch(`/api/get-summary?t=${timestamp}`)
+        fetch(`/api/generic-cover-letter?t=${timestamp}`)
           .then(response => {
             console.log(`📡 API response status: ${response.status}`);
             if (!response.ok) {
@@ -100,16 +100,16 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
           .then(data => {
             console.log(`📊 API response data:`, data);
             if (data.success) {
-              // Check if summary exists and has a length property
-              if (data.summary && typeof data.summary === 'string') {
-                console.log(`✅ Summary loaded successfully (${data.summary.length} characters)`);
-                console.log(`📝 Summary preview: "${data.summary.substring(0, 100)}..."`);
-                setSummaryContent(data.summary);
+              // Check if content exists and has a length property
+              if (data.content && typeof data.content === 'string') {
+                console.log(`✅ Cover letter loaded successfully (${data.content.length} characters)`);
+                console.log(`📝 Cover letter preview: "${data.content.substring(0, 100)}..."`);
+                setSummaryContent(data.content);
               } else {
-                // Use a default summary if none is provided
-                console.log('⚠️ No summary found in API response, using default');
-                const defaultSummary = `# Professional Resume - Summary\n\nThis is a placeholder summary. The API did not return any content.`;
-                setSummaryContent(defaultSummary);
+                // Use a default cover letter if none is provided
+                console.log('⚠️ No cover letter found in API response, using default');
+                const defaultCoverLetter = `# Benjamin Stein\n\nThis is a placeholder cover letter. The API did not return any content.`;
+                setSummaryContent(defaultCoverLetter);
               }
               setShowSummaryModal(true);
             } else {
@@ -750,6 +750,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
           </div>
         </div>
+
         <span className={styles.actionSeparator}>•</span>
         <a
           href="/json-view"

@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-05-09T02:00:20.332Z",
+  "contentFingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa",
+  "extraction": {
+    "s3Key": "extracted/21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa/extracted_raw_text.txt",
+    "cached": true,
+    "textPreview": "BENJAMIN STEIN WORK EXPERIENCE CLINICAL INFORMATICS SPECIALIST Homer G. Phillips Memorial Hospital 1320 N Jefferson Ave, St. Louis, MO 63106  Clinical Informatics Specialist  MAR 2023 - Current 2143 Alfred Ave. St. Louis, MO. 63110 +1 (314)-809-1836   benjaminsteinstl@gmail.com As one of the first e..."
+  },
+  "analysis": {
+    "s3Key": "analyzed/21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa/resume_analysis.json",
+    "cached": true,
+    "name": "Benjamin Stein",
+    "summary": "As one of the first employees hired at HGPMH, I am responsible for all systems and technologies used at the hospital, including implementation, maintenance, and training of various web-based systems and applications.",
+    "skills": [
+      "Clinical Informatics",
+      "EHR Systems",
+      "Enterprise Web Browsers",
+      "Google Enterprise",
+      "Administrative Tools",
+      "Security Configuration",
+      "Vendor Communication",
+      "Troubleshooting",
+      "Report Creation",
+      "Training Material Development",
+      "Inventory Management",
+      "User Session Management",
+      "Health Information Systems",
+      "Remote Desktop Support",
+      "Active Directory",
+      "Exchange",
+      "SQL",
+      "Virtual Server Configuration"
+    ]
+  },
+  "coverLetter": {
+    "s3Key": "cover-letters/21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa/cover_letter.md",
+    "cached": true,
+    "params": {
+      "company": "Innovative Health Solutions",
+      "position": "Senior Clinical Informatics Specialist",
+      "hiringManager": "Dr. Sarah Johnson",
+      "companyDetails": "A leading healthcare technology company focused on improving patient outcomes through innovative digital solutions.",
+      "positionDetails": "Looking for an experienced professional to lead the implementation and optimization of clinical information systems, train staff, and ensure data security compliance."
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-05-09T00:00:29.285Z",
+  "source": {
+    "pdf": {
+      "path": "/default_resume.pdf",
+      "size": 119425
+    }
+  },
+  "extracted": {
+    "raw_text": {
+      "path": "/extracted/raw_text.txt",
+      "size": 3361
+    },
+    "analysis": {
+      "path": "/extracted/analysis_result.json",
+      "size": 4349
+    },
+    "openai_query": null,
+    "cover_letter": {
+      "path": "/extracted/cover_letter.md",
+      "size": 1402
+    }
+  },
+  "downloads": {
+    "resume.txt": {
+      "path": "/downloads/resume.txt",
+      "size": 1799
+    },
+    "resume.md": {
+      "path": "/downloads/resume.md",
+      "size": 1812
+    },
+    "resume.json": {
+      "path": "/downloads/resume.json",
+      "size": 3380
+    },
+    "resume.html": {
+      "path": "/downloads/resume.html",
+      "size": 4550
+    },
+    "cover_letter.md": {
+      "path": "/downloads/cover_letter.md",
+      "size": 1402
+    },
+    "cover_letter.html": {
+      "path": "/downloads/cover_letter.html",
+      "size": 2397
+    }
+  },
+  "preview": {
+    "available": true,
+    "path": "/downloads/preview_content.json"
+  },
+  "test_report": {
+    "available": true,
+    "path": "/download_test_report.json"
+  }
+}

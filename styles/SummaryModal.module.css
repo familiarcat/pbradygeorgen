@@ -132,6 +132,176 @@
   box-shadow: none;
 }
 
+/* Regenerate action button - Primary CTA in header */
+.regenerateActionButton {
+  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.regenerateActionButton:hover {
+  background-color: #7E4E2D; /* Terracotta color */
+  color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.regenerateActionButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Metadata toggle button */
+.metadataToggleButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metadataToggleButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF; /* White text for contrast */
+}
+
+.metadataActive {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF; /* White text for contrast */
+}
+
+/* Download container */
+.downloadContainer {
+  position: relative;
+  display: inline-block;
+}
+
+/* Download button */
+.downloadButton {
+  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.downloadButton:hover {
+  background-color: #7E4E2D; /* Terracotta color */
+  color: #FFFFFF; /* White text for contrast */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.downloadButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Download menu */
+.downloadMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #1A1A1A; /* Dark background */
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  min-width: 200px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.downloadContainer:hover .downloadMenu {
+  display: flex;
+}
+
+/* Download option */
+.downloadOptionGroup {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.downloadOptionGroup:last-child {
+  border-bottom: none;
+}
+
+.previewButton {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+  color: #F5F3E7; /* Light text color */
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.previewButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.previewIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.downloadOption {
+  flex: 2;
+  padding: 0.75rem 1rem;
+  color: #F5F3E7; /* Light text color */
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.downloadOption:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Download icon */
+.downloadIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 /* Refresh icon */
 .refreshIcon {
   width: 1.25rem;
@@ -517,4 +687,95 @@
   .modalBody {
     padding: 1rem;
   }
+}
+
+/* Error container */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #222222; /* Dark background */
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  margin-bottom: 1rem;
+}
+
+.errorIcon {
+  color: #e74c3c; /* Error red */
+  margin-bottom: 1rem;
+}
+
+.errorText {
+  color: #F5F3E7; /* Light text color */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.retryButton {
+  background-color: rgba(126, 78, 45, 0.2); /* Terracotta with transparency */
+  color: #F5F3E7; /* Light text color */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: #7E4E2D; /* Terracotta color */
+  color: #FFFFFF; /* White text for contrast */
+}
+
+/* Metadata panel */
+.metadataPanel {
+  background-color: #222222; /* Dark background */
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Courier New', monospace;
+  animation: fadeIn 0.3s ease;
+}
+
+.metadataPanelTitle {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #F5F3E7; /* Light text color */
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+  padding-bottom: 0.5rem;
+}
+
+.metadataContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.75rem;
+}
+
+.metadataItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metadataLabel {
+  font-size: 0.8rem;
+  color: rgba(245, 243, 231, 0.7); /* Light text color with transparency */
+  font-weight: bold;
+}
+
+.metadataValue {
+  font-size: 0.9rem;
+  color: #F5F3E7; /* Light text color */
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  word-break: break-word;
 }

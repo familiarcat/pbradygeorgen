@@ -1,0 +1,210 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 132ms
+PDF content is stale, refreshing...
+Error refreshing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+❌ [System] Error refreshing PDF content
+Extracting theme on server...
+Error loading initial theme: [Error: Command failed: node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+Extracting theme on server...
+Error loading initial theme: [Error: Command failed: node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+Extracting theme on server...
+Error loading initial theme: [Error: Command failed: node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-fonts.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+Extracting theme on server...
+Error loading initial theme: [Error: Command failed: node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+node:internal/bootstrap/switches/does_own_process_state:144
+    cachedCwd = rawMethods.cwd();
+                           ^
+
+Error: ENOENT: no such file or directory, uv_cwd
+    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)
+    at node:path:1172:24
+    at Object.resolve (node:path:1200:19)
+    at resolveMainPath (node:internal/modules/run_main:34:38)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)
+    at node:internal/main/run_main_module:28:49 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'uv_cwd'
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-fonts.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'shell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n' +
+    'node:internal/bootstrap/switches/does_own_process_state:144\n' +
+    '    cachedCwd = rawMethods.cwd();\n' +
+    '                           ^\n' +
+    '\n' +
+    'Error: ENOENT: no such file or directory, uv_cwd\n' +
+    '    at process.wrappedCwd [as cwd] (node:internal/bootstrap/switches/does_own_process_state:144:28)\n' +
+    '    at node:path:1172:24\n' +
+    '    at Object.resolve (node:path:1200:19)\n' +
+    '    at resolveMainPath (node:internal/modules/run_main:34:38)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:156:24)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    '  errno: -2,\n' +
+    "  code: 'ENOENT',\n" +
+    "  syscall: 'uv_cwd'\n" +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+Error getting PDF last modified time: Error: ENOENT: no such file or directory, stat '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf'
+    at <unknown> (.next/server/app/pdf-viewer/page.js:135:18651)
+    at <unknown> (.next/server/app/pdf-viewer/page.js:135:18748)
+    at f (.next/server/app/pdf-viewer/page.js:135:19019) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf'
+}
+PDF content is up to date

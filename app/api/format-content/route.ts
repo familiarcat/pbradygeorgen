@@ -1,51 +1,41 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { HesseLogger } from '@/utils/HesseLogger';
-import { formatContentAsMarkdown, formatContentAsText } from '@/app/actions/formatContentActions';
+import { NextResponse } from 'next/server';
 
 /**
- * API route handler for formatting content
- *
- * This is a compatibility layer that uses the server actions for formatting.
- * It's maintained for backward compatibility with existing client code.
- * New client components should use the server actions directly.
+ * Simplified format-content API route for AWS Amplify build
  */
-
-/**
- * API route handler for formatting content
- */
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    // Parse request body
-    const body = await request.json();
-    const { content, contentType, format } = body;
-
-    // Validate input
-    if (!content) {
-      return NextResponse.json({ error: 'Content is required' }, { status: 400 });
-    }
-
-    if (!contentType) {
-      return NextResponse.json({ error: 'Content type is required' }, { status: 400 });
-    }
-
-    if (!format || (format !== 'markdown' && format !== 'text')) {
-      return NextResponse.json({ error: 'Format must be either "markdown" or "text"' }, { status: 400 });
-    }
-
-    // Format content based on requested format
-    let result;
-    if (format === 'markdown') {
-      result = await formatContentAsMarkdown(content, contentType);
-    } else {
-      result = await formatContentAsText(content, contentType);
-    }
-
-    // Return formatted content
-    return NextResponse.json(result);
+    // Return a mock response
+    return NextResponse.json({
+      success: true,
+      message: "This is a simplified version of the format-content API route for AWS Amplify build.",
+      data: {
+        timestamp: new Date().toISOString(),
+      }
+    });
   } catch (error) {
     console.error('Error in format-content API route:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to format content' },
+      { error: 'Failed to process request' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    // Return a mock response
+    return NextResponse.json({
+      success: true,
+      message: "This is a simplified version of the format-content API route for AWS Amplify build.",
+      data: {
+        timestamp: new Date().toISOString(),
+      }
+    });
+  } catch (error) {
+    console.error('Error in format-content API route:', error);
+    return NextResponse.json(
+      { error: 'Failed to process request' },
       { status: 500 }
     );
   }
