@@ -83,8 +83,31 @@ export default function ServerThemeProvider({
         throw new Error(data.error || 'Unknown error');
       }
 
+      // Try to fetch the resume content to extract the name
+      let extractedName = '';
+      try {
+        const resumeContentResponse = await fetch('/extracted/resume_content.json');
+        if (resumeContentResponse.ok) {
+          const resumeContent = await resumeContentResponse.json();
+
+          // Check if we have raw text to extract the name from
+          if (resumeContent.rawText) {
+            // Extract the first name from the raw text (assuming it's at the beginning)
+            const firstLine = resumeContent.rawText.split('\n')[0] || '';
+            const firstWords = firstLine.split(' ');
+
+            if (firstWords.length >= 2) {
+              // Assume the first two words are the first and last name
+              extractedName = `${firstWords[0]} ${firstWords[1]}`;
+            }
+          }
+        }
+      } catch (nameError) {
+        console.error('Error extracting name from resume content:', nameError);
+      }
+
       // Update the state
-      setName(data.name || '');
+      setName(extractedName || data.name || '');
       setColorTheme(data.colorTheme || {});
       setFontInfo(data.fontInfo || {});
       setLastUpdated(data.timestamp || Date.now());
@@ -227,6 +250,35 @@ export default function ServerThemeProvider({
   useEffect(() => {
     if (initialTheme) {
       applyTheme(initialTheme.colorTheme, initialTheme.fontInfo);
+
+      // Try to fetch the resume content to extract the name even with initialTheme
+      const fetchResumeContent = async () => {
+        try {
+          const resumeContentResponse = await fetch('/extracted/resume_content.json');
+          if (resumeContentResponse.ok) {
+            const resumeContent = await resumeContentResponse.json();
+
+            // Check if we have raw text to extract the name from
+            if (resumeContent.rawText) {
+              // Extract the first name from the raw text (assuming it's at the beginning)
+              const firstLine = resumeContent.rawText.split('\n')[0] || '';
+              const firstWords = firstLine.split(' ');
+
+              if (firstWords.length >= 2) {
+                // Assume the first two words are the first and last name
+                const extractedName = `${firstWords[0]} ${firstWords[1]}`;
+                if (extractedName) {
+                  setName(extractedName);
+                }
+              }
+            }
+          }
+        } catch (nameError) {
+          console.error('Error extracting name from resume content:', nameError);
+        }
+      };
+
+      fetchResumeContent();
     } else {
       refreshTheme();
     }

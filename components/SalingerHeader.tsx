@@ -593,7 +593,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     <>
       <header className={styles.salingerHeader}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.siteTitle}>{serverTheme.name ? `${serverTheme.name}'s Resume` : 'Professional Resume'}</h1>
+          <h1 className={styles.siteTitle}>{serverTheme.name && serverTheme.name !== 'Professional Resume' ? `${serverTheme.name}'s Resume` : 'Professional Resume'}</h1>
           <a
             href="#"
             className={styles.summaryLink}
