@@ -53,6 +53,28 @@ function hexToRgb(hex: string) {
   return { r, g, b };
 }
 
+// Helper function to properly format a name with camel case
+function formatName(name: string): string {
+  if (!name) return '';
+
+  // Split the name into words and capitalize the first letter of each word
+  return name
+    .split(' ')
+    .map(word => {
+      // Handle empty words
+      if (!word) return '';
+
+      // Handle all caps words (like "BENJAMIN STEIN")
+      if (word === word.toUpperCase()) {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+
+      // Otherwise just capitalize the first letter
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+}
+
 export default function ServerThemeProvider({
   children,
   initialTheme
@@ -98,7 +120,8 @@ export default function ServerThemeProvider({
 
             if (firstWords.length >= 2) {
               // Assume the first two words are the first and last name
-              extractedName = `${firstWords[0]} ${firstWords[1]}`;
+              const rawName = `${firstWords[0]} ${firstWords[1]}`;
+              extractedName = formatName(rawName);
             }
           }
         }
@@ -266,9 +289,10 @@ export default function ServerThemeProvider({
 
               if (firstWords.length >= 2) {
                 // Assume the first two words are the first and last name
-                const extractedName = `${firstWords[0]} ${firstWords[1]}`;
-                if (extractedName) {
-                  setName(extractedName);
+                const rawName = `${firstWords[0]} ${firstWords[1]}`;
+                const formattedName = formatName(rawName);
+                if (formattedName) {
+                  setName(formattedName);
                 }
               }
             }
