@@ -1,6 +1,6 @@
-/* 
+/*
  * Theme Variables CSS
- * 
+ *
  * This file defines all CSS variables used throughout the application.
  * It follows Next.js (2025) best practices for theming.
  */
@@ -13,67 +13,105 @@
   --pdf-background-color: #f4f1f2;
   --pdf-text-color: #2c2125;
   --pdf-border-color: #d6c2ca;
-  
-  /* Derived colors using Hesse method */
-  --pdf-primary-light: rgba(184, 46, 99, 0.8);
-  --pdf-primary-dark: rgb(133, 0, 48);
-  --pdf-secondary-light: rgb(141, 202, 102);
-  --pdf-secondary-dark: rgb(39, 102, 0);
-  --pdf-accent-light: rgb(89, 255, 199);
-  --pdf-accent-dark: rgb(0, 166, 115);
-  
+
+  /* Comprehensive color palette - primary variants */
+  --pdf-primary-base: var(--pdf-primary-color);
+  --pdf-primary-light: #d15a8c; /* Lighter version of primary */
+  --pdf-primary-lighter: #e987b0; /* Even lighter version of primary */
+  --pdf-primary-dark: #8c1e4a; /* Darker version of primary */
+  --pdf-primary-darker: #5f1431; /* Even darker version of primary */
+  --pdf-primary-contrast: #a01c4f; /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - secondary variants */
+  --pdf-secondary-base: var(--pdf-secondary-color);
+  --pdf-secondary-light: #7bb84d; /* Lighter version of secondary */
+  --pdf-secondary-lighter: #9cd06f; /* Even lighter version of secondary */
+  --pdf-secondary-dark: #437726; /* Darker version of secondary */
+  --pdf-secondary-darker: #2c551a; /* Even darker version of secondary */
+  --pdf-secondary-contrast: #4c8029; /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - accent variants */
+  --pdf-accent-base: var(--pdf-accent-color);
+  --pdf-accent-light: #5de3ad; /* Lighter version of accent */
+  --pdf-accent-lighter: #94edc7; /* Even lighter version of accent */
+  --pdf-accent-dark: #1ba570; /* Darker version of accent */
+  --pdf-accent-darker: #11714c; /* Even darker version of accent */
+  --pdf-accent-contrast: #1eb77e; /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - background variants */
+  --pdf-background-base: var(--pdf-background-color);
+  --pdf-background-light: #faf8f9; /* Lighter version of background */
+  --pdf-background-dark: #eae5e7; /* Darker version of background */
+
+  /* Comprehensive color palette - text variants */
+  --pdf-text-primary: var(--pdf-text-color);
+  --pdf-text-secondary: #534045; /* Secondary text color */
+  --pdf-text-light: #7d6e73; /* Light text color */
+  --pdf-text-dark: #1a1618; /* Dark text color */
+
+  /* Comprehensive color palette - border variants */
+  --pdf-border-base: var(--pdf-border-color);
+  --pdf-border-light: #e1d2d8; /* Lighter version of border */
+  --pdf-border-dark: #c4a8b3; /* Darker version of border */
+
+  /* UI-specific colors */
+  --pdf-modal-header: #d15a8c; /* Modal header background */
+  --pdf-modal-body: #faf8f9; /* Modal body background */
+  --pdf-header-bg: rgba(250, 248, 249, 0.95); /* Header background */
+
   /* CTA colors */
-  --cta-primary: var(--pdf-primary-color);
+  --cta-primary: var(--pdf-primary-contrast);
   --cta-primary-hover: var(--pdf-primary-dark);
-  --cta-primary-active: var(--pdf-primary-dark);
+  --cta-primary-active: var(--pdf-primary-darker);
   --cta-primary-bg: rgba(184, 46, 99, 0.1);
-  
-  --cta-secondary: var(--pdf-secondary-color);
+
+  --cta-secondary: var(--pdf-secondary-contrast);
   --cta-secondary-hover: var(--pdf-secondary-dark);
-  --cta-secondary-active: var(--pdf-secondary-dark);
+  --cta-secondary-active: var(--pdf-secondary-darker);
   --cta-secondary-bg: rgba(90, 153, 51, 0.1);
-  
-  --cta-tertiary: var(--pdf-accent-color);
+
+  --cta-tertiary: var(--pdf-accent-contrast);
   --cta-tertiary-hover: var(--pdf-accent-dark);
-  --cta-tertiary-active: var(--pdf-accent-dark);
+  --cta-tertiary-active: var(--pdf-accent-darker);
   --cta-tertiary-bg: rgba(38, 217, 148, 0.1);
-  
+
   /* Font variables */
   --pdf-primary-font: var(--font-source-sans), system-ui, sans-serif;
   --pdf-secondary-font: var(--font-merriweather), Georgia, serif;
   --pdf-heading-font: var(--font-roboto), system-ui, sans-serif;
   --pdf-mono-font: var(--font-geist-mono), monospace;
-  
+
   /* UI component variables */
-  --header-bg: rgba(212, 209, 190, 0.95);
-  --header-text: var(--pdf-text-color);
-  --modal-bg: var(--pdf-background-color);
-  --modal-text: var(--pdf-text-color);
-  --modal-border: var(--pdf-border-color);
-  
+  --header-bg: var(--pdf-header-bg);
+  --header-text: var(--pdf-text-primary);
+  --modal-header-bg: var(--pdf-modal-header);
+  --modal-bg: var(--pdf-modal-body);
+  --modal-text: var(--pdf-text-primary);
+  --modal-border: var(--pdf-border-base);
+
   /* Animation variables */
   --transition-fast: 0.2s;
   --transition-medium: 0.3s;
   --transition-slow: 0.5s;
-  
+
   /* Spacing variables */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-  
+
   /* Border radius variables */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Shadow variables */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   /* Z-index variables */
   --z-index-dropdown: 100;
   --z-index-sticky: 200;
@@ -86,23 +124,68 @@
 
 /* Dark theme variables - will be applied when .pdf-dark-theme class is present */
 .pdf-dark-theme {
+  /* Base colors for dark mode */
   --pdf-background-color: #1a1a1a;
   --pdf-text-color: #f0f0f0;
   --pdf-border-color: #444444;
-  
-  /* Adjust other colors for dark mode */
-  --pdf-primary-light: rgba(184, 46, 99, 0.6);
-  --pdf-secondary-light: rgba(90, 153, 51, 0.6);
-  --pdf-accent-light: rgba(38, 217, 148, 0.6);
-  
+
+  /* Comprehensive color palette - primary variants for dark mode */
+  --pdf-primary-base: var(--pdf-primary-color);
+  --pdf-primary-light: rgba(184, 46, 99, 0.8); /* Lighter version of primary */
+  --pdf-primary-lighter: rgba(184, 46, 99, 0.6); /* Even lighter version of primary */
+  --pdf-primary-dark: rgb(153, 38, 82); /* Darker version of primary */
+  --pdf-primary-darker: rgb(122, 30, 66); /* Even darker version of primary */
+  --pdf-primary-contrast: rgb(214, 54, 115); /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - secondary variants for dark mode */
+  --pdf-secondary-base: var(--pdf-secondary-color);
+  --pdf-secondary-light: rgba(90, 153, 51, 0.8); /* Lighter version of secondary */
+  --pdf-secondary-lighter: rgba(90, 153, 51, 0.6); /* Even lighter version of secondary */
+  --pdf-secondary-dark: rgb(75, 128, 43); /* Darker version of secondary */
+  --pdf-secondary-darker: rgb(60, 102, 34); /* Even darker version of secondary */
+  --pdf-secondary-contrast: rgb(105, 179, 60); /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - accent variants for dark mode */
+  --pdf-accent-base: var(--pdf-accent-color);
+  --pdf-accent-light: rgba(38, 217, 148, 0.8); /* Lighter version of accent */
+  --pdf-accent-lighter: rgba(38, 217, 148, 0.6); /* Even lighter version of accent */
+  --pdf-accent-dark: rgb(32, 181, 123); /* Darker version of accent */
+  --pdf-accent-darker: rgb(25, 145, 99); /* Even darker version of accent */
+  --pdf-accent-contrast: rgb(44, 255, 173); /* High contrast version for accessibility */
+
+  /* Comprehensive color palette - background variants for dark mode */
+  --pdf-background-base: var(--pdf-background-color);
+  --pdf-background-light: #2a2a2a; /* Lighter version of background */
+  --pdf-background-dark: #111111; /* Darker version of background */
+
+  /* Comprehensive color palette - text variants for dark mode */
+  --pdf-text-primary: var(--pdf-text-color);
+  --pdf-text-secondary: #c0c0c0; /* Secondary text color */
+  --pdf-text-light: #ffffff; /* Light text color */
+  --pdf-text-dark: #a0a0a0; /* Dark text color */
+
+  /* Comprehensive color palette - border variants for dark mode */
+  --pdf-border-base: var(--pdf-border-color);
+  --pdf-border-light: #555555; /* Lighter version of border */
+  --pdf-border-dark: #333333; /* Darker version of border */
+
+  /* UI-specific colors for dark mode */
+  --pdf-modal-header: #333333; /* Modal header background */
+  --pdf-modal-body: #222222; /* Modal body background */
+  --pdf-header-bg: rgba(40, 40, 40, 0.95); /* Header background */
+
   /* UI component variables for dark mode */
-  --header-bg: rgba(40, 40, 40, 0.95);
-  --modal-bg: #2a2a2a;
+  --header-bg: var(--pdf-header-bg);
+  --header-text: var(--pdf-text-primary);
+  --modal-header-bg: var(--pdf-modal-header);
+  --modal-bg: var(--pdf-modal-body);
+  --modal-text: var(--pdf-text-primary);
+  --modal-border: var(--pdf-border-base);
 }
 
 /* Theme transition class - applied to the root element */
 .theme-transition-container * {
-  transition: 
+  transition:
     color var(--transition-medium),
     background-color var(--transition-medium),
     border-color var(--transition-medium),

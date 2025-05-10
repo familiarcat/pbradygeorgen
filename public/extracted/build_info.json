@@ -1,10 +1,10 @@
 {
-  "buildTimestamp": "2025-05-09T00:00:46Z",
+  "buildTimestamp": "2025-05-09T22:59:03Z",
   "pdfInfo": {
     "path": "public/default_resume.pdf",
     "size": 119425,
     "lastModified": "2025-05-08 11:30:06",
-    "contentFingerprint": "66a5a754d6db09857b117fc65d0389c024169dd2a892f05cd14bbdd0fc59d60c"
+    "contentFingerprint": "c3049c681846a313ea90672a0ba260be1ea94511745d025b3f70413176311dde"
   },
   "extractionStatus": {
     "textExtracted": true,
@@ -13,7 +13,7 @@
     "chatGptAnalyzed": true
   },
   "chatGptAnalysis": {
-    "timestamp": "2025-05-09T00:00:46.055Z",
+    "timestamp": "2025-05-09T22:59:03.594Z",
     "name": "BENJAMIN STEIN",
     "sections": [
       "name",

@@ -36,7 +36,7 @@ export class DanteLogger {
   };
 
   static error = {
-    system: (message: string) => console.error(`❌ [System] ${message}`),
+    system: (message: string, p0: { error: unknown; }) => console.error(`❌ [System] ${message}`),
     api: (message: string) => console.error(`❌ [API] ${message}`),
     db: (message: string) => console.error(`❌ [DB] ${message}`),
     auth: (message: string) => console.error(`❌ [Auth] ${message}`),

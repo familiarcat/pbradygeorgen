@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
+import HesseColorTheory from '@/utils/HesseColorTheory';
 
 // Define the theme context type
 interface ServerThemeContextType {
@@ -12,6 +13,7 @@ interface ServerThemeContextType {
   isLoading: boolean;
   lastUpdated: number;
   refreshTheme: () => Promise<void>;
+  updateTheme: (newTheme: any) => Promise<void>;
 }
 
 // Create the context with default values
@@ -21,7 +23,8 @@ const ServerThemeContext = createContext<ServerThemeContextType>({
   fontInfo: {},
   isLoading: true,
   lastUpdated: 0,
-  refreshTheme: async () => {}
+  refreshTheme: async () => {},
+  updateTheme: async () => {}
 });
 
 // Hook to use the theme context
@@ -90,7 +93,8 @@ export default function ServerThemeProvider({
   const refreshTheme = async () => {
     try {
       setIsLoading(true);
-      HesseLogger.summary.start('Refreshing theme from server');
+      console.log('Refreshing theme from server');
+      DanteLogger.info.system('🔄 Refreshing theme from server');
 
       // Fetch the theme from the API with cache busting
       const response = await fetch(`/api/extract-pdf-style?refresh=true&_=${Date.now()}`);
@@ -169,17 +173,80 @@ export default function ServerThemeProvider({
       document.documentElement.style.setProperty('--dynamic-text', colors.text || '#333333');
       document.documentElement.style.setProperty('--dynamic-border', colors.border || '#c0c0c0');
 
-      // Generate derived colors using Hesse method
-      const primaryRgb = hexToRgb(colors.primary);
-      if (primaryRgb) {
-        document.documentElement.style.setProperty('--pdf-primary-light', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.8)`);
-        document.documentElement.style.setProperty('--pdf-primary-dark', `rgb(${Math.max(0, primaryRgb.r - 51)}, ${Math.max(0, primaryRgb.g - 51)}, ${Math.max(0, primaryRgb.b - 51)})`);
-      }
+      // Apply comprehensive color palette if available
+      if (colors.palette) {
+        DanteLogger.info.system(`🎨 Applying comprehensive color palette`);
+        console.log('Comprehensive color palette:', colors.palette);
+        console.log('Modal header color:', colors.palette.ui.modalHeader);
+        console.log('Modal body color:', colors.palette.ui.modalBody);
 
-      const secondaryRgb = hexToRgb(colors.secondary);
-      if (secondaryRgb) {
-        document.documentElement.style.setProperty('--pdf-secondary-light', `rgb(${Math.min(255, secondaryRgb.r + 51)}, ${Math.min(255, secondaryRgb.g + 51)}, ${Math.min(255, secondaryRgb.b + 51)})`);
-        document.documentElement.style.setProperty('--pdf-secondary-dark', `rgb(${Math.max(0, secondaryRgb.r - 51)}, ${Math.max(0, secondaryRgb.g - 51)}, ${Math.max(0, secondaryRgb.b - 51)})`);
+        // Primary color variants
+        document.documentElement.style.setProperty('--pdf-primary-base', colors.primary);
+        document.documentElement.style.setProperty('--pdf-primary-light', colors.palette.primary.light);
+        document.documentElement.style.setProperty('--pdf-primary-lighter', colors.palette.primary.lighter);
+        document.documentElement.style.setProperty('--pdf-primary-dark', colors.palette.primary.dark);
+        document.documentElement.style.setProperty('--pdf-primary-darker', colors.palette.primary.darker);
+        document.documentElement.style.setProperty('--pdf-primary-contrast', colors.palette.primary.contrast);
+
+        // Secondary color variants
+        document.documentElement.style.setProperty('--pdf-secondary-base', colors.secondary);
+        document.documentElement.style.setProperty('--pdf-secondary-light', colors.palette.secondary.light);
+        document.documentElement.style.setProperty('--pdf-secondary-lighter', colors.palette.secondary.lighter);
+        document.documentElement.style.setProperty('--pdf-secondary-dark', colors.palette.secondary.dark);
+        document.documentElement.style.setProperty('--pdf-secondary-darker', colors.palette.secondary.darker);
+        document.documentElement.style.setProperty('--pdf-secondary-contrast', colors.palette.secondary.contrast);
+
+        // Accent color variants
+        document.documentElement.style.setProperty('--pdf-accent-base', colors.accent);
+        document.documentElement.style.setProperty('--pdf-accent-light', colors.palette.accent.light);
+        document.documentElement.style.setProperty('--pdf-accent-lighter', colors.palette.accent.lighter);
+        document.documentElement.style.setProperty('--pdf-accent-dark', colors.palette.accent.dark);
+        document.documentElement.style.setProperty('--pdf-accent-darker', colors.palette.accent.darker);
+        document.documentElement.style.setProperty('--pdf-accent-contrast', colors.palette.accent.contrast);
+
+        // Background variants
+        document.documentElement.style.setProperty('--pdf-background-base', colors.background);
+        document.documentElement.style.setProperty('--pdf-background-light', colors.palette.background.light);
+        document.documentElement.style.setProperty('--pdf-background-dark', colors.palette.background.dark);
+
+        // Text variants
+        document.documentElement.style.setProperty('--pdf-text-primary', colors.text);
+        document.documentElement.style.setProperty('--pdf-text-secondary', colors.palette.text.secondary);
+        document.documentElement.style.setProperty('--pdf-text-light', colors.palette.text.light);
+        document.documentElement.style.setProperty('--pdf-text-dark', colors.palette.text.dark);
+
+        // Border variants
+        document.documentElement.style.setProperty('--pdf-border-base', colors.border);
+        document.documentElement.style.setProperty('--pdf-border-light', colors.palette.border.light);
+        document.documentElement.style.setProperty('--pdf-border-dark', colors.palette.border.dark);
+
+        // UI-specific colors
+        document.documentElement.style.setProperty('--pdf-modal-header', colors.palette.ui.modalHeader);
+        document.documentElement.style.setProperty('--pdf-modal-body', colors.palette.ui.modalBody);
+        document.documentElement.style.setProperty('--pdf-header-bg', colors.palette.ui.headerBackground);
+
+        // Update UI component variables
+        document.documentElement.style.setProperty('--modal-header-bg', colors.palette.ui.modalHeader);
+        document.documentElement.style.setProperty('--modal-bg', colors.palette.ui.modalBody);
+        document.documentElement.style.setProperty('--header-bg', colors.palette.ui.headerBackground);
+
+        DanteLogger.success.ux(`🖌️ Applied comprehensive color palette with modal header: ${colors.palette.ui.modalHeader}`);
+      } else {
+        // Fallback to the old method if palette is not available
+        DanteLogger.info.system(`🎨 Falling back to basic color derivation`);
+
+        // Generate derived colors using Hesse method
+        const primaryRgb = hexToRgb(colors.primary);
+        if (primaryRgb) {
+          document.documentElement.style.setProperty('--pdf-primary-light', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.8)`);
+          document.documentElement.style.setProperty('--pdf-primary-dark', `rgb(${Math.max(0, primaryRgb.r - 51)}, ${Math.max(0, primaryRgb.g - 51)}, ${Math.max(0, primaryRgb.b - 51)})`);
+        }
+
+        const secondaryRgb = hexToRgb(colors.secondary);
+        if (secondaryRgb) {
+          document.documentElement.style.setProperty('--pdf-secondary-light', `rgb(${Math.min(255, secondaryRgb.r + 51)}, ${Math.min(255, secondaryRgb.g + 51)}, ${Math.min(255, secondaryRgb.b + 51)})`);
+          document.documentElement.style.setProperty('--pdf-secondary-dark', `rgb(${Math.max(0, secondaryRgb.r - 51)}, ${Math.max(0, secondaryRgb.g - 51)}, ${Math.max(0, secondaryRgb.b - 51)})`);
+        }
       }
 
       // Apply CTA colors if available
@@ -269,10 +336,66 @@ export default function ServerThemeProvider({
     document.body.classList.add('theme-transition-container');
   };
 
+  // Function to update the theme with new values
+  const updateTheme = async (newTheme: any) => {
+    try {
+      setIsLoading(true);
+      DanteLogger.info.system('💾 Updating theme with new values');
+
+      // Update the state with the new theme
+      setColorTheme(newTheme);
+      setLastUpdated(Date.now());
+
+      // Apply the updated theme
+      applyTheme(newTheme, fontInfo);
+
+      // Save the updated theme to local storage for persistence
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('pdf-color-theme', JSON.stringify(newTheme));
+        DanteLogger.info.system('💾 Saved updated theme to local storage');
+      }
+
+      DanteLogger.success.ux('✅ Theme updated successfully');
+      return true;
+    } catch (error) {
+      DanteLogger.error.runtime(`Failed to update theme: ${error}`);
+      console.error('Failed to update theme:', error);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Apply the theme on initial load
   useEffect(() => {
     if (initialTheme) {
+      // Log the initial theme for debugging
+      console.log('Initial theme:', initialTheme);
+
+      // Make sure the colorTheme has a palette
+      if (!initialTheme.colorTheme.palette) {
+        console.warn('Initial theme does not have a palette, generating one');
+
+        // Generate a palette if it doesn't exist
+        const palette = HesseColorTheory.generateComprehensiveColorPalette(
+          initialTheme.colorTheme.primary,
+          initialTheme.colorTheme.secondary,
+          initialTheme.colorTheme.accent,
+          initialTheme.colorTheme.background,
+          initialTheme.colorTheme.text,
+          initialTheme.colorTheme.border,
+          initialTheme.colorTheme.isDark
+        );
+
+        // Update the colorTheme with the generated palette
+        initialTheme.colorTheme.palette = palette;
+      }
+
+      // Apply the theme
       applyTheme(initialTheme.colorTheme, initialTheme.fontInfo);
+
+      // Update the state with the initial theme
+      setColorTheme(initialTheme.colorTheme);
 
       // Try to fetch the resume content to extract the name even with initialTheme
       const fetchResumeContent = async () => {
@@ -315,7 +438,8 @@ export default function ServerThemeProvider({
     fontInfo,
     isLoading,
     lastUpdated,
-    refreshTheme
+    refreshTheme,
+    updateTheme
   };
 
   return (

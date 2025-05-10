@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-05-09T00:00:29.285Z",
+  "timestamp": "2025-05-09T22:58:45.004Z",
   "formats": {
     "pdf": {
       "available": true,
@@ -44,7 +44,7 @@
   },
   "extraction": {
     "performed": true,
-    "timestamp": "2025-05-09T00:00:29.282Z",
+    "timestamp": "2025-05-09T22:58:45.002Z",
     "cached": false,
     "contentFingerprint": "21e6d762f802afa8f89b8198343aa88250c93a8da1fc5743f6845e4e70f7c1aa"
   },

@@ -95,7 +95,23 @@ export default function PdfThemeProvider({ children, pdfUrl }: PdfThemeProviderP
         console.log('Theme extraction complete');
         setIsLoading(false);
       } catch (error) {
-        DanteLogger.error.runtime(`Failed to extract theme: ${error}`);
+        console.error('Failed to extract theme:', error);
+        DanteLogger.error.runtime(`Failed to extract theme: ${error instanceof Error ? error.message : String(error)}`);
+
+        // Set default colors and fonts
+        setColors({
+          ...defaultColorTheme,
+          isLoading: false
+        });
+
+        setFonts({
+          primaryFont: 'var(--font-source-sans)',
+          secondaryFont: 'var(--font-merriweather)',
+          headingFont: 'var(--font-roboto)',
+          monoFont: 'var(--font-geist-mono)',
+          isLoading: false,
+        });
+
         setIsLoading(false);
       }
     };

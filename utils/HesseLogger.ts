@@ -42,4 +42,26 @@ export class HesseLogger {
     auth: (message: string) => console.debug(`🔍 [Hesse:Auth] ${message}`),
     ux: (message: string) => console.debug(`🔍 [Hesse:UX] ${message}`),
   };
+
+  // AI-specific logging
+  static ai = {
+    start: (message: string) => console.log(`🧠 [Hesse:AI] ${message}`),
+    info: (message: string) => console.log(`ℹ️ [Hesse:AI] ${message}`),
+    success: (message: string) => console.log(`✅ [Hesse:AI] ${message}`),
+    warning: (message: string) => console.warn(`⚠️ [Hesse:AI] ${message}`),
+    error: (message: string) => console.error(`❌ [Hesse:AI] ${message}`),
+  };
+
+  // OpenAI-specific logging
+  static openai = {
+    request: (message: string) => console.log(`🔄 [Hesse:OpenAI] ${message}`),
+    response: (message: string) => console.log(`✅ [Hesse:OpenAI] ${message}`),
+    error: (message: string) => console.error(`❌ [Hesse:OpenAI] ${message}`),
+  };
+
+  // Summary logging
+  static summary = {
+    start: (message: string) => console.log(`📊 [Hesse:Summary] ${message}`),
+    end: (message: string) => console.log(`✅ [Hesse:Summary] ${message}`),
+  };
 }

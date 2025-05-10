@@ -8,10 +8,15 @@ const PdfContentLayout = dynamic(() => import('@/components/layouts/PdfContentLa
   ssr: false,
 });
 
+
 interface PdfContentWrapperProps {
   children: React.ReactNode;
 }
 
 export default function PdfContentWrapper({ children }: PdfContentWrapperProps) {
-  return <PdfContentLayout>{children}</PdfContentLayout>;
+  return (
+    <>
+      <PdfContentLayout>{children}</PdfContentLayout>
+    </>
+  );
 }

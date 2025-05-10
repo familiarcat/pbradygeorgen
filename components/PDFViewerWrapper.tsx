@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useState } from 'react';
+import ColorPalettePreview from './ColorPalettePreview';
 import { checkAndRefreshPdfContent } from '@/app/actions';
 import { DanteLogger } from '@/utils/DanteLogger';
 
@@ -85,6 +86,9 @@ export default function PDFViewerWrapper() {
 
   return (
     <div className="w-full h-screen overflow-hidden flex flex-col">
+      {/* Color Palette Preview - Only visible in admin mode */}
+      <ColorPalettePreview />
+
       <Suspense fallback={<Loading />}>
         {isRefreshing ? (
           <Loading />

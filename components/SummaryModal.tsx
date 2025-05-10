@@ -93,6 +93,28 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
 
+  // Debug logging for color palette
+  const [cssVars, setCssVars] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (isOpen) {
+      console.log('SummaryModal opened - Checking CSS variables:');
+      const computedStyle = getComputedStyle(document.documentElement);
+      const vars = {
+        '--pdf-modal-header': computedStyle.getPropertyValue('--pdf-modal-header'),
+        '--pdf-modal-body': computedStyle.getPropertyValue('--pdf-modal-body'),
+        '--modal-header-bg': computedStyle.getPropertyValue('--modal-header-bg'),
+        '--modal-bg': computedStyle.getPropertyValue('--modal-bg')
+      };
+
+      console.log('CSS Variables:', vars);
+      setCssVars(vars);
+
+      // Log to DanteLogger for visibility in terminal
+      DanteLogger.info.system(`🎨 Modal CSS Variables: ${JSON.stringify(vars)}`);
+    }
+  }, [isOpen]);
+
   // States for loading and content
   const [isLoadingContent, setIsLoadingContent] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -1227,6 +1249,28 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           </div>
         </div>
         <div className={styles.modalBody}>
+          {/* Debug display for CSS variables - only visible in admin mode */}
+          {isAdminMode && Object.keys(cssVars).length > 0 && (
+            <div style={{
+              padding: '10px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              fontSize: '12px',
+              fontFamily: 'monospace',
+              backgroundColor: 'rgba(0,0,0,0.05)'
+            }}>
+              <h4 style={{ marginBottom: '5px', fontWeight: 'bold' }}>CSS Variables (Debug):</h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {Object.entries(cssVars).map(([key, value]) => (
+                  <li key={key} style={{ marginBottom: '2px' }}>
+                    <strong>{key}:</strong> <span style={{ color: value }}>{value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {isLoading || isLoadingContent ? (
             <div className={styles.loadingContainer}>
               <div className={styles.loadingSpinner}>

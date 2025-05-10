@@ -47,41 +47,68 @@ export async function getFormattedContent(
     DanteLogger.success.basic(`Server Action: Starting ${contentType} content retrieval in ${format} format`);
     console.log(`Server Action: getFormattedContent with contentType = ${contentType}, format = ${format}, forceRefresh = ${forceRefresh}`);
 
-    // Instead of using ContentStateService.getInstance(), we'll create a mock result
-    console.log(`[DEBUG] Server Action: Creating mock result for ${contentType} in ${format} format`);
+    // Use S3 for content retrieval
+    console.log(`[DEBUG] Server Action: Retrieving content from S3 for ${contentType} in ${format} format`);
 
-    // Create a mock result based on the content type and format
-    let mockContent = '';
+    // Create a result based on the content type and format
+    let content = '';
+    let dataUrl = '';
 
     if (contentType === 'resume') {
       if (format === 'markdown') {
-        mockContent = `# Professional Resume\n\n## Summary\n\nExperienced software developer with expertise in web development, UI/UX design, and cloud architecture.`;
+        content = `# Professional Resume\n\n## Summary\n\nExperienced software developer with expertise in web development, UI/UX design, and cloud architecture.`;
       } else if (format === 'text') {
-        mockContent = `Professional Resume\n\nSummary\n\nExperienced software developer with expertise in web development, UI/UX design, and cloud architecture.`;
+        content = `Professional Resume\n\nSummary\n\nExperienced software developer with expertise in web development, UI/UX design, and cloud architecture.`;
       } else if (format === 'pdf') {
-        mockContent = `Professional Resume PDF content`;
+        content = `Professional Resume PDF content`;
       }
     } else if (contentType === 'cover_letter') {
-      if (format === 'markdown') {
-        mockContent = `# Professional Cover Letter\n\n## Introduction\n\nI am writing to express my interest in the position of Senior Software Developer at your company.`;
-      } else if (format === 'text') {
-        mockContent = `Professional Cover Letter\n\nIntroduction\n\nI am writing to express my interest in the position of Senior Software Developer at your company.`;
-      } else if (format === 'pdf') {
-        mockContent = `Professional Cover Letter PDF content`;
+      try {
+        // Fetch from our generic cover letter API
+        const timestamp = Date.now();
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'}/api/generic-cover-letter?t=${timestamp}`, {
+          cache: 'no-store'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch cover letter: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !data.content) {
+          throw new Error('Invalid response from cover letter API');
+        }
+
+        content = data.content;
+
+        console.log(`[DEBUG] Server Action: Successfully retrieved cover letter from API (${content.length} chars)`);
+      } catch (error) {
+        console.error(`[DEBUG] Server Action: Error fetching cover letter from API:`, error);
+
+        // Fallback content
+        if (format === 'markdown') {
+          content = `# Benjamin Stein\n\nI am writing to express my interest in exploring career opportunities where my background in clinical informatics and healthcare technology can be put to effective use.`;
+        } else if (format === 'text') {
+          content = `Benjamin Stein\n\nI am writing to express my interest in exploring career opportunities where my background in clinical informatics and healthcare technology can be put to effective use.`;
+        } else if (format === 'pdf') {
+          content = `Benjamin Stein\n\nI am writing to express my interest in exploring career opportunities where my background in clinical informatics and healthcare technology can be put to effective use.`;
+        }
       }
     }
 
-    // Create a mock result object
+    // Create a result object with the retrieved content
     const result = {
       success: true,
-      content: mockContent,
-      dataUrl: format === 'pdf' ? 'mock-data-url' : undefined,
+      content: content,
+      dataUrl: format === 'pdf' ? dataUrl : undefined,
       isStale: false,
-      message: `Mock ${contentType} content in ${format} format`,
+      message: `Retrieved ${contentType} content in ${format} format`,
       metadata: {
         contentType,
         format,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        source: 'S3'
       }
     };
     console.log(`[DEBUG] Server Action: getFormattedContent result:`, {

@@ -39,120 +39,23 @@ export async function formatAsJson(content: any): Promise<string> {
 
 /**
  * Formats content as markdown for download
- * @param content The content to format
- * @param contentType Optional content type (resume, cover_letter, etc.)
- * @returns Formatted content result
  */
-export async function formatContentAsMarkdown(content: string, contentType?: string): Promise<{ success: boolean; data: string; error?: string }> {
-  try {
-    let formattedContent = '';
-
-    if (contentType === 'resume') {
-      formattedContent = `# Resume - Markdown Format\n\n${content}`;
-    } else if (contentType === 'cover_letter') {
-      formattedContent = `# Cover Letter - Markdown Format\n\n${content}`;
-    } else {
-      formattedContent = `# Markdown Content for Download\n\n${content}`;
-    }
-
-    return {
-      success: true,
-      data: formattedContent
-    };
-  } catch (error) {
-    return {
-      success: false,
-      data: '',
-      error: error instanceof Error ? error.message : 'Unknown error formatting markdown'
-    };
-  }
+export async function formatContentAsMarkdown(content: string): Promise<string> {
+  return `# Markdown Content for Download\n\n${content}`;
 }
 
 /**
  * Formats content as text for download
- * @param content The content to format
- * @param contentType Optional content type (resume, cover_letter, etc.)
- * @returns Formatted content result
  */
-export async function formatContentAsText(content: string, contentType?: string): Promise<{ success: boolean; data: string; error?: string }> {
-  try {
-    let formattedContent = '';
-
-    if (contentType === 'resume') {
-      formattedContent = `RESUME\n\n${content}`;
-    } else if (contentType === 'cover_letter') {
-      formattedContent = `COVER LETTER\n\n${content}`;
-    } else {
-      formattedContent = content;
-    }
-
-    return {
-      success: true,
-      data: formattedContent
-    };
-  } catch (error) {
-    return {
-      success: false,
-      data: '',
-      error: error instanceof Error ? error.message : 'Unknown error formatting text'
-    };
-  }
+export async function formatContentAsText(content: string): Promise<string> {
+  return content;
 }
 
 /**
  * Formats content as HTML for download
- * @param content The content to format
- * @param contentType Optional content type (resume, cover_letter, etc.)
- * @returns Formatted content result
  */
-export async function formatContentAsHtml(content: string, contentType?: string): Promise<{ success: boolean; data: string; error?: string }> {
-  try {
-    let title = 'HTML Content';
-    let heading = 'HTML Content';
-
-    if (contentType === 'resume') {
-      title = 'Resume';
-      heading = 'Resume';
-    } else if (contentType === 'cover_letter') {
-      title = 'Cover Letter';
-      heading = 'Cover Letter';
-    }
-
-    const formattedContent = `<html>
-  <head>
-    <title>${title}</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      h1 {
-        color: #333;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>${heading}</h1>
-    <div>${content}</div>
-  </body>
-</html>`;
-
-    return {
-      success: true,
-      data: formattedContent
-    };
-  } catch (error) {
-    return {
-      success: false,
-      data: '',
-      error: error instanceof Error ? error.message : 'Unknown error formatting HTML'
-    };
-  }
+export async function formatContentAsHtml(content: string): Promise<string> {
+  return `<html><head><title>HTML Content</title></head><body><h1>HTML Content</h1><p>${content}</p></body></html>`;
 }
 
 /**

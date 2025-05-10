@@ -1,9 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { DanteLogger } from '@/utils/DanteLogger';
+import { useAdmin } from '@/contexts/AdminContext';
 
 export default function ContentStatusPage() {
+  const { isAdminMode } = useAdmin();
   const [contentStatus, setContentStatus] = useState<any>(null);
   const [validationStatus, setValidationStatus] = useState<any>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -26,15 +29,15 @@ export default function ContentStatusPage() {
       addLog('Fetching content status...');
       const timestamp = new Date().getTime();
       const response = await fetch(`/api/refresh-content?t=${timestamp}`);
-      
+
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setContentStatus(data);
       addLog(`Content status fetched successfully: ${data.success ? 'OK' : 'Failed'}`);
-      
+
       return data;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -49,23 +52,23 @@ export default function ContentStatusPage() {
     try {
       setIsValidating(true);
       addLog('Validating content against Zod schemas...');
-      
+
       const timestamp = new Date().getTime();
       const response = await fetch(`/api/validate-content?t=${timestamp}`);
-      
+
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setValidationStatus(data);
-      
+
       if (data.valid) {
         addLog('Content validation successful! ✅');
       } else {
         addLog(`Content validation failed: ${data.errors?.length || 0} errors found ❌`);
       }
-      
+
       return data;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -82,20 +85,20 @@ export default function ContentStatusPage() {
     try {
       setIsRefreshing(true);
       addLog('Refreshing content...');
-      
+
       const response = await fetch('/api/refresh-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      
+
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         addLog(`Content refreshed successfully at ${data.timestamp}`);
         // Fetch the updated status
@@ -105,7 +108,7 @@ export default function ContentStatusPage() {
       } else {
         addLog(`Content refresh failed: ${data.error || 'Unknown error'}`);
       }
-      
+
       return data;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -123,15 +126,15 @@ export default function ContentStatusPage() {
       addLog('Fetching JSON preview...');
       const timestamp = new Date().getTime();
       const response = await fetch(`/extracted/resume_content_analyzed.json?t=${timestamp}`);
-      
+
       if (!response.ok) {
         throw new Error(`API responded with status: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setJsonPreview(data);
       addLog('JSON preview fetched successfully');
-      
+
       return data;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -148,13 +151,13 @@ export default function ContentStatusPage() {
       await validateContent();
       await fetchJsonPreview();
     };
-    
+
     initialize();
-    
+
     // Log initialization
     addLog('Content Status Page initialized');
     console.log('Content Status Page initialized');
-    
+
     // Cleanup
     return () => {
       console.log('Content Status Page unmounted');
@@ -163,33 +166,44 @@ export default function ContentStatusPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Content Status Dashboard</h1>
-      
-      <div className="mb-4 flex space-x-2">
+      {/* <h1 className="text-3xl font-bold mb-4">Content Status Dashboard</h1> */}
+
+      <div className="mb-4 flex space-x-2 flex-wrap">
         <button
           onClick={refreshContent}
           disabled={isRefreshing}
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50 mb-2"
         >
           {isRefreshing ? 'Refreshing...' : 'Refresh Content'}
         </button>
-        
+
         <button
           onClick={validateContent}
           disabled={isValidating}
-          className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+          className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50 mb-2"
         >
           {isValidating ? 'Validating...' : 'Validate Content'}
         </button>
-        
+
         <button
           onClick={fetchJsonPreview}
-          className="px-4 py-2 bg-purple-500 text-white rounded"
+          className="px-4 py-2 bg-purple-500 text-white rounded mb-2"
         >
           Fetch JSON Preview
         </button>
+
+        {isAdminMode && (
+          <Link href="/color-theme">
+            <button
+              className="px-4 py-2 bg-orange-500 text-white rounded mb-2 ml-2"
+              onClick={() => DanteLogger.info.system('Color Theme Editor clicked from Content Status page')}
+            >
+              Edit Color Theme
+            </button>
+          </Link>
+        )}
       </div>
-      
+
       <div className="mb-4">
         <div className="flex border-b">
           <button
@@ -217,7 +231,7 @@ export default function ContentStatusPage() {
             Logs
           </button>
         </div>
-        
+
         <div className="p-4 border border-t-0">
           {activeTab === 'status' && (
             <div>
@@ -234,7 +248,7 @@ export default function ContentStatusPage() {
                       <p><strong>Content Fingerprint:</strong> {contentStatus.buildInfo?.pdfInfo?.contentFingerprint}</p>
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
                     <h3 className="text-lg font-semibold">Extraction Status</h3>
                     <div className="bg-gray-100 p-2 rounded">
@@ -245,7 +259,7 @@ export default function ContentStatusPage() {
                       <p><strong>ChatGPT Analyzed:</strong> {contentStatus.buildInfo?.extractionStatus?.chatGptAnalyzed ? '✅' : '❌'}</p>
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
                     <h3 className="text-lg font-semibold">Analyzed Content Info</h3>
                     {contentStatus.analyzedInfo ? (
@@ -258,7 +272,7 @@ export default function ContentStatusPage() {
                       <p>No analyzed content info available</p>
                     )}
                   </div>
-                  
+
                   <div className="mb-4">
                     <h3 className="text-lg font-semibold">Files Exist</h3>
                     <div className="bg-gray-100 p-2 rounded">
@@ -276,7 +290,7 @@ export default function ContentStatusPage() {
               )}
             </div>
           )}
-          
+
           {activeTab === 'validation' && (
             <div>
               <h2 className="text-xl font-bold mb-2">Validation Status</h2>
@@ -289,7 +303,7 @@ export default function ContentStatusPage() {
                       <p><strong>Timestamp:</strong> {validationStatus.timestamp}</p>
                     </div>
                   </div>
-                  
+
                   {validationStatus.valid && validationStatus.contentPreview && (
                     <div className="mb-4">
                       <h3 className="text-lg font-semibold">Content Preview</h3>
@@ -300,7 +314,7 @@ export default function ContentStatusPage() {
                       </div>
                     </div>
                   )}
-                  
+
                   {!validationStatus.valid && validationStatus.errors && (
                     <div className="mb-4">
                       <h3 className="text-lg font-semibold">Validation Errors</h3>
@@ -321,7 +335,7 @@ export default function ContentStatusPage() {
               )}
             </div>
           )}
-          
+
           {activeTab === 'json' && (
             <div>
               <h2 className="text-xl font-bold mb-2">JSON Preview</h2>
@@ -333,7 +347,7 @@ export default function ContentStatusPage() {
                       <pre>{JSON.stringify(jsonPreview.structuredContent, null, 2)}</pre>
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
                     <h3 className="text-lg font-semibold">Sections</h3>
                     <div className="bg-gray-100 p-2 rounded overflow-auto max-h-96">
@@ -346,7 +360,7 @@ export default function ContentStatusPage() {
               )}
             </div>
           )}
-          
+
           {activeTab === 'logs' && (
             <div>
               <h2 className="text-xl font-bold mb-2">Logs</h2>
