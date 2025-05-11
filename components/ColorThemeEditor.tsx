@@ -7,6 +7,7 @@ import HesseColorTheory from '@/utils/HesseColorTheory';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { analyzeColorsWithOpenAI } from '@/utils/OpenAIColorAnalyzer';
 import styles from '@/styles/ColorThemeEditor.module.css';
+import ColorThemeHeader from './ColorThemeHeader';
 
 /**
  * ColorThemeEditor component
@@ -27,7 +28,9 @@ const ColorThemeEditor: React.FC = () => {
   const [showTailwindValues, setShowTailwindValues] = useState(false);
   const [previewMode, setPreviewMode] = useState<'light' | 'dark'>('light');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isPdfAnalyzing, setIsPdfAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [pdfAnalysisError, setPdfAnalysisError] = useState<string | null>(null);
 
   // Update local state when colorTheme changes
   useEffect(() => {
@@ -178,6 +181,45 @@ const ColorThemeEditor: React.FC = () => {
     }
   };
 
+  // Trigger PDF color extraction and analysis
+  const handlePdfColorExtraction = async () => {
+    if (!isAdminMode) return;
+
+    try {
+      setIsPdfAnalyzing(true);
+      setPdfAnalysisError(null);
+      DanteLogger.info.system('🔍 Triggering PDF color extraction and analysis');
+
+      // Call the extract-pdf-style API with refresh=true to force a refresh
+      const timestamp = Date.now(); // Add timestamp to bust cache
+      const response = await fetch(`/api/extract-pdf-style?refresh=true&t=${timestamp}`);
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error during PDF color extraction');
+      }
+
+      // Refresh the theme from the server
+      await serverTheme.refreshTheme();
+
+      // Update the edited theme with the new theme
+      setEditedTheme(serverTheme.colorTheme);
+
+      DanteLogger.success.ux('✅ PDF color extraction and analysis completed successfully');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      DanteLogger.error.runtime(`❌ Error during PDF color extraction: ${errorMessage}`);
+      setPdfAnalysisError(errorMessage);
+    } finally {
+      setIsPdfAnalyzing(false);
+    }
+  };
+
   // Generate Tailwind-compatible color value
   const getTailwindValue = (hexColor: string) => {
     if (!hexColor) return '';
@@ -252,6 +294,9 @@ const ColorThemeEditor: React.FC = () => {
     // Use the provided value or fall back to the default
     const safeValue = value || (defaultColors[category as keyof typeof defaultColors]?.[variant as any] || '#000000');
 
+    // Generate a unique ID for this color input
+    const colorInputId = `color-${category}-${variant}`;
+
     return (
       <div className={styles.colorInput}>
         <label className={styles.colorLabel}>
@@ -261,12 +306,35 @@ const ColorThemeEditor: React.FC = () => {
           )}
         </label>
         <div className={styles.colorInputWrapper}>
+          <div
+            className={styles.colorPreview}
+            style={{ backgroundColor: safeValue }}
+            onClick={() => {
+              if (isAdminMode) {
+                // Find the color input and focus it
+                const colorInput = document.getElementById(colorInputId);
+                if (colorInput) {
+                  (colorInput as HTMLInputElement).click();
+                }
+              }
+            }}
+          >
+            {isAdminMode && (
+              <div className={styles.colorOverlay}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2v20M2 12h20"></path>
+                </svg>
+              </div>
+            )}
+          </div>
           <input
+            id={colorInputId}
             type="color"
             value={safeValue}
             onChange={(e) => handleColorChange(category, variant, e.target.value)}
             disabled={!isAdminMode}
             className={styles.colorPicker}
+            aria-label={`Color picker for ${label}`}
           />
           <input
             type="text"
@@ -274,6 +342,10 @@ const ColorThemeEditor: React.FC = () => {
             onChange={(e) => handleColorChange(category, variant, e.target.value)}
             disabled={!isAdminMode}
             className={styles.colorText}
+            aria-label={`Hex value for ${label}`}
+            placeholder="#RRGGBB"
+            pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+            title="Enter a valid hex color (e.g. #FF0000)"
           />
         </div>
       </div>
@@ -599,66 +671,88 @@ const ColorThemeEditor: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Color Theme Editor</h2>
-        <div className={styles.actions}>
-          <label className={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={showTailwindValues}
-              onChange={() => setShowTailwindValues(!showTailwindValues)}
-              className={styles.toggleInput}
-            />
-            Show Tailwind Values
-          </label>
-          <div className={styles.previewToggle}>
-            <button
-              className={`${styles.previewButton} ${previewMode === 'light' ? styles.activePreview : ''}`}
-              onClick={() => setPreviewMode('light')}
-            >
-              Light
-            </button>
-            <button
-              className={`${styles.previewButton} ${previewMode === 'dark' ? styles.activePreview : ''}`}
-              onClick={() => setPreviewMode('dark')}
-            >
-              Dark
-            </button>
+    <>
+      <ColorThemeHeader
+        onReanalyzeColors={handlePdfColorExtraction}
+        isAnalyzing={isPdfAnalyzing}
+      />
+
+      <div className={styles.container}>
+        {pdfAnalysisError && (
+          <div className={styles.errorBanner}>
+            <div className={styles.errorIcon}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div className={styles.errorContent}>
+              <h3>PDF Analysis Error</h3>
+              <p>{pdfAnalysisError}</p>
+            </div>
           </div>
-          {isAdminMode && (
-            <div className={styles.editorActions}>
+        )}
+
+        <div className={styles.header}>
+          <h2 className={styles.title}>Color Theme Editor</h2>
+          <div className={styles.actions}>
+            <label className={styles.toggleLabel}>
+              <input
+                type="checkbox"
+                checked={showTailwindValues}
+                onChange={() => setShowTailwindValues(!showTailwindValues)}
+                className={styles.toggleInput}
+              />
+              Show Tailwind Values
+            </label>
+            <div className={styles.previewToggle}>
               <button
-                onClick={handleReset}
-                className={styles.resetButton}
-                disabled={isAnalyzing}
+                className={`${styles.previewButton} ${previewMode === 'light' ? styles.activePreview : ''}`}
+                onClick={() => setPreviewMode('light')}
               >
-                Reset
+                Light
               </button>
               <button
-                onClick={handleOpenAIAnalysis}
-                className={styles.analyzeButton}
-                disabled={isAnalyzing}
-                title="Analyze colors with OpenAI"
+                className={`${styles.previewButton} ${previewMode === 'dark' ? styles.activePreview : ''}`}
+                onClick={() => setPreviewMode('dark')}
               >
-                {isAnalyzing ? 'Analyzing...' : 'AI Analyze'}
-              </button>
-              <button
-                onClick={handleSave}
-                className={styles.saveButton}
-                disabled={isAnalyzing}
-              >
-                Save Changes
+                Dark
               </button>
             </div>
-          )}
-          {analysisError && (
-            <div className={styles.errorMessage}>
-              Error: {analysisError}
-            </div>
-          )}
+            {isAdminMode && (
+              <div className={styles.editorActions}>
+                <button
+                  onClick={handleReset}
+                  className={styles.resetButton}
+                  disabled={isAnalyzing || isPdfAnalyzing}
+                >
+                  Reset
+                </button>
+                <button
+                  onClick={handleOpenAIAnalysis}
+                  className={styles.analyzeButton}
+                  disabled={isAnalyzing || isPdfAnalyzing}
+                  title="Analyze colors with OpenAI"
+                >
+                  {isAnalyzing ? 'Analyzing...' : 'AI Analyze'}
+                </button>
+                <button
+                  onClick={handleSave}
+                  className={styles.saveButton}
+                  disabled={isAnalyzing || isPdfAnalyzing}
+                >
+                  Save Changes
+                </button>
+              </div>
+            )}
+            {analysisError && (
+              <div className={styles.errorMessage}>
+                Error: {analysisError}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
       <div className={styles.tabs}>
         <button
