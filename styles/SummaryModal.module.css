@@ -16,7 +16,7 @@
 
 /* Modal content container - Using comprehensive color palette */
 .modalContent {
-  background-color: var(--pdf-modal-body, var(--pdf-background-color, #333333)); /* Use modal body color from comprehensive palette */
+  background-color: var(--pdf-modal-body, var(--pdf-background-color, #f4f1f4)); /* Lighter background for better contrast */
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   width: 80%; /* Increased width to accommodate all header items */
@@ -25,14 +25,14 @@
   display: flex;
   flex-direction: column;
   animation: slideIn 0.3s ease;
-  border: 1px solid var(--pdf-border-base, var(--pdf-border-color, rgba(255, 255, 255, 0.1))); /* Use border base from comprehensive palette */
+  border: 1px solid var(--pdf-border-base, var(--pdf-border-color, rgba(0, 0, 0, 0.1))); /* Darker border for better visibility */
   font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted font */
   position: absolute; /* Use absolute positioning */
   top: 5vh; /* Position from top */
   left: 0; /* Will be overridden by left/right classes */
   right: 0; /* Will be overridden by left/right classes */
   margin: 0 auto; /* Center by default */
-  color: var(--pdf-text-primary, var(--pdf-text-color, #F5F3E7)); /* Use text primary from comprehensive palette */
+  color: var(--pdf-text-primary, var(--pdf-text-color, #333333)); /* Darker text for better contrast */
   overflow: hidden; /* Prevent content from overflowing */
 }
 
@@ -62,8 +62,8 @@
   align-items: center;
   padding: 1rem 1.5rem;
   padding-right: 3.5rem; /* Add extra padding on the right for the close button */
-  border-bottom: 1px solid var(--pdf-border-base, var(--pdf-border-color, rgba(255, 255, 255, 0.1))); /* Use border base from comprehensive palette */
-  background-color: var(--pdf-modal-header, var(--pdf-secondary-dark, #222222)); /* Use modal header color from comprehensive palette */
+  border-bottom: 1px solid var(--pdf-border-base, var(--pdf-border-color, rgba(0, 0, 0, 0.1))); /* Darker border for better visibility */
+  background-color: var(--pdf-modal-header, var(--pdf-primary-color, #7E6233)); /* Use primary color for header */
   overflow: visible; /* Allow dropdowns to be visible */
   gap: 0.75rem; /* Add gap between wrapped items */
   min-height: 4rem; /* Ensure minimum height for header */
@@ -73,7 +73,7 @@
 /* Modal title - Using comprehensive color palette */
 .modalTitle {
   margin: 0;
-  color: var(--pdf-text-light, var(--pdf-text-color, #F5F3E7)); /* Use text light from comprehensive palette for better contrast */
+  color: #FFFFFF; /* White text for maximum contrast on colored header */
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -340,7 +340,7 @@
 
 /* Action link styling - Matches SalingerHeader */
 .actionLink {
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: #FFFFFF; /* White text for maximum contrast on colored header */
   text-decoration: none;
   font-family: var(--pdf-primary-font, var(--font-source-sans)); /* Use PDF-extracted primary font */
   font-size: 0.85rem; /* Slightly smaller font */
@@ -355,13 +355,13 @@
   white-space: nowrap; /* Prevent text wrapping */
   min-width: 0; /* Allow button to shrink */
   flex-shrink: 1; /* Allow button to shrink */
-  background-color: var(--cta-secondary-bg, rgba(95, 107, 84, 0.15)); /* Use PDF-extracted secondary CTA background */
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white for better contrast on colored header */
   border: none;
   cursor: pointer;
 }
 
 .actionLink:hover {
-  background-color: var(--cta-secondary-hover, #5F6B54); /* Use PDF-extracted secondary CTA hover */
+  background-color: rgba(255, 255, 255, 0.3); /* Lighter on hover */
   color: #FFFFFF; /* White text for contrast */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -496,12 +496,12 @@
   cursor: not-allowed;
 }
 
-/* Close button - Dark theme */
+/* Close button - Light theme */
 .closeButton {
-  background: none;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white for better visibility */
   border: none;
   font-size: 1.4rem; /* Slightly smaller font */
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: #FFFFFF; /* White text for maximum contrast */
   cursor: pointer;
   padding: 0.2rem 0.4rem; /* Reduced padding */
   border-radius: 4px;
@@ -517,15 +517,15 @@
 }
 
 .closeButton:hover {
-  background-color: var(--pdf-secondary-light, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted secondary light color */
+  background-color: rgba(255, 255, 255, 0.3); /* Lighter on hover */
 }
 
-/* Modal body - contains the preview content - Dark theme */
+/* Modal body - contains the preview content - Light theme */
 .modalBody {
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1 1 auto; /* Grow, shrink, and auto basis */
-  background-color: var(--pdf-background-color, #2A2A2A); /* Use PDF-extracted background color */
+  background-color: var(--pdf-background-color, #f4f1f4); /* Use PDF-extracted background color - light theme */
   border-radius: 0 0 8px 8px;
   display: flex;
   flex-direction: column;
@@ -533,20 +533,21 @@
   height: 100%; /* Take up all available height */
 }
 
-/* Markdown preview - Dark theme */
+/* Markdown preview - Light theme */
 .markdownPreview {
   margin: 0;
   padding: 1.5rem;
-  background-color: var(--pdf-secondary-dark, #222222); /* Use PDF-extracted secondary dark color */
+  background-color: #FFFFFF; /* White background for maximum readability */
   border-radius: 4px;
   max-height: 60vh;
   overflow-y: auto;
-  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border: 1px solid var(--pdf-border-color, rgba(0, 0, 0, 0.1)); /* Use PDF-extracted border color */
   font-family: var(--pdf-secondary-font, 'Garamond', 'Times New Roman', serif); /* Use PDF-extracted secondary font */
   line-height: 1.6;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: #333333; /* Dark text for maximum readability */
   flex: 1 1 auto; /* Grow, shrink, and auto basis */
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
 }
 
 @media (max-width: 480px) {
@@ -561,8 +562,8 @@
   font-size: 1.8rem;
   margin-top: 0;
   margin-bottom: 1rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
-  font-weight: 400;
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color for headings */
+  font-weight: 600; /* Slightly bolder for better visibility */
   letter-spacing: -0.5px;
   font-family: var(--pdf-heading-font, 'Garamond', 'Times New Roman', serif); /* Use PDF-extracted heading font */
 }
@@ -571,9 +572,9 @@
   font-size: 1.5rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
-  font-weight: 400;
-  border-bottom: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color for headings */
+  font-weight: 600; /* Slightly bolder for better visibility */
+  border-bottom: 1px solid var(--pdf-border-color, rgba(0, 0, 0, 0.1)); /* Darker border for better visibility */
   padding-bottom: 0.5rem;
   font-family: var(--pdf-heading-font, 'Garamond', 'Times New Roman', serif); /* Use PDF-extracted heading font */
 }
@@ -582,8 +583,8 @@
   font-size: 1.25rem;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
-  font-weight: 400;
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color for headings */
+  font-weight: 600; /* Slightly bolder for better visibility */
   font-family: var(--pdf-heading-font, 'Garamond', 'Times New Roman', serif); /* Use PDF-extracted heading font */
 }
 
@@ -591,55 +592,74 @@
   font-size: 1.1rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
-  font-weight: 400;
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color for headings */
+  font-weight: 600; /* Slightly bolder for better visibility */
   font-style: italic;
   font-family: var(--pdf-heading-font, 'Garamond', 'Times New Roman', serif); /* Use PDF-extracted heading font */
 }
 
 .markdownPreview p {
   margin-bottom: 1rem;
+  color: #333333; /* Dark text for maximum readability */
+  line-height: 1.6; /* Improved line height for readability */
+  font-size: 1rem;
 }
 
 .markdownPreview ul, .markdownPreview ol {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
+  color: #333333; /* Dark text for maximum readability */
+  line-height: 1.5; /* Improved line height for readability */
 }
 
 .markdownPreview li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem; /* Slightly more spacing between list items */
 }
 
 .markdownPreview a {
-  color: var(--cta-primary, #7E4E2D); /* Use PDF-extracted primary CTA color */
+  color: var(--pdf-secondary-color, #5F6B54); /* Use secondary color for links */
   text-decoration: none;
+  border-bottom: 1px dotted var(--pdf-secondary-color, #5F6B54); /* Subtle underline */
+  transition: all 0.2s ease;
 }
 
 .markdownPreview a:hover {
-  text-decoration: underline;
-  color: var(--cta-primary-hover, #7E4E2D); /* Use PDF-extracted primary CTA hover color */
+  color: var(--pdf-accent-color, #7E4E2D); /* Use accent color for link hover */
+  border-bottom: 1px solid var(--pdf-accent-color, #7E4E2D); /* Solid underline on hover */
 }
 
 .markdownPreview code {
-  background-color: var(--pdf-secondary-dark, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted secondary dark color */
+  background-color: rgba(0, 0, 0, 0.05); /* Light background for inline code */
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
   font-family: var(--pdf-mono-font, 'Courier New', monospace); /* Use PDF-extracted mono font */
   font-size: 0.9em;
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color for code */
 }
 
 .markdownPreview pre {
-  background-color: var(--pdf-secondary-dark, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted secondary dark color */
+  background-color: rgba(0, 0, 0, 0.05); /* Light background for code blocks */
   padding: 1rem;
   border-radius: 4px;
   overflow-x: auto;
   margin-bottom: 1rem;
-  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Add border for better definition */
 }
 
 .markdownPreview pre code {
   background-color: transparent;
   padding: 0;
+  color: #333333; /* Dark text for maximum readability */
+}
+
+.markdownPreview blockquote {
+  border-left: 3px solid var(--pdf-accent-color, #7E4E2D); /* Use accent color for blockquotes */
+  padding: 0.5rem 1rem; /* Add padding all around */
+  margin: 1rem 0;
+  font-style: italic;
+  color: #555555; /* Slightly lighter text for blockquotes */
+  background-color: rgba(0, 0, 0, 0.03); /* Very light background for blockquotes */
+  border-radius: 0 4px 4px 0; /* Rounded corners on the right side */
 }
 
 /* Loading text */
@@ -647,7 +667,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: #333333; /* Dark text for better readability */
   font-size: 1.2rem;
   margin-top: 1rem;
   font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
@@ -661,14 +681,14 @@
   justify-content: center;
   height: 60vh;
   width: 100%;
-  background-color: var(--pdf-secondary-dark, #222222); /* Use PDF-extracted secondary dark color */
+  background-color: #f8f8f8; /* Light background for better readability */
   border-radius: 4px;
-  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
 }
 
 /* Loading spinner */
 .loadingSpinner {
-  color: var(--cta-primary, #7E4E2D); /* Use PDF-extracted primary CTA color */
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color */
   width: 4rem;
   height: 4rem;
 }
@@ -933,12 +953,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 2rem;
-  background-color: var(--pdf-secondary-dark, #222222); /* Use PDF-extracted secondary dark color */
+  background-color: #f8f8f8; /* Light background for better readability */
   border-radius: 4px;
-  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
   margin-bottom: 1rem;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
 .errorIcon {
@@ -947,15 +969,28 @@
 }
 
 .errorText {
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: #333333; /* Dark text for better readability */
   text-align: center;
   margin-bottom: 1.5rem;
   font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
 }
 
+.errorSubtext {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666666;
+  font-style: italic;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
 .retryButton {
-  background-color: var(--cta-primary-bg, rgba(126, 78, 45, 0.2)); /* Use PDF-extracted primary CTA background */
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  background-color: var(--pdf-primary-color, #7E6233); /* Use primary color */
+  color: #FFFFFF; /* White text for contrast */
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -967,16 +1002,44 @@
 }
 
 .retryButton:hover {
-  background-color: var(--cta-primary-hover, #7E4E2D); /* Use PDF-extracted primary CTA hover */
-  color: #FFFFFF; /* White text for contrast */
+  background-color: var(--pdf-primary-dark, #5F4A27); /* Darker on hover */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.fallbackButton {
+  background-color: var(--pdf-secondary-color, #5F6B54); /* Use secondary color */
+  color: #FFFFFF; /* White text for contrast */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--pdf-primary-font, 'Courier New', monospace); /* Use PDF-extracted primary font */
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.fallbackButton:hover {
+  background-color: var(--pdf-secondary-dark, #4A5341); /* Darker on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.fallbackContent {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Metadata panel */
 .metadataPanel {
-  background-color: var(--pdf-secondary-dark, #222222); /* Use PDF-extracted secondary dark color */
+  background-color: #f8f8f8; /* Light background for better readability */
   border-radius: 4px;
-  border: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
   padding: 1rem;
   margin-bottom: 1.5rem;
   font-family: var(--pdf-mono-font, 'Courier New', monospace); /* Use PDF-extracted mono font */
@@ -987,9 +1050,9 @@
   font-size: 1.1rem;
   margin-top: 0;
   margin-bottom: 1rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
+  color: var(--pdf-primary-color, #7E6233); /* Use primary color */
   font-weight: bold;
-  border-bottom: 1px solid var(--pdf-border-color, rgba(255, 255, 255, 0.1)); /* Use PDF-extracted border color */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
   padding-bottom: 0.5rem;
   font-family: var(--pdf-heading-font, 'Courier New', monospace); /* Use PDF-extracted heading font */
 }
@@ -1008,14 +1071,14 @@
 
 .metadataLabel {
   font-size: 0.8rem;
-  color: var(--pdf-text-color-muted, rgba(245, 243, 231, 0.7)); /* Use PDF-extracted muted text color */
+  color: #666666; /* Muted text color */
   font-weight: bold;
 }
 
 .metadataValue {
   font-size: 0.9rem;
-  color: var(--pdf-text-color, #F5F3E7); /* Use PDF-extracted text color */
-  background-color: var(--pdf-secondary-light, rgba(255, 255, 255, 0.05)); /* Use PDF-extracted secondary light color */
+  color: #333333; /* Dark text for better readability */
+  background-color: rgba(0, 0, 0, 0.05); /* Light background */
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
   word-break: break-word;

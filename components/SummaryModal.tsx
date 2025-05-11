@@ -1288,13 +1288,32 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
-              <div className={styles.errorText}>{error}</div>
-              <button
-                onClick={() => fetchCoverLetter(true)}
-                className={styles.retryButton}
-              >
-                Try Again
-              </button>
+              <div className={styles.errorText}>
+                {error}
+                <p className={styles.errorSubtext}>Using default content for now. API connection issues may occur in development mode.</p>
+              </div>
+              <div className={styles.errorActions}>
+                <button
+                  onClick={() => fetchCoverLetter(true)}
+                  className={styles.retryButton}
+                >
+                  Try Again
+                </button>
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setLocalContent(DEFAULT_COVER_LETTER);
+                  }}
+                  className={styles.fallbackButton}
+                >
+                  Use Default Content
+                </button>
+              </div>
+
+              {/* Show default content even when there's an error */}
+              <div className={styles.fallbackContent}>
+                <ReactMarkdown>{DEFAULT_COVER_LETTER}</ReactMarkdown>
+              </div>
             </div>
           ) : (
             <>
@@ -1444,7 +1463,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setActivePreview(null)}
           content={previewContent}
           format="text"
-          fileName="pbradygeorgen_cover_letter"
+          fileName="default_pdf"
           onDownload={async () => {
             console.log('Text download triggered from preview modal');
             try {
@@ -1453,7 +1472,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
-              a.download = 'pbradygeorgen_cover_letter.txt';
+              a.download = 'default_cover_letter.txt';
               document.body.appendChild(a);
               a.click();
               document.body.removeChild(a);
