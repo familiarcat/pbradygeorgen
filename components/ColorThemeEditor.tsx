@@ -671,7 +671,7 @@ const ColorThemeEditor: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.editorWrapper}>
       <ColorThemeHeader
         onReanalyzeColors={handlePdfColorExtraction}
         isAnalyzing={isPdfAnalyzing}
@@ -754,48 +754,49 @@ const ColorThemeEditor: React.FC = () => {
           </div>
         </div>
 
-      <div className={styles.tabs}>
-        <button
-          className={`${styles.tab} ${activeTab === 'primary' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('primary')}
-        >
-          Primary
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'secondary' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('secondary')}
-        >
-          Secondary
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'accent' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('accent')}
-        >
-          Accent
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'ui' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('ui')}
-        >
-          UI
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'text' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('text')}
-        >
-          Text
-        </button>
-      </div>
+        <div className={styles.tabs}>
+          <button
+            className={`${styles.tab} ${activeTab === 'primary' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('primary')}
+          >
+            Primary
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'secondary' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('secondary')}
+          >
+            Secondary
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'accent' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('accent')}
+          >
+            Accent
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'ui' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('ui')}
+          >
+            UI
+          </button>
+          <button
+            className={`${styles.tab} ${activeTab === 'text' ? styles.activeTab : ''}`}
+            onClick={() => setActiveTab('text')}
+          >
+            Text
+          </button>
+        </div>
 
-      <div className={styles.tabContent}>
-        {activeTab === 'primary' && renderPrimaryColorsTab()}
-        {activeTab === 'secondary' && renderSecondaryColorsTab()}
-        {activeTab === 'accent' && renderAccentColorsTab()}
-        {activeTab === 'ui' && renderUIColorsTab()}
-        {activeTab === 'text' && renderTextColorsTab()}
-      </div>
+        <div className={styles.tabContent}>
+          {activeTab === 'primary' && renderPrimaryColorsTab()}
+          {activeTab === 'secondary' && renderSecondaryColorsTab()}
+          {activeTab === 'accent' && renderAccentColorsTab()}
+          {activeTab === 'ui' && renderUIColorsTab()}
+          {activeTab === 'text' && renderTextColorsTab()}
+        </div>
 
-      {renderContrastChecker()}
+        {renderContrastChecker()}
+      </div>
     </div>
   );
 };
