@@ -1,0 +1,24 @@
+node:events:502
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use ::1:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+    at listenInCluster (node:net:1965:12)
+    at GetAddrInfoReqWrap.doListen [as callback] (node:net:2139:7)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:111:8)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1944:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::1',
+  port: 3000
+}
+
+Node.js v20.19.1
+[2025-05-10 18:45:13] ⚠️ Warning: JSON view page may not be loading correctly
+[2025-05-10 18:45:13] 🎉 Application started successfully!
+[2025-05-10 18:45:13] The application is running at http://localhost:3000
+[2025-05-10 18:45:13] Press Ctrl+C to stop the server

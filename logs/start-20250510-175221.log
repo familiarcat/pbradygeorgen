@@ -1,0 +1,54 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 124ms
+🌍 Unified Environment Configuration:
+   - Environment: production
+   - Platform: local
+   - Storage Type: local
+   - Use OpenAI: false
+   - Use S3: false
+   - S3 Bucket: alexai-pdf-storage
+   - Debug Logging: false
+✅ [Basic] UnifiedStorageService initialized with local storage
+📦 Storage: Local (./public)
+PDF content is stale, refreshing...
+Error refreshing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+❌ [System] Error refreshing PDF content

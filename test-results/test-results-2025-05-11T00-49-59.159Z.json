@@ -1,0 +1,217 @@
+{
+  "startTime": "2025-05-11T00:49:59.162Z",
+  "endTime": "2025-05-11T00:50:07.053Z",
+  "suites": {
+    "pdf-extraction": {
+      "name": "pdf-extraction",
+      "startTime": "2025-05-11T00:49:59.168Z",
+      "endTime": "2025-05-11T00:49:59.626Z",
+      "duration": 458,
+      "tests": [
+        {
+          "name": "Extract PDF text",
+          "command": "node scripts/test-pdf-extraction.js",
+          "startTime": "2025-05-11T00:49:59.168Z",
+          "endTime": "2025-05-11T00:49:59.458Z",
+          "duration": 290,
+          "success": false,
+          "stdout": "\u001b[33m[2025-05-11T00:49:59.436Z] ⚠️⚡: PDF extractor not found, creating mock extractor\u001b[0m\n\u001b[33m[2025-05-11T00:49:59.442Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf\u001b[0m\n\u001b[36m[2025-05-11T00:49:59.450Z] ⏳: Creating a sample PDF for testing\u001b[0m\n\u001b[33m[2025-05-11T00:49:59.450Z] ⚠️⚡: No sample PDF found in test fixtures\u001b[0m\n\u001b[36m[2025-05-11T00:49:59.450Z] ⏳: Creating a minimal PDF with text content\u001b[0m\n\u001b[91m[2025-05-11T00:49:59.450Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'\nRequire stack:\n- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js\u001b[0m\n\u001b[91m[2025-05-11T00:49:59.450Z] 👑❄️: Cannot proceed with PDF extraction test\u001b[0m\n",
+          "stderr": ""
+        },
+        {
+          "name": "Extract PDF colors",
+          "command": "node scripts/extract-pdf-colors.js --test",
+          "startTime": "2025-05-11T00:49:59.458Z",
+          "endTime": "2025-05-11T00:49:59.579Z",
+          "duration": 121,
+          "success": false,
+          "stdout": "Extracting colors from: --test\n",
+          "stderr": "Error extracting colors: Error: ENOENT: no such file or directory, open '--test'\n    at Object.openSync (node:fs:574:18)\n    at Object.readFileSync (node:fs:453:35)\n    at extractColorsFromPDF (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-colors.js:375:36)\n    at Object.<anonymous> (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-colors.js:432:1)\n    at Module._compile (node:internal/modules/cjs/loader:1529:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49 {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '--test'\n}\nColor extraction failed: Error: ENOENT: no such file or directory, open '--test'\n    at Object.openSync (node:fs:574:18)\n    at Object.readFileSync (node:fs:453:35)\n    at extractColorsFromPDF (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-colors.js:375:36)\n    at Object.<anonymous> (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-colors.js:432:1)\n    at Module._compile (node:internal/modules/cjs/loader:1529:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49 {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '--test'\n}\n"
+        },
+        {
+          "name": "Extract PDF fonts",
+          "command": "node scripts/extract-pdf-fonts.js --test",
+          "startTime": "2025-05-11T00:49:59.579Z",
+          "endTime": "2025-05-11T00:49:59.626Z",
+          "duration": 47,
+          "success": false,
+          "stdout": "Extracting fonts from: --test\n",
+          "stderr": "Error extracting fonts: Error: ENOENT: no such file or directory, open '--test'\n    at Object.openSync (node:fs:574:18)\n    at Object.readFileSync (node:fs:453:35)\n    at extractFontsFromPDF (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-fonts.js:10:36)\n    at Object.<anonymous> (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-fonts.js:251:1)\n    at Module._compile (node:internal/modules/cjs/loader:1529:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49 {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '--test'\n}\nFont extraction failed: Error: ENOENT: no such file or directory, open '--test'\n    at Object.openSync (node:fs:574:18)\n    at Object.readFileSync (node:fs:453:35)\n    at extractFontsFromPDF (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-fonts.js:10:36)\n    at Object.<anonymous> (/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/extract-pdf-fonts.js:251:1)\n    at Module._compile (node:internal/modules/cjs/loader:1529:14)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49 {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '--test'\n}\n"
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 0,
+        "failed": 3,
+        "skipped": 0
+      }
+    },
+    "openai-integration": {
+      "name": "openai-integration",
+      "startTime": "2025-05-11T00:49:59.627Z",
+      "endTime": "2025-05-11T00:49:59.722Z",
+      "duration": 95,
+      "tests": [
+        {
+          "name": "OpenAI API connection",
+          "command": "node scripts/test-openai-connection.js",
+          "startTime": "2025-05-11T00:49:59.627Z",
+          "endTime": "2025-05-11T00:49:59.699Z",
+          "duration": 72,
+          "success": false,
+          "stdout": "\u001b[91m[2025-05-11T00:49:59.691Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'\nRequire stack:\n- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js\u001b[0m\n",
+          "stderr": ""
+        },
+        {
+          "name": "OpenAI content analysis",
+          "command": "node scripts/test-openai-analysis.js",
+          "startTime": "2025-05-11T00:49:59.700Z",
+          "endTime": "2025-05-11T00:49:59.722Z",
+          "duration": 22,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-analysis.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0
+      }
+    },
+    "download-functionality": {
+      "name": "download-functionality",
+      "startTime": "2025-05-11T00:49:59.723Z",
+      "endTime": "2025-05-11T00:50:06.909Z",
+      "duration": 7186,
+      "tests": [
+        {
+          "name": "Download functionality",
+          "command": "node scripts/test-download-functionality.js",
+          "startTime": "2025-05-11T00:49:59.723Z",
+          "endTime": "2025-05-11T00:50:06.909Z",
+          "duration": 7186,
+          "success": true,
+          "stdout": "\u001b[34m[2025-05-11T00:49:59.763Z] 🔍: Starting download functionality tests\u001b[0m\n\u001b[34m[2025-05-11T00:49:59.766Z] 🔍: Starting application in production mode...\u001b[0m\n\u001b[34m[2025-05-11T00:49:59.853Z] 🔍: Preparing environment for download tests...\u001b[0m\n\u001b[36m[2025-05-11T00:49:59.873Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...\u001b[0m\n\u001b[36m[2025-05-11T00:49:59.873Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests\u001b[0m\n\u001b[32m[2025-05-11T00:49:59.877Z] 😇🌙: Environment prepared successfully\u001b[0m\n\u001b[32m[2025-05-11T00:49:59.877Z] 😇🌙: Environment prepared, starting application...\u001b[0m\n\u001b[36m[2025-05-11T00:50:01.573Z] ⏳: App output: ✅ Server started successfully\u001b[0m\n\u001b[36m[2025-05-11T00:50:01.597Z] ⏳: App output: 🎉 Application started successfully!\u001b[0m\n\u001b[36m[2025-05-11T00:50:01.648Z] ⏳: App output: \u001b[2m[2025-05-11T00:50:01.646Z]\u001b[0m 😇☀️: \u001b[92mServer started on port 3000\u001b[0m\u001b[0m\n\u001b[36m[2025-05-11T00:50:01.648Z] ⏳: App output: \u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 😇☀️: \u001b[92mServer started on port 3000\u001b[0m\n\n\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 😇🌈: \u001b[92mApplication started successfully on port 3000\u001b[0m\u001b[0m\n\u001b[36m[2025-05-11T00:50:01.648Z] ⏳: App output: \u001b[1m\u001b[36m=== RECOMMENDATIONS ====\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 😇☀️: \u001b[92mServer started successfully\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 🧠✅: \u001b[32mContext: All server components initialized properly.\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 🧠✅: \u001b[32mThe application is running correctly and ready to process requests.\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m ⚠️💻: \u001b[33mJSON view page may not be loading correctly\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 🧠⏳: \u001b[36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 🧠⏳: \u001b[36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.\u001b[0m\n\u001b[2m[2025-05-11T00:50:01.648Z]\u001b[0m 🧠⏳: \u001b[36mRecommendation: This is a minor issue that doesn't affect the main functionality of the application. The JSON view is primarily used for debugging and development purposes.\u001b[0m\u001b[0m\n\u001b[32m[2025-05-11T00:50:01.648Z] 😇🌙: Application started successfully\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.652Z] 🔍: Starting test: Download pdf - Normal content download\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.659Z] 😇🌙: Test \"Download pdf - Normal content download\": PASSED\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.659Z] 🔍: Starting test: Download markdown - Normal content download\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.840Z] 😇🌙: Test \"Download markdown - Normal content download\": PASSED\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.840Z] 🔍: Starting test: Download text - Normal content download\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.841Z] 😇🌙: Test \"Download text - Normal content download\": PASSED\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.841Z] 🔍: Starting test: Download pdf - Empty content download (error handling)\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.844Z] ⏳: Backed up and replaced public/extracted/resume_content.md\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.844Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.846Z] 😇🌙: Test \"Download pdf - Empty content download (error handling)\": PASSED\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.847Z] ⏳: Restored public/extracted/resume_content.md from backup\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.847Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.847Z] 🔍: Starting test: Download markdown - Empty content download (error handling)\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.848Z] ⏳: Backed up and replaced public/extracted/resume_content.md\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.848Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.849Z] 😇🌙: Test \"Download markdown - Empty content download (error handling)\": PASSED\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.849Z] ⏳: Restored public/extracted/resume_content.md from backup\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.850Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup\u001b[0m\n\u001b[34m[2025-05-11T00:50:06.850Z] 🔍: Starting test: Download text - Empty content download (error handling)\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.850Z] ⏳: Backed up and replaced public/extracted/resume_content.md\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.850Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.851Z] 😇🌙: Test \"Download text - Empty content download (error handling)\": PASSED\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.851Z] ⏳: Restored public/extracted/resume_content.md from backup\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.852Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.858Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.859Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.873Z] ✅: Tests completed\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.874Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0\u001b[0m\n\u001b[36m[2025-05-11T00:50:06.874Z] ⏳: Stopping application...\u001b[0m\n\u001b[32m[2025-05-11T00:50:06.874Z] 😇🌙: Application stopped\u001b[0m\n",
+          "stderr": ""
+        }
+      ],
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "environment-setup": {
+      "name": "environment-setup",
+      "startTime": "2025-05-11T00:50:06.910Z",
+      "endTime": "2025-05-11T00:50:06.953Z",
+      "duration": 43,
+      "tests": [
+        {
+          "name": "Environment variables",
+          "command": "node scripts/test-environment-variables.js",
+          "startTime": "2025-05-11T00:50:06.911Z",
+          "endTime": "2025-05-11T00:50:06.932Z",
+          "duration": 21,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-environment-variables.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        },
+        {
+          "name": "S3 bucket setup",
+          "command": "node scripts/test-s3-bucket.js",
+          "startTime": "2025-05-11T00:50:06.932Z",
+          "endTime": "2025-05-11T00:50:06.953Z",
+          "duration": 21,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-s3-bucket.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0
+      }
+    },
+    "build-process": {
+      "name": "build-process",
+      "startTime": "2025-05-11T00:50:06.953Z",
+      "endTime": "2025-05-11T00:50:07.004Z",
+      "duration": 51,
+      "tests": [
+        {
+          "name": "Prebuild process",
+          "command": "node scripts/test-prebuild-process.js",
+          "startTime": "2025-05-11T00:50:06.953Z",
+          "endTime": "2025-05-11T00:50:06.980Z",
+          "duration": 27,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-prebuild-process.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        },
+        {
+          "name": "Build process",
+          "command": "node scripts/test-build-process.js",
+          "startTime": "2025-05-11T00:50:06.980Z",
+          "endTime": "2025-05-11T00:50:07.004Z",
+          "duration": 24,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-build-process.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0
+      }
+    },
+    "deployment": {
+      "name": "deployment",
+      "startTime": "2025-05-11T00:50:07.004Z",
+      "endTime": "2025-05-11T00:50:07.053Z",
+      "duration": 49,
+      "tests": [
+        {
+          "name": "Standalone directory",
+          "command": "node scripts/test-standalone-directory.js",
+          "startTime": "2025-05-11T00:50:07.004Z",
+          "endTime": "2025-05-11T00:50:07.028Z",
+          "duration": 24,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-standalone-directory.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        },
+        {
+          "name": "Server startup",
+          "command": "node scripts/test-server-startup.js",
+          "startTime": "2025-05-11T00:50:07.028Z",
+          "endTime": "2025-05-11T00:50:07.052Z",
+          "duration": 24,
+          "success": false,
+          "stdout": "",
+          "stderr": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-server-startup.js:2\n#!/usr/bin/env node\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1472:18)\n    at Module._compile (node:internal/modules/cjs/loader:1501:20)\n    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)\n    at Module.load (node:internal/modules/cjs/loader:1275:32)\n    at Module._load (node:internal/modules/cjs/loader:1096:12)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n    at node:internal/main/run_main_module:28:49\n\nNode.js v20.19.1\n"
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0
+      }
+    }
+  },
+  "summary": {
+    "total": 12,
+    "passed": 1,
+    "failed": 11,
+    "skipped": 0
+  },
+  "duration": 7885
+}

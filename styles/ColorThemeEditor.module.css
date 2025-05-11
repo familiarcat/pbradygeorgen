@@ -1,0 +1,335 @@
+.container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  font-family: var(--pdf-primary-font);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--pdf-text-primary);
+  font-family: var(--pdf-heading-font);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--pdf-text-secondary);
+  cursor: pointer;
+}
+
+.toggleInput {
+  margin: 0;
+}
+
+.previewToggle {
+  display: flex;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.previewButton {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.activePreview {
+  background-color: var(--pdf-primary-light, #e2e8f0);
+  color: var(--pdf-text-primary);
+  font-weight: 500;
+}
+
+.editorActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.resetButton {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.resetButton:hover {
+  background-color: #e5e7eb;
+}
+
+.analyzeButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--cta-accent, var(--pdf-accent-base, #f59e0b));
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+}
+
+.analyzeButton:hover {
+  background-color: var(--cta-accent-hover, var(--pdf-accent-dark, #d97706));
+}
+
+.analyzeButton:disabled {
+  background-color: var(--pdf-accent-lighter, #fcd34d);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.saveButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--cta-primary, var(--pdf-primary-base, #3b82f6));
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+}
+
+.saveButton:hover {
+  background-color: var(--cta-primary-hover, var(--pdf-primary-dark, #2563eb));
+}
+
+.saveButton:disabled {
+  background-color: var(--pdf-primary-lighter, #93c5fd);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.errorMessage {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.tabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pdf-text-secondary);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--pdf-text-primary);
+}
+
+.activeTab {
+  color: var(--pdf-primary-base, #3b82f6);
+  border-bottom-color: var(--pdf-primary-base, #3b82f6);
+}
+
+.tabContent {
+  margin-bottom: 2rem;
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.colorInput {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.colorLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--pdf-text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.tailwindValue {
+  font-family: var(--pdf-mono-font);
+  font-size: 0.75rem;
+  color: var(--pdf-text-secondary);
+  font-weight: normal;
+  margin-top: 0.25rem;
+}
+
+.colorInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.colorPicker {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+}
+
+.colorText {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-family: var(--pdf-mono-font);
+  font-size: 0.875rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--pdf-text-primary);
+  font-family: var(--pdf-heading-font);
+}
+
+.contrastSection {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.contrastGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.contrastItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.contrastSwatch {
+  height: 60px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.contrastInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contrastRatio {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--pdf-text-primary);
+}
+
+.accessible {
+  font-size: 0.75rem;
+  color: var(--pdf-accent-dark, #15803d);
+  font-weight: 600;
+  padding: 2px 6px;
+  background-color: rgba(21, 128, 61, 0.1);
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.notAccessible {
+  font-size: 0.75rem;
+  color: #d32f2f;
+  font-weight: 600;
+  padding: 2px 6px;
+  background-color: rgba(211, 47, 47, 0.1);
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .colorGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .contrastGrid {
+    grid-template-columns: 1fr;
+  }
+}

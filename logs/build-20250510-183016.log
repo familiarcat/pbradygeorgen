@@ -1,0 +1,288 @@
+[2025-05-10 18:30:16] 🧹 Step 2: Cleaning up previous build artifacts...
+[2025-05-10 18:30:16] 🔍 Step 3: Ensuring extracted content exists...
+🔍 Ensuring extracted content exists...
+Creating fallback resume_content.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+Creating fallback cover_letter.md: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/cover_letter.md
+Creating fallback content_fingerprint.txt: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/content_fingerprint.txt
+Creating fallback build_info.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/build_info.json
+✅ Extracted content verification completed
+[2025-05-10 18:30:16] ✅ Extracted content verification completed
+[2025-05-10 18:30:16] 🔄 Step 4: Running prebuild script...
+
+[36m[1m🔄 PDF PRE-BUILD PROCESSING[0m
+[36m=============================
+[36m[1m🔍 [Hesse:Summary:Start] Starting PDF pre-build processing[0m
+[32m😇☀️: Starting PDF pre-build processing[0m
+
+[36m[1m🔄 EXTRACTING TEXT FROM PDF[0m
+[36m=============================
+[36m[1m🔍 [Hesse:Summary:Start] Extracting text from PDF: default_resume.pdf[0m
+[32m😇☀️: Starting PDF text extraction for default_resume.pdf[0m
+[36m⏳ [Hesse:Summary:Progress] Generated content fingerprint: 21e6d762[0m
+[36m⏳ [Hesse:Summary:Progress] Using PDF.js to extract text from PDF[0m
+[32m😇☀️: Using PDF.js to extract text from PDF[0m
+[36m⏳ [Hesse:Summary:Progress] Successfully extracted text using PDF.js[0m
+[32m😇🌟: Successfully extracted text using PDF.js[0m
+[32m✅ [Hesse:Summary:Complete] Text extraction completed successfully[0m
+[32m😇🌈: Text extraction completed successfully[0m
+
+[36m[1m🔄 ANALYZING WITH OPENAI[0m
+[36m=============================
+[36m[1m🔍 [Hesse:Summary:Start] Starting OpenAI analysis[0m
+[32m😇☀️: Starting OpenAI analysis[0m
+[36m⏳ [Hesse:Summary:Progress] Using cached OpenAI analysis result[0m
+[32m😇🌟: Using cached OpenAI analysis result[0m
+
+[36m[1m🔄 GENERATING CONTENT FORMATS[0m
+[36m=============================
+[36m[1m🔍 [Hesse:Summary:Start] Generating content formats[0m
+[32m😇☀️: Starting content generation[0m
+[32m✅ [Hesse:Summary:Complete] Content generation completed successfully[0m
+[32m😇🌈: Content generation completed successfully[0m
+
+[36m[1m🔄 GENERATING TEST REPORT[0m
+[36m=============================
+[36m[1m🔍 [Hesse:Summary:Start] Generating Download Functionality Test Report[0m
+[32m😇☀️: Starting test report generation[0m
+[32m✅ [Hesse:Summary:Complete] Test report generation completed successfully[0m
+[32m😇🌈: Test report generation completed successfully[0m
+
+[32m[1m✅ PDF PRE-BUILD PROCESSING COMPLETED[0m
+[32m=============================
+Generated download formats: 6
+Total size: 15340 bytes
+All formats available: Yes
+Download test report saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/download_test_report.json
+Preview content saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/downloads/preview_content.json
+[32m✅ [Hesse:Summary:Complete] PDF pre-build processing completed successfully[0m
+[32m😇🌈: PDF pre-build processing completed successfully[0m
+[2025-05-10 18:30:16] ✅ Prebuild script completed
+[2025-05-10 18:30:16] 🎨 Step 5: Preparing application for AWS Amplify build...
+🚀 Preparing application for AWS Amplify build
+📝 Updating fonts.ts file
+✅ fonts.ts file updated
+📝 Updating layout.tsx file
+✅ layout.tsx file updated
+📝 Updating globals.css file
+✅ globals.css file updated
+📝 Updating tailwind.config.js file
+✅ tailwind.config.js file updated
+📝 Updating postcss.config.js file
+✅ postcss.config.js file updated
+📝 Updating next.config.js file
+✅ next.config.js file updated
+📝 Updating jsconfig.json file
+✅ jsconfig.json file updated
+📝 Updating DanteLogger.ts file
+✅ DanteLogger.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/axiom-demo/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/axiom-demo/page.tsx file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/dante-agile/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/dante-agile/page.tsx file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/json-view/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/json-view/page.tsx file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/test-ssr/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/test-ssr/page.tsx file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/test/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/test/page.tsx file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/upload/page.tsx file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/upload/page.tsx file updated
+📝 Updating JsonViewer.tsx file
+✅ JsonViewer.tsx file updated
+✅ DanteAgileLayout.tsx file created
+📝 Updating PDFUploader.tsx file
+✅ PDFUploader.tsx file updated
+📝 Updating serverTextUtils.ts file
+✅ serverTextUtils.ts file updated
+📝 Updating openaiService.ts file
+✅ openaiService.ts file updated
+📝 Updating HesseLogger.ts file
+✅ HesseLogger.ts file updated
+📝 Updating pdfContentProcessor.ts file
+✅ pdfContentProcessor.ts file updated
+📝 Updating ContentStateService.ts file
+✅ ContentStateService.ts file updated
+📝 Updating amplifyStorageService.ts file
+✅ amplifyStorageService.ts file updated
+📝 Updating s3PdfProcessor.ts file
+✅ s3PdfProcessor.ts file updated
+📝 Updating formatContentActions.ts file
+✅ formatContentActions.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/analyze-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/analyze-content/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/analyze-pdf-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/analyze-pdf-content/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/build-preprocess/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/build-preprocess/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/upload-pdf/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/upload-pdf/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/content-freshness/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/content-freshness/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/content-state/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/content-state/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/cover-letter/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/cover-letter/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/download/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/download/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/extract-pdf-style/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/extract-pdf-style/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/extraction-logs/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/extraction-logs/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/format-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/format-content/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-analyzed-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-analyzed-content/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-pdf-json/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-pdf-json/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-summary/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/get-summary/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/preprocess-pdf/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/preprocess-pdf/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/refresh-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/refresh-content/route.ts file updated
+📝 Updating /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/validate-content/route.ts file
+✅ /Users/bradygeorgen/Documents/workspace/pbradygeorgen/app/api/validate-content/route.ts file updated
+✅ Application prepared for AWS Amplify build
+[2025-05-10 18:30:17] ✅ Application prepared for AWS Amplify build
+[2025-05-10 18:30:17] 🏗️ Step 6: Building the application...
+   ▲ Next.js 15.3.1
+   - Environments: .env.local
+   - Experiments (use with caution):
+     ✓ memoryBasedWorkersCount
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 9.0s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/39) ...
+Extracting theme on server...
+Extracting theme on server...
+Extracting theme on server...
+Extracting theme on server...
+   Generating static pages (9/39) 
+Extracting theme on server...
+   Generating static pages (19/39) 
+   Generating static pages (29/39) 
+ ✓ Generating static pages (39/39)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    2.33 kB         117 kB
+├ ○ /_not-found                            197 B         102 kB
+├ ƒ /api/analyze-content                   197 B         102 kB
+├ ƒ /api/analyze-pdf-content               197 B         102 kB
+├ ƒ /api/build-preprocess                  197 B         102 kB
+├ ƒ /api/content-freshness                 197 B         102 kB
+├ ƒ /api/content-state                     197 B         102 kB
+├ ƒ /api/cover-letter                      197 B         102 kB
+├ ƒ /api/download                          197 B         102 kB
+├ ƒ /api/extract-pdf-style                 197 B         102 kB
+├ ƒ /api/extraction-logs                   197 B         102 kB
+├ ƒ /api/format-content                    197 B         102 kB
+├ ƒ /api/generic-cover-letter              197 B         102 kB
+├ ƒ /api/get-analyzed-content              197 B         102 kB
+├ ƒ /api/get-pdf-json                      197 B         102 kB
+├ ƒ /api/get-summary                       197 B         102 kB
+├ ƒ /api/local-storage                   2.15 kB         111 kB
+├ ƒ /api/preprocess-pdf                    197 B         102 kB
+├ ƒ /api/refresh-content                   197 B         102 kB
+├ ƒ /api/ssr-preprocess                    197 B         102 kB
+├ ƒ /api/upload-pdf                        197 B         102 kB
+├ ƒ /api/validate-content                  197 B         102 kB
+├ ○ /axiom-demo                            987 B         107 kB
+├ ○ /color-theme                         10.7 kB         123 kB
+├ ○ /content-status                      3.13 kB         109 kB
+├ ○ /dante-agile                           938 B         107 kB
+├ ○ /download-test                        230 kB         336 kB
+├ ○ /extraction-logs                     2.79 kB         105 kB
+├ ○ /json-view                             900 B         107 kB
+├ ○ /logger-test                         2.01 kB         106 kB
+├ ○ /pdf-viewer                           213 kB         336 kB
+├ ○ /sample                                185 B         115 kB
+├ ○ /test                                  820 B         106 kB
+├ ○ /test-ssr                              872 B         107 kB
+├ ○ /upload                                806 B         106 kB
+└ ○ /view                                1.72 kB         104 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1684-5ad02b6c061d6abb.js      46.2 kB
+  ├ chunks/4bd1b696-a704002058e1d56a.js  53.2 kB
+  └ other shared chunks (total)          2.85 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[2025-05-10 18:30:37] ✅ Build completed successfully
+[2025-05-10 18:30:37] 📂 Step 7: Creating standalone directory structure...
+🔍 Creating standalone directory structure...
+Creating static directory: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/static
+Copying static assets from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/static to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/.next/static
+Copying public directory from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public
+Checking for standalone-server.js at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/standalone-server.js
+Copying standalone-server.js from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/standalone-server.js to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/server.js
+✅ Copied standalone-server.js to standalone directory
+Copying index.html from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/index.html to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/index.html
+Copying enhanced-pdf-viewer.html from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/enhanced-pdf-viewer.html to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/enhanced-pdf-viewer.html
+Copying pdf-viewer.html from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/pdf-viewer.html to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/pdf-viewer.html
+✅ Standalone directory structure created successfully
+[2025-05-10 18:30:37] 🧪 Step 8: Running download functionality tests...
+[34m[2025-05-10T23:30:37.934Z] 🔍: Starting download functionality tests[0m
+[34m[2025-05-10T23:30:37.936Z] 🔍: Starting application in production mode...[0m
+[34m[2025-05-10T23:30:37.956Z] 🔍: Preparing environment for download tests...[0m
+[36m[2025-05-10T23:30:37.973Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...[0m
+[36m[2025-05-10T23:30:37.973Z] ⏳: Prepare: Creating resume_content_analyzed.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_analyzed.json[0m
+[36m[2025-05-10T23:30:37.973Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests[0m
+[32m[2025-05-10T23:30:37.975Z] 😇🌙: Environment prepared successfully[0m
+[32m[2025-05-10T23:30:37.975Z] 😇🌙: Environment prepared, starting application...[0m
+[36m[2025-05-10T23:30:39.254Z] ⏳: App output: ✅ Server started successfully[0m
+[36m[2025-05-10T23:30:39.298Z] ⏳: App output: 🎉 Application started successfully![0m
+[36m[2025-05-10T23:30:39.320Z] ⏳: App output: [2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started on port 3000[0m[0m
+[36m[2025-05-10T23:30:39.321Z] ⏳: App output: [2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started on port 3000[0m
+
+
+[2m[2025-05-10T23:30:39.320Z][0m 😇🌈: [92mApplication started successfully on port 3000[0m
+
+
+[1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started successfully[0m[0m
+[36m[2025-05-10T23:30:39.321Z] ⏳: App output: [2m[2025-05-10T23:30:39.321Z][0m 🧠✅: [32mContext: All server components initialized properly.[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠✅: [32mThe application is running correctly and ready to process requests.[0m
+[2m[2025-05-10T23:30:39.321Z][0m ⚠️💻: [33mJSON view page may not be loading correctly[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠⏳: [36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠⏳: [36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.[0m[0m
+[32m[2025-05-10T23:30:39.321Z] 😇🌙: Application started successfully[0m
+[34m[2025-05-10T23:30:44.323Z] 🔍: Starting test: Download pdf - Normal content download[0m
+[32m[2025-05-10T23:30:44.324Z] 😇🌙: Test "Download pdf - Normal content download": PASSED[0m
+[34m[2025-05-10T23:30:44.324Z] 🔍: Starting test: Download markdown - Normal content download[0m
+[32m[2025-05-10T23:30:44.348Z] 😇🌙: Test "Download markdown - Normal content download": PASSED[0m
+[34m[2025-05-10T23:30:44.348Z] 🔍: Starting test: Download text - Normal content download[0m
+[32m[2025-05-10T23:30:44.349Z] 😇🌙: Test "Download text - Normal content download": PASSED[0m
+[34m[2025-05-10T23:30:44.349Z] 🔍: Starting test: Download pdf - Empty content download (error handling)[0m
+[36m[2025-05-10T23:30:44.349Z] ⏳: Backed up and replaced public/extracted/resume_content.md[0m
+[36m[2025-05-10T23:30:44.350Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json[0m
+[32m[2025-05-10T23:30:44.350Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED[0m
+[36m[2025-05-10T23:30:44.350Z] ⏳: Restored public/extracted/resume_content.md from backup[0m
+[36m[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup[0m
+[34m[2025-05-10T23:30:44.351Z] 🔍: Starting test: Download markdown - Empty content download (error handling)[0m
+[36m[2025-05-10T23:30:44.351Z] ⏳: Backed up and replaced public/extracted/resume_content.md[0m
+[36m[2025-05-10T23:30:44.351Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json[0m
+[32m[2025-05-10T23:30:44.351Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED[0m
+[36m[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content.md from backup[0m
+[36m[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup[0m
+[34m[2025-05-10T23:30:44.351Z] 🔍: Starting test: Download text - Empty content download (error handling)[0m
+[36m[2025-05-10T23:30:44.352Z] ⏳: Backed up and replaced public/extracted/resume_content.md[0m
+[36m[2025-05-10T23:30:44.352Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json[0m
+[32m[2025-05-10T23:30:44.352Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED[0m
+[36m[2025-05-10T23:30:44.352Z] ⏳: Restored public/extracted/resume_content.md from backup[0m
+[36m[2025-05-10T23:30:44.352Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup[0m
+[32m[2025-05-10T23:30:44.353Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json[0m
+[32m[2025-05-10T23:30:44.354Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html[0m
+[32m[2025-05-10T23:30:44.355Z] ✅: Tests completed[0m
+[36m[2025-05-10T23:30:44.355Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0[0m
+[36m[2025-05-10T23:30:44.355Z] ⏳: Stopping application...[0m
+[32m[2025-05-10T23:30:44.355Z] 😇🌙: Application stopped[0m
+[2025-05-10 18:30:44] 🎉 Build completed successfully!
+[2025-05-10 18:30:44] You can now run 'npm start' to start the application
+[2025-05-10 18:30:44] Build log saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/logs/build-20250510-183016.log

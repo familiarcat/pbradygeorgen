@@ -1,0 +1,1077 @@
+[2025-05-10T23:10:34.871Z] 👑❄️: Failed to import PDF extractor: Cannot find module '../src/pdf/extraction/pdfExtractor'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:10:56.700Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:10:56.736Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:10:56.736Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:10:56.736Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:10:56.736Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:10:56.737Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:10:56.737Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:14:45.580Z] 🔍: Starting download functionality tests
+[2025-05-10T23:14:45.582Z] 🔍: Starting application in production mode...
+[2025-05-10T23:14:45.603Z] 🔍: Preparing environment for download tests...
+[2025-05-10T23:14:45.623Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-10T23:14:45.624Z] ⏳: Prepare: Creating resume_content_analyzed.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_analyzed.json
+[2025-05-10T23:14:45.624Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-10T23:14:45.627Z] 😇🌙: Environment prepared successfully
+[2025-05-10T23:14:45.627Z] 😇🌙: Environment prepared, starting application...
+[2025-05-10T23:14:45.768Z] 👑💢: App error: npm error Missing script: "amplify:local"
+npm error
+npm error Did you mean one of these?
+npm error   npm run amplify:build # run the "amplify:build" package script
+npm error   npm run amplify:test # run the "amplify:test" package script
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+[2025-05-10T23:14:45.769Z] 👑💢: App error: npm error A complete log of this run can be found in: /Users/bradygeorgen/.npm/_logs/2025-05-10T23_14_45_717Z-debug-0.log
+[2025-05-10T23:14:45.771Z] 👑💢: Application process exited with code 1
+[2025-05-10T23:14:45.772Z] 👑💢: Test execution error: Process exited with code 1
+[2025-05-10T23:14:45.772Z] ⏳: Stopping application...
+[2025-05-10T23:14:45.773Z] 👑💢: Unhandled error: kill ESRCH
+[2025-05-10T23:15:19.487Z] 🔍: Starting unified test runner
+[2025-05-10T23:15:19.496Z] 🔍: Running unified test harness for suite: download-functionality
+[2025-05-10T23:15:19.524Z] 🔍: Starting unified test harness
+[2025-05-10T23:15:19.528Z] ⏳: Environment: development
+[2025-05-10T23:15:19.528Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-10T23:15:19.528Z] 🔍: Running test suite: pdf-extraction
+[2025-05-10T23:15:19.529Z] ⏳: Running test: Extract PDF text
+[2025-05-10T23:15:19.529Z] 🔍: Running command: node scripts/test-pdf-extraction.js
+[2025-05-10T23:15:19.558Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:15:19.562Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:15:19.562Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:15:19.562Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:15:19.562Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:15:19.562Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:15:19.562Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:15:19.565Z] 👑💢: Command failed with code 1 in 36ms
+[2025-05-10T23:15:19.566Z] 👑💢: Test failed: Extract PDF text (37ms)
+[2025-05-10T23:15:19.566Z] ⏳: Running test: Extract PDF colors
+[2025-05-10T23:15:19.566Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-10T23:15:19.645Z] 👑💢: Command failed with code 1 in 79ms
+[2025-05-10T23:15:19.645Z] 👑💢: Test failed: Extract PDF colors (79ms)
+[2025-05-10T23:15:19.646Z] ⏳: Running test: Extract PDF fonts
+[2025-05-10T23:15:19.646Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-10T23:15:19.708Z] 👑💢: Command failed with code 1 in 62ms
+[2025-05-10T23:15:19.708Z] 👑💢: Test failed: Extract PDF fonts (62ms)
+[2025-05-10T23:15:19.708Z] 👑❄️: Test suite failed: pdf-extraction (179ms)
+[2025-05-10T23:15:19.709Z] 🔍: Running test suite: openai-integration
+[2025-05-10T23:15:19.709Z] ⏳: Running test: OpenAI API connection
+[2025-05-10T23:15:19.709Z] 🔍: Running command: node scripts/test-openai-connection.js
+[2025-05-10T23:15:19.737Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-10T23:15:19.742Z] 👑💢: Command failed with code 1 in 33ms
+[2025-05-10T23:15:19.742Z] 👑💢: Test failed: OpenAI API connection (33ms)
+[2025-05-10T23:15:19.742Z] ⏳: Running test: OpenAI content analysis
+[2025-05-10T23:15:19.745Z] ⚠️🪨: Test script not found: scripts/test-openai-analysis.js
+[2025-05-10T23:15:19.746Z] ⏳: Created placeholder test script: scripts/test-openai-analysis.js
+[2025-05-10T23:15:19.746Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-10T23:15:19.770Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-10T23:15:19.770Z] 👑💢: Test failed: OpenAI content analysis (28ms)
+[2025-05-10T23:15:19.770Z] 👑❄️: Test suite failed: openai-integration (61ms)
+[2025-05-10T23:15:19.770Z] 🔍: Running test suite: download-functionality
+[2025-05-10T23:15:19.770Z] ⏳: Running test: Download functionality
+[2025-05-10T23:15:19.770Z] 🔍: Running command: node scripts/test-download-functionality.js
+[2025-05-10T23:15:19.825Z] 🔍: Starting download functionality tests
+[2025-05-10T23:15:19.831Z] 🔍: Starting application in production mode...
+[2025-05-10T23:15:19.902Z] 🔍: Preparing environment for download tests...
+[2025-05-10T23:15:19.948Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-10T23:15:19.949Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-10T23:15:19.957Z] 😇🌙: Environment prepared successfully
+[2025-05-10T23:15:19.957Z] 😇🌙: Environment prepared, starting application...
+[2025-05-10T23:15:20.152Z] 👑💢: App error: npm error Missing script: "amplify:local"
+npm error
+npm error Did you mean one of these?
+npm error   npm run amplify:build # run the "amplify:build" package script
+npm error   npm run amplify:test # run the "amplify:test" package script
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+[2025-05-10T23:15:20.153Z] 👑💢: App error: npm error A complete log of this run can be found in: /Users/bradygeorgen/.npm/_logs/2025-05-10T23_15_20_036Z-debug-0.log
+[2025-05-10T23:15:20.154Z] 👑💢: Application process exited with code 1
+[2025-05-10T23:15:20.155Z] 👑💢: Test execution error: Process exited with code 1
+[2025-05-10T23:15:20.155Z] ⏳: Stopping application...
+[2025-05-10T23:15:20.165Z] 👑💢: Unhandled error: kill ESRCH
+[2025-05-10T23:15:20.167Z] 👑💢: Command failed with code 1 in 397ms
+[2025-05-10T23:15:20.167Z] 👑💢: Test failed: Download functionality (397ms)
+[2025-05-10T23:15:20.167Z] 👑❄️: Test suite failed: download-functionality (397ms)
+[2025-05-10T23:15:20.167Z] 🔍: Running test suite: environment-setup
+[2025-05-10T23:15:20.167Z] ⏳: Running test: Environment variables
+[2025-05-10T23:15:20.167Z] ⚠️🪨: Test script not found: scripts/test-environment-variables.js
+[2025-05-10T23:15:20.168Z] ⏳: Created placeholder test script: scripts/test-environment-variables.js
+[2025-05-10T23:15:20.168Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-10T23:15:20.194Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-10T23:15:20.194Z] 👑💢: Test failed: Environment variables (27ms)
+[2025-05-10T23:15:20.195Z] ⏳: Running test: S3 bucket setup
+[2025-05-10T23:15:20.195Z] ⚠️🪨: Test script not found: scripts/test-s3-bucket.js
+[2025-05-10T23:15:20.195Z] ⏳: Created placeholder test script: scripts/test-s3-bucket.js
+[2025-05-10T23:15:20.195Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-10T23:15:20.219Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-10T23:15:20.219Z] 👑💢: Test failed: S3 bucket setup (24ms)
+[2025-05-10T23:15:20.219Z] 👑❄️: Test suite failed: environment-setup (52ms)
+[2025-05-10T23:15:20.219Z] 🔍: Running test suite: build-process
+[2025-05-10T23:15:20.219Z] ⏳: Running test: Prebuild process
+[2025-05-10T23:15:20.219Z] ⚠️🪨: Test script not found: scripts/test-prebuild-process.js
+[2025-05-10T23:15:20.220Z] ⏳: Created placeholder test script: scripts/test-prebuild-process.js
+[2025-05-10T23:15:20.220Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-10T23:15:20.241Z] 👑💢: Command failed with code 1 in 21ms
+[2025-05-10T23:15:20.242Z] 👑💢: Test failed: Prebuild process (23ms)
+[2025-05-10T23:15:20.242Z] ⏳: Running test: Build process
+[2025-05-10T23:15:20.242Z] ⚠️🪨: Test script not found: scripts/test-build-process.js
+[2025-05-10T23:15:20.242Z] ⏳: Created placeholder test script: scripts/test-build-process.js
+[2025-05-10T23:15:20.242Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-10T23:15:20.265Z] 👑💢: Command failed with code 1 in 23ms
+[2025-05-10T23:15:20.265Z] 👑💢: Test failed: Build process (23ms)
+[2025-05-10T23:15:20.265Z] 👑❄️: Test suite failed: build-process (46ms)
+[2025-05-10T23:15:20.265Z] 🔍: Running test suite: deployment
+[2025-05-10T23:15:20.265Z] ⏳: Running test: Standalone directory
+[2025-05-10T23:15:20.265Z] ⚠️🪨: Test script not found: scripts/test-standalone-directory.js
+[2025-05-10T23:15:20.266Z] ⏳: Created placeholder test script: scripts/test-standalone-directory.js
+[2025-05-10T23:15:20.266Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-10T23:15:20.290Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-10T23:15:20.290Z] 👑💢: Test failed: Standalone directory (25ms)
+[2025-05-10T23:15:20.290Z] ⏳: Running test: Server startup
+[2025-05-10T23:15:20.291Z] ⚠️🪨: Test script not found: scripts/test-server-startup.js
+[2025-05-10T23:15:20.291Z] ⏳: Created placeholder test script: scripts/test-server-startup.js
+[2025-05-10T23:15:20.291Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-10T23:15:20.311Z] 👑💢: Command failed with code 1 in 20ms
+[2025-05-10T23:15:20.311Z] 👑💢: Test failed: Server startup (20ms)
+[2025-05-10T23:15:20.311Z] 👑❄️: Test suite failed: deployment (46ms)
+[2025-05-10T23:15:20.332Z] ✅: Test harness completed in 783ms
+[2025-05-10T23:15:20.332Z] ✅: Total tests: 12
+[2025-05-10T23:15:20.332Z] ✅: Passed: 0
+[2025-05-10T23:15:20.332Z] ✅: Failed: 12
+[2025-05-10T23:15:20.332Z] ✅: Skipped: 0
+[2025-05-10T23:15:20.332Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-10T23-15-19.523Z.json
+[2025-05-10T23:15:20.332Z] 👑❄️: Some tests failed
+[2025-05-10T23:15:20.334Z] 👑❄️: Test harness failed with code 1 for suite: download-functionality
+[2025-05-10T23:15:20.335Z] 👑❄️: Test suite download-functionality failed
+[2025-05-10T23:15:41.738Z] 🔍: Starting download functionality tests
+[2025-05-10T23:15:41.794Z] 🔍: Starting application in production mode...
+[2025-05-10T23:15:41.918Z] 🔍: Preparing environment for download tests...
+[2025-05-10T23:15:41.947Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-10T23:15:41.948Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-10T23:15:41.973Z] 😇🌙: Environment prepared successfully
+[2025-05-10T23:15:41.973Z] 😇🌙: Environment prepared, starting application...
+[2025-05-10T23:15:42.541Z] 👑💢: App error: npm error Missing script: "amplify:local"
+npm error
+npm error Did you mean one of these?
+npm error   npm run amplify:build # run the "amplify:build" package script
+npm error   npm run amplify:test # run the "amplify:test" package script
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+[2025-05-10T23:15:42.544Z] 👑💢: App error: npm error A complete log of this run can be found in: /Users/bradygeorgen/.npm/_logs/2025-05-10T23_15_42_336Z-debug-0.log
+[2025-05-10T23:15:42.546Z] 👑💢: Application process exited with code 1
+[2025-05-10T23:15:42.547Z] 👑💢: Test execution error: Process exited with code 1
+[2025-05-10T23:15:42.547Z] ⏳: Stopping application...
+[2025-05-10T23:15:42.548Z] 👑💢: Unhandled error: kill ESRCH
+[2025-05-10T23:16:37.341Z] 🔍: Starting download functionality tests
+[2025-05-10T23:16:37.346Z] 🔍: Starting application in production mode...
+[2025-05-10T23:16:37.361Z] ⚠️⚡: Application is already running
+[2025-05-10T23:16:37.362Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:16:37.365Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:16:37.365Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:16:37.412Z] 👑💢: Test "Download markdown - Normal content download": FAILED
+[2025-05-10T23:16:37.412Z] 👑💢: Error details: Missing expected patterns: # Professional Resume, This document was automatically extracted
+[2025-05-10T23:16:37.412Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:16:37.412Z] 👑💢: Test "Download text - Normal content download": FAILED
+[2025-05-10T23:16:37.413Z] 👑💢: Error details: Missing expected patterns: Professional Resume, This document was automatically extracted
+[2025-05-10T23:16:37.413Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:16:37.414Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:37.414Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:37.414Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:37.415Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:37.415Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:37.415Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:16:37.415Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:37.415Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:37.416Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:37.416Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:37.416Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:37.416Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:16:37.416Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:37.416Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:37.418Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:37.419Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:37.419Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:37.428Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:16:37.429Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:16:37.430Z] ✅: Tests completed
+[2025-05-10T23:16:37.430Z] ⏳: Total: 6, Passed: 4, Failed: 2, Skipped: 0
+[2025-05-10T23:16:58.817Z] 🔍: Starting download functionality tests
+[2025-05-10T23:16:58.837Z] 🔍: Starting application in production mode...
+[2025-05-10T23:16:58.942Z] ⚠️⚡: Application is already running
+[2025-05-10T23:16:58.942Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:16:58.945Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:16:58.945Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:16:58.958Z] 👑💢: Test "Download markdown - Normal content download": FAILED
+[2025-05-10T23:16:58.958Z] 👑💢: Error details: Missing expected patterns: Resume, experience
+[2025-05-10T23:16:58.958Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:16:58.959Z] 👑💢: Test "Download text - Normal content download": FAILED
+[2025-05-10T23:16:58.959Z] 👑💢: Error details: Missing expected patterns: Resume, experience
+[2025-05-10T23:16:58.959Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:16:58.960Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:58.963Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:58.964Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:58.965Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:58.966Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:58.966Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:16:58.967Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:58.968Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:58.970Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:58.971Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:58.972Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:58.972Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:16:58.973Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:16:58.973Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:16:58.974Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:16:58.974Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:16:58.975Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:16:58.977Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:16:58.999Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:16:59.000Z] ✅: Tests completed
+[2025-05-10T23:16:59.000Z] ⏳: Total: 6, Passed: 4, Failed: 2, Skipped: 0
+[2025-05-10T23:17:36.018Z] 🔍: Starting download functionality tests
+[2025-05-10T23:17:36.048Z] 🔍: Starting application in production mode...
+[2025-05-10T23:17:36.177Z] ⚠️⚡: Application is already running
+[2025-05-10T23:17:36.177Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:17:36.182Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:17:36.183Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:17:36.285Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:17:36.285Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:17:36.286Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:17:36.286Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:17:36.287Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:17:36.287Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:17:36.288Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:17:36.288Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:17:36.288Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:17:36.288Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:17:36.289Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:17:36.289Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:17:36.290Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:17:36.292Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:17:36.292Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:17:36.293Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:17:36.294Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:17:36.294Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:17:36.294Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:17:36.294Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:17:36.294Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:17:36.297Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:17:36.368Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:17:36.369Z] ✅: Tests completed
+[2025-05-10T23:17:36.369Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:18:31.629Z] 🔍: Starting unified test runner
+[2025-05-10T23:18:31.645Z] 🔍: Running unified test harness for suite: download-functionality
+[2025-05-10T23:18:31.672Z] 🔍: Starting unified test harness
+[2025-05-10T23:18:31.676Z] ⏳: Environment: development
+[2025-05-10T23:18:31.677Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-10T23:18:31.677Z] 🔍: Running test suite: pdf-extraction
+[2025-05-10T23:18:31.677Z] ⏳: Running test: Extract PDF text
+[2025-05-10T23:18:31.677Z] 🔍: Running command: node scripts/test-pdf-extraction.js
+[2025-05-10T23:18:31.706Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:18:31.710Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:18:31.710Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:18:31.710Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:18:31.710Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:18:31.710Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:18:31.710Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:18:31.713Z] 👑💢: Command failed with code 1 in 36ms
+[2025-05-10T23:18:31.713Z] 👑💢: Test failed: Extract PDF text (36ms)
+[2025-05-10T23:18:31.713Z] ⏳: Running test: Extract PDF colors
+[2025-05-10T23:18:31.713Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-10T23:18:31.773Z] 👑💢: Command failed with code 1 in 60ms
+[2025-05-10T23:18:31.774Z] 👑💢: Test failed: Extract PDF colors (61ms)
+[2025-05-10T23:18:31.774Z] ⏳: Running test: Extract PDF fonts
+[2025-05-10T23:18:31.774Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-10T23:18:31.826Z] 👑💢: Command failed with code 1 in 52ms
+[2025-05-10T23:18:31.827Z] 👑💢: Test failed: Extract PDF fonts (53ms)
+[2025-05-10T23:18:31.827Z] 👑❄️: Test suite failed: pdf-extraction (150ms)
+[2025-05-10T23:18:31.827Z] 🔍: Running test suite: openai-integration
+[2025-05-10T23:18:31.827Z] ⏳: Running test: OpenAI API connection
+[2025-05-10T23:18:31.827Z] 🔍: Running command: node scripts/test-openai-connection.js
+[2025-05-10T23:18:31.847Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-10T23:18:31.851Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-10T23:18:31.851Z] 👑💢: Test failed: OpenAI API connection (24ms)
+[2025-05-10T23:18:31.851Z] ⏳: Running test: OpenAI content analysis
+[2025-05-10T23:18:31.851Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-10T23:18:31.877Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-10T23:18:31.877Z] 👑💢: Test failed: OpenAI content analysis (26ms)
+[2025-05-10T23:18:31.878Z] 👑❄️: Test suite failed: openai-integration (51ms)
+[2025-05-10T23:18:31.878Z] 🔍: Running test suite: download-functionality
+[2025-05-10T23:18:31.878Z] ⏳: Running test: Download functionality
+[2025-05-10T23:18:31.878Z] 🔍: Running command: node scripts/test-download-functionality.js
+[2025-05-10T23:18:31.911Z] 🔍: Starting download functionality tests
+[2025-05-10T23:18:31.925Z] 🔍: Starting application in production mode...
+[2025-05-10T23:18:32.042Z] ⚠️⚡: Application is already running
+[2025-05-10T23:18:32.042Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:18:32.045Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:18:32.046Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:18:32.206Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:18:32.207Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:18:32.208Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:18:32.208Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:18:32.209Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:18:32.210Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:18:32.210Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:18:32.211Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:18:32.211Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:18:32.211Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:18:32.211Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:18:32.211Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:18:32.212Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:18:32.212Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:18:32.212Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:18:32.212Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:18:32.213Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:18:32.213Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:18:32.213Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:18:32.213Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:18:32.213Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:18:32.219Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:18:32.219Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:18:32.220Z] ✅: Tests completed
+[2025-05-10T23:18:32.220Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:18:32.222Z] 😇☀️: Command completed successfully in 344ms
+[2025-05-10T23:18:32.222Z] 😇☀️: Test passed: Download functionality (344ms)
+[2025-05-10T23:18:32.222Z] 😇🌈: Test suite passed: download-functionality (344ms)
+[2025-05-10T23:18:32.222Z] 🔍: Running test suite: environment-setup
+[2025-05-10T23:18:32.222Z] ⏳: Running test: Environment variables
+[2025-05-10T23:18:32.222Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-10T23:18:32.253Z] 👑💢: Command failed with code 1 in 31ms
+[2025-05-10T23:18:32.253Z] 👑💢: Test failed: Environment variables (31ms)
+[2025-05-10T23:18:32.253Z] ⏳: Running test: S3 bucket setup
+[2025-05-10T23:18:32.253Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-10T23:18:32.278Z] 👑💢: Command failed with code 1 in 25ms
+[2025-05-10T23:18:32.279Z] 👑💢: Test failed: S3 bucket setup (26ms)
+[2025-05-10T23:18:32.279Z] 👑❄️: Test suite failed: environment-setup (57ms)
+[2025-05-10T23:18:32.279Z] 🔍: Running test suite: build-process
+[2025-05-10T23:18:32.279Z] ⏳: Running test: Prebuild process
+[2025-05-10T23:18:32.279Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-10T23:18:32.309Z] 👑💢: Command failed with code 1 in 30ms
+[2025-05-10T23:18:32.309Z] 👑💢: Test failed: Prebuild process (30ms)
+[2025-05-10T23:18:32.309Z] ⏳: Running test: Build process
+[2025-05-10T23:18:32.309Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-10T23:18:32.338Z] 👑💢: Command failed with code 1 in 29ms
+[2025-05-10T23:18:32.339Z] 👑💢: Test failed: Build process (30ms)
+[2025-05-10T23:18:32.339Z] 👑❄️: Test suite failed: build-process (60ms)
+[2025-05-10T23:18:32.339Z] 🔍: Running test suite: deployment
+[2025-05-10T23:18:32.339Z] ⏳: Running test: Standalone directory
+[2025-05-10T23:18:32.339Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-10T23:18:32.361Z] 👑💢: Command failed with code 1 in 22ms
+[2025-05-10T23:18:32.361Z] 👑💢: Test failed: Standalone directory (22ms)
+[2025-05-10T23:18:32.361Z] ⏳: Running test: Server startup
+[2025-05-10T23:18:32.361Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-10T23:18:32.398Z] 👑💢: Command failed with code 1 in 37ms
+[2025-05-10T23:18:32.398Z] 👑💢: Test failed: Server startup (37ms)
+[2025-05-10T23:18:32.398Z] 👑❄️: Test suite failed: deployment (59ms)
+[2025-05-10T23:18:32.400Z] ✅: Test harness completed in 721ms
+[2025-05-10T23:18:32.400Z] ✅: Total tests: 12
+[2025-05-10T23:18:32.401Z] ✅: Passed: 1
+[2025-05-10T23:18:32.401Z] ✅: Failed: 11
+[2025-05-10T23:18:32.401Z] ✅: Skipped: 0
+[2025-05-10T23:18:32.401Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-10T23-18-31.670Z.json
+[2025-05-10T23:18:32.401Z] 👑❄️: Some tests failed
+[2025-05-10T23:18:32.403Z] 👑❄️: Test harness failed with code 1 for suite: download-functionality
+[2025-05-10T23:18:32.404Z] 👑❄️: Test suite download-functionality failed
+[2025-05-10T23:20:19.663Z] 🔍: Starting unified test runner
+[2025-05-10T23:20:19.671Z] 🔍: Running unified test harness for suite: download-functionality
+[2025-05-10T23:20:19.702Z] 🔍: Starting unified test harness
+[2025-05-10T23:20:19.705Z] ⏳: Environment: development
+[2025-05-10T23:20:19.706Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-10T23:20:19.707Z] 🔍: Running test suite: pdf-extraction
+[2025-05-10T23:20:19.708Z] ⏳: Running test: Extract PDF text
+[2025-05-10T23:20:19.708Z] 🔍: Running command: node scripts/test-pdf-extraction.js
+[2025-05-10T23:20:19.729Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:20:19.733Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:20:19.734Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:20:19.735Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:20:19.735Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:20:19.736Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:20:19.737Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:20:19.742Z] 👑💢: Command failed with code 1 in 34ms
+[2025-05-10T23:20:19.742Z] 👑💢: Test failed: Extract PDF text (34ms)
+[2025-05-10T23:20:19.742Z] ⏳: Running test: Extract PDF colors
+[2025-05-10T23:20:19.742Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-10T23:20:19.797Z] 👑💢: Command failed with code 1 in 55ms
+[2025-05-10T23:20:19.797Z] 👑💢: Test failed: Extract PDF colors (55ms)
+[2025-05-10T23:20:19.797Z] ⏳: Running test: Extract PDF fonts
+[2025-05-10T23:20:19.797Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-10T23:20:19.846Z] 👑💢: Command failed with code 1 in 49ms
+[2025-05-10T23:20:19.847Z] 👑💢: Test failed: Extract PDF fonts (50ms)
+[2025-05-10T23:20:19.847Z] 👑❄️: Test suite failed: pdf-extraction (139ms)
+[2025-05-10T23:20:19.847Z] 🔍: Running test suite: openai-integration
+[2025-05-10T23:20:19.847Z] ⏳: Running test: OpenAI API connection
+[2025-05-10T23:20:19.847Z] 🔍: Running command: node scripts/test-openai-connection.js
+[2025-05-10T23:20:19.869Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-10T23:20:19.874Z] 👑💢: Command failed with code 1 in 27ms
+[2025-05-10T23:20:19.874Z] 👑💢: Test failed: OpenAI API connection (27ms)
+[2025-05-10T23:20:19.874Z] ⏳: Running test: OpenAI content analysis
+[2025-05-10T23:20:19.875Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-10T23:20:19.899Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-10T23:20:19.899Z] 👑💢: Test failed: OpenAI content analysis (24ms)
+[2025-05-10T23:20:19.899Z] 👑❄️: Test suite failed: openai-integration (52ms)
+[2025-05-10T23:20:19.899Z] 🔍: Running test suite: download-functionality
+[2025-05-10T23:20:19.900Z] ⏳: Running test: Download functionality
+[2025-05-10T23:20:19.900Z] 🔍: Running command: node scripts/test-download-functionality.js
+[2025-05-10T23:20:19.941Z] 🔍: Starting download functionality tests
+[2025-05-10T23:20:19.944Z] 🔍: Starting application in production mode...
+[2025-05-10T23:20:20.016Z] ⚠️⚡: Application is already running
+[2025-05-10T23:20:20.016Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:20:20.030Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:20:20.030Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:20:20.107Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:20:20.108Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:20:20.109Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:20:20.109Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:20:20.112Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:20:20.116Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:20:20.117Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:20:20.118Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:20:20.118Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:20:20.119Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:20:20.120Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:20:20.121Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:20:20.122Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:20:20.123Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:20:20.123Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:20:20.123Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:20:20.124Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:20:20.126Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:20:20.126Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:20:20.127Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:20:20.127Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:20:20.130Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:20:20.130Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:20:20.131Z] ✅: Tests completed
+[2025-05-10T23:20:20.131Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:20:20.133Z] 😇☀️: Command completed successfully in 233ms
+[2025-05-10T23:20:20.133Z] 😇☀️: Test passed: Download functionality (233ms)
+[2025-05-10T23:20:20.133Z] 😇🌈: Test suite passed: download-functionality (234ms)
+[2025-05-10T23:20:20.133Z] 🔍: Running test suite: environment-setup
+[2025-05-10T23:20:20.133Z] ⏳: Running test: Environment variables
+[2025-05-10T23:20:20.134Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-10T23:20:20.166Z] 👑💢: Command failed with code 1 in 32ms
+[2025-05-10T23:20:20.166Z] 👑💢: Test failed: Environment variables (33ms)
+[2025-05-10T23:20:20.168Z] ⏳: Running test: S3 bucket setup
+[2025-05-10T23:20:20.168Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-10T23:20:20.193Z] 👑💢: Command failed with code 1 in 25ms
+[2025-05-10T23:20:20.193Z] 👑💢: Test failed: S3 bucket setup (25ms)
+[2025-05-10T23:20:20.193Z] 👑❄️: Test suite failed: environment-setup (60ms)
+[2025-05-10T23:20:20.193Z] 🔍: Running test suite: build-process
+[2025-05-10T23:20:20.193Z] ⏳: Running test: Prebuild process
+[2025-05-10T23:20:20.194Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-10T23:20:20.219Z] 👑💢: Command failed with code 1 in 25ms
+[2025-05-10T23:20:20.219Z] 👑💢: Test failed: Prebuild process (25ms)
+[2025-05-10T23:20:20.219Z] ⏳: Running test: Build process
+[2025-05-10T23:20:20.219Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-10T23:20:20.247Z] 👑💢: Command failed with code 1 in 28ms
+[2025-05-10T23:20:20.248Z] 👑💢: Test failed: Build process (29ms)
+[2025-05-10T23:20:20.248Z] 👑❄️: Test suite failed: build-process (55ms)
+[2025-05-10T23:20:20.249Z] 🔍: Running test suite: deployment
+[2025-05-10T23:20:20.249Z] ⏳: Running test: Standalone directory
+[2025-05-10T23:20:20.249Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-10T23:20:20.294Z] 👑💢: Command failed with code 1 in 45ms
+[2025-05-10T23:20:20.294Z] 👑💢: Test failed: Standalone directory (45ms)
+[2025-05-10T23:20:20.295Z] ⏳: Running test: Server startup
+[2025-05-10T23:20:20.297Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-10T23:20:20.347Z] 👑💢: Command failed with code 1 in 50ms
+[2025-05-10T23:20:20.347Z] 👑💢: Test failed: Server startup (50ms)
+[2025-05-10T23:20:20.349Z] 👑❄️: Test suite failed: deployment (100ms)
+[2025-05-10T23:20:20.353Z] ✅: Test harness completed in 643ms
+[2025-05-10T23:20:20.353Z] ✅: Total tests: 12
+[2025-05-10T23:20:20.355Z] ✅: Passed: 1
+[2025-05-10T23:20:20.356Z] ✅: Failed: 11
+[2025-05-10T23:20:20.357Z] ✅: Skipped: 0
+[2025-05-10T23:20:20.359Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-10T23-20-19.701Z.json
+[2025-05-10T23:20:20.363Z] 👑❄️: Some tests failed
+[2025-05-10T23:20:20.373Z] 👑❄️: Test harness failed with code 1 for suite: download-functionality
+[2025-05-10T23:20:20.377Z] 👑❄️: Test suite download-functionality failed
+[2025-05-10T23:23:37.308Z] 🔍: Starting unified test runner
+[2025-05-10T23:23:37.314Z] 🔍: Running unified test harness for suite: download-functionality
+[2025-05-10T23:23:37.338Z] 🔍: Starting unified test harness
+[2025-05-10T23:23:37.341Z] ⏳: Environment: development
+[2025-05-10T23:23:37.342Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-10T23:23:37.344Z] 🔍: Running test suite: pdf-extraction
+[2025-05-10T23:23:37.344Z] ⏳: Running test: Extract PDF text
+[2025-05-10T23:23:37.346Z] 🔍: Running command: ./scripts/test-pdf-extraction.js 
+[2025-05-10T23:23:38.294Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:23:38.317Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:23:38.318Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:23:38.319Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:23:38.320Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:23:38.320Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:23:38.321Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:23:38.327Z] 👑💢: Command failed with code 1 in 981ms
+[2025-05-10T23:23:38.328Z] 👑💢: Test failed: Extract PDF text (983ms)
+[2025-05-10T23:23:38.329Z] ⏳: Running test: Extract PDF colors
+[2025-05-10T23:23:38.331Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-10T23:23:38.402Z] 👑💢: Command failed with code 1 in 71ms
+[2025-05-10T23:23:38.403Z] 👑💢: Test failed: Extract PDF colors (73ms)
+[2025-05-10T23:23:38.404Z] ⏳: Running test: Extract PDF fonts
+[2025-05-10T23:23:38.406Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-10T23:23:38.531Z] 👑💢: Command failed with code 1 in 125ms
+[2025-05-10T23:23:38.532Z] 👑💢: Test failed: Extract PDF fonts (126ms)
+[2025-05-10T23:23:38.536Z] 👑❄️: Test suite failed: pdf-extraction (1192ms)
+[2025-05-10T23:23:38.537Z] 🔍: Running test suite: openai-integration
+[2025-05-10T23:23:38.539Z] ⏳: Running test: OpenAI API connection
+[2025-05-10T23:23:38.540Z] 🔍: Running command: ./scripts/test-openai-connection.js 
+[2025-05-10T23:23:38.785Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-10T23:23:38.789Z] 👑💢: Command failed with code 1 in 249ms
+[2025-05-10T23:23:38.790Z] 👑💢: Test failed: OpenAI API connection (250ms)
+[2025-05-10T23:23:38.791Z] ⏳: Running test: OpenAI content analysis
+[2025-05-10T23:23:38.792Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-10T23:23:38.818Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-10T23:23:38.818Z] 👑💢: Test failed: OpenAI content analysis (27ms)
+[2025-05-10T23:23:38.818Z] 👑❄️: Test suite failed: openai-integration (279ms)
+[2025-05-10T23:23:38.819Z] 🔍: Running test suite: download-functionality
+[2025-05-10T23:23:38.819Z] ⏳: Running test: Download functionality
+[2025-05-10T23:23:38.821Z] 🔍: Running command: ./scripts/test-download-functionality.js 
+[2025-05-10T23:23:39.056Z] 🔍: Starting download functionality tests
+[2025-05-10T23:23:39.059Z] 🔍: Starting application in production mode...
+[2025-05-10T23:23:39.187Z] ⚠️⚡: Application is already running
+[2025-05-10T23:23:39.188Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:23:39.191Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:23:39.191Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:23:39.280Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:23:39.281Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:23:39.286Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:23:39.286Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:23:39.288Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:23:39.290Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:23:39.292Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:23:39.293Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:23:39.294Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:23:39.295Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:23:39.297Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:23:39.298Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:23:39.299Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:23:39.299Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:23:39.301Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:23:39.306Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:23:39.308Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:23:39.309Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:23:39.312Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:23:39.312Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:23:39.314Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:23:39.318Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:23:39.318Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:23:39.320Z] ✅: Tests completed
+[2025-05-10T23:23:39.322Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:23:39.324Z] 😇☀️: Command completed successfully in 503ms
+[2025-05-10T23:23:39.324Z] 😇☀️: Test passed: Download functionality (505ms)
+[2025-05-10T23:23:39.325Z] 😇🌈: Test suite passed: download-functionality (506ms)
+[2025-05-10T23:23:39.326Z] 🔍: Running test suite: environment-setup
+[2025-05-10T23:23:39.327Z] ⏳: Running test: Environment variables
+[2025-05-10T23:23:39.329Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-10T23:23:39.352Z] 👑💢: Command failed with code 1 in 23ms
+[2025-05-10T23:23:39.352Z] 👑💢: Test failed: Environment variables (24ms)
+[2025-05-10T23:23:39.353Z] ⏳: Running test: S3 bucket setup
+[2025-05-10T23:23:39.354Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-10T23:23:39.376Z] 👑💢: Command failed with code 1 in 22ms
+[2025-05-10T23:23:39.376Z] 👑💢: Test failed: S3 bucket setup (22ms)
+[2025-05-10T23:23:39.378Z] 👑❄️: Test suite failed: environment-setup (51ms)
+[2025-05-10T23:23:39.379Z] 🔍: Running test suite: build-process
+[2025-05-10T23:23:39.380Z] ⏳: Running test: Prebuild process
+[2025-05-10T23:23:39.381Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-10T23:23:39.402Z] 👑💢: Command failed with code 1 in 21ms
+[2025-05-10T23:23:39.403Z] 👑💢: Test failed: Prebuild process (22ms)
+[2025-05-10T23:23:39.403Z] ⏳: Running test: Build process
+[2025-05-10T23:23:39.405Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-10T23:23:39.426Z] 👑💢: Command failed with code 1 in 21ms
+[2025-05-10T23:23:39.426Z] 👑💢: Test failed: Build process (22ms)
+[2025-05-10T23:23:39.441Z] 👑❄️: Test suite failed: build-process (61ms)
+[2025-05-10T23:23:39.443Z] 🔍: Running test suite: deployment
+[2025-05-10T23:23:39.443Z] ⏳: Running test: Standalone directory
+[2025-05-10T23:23:39.445Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-10T23:23:39.470Z] 👑💢: Command failed with code 1 in 25ms
+[2025-05-10T23:23:39.470Z] 👑💢: Test failed: Standalone directory (26ms)
+[2025-05-10T23:23:39.470Z] ⏳: Running test: Server startup
+[2025-05-10T23:23:39.471Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-10T23:23:39.491Z] 👑💢: Command failed with code 1 in 20ms
+[2025-05-10T23:23:39.492Z] 👑💢: Test failed: Server startup (21ms)
+[2025-05-10T23:23:39.493Z] 👑❄️: Test suite failed: deployment (50ms)
+[2025-05-10T23:23:39.493Z] ✅: Test harness completed in 2150ms
+[2025-05-10T23:23:39.494Z] ✅: Total tests: 12
+[2025-05-10T23:23:39.495Z] ✅: Passed: 1
+[2025-05-10T23:23:39.495Z] ✅: Failed: 11
+[2025-05-10T23:23:39.496Z] ✅: Skipped: 0
+[2025-05-10T23:23:39.497Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-10T23-23-37.337Z.json
+[2025-05-10T23:23:39.497Z] 👑❄️: Some tests failed
+[2025-05-10T23:23:39.500Z] 👑❄️: Test harness failed with code 1 for suite: download-functionality
+[2025-05-10T23:23:39.500Z] 👑❄️: Test suite download-functionality failed
+[2025-05-10T23:25:28.560Z] 🔍: Starting unified test runner
+[2025-05-10T23:25:28.567Z] 🔍: Running unified test harness for suite: download-functionality
+[2025-05-10T23:25:28.596Z] 🔍: Starting unified test harness
+[2025-05-10T23:25:28.598Z] ⏳: Environment: development
+[2025-05-10T23:25:28.598Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-10T23:25:28.599Z] 🔍: Running test suite: pdf-extraction
+[2025-05-10T23:25:28.599Z] ⏳: Running test: Extract PDF text
+[2025-05-10T23:25:28.600Z] 🔍: Running command: ./scripts/test-pdf-extraction.js 
+[2025-05-10T23:25:28.625Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-10T23:25:28.627Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-10T23:25:28.628Z] ⏳: Creating a sample PDF for testing
+[2025-05-10T23:25:28.628Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-10T23:25:28.628Z] ⏳: Creating a minimal PDF with text content
+[2025-05-10T23:25:28.628Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-10T23:25:28.628Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-10T23:25:28.634Z] 👑💢: Command failed with code 1 in 34ms
+[2025-05-10T23:25:28.634Z] 👑💢: Test failed: Extract PDF text (35ms)
+[2025-05-10T23:25:28.634Z] ⏳: Running test: Extract PDF colors
+[2025-05-10T23:25:28.635Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-10T23:25:28.693Z] 👑💢: Command failed with code 1 in 58ms
+[2025-05-10T23:25:28.693Z] 👑💢: Test failed: Extract PDF colors (59ms)
+[2025-05-10T23:25:28.693Z] ⏳: Running test: Extract PDF fonts
+[2025-05-10T23:25:28.694Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-10T23:25:28.736Z] 👑💢: Command failed with code 1 in 42ms
+[2025-05-10T23:25:28.736Z] 👑💢: Test failed: Extract PDF fonts (43ms)
+[2025-05-10T23:25:28.736Z] 👑❄️: Test suite failed: pdf-extraction (137ms)
+[2025-05-10T23:25:28.736Z] 🔍: Running test suite: openai-integration
+[2025-05-10T23:25:28.736Z] ⏳: Running test: OpenAI API connection
+[2025-05-10T23:25:28.737Z] 🔍: Running command: ./scripts/test-openai-connection.js 
+[2025-05-10T23:25:28.757Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-10T23:25:28.763Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-10T23:25:28.763Z] 👑💢: Test failed: OpenAI API connection (27ms)
+[2025-05-10T23:25:28.763Z] ⏳: Running test: OpenAI content analysis
+[2025-05-10T23:25:28.764Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-10T23:25:28.790Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-10T23:25:28.791Z] 👑💢: Test failed: OpenAI content analysis (28ms)
+[2025-05-10T23:25:28.791Z] 👑❄️: Test suite failed: openai-integration (55ms)
+[2025-05-10T23:25:28.791Z] 🔍: Running test suite: download-functionality
+[2025-05-10T23:25:28.791Z] ⏳: Running test: Download functionality
+[2025-05-10T23:25:28.792Z] 🔍: Running command: ./scripts/test-download-functionality.js 
+[2025-05-10T23:25:28.827Z] 🔍: Starting download functionality tests
+[2025-05-10T23:25:28.831Z] 🔍: Starting application in production mode...
+[2025-05-10T23:25:28.884Z] ⚠️⚡: Application is already running
+[2025-05-10T23:25:28.885Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:25:28.891Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:25:28.891Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:25:28.935Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:25:28.935Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:25:28.936Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:25:28.936Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:25:28.937Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:25:28.937Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:25:28.938Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:25:28.938Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:25:28.939Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:25:28.939Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:25:28.939Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:25:28.939Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:25:28.940Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:25:28.940Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:25:28.940Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:25:28.941Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:25:28.941Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:25:28.941Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:25:28.941Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:25:28.941Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:25:28.942Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:25:28.944Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:25:28.944Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:25:28.945Z] ✅: Tests completed
+[2025-05-10T23:25:28.945Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:25:28.947Z] 😇☀️: Command completed successfully in 155ms
+[2025-05-10T23:25:28.948Z] 😇☀️: Test passed: Download functionality (156ms)
+[2025-05-10T23:25:28.948Z] 😇🌈: Test suite passed: download-functionality (157ms)
+[2025-05-10T23:25:28.948Z] 🔍: Running test suite: environment-setup
+[2025-05-10T23:25:28.948Z] ⏳: Running test: Environment variables
+[2025-05-10T23:25:28.948Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-10T23:25:28.970Z] 👑💢: Command failed with code 1 in 22ms
+[2025-05-10T23:25:28.970Z] 👑💢: Test failed: Environment variables (22ms)
+[2025-05-10T23:25:28.970Z] ⏳: Running test: S3 bucket setup
+[2025-05-10T23:25:28.971Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-10T23:25:29.013Z] 👑💢: Command failed with code 1 in 42ms
+[2025-05-10T23:25:29.013Z] 👑💢: Test failed: S3 bucket setup (43ms)
+[2025-05-10T23:25:29.013Z] 👑❄️: Test suite failed: environment-setup (65ms)
+[2025-05-10T23:25:29.013Z] 🔍: Running test suite: build-process
+[2025-05-10T23:25:29.014Z] ⏳: Running test: Prebuild process
+[2025-05-10T23:25:29.014Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-10T23:25:29.095Z] 👑💢: Command failed with code 1 in 81ms
+[2025-05-10T23:25:29.096Z] 👑💢: Test failed: Prebuild process (82ms)
+[2025-05-10T23:25:29.096Z] ⏳: Running test: Build process
+[2025-05-10T23:25:29.097Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-10T23:25:29.158Z] 👑💢: Command failed with code 1 in 61ms
+[2025-05-10T23:25:29.158Z] 👑💢: Test failed: Build process (62ms)
+[2025-05-10T23:25:29.158Z] 👑❄️: Test suite failed: build-process (144ms)
+[2025-05-10T23:25:29.158Z] 🔍: Running test suite: deployment
+[2025-05-10T23:25:29.158Z] ⏳: Running test: Standalone directory
+[2025-05-10T23:25:29.159Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-10T23:25:29.189Z] 👑💢: Command failed with code 1 in 30ms
+[2025-05-10T23:25:29.189Z] 👑💢: Test failed: Standalone directory (31ms)
+[2025-05-10T23:25:29.189Z] ⏳: Running test: Server startup
+[2025-05-10T23:25:29.189Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-10T23:25:29.274Z] 👑💢: Command failed with code 1 in 85ms
+[2025-05-10T23:25:29.275Z] 👑💢: Test failed: Server startup (86ms)
+[2025-05-10T23:25:29.275Z] 👑❄️: Test suite failed: deployment (117ms)
+[2025-05-10T23:25:29.276Z] ✅: Test harness completed in 676ms
+[2025-05-10T23:25:29.276Z] ✅: Total tests: 12
+[2025-05-10T23:25:29.276Z] ✅: Passed: 1
+[2025-05-10T23:25:29.277Z] ✅: Failed: 11
+[2025-05-10T23:25:29.277Z] ✅: Skipped: 0
+[2025-05-10T23:25:29.277Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-10T23-25-28.594Z.json
+[2025-05-10T23:25:29.278Z] 👑❄️: Some tests failed
+[2025-05-10T23:25:29.287Z] 👑❄️: Test harness failed with code 1 for suite: download-functionality
+[2025-05-10T23:25:29.290Z] 😇🌈: Download functionality tests passed, ignoring other failures
+[2025-05-10T23:30:37.934Z] 🔍: Starting download functionality tests
+[2025-05-10T23:30:37.936Z] 🔍: Starting application in production mode...
+[2025-05-10T23:30:37.956Z] 🔍: Preparing environment for download tests...
+[2025-05-10T23:30:37.973Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-10T23:30:37.973Z] ⏳: Prepare: Creating resume_content_analyzed.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_analyzed.json
+[2025-05-10T23:30:37.973Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-10T23:30:37.975Z] 😇🌙: Environment prepared successfully
+[2025-05-10T23:30:37.975Z] 😇🌙: Environment prepared, starting application...
+[2025-05-10T23:30:39.254Z] ⏳: App output: ✅ Server started successfully
+[2025-05-10T23:30:39.298Z] ⏳: App output: 🎉 Application started successfully!
+[2025-05-10T23:30:39.320Z] ⏳: App output: [2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started on port 3000[0m
+[2025-05-10T23:30:39.321Z] ⏳: App output: [2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started on port 3000[0m
+
+
+[2m[2025-05-10T23:30:39.320Z][0m 😇🌈: [92mApplication started successfully on port 3000[0m
+
+
+[1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-10T23:30:39.320Z][0m 😇☀️: [92mServer started successfully[0m
+[2025-05-10T23:30:39.321Z] ⏳: App output: [2m[2025-05-10T23:30:39.321Z][0m 🧠✅: [32mContext: All server components initialized properly.[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠✅: [32mThe application is running correctly and ready to process requests.[0m
+[2m[2025-05-10T23:30:39.321Z][0m ⚠️💻: [33mJSON view page may not be loading correctly[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠⏳: [36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.[0m
+[2m[2025-05-10T23:30:39.321Z][0m 🧠⏳: [36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.[0m
+[2025-05-10T23:30:39.321Z] 😇🌙: Application started successfully
+[2025-05-10T23:30:44.323Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:30:44.324Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:30:44.324Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:30:44.348Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:30:44.348Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:30:44.349Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:30:44.349Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:30:44.349Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:30:44.350Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:30:44.350Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:30:44.350Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:30:44.351Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:30:44.351Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:30:44.351Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:30:44.351Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:30:44.351Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:30:44.351Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:30:44.352Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:30:44.352Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:30:44.352Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:30:44.352Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:30:44.352Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:30:44.353Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:30:44.354Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:30:44.355Z] ✅: Tests completed
+[2025-05-10T23:30:44.355Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-10T23:30:44.355Z] ⏳: Stopping application...
+[2025-05-10T23:30:44.355Z] 😇🌙: Application stopped
+[2025-05-10T23:44:24.885Z] 🔍: Starting download functionality tests
+[2025-05-10T23:44:24.895Z] 🔍: Starting application in production mode...
+[2025-05-10T23:44:25.091Z] ⚠️⚡: Application is already running
+[2025-05-10T23:44:25.091Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-10T23:44:25.097Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-10T23:44:25.097Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-10T23:44:25.211Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-10T23:44:25.211Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-10T23:44:25.211Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-10T23:44:25.211Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-10T23:44:25.212Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:44:25.212Z] ⚠️⚡: File public/extracted/resume_content_analyzed.json does not exist, creating with test content
+[2025-05-10T23:44:25.223Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-10T23:44:25.224Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:44:25.224Z] ⚠️⚡: No backup found for public/extracted/resume_content_analyzed.json
+[2025-05-10T23:44:25.224Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-10T23:44:25.224Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:44:25.224Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:44:25.224Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-10T23:44:25.225Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:44:25.225Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:44:25.225Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-10T23:44:25.225Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-10T23:44:25.225Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-10T23:44:25.226Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-10T23:44:25.226Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-10T23:44:25.226Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-10T23:44:25.235Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-10T23:44:25.235Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-10T23:44:25.236Z] ✅: Tests completed
+[2025-05-10T23:44:25.236Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-11T00:16:52.498Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-11T00:49:59.131Z] 🔍: Starting unified test runner
+[2025-05-11T00:49:59.136Z] 🔍: Running unified test harness
+[2025-05-11T00:49:59.162Z] 🔍: Starting unified test harness
+[2025-05-11T00:49:59.167Z] ⏳: Environment: development
+[2025-05-11T00:49:59.168Z] ⏳: Test suites: pdf-extraction, openai-integration, download-functionality, environment-setup, build-process, deployment
+[2025-05-11T00:49:59.168Z] 🔍: Running test suite: pdf-extraction
+[2025-05-11T00:49:59.168Z] ⏳: Running test: Extract PDF text
+[2025-05-11T00:49:59.171Z] 🔍: Running command: ./scripts/test-pdf-extraction.js 
+[2025-05-11T00:49:59.436Z] ⚠️⚡: PDF extractor not found, creating mock extractor
+[2025-05-11T00:49:59.442Z] ⚠️⚡: Sample PDF not found at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/sample-resume.pdf
+[2025-05-11T00:49:59.450Z] ⏳: Creating a sample PDF for testing
+[2025-05-11T00:49:59.450Z] ⚠️⚡: No sample PDF found in test fixtures
+[2025-05-11T00:49:59.450Z] ⏳: Creating a minimal PDF with text content
+[2025-05-11T00:49:59.450Z] 👑❄️: Failed to create sample PDF: Cannot find module '../utils/PdfGenerator'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-pdf-extraction.js
+[2025-05-11T00:49:59.450Z] 👑❄️: Cannot proceed with PDF extraction test
+[2025-05-11T00:49:59.457Z] 👑💢: Command failed with code 1 in 286ms
+[2025-05-11T00:49:59.458Z] 👑💢: Test failed: Extract PDF text (290ms)
+[2025-05-11T00:49:59.458Z] ⏳: Running test: Extract PDF colors
+[2025-05-11T00:49:59.461Z] 🔍: Running command: node scripts/extract-pdf-colors.js --test
+[2025-05-11T00:49:59.578Z] 👑💢: Command failed with code 1 in 117ms
+[2025-05-11T00:49:59.579Z] 👑💢: Test failed: Extract PDF colors (121ms)
+[2025-05-11T00:49:59.579Z] ⏳: Running test: Extract PDF fonts
+[2025-05-11T00:49:59.580Z] 🔍: Running command: node scripts/extract-pdf-fonts.js --test
+[2025-05-11T00:49:59.625Z] 👑💢: Command failed with code 1 in 45ms
+[2025-05-11T00:49:59.626Z] 👑💢: Test failed: Extract PDF fonts (47ms)
+[2025-05-11T00:49:59.626Z] 👑❄️: Test suite failed: pdf-extraction (458ms)
+[2025-05-11T00:49:59.626Z] 🔍: Running test suite: openai-integration
+[2025-05-11T00:49:59.627Z] ⏳: Running test: OpenAI API connection
+[2025-05-11T00:49:59.627Z] 🔍: Running command: ./scripts/test-openai-connection.js 
+[2025-05-11T00:49:59.691Z] 👑❄️: Failed to import OpenAI service: Cannot find module '../src/api/openai/openaiService'
+Require stack:
+- /Users/bradygeorgen/Documents/workspace/pbradygeorgen/scripts/test-openai-connection.js
+[2025-05-11T00:49:59.699Z] 👑💢: Command failed with code 1 in 72ms
+[2025-05-11T00:49:59.699Z] 👑💢: Test failed: OpenAI API connection (72ms)
+[2025-05-11T00:49:59.700Z] ⏳: Running test: OpenAI content analysis
+[2025-05-11T00:49:59.702Z] 🔍: Running command: node scripts/test-openai-analysis.js
+[2025-05-11T00:49:59.722Z] 👑💢: Command failed with code 1 in 20ms
+[2025-05-11T00:49:59.722Z] 👑💢: Test failed: OpenAI content analysis (22ms)
+[2025-05-11T00:49:59.722Z] 👑❄️: Test suite failed: openai-integration (95ms)
+[2025-05-11T00:49:59.722Z] 🔍: Running test suite: download-functionality
+[2025-05-11T00:49:59.723Z] ⏳: Running test: Download functionality
+[2025-05-11T00:49:59.723Z] 🔍: Running command: ./scripts/test-download-functionality.js 
+[2025-05-11T00:49:59.763Z] 🔍: Starting download functionality tests
+[2025-05-11T00:49:59.766Z] 🔍: Starting application in production mode...
+[2025-05-11T00:49:59.853Z] 🔍: Preparing environment for download tests...
+[2025-05-11T00:49:59.873Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-11T00:49:59.873Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-11T00:49:59.877Z] 😇🌙: Environment prepared successfully
+[2025-05-11T00:49:59.877Z] 😇🌙: Environment prepared, starting application...
+[2025-05-11T00:50:01.573Z] ⏳: App output: ✅ Server started successfully
+[2025-05-11T00:50:01.597Z] ⏳: App output: 🎉 Application started successfully!
+[2025-05-11T00:50:01.648Z] ⏳: App output: [2m[2025-05-11T00:50:01.646Z][0m 😇☀️: [92mServer started on port 3000[0m
+[2025-05-11T00:50:01.648Z] ⏳: App output: [2m[2025-05-11T00:50:01.648Z][0m 😇☀️: [92mServer started on port 3000[0m
+
+
+[2m[2025-05-11T00:50:01.648Z][0m 😇🌈: [92mApplication started successfully on port 3000[0m
+[2025-05-11T00:50:01.648Z] ⏳: App output: [1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-11T00:50:01.648Z][0m 😇☀️: [92mServer started successfully[0m
+[2m[2025-05-11T00:50:01.648Z][0m 🧠✅: [32mContext: All server components initialized properly.[0m
+[2m[2025-05-11T00:50:01.648Z][0m 🧠✅: [32mThe application is running correctly and ready to process requests.[0m
+[2m[2025-05-11T00:50:01.648Z][0m ⚠️💻: [33mJSON view page may not be loading correctly[0m
+[2m[2025-05-11T00:50:01.648Z][0m 🧠⏳: [36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.[0m
+[2m[2025-05-11T00:50:01.648Z][0m 🧠⏳: [36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.[0m
+[2m[2025-05-11T00:50:01.648Z][0m 🧠⏳: [36mRecommendation: This is a minor issue that doesn't affect the main functionality of the application. The JSON view is primarily used for debugging and development purposes.[0m
+[2025-05-11T00:50:01.648Z] 😇🌙: Application started successfully
+[2025-05-11T00:50:06.652Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-11T00:50:06.659Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-11T00:50:06.659Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-11T00:50:06.840Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-11T00:50:06.840Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-11T00:50:06.841Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-11T00:50:06.841Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-11T00:50:06.844Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:50:06.844Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:50:06.846Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-11T00:50:06.847Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:50:06.847Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:50:06.847Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-11T00:50:06.848Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:50:06.848Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:50:06.849Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-11T00:50:06.849Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:50:06.850Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:50:06.850Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-11T00:50:06.850Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:50:06.850Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:50:06.851Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-11T00:50:06.851Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:50:06.852Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:50:06.858Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-11T00:50:06.859Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-11T00:50:06.873Z] ✅: Tests completed
+[2025-05-11T00:50:06.874Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-11T00:50:06.874Z] ⏳: Stopping application...
+[2025-05-11T00:50:06.874Z] 😇🌙: Application stopped
+[2025-05-11T00:50:06.899Z] 😇☀️: Command completed successfully in 7169ms
+[2025-05-11T00:50:06.909Z] 😇☀️: Test passed: Download functionality (7186ms)
+[2025-05-11T00:50:06.909Z] 😇🌈: Test suite passed: download-functionality (7186ms)
+[2025-05-11T00:50:06.910Z] 🔍: Running test suite: environment-setup
+[2025-05-11T00:50:06.910Z] ⏳: Running test: Environment variables
+[2025-05-11T00:50:06.912Z] 🔍: Running command: node scripts/test-environment-variables.js
+[2025-05-11T00:50:06.932Z] 👑💢: Command failed with code 1 in 20ms
+[2025-05-11T00:50:06.932Z] 👑💢: Test failed: Environment variables (21ms)
+[2025-05-11T00:50:06.932Z] ⏳: Running test: S3 bucket setup
+[2025-05-11T00:50:06.933Z] 🔍: Running command: node scripts/test-s3-bucket.js
+[2025-05-11T00:50:06.953Z] 👑💢: Command failed with code 1 in 20ms
+[2025-05-11T00:50:06.953Z] 👑💢: Test failed: S3 bucket setup (21ms)
+[2025-05-11T00:50:06.953Z] 👑❄️: Test suite failed: environment-setup (43ms)
+[2025-05-11T00:50:06.953Z] 🔍: Running test suite: build-process
+[2025-05-11T00:50:06.953Z] ⏳: Running test: Prebuild process
+[2025-05-11T00:50:06.954Z] 🔍: Running command: node scripts/test-prebuild-process.js
+[2025-05-11T00:50:06.980Z] 👑💢: Command failed with code 1 in 26ms
+[2025-05-11T00:50:06.980Z] 👑💢: Test failed: Prebuild process (27ms)
+[2025-05-11T00:50:06.980Z] ⏳: Running test: Build process
+[2025-05-11T00:50:06.980Z] 🔍: Running command: node scripts/test-build-process.js
+[2025-05-11T00:50:07.004Z] 👑💢: Command failed with code 1 in 24ms
+[2025-05-11T00:50:07.004Z] 👑💢: Test failed: Build process (24ms)
+[2025-05-11T00:50:07.004Z] 👑❄️: Test suite failed: build-process (51ms)
+[2025-05-11T00:50:07.004Z] 🔍: Running test suite: deployment
+[2025-05-11T00:50:07.004Z] ⏳: Running test: Standalone directory
+[2025-05-11T00:50:07.005Z] 🔍: Running command: node scripts/test-standalone-directory.js
+[2025-05-11T00:50:07.027Z] 👑💢: Command failed with code 1 in 22ms
+[2025-05-11T00:50:07.028Z] 👑💢: Test failed: Standalone directory (24ms)
+[2025-05-11T00:50:07.028Z] ⏳: Running test: Server startup
+[2025-05-11T00:50:07.029Z] 🔍: Running command: node scripts/test-server-startup.js
+[2025-05-11T00:50:07.052Z] 👑💢: Command failed with code 1 in 23ms
+[2025-05-11T00:50:07.052Z] 👑💢: Test failed: Server startup (24ms)
+[2025-05-11T00:50:07.053Z] 👑❄️: Test suite failed: deployment (49ms)
+[2025-05-11T00:50:07.055Z] ✅: Test harness completed in 7885ms
+[2025-05-11T00:50:07.055Z] ✅: Total tests: 12
+[2025-05-11T00:50:07.055Z] ✅: Passed: 1
+[2025-05-11T00:50:07.055Z] ✅: Failed: 11
+[2025-05-11T00:50:07.055Z] ✅: Skipped: 0
+[2025-05-11T00:50:07.055Z] ✅: Test results saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/test-results/test-results-2025-05-11T00-49-59.159Z.json
+[2025-05-11T00:50:07.055Z] 👑❄️: Some tests failed
+[2025-05-11T00:50:07.074Z] 👑❄️: Test harness failed with code 1
+[2025-05-11T00:50:07.074Z] 👑❄️: Some tests failed
+[2025-05-11T00:52:49.465Z] 🔍: Starting download functionality tests
+[2025-05-11T00:52:49.471Z] 🔍: Starting application in production mode...
+[2025-05-11T00:52:49.496Z] 🔍: Preparing environment for download tests...
+[2025-05-11T00:52:49.524Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-11T00:52:49.525Z] ⏳: Prepare: Creating resume_content_analyzed.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_analyzed.json
+[2025-05-11T00:52:49.525Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-11T00:52:49.528Z] 😇🌙: Environment prepared successfully
+[2025-05-11T00:52:49.528Z] 😇🌙: Environment prepared, starting application...
+[2025-05-11T00:52:51.132Z] ⏳: App output: ✅ Server started successfully
+[2025-05-11T00:52:51.182Z] ⏳: App output: 🎉 Application started successfully!
+[2025-05-11T00:52:51.231Z] ⏳: App output: [2m[2025-05-11T00:52:51.230Z][0m 😇☀️: [92mServer started on port 3000[0m
+[2025-05-11T00:52:51.231Z] ⏳: App output: [2m[2025-05-11T00:52:51.231Z][0m 😇☀️: [92mServer started on port 3000[0m
+
+
+[2m[2025-05-11T00:52:51.231Z][0m 😇🌈: [92mApplication started successfully on port 3000[0m
+
+
+[1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-11T00:52:51.231Z][0m 😇☀️: [92mServer started successfully[0m
+[2m[2025-05-11T00:52:51.231Z][0m 🧠✅: [32mContext: All server components initialized properly.[0m
+[2m[2025-05-11T00:52:51.231Z][0m 🧠✅: [32mThe application is running correctly and ready to process requests.[0m
+[2m[2025-05-11T00:52:51.231Z][0m ⚠️💻: [33mJSON view page may not be loading correctly[0m
+[2m[2025-05-11T00:52:51.231Z][0m 🧠⏳: [36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.[0m
+[2m[2025-05-11T00:52:51.231Z][0m 🧠⏳: [36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.[0m
+[2m[2025-05-11T00:52:51.231Z][0m 🧠⏳: [36mRecommendation: This is a minor issue that doesn't affect the main functionality of the application. The JSON view is primarily used for debugging and development purposes.[0m
+[2025-05-11T00:52:51.232Z] 😇🌙: Application started successfully
+[2025-05-11T00:52:56.280Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-11T00:52:56.286Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-11T00:52:56.286Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-11T00:52:56.393Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-11T00:52:56.395Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-11T00:52:56.396Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-11T00:52:56.396Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-11T00:52:56.396Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:52:56.397Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:52:56.399Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-11T00:52:56.399Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:52:56.400Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:52:56.400Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-11T00:52:56.400Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:52:56.400Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:52:56.401Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-11T00:52:56.401Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:52:56.401Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:52:56.401Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-11T00:52:56.401Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T00:52:56.401Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T00:52:56.402Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-11T00:52:56.402Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T00:52:56.402Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T00:52:56.408Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-11T00:52:56.408Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-11T00:52:56.412Z] ✅: Tests completed
+[2025-05-11T00:52:56.412Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-11T00:52:56.412Z] ⏳: Stopping application...
+[2025-05-11T00:52:56.412Z] 😇🌙: Application stopped
+[2025-05-11T01:10:20.717Z] 🔍: Starting download functionality tests
+[2025-05-11T01:10:20.731Z] 🔍: Starting application in production mode...
+[2025-05-11T01:10:20.785Z] 🔍: Preparing environment for download tests...
+[2025-05-11T01:10:20.806Z] ⏳: Prepare: 🔧 Preparing environment for download functionality tests...
+[2025-05-11T01:10:20.806Z] ⏳: Prepare: Creating resume_content_analyzed.json: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_analyzed.json
+[2025-05-11T01:10:20.806Z] ⏳: Prepare: ✅ Environment prepared for download functionality tests
+[2025-05-11T01:10:20.808Z] 😇🌙: Environment prepared successfully
+[2025-05-11T01:10:20.808Z] 😇🌙: Environment prepared, starting application...
+[2025-05-11T01:10:21.552Z] ⏳: App output: ✅ Server started successfully
+[2025-05-11T01:10:21.571Z] ⏳: App output: 🎉 Application started successfully!
+[2025-05-11T01:10:21.600Z] ⏳: App output: [2m[2025-05-11T01:10:21.599Z][0m 😇☀️: [92mServer started on port 3000[0m
+[2025-05-11T01:10:21.600Z] ⏳: App output: [2m[2025-05-11T01:10:21.600Z][0m 😇☀️: [92mServer started on port 3000[0m
+
+
+[2m[2025-05-11T01:10:21.600Z][0m 😇🌈: [92mApplication started successfully on port 3000[0m
+
+
+[1m[36m=== RECOMMENDATIONS ====[0m
+[2m[2025-05-11T01:10:21.600Z][0m 😇☀️: [92mServer started successfully[0m
+[2025-05-11T01:10:21.601Z] ⏳: App output: [2m[2025-05-11T01:10:21.600Z][0m 🧠✅: [32mContext: All server components initialized properly.[0m
+[2m[2025-05-11T01:10:21.600Z][0m 🧠✅: [32mThe application is running correctly and ready to process requests.[0m
+[2m[2025-05-11T01:10:21.600Z][0m ⚠️💻: [33mJSON view page may not be loading correctly[0m
+[2m[2025-05-11T01:10:21.600Z][0m 🧠⏳: [36mContext: The JSON view page displays the structured data extracted from the PDF in JSON format.[0m
+[2m[2025-05-11T01:10:21.600Z][0m 🧠⏳: [36mReason: This warning typically occurs when the JSON data is not properly formatted or when the route handler encounters issues.[0m
+[2025-05-11T01:10:21.601Z] 😇🌙: Application started successfully
+[2025-05-11T01:10:26.736Z] 🔍: Starting test: Download pdf - Normal content download
+[2025-05-11T01:10:26.787Z] 😇🌙: Test "Download pdf - Normal content download": PASSED
+[2025-05-11T01:10:26.788Z] 🔍: Starting test: Download markdown - Normal content download
+[2025-05-11T01:10:26.978Z] 😇🌙: Test "Download markdown - Normal content download": PASSED
+[2025-05-11T01:10:26.979Z] 🔍: Starting test: Download text - Normal content download
+[2025-05-11T01:10:27.404Z] 😇🌙: Test "Download text - Normal content download": PASSED
+[2025-05-11T01:10:27.408Z] 🔍: Starting test: Download pdf - Empty content download (error handling)
+[2025-05-11T01:10:27.412Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T01:10:27.414Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T01:10:27.416Z] 😇🌙: Test "Download pdf - Empty content download (error handling)": PASSED
+[2025-05-11T01:10:27.419Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T01:10:27.422Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T01:10:27.422Z] 🔍: Starting test: Download markdown - Empty content download (error handling)
+[2025-05-11T01:10:27.423Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T01:10:27.425Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T01:10:27.430Z] 😇🌙: Test "Download markdown - Empty content download (error handling)": PASSED
+[2025-05-11T01:10:27.431Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T01:10:27.433Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T01:10:27.433Z] 🔍: Starting test: Download text - Empty content download (error handling)
+[2025-05-11T01:10:27.434Z] ⏳: Backed up and replaced public/extracted/resume_content.md
+[2025-05-11T01:10:27.438Z] ⏳: Backed up and replaced public/extracted/resume_content_analyzed.json
+[2025-05-11T01:10:27.440Z] 😇🌙: Test "Download text - Empty content download (error handling)": PASSED
+[2025-05-11T01:10:27.440Z] ⏳: Restored public/extracted/resume_content.md from backup
+[2025-05-11T01:10:27.441Z] ⏳: Restored public/extracted/resume_content_analyzed.json from backup
+[2025-05-11T01:10:27.466Z] 😇🌙: Test report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.json
+[2025-05-11T01:10:27.467Z] 😇🌙: HTML report generated at /var/folders/pv/kch72mrs6sq47gnqg973697r0000gn/T/download-test/test-report.html
+[2025-05-11T01:10:27.595Z] ✅: Tests completed
+[2025-05-11T01:10:27.597Z] ⏳: Total: 6, Passed: 6, Failed: 0, Skipped: 0
+[2025-05-11T01:10:27.599Z] ⏳: Stopping application...
+[2025-05-11T01:10:27.623Z] 😇🌙: Application stopped

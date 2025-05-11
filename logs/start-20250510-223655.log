@@ -1,0 +1,518 @@
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 131ms
+🌍 Unified Environment Configuration:
+   - Environment: production
+   - Platform: local
+   - Storage Type: local
+   - Use OpenAI: false
+   - Use S3: false
+   - S3 Bucket: alexai-pdf-storage
+   - Debug Logging: false
+✅ [Basic] UnifiedStorageService initialized with local storage
+📦 Storage: Local (./public)
+PDF content is stale, refreshing...
+Error refreshing PDF content: [Error: Command failed: node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"
+node:internal/modules/cjs/loader:1215
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v20.19.1
+] {
+  code: 1,
+  killed: false,
+  signal: null,
+  cmd: 'node scripts/extract-pdf-text-improved.js "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/public/default_resume.pdf"',
+  stdout: '',
+  stderr: 'node:internal/modules/cjs/loader:1215\n' +
+    '  throw err;\n' +
+    '  ^\n' +
+    '\n' +
+    "Error: Cannot find module '/Users/bradygeorgen/Documents/workspace/pbradygeorgen/.next/standalone/scripts/extract-pdf-text-improved.js'\n" +
+    '    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:1043:27)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)\n' +
+    '    at node:internal/main/run_main_module:28:49 {\n' +
+    "  code: 'MODULE_NOT_FOUND',\n" +
+    '  requireStack: []\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.19.1\n'
+}
+❌ [System] Error refreshing PDF content
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:53:59.332Z
+😇🕒: Request timestamp: 2025-05-11T03:53:59.332Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:53:59.428Z
+😇🕒: Request timestamp: 2025-05-11T03:53:59.428Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:53:59.443Z
+😇🕒: Request timestamp: 2025-05-11T03:53:59.443Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.447Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.447Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.487Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.487Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.495Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.495Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.502Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.502Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.508Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.508Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.517Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.517Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.524Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.524Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.527Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.527Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.538Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.538Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.541Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.541Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.545Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.545Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.551Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.551Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.555Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.555Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.557Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.557Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.561Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.561Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.563Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.563Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.564Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.564Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.566Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.566Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.570Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.570Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.572Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.572Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.574Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.574Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.576Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.576Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.578Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.578Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.581Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.581Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.584Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.584Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.588Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.588Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.590Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.590Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.593Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.593Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.595Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.595Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.597Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.597Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.599Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.599Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.601Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.601Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.604Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.604Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.606Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.606Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.607Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.607Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.609Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.609Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.611Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.611Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.613Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.613Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.615Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.615Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.618Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.618Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.620Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.620Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.622Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.622Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.624Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.624Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.625Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.625Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.627Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.627Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.629Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.629Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.630Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.630Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.631Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.631Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.633Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.633Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.640Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.640Z
+🎲 [Hesse:Summary:Info] Selected variation 1 of 5
+😇🎲: Selected variation: 1
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.643Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.643Z
+🎲 [Hesse:Summary:Info] Selected variation 4 of 5
+😇🎲: Selected variation: 4
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.646Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.646Z
+🎲 [Hesse:Summary:Info] Selected variation 2 of 5
+😇🎲: Selected variation: 2
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.649Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.649Z
+🎲 [Hesse:Summary:Info] Selected variation 5 of 5
+😇🎲: Selected variation: 5
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.652Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.652Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully
+🔍 [Hesse:Summary:Start] Fetching generic cover letter content
+😇☀️: API: Fetching generic cover letter content
+🕒 [Hesse:Summary:Info] Request timestamp: 2025-05-11T03:54:49.657Z
+😇🕒: Request timestamp: 2025-05-11T03:54:49.657Z
+🎲 [Hesse:Summary:Info] Selected variation 3 of 5
+😇🎲: Selected variation: 3
+✅ [Hesse:Summary:Complete] Generic cover letter created successfully
+😇🌈: Generic cover letter created successfully

@@ -1,0 +1,114 @@
+/* SalingerUIExample.module.css */
+/* Styles for the Salinger UI example component */
+
+.container {
+  padding: 2rem;
+  background-color: #2A2A2A;
+  color: #F5F3E7;
+  font-family: 'Courier New', monospace;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #F5F3E7;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.platformInfo {
+  background-color: #222222;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.platformInfo h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.platformInfo ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.platformInfo li {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  color: #F5F3E7;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.dropdownGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .buttonGrid,
+  .dropdownGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .buttonGrid,
+  .dropdownGrid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* iOS-specific styles */
+@supports (-webkit-touch-callout: none) {
+  .buttonGrid,
+  .dropdownGrid {
+    gap: 0.75rem;
+  }
+  
+  .section {
+    margin-bottom: 1.5rem;
+  }
+}

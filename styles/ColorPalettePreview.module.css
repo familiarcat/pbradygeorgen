@@ -1,0 +1,147 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: var(--pdf-primary-font);
+}
+
+.headerWithLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--pdf-text-primary);
+}
+
+.editLink {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background-color: var(--cta-primary, #3b82f6);
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.editLink:hover {
+  background-color: var(--cta-primary-hover, #2563eb);
+}
+
+.message {
+  color: var(--pdf-text-secondary);
+  font-style: italic;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--pdf-text-primary);
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.colorItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.colorSwatch {
+  height: 60px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.colorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.colorName {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--pdf-text-primary);
+}
+
+.colorValue {
+  font-family: var(--pdf-mono-font);
+  font-size: 0.75rem;
+  color: var(--pdf-text-secondary);
+}
+
+.contrastGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.contrastItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.contrastSwatch {
+  height: 60px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.contrastInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contrastRatio {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--pdf-text-primary);
+}
+
+.accessible {
+  font-size: 0.75rem;
+  color: var(--pdf-accent-dark);
+  font-weight: 600;
+}
+
+.notAccessible {
+  font-size: 0.75rem;
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .colorGrid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .contrastGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

@@ -1,0 +1,316 @@
+/* SalingerUI.module.css */
+/* A CSS module for the Salinger UI component library */
+
+/* ===== Variables ===== */
+:root {
+  /* Colors */
+  --salinger-primary: #7E4E2D; /* Terracotta */
+  --salinger-primary-light: rgba(126, 78, 45, 0.2);
+  --salinger-secondary: #5F6B54; /* Sage */
+  --salinger-secondary-light: rgba(95, 107, 84, 0.1);
+  --salinger-text-light: #F5F3E7;
+  --salinger-text-dark: #2A2A2A;
+  --salinger-background-dark: #222222;
+  --salinger-background-light: #F5F3E7;
+  --salinger-border-light: rgba(255, 255, 255, 0.1);
+  --salinger-border-dark: rgba(0, 0, 0, 0.1);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ===== Button Component ===== */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  touch-action: manipulation; /* Improve touch behavior */
+}
+
+/* Button variants */
+.button-primary {
+  background-color: var(--salinger-primary-light);
+  color: var(--salinger-text-light);
+}
+
+.button-primary:hover {
+  background-color: var(--salinger-primary);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-secondary {
+  background-color: var(--salinger-secondary-light);
+  color: var(--salinger-text-light);
+}
+
+.button-secondary:hover {
+  background-color: var(--salinger-secondary);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-tertiary {
+  background-color: transparent;
+  color: var(--salinger-text-light);
+  border: 1px solid var(--salinger-border-light);
+}
+
+.button-tertiary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button-icon {
+  background-color: transparent;
+  color: var(--salinger-text-light);
+  padding: var(--spacing-sm);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.button-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Button sizes */
+.button-small {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  height: 32px;
+}
+
+.button-medium {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  height: 40px;
+}
+
+.button-large {
+  font-size: var(--font-size-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  height: 48px;
+}
+
+/* Button states */
+.buttonFullWidth {
+  width: 100%;
+}
+
+.buttonLoading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.buttonLoadingSpinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Button icons */
+.buttonIconLeft {
+  margin-right: var(--spacing-sm);
+}
+
+.buttonIconRight {
+  margin-left: var(--spacing-sm);
+}
+
+/* Platform-specific button styles */
+.buttonMobile {
+  min-height: 44px; /* Minimum touch target size */
+}
+
+.buttonIOS {
+  -webkit-appearance: none; /* Remove iOS default button styling */
+}
+
+/* ===== Dropdown Component ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownTrigger {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  touch-action: manipulation; /* Improve touch behavior */
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  margin-top: var(--spacing-sm);
+  background: var(--salinger-background-dark);
+  border: 1px solid var(--salinger-border-light);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px); /* For Safari/iOS */
+  transition: all var(--transition-medium);
+  -webkit-transition: all var(--transition-medium); /* For Safari/iOS */
+  display: none;
+  flex-direction: column;
+  max-height: 80vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Dropdown menu positions */
+.dropdownMenu-left {
+  left: 0;
+}
+
+.dropdownMenu-right {
+  right: 0;
+}
+
+.dropdownMenu-center {
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  -webkit-transform: translateX(-50%) translateY(-10px); /* For Safari/iOS */
+}
+
+/* Visible dropdown menu */
+.dropdownMenuVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  -webkit-transform: translateY(0); /* For Safari/iOS */
+  display: flex;
+}
+
+.dropdownMenu-center.dropdownMenuVisible {
+  transform: translateX(-50%) translateY(0);
+  -webkit-transform: translateX(-50%) translateY(0); /* For Safari/iOS */
+}
+
+/* Dropdown groups */
+.dropdownGroup {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--salinger-border-light);
+}
+
+.dropdownGroup:last-child {
+  border-bottom: none;
+}
+
+/* Dropdown options */
+.dropdownOption {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--salinger-text-light);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: var(--font-size-md);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+}
+
+.dropdownOption:hover {
+  background-color: var(--salinger-secondary);
+  color: white;
+}
+
+.dropdownOptionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dropdownOptionDisabled:hover {
+  background-color: transparent;
+  color: var(--salinger-text-light);
+}
+
+.dropdownOptionIcon {
+  margin-right: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Platform-specific dropdown styles */
+.dropdownMobile .dropdownMenu {
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  bottom: 5%;
+  top: auto;
+}
+
+.dropdownIOS .dropdownMenu {
+  position: absolute !important;
+  max-height: 70vh !important;
+}
+
+/* iOS-specific styles */
+@supports (-webkit-touch-callout: none) {
+  .dropdownMenu {
+    position: absolute !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+  
+  .dropdownMenuVisible {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .dropdownOption {
+    min-height: 44px; /* Minimum touch target size for iOS */
+  }
+}
