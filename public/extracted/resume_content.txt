@@ -13,8 +13,10 @@ ABOUT ME
 St. Louis, MO 63110
 (314) 580-0608
 www.pbradygeorgen.com
+www.github.com/familiarcat
+www.linkedin.com/in/brady-georgen-a6204a22b/
 brady@pbradygeorgen.com
-WORK EPERIENCE
+WORK EXPERIENCE
 EDUCATION
 SKILLS / TECHNOLOGIES
 •Full Stack Development
@@ -31,7 +33,7 @@ Webster University
 2001-2005
 2023 - Present
 Digital Ronan (freelance)
-Consultant & Creative Technoligist
+Consultant & Creative Technologist
 2013 - 2014
 Deliveries on Demand
 Lead Software Developer
@@ -47,12 +49,12 @@ Software and Creative Director
 2005 - 2008
 Asynchrony Solutions
 Designer/Developer/Marketing Asst.
-React, React Native, AWS, AWS 
-Amplify, SOA, CI/CD, MongoDB, SQL, 
-Docker, Terraform, Jenkins, Shell 
-Automation, Node, Ruby, Java, 
-Javascript, Typescript, Adobe CS, 
-UI/UX Prototyping 
+React, React Native, Amgular, AWS, 
+AWS Amplify, Next.js, SOA, CI/CD, 
+MongoDB, SQL, Docker, Terraform, 
+Jenkins, Shell Automation, Node, 
+Ruby on Rails, Java, Javascript, 
+Typescript, Adobe CS, UI/UX Prototyping 
 Cox Communications
 Implemented scaffolding framework for modular 
 React applications integrating with Adobe 
