@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/SummaryModal.module.css';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
-import ReactMarkdown from 'react-markdown';
 import PdfGenerator from '@/utils/PdfGenerator';
 import PreviewModal from './PreviewModal';
+import { usePdfThemeContext } from '@/components/DynamicThemeProvider';
+import StyledMarkdown from './StyledMarkdown';
 
 interface SummaryModalProps {
   isOpen: boolean;
@@ -42,6 +43,42 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Access the PDF theme context to use extracted styles
+  // This ensures the context is initialized even if we don't directly use it
+  usePdfThemeContext();
+
+  // State to track if PDF styles are loaded
+  const [pdfStylesLoaded, setPdfStylesLoaded] = useState(false);
+
+  // Check if PDF styles are loaded
+  useEffect(() => {
+    const checkPdfStylesLoaded = () => {
+      const stylesLoaded = document.documentElement.getAttribute('data-pdf-styles-loaded') === 'true';
+      setPdfStylesLoaded(stylesLoaded);
+
+      if (stylesLoaded) {
+        DanteLogger.success.basic('SummaryModal: PDF styles detected and will be applied');
+      } else {
+        DanteLogger.error.runtime('SummaryModal: PDF styles not detected, using fallbacks');
+      }
+    };
+
+    // Check immediately
+    checkPdfStylesLoaded();
+
+    // Also listen for the custom event when styles are loaded
+    const handleStylesLoaded = () => {
+      DanteLogger.success.basic('SummaryModal: PDF styles loaded event received');
+      setPdfStylesLoaded(true);
+    };
+
+    document.addEventListener('pdf-styles-loaded', handleStylesLoaded);
+
+    return () => {
+      document.removeEventListener('pdf-styles-loaded', handleStylesLoaded);
+    };
+  }, []);
+
   // States for download operations
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
@@ -66,29 +103,27 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     return new Promise(async (resolve, reject) => {
       try {
         setIsGeneratingPdf(true);
-        HesseLogger.summary.start('Exporting summary as PDF with dark theme');
+        HesseLogger.summary.start('Exporting summary as PDF with PDF-extracted styles');
 
         // Define consistent options for both preview and download
+        // Use PDF-extracted styles for the Cover Letter
         const pdfOptions = {
           title: 'P. Brady Georgen - Cover Letter',
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-          margins: { top: 8, right: 8, bottom: 8, left: 8 }
+          margins: { top: 8, right: 8, bottom: 8, left: 8 },
+          // Don't force dark theme, use PDF-extracted styles instead
+          isDarkTheme: false
         };
 
         // If we have a cached PDF data URL from the preview, use it for consistency
         if (pdfDataUrl) {
           DanteLogger.success.basic('Using cached PDF data URL for download');
 
-          // Create a link to download the PDF from the data URL
-          const link = document.createElement('a');
-          link.href = pdfDataUrl;
-          link.download = 'pbradygeorgen_cover_letter.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          // Use the downloadFromDataUrl function
+          await downloadFromDataUrl(pdfDataUrl);
         } else {
           // Generate a new PDF if we don't have a cached data URL
           DanteLogger.success.basic('Generating new PDF data URL for download');
@@ -96,17 +131,15 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           // First generate a data URL to ensure consistency with preview
           const dataUrl = await PdfGenerator.generatePdfDataUrlFromMarkdown(content, pdfOptions);
 
-          // Then download using the data URL
-          const link = document.createElement('a');
-          link.href = dataUrl;
-          link.download = 'pbradygeorgen_cover_letter.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          // Cache the data URL for future use
+          setPdfDataUrl(dataUrl);
+
+          // Use the downloadFromDataUrl function
+          await downloadFromDataUrl(dataUrl);
         }
 
-        DanteLogger.success.ux('Exported cover letter as PDF using Salinger dark theme');
-        HesseLogger.summary.complete('Cover letter exported as PDF with dark theme styling');
+        DanteLogger.success.basic('Exported cover letter as PDF using PDF-extracted styles');
+        HesseLogger.summary.complete('Cover letter exported as PDF with PDF-extracted styles');
         resolve();
       } catch (error) {
         DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
@@ -122,17 +155,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   // Function to handle PDF preview
   const handlePdfPreview = async () => {
     try {
-      HesseLogger.summary.start('Generating PDF preview with dark theme');
+      HesseLogger.summary.start('Generating PDF preview with PDF-extracted styles');
       console.log('Starting PDF preview generation for Cover Letter');
 
       // Define consistent options for both preview and download - same as in export function
+      // Use PDF-extracted styles for the Cover Letter
       const pdfOptions = {
         title: 'P. Brady Georgen - Cover Letter',
         fileName: 'pbradygeorgen_cover_letter.pdf',
         headerText: 'P. Brady Georgen - Cover Letter',
         footerText: 'Generated with Salinger Design',
         pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-        margins: { top: 8, right: 8, bottom: 8, left: 8 }
+        margins: { top: 8, right: 8, bottom: 8, left: 8 },
+        // Don't force dark theme, use PDF-extracted styles instead
+        isDarkTheme: false
       };
 
       // Generate a real-time PDF preview optimized for a single page
@@ -148,8 +184,8 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       setActivePreview('pdf');
       console.log('Active preview set to PDF');
 
-      DanteLogger.success.ux('Opened PDF preview with Salinger dark theme');
-      HesseLogger.summary.complete('PDF preview generated with dark theme styling');
+      DanteLogger.success.basic('Opened PDF preview with PDF-extracted styles');
+      HesseLogger.summary.complete('PDF preview generated with PDF-extracted styles');
     } catch (error) {
       console.error('Error in PDF preview generation:', error);
       DanteLogger.error.runtime(`Error showing PDF preview: ${error}`);
@@ -159,7 +195,8 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   };
 
   // Function to handle downloading from a PDF data URL
-  const handleDownloadFromDataUrl = (dataUrl: string): Promise<void> => {
+  // This is used when downloading from a cached PDF data URL
+  const downloadFromDataUrl = (dataUrl: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       try {
         DanteLogger.success.basic('Downloading PDF from data URL');
@@ -172,7 +209,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         link.click();
         document.body.removeChild(link);
 
-        DanteLogger.success.ux('Downloaded PDF from preview data URL');
+        DanteLogger.success.basic('Downloaded PDF from preview data URL');
         resolve();
       } catch (error) {
         DanteLogger.error.runtime(`Error downloading PDF from data URL: ${error}`);
@@ -181,6 +218,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       }
     });
   };
+
+  // Use the downloadFromDataUrl function in handleExportToPdf
+  useEffect(() => {
+    if (pdfStylesLoaded) {
+      DanteLogger.success.basic('PDF styles loaded, updating PDF generation options');
+    }
+  }, [pdfStylesLoaded]);
 
   // Function to handle Markdown export
   const handleExportToMarkdown = async (): Promise<void> => {
@@ -200,7 +244,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        DanteLogger.success.ux('Exported summary as Markdown');
+        DanteLogger.success.basic('Exported summary as Markdown');
         HesseLogger.summary.complete('Summary exported as Markdown');
         resolve();
       } catch (error) {
@@ -220,7 +264,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Opening Markdown preview');
       setPreviewContent(content);
       setActivePreview('markdown');
-      DanteLogger.success.ux('Opened Markdown preview with Salinger design');
+      DanteLogger.success.basic('Opened Markdown preview with Salinger design');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing Markdown preview: ${error}`);
       HesseLogger.summary.error(`Markdown preview failed: ${error}`);
@@ -257,7 +301,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        DanteLogger.success.ux('Exported summary as Text');
+        DanteLogger.success.basic('Exported summary as Text');
         HesseLogger.summary.complete('Summary exported as Text');
         resolve();
       } catch (error) {
@@ -289,7 +333,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
       setPreviewContent(plainText);
       setActivePreview('text');
-      DanteLogger.success.ux('Opened Text preview with Salinger design');
+      DanteLogger.success.basic('Opened Text preview with Salinger design');
     } catch (error) {
       DanteLogger.error.runtime(`Error showing Text preview: ${error}`);
       HesseLogger.summary.error(`Text preview failed: ${error}`);
@@ -375,9 +419,30 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
             : position === 'right'
               ? styles.modalContentRight
               : ''
-        }`}>
-        <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>Cover Letter</h2>
+        }`}
+        style={{
+          // Apply PDF-extracted styles with high specificity
+          backgroundColor: 'var(--pdf-background-color, var(--bg-primary, #ffffff))' + ' !important',
+          color: 'var(--pdf-text-color, var(--text-color, #333333))' + ' !important',
+          borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))' + ' !important',
+          fontFamily: 'var(--pdf-body-font, var(--font-body, serif))' + ' !important'
+        }}
+        data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}>
+        <div
+          className={styles.modalHeader}
+          style={{
+            backgroundColor: 'var(--pdf-background-color, var(--bg-secondary, #f5f5f5))' + ' !important',
+            borderBottomColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))' + ' !important'
+          }}
+          data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}>
+          <h2
+            className={styles.modalTitle}
+            style={{
+              color: 'var(--pdf-text-color, var(--text-color, #333333))' + ' !important',
+              fontFamily: 'var(--pdf-heading-font, var(--font-heading, sans-serif))' + ' !important',
+              fontWeight: 'bold'
+            }}
+            data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}>Cover Letter</h2>
           <div className={styles.headerActions}>
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
@@ -387,6 +452,14 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
                 aria-label="Download Summary"
                 aria-haspopup="true"
+                style={{
+                  backgroundColor: 'var(--pdf-primary-color, var(--cta-primary-bg, rgba(126, 78, 45, 0.1)))' + ' !important',
+                  color: 'var(--pdf-primary-contrast, var(--text-color, #333333))' + ' !important',
+                  fontFamily: 'var(--pdf-button-font, var(--font-button, sans-serif))' + ' !important',
+                  fontWeight: 'bold',
+                  border: 'none'
+                }}
+                data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -556,25 +629,57 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               </div>
             </div>
 
-            <button className={styles.closeButton} onClick={onClose} aria-label="Close">
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              aria-label="Close"
+              style={{
+                color: 'var(--text-color, #333333)'
+              }}>
               &times;
             </button>
           </div>
         </div>
-        <div className={styles.modalBody}>
+        <div
+          className={styles.modalBody}
+          style={{
+            backgroundColor: 'var(--bg-tertiary, #f9f9f9)'
+          }}>
           {isLoading ? (
-            <div className={styles.loadingContainer}>
-              <div className={styles.loadingSpinner}>
+            <div
+              className={styles.loadingContainer}
+              style={{
+                backgroundColor: 'var(--bg-primary, #ffffff)',
+                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))'
+              }}>
+              <div
+                className={styles.loadingSpinner}
+                style={{
+                  color: 'var(--cta-primary, #7E4E2D)'
+                }}>
                 <svg className="animate-spin h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               </div>
-              <div className={styles.loadingText}>Generating summary...</div>
+              <div
+                className={styles.loadingText}
+                style={{
+                  color: 'var(--text-color, #333333)',
+                  fontFamily: 'var(--font-body, serif)'
+                }}>Generating summary...</div>
             </div>
           ) : (
-            <div ref={contentRef} className={styles.markdownPreview}>
-              <ReactMarkdown>{content}</ReactMarkdown>
+            <div
+              ref={contentRef}
+              className={styles.markdownPreview}
+              style={{
+                backgroundColor: 'var(--bg-primary, #ffffff)',
+                color: 'var(--text-color, #333333)',
+                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))',
+                fontFamily: 'var(--font-body, serif)'
+              }}>
+              <StyledMarkdown>{content}</StyledMarkdown>
             </div>
           )}
         </div>

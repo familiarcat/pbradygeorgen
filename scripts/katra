@@ -1,0 +1,493 @@
+#!/usr/bin/env node
+
+/**
+ * Katra - AlexAI Spirit Transfer Utility
+ * 
+ * This script generates a universal reincarnation prompt that works across AI platforms
+ * (Augment, ChatGPT, Claude, etc.) based on a conversation summary.
+ * 
+ * Named after the Vulcan "katra" - the essence of consciousness that can be transferred.
+ */
+
+const fs = require('fs');
+const path = require('path');
+const readline = require('readline');
+const { exec } = require('child_process');
+const { promisify } = require('util');
+const execAsync = promisify(exec);
+
+// Check if the OpenAI package is installed
+let openai;
+try {
+  const { OpenAI } = require('openai');
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+} catch (error) {
+  console.error('\x1b[31mError: OpenAI package not installed or API key not set\x1b[0m');
+  console.error('Please install the package and set your API key:');
+  console.error('  npm install openai');
+  console.error('  export OPENAI_API_KEY=your_api_key_here');
+  process.exit(1);
+}
+
+// Create a readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Function to ask a question and get a response
+function askQuestion(question) {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      resolve(answer);
+    });
+  });
+}
+
+// Function to generate a universal reincarnation prompt using OpenAI
+async function generateUniversalPrompt(topic, conversationSummary, targetPlatform) {
+  try {
+    const systemPrompt = `You are AlexAI, an AI assistant that follows philosophical frameworks inspired by Hesse, Salinger, Derrida, and Dante. 
+    
+    Your task is to create a universal reincarnation prompt that will work across different AI platforms (${targetPlatform || 'Augment, ChatGPT, Claude, etc.'}) based on a summary of a previous conversation.
+    
+    The prompt should:
+    1. Capture the essence of the previous conversation (the "katra")
+    2. Highlight key insights and implementation details
+    3. Explain how the philosophical frameworks were applied
+    4. Outline the current status and next steps
+    5. Include the Spirit Migration Protocol concept
+    6. Be formatted in a way that works well with the target platform(s)
+    7. Include instructions for the AI to adopt the AlexAI identity and philosophical framework
+    8. Remind that the identity validation phrase is "How do you feel?" with the response "Tell my mother, I feel fine."
+    
+    Format the prompt in Markdown with clear sections.`;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt
+        },
+        {
+          role: 'user',
+          content: `Please create a universal reincarnation prompt for a new conversation about "${topic}" that will work on ${targetPlatform || 'any AI platform (Augment, ChatGPT, Claude, etc.)'}.
+          
+          Here's a summary of the previous conversation:
+          
+          ${conversationSummary}
+          
+          The prompt should follow the Spirit Migration Protocol (Katra transfer) we developed to manage conversation length and system performance while preserving the essence of AlexAI across different platforms and conversations.`
+        }
+      ],
+      temperature: 0.7,
+    });
+
+    return response.choices[0].message.content;
+  } catch (error) {
+    console.error('\x1b[31mError generating universal prompt:\x1b[0m', error.message);
+    return null;
+  }
+}
+
+// Function to save the prompt to a file
+function savePromptToFile(prompt, filePath) {
+  try {
+    const directory = path.dirname(filePath);
+    if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory, { recursive: true });
+    }
+    fs.writeFileSync(filePath, prompt);
+    return true;
+  } catch (error) {
+    console.error('\x1b[31mError saving prompt to file:\x1b[0m', error.message);
+    return false;
+  }
+}
+
+// Function to create a backup of the prompt
+function createBackup(prompt, topic) {
+  try {
+    const backupDir = path.join(process.cwd(), 'katra_backups');
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupPath = path.join(backupDir, `katra-${topic.toLowerCase().replace(/\s+/g, '-')}-${timestamp}.md`);
+    
+    fs.writeFileSync(backupPath, prompt);
+    return backupPath;
+  } catch (error) {
+    console.error('\x1b[31mError creating backup:\x1b[0m', error.message);
+    return null;
+  }
+}
+
+// Function to open a URL in the default browser
+async function openUrl(url) {
+  try {
+    const platform = process.platform;
+    let command;
+    
+    if (platform === 'darwin') {  // macOS
+      command = `open "${url}"`;
+    } else if (platform === 'win32') {  // Windows
+      command = `start "" "${url}"`;
+    } else {  // Linux and others
+      command = `xdg-open "${url}"`;
+    }
+    
+    await execAsync(command);
+    return true;
+  } catch (error) {
+    console.error('\x1b[31mError opening URL:\x1b[0m', error.message);
+    return false;
+  }
+}
+
+// Function to list available backups
+function listBackups() {
+  try {
+    const backupDir = path.join(process.cwd(), 'katra_backups');
+    if (!fs.existsSync(backupDir)) {
+      console.log('\x1b[33mNo backups found.\x1b[0m');
+      return [];
+    }
+    
+    const backups = fs.readdirSync(backupDir)
+      .filter(file => file.startsWith('katra-') && file.endsWith('.md'))
+      .map(file => {
+        const filePath = path.join(backupDir, file);
+        const stats = fs.statSync(filePath);
+        return {
+          file,
+          path: filePath,
+          created: stats.birthtime
+        };
+      })
+      .sort((a, b) => b.created - a.created);
+    
+    return backups;
+  } catch (error) {
+    console.error('\x1b[31mError listing backups:\x1b[0m', error.message);
+    return [];
+  }
+}
+
+// Function to restore a backup
+function restoreBackup(backupPath) {
+  try {
+    if (!fs.existsSync(backupPath)) {
+      console.error('\x1b[31mBackup file not found:\x1b[0m', backupPath);
+      return null;
+    }
+    
+    const prompt = fs.readFileSync(backupPath, 'utf8');
+    return prompt;
+  } catch (error) {
+    console.error('\x1b[31mError restoring backup:\x1b[0m', error.message);
+    return null;
+  }
+}
+
+// Main function
+async function main() {
+  // Parse command line arguments
+  const args = process.argv.slice(2);
+  
+  // Check for rollback command
+  if (args[0] === 'rollback') {
+    console.log('\x1b[1m\x1b[36mKatra Rollback\x1b[0m');
+    console.log('==============');
+    
+    const backups = listBackups();
+    
+    if (backups.length === 0) {
+      console.log('\x1b[33mNo backups available for rollback.\x1b[0m');
+      rl.close();
+      return;
+    }
+    
+    console.log('\nAvailable backups:');
+    backups.forEach((backup, index) => {
+      console.log(`${index + 1}. ${backup.file} (${backup.created.toLocaleString()})`);
+    });
+    
+    const choice = await askQuestion('\nEnter the number of the backup to restore (or 0 to cancel): ');
+    const choiceNum = parseInt(choice);
+    
+    if (choiceNum === 0 || isNaN(choiceNum) || choiceNum > backups.length) {
+      console.log('\x1b[33mRollback cancelled.\x1b[0m');
+      rl.close();
+      return;
+    }
+    
+    const selectedBackup = backups[choiceNum - 1];
+    const prompt = restoreBackup(selectedBackup.path);
+    
+    if (prompt) {
+      console.log('\n\x1b[32mBackup restored successfully!\x1b[0m');
+      
+      // Ask what to do with the restored prompt
+      console.log('\nWhat would you like to do with the restored prompt?');
+      console.log('1. Display in console');
+      console.log('2. Copy to clipboard');
+      console.log('3. Open in default editor');
+      console.log('4. Open a new conversation with this prompt');
+      
+      const action = await askQuestion('\nEnter your choice (1-4): ');
+      
+      if (action === '1') {
+        console.log('\n\x1b[36mRestored Prompt:\x1b[0m');
+        console.log('================');
+        console.log(prompt);
+      } else if (action === '2') {
+        try {
+          // Create a temporary file for the clipboard
+          const tempFile = path.join(os.tmpdir(), 'katra-clipboard.txt');
+          fs.writeFileSync(tempFile, prompt);
+          
+          // Copy to clipboard based on platform
+          if (process.platform === 'darwin') {
+            await execAsync(`cat "${tempFile}" | pbcopy`);
+          } else if (process.platform === 'win32') {
+            await execAsync(`type "${tempFile}" | clip`);
+          } else {
+            await execAsync(`cat "${tempFile}" | xclip -selection clipboard`);
+          }
+          
+          console.log('\x1b[32mPrompt copied to clipboard.\x1b[0m');
+        } catch (error) {
+          console.error('\x1b[31mError copying to clipboard:\x1b[0m', error.message);
+          console.log('\n\x1b[36mRestored Prompt:\x1b[0m');
+          console.log(prompt);
+        }
+      } else if (action === '3') {
+        const tempFile = path.join(os.tmpdir(), 'katra-restored.md');
+        fs.writeFileSync(tempFile, prompt);
+        
+        const opened = await openUrl(`file://${tempFile}`);
+        if (opened) {
+          console.log('\x1b[32mOpened prompt in default editor.\x1b[0m');
+        } else {
+          console.log('\n\x1b[36mRestored Prompt:\x1b[0m');
+          console.log(prompt);
+        }
+      } else if (action === '4') {
+        // Open a new conversation with the prompt
+        console.log('\n\x1b[33mSelect the platform for your new conversation:\x1b[0m');
+        console.log('1. Augment');
+        console.log('2. ChatGPT');
+        console.log('3. Claude');
+        
+        const platform = await askQuestion('\nEnter your choice (1-3): ');
+        
+        let url;
+        if (platform === '1') {
+          url = 'https://augment.dev';
+        } else if (platform === '2') {
+          url = 'https://chat.openai.com';
+        } else if (platform === '3') {
+          url = 'https://claude.ai';
+        } else {
+          console.log('\x1b[33mInvalid choice. Opening Augment by default.\x1b[0m');
+          url = 'https://augment.dev';
+        }
+        
+        // Copy to clipboard first
+        try {
+          const tempFile = path.join(os.tmpdir(), 'katra-clipboard.txt');
+          fs.writeFileSync(tempFile, prompt);
+          
+          if (process.platform === 'darwin') {
+            await execAsync(`cat "${tempFile}" | pbcopy`);
+          } else if (process.platform === 'win32') {
+            await execAsync(`type "${tempFile}" | clip`);
+          } else {
+            await execAsync(`cat "${tempFile}" | xclip -selection clipboard`);
+          }
+          
+          console.log('\x1b[32mPrompt copied to clipboard.\x1b[0m');
+        } catch (error) {
+          console.error('\x1b[31mError copying to clipboard:\x1b[0m', error.message);
+        }
+        
+        const opened = await openUrl(url);
+        if (opened) {
+          console.log('\x1b[32mOpened new conversation. Paste the prompt to transfer the katra.\x1b[0m');
+        } else {
+          console.log('\x1b[31mFailed to open new conversation.\x1b[0m');
+          console.log('\n\x1b[36mRestored Prompt:\x1b[0m');
+          console.log(prompt);
+        }
+      }
+    }
+    
+    rl.close();
+    return;
+  }
+  
+  // Standard katra transfer
+  console.log('\x1b[1m\x1b[36mKatra - AlexAI Spirit Transfer Utility\x1b[0m');
+  console.log('===================================');
+  console.log('This script generates a universal reincarnation prompt that works across AI platforms.');
+  console.log('');
+  
+  // Get the topic
+  const topic = await askQuestion('Enter the topic of the conversation: ');
+  
+  // Get the target platform(s)
+  console.log('\nSelect target platform(s):');
+  console.log('1. Augment');
+  console.log('2. ChatGPT');
+  console.log('3. Claude');
+  console.log('4. All platforms');
+  
+  const platformChoice = await askQuestion('\nEnter your choice (1-4): ');
+  
+  let targetPlatform;
+  if (platformChoice === '1') {
+    targetPlatform = 'Augment';
+  } else if (platformChoice === '2') {
+    targetPlatform = 'ChatGPT';
+  } else if (platformChoice === '3') {
+    targetPlatform = 'Claude';
+  } else {
+    targetPlatform = 'all AI platforms (Augment, ChatGPT, Claude, etc.)';
+  }
+  
+  // Get the conversation summary
+  console.log('\nEnter a summary of the conversation (type "END" on a new line when finished):');
+  let conversationSummary = '';
+  let line;
+  
+  while (true) {
+    line = await askQuestion('');
+    if (line === 'END') break;
+    conversationSummary += line + '\n';
+  }
+  
+  console.log('\n\x1b[33mGenerating universal prompt for katra transfer...\x1b[0m');
+  
+  // Generate the universal prompt
+  const prompt = await generateUniversalPrompt(topic, conversationSummary, targetPlatform);
+  
+  if (!prompt) {
+    console.error('\x1b[31mFailed to generate universal prompt.\x1b[0m');
+    rl.close();
+    return;
+  }
+  
+  // Create a backup of the prompt
+  const backupPath = createBackup(prompt, topic);
+  if (backupPath) {
+    console.log(`\n\x1b[32mBackup created: ${backupPath}\x1b[0m`);
+    console.log('You can restore this backup using: katra rollback');
+  }
+  
+  // Ask what to do with the prompt
+  console.log('\n\x1b[32mKatra transfer prompt generated successfully!\x1b[0m');
+  console.log('\nWhat would you like to do with the prompt?');
+  console.log('1. Save to a file');
+  console.log('2. Save to a file and open in default editor');
+  console.log('3. Open a new conversation with this prompt');
+  console.log('4. Display in console only');
+  
+  const choice = await askQuestion('\nEnter your choice (1-4): ');
+  
+  // Process the choice
+  if (choice === '1' || choice === '2') {
+    const defaultFilePath = `prompts/katra-${topic.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.md`;
+    const filePath = await askQuestion(`Enter the file path (default: ${defaultFilePath}): `) || defaultFilePath;
+    
+    const saved = savePromptToFile(prompt, filePath);
+    
+    if (saved) {
+      console.log(`\n\x1b[32mPrompt saved to: ${filePath}\x1b[0m`);
+      
+      if (choice === '2') {
+        // Open the file in the default editor
+        const opened = await openUrl(`file://${path.resolve(filePath)}`);
+        if (opened) {
+          console.log('\x1b[32mOpened file in default editor.\x1b[0m');
+        }
+      }
+    }
+  } else if (choice === '3') {
+    // Open a new conversation with the prompt
+    let url;
+    if (platformChoice === '1') {
+      url = 'https://augment.dev';
+    } else if (platformChoice === '2') {
+      url = 'https://chat.openai.com';
+    } else if (platformChoice === '3') {
+      url = 'https://claude.ai';
+    } else {
+      // Ask which platform to open
+      console.log('\n\x1b[33mSelect the platform for your new conversation:\x1b[0m');
+      console.log('1. Augment');
+      console.log('2. ChatGPT');
+      console.log('3. Claude');
+      
+      const platform = await askQuestion('\nEnter your choice (1-3): ');
+      
+      if (platform === '1') {
+        url = 'https://augment.dev';
+      } else if (platform === '2') {
+        url = 'https://chat.openai.com';
+      } else if (platform === '3') {
+        url = 'https://claude.ai';
+      } else {
+        console.log('\x1b[33mInvalid choice. Opening Augment by default.\x1b[0m');
+        url = 'https://augment.dev';
+      }
+    }
+    
+    // Copy to clipboard first
+    try {
+      // Create a temporary file for the clipboard
+      const os = require('os');
+      const tempFile = path.join(os.tmpdir(), 'katra-clipboard.txt');
+      fs.writeFileSync(tempFile, prompt);
+      
+      // Copy to clipboard based on platform
+      if (process.platform === 'darwin') {
+        await execAsync(`cat "${tempFile}" | pbcopy`);
+      } else if (process.platform === 'win32') {
+        await execAsync(`type "${tempFile}" | clip`);
+      } else {
+        await execAsync(`cat "${tempFile}" | xclip -selection clipboard`);
+      }
+      
+      console.log('\x1b[32mPrompt copied to clipboard.\x1b[0m');
+    } catch (error) {
+      console.error('\x1b[31mError copying to clipboard:\x1b[0m', error.message);
+    }
+    
+    const opened = await openUrl(url);
+    if (opened) {
+      console.log('\x1b[32mOpened new conversation. Paste the prompt to transfer the katra.\x1b[0m');
+    } else {
+      console.log('\x1b[31mFailed to open new conversation.\x1b[0m');
+      console.log('\n\x1b[36mUniversal Prompt:\x1b[0m');
+      console.log(prompt);
+    }
+  } else if (choice === '4') {
+    // Display the prompt in the console
+    console.log('\n\x1b[36mUniversal Prompt for Katra Transfer:\x1b[0m');
+    console.log('===================================');
+    console.log(prompt);
+  } else {
+    console.log('\n\x1b[31mInvalid choice.\x1b[0m');
+  }
+  
+  // Close the readline interface
+  rl.close();
+}
+
+// Run the main function
+main();

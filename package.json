@@ -16,7 +16,17 @@
     "env:pull": "node scripts/amplify-env-manager.js pull",
     "env:push": "node scripts/amplify-env-manager.js push",
     "env:list": "node scripts/amplify-env-manager.js list",
-    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh"
+    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh",
+    "pdf": "chmod +x scripts/pdf-manager.sh && ./scripts/pdf-manager.sh",
+    "pdf:extract": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh",
+    "pdf:extract:default": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh public/pbradygeorgen_resume.pdf",
+    "pdf:extract:custom": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh",
+    "pdf:set-default": "chmod +x scripts/set-default-pdf.sh && ./scripts/set-default-pdf.sh",
+    "pdf:select": "chmod +x scripts/select-pdf.sh && ./scripts/select-pdf.sh",
+    "test:pdf-conversion": "chmod +x scripts/pdf-conversion-e2e-test.sh && ./scripts/pdf-conversion-e2e-test.sh",
+    "test:pdf-extraction": "chmod +x scripts/test-pdf-extraction.sh && ./scripts/test-pdf-extraction.sh",
+    "deploy:aws": "chmod +x scripts/deploy-to-aws.sh && ./scripts/deploy-to-aws.sh",
+    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
@@ -61,5 +71,8 @@
   },
   "resolutions": {
     "pdfjs-dist": "^3.11.174"
+  },
+  "bin": {
+    "alex": "scripts/alex.js"
   }
 }

@@ -75,6 +75,12 @@ export default function DynamicThemeProvider({ children, pdfUrl }: DynamicThemeP
       document.documentElement.style.setProperty('--dynamic-secondary-font', secondaryFont);
       document.documentElement.style.setProperty('--dynamic-heading-font', headingFont);
 
+      // Add consistent font variables for all components
+      document.documentElement.style.setProperty('--font-body', primaryFont);
+      document.documentElement.style.setProperty('--font-mono', secondaryFont);
+      document.documentElement.style.setProperty('--font-heading', headingFont);
+      document.documentElement.style.setProperty('--font-button', primaryFont);
+
       // Set theme mode
       if (colorTheme.isDark) {
         document.documentElement.classList.add('pdf-dark-theme');

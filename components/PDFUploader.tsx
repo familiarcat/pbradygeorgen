@@ -26,7 +26,7 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleFile(e.dataTransfer.files[0]);
     }
@@ -90,8 +90,12 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
     <div className={`pdf-uploader ${className}`}>
       <div
         className={`upload-area p-6 border-2 border-dashed rounded-lg text-center cursor-pointer transition-all ${
-          isDragging ? 'border-[var(--cta-primary)] bg-[var(--cta-primary-light)]' : 'border-[var(--text-tertiary)]'
+          isDragging ? 'border-[var(--cta-primary, #7E4E2D)] bg-[var(--cta-primary-bg, rgba(126, 78, 45, 0.1))]' : 'border-[var(--border-color, #dddddd)]'
         }`}
+        style={{
+          backgroundColor: isDragging ? 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))' : 'var(--bg-primary, #ffffff)',
+          color: 'var(--text-color, #333333)'
+        }}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -104,16 +108,18 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
           accept="application/pdf"
           className="hidden"
         />
-        
+
         {isUploading ? (
           <div className="flex flex-col items-center">
-            <div className="w-12 h-12 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
-            <p className="text-[var(--text-primary)]">Uploading PDF...</p>
+            <div className="w-12 h-12 border-t-4 border-solid rounded-full animate-spin mb-4"
+                 style={{ borderTopColor: 'var(--cta-primary, #7E4E2D)' }}></div>
+            <p style={{ color: 'var(--text-color, #333333)' }}>Uploading PDF...</p>
           </div>
         ) : (
           <>
             <svg
-              className="w-12 h-12 mx-auto mb-4 text-[var(--text-tertiary)]"
+              className="w-12 h-12 mx-auto mb-4"
+              style={{ color: 'var(--text-secondary, #666666)' }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -126,18 +132,21 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               ></path>
             </svg>
-            <p className="mb-2 text-lg font-medium text-[var(--text-primary)]">
+            <p className="mb-2 text-lg font-medium"
+               style={{ color: 'var(--text-color, #333333)' }}>
               Drag and drop your PDF here
             </p>
-            <p className="text-sm text-[var(--text-tertiary)]">
+            <p className="text-sm"
+               style={{ color: 'var(--text-secondary, #666666)' }}>
               or click to select a file
             </p>
           </>
         )}
       </div>
-      
+
       {errorMessage && (
-        <div className="mt-3 text-[var(--state-error)] text-sm">
+        <div className="mt-3 text-sm"
+             style={{ color: 'var(--state-error, #dc3545)' }}>
           {errorMessage}
         </div>
       )}

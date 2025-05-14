@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[631],{5631:(e,t,a)=>{a.r(t),a.d(t,{default:()=>n});var r=a(5155),u=a(2115),s=a(1859);function n(){let e=Date.now(),[t,a]=(0,u.useState)("/pbradygeorgen_resume.pdf?v=".concat(e)),[n,d]=(0,u.useState)("pbradygeorgen_resume");return(0,r.jsx)(s.default,{pdfUrl:t,pdfName:n})}}}]);

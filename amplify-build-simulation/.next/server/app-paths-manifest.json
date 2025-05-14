@@ -1,0 +1,16 @@
+{
+  "/api/analyze-content/route": "app/api/analyze-content/route.js",
+  "/api/upload-pdf/route": "app/api/upload-pdf/route.js",
+  "/api/format-content/route": "app/api/format-content/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/get-summary/route": "app/api/get-summary/route.js",
+  "/dante-agile/page": "app/dante-agile/page.js",
+  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/sample/page": "app/sample/page.js",
+  "/style-test/page": "app/style-test/page.js",
+  "/test/page": "app/test/page.js",
+  "/upload/page": "app/upload/page.js",
+  "/view/page": "app/view/page.js",
+  "/style-test-new/page": "app/style-test-new/page.js"
+}

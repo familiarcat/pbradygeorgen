@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import StyledMarkdown from './StyledMarkdown';
+import { usePdfThemeContext } from './DynamicThemeProvider';
 
 interface ExtractedContentProps {
   filePath: string;
@@ -11,6 +13,9 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
   const [content, setContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Access the PDF theme context
+  const themeContext = usePdfThemeContext();
 
   // Function to handle downloading the content
   const handleDownload = () => {
@@ -102,6 +107,19 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
           <button
             onClick={handleDownload}
             className="analyzer-button analyzer-button-primary text-sm flex items-center"
+            style={{
+              backgroundColor: 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))',
+              color: 'var(--text-color, #333333)',
+              fontFamily: 'var(--font-button, sans-serif)',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '4px',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              transition: 'all 0.2s ease'
+            }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -110,11 +128,29 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
           </button>
         </div>
       )}
-      <div className="prose max-w-none" style={{ maxHeight: 'calc(85vh - 6rem)', overflowY: 'auto', paddingRight: '0.5rem' }}>
+      <div className="prose max-w-none" style={{
+        maxHeight: 'calc(85vh - 6rem)',
+        overflowY: 'auto',
+        paddingRight: '0.5rem',
+        fontFamily: 'var(--font-body, serif)',
+        color: 'var(--text-color, #333333)'
+      }}>
         {filePath.endsWith('.md') ? (
-          <div className="book-content" dangerouslySetInnerHTML={{ __html: formatMarkdown(content || '') }} />
+          <StyledMarkdown>{content || ''}</StyledMarkdown>
         ) : (
-          <pre className="whitespace-pre-wrap font-mono text-sm analyzer-section-content p-4 rounded">{content}</pre>
+          <pre
+            className="whitespace-pre-wrap analyzer-section-content p-4 rounded"
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.9rem',
+              lineHeight: '1.5',
+              color: 'var(--text-color, #333333)',
+              backgroundColor: 'var(--bg-primary, #ffffff)',
+              border: '1px solid var(--border-color, rgba(73, 66, 61, 0.1))',
+              borderRadius: '4px',
+              padding: '1rem'
+            }}
+          >{content}</pre>
         )}
       </div>
     </div>

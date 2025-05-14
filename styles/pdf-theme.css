@@ -1,0 +1,344 @@
+/* PDF Theme CSS - Applies extracted PDF styles globally */
+
+:root {
+  /* Default values that will be overridden by GlobalStylesProvider */
+  --pdf-primary-color: #3a6ea5;
+  --pdf-secondary-color: #004e98;
+  --pdf-accent-color: #ff6700;
+  --pdf-background-color: #f6f6f6;
+  --pdf-text-color: #333333;
+  --pdf-text-secondary: #666666;
+  --pdf-border-color: #dddddd;
+  --pdf-success-color: #28a745;
+  --pdf-warning-color: #ffc107;
+  --pdf-error-color: #dc3545;
+  --pdf-info-color: #17a2b8;
+
+  /* RGB versions for rgba() usage */
+  --pdf-primary-color-rgb: 58, 110, 165;
+  --pdf-secondary-color-rgb: 0, 78, 152;
+  --pdf-accent-color-rgb: 255, 103, 0;
+  --pdf-text-color-rgb: 51, 51, 51;
+  --pdf-border-color-rgb: 221, 221, 221;
+
+  /* Font variables */
+  --pdf-heading-font: Arial, sans-serif;
+  --pdf-body-font: Helvetica, Arial, sans-serif;
+  --pdf-mono-font: monospace;
+  --pdf-title-font: Arial, sans-serif;
+  --pdf-subtitle-font: Arial, sans-serif;
+  --pdf-button-font: Arial, sans-serif;
+  --pdf-nav-font: Arial, sans-serif;
+  --pdf-code-font: Consolas, Monaco, monospace;
+
+  /* UI Component variables */
+  --pdf-button-bg: var(--pdf-primary-color);
+  --pdf-button-text: #ffffff;
+  --pdf-button-hover-bg: var(--pdf-secondary-color);
+  --pdf-input-border: var(--pdf-border-color);
+  --pdf-input-focus-border: var(--pdf-primary-color);
+  --pdf-card-bg: #ffffff;
+  --pdf-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --pdf-modal-bg: #ffffff;
+  --pdf-modal-overlay: rgba(0, 0, 0, 0.5);
+  --pdf-nav-bg: var(--pdf-primary-color);
+  --pdf-nav-text: #ffffff;
+  --pdf-footer-bg: var(--pdf-secondary-color);
+  --pdf-footer-text: #ffffff;
+
+  /* Contrast variables */
+  --pdf-primary-contrast: #ffffff;
+  --pdf-secondary-contrast: #ffffff;
+  --pdf-accent-contrast: #000000;
+
+  /* Salinger Header specific variables */
+  --salinger-header-bg: rgba(212, 209, 190, 0.95);
+  --salinger-header-text: #49423D;
+  --salinger-header-border: rgba(73, 66, 61, 0.15);
+  --salinger-header-link: #3a6ea5;
+  --salinger-header-link-hover: #004e98;
+  --salinger-header-accent: #8A8151;
+
+  /* CTA button variables */
+  --cta-primary: #7E4E2D;
+  --cta-secondary: #5A7682;
+  --cta-tertiary: #7E6233;
+  --cta-primary-hover: #6a4225;
+  --cta-secondary-hover: #4c6470;
+  --cta-tertiary-hover: #6a532b;
+  --cta-primary-rgb: 126, 78, 45;
+  --cta-secondary-rgb: 90, 118, 130;
+  --cta-tertiary-rgb: 126, 98, 51;
+
+  /* State variables */
+  --state-success: #28a745;
+  --state-warning: #ffc107;
+  --state-error: #dc3545;
+  --state-info: #17a2b8;
+  --state-success-light: #d4edda;
+  --state-warning-light: #fff3cd;
+  --state-error-light: #f8d7da;
+  --state-info-light: #d1ecf1;
+
+  /* General UI variables */
+  --bg-primary: #f6f6f6;
+  --bg-secondary: #ebebeb;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --border-color: #dddddd;
+}
+
+/* Global Typography */
+body {
+  font-family: var(--pdf-body-font);
+  color: var(--pdf-text-color);
+  background-color: var(--pdf-background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--pdf-heading-font);
+  color: var(--pdf-primary-color);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+code, pre {
+  font-family: var(--pdf-mono-font);
+}
+
+/* Links */
+a {
+  color: var(--pdf-primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--pdf-secondary-color);
+  text-decoration: underline;
+}
+
+/* Buttons */
+button,
+.button,
+[type="button"],
+[type="submit"],
+[type="reset"] {
+  background-color: var(--pdf-button-bg);
+  color: var(--pdf-button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-family: var(--pdf-body-font);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+.button:hover,
+[type="button"]:hover,
+[type="submit"]:hover,
+[type="reset"]:hover {
+  background-color: var(--pdf-button-hover-bg);
+}
+
+/* Secondary Button */
+button.secondary,
+.button.secondary {
+  background-color: var(--pdf-secondary-color);
+  color: var(--pdf-secondary-contrast);
+}
+
+/* Accent Button */
+button.accent,
+.button.accent {
+  background-color: var(--pdf-accent-color);
+  color: var(--pdf-accent-contrast);
+}
+
+/* Outline Button */
+button.outline,
+.button.outline {
+  background-color: transparent;
+  color: var(--pdf-primary-color);
+  border: 1px solid var(--pdf-primary-color);
+}
+
+button.outline:hover,
+.button.outline:hover {
+  background-color: var(--pdf-primary-color);
+  color: var(--pdf-primary-contrast);
+}
+
+/* Form Elements */
+input, select, textarea {
+  border: 1px solid var(--pdf-input-border);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  font-family: var(--pdf-body-font);
+  color: var(--pdf-text-color);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pdf-input-focus-border);
+  outline: none;
+}
+
+/* Cards */
+.card {
+  background-color: var(--pdf-card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--pdf-card-shadow);
+  padding: 1rem;
+}
+
+/* Modals */
+.modal {
+  background-color: var(--pdf-modal-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--pdf-card-shadow);
+}
+
+.modal-overlay {
+  background-color: var(--pdf-modal-overlay);
+}
+
+/* Navigation */
+nav {
+  background-color: var(--pdf-nav-bg);
+  color: var(--pdf-nav-text);
+}
+
+nav a {
+  color: var(--pdf-nav-text);
+}
+
+nav a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Footer */
+footer {
+  background-color: var(--pdf-footer-bg);
+  color: var(--pdf-footer-text);
+}
+
+/* Alerts */
+.alert {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: var(--pdf-success-color);
+  color: #fff;
+}
+
+.alert-warning {
+  background-color: var(--pdf-warning-color);
+  color: #000;
+}
+
+.alert-error {
+  background-color: var(--pdf-error-color);
+  color: #fff;
+}
+
+.alert-info {
+  background-color: var(--pdf-info-color);
+  color: #fff;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid var(--pdf-border-color);
+  padding: 0.5rem;
+}
+
+th {
+  background-color: var(--pdf-primary-color);
+  color: var(--pdf-primary-contrast);
+}
+
+/* Dividers */
+hr {
+  border: 0;
+  border-top: 1px solid var(--pdf-border-color);
+  margin: 1rem 0;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.badge-primary {
+  background-color: var(--pdf-primary-color);
+  color: var(--pdf-primary-contrast);
+}
+
+.badge-secondary {
+  background-color: var(--pdf-secondary-color);
+  color: var(--pdf-secondary-contrast);
+}
+
+.badge-accent {
+  background-color: var(--pdf-accent-color);
+  color: var(--pdf-accent-contrast);
+}
+
+/* Progress Bars */
+progress {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--pdf-border-color);
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--pdf-primary-color);
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--pdf-primary-color);
+}
+
+/* Tooltips */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--pdf-text-color);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}

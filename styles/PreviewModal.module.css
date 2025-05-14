@@ -16,7 +16,7 @@
 
 /* Modal content container */
 .modalContent {
-  background-color: #D4D1BE; /* Ecru background */
+  background-color: var(--bg-primary, #D4D1BE);
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: 45%; /* Reduced from 90% to allow for left/right positioning */
@@ -25,8 +25,8 @@
   display: flex;
   flex-direction: column;
   animation: slideIn 0.3s ease;
-  border: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
-  font-family: 'Courier New', monospace;
+  border: 1px solid var(--border-color, rgba(73, 66, 61, 0.2));
+  font-family: var(--font-body, 'Garamond', 'Times New Roman', serif);
   position: absolute; /* Use absolute positioning */
   top: 5vh; /* Position from top */
   left: 0; /* Will be overridden by left/right classes */
@@ -58,16 +58,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(73, 66, 61, 0.2); /* Subtle ebony border */
+  border-bottom: 1px solid var(--border-color, rgba(73, 66, 61, 0.2));
+  background-color: var(--bg-secondary, #D4D1BE);
 }
 
 /* Modal title */
 .modalTitle {
   margin: 0;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   font-size: 1.5rem;
   font-weight: 700; /* Changed from 400 to 700 for bold text */
   letter-spacing: -0.5px;
+  font-family: var(--font-heading, 'Courier New', monospace);
 }
 
 /* Header actions container */
@@ -118,7 +120,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -126,7 +128,7 @@
 }
 
 .closeButton:hover {
-  background-color: rgba(73, 66, 61, 0.1);
+  background-color: var(--hover-bg, rgba(73, 66, 61, 0.1));
 }
 
 /* Modal body - contains the preview content */
@@ -134,7 +136,7 @@
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
-  background-color: #F5F3E7; /* Lighter ecru for content area */
+  background-color: var(--bg-tertiary, #F5F3E7);
   border-radius: 0 0 8px 8px;
 }
 
@@ -142,50 +144,54 @@
 .markdownPreview {
   margin: 0;
   padding: 1.5rem;
-  background-color: #FFFFFF;
+  background-color: var(--bg-primary, #FFFFFF);
   border-radius: 4px;
   max-height: 60vh;
   overflow-y: auto;
-  border: 1px solid rgba(73, 66, 61, 0.1);
-  font-family: 'Garamond', 'Times New Roman', serif;
+  border: 1px solid var(--border-color, rgba(73, 66, 61, 0.1));
+  font-family: var(--font-body, 'Garamond', 'Times New Roman', serif);
   line-height: 1.6;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .markdownPreview h1 {
   font-size: 1.8rem;
   margin-top: 0;
   margin-bottom: 1rem;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   font-weight: 400;
   letter-spacing: -0.5px;
+  font-family: var(--font-heading, 'Courier New', monospace);
 }
 
 .markdownPreview h2 {
   font-size: 1.5rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   font-weight: 400;
-  border-bottom: 1px solid rgba(73, 66, 61, 0.1);
+  border-bottom: 1px solid var(--border-color, rgba(73, 66, 61, 0.1));
   padding-bottom: 0.5rem;
+  font-family: var(--font-heading, 'Courier New', monospace);
 }
 
 .markdownPreview h3 {
   font-size: 1.25rem;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   font-weight: 400;
+  font-family: var(--font-heading, 'Courier New', monospace);
 }
 
 .markdownPreview h4 {
   font-size: 1.1rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: #49423D; /* Ebony */
+  color: var(--text-color, #49423D);
   font-weight: 400;
   font-style: italic;
+  font-family: var(--font-heading, 'Courier New', monospace);
 }
 
 .markdownPreview p {
@@ -202,7 +208,7 @@
 }
 
 .markdownPreview a {
-  color: #5A7682; /* Blue accent color */
+  color: var(--primary, #5A7682);
   text-decoration: none;
 }
 
@@ -211,15 +217,15 @@
 }
 
 .markdownPreview code {
-  background-color: rgba(73, 66, 61, 0.05);
+  background-color: var(--code-bg, rgba(73, 66, 61, 0.05));
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono, 'Courier New', monospace);
   font-size: 0.9em;
 }
 
 .markdownPreview pre {
-  background-color: rgba(73, 66, 61, 0.05);
+  background-color: var(--code-bg, rgba(73, 66, 61, 0.05));
   padding: 1rem;
   border-radius: 4px;
   overflow-x: auto;
@@ -250,16 +256,16 @@
 .textPreview {
   margin: 0;
   padding: 1rem;
-  background-color: #FFFFFF;
+  background-color: var(--bg-primary, #FFFFFF);
   border-radius: 4px;
   white-space: pre-wrap;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono, 'Courier New', monospace);
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #333;
+  color: var(--text-color, #333);
   max-height: 60vh;
   overflow-y: auto;
-  border: 1px solid rgba(73, 66, 61, 0.1);
+  border: 1px solid var(--border-color, rgba(73, 66, 61, 0.1));
 }
 
 /* Modal footer */
@@ -273,13 +279,13 @@
 
 /* Download button - Primary CTA */
 .downloadButton {
-  background-color: #7E4E2D; /* Terracotta color (matches --cta-primary) */
-  color: #FFFFFF;
+  background-color: var(--primary, #7E4E2D);
+  color: var(--bg-primary, #FFFFFF);
   border: none;
   padding: 0.75rem 1.25rem;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Garamond', 'Times New Roman', serif;
+  font-family: var(--font-button, 'Garamond', 'Times New Roman', serif);
   font-size: 1rem;
   transition: all 0.2s ease;
   display: flex;
@@ -290,7 +296,8 @@
 }
 
 .downloadButton:hover {
-  background-color: #8F5A35; /* Lighter terracotta */
+  background-color: var(--hover-bg, rgba(126, 78, 45, 0.15));
+  color: var(--text-color, #49423D);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -303,19 +310,19 @@
 
 /* Cancel button - Tertiary CTA */
 .cancelButton {
-  background-color: rgba(126, 98, 51, 0.1); /* Subtle coyote background (matches --cta-tertiary) */
-  color: #49423D; /* Ebony */
-  border: 1px solid rgba(73, 66, 61, 0.2);
+  background-color: var(--cta-tertiary-bg, rgba(126, 98, 51, 0.1));
+  color: var(--text-color, #49423D);
+  border: 1px solid var(--border-color, rgba(73, 66, 61, 0.2));
   padding: 0.75rem 1.25rem;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Garamond', 'Times New Roman', serif;
+  font-family: var(--font-button, 'Garamond', 'Times New Roman', serif);
   font-size: 1rem;
   transition: all 0.2s ease;
 }
 
 .cancelButton:hover {
-  background-color: rgba(126, 98, 51, 0.2); /* Slightly darker on hover */
+  background-color: var(--hover-bg, rgba(126, 98, 51, 0.15));
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 

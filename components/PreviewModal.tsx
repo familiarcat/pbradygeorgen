@@ -3,7 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import styles from '@/styles/PreviewModal.module.css';
 import { DanteLogger } from '@/utils/DanteLogger';
-import ReactMarkdown from 'react-markdown';
+import { usePdfThemeContext } from '@/components/DynamicThemeProvider';
+import StyledMarkdown from './StyledMarkdown';
 
 interface PreviewModalProps {
   isOpen: boolean;
@@ -33,6 +34,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const markdownRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLPreElement>(null);
+
+  // Access the PDF theme context to use extracted styles
+  const themeContext = usePdfThemeContext();
 
   // Removed PDF export functionality as we're standardizing the UI across all preview modals
 
@@ -95,9 +99,25 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
             : position === 'right'
               ? styles.modalContentRight
               : ''
-        }`}>
-        <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>
+        }`}
+        style={{
+          // Apply PDF-extracted styles
+          backgroundColor: 'var(--bg-primary, #ffffff)',
+          color: 'var(--text-color, #333333)',
+          borderColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+        }}>
+        <div
+          className={styles.modalHeader}
+          style={{
+            backgroundColor: 'var(--bg-secondary, #f5f5f5)',
+            borderBottomColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+          }}>
+          <h2
+            className={styles.modalTitle}
+            style={{
+              color: 'var(--text-color, #333333)',
+              fontFamily: 'var(--font-heading, sans-serif)'
+            }}>
             {format === 'markdown'
               ? 'Markdown Preview'
               : format === 'pdf'
@@ -106,18 +126,40 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
           </h2>
           <div className={styles.headerActions}>
             {/* Removed Export PDF button to maintain consistent UI across all preview modals */}
-            <button className={styles.closeButton} onClick={onClose} aria-label="Close">
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              aria-label="Close"
+              style={{
+                color: 'var(--text-color, #333333)'
+              }}>
               &times;
             </button>
           </div>
         </div>
-        <div className={styles.modalBody}>
+        <div
+          className={styles.modalBody}
+          style={{
+            backgroundColor: 'var(--bg-tertiary, #f9f9f9)'
+          }}>
           {format === 'markdown' ? (
-            <div ref={markdownRef} className={styles.markdownPreview}>
-              <ReactMarkdown>{content}</ReactMarkdown>
+            <div
+              ref={markdownRef}
+              className={styles.markdownPreview}
+              style={{
+                backgroundColor: 'var(--bg-primary, #ffffff)',
+                color: 'var(--text-color, #333333)',
+                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))',
+                fontFamily: 'var(--font-body, serif)'
+              }}>
+              <StyledMarkdown>{content}</StyledMarkdown>
             </div>
           ) : format === 'pdf' ? (
-            <div className={styles.pdfPreview}>
+            <div
+              className={styles.pdfPreview}
+              style={{
+                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))'
+              }}>
               {/* Log preview details */}
               {(() => {
                 console.log('Rendering PDF preview with:', {
@@ -145,12 +187,29 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
               )}
             </div>
           ) : (
-            <pre ref={textRef} className={styles.textPreview}>{content}</pre>
+            <pre
+              ref={textRef}
+              className={styles.textPreview}
+              style={{
+                backgroundColor: 'var(--bg-primary, #ffffff)',
+                color: 'var(--text-color, #333333)',
+                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))',
+                fontFamily: 'var(--font-mono, monospace)'
+              }}>{content}</pre>
           )}
         </div>
-        <div className={styles.modalFooter}>
+        <div
+          className={styles.modalFooter}
+          style={{
+            borderTopColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+          }}>
           <button
             className={styles.downloadButton}
+            style={{
+              backgroundColor: 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))',
+              color: 'var(--text-color, #333333)',
+              fontFamily: 'var(--font-button, sans-serif)'
+            }}
             onClick={async (e) => {
               e.preventDefault(); // Prevent any default behavior
               e.stopPropagation(); // Stop event propagation
@@ -290,7 +349,15 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                   : 'Text'
             } File
           </button>
-          <button className={styles.cancelButton} onClick={onClose}>
+          <button
+            className={styles.cancelButton}
+            onClick={onClose}
+            style={{
+              backgroundColor: 'var(--cta-tertiary-bg, rgba(126, 98, 51, 0.1))',
+              color: 'var(--text-color, #333333)',
+              borderColor: 'var(--border-color, rgba(73, 66, 61, 0.2))',
+              fontFamily: 'var(--font-button, sans-serif)'
+            }}>
             Close
           </button>
         </div>

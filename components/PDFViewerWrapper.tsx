@@ -7,14 +7,11 @@ import { DanteLogger } from '@/utils/DanteLogger';
 
 // Create a loading component
 function Loading() {
-  // Match the header background color
-  const headerBgColor = 'rgba(212, 209, 190, 0.95)'; // Ecru background with transparency
-
   return (
-    <div className="flex justify-center items-center min-h-screen w-full" style={{ backgroundColor: headerBgColor }}>
+    <div className="flex justify-center items-center min-h-screen w-full" style={{ backgroundColor: 'var(--bg-primary, rgba(212, 209, 190, 0.95))' }}>
       <div className="flex flex-col items-center">
-        <div className="w-16 h-16 border-t-4 border-[#A05A35] border-solid rounded-full animate-spin mb-4"></div>
-        <p className="text-[#49423D] text-lg font-medium">Loading PDF viewer...</p>
+        <div className="w-16 h-16 border-t-4 border-[var(--primary, #A05A35)] border-solid rounded-full animate-spin mb-4"></div>
+        <p className="text-[var(--text-color, #49423D)] text-lg font-medium">Loading PDF viewer...</p>
       </div>
     </div>
   );

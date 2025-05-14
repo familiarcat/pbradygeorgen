@@ -70,13 +70,20 @@ export default function UploadModal({ isOpen, onClose, onPdfUploaded }: UploadMo
   // Feature temporarily disabled
   return null;
 
-  /* Original implementation:
+  /* Original implementation updated with theme variables:
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300"
+         style={{ backgroundColor: 'var(--pdf-modal-overlay, rgba(0, 0, 0, 0.5))' }}>
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-xl w-full max-w-md p-6 transform transition-all duration-300"
+        className="rounded-lg shadow-xl w-full max-w-md p-6 transform transition-all duration-300"
+        style={{
+          backgroundColor: 'var(--bg-primary, #ffffff)',
+          color: 'var(--text-color, #333333)',
+          border: '1px solid var(--border-color, rgba(0, 0, 0, 0.1))',
+          boxShadow: 'var(--pdf-card-shadow, 0 4px 6px rgba(0, 0, 0, 0.1))'
+        }}
       */
 }

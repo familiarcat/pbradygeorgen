@@ -74,12 +74,52 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
 
   // Helper function to clean markdown formatting
   const cleanMarkdownFormatting = (text: string): string => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
-      .replace(/\*(.*?)\*/g, '$1')     // Remove italic formatting
-      .replace(/`(.*?)`/g, '$1')       // Remove inline code formatting
-      .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Replace links with just the text
-      .replace(/!\[(.*?)\]\(.*?\)/g, '$1'); // Replace images with alt text
+    // Process the text in multiple passes to handle nested formatting
+    let cleanedText = text;
+
+    // Log the original text for debugging
+    console.log('Original text before cleaning:', text);
+
+    try {
+      // First pass: Handle links and images
+      cleanedText = cleanedText
+        .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Replace links with just the text
+        .replace(/!\[(.*?)\]\(.*?\)/g, '$1'); // Replace images with alt text
+
+      // Second pass: Handle bold and italic formatting with improved regex
+      // Handle bold+italic first to avoid nested formatting issues
+      cleanedText = cleanedText
+        .replace(/\*\*\*(.*?)\*\*\*/g, '$1') // Handle bold+italic with asterisks
+        .replace(/___([^_]+)___/g, '$1') // Handle bold+italic with underscores
+        .replace(/\*\*([^*]+)\*\*/g, '$1') // Handle bold with asterisks
+        .replace(/__([^_]+)__/g, '$1') // Handle bold with underscores
+        .replace(/\*([^*]+)\*/g, '$1') // Handle italic with asterisks
+        .replace(/_([^_]+)_/g, '$1'); // Handle italic with underscores
+
+      // Third pass: Handle code formatting
+      cleanedText = cleanedText
+        .replace(/```[\s\S]*?```/g, '') // Remove code blocks with triple backticks
+        .replace(/~~~[\s\S]*?~~~/g, '') // Remove code blocks with triple tildes
+        .replace(/`([^`]+)`/g, '$1'); // Remove inline code
+
+      // Fourth pass: Handle other markdown elements
+      cleanedText = cleanedText
+        .replace(/^>\s*(.*)/gm, '$1') // Remove blockquotes
+        .replace(/^#{1,6}\s+(.*)/gm, '$1') // Remove heading markers
+        .replace(/^[-*+]\s+(.*)/gm, '$1') // Remove unordered list markers
+        .replace(/^\d+\.\s+(.*)/gm, '$1') // Remove ordered list markers
+        .replace(/^(?:[-*_]){3,}$/gm, ''); // Remove horizontal rules
+
+      // Log the cleaned text for debugging
+      console.log('Cleaned text after processing:', cleanedText);
+
+      return cleanedText;
+    } catch (error) {
+      console.error('Error in cleanMarkdownFormatting:', error);
+      DanteLogger.error.runtime(`Error cleaning markdown formatting: ${error}`);
+      // Return the original text if there's an error
+      return text;
+    }
   };
 
   // Process each line
@@ -131,12 +171,26 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
       // Clean the markdown formatting
       const cleanedLine = cleanMarkdownFormatting(line);
 
+      // Skip empty lines after cleaning
+      if (!cleanedLine.trim()) continue;
+
       // Check if this is a continuation of a previous paragraph
       const prevBlock = blocks[blocks.length - 1];
-      if (prevBlock && prevBlock.type === 'paragraph' && !lines[i-1].trim().endsWith('  ')) {
-        // Append to previous paragraph if the previous line doesn't end with two spaces
+
+      // Only combine with previous paragraph if:
+      // 1. There is a previous paragraph block
+      // 2. The previous line doesn't end with two spaces (markdown line break)
+      // 3. The previous line isn't empty
+      if (prevBlock &&
+          prevBlock.type === 'paragraph' &&
+          i > 0 &&
+          !lines[i-1].trim().endsWith('  ') &&
+          lines[i-1].trim().length > 0) {
+
+        // Append to previous paragraph with a space
         prevBlock.content += ' ' + cleanedLine;
       } else {
+        // Create a new paragraph block
         blocks.push({
           type: 'paragraph',
           content: cleanedLine
@@ -168,44 +222,192 @@ export async function generatePdfFromElement(
     // Create a clone of the element to avoid modifying the original
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
+    // Get CSS variables from the document with fallbacks for all naming conventions
+    const computedStyle = getComputedStyle(document.documentElement);
+
+    // Try multiple variable names for each style property with fallbacks
+    const bgColor =
+      computedStyle.getPropertyValue('--bg-primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+      computedStyle.getPropertyValue('--background-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-background').trim() ||
+      '#F5F1E0';
+
+    const textColor =
+      computedStyle.getPropertyValue('--text-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+      computedStyle.getPropertyValue('--text-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-text').trim() ||
+      '#3A4535';
+
+    const fontBody =
+      computedStyle.getPropertyValue('--font-body').trim() ||
+      computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+      'Garamond, Times New Roman, serif';
+
+    const fontHeading =
+      computedStyle.getPropertyValue('--font-heading').trim() ||
+      computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+      'Courier New, monospace';
+
+    const fontMono =
+      computedStyle.getPropertyValue('--font-mono').trim() ||
+      computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+      'Courier New, monospace';
+
+    const primaryColor =
+      computedStyle.getPropertyValue('--primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+      '#7E4E2D';
+
+    const secondaryColor =
+      computedStyle.getPropertyValue('--secondary').trim() ||
+      computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+      '#5F6B54';
+
+    const borderColor =
+      computedStyle.getPropertyValue('--border-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-border').trim() ||
+      'rgba(73, 66, 61, 0.1)';
+
+    console.log('PDF Generator using extracted styles:', {
+      bgColor,
+      textColor,
+      fontBody,
+      fontHeading,
+      fontMono,
+      primaryColor,
+      secondaryColor,
+      borderColor
+    });
+
     // Create a container with all styles inlined
     const container = document.createElement('div');
     container.style.width = '210mm'; // A4 width
     container.style.padding = '15mm';
-    container.style.backgroundColor = '#F5F1E0'; // Parchment background color
-    container.style.color = '#3A4535'; // Dark forest text color
-    container.style.fontFamily = 'Garamond, Times New Roman, serif';
+    container.style.backgroundColor = bgColor; // Use extracted background color
+    container.style.color = textColor; // Use extracted text color
+    container.style.fontFamily = fontBody; // Use extracted body font
     container.style.fontSize = '12pt';
     container.style.lineHeight = '1.5';
     container.style.position = 'absolute';
     container.style.left = '-9999px';
     container.style.top = '0';
 
-    // Add Salinger-inspired styling
+    // CSS variables already retrieved above
+
+    // Add Salinger-inspired styling with extracted colors
     const styleElement = document.createElement('style');
     styleElement.textContent = `
       h1, h2, h3, h4, h5, h6 {
-        font-family: 'Courier New', monospace;
-        color: #49423D;
+        font-family: ${fontHeading};
+        color: ${textColor};
         margin-top: 1.5em;
         margin-bottom: 0.5em;
       }
-      h1 { font-size: 24pt; }
-      h2 { font-size: 20pt; border-bottom: 1px solid #D5CDB5; padding-bottom: 0.2em; }
-      h3 { font-size: 16pt; }
-      h4 { font-size: 14pt; }
-      p { margin-bottom: 1em; text-align: justify; }
-      ul, ol { margin-bottom: 1em; padding-left: 2em; }
-      li { margin-bottom: 0.5em; }
-      a { color: #7E4E2D; text-decoration: none; }
-      blockquote {
-        border-left: 4px solid #D5CDB5;
-        padding-left: 1em;
-        margin-left: 0;
-        color: #5F6B54;
+      h1 {
+        font-size: 24pt;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+      }
+      h2 {
+        font-size: 20pt;
+        border-bottom: 1px solid ${borderColor};
+        padding-bottom: 0.2em;
+        font-weight: 400;
+      }
+      h3 {
+        font-size: 16pt;
+        font-weight: 400;
+      }
+      h4 {
+        font-size: 14pt;
+        font-weight: 400;
+        font-style: italic;
+      }
+      p {
+        font-family: ${fontBody};
+        color: ${textColor};
+        margin-bottom: 1em;
+        text-align: justify;
+        line-height: 1.6;
+      }
+      ul, ol {
+        margin-bottom: 1em;
+        padding-left: 2em;
+      }
+      li {
+        font-family: ${fontBody};
+        color: ${textColor};
+        margin-bottom: 0.5em;
+        line-height: 1.6;
+      }
+      a {
+        color: ${primaryColor};
+        text-decoration: none;
       }
       code {
-        font-family: 'Courier New', monospace;
+        font-family: ${fontMono};
+        background-color: rgba(73, 66, 61, 0.05);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      pre {
+        background-color: rgba(73, 66, 61, 0.05);
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+      }
+      pre code {
+        background-color: transparent;
+        padding: 0;
+      }
+      blockquote {
+        border-left: 4px solid ${borderColor};
+        padding-left: 1em;
+        margin-left: 0;
+        color: ${secondaryColor};
+        font-style: italic;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+      }
+      th {
+        font-family: ${fontHeading};
+        color: ${textColor};
+        font-weight: bold;
+        padding: 0.5rem;
+        border-bottom: 2px solid ${borderColor};
+        text-align: left;
+      }
+      td {
+        font-family: ${fontBody};
+        color: ${textColor};
+        padding: 0.5rem;
+        border-bottom: 1px solid ${borderColor};
+      }
+      hr {
+        border: none;
+        border-top: 1px solid ${borderColor};
+        margin: 1.5rem 0;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+      code {
+        font-family: ${fontMono};
         background-color: rgba(213, 205, 181, 0.3);
         padding: 0.2em 0.4em;
         border-radius: 3px;
@@ -223,7 +425,7 @@ export async function generatePdfFromElement(
         margin-bottom: 1em;
       }
       th, td {
-        border: 1px solid #D5CDB5;
+        border: 1px solid ${borderColor};
         padding: 0.5em;
         text-align: left;
       }
@@ -233,28 +435,28 @@ export async function generatePdfFromElement(
       }
       hr {
         border: none;
-        border-top: 1px solid #D5CDB5;
+        border-top: 1px solid ${borderColor};
         margin: 2em 0;
       }
       .markdownPreview {
-        background-color: #222222;
+        background-color: ${bgColor};
         border-radius: 4px;
         padding: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        font-family: 'Garamond', 'Times New Roman', serif;
+        border: 1px solid ${borderColor};
+        font-family: ${fontBody};
         line-height: 1.6;
-        color: #F5F3E7;
+        color: ${textColor};
       }
     `;
     container.appendChild(styleElement);
 
-    // Add header with Salinger styling
+    // Add header with Salinger styling using extracted colors and fonts
     if (mergedOptions.headerText) {
       const header = document.createElement('div');
       header.style.textAlign = 'center';
       header.style.marginBottom = '2em';
-      header.style.fontFamily = "'Courier New', monospace";
-      header.style.color = '#49423D';
+      header.style.fontFamily = fontHeading;
+      header.style.color = textColor;
 
       const headerTitle = document.createElement('h1');
       headerTitle.style.marginTop = '0';
@@ -275,7 +477,7 @@ export async function generatePdfFromElement(
       scale: 2, // Higher scale for better quality
       useCORS: true, // Allow loading of cross-origin images
       logging: false, // Disable logging
-      backgroundColor: '#F5F1E0', // Parchment background color
+      backgroundColor: bgColor, // Use extracted background color
       ignoreElements: (element) => {
         // Ignore any external resources that might cause issues
         if (element.tagName === 'LINK' || element.tagName === 'SCRIPT') {
@@ -350,10 +552,87 @@ export async function generatePdfFromMarkdown(
   try {
     DanteLogger.success.basic('Starting PDF generation from markdown content');
 
-    // Determine if this is from the Summary modal or Cover Letter (dark theme) or regular content
-    // Ensure consistent styling between preview and download by explicitly checking for cover_letter
-    const isDarkTheme = options.fileName?.includes('summary') || options.fileName?.includes('cover_letter') ||
-                        options.isDarkTheme === true || false;
+    // Get CSS variables from the document with fallbacks for all naming conventions
+    const computedStyle = getComputedStyle(document.documentElement);
+
+    // Try multiple variable names for each style property with fallbacks
+    const bgColor =
+      computedStyle.getPropertyValue('--bg-primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+      computedStyle.getPropertyValue('--background-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-background').trim() ||
+      '#ffffff';
+
+    const textColor =
+      computedStyle.getPropertyValue('--text-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+      computedStyle.getPropertyValue('--text-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-text').trim() ||
+      '#000000';
+
+    const fontBody =
+      computedStyle.getPropertyValue('--font-body').trim() ||
+      computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+      'Garamond, Times New Roman, serif';
+
+    const fontHeading =
+      computedStyle.getPropertyValue('--font-heading').trim() ||
+      computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+      'Courier New, monospace';
+
+    const fontMono =
+      computedStyle.getPropertyValue('--font-mono').trim() ||
+      computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+      'Courier New, monospace';
+
+    const primaryColor =
+      computedStyle.getPropertyValue('--primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+      '#7E4E2D';
+
+    const secondaryColor =
+      computedStyle.getPropertyValue('--secondary').trim() ||
+      computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+      '#5F6B54';
+
+    const borderColor =
+      computedStyle.getPropertyValue('--border-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-border').trim() ||
+      '#D5CDB5';
+
+    console.log('PDF Generator (generatePdfFromMarkdown) using extracted styles:', {
+      bgColor,
+      textColor,
+      fontBody,
+      fontHeading,
+      fontMono,
+      primaryColor,
+      secondaryColor,
+      borderColor
+    });
+
+    // Convert hex color to RGB components for PDF
+    const getBgColorRGB = (hexColor: string) => {
+      const hex = hexColor.replace('#', '');
+      return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16)
+      };
+    };
+
+    // Get background color in RGB format
+    const bgColorRGB = getBgColorRGB(bgColor);
+
+    // Use PDF-extracted styles for all content, including Cover Letter
+    // Only use dark theme if explicitly requested via options
+    const isDarkTheme = options.isDarkTheme === true || false;
 
     // Create a PDF document directly with proper dimensions for US Letter (8.5 x 11 inches)
     const pdf = new jsPDF({
@@ -370,53 +649,106 @@ export async function generatePdfFromMarkdown(
       keywords: options.keywords || 'resume, summary, pdf'
     });
 
-    // Set dark background for full bleed if using dark theme
-    if (isDarkTheme) {
-      // Add a full-page background rectangle
-      pdf.setFillColor(34, 34, 34); // #222222 dark background
-      pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
-    }
+    // Set background color for full bleed using extracted colors
+    // Add a full-page background rectangle
+    pdf.setFillColor(bgColorRGB.r, bgColorRGB.g, bgColorRGB.b);
+    pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
 
-    // Add header with Salinger styling
+    // Add header with Salinger styling using extracted colors
     if (options.headerText) {
-      if (isDarkTheme) {
-        pdf.setTextColor(245, 243, 231); // #F5F3E7 light text for dark theme
-      } else {
-        pdf.setTextColor(73, 66, 61); // #49423D Ebony
-      }
+      // Get text color in RGB format
+      const getTextColorRGB = (hexColor: string) => {
+        const hex = hexColor.replace('#', '');
+        return {
+          r: parseInt(hex.substring(0, 2), 16),
+          g: parseInt(hex.substring(2, 4), 16),
+          b: parseInt(hex.substring(4, 6), 16)
+        };
+      };
 
-      pdf.setFont('courier', 'bold');
+      const textColorRGB = getTextColorRGB(textColor);
+      const borderColorRGB = getBgColorRGB(borderColor);
+
+      // Set text color using extracted color
+      pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+
+      // Get font family from the already extracted fontHeading variable
+      const fontFamily = fontHeading.split(',')[0].replace(/['"]/g, '').trim();
+
+      // Log the extracted font for debugging
+      console.log('Extracted heading font:', fontHeading);
+      console.log('First font family:', fontFamily);
+
+      // Use the extracted font if it's a standard PDF font, otherwise fallback to courier
+      // Standard PDF fonts are: courier, helvetica, times (and their variants)
+      // Add more common fonts that map to the standard PDF fonts
+      const pdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(fontFamily.toLowerCase())
+        ? (fontFamily.toLowerCase() === 'arial' || fontFamily.toLowerCase() === 'verdana' || fontFamily.toLowerCase() === 'tahoma' || fontFamily.toLowerCase() === 'calibri')
+          ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+          : (fontFamily.toLowerCase() === 'georgia' || fontFamily.toLowerCase() === 'cambria')
+            ? 'times' // Map Georgia and Cambria to Times
+            : fontFamily.toLowerCase() // Use courier, helvetica, or times directly
+        : 'courier'; // Default fallback
+
+      console.log('Using PDF font for heading:', pdfFont);
+
+      pdf.setFont(pdfFont, 'bold');
       pdf.setFontSize(22); // Slightly smaller font size
       pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
-      // Add a separator line
-      if (isDarkTheme) {
-        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
-      } else {
-        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
-      }
-      pdf.setLineWidth(0.01);
-      pdf.line(1, 0.95, 7.5, 0.95); // Moved up from 1.2 to 0.95
+      // Removed header separator line to prevent overlap issues
     }
 
     // Parse the markdown content, skipping the first heading if a header text is provided
     const parsedContent = parseMarkdownForPdf(markdownContent, !!options.headerText);
 
-    // Set text color based on theme
-    if (isDarkTheme) {
-      pdf.setTextColor(245, 243, 231); // #F5F3E7 light text for dark theme
-    } else {
-      pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
-    }
+    // Get text color in RGB format
+    const getTextColorRGB = (hexColor: string) => {
+      const hex = hexColor.replace('#', '');
+      return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16)
+      };
+    };
+
+    // Get text color in RGB format
+    const textColorRGB = getTextColorRGB(textColor);
+
+    // Set text color using extracted colors
+    pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+
+    // Get body font from the already extracted fontBody variable
+    const bodyFontFamily = fontBody.split(',')[0].replace(/['"]/g, '').trim();
+
+    // Log the extracted font for debugging
+    console.log('Extracted body font:', fontBody);
+    console.log('First body font family:', bodyFontFamily);
+
+    // Use the extracted font if it's a standard PDF font, otherwise fallback to times
+    // Standard PDF fonts are: courier, helvetica, times (and their variants)
+    // Add more common fonts that map to the standard PDF fonts
+    const bodyPdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(bodyFontFamily.toLowerCase())
+      ? (bodyFontFamily.toLowerCase() === 'arial' || bodyFontFamily.toLowerCase() === 'verdana' || bodyFontFamily.toLowerCase() === 'tahoma' || bodyFontFamily.toLowerCase() === 'calibri')
+        ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+        : (bodyFontFamily.toLowerCase() === 'georgia' || bodyFontFamily.toLowerCase() === 'cambria')
+          ? 'times' // Map Georgia and Cambria to Times
+          : bodyFontFamily.toLowerCase() // Use courier, helvetica, or times directly
+      : 'times'; // Default fallback
+
+    console.log('Using PDF font for body:', bodyPdfFont);
 
     // Set default font
-    pdf.setFont('times', 'normal');
+    pdf.setFont(bodyPdfFont, 'normal');
     pdf.setFontSize(12);
 
     // Add content with proper styling - optimized for single page with balanced spacing
-    let yPosition = options.headerText ? 1.1 : 0.5; // Further reduced top margin after header
-    const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
-    const pageWidth = 8.5 - (margin * 2);
+    let yPosition = options.headerText ? 1.0 : 0.5; // Reduced top margin after header to fit more content
+    const margin = 0.6; // Further reduced side margins (0.6 inch margins) to fit more content
+    const pageWidth = 8.5 - (margin * 2); // Wider content area
+
+    // Optimize line height for single page fit while preventing text overlap
+    const lineHeight = 0.2; // Slightly reduced but still sufficient to prevent overlap
 
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
@@ -435,22 +767,10 @@ export async function generatePdfFromMarkdown(
         }
       }
 
-      // Add section separator before heading2 (except for the first section)
+      // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section
-        yPosition += 0.15;
-
-        // Add a thin separator line between sections
-        if (isDarkTheme) {
-          pdf.setDrawColor(255, 255, 255, 0.15); // Very subtle light line for dark theme
-        } else {
-          pdf.setDrawColor(213, 205, 181, 0.5); // #D5CDB5 with opacity
-        }
-        pdf.setLineWidth(0.005); // Thinner line for section separator
-        pdf.line(margin + 0.5, yPosition - 0.1, 7.5 - 0.5, yPosition - 0.1); // Centered, shorter line
-
-        // Add more space after the separator line
-        yPosition += 0.1;
+        // Add extra space before new section, but no separator line
+        yPosition += 0.3; // Increased spacing between sections without separator
       }
 
       // Handle different block types
@@ -462,9 +782,9 @@ export async function generatePdfFromMarkdown(
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
           pdf.setFont('courier', 'bold');
-          pdf.setFontSize(18);
+          pdf.setFontSize(16); // Reduced font size to fit more content
           pdf.text(block.content, margin, yPosition);
-          yPosition += 0.4;
+          yPosition += 0.3; // Reduced spacing after heading1
           break;
 
         case 'heading2':
@@ -474,18 +794,11 @@ export async function generatePdfFromMarkdown(
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
           pdf.setFont('courier', 'bold');
-          pdf.setFontSize(15); // Slightly smaller font size
+          pdf.setFontSize(14); // Reduced font size to fit more content
           pdf.text(block.content, margin, yPosition);
-          yPosition += 0.2; // Further reduced spacing after headings
+          yPosition += 0.2; // Minimal spacing after headings to fit more content
 
-          // Add a subtle line under h2
-          if (isDarkTheme) {
-            pdf.setDrawColor(255, 255, 255, 0.25); // Light line for dark theme
-          } else {
-            pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5
-          }
-          pdf.setLineWidth(0.01);
-          pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
+          // Removed the line under h2 to prevent overlap issues
           break;
 
         case 'heading3':
@@ -495,9 +808,9 @@ export async function generatePdfFromMarkdown(
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
           pdf.setFont('courier', 'bold');
-          pdf.setFontSize(14);
+          pdf.setFontSize(13); // Reduced font size to fit more content
           pdf.text(block.content, margin, yPosition);
-          yPosition += 0.3;
+          yPosition += 0.2; // Reduced spacing after heading3
           break;
 
         case 'paragraph':
@@ -512,7 +825,7 @@ export async function generatePdfFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, pageWidth);
           pdf.text(lines, margin, yPosition);
-          yPosition += (lines.length * 0.18) + 0.05; // Optimized line height and spacing after paragraphs
+          yPosition += (lines.length * lineHeight) + 0.1; // Reduced spacing after paragraphs to fit more content
           break;
 
         case 'listItem':
@@ -528,25 +841,16 @@ export async function generatePdfFromMarkdown(
           pdf.text('•', margin, yPosition);
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.25); // Slightly wider content area
-          pdf.text(listItemLines, margin + 0.25, yPosition); // Reduced indentation
-          yPosition += (listItemLines.length * 0.18) + 0.02; // Optimized line height and minimal spacing after list items
+          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.2); // Wider content area
+          pdf.text(listItemLines, margin + 0.2, yPosition); // Reduced indentation further
+          yPosition += (listItemLines.length * lineHeight) + 0.05; // Minimal spacing after list items to fit more content
           break;
       }
     });
 
-    // Add footer if provided
+    // Add footer if provided (without separator line)
     if (options.footerText) {
-      // Add a separator line
-      if (isDarkTheme) {
-        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
-      } else {
-        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
-      }
-      pdf.setLineWidth(0.01);
-      pdf.line(1, 10.3, 7.5, 10.3); // Moved down to allow more content space
-
-      // Add footer text
+      // Add footer text without separator line
       if (isDarkTheme) {
         pdf.setTextColor(245, 243, 231, 0.7); // #F5F3E7 light text with opacity
       } else {
@@ -554,7 +858,7 @@ export async function generatePdfFromMarkdown(
       }
       pdf.setFont('courier', 'normal');
       pdf.setFontSize(9); // Slightly smaller font size
-      pdf.text(options.footerText, 4.25, 10.6, { align: 'center' }); // Moved down
+      pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
     }
 
     // Save the PDF
@@ -582,10 +886,74 @@ export async function generatePdfDataUrlFromMarkdown(
   try {
     DanteLogger.success.basic('Generating PDF data URL from markdown content');
 
-    // Determine if this is from the Summary modal or Cover Letter (dark theme) or regular content
-    // Ensure consistent styling between preview and download by explicitly checking for cover_letter
-    const isDarkTheme = options.fileName?.includes('cover_letter') || options.fileName?.includes('summary') ||
-                        options.isDarkTheme === true || false;
+    // Get CSS variables from the document with fallbacks for all naming conventions
+    const computedStyle = getComputedStyle(document.documentElement);
+
+    // Try multiple variable names for each style property with fallbacks
+    const bgColor =
+      computedStyle.getPropertyValue('--bg-primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+      computedStyle.getPropertyValue('--background-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-background').trim() ||
+      '#ffffff';
+
+    const textColor =
+      computedStyle.getPropertyValue('--text-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+      computedStyle.getPropertyValue('--text-primary').trim() ||
+      computedStyle.getPropertyValue('--dynamic-text').trim() ||
+      '#000000';
+
+    const fontBody =
+      computedStyle.getPropertyValue('--font-body').trim() ||
+      computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+      'Garamond, Times New Roman, serif';
+
+    const fontHeading =
+      computedStyle.getPropertyValue('--font-heading').trim() ||
+      computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+      'Courier New, monospace';
+
+    const fontMono =
+      computedStyle.getPropertyValue('--font-mono').trim() ||
+      computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+      computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+      'Courier New, monospace';
+
+    const primaryColor =
+      computedStyle.getPropertyValue('--primary').trim() ||
+      computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+      '#7E4E2D';
+
+    const secondaryColor =
+      computedStyle.getPropertyValue('--secondary').trim() ||
+      computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+      '#5F6B54';
+
+    const borderColor =
+      computedStyle.getPropertyValue('--border-color').trim() ||
+      computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+      computedStyle.getPropertyValue('--dynamic-border').trim() ||
+      '#D5CDB5';
+
+    console.log('PDF Generator (generatePdfDataUrlFromMarkdown) using extracted styles:', {
+      bgColor,
+      textColor,
+      fontBody,
+      fontHeading,
+      fontMono,
+      primaryColor,
+      secondaryColor,
+      borderColor
+    });
+
+    // Use PDF-extracted styles for all content, including Cover Letter
+    // Only use dark theme if explicitly requested via options
+    const isDarkTheme = options.isDarkTheme === true || false;
 
     // Create a PDF document directly with proper dimensions for US Letter (8.5 x 11 inches)
     const pdf = new jsPDF({
@@ -609,6 +977,46 @@ export async function generatePdfDataUrlFromMarkdown(
       pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
     }
 
+    // Get heading font from the extracted fontHeading variable
+    const headingFontFamily = fontHeading.split(',')[0].replace(/['"]/g, '').trim();
+
+    // Log the extracted font for debugging
+    console.log('Data URL - Extracted heading font:', fontHeading);
+    console.log('Data URL - First heading font family:', headingFontFamily);
+
+    // Use the extracted font if it's a standard PDF font, otherwise fallback to courier
+    // Standard PDF fonts are: courier, helvetica, times (and their variants)
+    // Add more common fonts that map to the standard PDF fonts
+    const headingPdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(headingFontFamily.toLowerCase())
+      ? (headingFontFamily.toLowerCase() === 'arial' || headingFontFamily.toLowerCase() === 'verdana' || headingFontFamily.toLowerCase() === 'tahoma' || headingFontFamily.toLowerCase() === 'calibri')
+        ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+        : (headingFontFamily.toLowerCase() === 'georgia' || headingFontFamily.toLowerCase() === 'cambria')
+          ? 'times' // Map Georgia and Cambria to Times
+          : headingFontFamily.toLowerCase() // Use courier, helvetica, or times directly
+      : 'courier'; // Default fallback
+
+    console.log('Data URL - Using PDF font for heading:', headingPdfFont);
+
+    // Get body font from the extracted fontBody variable
+    const bodyFontFamily = fontBody.split(',')[0].replace(/['"]/g, '').trim();
+
+    // Log the extracted font for debugging
+    console.log('Data URL - Extracted body font:', fontBody);
+    console.log('Data URL - First body font family:', bodyFontFamily);
+
+    // Use the extracted font if it's a standard PDF font, otherwise fallback to times
+    // Standard PDF fonts are: courier, helvetica, times (and their variants)
+    // Add more common fonts that map to the standard PDF fonts
+    const bodyPdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(bodyFontFamily.toLowerCase())
+      ? (bodyFontFamily.toLowerCase() === 'arial' || bodyFontFamily.toLowerCase() === 'verdana' || bodyFontFamily.toLowerCase() === 'tahoma' || bodyFontFamily.toLowerCase() === 'calibri')
+        ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+        : (bodyFontFamily.toLowerCase() === 'georgia' || bodyFontFamily.toLowerCase() === 'cambria')
+          ? 'times' // Map Georgia and Cambria to Times
+          : bodyFontFamily.toLowerCase() // Use courier, helvetica, or times directly
+      : 'times'; // Default fallback
+
+    console.log('Data URL - Using PDF font for body:', bodyPdfFont);
+
     // Add header with Salinger styling
     if (options.headerText) {
       if (isDarkTheme) {
@@ -617,38 +1025,46 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setTextColor(73, 66, 61); // #49423D Ebony
       }
 
-      pdf.setFont('courier', 'bold');
+      pdf.setFont(headingPdfFont, 'bold');
       pdf.setFontSize(22); // Slightly smaller font size
       pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
-      // Add a separator line
-      if (isDarkTheme) {
-        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
-      } else {
-        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
-      }
-      pdf.setLineWidth(0.01);
-      pdf.line(1, 0.95, 7.5, 0.95); // Moved up from 1.2 to 0.95
+      // Removed header separator line to prevent overlap issues
     }
 
     // Parse the markdown content, skipping the first heading if a header text is provided
     const parsedContent = parseMarkdownForPdf(markdownContent, !!options.headerText);
 
-    // Set text color based on theme
-    if (isDarkTheme) {
-      pdf.setTextColor(245, 243, 231); // #F5F3E7 light text for dark theme
-    } else {
-      pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
-    }
+    // Get text color in RGB format
+    const getTextColorRGB = (hexColor: string) => {
+      const hex = hexColor.replace('#', '');
+      return {
+        r: parseInt(hex.substring(0, 2), 16),
+        g: parseInt(hex.substring(2, 4), 16),
+        b: parseInt(hex.substring(4, 6), 16)
+      };
+    };
+
+    // Set text color using extracted colors
+    const textColorRGB = getTextColorRGB(textColor);
+    pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+
+    // Use the font variables already defined above
 
     // Set default font
-    pdf.setFont('times', 'normal');
+    pdf.setFont(bodyPdfFont, 'normal');
     pdf.setFontSize(12);
 
     // Add content with proper styling - optimized for single page with balanced spacing
-    let yPosition = options.headerText ? 1.1 : 0.5; // Further reduced top margin after header
-    const margin = 0.7; // Slightly reduced side margins (0.7 inch margins)
-    const pageWidth = 8.5 - (margin * 2);
+    let yPosition = options.headerText ? 1.0 : 0.5; // Reduced top margin after header to fit more content
+    const margin = 0.6; // Further reduced side margins (0.6 inch margins) to fit more content
+    const pageWidth = 8.5 - (margin * 2); // Wider content area
+
+    // Optimize line height for single page fit while preventing text overlap
+    const lineHeight = 0.2; // Slightly reduced but still sufficient to prevent overlap
+
+    // Set default alignment to left
+    const textAlign = 'left';
 
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
@@ -667,22 +1083,10 @@ export async function generatePdfDataUrlFromMarkdown(
         }
       }
 
-      // Add section separator before heading2 (except for the first section)
+      // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section
-        yPosition += 0.15;
-
-        // Add a thin separator line between sections
-        if (isDarkTheme) {
-          pdf.setDrawColor(255, 255, 255, 0.15); // Very subtle light line for dark theme
-        } else {
-          pdf.setDrawColor(213, 205, 181, 0.5); // #D5CDB5 with opacity
-        }
-        pdf.setLineWidth(0.005); // Thinner line for section separator
-        pdf.line(margin + 0.5, yPosition - 0.1, 7.5 - 0.5, yPosition - 0.1); // Centered, shorter line
-
-        // Add more space after the separator line
-        yPosition += 0.1;
+        // Add extra space before new section, but no separator line
+        yPosition += 0.3; // Increased spacing between sections without separator
       }
 
       // Handle different block types
@@ -693,10 +1097,10 @@ export async function generatePdfDataUrlFromMarkdown(
           } else {
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(18);
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.4;
+          pdf.setFont(headingPdfFont, 'bold');
+          pdf.setFontSize(16); // Reduced font size to fit more content
+          pdf.text(block.content, margin, yPosition, { align: textAlign });
+          yPosition += 0.3; // Reduced spacing after heading1
           break;
 
         case 'heading2':
@@ -705,19 +1109,12 @@ export async function generatePdfDataUrlFromMarkdown(
           } else {
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(15); // Slightly smaller font size
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.2; // Further reduced spacing after headings
+          pdf.setFont(headingPdfFont, 'bold');
+          pdf.setFontSize(14); // Reduced font size to fit more content
+          pdf.text(block.content, margin, yPosition, { align: textAlign });
+          yPosition += 0.2; // Minimal spacing after headings to fit more content
 
-          // Add a subtle line under h2
-          if (isDarkTheme) {
-            pdf.setDrawColor(255, 255, 255, 0.25); // Light line for dark theme
-          } else {
-            pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5
-          }
-          pdf.setLineWidth(0.01);
-          pdf.line(margin, yPosition - 0.08, 7.5, yPosition - 0.08); // Adjusted line position
+          // Removed the line under h2 to prevent overlap issues
           break;
 
         case 'heading3':
@@ -726,10 +1123,10 @@ export async function generatePdfDataUrlFromMarkdown(
           } else {
             pdf.setTextColor(73, 66, 61); // #49423D Ebony
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(14);
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.3;
+          pdf.setFont(headingPdfFont, 'bold');
+          pdf.setFontSize(13); // Reduced font size to fit more content
+          pdf.text(block.content, margin, yPosition, { align: textAlign });
+          yPosition += 0.2; // Reduced spacing after heading3
           break;
 
         case 'paragraph':
@@ -738,13 +1135,13 @@ export async function generatePdfDataUrlFromMarkdown(
           } else {
             pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
           }
-          pdf.setFont('times', 'normal');
+          pdf.setFont(bodyPdfFont, 'normal');
           pdf.setFontSize(12);
 
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, pageWidth);
-          pdf.text(lines, margin, yPosition);
-          yPosition += (lines.length * 0.18) + 0.05; // Optimized line height and spacing after paragraphs
+          pdf.text(lines, margin, yPosition, { align: textAlign });
+          yPosition += (lines.length * lineHeight) + 0.1; // Reduced spacing after paragraphs to fit more content
           break;
 
         case 'listItem':
@@ -753,40 +1150,31 @@ export async function generatePdfDataUrlFromMarkdown(
           } else {
             pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
           }
-          pdf.setFont('times', 'normal');
+          pdf.setFont(bodyPdfFont, 'normal');
           pdf.setFontSize(12);
 
           // Add bullet point
-          pdf.text('•', margin, yPosition);
+          pdf.text('•', margin, yPosition, { align: textAlign });
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.25); // Slightly wider content area
-          pdf.text(listItemLines, margin + 0.25, yPosition); // Reduced indentation
-          yPosition += (listItemLines.length * 0.18) + 0.02; // Optimized line height and minimal spacing after list items
+          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.2); // Wider content area
+          pdf.text(listItemLines, margin + 0.2, yPosition, { align: textAlign }); // Reduced indentation further
+          yPosition += (listItemLines.length * lineHeight) + 0.05; // Minimal spacing after list items to fit more content
           break;
       }
     });
 
-    // Add footer if provided
+    // Add footer if provided (without separator line)
     if (options.footerText) {
-      // Add a separator line
-      if (isDarkTheme) {
-        pdf.setDrawColor(255, 255, 255, 0.3); // Light line for dark theme
-      } else {
-        pdf.setDrawColor(213, 205, 181, 0.8); // #D5CDB5 with opacity
-      }
-      pdf.setLineWidth(0.01);
-      pdf.line(1, 10.3, 7.5, 10.3); // Moved down to allow more content space
-
-      // Add footer text
+      // Add footer text without separator line
       if (isDarkTheme) {
         pdf.setTextColor(245, 243, 231, 0.7); // #F5F3E7 light text with opacity
       } else {
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
-      pdf.setFont('courier', 'normal');
+      pdf.setFont(headingPdfFont, 'normal');
       pdf.setFontSize(9); // Slightly smaller font size
-      pdf.text(options.footerText, 4.25, 10.6, { align: 'center' }); // Moved down
+      pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
     }
 
     // Return the PDF as a data URL

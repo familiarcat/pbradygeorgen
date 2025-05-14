@@ -249,13 +249,16 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       // If we already have the summary content, use it
       if (summaryContent) {
         // Define consistent options for both preview and download
+        // Use PDF-extracted styles for the Cover Letter
         const pdfOptions = {
           title: 'P. Brady Georgen - Cover Letter',
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-          margins: { top: 8, right: 8, bottom: 8, left: 8 }
+          margins: { top: 8, right: 8, bottom: 8, left: 8 },
+          // Don't force dark theme, use PDF-extracted styles instead
+          isDarkTheme: false
         };
 
         // Generate PDF data URL
@@ -295,13 +298,16 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       // If we have content but no data URL
       else if (summaryContent) {
         // Define consistent options for both preview and download - same as in preview function
+        // Use PDF-extracted styles for the Cover Letter
         const pdfOptions = {
           title: 'P. Brady Georgen - Cover Letter',
           fileName: 'pbradygeorgen_cover_letter.pdf',
           headerText: 'P. Brady Georgen - Cover Letter',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
-          margins: { top: 8, right: 8, bottom: 8, left: 8 }
+          margins: { top: 8, right: 8, bottom: 8, left: 8 },
+          // Don't force dark theme, use PDF-extracted styles instead
+          isDarkTheme: false
         };
 
         // First generate the data URL to ensure consistency with preview
@@ -432,7 +438,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
           <a
             href="#"
-            className={styles.summaryLink}
+            className={styles.actionLink}
             onClick={(e) => handleAction('summary', e)}
             aria-label="View Summary"
           >

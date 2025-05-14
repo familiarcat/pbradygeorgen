@@ -1,0 +1,16 @@
+{
+  "/api/analyze-content/route": "/api/analyze-content",
+  "/api/upload-pdf/route": "/api/upload-pdf",
+  "/api/format-content/route": "/api/format-content",
+  "/favicon.ico/route": "/favicon.ico",
+  "/api/get-summary/route": "/api/get-summary",
+  "/dante-agile/page": "/dante-agile",
+  "/page": "/",
+  "/_not-found/page": "/_not-found",
+  "/sample/page": "/sample",
+  "/style-test/page": "/style-test",
+  "/test/page": "/test",
+  "/upload/page": "/upload",
+  "/view/page": "/view",
+  "/style-test-new/page": "/style-test-new"
+}

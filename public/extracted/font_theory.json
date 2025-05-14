@@ -1,0 +1,17 @@
+{
+  "heading": "Arial, sans-serif",
+  "body": "Georgia, serif",
+  "mono": "Courier New, monospace",
+  "title": "Arial, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Helvetica, sans-serif",
+  "nav": "Verdana, sans-serif",
+  "code": "Courier New, monospace",
+  "fontTheory": {
+    "description": "The typography system for this resume follows a classic yet modern approach, aiming for readability and professionalism.",
+    "readability": "The combination of Arial for headings and Georgia for body text ensures a comfortable reading experience, especially for longer sections.",
+    "hierarchy": "Headings are bold and distinct in Arial to establish hierarchy, while body text in Georgia maintains a traditional feel.",
+    "fontPairings": "Arial and Georgia complement each other by offering a balance between modernity and timelessness, suitable for a professional document like a resume."
+  },
+  "allFonts": []
+}

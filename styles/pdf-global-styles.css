@@ -1,0 +1,144 @@
+/* 
+ * PDF Global Styles
+ * 
+ * This file contains global styles that apply PDF-extracted values
+ * with high specificity to override any inline styles.
+ */
+
+/* Apply PDF styles to the root element with high specificity */
+:root[data-pdf-styles-loaded="true"] {
+  /* These variables will be set dynamically by the PdfStylesInitializer */
+}
+
+/* Apply PDF styles to all elements with high specificity */
+html[data-pdf-styles-loaded="true"] body * {
+  /* Font families */
+  --font-heading: var(--pdf-heading-font, var(--font-heading)) !important;
+  --font-body: var(--pdf-body-font, var(--font-body)) !important;
+  --font-mono: var(--pdf-mono-font, var(--font-mono)) !important;
+  --font-title: var(--pdf-title-font, var(--font-title)) !important;
+  --font-subtitle: var(--pdf-subtitle-font, var(--font-subtitle)) !important;
+  --font-button: var(--pdf-button-font, var(--font-button)) !important;
+  --font-nav: var(--pdf-nav-font, var(--font-nav)) !important;
+  --font-code: var(--pdf-code-font, var(--font-code)) !important;
+  
+  /* Colors */
+  --primary: var(--pdf-primary-color, var(--primary)) !important;
+  --secondary: var(--pdf-secondary-color, var(--secondary)) !important;
+  --accent: var(--pdf-accent-color, var(--accent)) !important;
+  --background: var(--pdf-background-color, var(--background)) !important;
+  --text-color: var(--pdf-text-color, var(--text-color)) !important;
+  --text-secondary: var(--pdf-text-secondary, var(--text-secondary)) !important;
+  --border-color: var(--pdf-border-color, var(--border-color)) !important;
+  
+  /* Dynamic variables */
+  --dynamic-primary: var(--pdf-primary-color, var(--dynamic-primary)) !important;
+  --dynamic-secondary: var(--pdf-secondary-color, var(--dynamic-secondary)) !important;
+  --dynamic-accent: var(--pdf-accent-color, var(--dynamic-accent)) !important;
+  --dynamic-background: var(--pdf-background-color, var(--dynamic-background)) !important;
+  --dynamic-text: var(--pdf-text-color, var(--dynamic-text)) !important;
+  --dynamic-border: var(--pdf-border-color, var(--dynamic-border)) !important;
+  --dynamic-primary-font: var(--pdf-body-font, var(--dynamic-primary-font)) !important;
+  --dynamic-secondary-font: var(--pdf-mono-font, var(--dynamic-secondary-font)) !important;
+  --dynamic-heading-font: var(--pdf-heading-font, var(--dynamic-heading-font)) !important;
+  --dynamic-mono-font: var(--pdf-mono-font, var(--dynamic-mono-font)) !important;
+}
+
+/* Apply PDF font families directly to elements */
+html[data-pdf-styles-loaded="true"] body {
+  /* Default body font */
+  font-family: var(--pdf-body-font, var(--font-body)) !important;
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  background-color: var(--pdf-background-color, var(--background)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] h1,
+html[data-pdf-styles-loaded="true"] h2,
+html[data-pdf-styles-loaded="true"] h3,
+html[data-pdf-styles-loaded="true"] h4,
+html[data-pdf-styles-loaded="true"] h5,
+html[data-pdf-styles-loaded="true"] h6 {
+  font-family: var(--pdf-heading-font, var(--font-heading)) !important;
+  color: var(--pdf-text-color, var(--text-color)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] button,
+html[data-pdf-styles-loaded="true"] input,
+html[data-pdf-styles-loaded="true"] select,
+html[data-pdf-styles-loaded="true"] textarea {
+  font-family: var(--pdf-body-font, var(--font-body)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] code,
+html[data-pdf-styles-loaded="true"] pre {
+  font-family: var(--pdf-mono-font, var(--font-mono)) !important;
+}
+
+/* Apply PDF colors to common UI elements */
+html[data-pdf-styles-loaded="true"] a {
+  color: var(--pdf-primary-color, var(--primary)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] button,
+html[data-pdf-styles-loaded="true"] .button,
+html[data-pdf-styles-loaded="true"] [class*="btn"] {
+  background-color: var(--pdf-primary-color, var(--primary)) !important;
+  color: var(--pdf-primary-contrast, white) !important;
+  border-color: var(--pdf-primary-color, var(--primary)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] input,
+html[data-pdf-styles-loaded="true"] select,
+html[data-pdf-styles-loaded="true"] textarea {
+  border-color: var(--pdf-border-color, var(--border-color)) !important;
+}
+
+/* Apply PDF colors to specific components */
+html[data-pdf-styles-loaded="true"] .markdownPreview {
+  font-family: var(--pdf-body-font, var(--font-body)) !important;
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  background-color: var(--pdf-background-color, var(--background)) !important;
+}
+
+/* Apply PDF styles to SummaryModal */
+html[data-pdf-styles-loaded="true"] [class*="modalContent"] {
+  background-color: var(--pdf-background-color, var(--background)) !important;
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  border-color: var(--pdf-border-color, var(--border-color)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] [class*="modalHeader"] {
+  background-color: var(--pdf-background-color, var(--background)) !important;
+  border-bottom-color: var(--pdf-border-color, var(--border-color)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] [class*="modalTitle"] {
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  font-family: var(--pdf-heading-font, var(--font-heading)) !important;
+}
+
+/* Apply PDF styles to download buttons */
+html[data-pdf-styles-loaded="true"] [class*="actionLink"],
+html[data-pdf-styles-loaded="true"] [class*="downloadOption"],
+html[data-pdf-styles-loaded="true"] [class*="previewButton"] {
+  background-color: var(--pdf-primary-color, var(--primary)) !important;
+  color: var(--pdf-primary-contrast, white) !important;
+  font-family: var(--pdf-button-font, var(--font-button)) !important;
+}
+
+/* Apply PDF styles to SalingerHeader */
+html[data-pdf-styles-loaded="true"] [class*="salingerHeader"] {
+  background-color: var(--pdf-background-color, var(--background)) !important;
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  border-color: var(--pdf-border-color, var(--border-color)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] [class*="salingerTitle"] {
+  color: var(--pdf-text-color, var(--text-color)) !important;
+  font-family: var(--pdf-heading-font, var(--font-heading)) !important;
+}
+
+html[data-pdf-styles-loaded="true"] [class*="salingerNav"] a {
+  color: var(--pdf-primary-color, var(--primary)) !important;
+  font-family: var(--pdf-nav-font, var(--font-nav)) !important;
+}

@@ -146,8 +146,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // State for header height
   const [headerHeight, setHeaderHeight] = useState('5rem');
 
-  // Get the header background color from CSS - exact color from screenshot
-  const headerBgColor = '#d4d1be'; // Ecru background color from header
+  // Use the CSS variable for background color instead of hardcoding
+  const headerBgColor = 'var(--bg-primary, #d4d1be)'; // Use extracted background color with fallback
 
   // Update dimensions on window resize
   useEffect(() => {
@@ -191,15 +191,19 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
     // Function to apply background color to all relevant elements
     const applyBackgroundColor = () => {
-      // Set background color on body and html to match the header background
-      document.body.style.backgroundColor = headerBgColor;
-      document.documentElement.style.backgroundColor = headerBgColor;
+      // Get the computed background color from CSS variables
+      const computedStyle = getComputedStyle(document.documentElement);
+      const bgColor = computedStyle.getPropertyValue('--bg-primary').trim() || '#d4d1be';
+
+      // Set background color on body and html to match the extracted background
+      document.body.style.backgroundColor = bgColor;
+      document.documentElement.style.backgroundColor = bgColor;
 
       // Target any potential container elements that might show through
       const containers = document.querySelectorAll('.pdf-container, .pdf-iframe, iframe');
       containers.forEach(container => {
         if (container instanceof HTMLElement) {
-          container.style.backgroundColor = headerBgColor;
+          container.style.backgroundColor = bgColor;
         }
       });
 
@@ -212,13 +216,13 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         backgroundEl.style.left = '0';
         backgroundEl.style.width = '100%';
         backgroundEl.style.height = '100%';
-        backgroundEl.style.backgroundColor = headerBgColor;
+        backgroundEl.style.backgroundColor = bgColor;
         backgroundEl.style.zIndex = '-1';
         document.body.appendChild(backgroundEl);
       } else {
         const backgroundEl = document.getElementById('full-height-background');
         if (backgroundEl) {
-          backgroundEl.style.backgroundColor = headerBgColor;
+          backgroundEl.style.backgroundColor = bgColor;
         }
       }
 
@@ -233,7 +237,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           extensionEl.style.left = '0';
           extensionEl.style.width = '100%';
           extensionEl.style.height = '100vh'; // Extra height to ensure coverage
-          extensionEl.style.backgroundColor = headerBgColor;
+          extensionEl.style.backgroundColor = bgColor;
           extensionEl.style.zIndex = '-2'; // Below the main background
           document.body.appendChild(extensionEl);
         }
@@ -293,14 +297,14 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       document.body.style.backgroundColor = '';
       document.documentElement.style.backgroundColor = '';
     };
-  }, [headerBgColor]);
+  }, []);
 
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div
         className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
         style={{
-          backgroundColor: headerBgColor,
+          backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
           minHeight: 'calc(var(--vh, 1vh) * 100)'
         }}
       >
@@ -322,10 +326,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
         {/* Loading indicator - shown until PDF is loaded */}
         {!pdfVisible && (
-          <div className="absolute inset-0 flex justify-center items-center z-20" style={{ backgroundColor: headerBgColor }}>
+          <div className="absolute inset-0 flex justify-center items-center z-20" style={{ backgroundColor: 'var(--bg-primary, #d4d1be)' }}>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
-              <p className="text-[var(--text-primary)] text-lg font-medium">Loading PDF...</p>
+              <div className="w-16 h-16 border-t-4 border-[var(--primary)] border-solid rounded-full animate-spin mb-4"></div>
+              <p className="text-[var(--text-color)] text-lg font-medium">Loading PDF...</p>
             </div>
           </div>
         )}
@@ -341,7 +345,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         <div
           className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
           style={{
-            backgroundColor: headerBgColor,
+            backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
             opacity: pdfVisible ? 1 : 0,
             transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
             height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
@@ -355,7 +359,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           <div
             className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
             style={{
-              backgroundColor: headerBgColor, // Use the header background color directly
+              backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
               width: pdfWidth,
               maxWidth: '1000px', // Maximum width constraint
               minWidth: '320px', // Minimum width constraint
@@ -364,8 +368,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
               flex: 1,
               display: 'flex',
               flexDirection: 'column',
-              // Add a subtle border for visual separation
-              border: '1px solid rgba(0, 0, 0, 0.1)',
+              // Add a subtle border using CSS variable
+              border: '1px solid var(--border-color, rgba(0, 0, 0, 0.1))',
               // Center the container
               marginLeft: 'auto',
               marginRight: 'auto'
@@ -377,7 +381,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
               className="w-full h-full flex-grow pdf-iframe"
               style={{
                 border: 'none',
-                backgroundColor: headerBgColor, // Use the header background color directly
+                backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
                 margin: 0,
                 padding: 0,
                 display: 'block', // Ensures proper rendering in all browsers
