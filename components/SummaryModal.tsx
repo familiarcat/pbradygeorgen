@@ -16,7 +16,7 @@ interface SummaryModalProps {
   position?: 'left' | 'right' | 'center';
   isLoading?: boolean;
 
-  // Cover Letter download handlers
+  // Introduction download handlers
   onPdfPreview?: () => void;
   onPdfDownload?: () => void;
   onMarkdownPreview?: () => void;
@@ -32,7 +32,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   position = 'left',
   isLoading = false,
 
-  // Cover Letter download handlers
+  // Introduction download handlers
   onPdfPreview,
   onPdfDownload,
   onMarkdownPreview,
@@ -106,11 +106,11 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         HesseLogger.summary.start('Exporting summary as PDF with PDF-extracted styles');
 
         // Define consistent options for both preview and download
-        // Use PDF-extracted styles for the Cover Letter
+        // Use PDF-extracted styles for the Introduction
         const pdfOptions = {
-          title: 'P. Brady Georgen - Cover Letter',
-          fileName: 'pbradygeorgen_cover_letter.pdf',
-          headerText: 'P. Brady Georgen - Cover Letter',
+          title: 'P. Brady Georgen - Introduction',
+          fileName: 'pbradygeorgen_introduction.pdf',
+          headerText: 'P. Brady Georgen - Introduction',
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -138,8 +138,8 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           await downloadFromDataUrl(dataUrl);
         }
 
-        DanteLogger.success.basic('Exported cover letter as PDF using PDF-extracted styles');
-        HesseLogger.summary.complete('Cover letter exported as PDF with PDF-extracted styles');
+        DanteLogger.success.basic('Exported introduction as PDF using PDF-extracted styles');
+        HesseLogger.summary.complete('Introduction exported as PDF with PDF-extracted styles');
         resolve();
       } catch (error) {
         DanteLogger.error.runtime(`Error exporting to PDF: ${error}`);
@@ -156,14 +156,14 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const handlePdfPreview = async () => {
     try {
       HesseLogger.summary.start('Generating PDF preview with PDF-extracted styles');
-      console.log('Starting PDF preview generation for Cover Letter');
+      console.log('Starting PDF preview generation for Introduction');
 
       // Define consistent options for both preview and download - same as in export function
-      // Use PDF-extracted styles for the Cover Letter
+      // Use PDF-extracted styles for the Introduction
       const pdfOptions = {
-        title: 'P. Brady Georgen - Cover Letter',
-        fileName: 'pbradygeorgen_cover_letter.pdf',
-        headerText: 'P. Brady Georgen - Cover Letter',
+        title: 'P. Brady Georgen - Introduction',
+        fileName: 'pbradygeorgen_introduction.pdf',
+        headerText: 'P. Brady Georgen - Introduction',
         footerText: 'Generated with Salinger Design',
         pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
         margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -204,7 +204,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         // Create a link to download the PDF from the data URL
         const link = document.createElement('a');
         link.href = dataUrl;
-        link.download = 'pbradygeorgen_cover_letter.pdf';
+        link.download = 'pbradygeorgen_introduction.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -238,7 +238,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_cover_letter.md';
+        a.download = 'pbradygeorgen_introduction.md';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -295,7 +295,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_cover_letter.txt';
+        a.download = 'pbradygeorgen_introduction.txt';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -442,7 +442,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               fontFamily: 'var(--pdf-heading-font, var(--font-heading, sans-serif))' + ' !important',
               fontWeight: 'bold'
             }}
-            data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}>Cover Letter</h2>
+            data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}>Introduction</h2>
           <div className={styles.headerActions}>
             {/* Download dropdown container - Styled like SalingerHeader */}
             <div className={styles.downloadContainer}>
@@ -466,7 +466,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                Download Cover Letter
+                Download Introduction
               </a>
 
               {/* Dropdown menu with Salinger-inspired styling */}

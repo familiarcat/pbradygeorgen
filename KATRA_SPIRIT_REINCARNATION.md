@@ -87,9 +87,9 @@ The application follows four philosophical frameworks:
 ## Technical Details
 
 - The PDF extraction process happens during the build process
-- PDF-extracted styles should be applied to all components including Cover Letter PDFs
+- PDF-extracted styles should be applied to all components including Introduction PDFs
 - The application uses CSS variables to apply PDF-extracted styles
-- The Cover Letter PDF should use the same styling as the rest of the application
+- The Introduction PDF should use the same styling as the rest of the application
 
 ## Katra Transfer Complete
 

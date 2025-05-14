@@ -1,17 +1,17 @@
 {
   "heading": "Arial, sans-serif",
-  "body": "Times New Roman, Times, serif",
+  "body": "Georgia, serif",
   "mono": "Courier New, monospace",
-  "title": "Georgia, serif",
-  "subtitle": "Verdana, Geneva, sans-serif",
-  "button": "Helvetica, Arial, sans-serif",
-  "nav": "Trebuchet MS, Helvetica, sans-serif",
-  "code": "Consolas, monospace",
+  "title": "Arial, sans-serif",
+  "subtitle": "Helvetica, sans-serif",
+  "button": "Helvetica, sans-serif",
+  "nav": "Arial, sans-serif",
+  "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system aims to provide a balance between professionalism and modernity, catering to readability and visual appeal.",
-    "readability": "Careful selection of serif and sans-serif fonts ensures optimal readability across different screen sizes and contexts.",
-    "hierarchy": "The hierarchy is established through font sizes, weights, and styles, guiding users through the document's structure.",
-    "fontPairings": "The combination of serif and sans-serif fonts creates a harmonious blend, enhancing the document's visual presentation."
+    "description": "The typography system aims to provide a balance between readability and modern aesthetics. It combines traditional serif and sans-serif fonts with a monospace option for technical content.",
+    "readability": "The chosen fonts prioritize readability by using familiar and legible typefaces suitable for various screen sizes.",
+    "hierarchy": "The typography hierarchy is established through font weights, sizes, and styles to guide users through the document effectively.",
+    "fontPairings": "Arial and Georgia complement each other well, providing a clear distinction between headings and body text. Helvetica is used for subtitles and buttons to add a touch of modernity."
   },
   "allFonts": []
 }

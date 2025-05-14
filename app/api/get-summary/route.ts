@@ -55,8 +55,8 @@ export async function GET(request: NextRequest) {
 
           DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);
 
-          // Convert the analysis to markdown format for a cover letter
-          const markdown = `# P. Brady Georgen - Cover Letter
+          // Convert the analysis to markdown format for an introduction
+          const markdown = `# P. Brady Georgen - Introduction
 
 ## Summary
 
@@ -94,10 +94,10 @@ ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
         DanteLogger.error.runtime(`Error generating summary with OpenAI: ${error}`);
         HesseLogger.summary.error(`Summary generation failed: ${error}`);
 
-        // Fall back to a basic cover letter if OpenAI fails
+        // Fall back to a basic introduction if OpenAI fails
         return NextResponse.json({
           success: true,
-          summary: `# P. Brady Georgen - Cover Letter
+          summary: `# P. Brady Georgen - Introduction
 
 ## Summary
 
@@ -140,10 +140,10 @@ I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster Uni
       DanteLogger.warn.performance('OpenAI integration is disabled. Using fallback summary');
       HesseLogger.ai.warning('OpenAI integration is disabled. Using fallback summary');
 
-      // Return a basic cover letter if OpenAI is not available
+      // Return a basic introduction if OpenAI is not available
       return NextResponse.json({
         success: true,
-        summary: `# P. Brady Georgen - Cover Letter
+        summary: `# P. Brady Georgen - Introduction
 
 ## Summary
 

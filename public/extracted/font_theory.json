@@ -4,14 +4,14 @@
   "mono": "Courier New, monospace",
   "title": "Arial, sans-serif",
   "subtitle": "Arial, sans-serif",
-  "button": "Helvetica, sans-serif",
+  "button": "Tahoma, sans-serif",
   "nav": "Verdana, sans-serif",
   "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system for this resume follows a classic yet modern approach, aiming for readability and professionalism.",
-    "readability": "The combination of Arial for headings and Georgia for body text ensures a comfortable reading experience, especially for longer sections.",
-    "hierarchy": "Headings are bold and distinct in Arial to establish hierarchy, while body text in Georgia maintains a traditional feel.",
-    "fontPairings": "Arial and Georgia complement each other by offering a balance between modernity and timelessness, suitable for a professional document like a resume."
+    "description": "The typography system aims to balance professionalism with readability, utilizing web-safe fonts for a clean and accessible design.",
+    "readability": "The combination of Georgia for body text ensures comfortable reading, while Arial for headings provides clarity and hierarchy.",
+    "hierarchy": "Distinct font families and sizes create a clear typographic hierarchy, guiding the reader through the document.",
+    "fontPairings": "The pairing of Arial and Georgia offers a traditional yet modern feel, complemented by monospace Courier New for technical content."
   },
   "allFonts": []
 }

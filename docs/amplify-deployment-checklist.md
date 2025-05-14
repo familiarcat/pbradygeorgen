@@ -24,10 +24,10 @@ This document provides a comprehensive checklist to ensure that your application
 
 ## Feature Testing
 
-- [x] Cover Letter functionality works correctly:
-  - [x] Title shows "Cover Letter" instead of "Summary"
+- [x] Introduction functionality works correctly:
+  - [x] Title shows "Introduction" instead of "Summary"
   - [x] PDF preview generates and displays correctly
-  - [x] PDF download works and creates `pbradygeorgen_cover_letter.pdf`
+  - [x] PDF download works and creates `pbradygeorgen_introduction.pdf`
   - [x] Markdown preview and download work correctly
   - [x] Text preview and download work correctly
 - [x] Resume functionality works correctly:
