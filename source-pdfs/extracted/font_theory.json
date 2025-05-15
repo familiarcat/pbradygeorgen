@@ -3,15 +3,15 @@
   "body": "Georgia, serif",
   "mono": "Courier New, monospace",
   "title": "Arial, sans-serif",
-  "subtitle": "Helvetica, sans-serif",
-  "button": "Helvetica, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Arial, sans-serif",
   "nav": "Arial, sans-serif",
   "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system aims to provide a balance between readability and modern aesthetics. It combines traditional serif and sans-serif fonts with a monospace option for technical content.",
-    "readability": "The chosen fonts prioritize readability by using familiar and legible typefaces suitable for various screen sizes.",
-    "hierarchy": "The typography hierarchy is established through font weights, sizes, and styles to guide users through the document effectively.",
-    "fontPairings": "Arial and Georgia complement each other well, providing a clear distinction between headings and body text. Helvetica is used for subtitles and buttons to add a touch of modernity."
+    "description": "The typography system aims to provide a balance between readability and modern aesthetic.",
+    "readability": "The chosen fonts have good contrast and legibility, ensuring readability across different screen sizes.",
+    "hierarchy": "The hierarchy is maintained through font sizes, weights, and styles to guide the reader through the content.",
+    "fontPairings": "Arial for headings and UI elements paired with Georgia for body text creates a harmonious contrast."
   },
   "allFonts": []
 }
