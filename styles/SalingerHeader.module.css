@@ -48,41 +48,46 @@
 }
 
 .actionLink {
-  /* Text styling */
-  color: var(--text-color, #49423D);
+  /* Text styling - Salinger principle of readability */
+  color: #FFFFFF !important; /* High contrast white text for accessibility */
   text-decoration: none;
-  font-family: var(--font-button, 'Courier New', monospace);
+  font-family: var(--pdf-button-font, var(--font-button, 'Arial, sans-serif')) !important;
   font-size: 0.9rem;
   font-weight: bold;
 
-  /* Layout and spacing */
+  /* Layout and spacing - Salinger principle of consistent visual language */
   padding: 0.5rem 0.75rem;
-  border-radius: 4px; /* Match Cover Letter CTA */
+  border-radius: 4px;
   transition: all 0.2s ease;
   position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 
-  /* Background and border - match Cover Letter CTA */
-  background-color: var(--cta-primary-bg, rgba(126, 78, 45, 0.1));
-  border: 1px solid transparent;
+  /* Background and border - Hesse principle of color harmony */
+  background-color: var(--pdf-accent-color, #4A1D96) !important; /* Use PDF accent color with fallback to dark purple */
+  border: 1px solid var(--pdf-accent-color, #4A1D96) !important;
+  /* Add box shadow for better visibility - Josef Müller-Brockmann principle of clear visual communication */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 .actionLink:hover {
-  color: var(--text-color, #49423D);
-  /* Match Cover Letter CTA hover state */
-  background-color: var(--hover-bg, rgba(126, 78, 45, 0.15));
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* No border on hover to match Cover Letter CTA */
-  border: 1px solid transparent;
+  /* Text styling - Salinger principle of interactive feedback */
+  color: #FFFFFF !important;
+  /* Background - Hesse principle of color harmony with subtle variation */
+  background-color: var(--pdf-accent-hover, #6D28D9) !important; /* Use PDF accent hover color with fallback */
+  /* Visual feedback - Salinger principle of depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--pdf-accent-hover, #6D28D9) !important;
 }
 
 .actionLink:focus {
+  /* Accessibility - Salinger principle of usability */
   outline: none;
-  color: var(--text-color, #49423D);
-  background-color: var(--active-bg, rgba(126, 78, 45, 0.2));
-  box-shadow: 0 0 0 2px var(--focus-ring, rgba(126, 78, 45, 0.4));
+  color: #FFFFFF !important;
+  background-color: var(--pdf-accent-color, #4A1D96) !important; /* Match normal state using PDF accent color */
+  /* Focus indicator - Salinger principle of accessibility */
+  box-shadow: 0 0 0 2px var(--pdf-focus-ring, #C4B5FD) !important; /* Use PDF focus ring color with fallback */
 }
 
 /* Dropdown menu styling */
@@ -179,21 +184,33 @@
 .actionIcon {
   width: 1.25rem;
   height: 1.25rem;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased stroke width for better visibility */
+  stroke: #FFFFFF !important; /* Force white color for better visibility */
+  fill: none !important; /* Prevent fill from affecting visibility */
+  /* Ensure high contrast - Müller-Brockmann principle of clear visual communication */
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.9)) !important; /* Enhanced shadow for better contrast */
 }
 
 /* Preview icon */
 .previewIcon {
   width: 1rem;
   height: 1rem;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased stroke width for better visibility */
+  stroke: #FFFFFF !important; /* Force white color for better visibility */
+  fill: none !important; /* Prevent fill from affecting visibility */
+  /* Ensure high contrast - Müller-Brockmann principle of clear visual communication */
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.9)) !important; /* Enhanced shadow for better contrast */
 }
 
 /* Download icon */
 .downloadIcon {
   width: 1.25rem;
   height: 1.25rem;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased stroke width for better visibility */
+  stroke: #FFFFFF !important; /* Force white color for better visibility */
+  fill: none !important; /* Prevent fill from affecting visibility */
+  /* Ensure high contrast - Müller-Brockmann principle of clear visual communication */
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.9)) !important; /* Enhanced shadow for better contrast */
 }
 
 .downloadOption:hover {
