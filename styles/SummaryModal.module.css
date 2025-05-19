@@ -178,7 +178,7 @@
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  background: var(--dropdown-bg, #333333); /* Use the fourth color from the PDF */
+  background: var(--dropdown-bg, #333333); /* Use the third color from the PDF */
   border: 1px solid var(--dropdown-border, rgba(73, 66, 61, 0.15));
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Increased shadow for better visibility */
@@ -221,7 +221,7 @@
   font-family: var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, 'Helvetica Neue', Arial, sans-serif)));
   font-weight: bold;
   font-size: 0.9rem;
-  background-color: var(--dropdown-bg, #333333); /* Use the fourth color from the PDF */
+  background-color: var(--dropdown-bg, #333333); /* Use the third color from the PDF */
   border-right: 1px solid rgba(255, 255, 255, 0.1); /* Light border for separation */
   flex: 0 0 auto;
   width: 90px;
@@ -257,7 +257,7 @@
   font-size: 0.9rem; /* Match actionLink font size */
   flex: 1;
   gap: 0.5rem;
-  background-color: var(--dropdown-bg, #333333); /* Use the fourth color from the PDF */
+  background-color: var(--dropdown-bg, #333333); /* Use the third color from the PDF */
 }
 
 .downloadOption:hover {

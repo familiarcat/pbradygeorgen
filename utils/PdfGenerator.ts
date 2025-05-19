@@ -788,13 +788,13 @@ export async function generatePdfFromMarkdown(
     let fontSizeReduction = 0;
 
     if (isIntroduction) {
-      console.log('Optimizing PDF for single-page introduction');
-      // Use smaller margins for introduction
-      effectiveMargin = 0.5; // Even smaller margins for introduction
-      // Use smaller line height for introduction
-      effectiveLineHeight = 0.18; // Even smaller line height for introduction
-      // Reduce font sizes for introduction
-      fontSizeReduction = 1; // Reduce all font sizes by 1pt
+      console.log('Optimizing PDF for single-page introduction with balanced typography');
+      // Use smaller margins for introduction but not too small to maintain readability
+      effectiveMargin = 0.55; // Balanced margin for introduction
+      // Use proper line height for introduction to maintain typographic grace
+      effectiveLineHeight = 0.22; // Balanced line height for proper leading
+      // Reduce font sizes for introduction but maintain proportions
+      fontSizeReduction = 0.5; // Reduce font sizes by 0.5pt to maintain readability
 
       // Use extracted color theory for background if available
       if (bgColor && !isDarkTheme) {
@@ -895,7 +895,7 @@ export async function generatePdfFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition);
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Less spacing for introduction
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1); // Balanced paragraph spacing for introduction
           break;
 
         case 'listItem':
@@ -933,7 +933,7 @@ export async function generatePdfFromMarkdown(
           // Split long list items into multiple lines with proper indentation
           const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
           pdf.text(listItemLines, effectiveMargin + 0.2, yPosition);
-          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.03 : 0.05); // Less spacing for introduction
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.05); // Balanced list item spacing for introduction
           break;
       }
     });
@@ -1185,13 +1185,13 @@ export async function generatePdfDataUrlFromMarkdown(
     let fontSizeReduction = 0;
 
     if (isIntroduction) {
-      console.log('Optimizing PDF data URL for single-page introduction');
-      // Use smaller margins for introduction
-      effectiveMargin = 0.5; // Even smaller margins for introduction
-      // Use smaller line height for introduction
-      effectiveLineHeight = 0.18; // Even smaller line height for introduction
-      // Reduce font sizes for introduction
-      fontSizeReduction = 1; // Reduce all font sizes by 1pt
+      console.log('Optimizing PDF data URL for single-page introduction with balanced typography');
+      // Use smaller margins for introduction but not too small to maintain readability
+      effectiveMargin = 0.55; // Balanced margin for introduction
+      // Use proper line height for introduction to maintain typographic grace
+      effectiveLineHeight = 0.22; // Balanced line height for proper leading
+      // Reduce font sizes for introduction but maintain proportions
+      fontSizeReduction = 0.5; // Reduce font sizes by 0.5pt to maintain readability
 
       // Use extracted color theory for background if available
       if (bgColor && !isDarkTheme) {
@@ -1303,7 +1303,7 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Less spacing for introduction
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1); // Balanced paragraph spacing for introduction
           break;
 
         case 'listItem':
@@ -1341,7 +1341,7 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long list items into multiple lines with proper indentation
           const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
           pdf.text(listItemLines, effectiveMargin + 0.2, yPosition, { align: textAlign });
-          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.03 : 0.05); // Less spacing for introduction
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.05); // Balanced list item spacing for introduction
           break;
       }
     });
