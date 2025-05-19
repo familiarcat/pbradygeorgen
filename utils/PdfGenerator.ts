@@ -56,7 +56,7 @@ interface PdfGenerationOptions {
 
 const defaultOptions: PdfGenerationOptions = {
   title: 'Generated PDF',
-  author: 'P. Brady Georgen',
+  author: 'User',
   subject: 'Resume Summary',
   keywords: 'resume, summary, pdf',
   pageSize: 'a4',
@@ -67,7 +67,7 @@ const defaultOptions: PdfGenerationOptions = {
     bottom: 15,
     left: 15
   },
-  headerText: 'P. Brady Georgen',
+  headerText: 'User',
   footerText: 'Generated with Salinger Design',
   fileName: 'summary.pdf'
 };
@@ -529,7 +529,7 @@ export async function generatePdfFromElement(
     // Set document properties
     pdf.setProperties({
       title: mergedOptions.title || 'Generated PDF',
-      author: mergedOptions.author || 'P. Brady Georgen',
+      author: mergedOptions.author || 'User',
       subject: mergedOptions.subject || 'Resume Summary',
       keywords: mergedOptions.keywords || 'resume, summary, pdf'
     });
@@ -668,7 +668,7 @@ export async function generatePdfFromMarkdown(
     // Set document properties
     pdf.setProperties({
       title: options.title || 'Generated PDF',
-      author: options.author || 'P. Brady Georgen',
+      author: options.author || 'User',
       subject: options.subject || 'Resume Summary',
       keywords: options.keywords || 'resume, summary, pdf'
     });
