@@ -107,6 +107,8 @@ The introduction should:
 - Include industry-specific keywords and phrases that ATS systems look for
 - Maintain a professional tone throughout
 - Be well-structured with clear headings and bullet points where appropriate
+
+IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do NOT add any text like "This introduction is tailored to..." or any explanations about how the introduction was created. The document should appear as if it was written directly by the candidate.
 `;
 
     logger.info('Sending request to OpenAI...');
@@ -117,7 +119,7 @@ The introduction should:
       messages: [
         {
           role: 'system',
-          content: 'You are an expert ATS-optimization specialist and professional introduction writer. You create well-structured, compelling introductions in markdown format that are optimized for both Applicant Tracking Systems and human readers. Your introductions use industry-standard terminology, include relevant keywords, highlight measurable achievements, and present the candidate\'s unique value proposition in a clear, concise manner. You focus on specific accomplishments rather than generic statements and ensure all content is tailored to the candidate\'s target role and industry.'
+          content: 'You are an expert ATS-optimization specialist and professional introduction writer. You create well-structured, compelling introductions in markdown format that are optimized for both Applicant Tracking Systems and human readers. Your introductions use industry-standard terminology, include relevant keywords, highlight measurable achievements, and present the candidate\'s unique value proposition in a clear, concise manner. You focus on specific accomplishments rather than generic statements and ensure all content is tailored to the candidate\'s target role and industry. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance.'
         },
         { role: 'user', content: prompt }
       ],
@@ -219,7 +221,7 @@ I have successfully implemented solutions that resulted in 30% efficiency improv
 - Industry-recognized certifications
 - Continuous professional development through specialized training
 
-## What I'm Looking For
+## Looking For
 
 I am seeking a challenging role where I can leverage my expertise in ${userTitle.toLowerCase()} to drive innovation and deliver exceptional results. I am particularly interested in organizations that value collaboration, continuous improvement, and data-driven decision-making. My goal is to contribute to a team where I can make a significant impact while continuing to grow professionally.
 

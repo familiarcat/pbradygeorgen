@@ -1,7 +1,7 @@
 # Benjamin Stein - Introduction
 
 ## Professional Summary
-Dedicated Clinical Informatics Specialist with over a decade of experience in healthcare IT, including roles at Homer G. Phillips Memorial Hospital, Shriners Hospital for Children, and Advanced ICU Care. Skilled in implementing and maintaining EHR systems, training staff on new technologies, and providing 24x7 IT support. Proficient in Cerner suite, SAP Business Objects, and Service Now. 
+Dedicated Clinical Informatics Specialist with over a decade of experience in healthcare IT, including roles at Homer G. Phillips Memorial Hospital, Shriners Hospital for Children, and Advanced ICU Care. Skilled in implementing and maintaining EHR systems, training staff on new technologies, and providing 24x7 IT support. Proficient in Cerner suite, SAP Business Objects, and Service Now.
 
 ## Key Skills
 - Clinical Informatics
@@ -34,7 +34,3 @@ Dedicated Clinical Informatics Specialist with over a decade of experience in he
 
 ## Looking For
 Seeking a challenging Clinical Informatics Specialist role where I can leverage my expertise in EHR implementation, staff training, and IT support to drive operational excellence in a healthcare setting. Excited to contribute to a team that values innovation and continuous improvement.
-
----
-
-This introduction is tailored to Benjamin Stein's extensive experience in clinical informatics and healthcare IT, emphasizing key skills, achievements, and certifications that align with the target role. It is designed to pass through ATS systems while also engaging hiring managers with specific, quantifiable accomplishments.
