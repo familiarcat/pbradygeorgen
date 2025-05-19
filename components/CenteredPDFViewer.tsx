@@ -72,8 +72,26 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   // Handle contact action
   const handleContact = () => {
     DanteLogger.success.ux('Contact button clicked');
-    // Open email client with mailto link
-    window.location.href = 'mailto:brady@pbradygeorgen.com?subject=Website%20Contact';
+    // Fetch the user info to get the email
+    fetch('/api/user-info')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.userInfo && data.userInfo.email) {
+          // Use the email from user_info.json
+          window.location.href = `mailto:${data.userInfo.email}?subject=Website%20Contact`;
+          DanteLogger.success.ux('Contact action triggered with extracted email', { email: data.userInfo.email });
+        } else {
+          // Fallback to a default email if user info is not available
+          window.location.href = 'mailto:contact@example.com?subject=Website%20Contact';
+          DanteLogger.error.runtime('Contact action triggered with fallback email (user email not found)');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user info for contact:', error);
+        // Fallback to a default email if there's an error
+        window.location.href = 'mailto:contact@example.com?subject=Website%20Contact';
+        DanteLogger.error.runtime('Error in contact action', { error: error.message });
+      });
   };
 
   // Handle upload action

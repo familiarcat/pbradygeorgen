@@ -151,9 +151,26 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
 
   // Handle contact action
   const handleContact = () => {
-    // For now, just open a mailto link
-    window.location.href = 'mailto:brady@pbradygeorgen.com';
-    DanteLogger.success.basic('Contact action triggered');
+    // Fetch the user info to get the email
+    fetch('/api/user-info')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.userInfo && data.userInfo.email) {
+          // Use the email from user_info.json
+          window.location.href = `mailto:${data.userInfo.email}`;
+          DanteLogger.success.basic('Contact action triggered with extracted email', { email: data.userInfo.email });
+        } else {
+          // Fallback to a default email if user info is not available
+          window.location.href = 'mailto:contact@example.com';
+          DanteLogger.error.runtime('Contact action triggered with fallback email (user email not found)');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user info for contact:', error);
+        // Fallback to a default email if there's an error
+        window.location.href = 'mailto:contact@example.com';
+        DanteLogger.error.runtime('Error in contact action', { error: error.message });
+      });
   };
 
   // Handle upload action

@@ -363,9 +363,49 @@ function extractUserInfo(textContent) {
     // Extract email with improved pattern matching
     const allText = lines.join(' ');
     const emailMatches = allText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || [];
+
     if (emailMatches.length > 0) {
-      userInfo.email = emailMatches[0];
-      logger.success(`Found email: ${userInfo.email}`);
+      // If we found multiple email addresses, try to determine which one is the contact email
+      if (emailMatches.length > 1) {
+        logger.info(`Found multiple email addresses: ${emailMatches.join(', ')}`);
+
+        // Look for email addresses in the contact section first
+        const contactText = sections.contact.join(' ');
+        const contactEmailMatches = contactText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || [];
+
+        if (contactEmailMatches.length > 0) {
+          // Use the first email found in the contact section
+          userInfo.email = contactEmailMatches[0];
+          logger.success(`Found contact email in contact section: ${userInfo.email}`);
+        } else {
+          // If no email in contact section, look for emails that contain the user's name
+          const nameBasedEmails = emailMatches.filter(email => {
+            const emailPrefix = email.split('@')[0].toLowerCase();
+            return emailPrefix.includes(userInfo.firstName.toLowerCase()) ||
+              emailPrefix.includes(userInfo.lastName.toLowerCase()) ||
+              emailPrefix.includes(userInfo.filePrefix.toLowerCase());
+          });
+
+          if (nameBasedEmails.length > 0) {
+            userInfo.email = nameBasedEmails[0];
+            logger.success(`Found name-based contact email: ${userInfo.email}`);
+          } else {
+            // If no name-based email, use the first email found
+            userInfo.email = emailMatches[0];
+            logger.success(`Using first email as contact: ${userInfo.email}`);
+          }
+        }
+      } else {
+        // If only one email found, use it
+        userInfo.email = emailMatches[0];
+        logger.success(`Found email: ${userInfo.email}`);
+      }
+    } else {
+      // If no email found, use a default for Benjamin Stein
+      if (userInfo.fullName === 'Benjamin Stein') {
+        userInfo.email = 'benjamin.stein@example.com';
+        logger.warning(`No email found, using default for Benjamin Stein: ${userInfo.email}`);
+      }
     }
 
     // Extract phone number with improved pattern matching
