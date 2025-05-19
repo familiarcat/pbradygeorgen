@@ -2,13 +2,12 @@
  * User Information API Route
  *
  * This API route provides access to the user information extracted from the PDF.
- * It loads the user_info.json file and returns the data.
+ * It loads the user_info.json file from S3 or the local file system and returns the data.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import { DanteLogger } from '@/utils/DanteLogger';
+import { HesseLogger } from '@/utils/HesseLogger';
 import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
 
 /**
@@ -19,17 +18,21 @@ import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
  */
 export async function GET(request: NextRequest) {
   try {
+    HesseLogger.api.start('Fetching user information');
+
     // Load user information
-    const userInfo = UserInfoService.loadUserInfo();
+    const userInfo = await UserInfoService.loadUserInfo();
 
     // Return the user information
+    HesseLogger.api.complete('Successfully retrieved user information');
     return NextResponse.json({
       success: true,
       userInfo
     });
   } catch (error) {
     // Log the error
-    console.error('Error loading user information', error);
+    DanteLogger.error.runtime(`Error loading user information: ${error}`);
+    HesseLogger.api.error(`User info API failed: ${error}`);
 
     // Return default user information
     return NextResponse.json({

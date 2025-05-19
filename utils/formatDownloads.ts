@@ -17,46 +17,21 @@ if (apiKey) {
   }
 }
 
-// Load user information or use default values
-let userInfo: UserInfo;
-try {
-  if (typeof window === 'undefined') {
-    // Server-side
-    userInfo = UserInfoService.loadUserInfo();
-  } else {
-    // Client-side - will be populated via API call in the component
-    userInfo = {
-      name: 'User',
-      firstName: 'User',
-      lastName: '',
-      fullName: 'User',
-      filePrefix: 'user',
-      resumeFileName: 'resume',
-      introductionFileName: 'introduction',
-      email: '',
-      phone: '',
-      location: '',
-      title: '',
-      extractionDate: new Date().toISOString()
-    };
-  }
-} catch (error) {
-  console.warn('Failed to load user information:', error);
-  userInfo = {
-    name: 'User',
-    firstName: 'User',
-    lastName: '',
-    fullName: 'User',
-    filePrefix: 'user',
-    resumeFileName: 'resume',
-    introductionFileName: 'introduction',
-    email: '',
-    phone: '',
-    location: '',
-    title: '',
-    extractionDate: new Date().toISOString()
-  };
-}
+// Default user information
+const defaultUserInfo: UserInfo = {
+  name: 'User',
+  firstName: 'User',
+  lastName: '',
+  fullName: 'User',
+  filePrefix: 'user',
+  resumeFileName: 'resume',
+  introductionFileName: 'introduction',
+  email: '',
+  phone: '',
+  location: '',
+  title: '',
+  extractionDate: new Date().toISOString()
+};
 
 /**
  * Generate a properly formatted markdown version of the resume content
@@ -64,6 +39,28 @@ try {
  * @returns Properly formatted markdown
  */
 export async function generateFormattedMarkdown(content: string): Promise<string> {
+  // Get user info from API or use default
+  let userInfo: UserInfo;
+  try {
+    if (typeof window === 'undefined') {
+      // Server-side
+      userInfo = await UserInfoService.loadUserInfo();
+    } else {
+      // Client-side - try to fetch from API
+      try {
+        const response = await fetch('/api/user-info');
+        const data = await response.json();
+        userInfo = data.userInfo || defaultUserInfo;
+      } catch (error) {
+        console.warn('Failed to fetch user info from API:', error);
+        userInfo = defaultUserInfo;
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to load user information:', error);
+    userInfo = defaultUserInfo;
+  }
+
   // Define the formatBasicMarkdown function here
   function formatBasicMarkdown(content: string): string {
     // Extract sections based on common patterns
@@ -198,6 +195,28 @@ export async function generateFormattedMarkdown(content: string): Promise<string
  * @returns Properly formatted text
  */
 export async function generateFormattedText(content: string): Promise<string> {
+  // Get user info from API or use default
+  let userInfo: UserInfo;
+  try {
+    if (typeof window === 'undefined') {
+      // Server-side
+      userInfo = await UserInfoService.loadUserInfo();
+    } else {
+      // Client-side - try to fetch from API
+      try {
+        const response = await fetch('/api/user-info');
+        const data = await response.json();
+        userInfo = data.userInfo || defaultUserInfo;
+      } catch (error) {
+        console.warn('Failed to fetch user info from API:', error);
+        userInfo = defaultUserInfo;
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to load user information:', error);
+    userInfo = defaultUserInfo;
+  }
+
   // Define the formatBasicText function here
   function formatBasicText(content: string): string {
     // Extract sections based on common patterns

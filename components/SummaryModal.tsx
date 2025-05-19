@@ -105,12 +105,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         setIsGeneratingPdf(true);
         HesseLogger.summary.start('Exporting summary as PDF with PDF-extracted styles');
 
+        // Get user info from the API
+        const userInfoResponse = await fetch('/api/user-info');
+        const userInfoData = await userInfoResponse.json();
+        const userInfo = userInfoData.userInfo || {
+          fullName: 'User',
+          introductionFileName: 'introduction'
+        };
+
         // Define consistent options for both preview and download
         // Use PDF-extracted styles for the Introduction
         const pdfOptions = {
-          title: 'P. Brady Georgen - Introduction',
-          fileName: 'pbradygeorgen_introduction.pdf',
-          headerText: 'P. Brady Georgen - Introduction',
+          title: `${userInfo.fullName} - Introduction`,
+          fileName: `${userInfo.introductionFileName}.pdf`,
+          headerText: `${userInfo.fullName} - Introduction`,
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -158,12 +166,20 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
       HesseLogger.summary.start('Generating PDF preview with PDF-extracted styles');
       console.log('Starting PDF preview generation for Introduction');
 
+      // Get user info from the API
+      const userInfoResponse = await fetch('/api/user-info');
+      const userInfoData = await userInfoResponse.json();
+      const userInfo = userInfoData.userInfo || {
+        fullName: 'User',
+        introductionFileName: 'introduction'
+      };
+
       // Define consistent options for both preview and download - same as in export function
       // Use PDF-extracted styles for the Introduction
       const pdfOptions = {
-        title: 'P. Brady Georgen - Introduction',
-        fileName: 'pbradygeorgen_introduction.pdf',
-        headerText: 'P. Brady Georgen - Introduction',
+        title: `${userInfo.fullName} - Introduction`,
+        fileName: `${userInfo.introductionFileName}.pdf`,
+        headerText: `${userInfo.fullName} - Introduction`,
         footerText: 'Generated with Salinger Design',
         pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
         margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -197,14 +213,26 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   // Function to handle downloading from a PDF data URL
   // This is used when downloading from a cached PDF data URL
   const downloadFromDataUrl = (dataUrl: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
         DanteLogger.success.basic('Downloading PDF from data URL');
+
+        // Get user info from the API for the filename
+        let downloadFileName = 'introduction.pdf';
+        try {
+          const userInfoResponse = await fetch('/api/user-info');
+          const userInfoData = await userInfoResponse.json();
+          if (userInfoData.success && userInfoData.userInfo) {
+            downloadFileName = `${userInfoData.userInfo.introductionFileName}.pdf`;
+          }
+        } catch (error) {
+          console.error('Error fetching user info for download:', error);
+        }
 
         // Create a link to download the PDF from the data URL
         const link = document.createElement('a');
         link.href = dataUrl;
-        link.download = 'pbradygeorgen_introduction.pdf';
+        link.download = downloadFileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -233,12 +261,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         setIsGeneratingMd(true);
         HesseLogger.summary.start('Exporting summary as Markdown');
 
+        // Get user info from the API for the filename
+        let downloadFileName = 'introduction.md';
+        try {
+          const userInfoResponse = await fetch('/api/user-info');
+          const userInfoData = await userInfoResponse.json();
+          if (userInfoData.success && userInfoData.userInfo) {
+            downloadFileName = `${userInfoData.userInfo.introductionFileName}.md`;
+          }
+        } catch (error) {
+          console.error('Error fetching user info for download:', error);
+        }
+
         // Create and download the file
         const blob = new Blob([content], { type: 'text/markdown' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_introduction.md';
+        a.download = downloadFileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -290,12 +330,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           .replace(/>/g, '') // Remove blockquotes
           .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
 
+        // Get user info from the API for the filename
+        let downloadFileName = 'introduction.txt';
+        try {
+          const userInfoResponse = await fetch('/api/user-info');
+          const userInfoData = await userInfoResponse.json();
+          if (userInfoData.success && userInfoData.userInfo) {
+            downloadFileName = `${userInfoData.userInfo.introductionFileName}.txt`;
+          }
+        } catch (error) {
+          console.error('Error fetching user info for download:', error);
+        }
+
         // Create and download the file
         const blob = new Blob([plainText], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'pbradygeorgen_introduction.txt';
+        a.download = downloadFileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

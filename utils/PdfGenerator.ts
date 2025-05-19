@@ -870,7 +870,10 @@ export async function generatePdfFromMarkdown(
             const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
             pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
             pdf.setLineWidth(0.01);
-            pdf.line(effectiveMargin, yPosition - 0.05, 8.5 - effectiveMargin, yPosition - 0.05);
+            // Add more space between the heading text and the line
+            pdf.line(effectiveMargin, yPosition + 0.05, 8.5 - effectiveMargin, yPosition + 0.05);
+            // Add more space after the line
+            yPosition += 0.1;
           }
           break;
 
@@ -1278,7 +1281,10 @@ export async function generatePdfDataUrlFromMarkdown(
             const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
             pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
             pdf.setLineWidth(0.01);
-            pdf.line(effectiveMargin, yPosition - 0.05, 8.5 - effectiveMargin, yPosition - 0.05);
+            // Add more space between the heading text and the line
+            pdf.line(effectiveMargin, yPosition + 0.05, 8.5 - effectiveMargin, yPosition + 0.05);
+            // Add more space after the line
+            yPosition += 0.1;
           }
           break;
 
