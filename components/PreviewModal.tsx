@@ -102,21 +102,23 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
         }`}
         style={{
           // Apply PDF-extracted styles
-          backgroundColor: 'var(--bg-primary, #ffffff)',
-          color: 'var(--text-color, #333333)',
-          borderColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+          backgroundColor: 'var(--pdf-background-color, var(--bg-primary, #ffffff))',
+          color: 'var(--pdf-text-color, var(--text-color, #333333))',
+          borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))',
+          fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, "Helvetica Neue", Arial, sans-serif)))'
         }}>
         <div
           className={styles.modalHeader}
           style={{
-            backgroundColor: 'var(--bg-secondary, #f5f5f5)',
-            borderBottomColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+            backgroundColor: 'var(--pdf-secondary-color, var(--bg-secondary, #f5f5f5))',
+            borderBottomColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))'
           }}>
           <h2
             className={styles.modalTitle}
             style={{
-              color: 'var(--text-color, #333333)',
-              fontFamily: 'var(--font-heading, sans-serif)'
+              color: 'var(--pdf-text-color, var(--text-color, #333333))',
+              fontFamily: 'var(--pdf-heading-font, var(--font-heading, var(--dynamic-heading-font, "Helvetica Neue", Arial, sans-serif)))',
+              fontWeight: 600
             }}>
             {format === 'markdown'
               ? 'Markdown Preview'
@@ -140,17 +142,17 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
         <div
           className={styles.modalBody}
           style={{
-            backgroundColor: 'var(--bg-tertiary, #f9f9f9)'
+            backgroundColor: 'var(--pdf-background-color, var(--bg-tertiary, #f9f9f9))'
           }}>
           {format === 'markdown' ? (
             <div
               ref={markdownRef}
               className={styles.markdownPreview}
               style={{
-                backgroundColor: 'var(--bg-primary, #ffffff)',
-                color: 'var(--text-color, #333333)',
-                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))',
-                fontFamily: 'var(--font-body, serif)'
+                backgroundColor: 'var(--pdf-background-color, var(--bg-primary, #ffffff))',
+                color: 'var(--pdf-text-color, var(--text-color, #333333))',
+                borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
+                fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, "Helvetica Neue", Arial, sans-serif)))'
               }}>
               <StyledMarkdown>{content}</StyledMarkdown>
             </div>
@@ -158,7 +160,7 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
             <div
               className={styles.pdfPreview}
               style={{
-                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))'
+                borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))'
               }}>
               {/* Log preview details */}
               {(() => {
@@ -191,24 +193,27 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
               ref={textRef}
               className={styles.textPreview}
               style={{
-                backgroundColor: 'var(--bg-primary, #ffffff)',
-                color: 'var(--text-color, #333333)',
-                borderColor: 'var(--border-color, rgba(73, 66, 61, 0.1))',
-                fontFamily: 'var(--font-mono, monospace)'
+                backgroundColor: 'var(--pdf-background-color, var(--bg-primary, #ffffff))',
+                color: 'var(--pdf-text-color, var(--text-color, #333333))',
+                borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
+                fontFamily: 'var(--pdf-mono-font, var(--font-mono, var(--dynamic-mono-font, "Courier New", monospace)))'
               }}>{content}</pre>
           )}
         </div>
         <div
           className={styles.modalFooter}
           style={{
-            borderTopColor: 'var(--border-color, rgba(73, 66, 61, 0.2))'
+            borderTopColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))'
           }}>
           <button
             className={styles.downloadButton}
             style={{
-              backgroundColor: 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))',
-              color: 'var(--text-color, #333333)',
-              fontFamily: 'var(--font-button, sans-serif)'
+              backgroundColor: 'var(--pdf-accent-color, var(--cta-primary, var(--dynamic-accent, #7E4E2D)))',
+              color: 'var(--pdf-background-color, var(--bg-primary, #ffffff))',
+              fontFamily: 'var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, "Helvetica Neue", Arial, sans-serif)))',
+              fontWeight: 600,
+              border: 'none',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
             }}
             onClick={async (e) => {
               e.preventDefault(); // Prevent any default behavior
@@ -353,10 +358,11 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
             className={styles.cancelButton}
             onClick={onClose}
             style={{
-              backgroundColor: 'var(--cta-tertiary-bg, rgba(126, 98, 51, 0.1))',
-              color: 'var(--text-color, #333333)',
-              borderColor: 'var(--border-color, rgba(73, 66, 61, 0.2))',
-              fontFamily: 'var(--font-button, sans-serif)'
+              backgroundColor: 'var(--pdf-secondary-color, var(--cta-tertiary-bg, rgba(126, 98, 51, 0.1)))',
+              color: 'var(--pdf-text-color, var(--text-color, #333333))',
+              borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.2)))',
+              fontFamily: 'var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, "Helvetica Neue", Arial, sans-serif)))',
+              fontWeight: 600
             }}>
             Close
           </button>

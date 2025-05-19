@@ -1,0 +1,35 @@
+{
+  "primary": "#333333",
+  "secondary": "#666666",
+  "accent": "#7F5FA0",
+  "background": "#FFFFFF",
+  "text": "#333333",
+  "textSecondary": "#616161",
+  "border": "#4C4C4C",
+  "success": "#4B7F52",
+  "warning": "#D06D52",
+  "error": "#A0695F",
+  "info": "#3A7CA5",
+  "colorTheory": {
+    "description": "A color theme strictly using only the colors extracted from the PDF: #A0695F, #666666, #45A29E, #FFFFFF, #616161, #667C68, #D06D52, #998684, #7F5FA0, #4B7F52, #333333, #4C4C4C, #3A7CA5, #6644BB. Following Derrida's philosophy of deconstruction, we've preserved the original colors without introducing external elements.",
+    "harmony": "The colors are arranged to establish clear contrasts between primary and secondary elements, while accent colors disrupt traditional hierarchies.",
+    "contrast": "Binary oppositions between text (#333333) and background (#FFFFFF) create meaningful contrast that emphasizes legibility and guides the user's attention. Primary (#333333) and secondary (#666666) colors establish a clear hierarchy of interactive elements.",
+    "accessibility": "The color choices prioritize visibility and legibility, enhancing the user experience and guiding attention effectively."
+  },
+  "allColors": [
+    "#A0695F",
+    "#666666",
+    "#45A29E",
+    "#FFFFFF",
+    "#616161",
+    "#667C68",
+    "#D06D52",
+    "#998684",
+    "#7F5FA0",
+    "#4B7F52",
+    "#333333",
+    "#4C4C4C",
+    "#3A7CA5",
+    "#6644BB"
+  ]
+}

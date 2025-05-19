@@ -1,0 +1,25 @@
+{
+  "primary": "#000000",
+  "secondary": "#FFFFFF",
+  "accent": "#00A99D",
+  "background": "#FFFFFF",
+  "text": "#000000",
+  "textSecondary": "#333333",
+  "border": "#000000",
+  "success": "#FFC300",
+  "warning": "#FF5733",
+  "error": "#C70039",
+  "info": "#0096C7",
+  "colorTheory": {
+    "description": "The color palette is a blend of high contrast text and background colors with a vibrant accent color for visual interest.",
+    "mood": "The palette exudes clarity, professionalism, and a modern aesthetic.",
+    "accessibility": "The high contrast between text and background colors ensures excellent readability and accessibility.",
+    "colorRelationships": "The primary text color and background color provide a strong foundation, while the accent color adds a pop of energy to the palette."
+  },
+  "allColors": [
+    "#000000",
+    "#00A99D",
+    "#333333",
+    "#FFFFFF"
+  ]
+}

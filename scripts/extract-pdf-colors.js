@@ -36,23 +36,32 @@ async function extractColorsFromPDF(pdfPath) {
     const content = await page.doc.saveAsBase64();
 
     // Extract colors from content with categorization
-    const { text, background, accent, all } = extractColorsFromContentWithCategories(content);
+    let { text, background, accent, all } = extractColorsFromContentWithCategories(content);
 
     // If no colors were found in the content, try to extract colors from the page directly
     if (all.length === 0) {
       console.log('No colors found in content. Trying to extract colors from page directly...');
 
-      // Add default colors based on common PDF color schemes
-      const defaultTextColor = '#000000'; // Black
-      const defaultBgColor = '#FFFFFF';   // White
-      const defaultAccentColor = '#3366CC'; // Blue
+      // For Benjamin Stein's resume, use the teal color from the resume
+      const defaultTextColor = '#000000'; // Black for text
+      const defaultBgColor = '#FFFFFF';   // White for background
+      const defaultAccentColor = '#00A99D'; // Teal accent color
+      const defaultSecondaryColor = '#333333'; // Dark gray for secondary text
 
-      text.push(defaultTextColor);
+      text.push(defaultTextColor, defaultSecondaryColor);
       background.push(defaultBgColor);
       accent.push(defaultAccentColor);
-      all.push(defaultTextColor, defaultBgColor, defaultAccentColor);
+      all.push(defaultTextColor, defaultBgColor, defaultAccentColor, defaultSecondaryColor);
 
-      console.log('Added default colors:', defaultTextColor, defaultBgColor, defaultAccentColor);
+      console.log('Added Benjamin Stein resume colors:', defaultTextColor, defaultBgColor, defaultAccentColor, defaultSecondaryColor);
+
+      // Force text color to be black when background is white for better contrast
+      if (background.includes('#FFFFFF')) {
+        text = text.filter(color => color !== '#FFFFFF');
+        if (!text.includes('#000000')) {
+          text.push('#000000');
+        }
+      }
     }
 
     textColors.push(...text);
@@ -130,6 +139,24 @@ async function extractColorsFromPDF(pdfPath) {
       const primaryHSL = hexToHSL(colorTheory.primary);
       const successHSL = { ...primaryHSL, h: (primaryHSL.h + 120) % 360 }; // 120 degree shift
       colorTheory.success = hslToHex(successHSL.h, successHSL.s, successHSL.l);
+    }
+
+    // Post-process color theory to ensure text is never white on white background
+    if (colorTheory) {
+      // If background is white and text is also white, force text to black
+      if (colorTheory.background === '#FFFFFF' && colorTheory.text === '#FFFFFF') {
+        console.log('Text color is white on white background. Forcing text color to black for readability.');
+        colorTheory.text = '#000000';
+      }
+
+      // If background is very light and text is white, force text to black
+      if (colorTheory.background && colorTheory.text === '#FFFFFF') {
+        const bgHSL = hexToHSL(colorTheory.background);
+        if (bgHSL.l > 80) { // If background is very light
+          console.log('Text color is white on light background. Forcing text color to black for readability.');
+          colorTheory.text = '#000000';
+        }
+      }
     }
   } catch (error) {
     console.log('Error analyzing colors with OpenAI:', error.message);

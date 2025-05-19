@@ -1,0 +1,66 @@
+{
+  "name": "PDF-Extracted Theme",
+  "version": "1.0.0",
+  "description": "A unified style theme extracted from PDF",
+  "colors": {
+    "primary": "#3366CC",
+    "secondary": "#FFFFFF",
+    "accent": "#3366CC",
+    "background": "#FFFFFF",
+    "text": "#000000",
+    "textSecondary": "#3366CC",
+    "border": "#000000",
+    "success": "#FFFFFF",
+    "warning": "#3366CC",
+    "error": "#000000",
+    "info": "#3366CC"
+  },
+  "typography": {
+    "heading": "d7_f1, Arial, sans-serif",
+    "body": "d7_f2, Georgia, serif",
+    "title": "d7_f3",
+    "subtitle": "d7_f4",
+    "button": "d7_f5",
+    "nav": "d7_f2",
+    "code": "d7_f1"
+  },
+  "spacing": {
+    "unit": "rem",
+    "scale": [
+      0,
+      0.25,
+      0.5,
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      6,
+      8
+    ]
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px"
+  },
+  "components": {
+    "button": {
+      "borderRadius": "0.25rem",
+      "fontFamily": "var(--pdf-button-font)",
+      "backgroundColor": "var(--pdf-primary-color)",
+      "textColor": "var(--pdf-background-color)"
+    },
+    "card": {
+      "borderRadius": "0.5rem",
+      "backgroundColor": "var(--pdf-background-color)",
+      "borderColor": "var(--pdf-border-color)"
+    },
+    "input": {
+      "borderRadius": "0.25rem",
+      "borderColor": "var(--pdf-border-color)",
+      "backgroundColor": "var(--pdf-background-color)"
+    }
+  }
+}

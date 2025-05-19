@@ -4,14 +4,14 @@
   "mono": "Courier New, monospace",
   "title": "Arial, sans-serif",
   "subtitle": "Arial, sans-serif",
-  "button": "Helvetica, sans-serif",
-  "nav": "Helvetica, sans-serif",
-  "code": "Consolas, monospace",
+  "button": "Arial, sans-serif",
+  "nav": "Arial, sans-serif",
+  "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system is designed to be professional, clear, and easily readable for a resume/CV.",
-    "readability": "The chosen fonts offer a balance between readability and formality, ensuring content is easy to scan and comprehend.",
-    "hierarchy": "Headings are distinct in Arial for emphasis, while body text in Georgia provides a classic and elegant feel.",
-    "fontPairings": "Arial and Georgia complement each other well, maintaining a harmonious balance between modernity and tradition."
+    "description": "The typography system for this resume focuses on a balance between professionalism and readability.",
+    "readability": "The chosen fonts offer a good balance between readability and aesthetics, suitable for a resume.",
+    "hierarchy": "Clear hierarchy is maintained by using different font families for headings, body text, and code blocks.",
+    "fontPairings": "Arial for headings and navigation elements provide a modern and clean look, while Georgia for body text adds a touch of elegance. Courier New is used for code blocks to ensure clear distinction and readability for technical content."
   },
   "allFonts": []
 }

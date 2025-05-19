@@ -1,0 +1,297 @@
+{
+  "filename": "pbradygeorgen_resume.pdf",
+  "page_count": 1,
+  "font_theory": {
+    "heading": "Arial, sans-serif",
+    "body": "Georgia, serif",
+    "mono": "Courier New, monospace",
+    "button": "Arial, sans-serif",
+    "allFonts": [
+      "NONPDX+MyriadPro-Regular",
+      "NONPDX+Arial-BoldMT",
+      "NONPDX+ArialMT",
+      "NONPDX+Arial-ItalicMT",
+      "NONPDX+Arial-BoldItalicMT"
+    ],
+    "fontDetails": {
+      "NONPDX+MyriadPro-Regular": {
+        "name": "NONPDX+MyriadPro-Regular",
+        "type": "cff",
+        "is_bold": false,
+        "is_italic": false,
+        "is_serif": true,
+        "pages": [
+          0
+        ],
+        "usage": "unknown"
+      },
+      "NONPDX+Arial-BoldMT": {
+        "name": "NONPDX+Arial-BoldMT",
+        "type": "ttf",
+        "is_bold": true,
+        "is_italic": false,
+        "is_serif": true,
+        "pages": [
+          0
+        ],
+        "usage": "unknown"
+      },
+      "NONPDX+ArialMT": {
+        "name": "NONPDX+ArialMT",
+        "type": "ttf",
+        "is_bold": false,
+        "is_italic": false,
+        "is_serif": true,
+        "pages": [
+          0
+        ],
+        "usage": "unknown"
+      },
+      "NONPDX+Arial-ItalicMT": {
+        "name": "NONPDX+Arial-ItalicMT",
+        "type": "ttf",
+        "is_bold": false,
+        "is_italic": true,
+        "is_serif": true,
+        "pages": [
+          0
+        ],
+        "usage": "unknown"
+      },
+      "NONPDX+Arial-BoldItalicMT": {
+        "name": "NONPDX+Arial-BoldItalicMT",
+        "type": "ttf",
+        "is_bold": true,
+        "is_italic": true,
+        "is_serif": true,
+        "pages": [
+          0
+        ],
+        "usage": "unknown"
+      }
+    }
+  },
+  "color_theory": {
+    "primary": "#000000",
+    "text": "#000000",
+    "background": "#ffffff",
+    "accent": "#3366CC",
+    "secondary": "#6699FF",
+    "border": "#CCCCCC",
+    "textOnAccent": "#FFFFFF",
+    "allColors": [
+      "#ffffff"
+    ],
+    "colorStats": {
+      "#ffffff": 3278
+    }
+  },
+  "style_hierarchy": {
+    "headings": [
+      {
+        "text": "Daugherty Business Solutions",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "Bayer:",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Cox Communications:",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Charter Communications:",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Mastercard:",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "P. BRADY GEORGEN",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          36.0
+        ]
+      },
+      {
+        "text": "DEVELOPER & CREATIVE TECHNOLOGIST",
+        "fonts": [
+          "Arial-BoldItalicMT"
+        ],
+        "sizes": [
+          24.0
+        ]
+      },
+      {
+        "text": "SUMMARYEXPERTISE",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "Full Stack Development (AWS)",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Javascript & Typescript",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Graphic Design & UI/UX",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Illustration & Animation",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "Enterprise Architecture",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text": "SKILLS / TECHNOLOGIES",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "EDUCATION",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "ADDITIONAL EXPERIENCE",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "EXPERIENCE",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      },
+      {
+        "text": "Digital Ronan (freelance)",
+        "fonts": [
+          "Arial-BoldMT"
+        ],
+        "sizes": [
+          16.0
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "text_sample": "React, Next.js, React Native, Angular, AWS, AWS Amplify, SOA, Git Hooks, CI/CD, MongoDB, SQL, Docker...",
+        "fonts": [
+          "MyriadPro-Regular"
+        ],
+        "sizes": [
+          11.0
+        ]
+      },
+      {
+        "text_sample": "Passionate about creating digital products that bring together innovative technology, thoughtful des...",
+        "fonts": [
+          "ArialMT"
+        ],
+        "sizes": [
+          14.0
+        ]
+      },
+      {
+        "text_sample": "Crimson Serpents Outpost www.csleathergoods.comBlue Strawberry www.bluestrawberrystl.comFresh Produc...",
+        "fonts": [
+          "Arial-BoldMT",
+          "Arial-BoldItalicMT"
+        ],
+        "sizes": [
+          12.0,
+          14.0
+        ]
+      },
+      {
+        "text_sample": "I design, manage, and implement comprehensive digital integrations - from POS systems to graphic des...",
+        "fonts": [
+          "Arial-ItalicMT"
+        ],
+        "sizes": [
+          11.0
+        ]
+      }
+    ],
+    "lists": [],
+    "tables": []
+  }
+}

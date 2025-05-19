@@ -1,0 +1,67 @@
+{
+  "name": "PDF-Extracted Theme",
+  "version": "1.0.0",
+  "description": "A unified style theme extracted from PDF",
+  "colors": {
+    "primary": "#333333",
+    "secondary": "#666666",
+    "accent": "#7F5FA0",
+    "background": "#FFFFFF",
+    "text": "#333333",
+    "textSecondary": "#616161",
+    "border": "#4C4C4C",
+    "success": "#4B7F52",
+    "warning": "#D06D52",
+    "error": "#A0695F",
+    "info": "#3A7CA5"
+  },
+  "typography": {
+    "heading": "d3_f1, Arial, sans-serif",
+    "body": "d3_f2, Georgia, serif",
+    "mono": "d3_f1, 'Courier New', monospace",
+    "title": "d3_f3",
+    "subtitle": "d3_f3",
+    "button": "d3_f1",
+    "nav": "d3_f3",
+    "code": "d3_f1"
+  },
+  "spacing": {
+    "unit": "rem",
+    "scale": [
+      0,
+      0.25,
+      0.5,
+      1,
+      1.5,
+      2,
+      3,
+      4,
+      6,
+      8
+    ]
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px"
+  },
+  "components": {
+    "button": {
+      "borderRadius": "0.25rem",
+      "fontFamily": "var(--pdf-button-font)",
+      "backgroundColor": "var(--pdf-primary-color)",
+      "textColor": "var(--pdf-background-color)"
+    },
+    "card": {
+      "borderRadius": "0.5rem",
+      "backgroundColor": "var(--pdf-background-color)",
+      "borderColor": "var(--pdf-border-color)"
+    },
+    "input": {
+      "borderRadius": "0.25rem",
+      "borderColor": "var(--pdf-border-color)",
+      "backgroundColor": "var(--pdf-background-color)"
+    }
+  }
+}

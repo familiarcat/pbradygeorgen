@@ -1,0 +1,147 @@
+{
+  "heading": "d7_f1, Arial, sans-serif",
+  "body": "d7_f2, Georgia, serif",
+  "mono": "d7_f1, 'Courier New', monospace",
+  "title": "d7_f3",
+  "subtitle": "d7_f4",
+  "button": "d7_f5",
+  "nav": "d7_f2",
+  "code": "d7_f1",
+  "fontTheory": {
+    "description": "A typography system strictly using only the fonts extracted from the PDF: d7_f1, d7_f2, d7_f3, d7_f4, d7_f5. Following Derrida's philosophy of deconstruction, we've preserved the original typography without introducing external elements.",
+    "readability": "The fonts chosen offer a balanced mix of readability and distinctiveness, ensuring content is clear and engaging.",
+    "hierarchy": "The hierarchy is established through font weights, sizes, and styles within the constraints of the provided fonts, maintaining a structured visual flow.",
+    "fontPairings": "The font pairings are designed to create visual contrast and hierarchy while adhering strictly to the fonts extracted from the PDF."
+  },
+  "allFonts": [
+    "d7_f1",
+    "d7_f2",
+    "d7_f3",
+    "d7_f4",
+    "d7_f5"
+  ],
+  "extractedFonts": {
+    "d7_f1": {
+      "name": "d7_f1",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "I",
+        "strive",
+        "to",
+        "continuously",
+        "drive"
+      ]
+    },
+    "d7_f2": {
+      "name": "d7_f2",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "P. Brady",
+        "Georgen",
+        "AREA EXPERTISE",
+        "EXTENDED EXPERIENCE"
+      ]
+    },
+    "d7_f3": {
+      "name": "d7_f3",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "4350",
+        "A",
+        "De",
+        "Tonty"
+      ]
+    },
+    "d7_f4": {
+      "name": "d7_f4",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "WORK EPERIENCE"
+      ]
+    },
+    "d7_f5": {
+      "name": "d7_f5",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "EDUCATION",
+        "Webster University",
+        "Digital",
+        "Ronan (freelance)"
+      ]
+    }
+  },
+  "extractedRoles": {
+    "heading": "d7_f1",
+    "body": "d7_f2",
+    "mono": null
+  }
+}

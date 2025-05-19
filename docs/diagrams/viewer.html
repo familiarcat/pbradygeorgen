@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlexAI Documentation Viewer</title>
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #333;
+      --border-color: #eaecef;
+      --code-bg-color: #f6f8fa;
+      --link-color: #0366d6;
+      --secondary-text-color: #666;
+      --button-bg-color: #f8f8f8;
+      --button-hover-bg-color: #e9e9e9;
+    }
+
+    body.dark-theme {
+      --bg-color: #1e1e1e;
+      --text-color: #e0e0e0;
+      --border-color: #444;
+      --code-bg-color: #2d2d2d;
+      --link-color: #58a6ff;
+      --secondary-text-color: #aaa;
+      --button-bg-color: #333;
+      --button-hover-bg-color: #444;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-color);
+    }
+    h1 {
+      font-size: 2em;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.3em;
+    }
+    h2 {
+      font-size: 1.5em;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.3em;
+    }
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      background-color: var(--code-bg-color);
+      border-radius: 3px;
+      padding: 16px;
+      overflow: auto;
+      border: 1px solid var(--border-color);
+    }
+    code {
+      font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      background-color: var(--code-bg-color);
+      border-radius: 3px;
+      padding: 0.2em 0.4em;
+      font-size: 85%;
+      color: var(--text-color);
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    blockquote {
+      margin: 0;
+      padding: 0 1em;
+      color: var(--secondary-text-color);
+      border-left: 0.25em solid var(--border-color);
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+    table th, table td {
+      padding: 6px 13px;
+      border: 1px solid var(--border-color);
+    }
+    table tr {
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+    }
+    table tr:nth-child(2n) {
+      background-color: var(--code-bg-color);
+    }
+    .mermaid-buttons {
+      margin-bottom: 10px;
+    }
+    .mermaid-button {
+      margin-right: 10px;
+      padding: 5px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--button-bg-color);
+      cursor: pointer;
+      color: var(--text-color);
+    }
+    .mermaid-button:hover {
+      background-color: var(--button-hover-bg-color);
+    }
+    #file-selector {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: var(--code-bg-color);
+      border-radius: 5px;
+      border: 1px solid var(--border-color);
+    }
+    #file-selector select, #file-selector button {
+      padding: 5px;
+      margin-left: 10px;
+      background-color: var(--button-bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+    }
+    #file-selector button:hover {
+      background-color: var(--button-hover-bg-color);
+    }
+    #theme-toggle {
+      cursor: pointer;
+    }
+  </style>
+  <!-- Include Mermaid for rendering diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      // Improved styling for better contrast
+      themeVariables: {
+        primaryColor: '#bbf',
+        primaryTextColor: '#000',
+        primaryBorderColor: '#333',
+        lineColor: '#333',
+        secondaryColor: '#fbb',
+        secondaryTextColor: '#000',
+        secondaryBorderColor: '#333',
+        tertiaryColor: '#bfb',
+        tertiaryTextColor: '#000',
+        tertiaryBorderColor: '#333',
+        noteTextColor: '#000',
+        noteBkgColor: '#fff5ad',
+        noteBorderColor: '#333',
+        edgeLabelBackground: '#fff',
+        fontSize: '16px',
+        fontFamily: 'Arial, sans-serif',
+        fontWeight: 'bold'
+      }
+    });
+  </script>
+</head>
+<body>
+  <header style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eaecef;">
+    <h1>AlexAI Documentation Viewer</h1>
+    <p>This interactive viewer renders Mermaid diagrams and provides tools to copy diagram code or open in the Mermaid Live Editor.</p>
+  </header>
+
+  <div id="file-selector">
+    <label for="doc-select">Select Documentation:</label>
+    <select id="doc-select">
+      <option value="../application-architecture.md">Application Architecture</option>
+      <option value="../script-structure.md">Script Structure</option>
+      <option value="../pdf-workflow/README.md">PDF Workflow</option>
+    </select>
+    <button id="load-button">Load</button>
+    <span id="vscode-note" style="margin-left: 20px; font-style: italic; color: #666;">
+      VSCode Users: This viewer works best when opened with Live Server
+    </span>
+    <div style="float: right;">
+      <label for="theme-toggle">Dark Theme:</label>
+      <input type="checkbox" id="theme-toggle">
+    </div>
+  </div>
+
+  <div id="content"></div>
+
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eaecef; color: #666; font-size: 0.9em;">
+    <p>AlexAI Documentation Viewer | <a href="https://github.com/pbradygeorgen/alexai" target="_blank">GitHub Repository</a></p>
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    document.getElementById('theme-toggle').addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        // Reinitialize Mermaid with dark theme
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'dark',
+          securityLevel: 'loose',
+          themeVariables: {
+            primaryColor: '#6272a4',
+            primaryTextColor: '#f8f8f2',
+            primaryBorderColor: '#bd93f9',
+            lineColor: '#f8f8f2',
+            secondaryColor: '#bd93f9',
+            secondaryTextColor: '#f8f8f2',
+            secondaryBorderColor: '#6272a4',
+            tertiaryColor: '#ff79c6',
+            tertiaryTextColor: '#f8f8f2',
+            tertiaryBorderColor: '#bd93f9',
+            noteTextColor: '#f8f8f2',
+            noteBkgColor: '#44475a',
+            noteBorderColor: '#6272a4',
+            edgeLabelBackground: '#282a36',
+            fontSize: '16px',
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 'bold'
+          }
+        });
+      } else {
+        document.body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        // Reinitialize Mermaid with light theme
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'default',
+          securityLevel: 'loose',
+          themeVariables: {
+            primaryColor: '#bbf',
+            primaryTextColor: '#000',
+            primaryBorderColor: '#333',
+            lineColor: '#333',
+            secondaryColor: '#fbb',
+            secondaryTextColor: '#000',
+            secondaryBorderColor: '#333',
+            tertiaryColor: '#bfb',
+            tertiaryTextColor: '#000',
+            tertiaryBorderColor: '#333',
+            noteTextColor: '#000',
+            noteBkgColor: '#fff5ad',
+            noteBorderColor: '#333',
+            edgeLabelBackground: '#fff',
+            fontSize: '16px',
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 'bold'
+          }
+        });
+      }
+
+      // Re-render Mermaid diagrams
+      document.querySelectorAll('.mermaid').forEach(el => {
+        const content = el.textContent;
+        el.innerHTML = content;
+      });
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+      // Re-add buttons to Mermaid blocks
+      addButtonsToMermaidBlocks();
+    });
+
+    // Check for saved theme preference
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.getElementById('theme-toggle').checked = true;
+        document.body.classList.add('dark-theme');
+        // Initialize Mermaid with dark theme
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'dark',
+          securityLevel: 'loose',
+          themeVariables: {
+            primaryColor: '#6272a4',
+            primaryTextColor: '#f8f8f2',
+            primaryBorderColor: '#bd93f9',
+            lineColor: '#f8f8f2',
+            secondaryColor: '#bd93f9',
+            secondaryTextColor: '#f8f8f2',
+            secondaryBorderColor: '#6272a4',
+            tertiaryColor: '#ff79c6',
+            tertiaryTextColor: '#f8f8f2',
+            tertiaryBorderColor: '#bd93f9',
+            noteTextColor: '#f8f8f2',
+            noteBkgColor: '#44475a',
+            noteBorderColor: '#6272a4',
+            edgeLabelBackground: '#282a36',
+            fontSize: '16px',
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 'bold'
+          }
+        });
+      }
+    });
+
+    // Function to fetch and render markdown
+    async function fetchAndRenderMarkdown(url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+        }
+
+        const markdown = await response.text();
+
+        // Use a simple markdown parser (this is very basic, consider using a proper library)
+        let html = parseMarkdown(markdown);
+
+        // Set the content
+        document.getElementById('content').innerHTML = html;
+
+        // Re-render Mermaid diagrams
+        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+        // Add buttons to Mermaid blocks
+        addButtonsToMermaidBlocks();
+      } catch (error) {
+        console.error('Error fetching markdown:', error);
+        document.getElementById('content').innerHTML = `<p>Error loading document: ${error.message}</p>`;
+      }
+    }
+
+    // Very basic markdown parser (replace with a proper library in production)
+    function parseMarkdown(markdown) {
+      // Replace headers
+      let html = markdown
+        .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+        .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+        .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+        .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
+        .replace(/^##### (.*$)/gm, '<h5>$1</h5>')
+        .replace(/^###### (.*$)/gm, '<h6>$1</h6>');
+
+      // Replace links
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+      // Replace blockquotes
+      html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
+
+      // Replace code blocks
+      html = html.replace(/```mermaid([\s\S]*?)```/g, '<pre><code class="language-mermaid">$1</code></pre>');
+      html = html.replace(/```(\w*)([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>');
+
+      // Replace inline code
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+      // Replace lists
+      html = html.replace(/^\* (.*$)/gm, '<ul><li>$1</li></ul>');
+      html = html.replace(/^- (.*$)/gm, '<ul><li>$1</li></ul>');
+      html = html.replace(/^(\d+)\. (.*$)/gm, '<ol><li>$2</li></ol>');
+
+      // Fix lists (this is a very basic approach)
+      html = html.replace(/<\/ul>\s*<ul>/g, '');
+      html = html.replace(/<\/ol>\s*<ol>/g, '');
+
+      // Replace paragraphs (very basic)
+      html = html.replace(/^(?!<[a-z])(.*$)/gm, '<p>$1</p>');
+      html = html.replace(/<p>\s*<\/p>/g, '');
+
+      return html;
+    }
+
+    // Function to open diagram in Mermaid Live Editor
+    function openInMermaidEditor(mermaidCode) {
+      // Create a form to post the data
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = 'https://mermaid.live/edit';
+      form.target = '_blank';
+
+      // Create a hidden input field with the code
+      const input = document.createElement('textarea');
+      input.name = 'code';
+      input.value = mermaidCode;
+      input.style.display = 'none';
+
+      // Add the input to the form
+      form.appendChild(input);
+
+      // Add the form to the document and submit it
+      document.body.appendChild(form);
+      form.submit();
+
+      // Clean up
+      document.body.removeChild(form);
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+
+      const selected = document.getSelection().rangeCount > 0
+        ? document.getSelection().getRangeAt(0)
+        : false;
+
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      if (selected) {
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(selected);
+      }
+
+      return true;
+    }
+
+    // Function to add buttons to Mermaid code blocks
+    function addButtonsToMermaidBlocks() {
+      // Find all pre elements containing Mermaid code
+      const preElements = document.querySelectorAll('pre');
+
+      preElements.forEach(pre => {
+        // Check if this is a Mermaid code block
+        const codeElement = pre.querySelector('code.language-mermaid');
+        if (!codeElement) return;
+
+        // Get the Mermaid code
+        const mermaidCode = codeElement.textContent;
+
+        // Create button container
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'mermaid-buttons';
+
+        // Create copy button
+        const copyButton = document.createElement('button');
+        copyButton.textContent = 'Copy to Clipboard';
+        copyButton.className = 'mermaid-button';
+        copyButton.addEventListener('click', () => {
+          if (copyToClipboard(mermaidCode)) {
+            copyButton.textContent = 'Copied!';
+            setTimeout(() => {
+              copyButton.textContent = 'Copy to Clipboard';
+            }, 2000);
+          }
+        });
+
+        // Create open in editor button
+        const openButton = document.createElement('button');
+        openButton.textContent = 'Open in Mermaid Live Editor';
+        openButton.className = 'mermaid-button';
+        openButton.addEventListener('click', () => {
+          openInMermaidEditor(mermaidCode);
+        });
+
+        // Add buttons to container
+        buttonContainer.appendChild(copyButton);
+        buttonContainer.appendChild(openButton);
+
+        // Insert button container before the pre element
+        pre.parentNode.insertBefore(buttonContainer, pre);
+      });
+    }
+
+    // Set up event listeners
+    document.getElementById('load-button').addEventListener('click', () => {
+      const select = document.getElementById('doc-select');
+      const url = select.value;
+      fetchAndRenderMarkdown(url);
+    });
+
+    // Load the default document
+    fetchAndRenderMarkdown('../application-architecture.md');
+  </script>
+</body>
+</html>

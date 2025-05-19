@@ -1,0 +1,80 @@
+
+
+Daugherty Business Solutions
+Sr. Software Developer (III - Sr. Consultant) | 2014 - 2023
+Bayer:
+Cox Communications:
+Charter Communications:
+Mastercard:
+P. BRADY GEORGEN
+DEVELOPER &   CREATIVE TECHNOLOGIST
+4350 a DeTonty Street, St. Louis, MO 63110 | (314) 580-0608 | brady@pbradygeorgen.com
+www.pbradygeorgen.com | www.github.com/familiarcat | www.linkedin.com/in/brady-georgen-a6204a22b/
+SUMMARYEXPERTISE
+Full Stack Development (AWS)
+Javascript & Typescript
+Graphic Design & UI/UX
+Illustration & Animation
+Enterprise Architecture
+SKILLS / TECHNOLOGIES
+EDUCATION
+BFA Graphic Design
+Webster University | 2005
+BA Philosophy
+Webster University | 2005
+President of Philosophy Club
+ASSC Motion Graphics
+Saint Louis Community College | 2001
+ADDITIONAL EXPERIENCE
+Deliveries on Demand
+Lead Software Developer | 2013 - 2014
+• Developed telecom data visualizations
+Infuz
+Sr. Developer / Asst. Art Director | 2011 - 2013
+• Created, visually designed, and developed applications.
+Touchwood Creative
+Lead Software Developer | 2009 - 2011
+• Created digital marketing solutions for clients
+ThinkTank
+Lead Software Developer | 2009 - 2011
+• Relaunched Dialsoap.com with a team using Adobe Flex
+Asynchrony Solutions
+Designer / Developer (II)
+ / Marketing Asst. | 2005 -2008
+React, Next.js, React Native, Angular, AWS, AWS 
+Amplify, SOA, Git Hooks, CI/CD, MongoDB, SQL, 
+Docker, Terraform, Jenkins, Jira, Shell Automation, 
+Node.js, Ruby on Rails, Java, JavaScript, TypeScript, 
+Adobe CS, UI/UX Prototyping, Data Visualization, 
+Creative / Technical Writing, Design, Illustration, 
+Motion Graphics
+Passionate about creating digital products that bring together 
+innovative technology, thoughtful design, and Agile best practices. 
+Committed to delivering solutions that not only achieve business 
+objectives but also make a meaningful impact on the people who 
+use them - whether customers or internal teams.
+EXPERIENCE
+Digital Ronan (freelance)
+Consultant & Creative Technologist | Present
+Crimson Serpents Outpost www.csleathergoods.com
+Blue Strawberry www.bluestrawberrystl.com
+Fresh Produce www.freshproducebeatbattle.com
+Ices Plain & Fancy www.icesplainandfancy.com
+I design, manage, and implement comprehensive digital integrations - from POS 
+systems to graphic design, video presentations, and marketing strategies. Whether 
+it's developing websites, mobile applications, e-commerce infrastructure, or customer 
+service solutions, I help businesses enhance their visibility and strengthen their 
+presence in the marketplace.
+Successfully delivered enterprise-grade applications and architectural solutions for 
+a broad range of clients across multiple industries.
+• Designed various marketing materials and RFPs while 
+building elegant code with a core of Agile fundamentals.
+Architected, developed, migrated, and maintained various enterprise scale applications 
+related to crop science utilizing React, AWS, and APIs while upholding Agile best 
+practices.
+Implemented scaffolding framework for modular React applications, integrating with 
+Adobe Content Manager.
+Engineered interactive call center solutions empowering representatives to provide 
+enhanced customer service capabilities across Java, .Net, and Node services.
+Developed comprehensive on-boarding documentation, sample code, and API 
+integration to support the MasterPass online purchasing initiative.

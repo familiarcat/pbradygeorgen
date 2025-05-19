@@ -1,0 +1,45 @@
+/* Enhanced PDF Styles - Generated CSS Variables */
+
+:root {
+  /* Color variables - Derrida principle of deconstructing traditional color roles */
+  --pdf-text-color: #000000 !important;
+  --pdf-background-color: #ffffff !important;
+  --pdf-accent-color: #3366CC !important;
+  --pdf-primary-color: #000000 !important;
+  --pdf-secondary-color: #6699FF !important;
+  --pdf-border-color: #CCCCCC !important;
+  --pdf-text-on-accent: #FFFFFF !important;
+
+  /* Direct variables for compatibility */
+  --text-color: #000000 !important;
+  --background: #ffffff !important;
+  --accent: #3366CC !important;
+  --primary: #000000 !important;
+  --secondary: #6699FF !important;
+  --border-color: #CCCCCC !important;
+  --text-on-accent: #FFFFFF !important;
+
+  /* Font variables */
+  --pdf-heading-font: Arial, sans-serif, sans-serif !important;
+  --pdf-body-font: Georgia, serif, serif !important;
+  --pdf-mono-font: Courier New, monospace !important;
+  --pdf-button-font: Arial, sans-serif, sans-serif !important;
+
+  /* Direct font variables for compatibility */
+  --font-heading: Arial, sans-serif, sans-serif !important;
+  --font-body: Georgia, serif, serif !important;
+  --font-mono: Courier New, monospace !important;
+  --font-button: Arial, sans-serif, sans-serif !important;
+}
+
+/* Utility classes */
+.pdf-heading-font { font-family: var(--pdf-heading-font); }
+.pdf-body-font { font-family: var(--pdf-body-font); }
+.pdf-mono-font { font-family: var(--pdf-mono-font); }
+.pdf-button-font { font-family: var(--pdf-button-font); }
+
+.pdf-text-color { color: var(--pdf-text-color); }
+.pdf-background-color { background-color: var(--pdf-background-color); }
+.pdf-accent-color { color: var(--pdf-accent-color); }
+.pdf-primary-color { color: var(--pdf-primary-color); }
+.pdf-secondary-color { color: var(--pdf-secondary-color); }

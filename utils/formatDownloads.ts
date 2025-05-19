@@ -1,6 +1,7 @@
 'use client';
 
 import OpenAI from 'openai';
+import UserInfoService, { UserInfo } from './UserInfoService';
 
 // Initialize the OpenAI client conditionally to avoid client-side errors
 let openai: OpenAI | null = null;
@@ -14,6 +15,47 @@ if (apiKey) {
     console.warn('Failed to initialize OpenAI client:', error);
     openai = null;
   }
+}
+
+// Load user information or use default values
+let userInfo: UserInfo;
+try {
+  if (typeof window === 'undefined') {
+    // Server-side
+    userInfo = UserInfoService.loadUserInfo();
+  } else {
+    // Client-side - will be populated via API call in the component
+    userInfo = {
+      name: 'User',
+      firstName: 'User',
+      lastName: '',
+      fullName: 'User',
+      filePrefix: 'user',
+      resumeFileName: 'resume',
+      introductionFileName: 'introduction',
+      email: '',
+      phone: '',
+      location: '',
+      title: '',
+      extractionDate: new Date().toISOString()
+    };
+  }
+} catch (error) {
+  console.warn('Failed to load user information:', error);
+  userInfo = {
+    name: 'User',
+    firstName: 'User',
+    lastName: '',
+    fullName: 'User',
+    filePrefix: 'user',
+    resumeFileName: 'resume',
+    introductionFileName: 'introduction',
+    email: '',
+    phone: '',
+    location: '',
+    title: '',
+    extractionDate: new Date().toISOString()
+  };
 }
 
 /**
@@ -30,17 +72,15 @@ export async function generateFormattedMarkdown(content: string): Promise<string
     let inList = false;
 
     // Start with a clean header
-    formatted += `# P. Brady Georgen\n\n`;
+    formatted += `# ${userInfo.fullName}\n\n`;
     formatted += `## Professional Summary\n\n`;
-    formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n`;
+    formatted += `${userInfo.title || 'Professional'} with expertise in the field. ${userInfo.fullName} brings valuable experience and skills to deliver innovative solutions.\n\n`;
 
     // Add contact information
     formatted += `## Contact Information\n\n`;
-    formatted += `4350 A De Tonty St  \n`;
-    formatted += `St. Louis, MO  \n`;
-    formatted += `(314) 580-0608  \n`;
-    formatted += `pbradygeorgen.com  \n`;
-    formatted += `brady@pbradygeorgen.com\n\n`;
+    formatted += `${userInfo.location || 'Location'}  \n`;
+    formatted += `${userInfo.phone || 'Phone'}  \n`;
+    formatted += `${userInfo.email || 'Email'}\n\n`;
 
     // Add experience section
     formatted += `## Experience\n\n`;
@@ -166,19 +206,17 @@ export async function generateFormattedText(content: string): Promise<string> {
     let inList = false;
 
     // Start with a clean header
-    formatted += `P. BRADY GEORGEN\n${'='.repeat(16)}\n\n\n`;
+    formatted += `${userInfo.fullName.toUpperCase()}\n${'='.repeat(userInfo.fullName.length)}\n\n\n`;
 
     // Add professional summary
     formatted += `PROFESSIONAL SUMMARY\n${'-'.repeat(20)}\n\n`;
-    formatted += `Senior Software Developer with expertise in full-stack development, JavaScript/TypeScript, UI/UX, React, and AWS. Combines technical proficiency with creative design background to deliver innovative solutions for enterprise clients.\n\n\n`;
+    formatted += `${userInfo.title || 'Professional'} with expertise in the field. ${userInfo.fullName} brings valuable experience and skills to deliver innovative solutions.\n\n\n`;
 
     // Add contact information
     formatted += `CONTACT INFORMATION\n${'-'.repeat(19)}\n\n`;
-    formatted += `  4350 A De Tonty St\n`;
-    formatted += `  St. Louis, MO\n`;
-    formatted += `  (314) 580-0608\n`;
-    formatted += `  pbradygeorgen.com\n`;
-    formatted += `  brady@pbradygeorgen.com\n\n\n`;
+    formatted += `  ${userInfo.location || 'Location'}\n`;
+    formatted += `  ${userInfo.phone || 'Phone'}\n`;
+    formatted += `  ${userInfo.email || 'Email'}\n\n\n`;
 
     // Add experience section
     formatted += `EXPERIENCE\n${'-'.repeat(10)}\n\n`;

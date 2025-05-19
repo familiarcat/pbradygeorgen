@@ -2,83 +2,97 @@
 
 
 
-I strive to continuously drive innovation by blending 
-cutting-edge technology with creative design and Agile 
-best practices, focused on delivering enterprise-grade 
-solutions and digital transformations that empower 
-teams and organizations.
-P. Brady Georgen
-AREA EXPERTISE
-EXTENDED EXPERIENCE
-ABOUT ME
-4350 A De Tonty St, 
-St. Louis, MO
-(314) 580-0608
-pbradygeorgen.com
-brady@pbradygeorgen.com
-WORK EPERIENCE
-EDUCATION
-SKILLS / TECHNOLOGIES
-•Full Stack Development
-•Javascript/Typescript
-•Graphic Design & UI/UX
-•Illustration
-•Creative/Technical  
- writing
-Providing strategic digital consultancy for 
-local businesses, applying skills in web 
-development, networking, and design.
-BFA Graphic Design
-Webster University
-2001-2005
-2022 - Present
-Digital Ronan (freelance)
-Consultant & Creative Technoligist
-2013 - 2014
-Deliveries on Demand
-Lead Software Developer
-2011 - 2013
-Infuze
-Sr. Developer/Asst. Art Director
-2009 - 2011
-Touchwood Creative
-Lead Software Developer
-2008 - 2009
-ThinkTank (freelance)
-Software and Creative Director
-2005 - 2008
-Asynchrony Solutions
-Designer/Developer/Marketing Asst.
-React, React Native, AWS, AWS 
-Amplify, SOA, CI/CD, MongoDB, SQL, 
-Docker, Terraform, Jenkins, Shell 
-Automation, Node, Ruby, Java, 
-Javascript, Typescript, Adobe CS, 
-UI/UX Prototyping 
-Cox Communications
-Implemented scaffolding framework for modular 
-React applications integrating with Adobe 
-Content Manager
-Bayer
-Architected, developed, migrated, and main-
-tained various enterprise scale applications 
-utilizing React, AWS, and SOA architectures: 
-upholding Agile best practices.
-Charter Communications
-Engineered interactive call center solutions 
-empowering representatives to provide 
-enhanced customer service capabilities. 
-Mastercard
-Developed comprehensive onboarding documen-
-tation, sample code, and API integration to 
-support the MasterPass online purchasing 
-initiative. 
-2014 - 2023
-Daugherty Business Solutions
-Sr. Software Developer (III)
-BA Philosophy
-Webster University
-2001-2005
-ASSC Motion Graphics
-Saint Louis Community College
-1999-2001
+Homer G. Phillips Memorial Hospital
+1320 N Jefferson Ave, St. Louis, MO 63106
+Clinical Informatics Specialist
+MAR 2023 - Current
+Shriners Hospital for Children
+4400 Clayton Ave, St. Louis, MO 6311
+Clinical Analyst II
+MAR 2018 - MAR 2023
+Advanced ICU Care
+1 Cityplace Dr Suite 570 Suite 570, St. Louis, MO 63141
+Clinical Analyst I 
+APR 2012 - FEB 2015
+As one of the first employees hired at Homer G. Phillips Memorial 
+Hospital, myself and the CISO are solely responsible for all systems 
+and technologies used at the hospital, Implementation, maintenance, 
+and training of our web-based EHR system(Thrive), Enterprise web 
+browser (Island), Google Enterprise, Administrative roles within 
+Panorama 9, Verkada, SiPass, Zendesk,IT Glue, Chartnote. Typical 
+tasks would include the On/Off-boarding of all office and clinical users. 
+Configuring securities and permissions for each user. Communicating 
+with third party vendors, trouble-shooting analysis related to the EMR, 
+Network, Interfaces, PC’s, Hardware, and Web Applications. 
+Creating, modifying, or running reports as needed via the TruBridge 
+Report Builder.
+BENJAMIN STEIN
+WORK EXPERIENCE
+CLINICAL INFORMATICS SPECIALIST
+2143 Alfred Ave. St. Louis, MO. 63110
+ 
++1 (314)-809-1836          benjaminsteinstl@gmail.com
+ 
+  
+ 
+Experience extended:
+Education:
+  
+Certifications:
+M.C.T.S - Windows Xp
+M.C.T.S - VISTA
+M.C.T.S - Server 08 R2
+M.C.T.S - Active Directory
+M.C.T.S - SQL
+CompTIA - A+
+Dell Certified Systems Expert
+Sony-certified - laptop repair
+HIPAA Certified
+References:
+Provide day-to-day support for the entire clinical and office staff, 
+Lead / Participate in the implementation of new functionality within the 
+Cerner suite (PowerChart, Surginet, Anesthesia Module etc.), Provide 
+training and access for any newly on boarded clinical staff, Design and 
+interpret reports in SAP Business Objects, and Discern Analytics. Develop 
+training material as needed, Track tickets issues using Service Now. 
+Maintain an active maintenance schedule of all PC’s in the hospital, 
+Manage user sessions with Citrix Desktop Director.
+At AICU, I was one of four analysts responsible for providing 24x7 IT support 
+for theclinical staff of the largest provider of tele-ICU services in the nation. 
+Areas of support included: Hardware and OS issues. Applications associat-
+ed with various hospital health Information systems such as Epic, Meditech, 
+and Mindray, Monitoring and Maintaining health information integration 
+engines, such as Corepoint and Rapsody/Orion, including management 
+and manipulation of HL7 messages, VPN repair and eCare integration, 
+Remote support of NY and India clinical staff via Simple-Help remote 
+desktop, Creation/configuration of virtual A/V servers, such as Vidyo, STI, 
+and Axis. 
+Karen Johnson
+C.E.O.Homer G. Phillips Memorial 
+Hospital
++1 (314) 399-4288
+Susan “Angie” Kinney
+Clinical Analyst II
+Shriners Hospital for Children
++1 (618) 960-5628
+Justin Thuli 
+Manager of I.T.
+Advanced ICU Care
++1 (608) 215-9302
+Ranken Technical College
+2010 - 2012
+Network & Database Administration
+St. Louis Community College
+2002 - 2005
+Graphic Communications
+Boeing
+Under Contract by RMS
+IT Specialist - 2/17 - 2/18
+Baked Tees
+Graphic Designer - 4/11 - 4/12
+Tek Systems
+IT Specialist - 3/10 - 9/10
+Nexicore Technology
+Mobile Technician - 4/09 - 11/09
+Think Tank Design
+Graphic Designer - 2/07

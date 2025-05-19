@@ -39,10 +39,10 @@ fi
 mkdir -p public/backup
 
 # Backup the current default PDF if it exists
-DEFAULT_PDF="public/pbradygeorgen_resume.pdf"
+DEFAULT_PDF="public/resume.pdf"
 if [ -f "$DEFAULT_PDF" ]; then
   TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-  BACKUP_PATH="public/backup/pbradygeorgen_resume_${TIMESTAMP}.pdf"
+  BACKUP_PATH="public/backup/resume_${TIMESTAMP}.pdf"
   print_message "${BLUE}" "BACKUP" "Backing up current default PDF to ${BACKUP_PATH}"
   cp "$DEFAULT_PDF" "$BACKUP_PATH"
 fi

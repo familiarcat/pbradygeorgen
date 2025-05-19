@@ -1,0 +1,149 @@
+{
+  "heading": "d3_f1, Arial, sans-serif",
+  "body": "d3_f2, Georgia, serif",
+  "mono": "d3_f1, 'Courier New', monospace",
+  "title": "d3_f3",
+  "subtitle": "d3_f3",
+  "button": "d3_f1",
+  "nav": "d3_f3",
+  "code": "d3_f1",
+  "fontTheory": {
+    "description": "A typography system strictly using only the fonts extracted from the PDF: d3_f1, d3_f2, d3_f5, d3_f4, d3_f3. Following Derrida's philosophy of deconstruction, we've preserved the original typography without introducing external elements.",
+    "readability": "The fonts chosen maintain a consistent style throughout the design, enhancing readability by providing a clear visual hierarchy.",
+    "hierarchy": "The hierarchy is established through font sizes, weights, and styles. Headings in d3_f1 are bold and prominent, while body text in d3_f2 is regular for easy reading. Titles and subtitles in d3_f3 are distinct but complementary to the headings. Monospace text in d3_f1 is used for code snippets, ensuring a clear differentiation from regular text.",
+    "fontPairings": "The font pairings focus on creating a harmonious blend within the constraints of the extracted fonts. While each font serves a specific purpose, they work together to create a cohesive and structured typographic system."
+  },
+  "allFonts": [
+    "d3_f1",
+    "d3_f2",
+    "d3_f5",
+    "d3_f4",
+    "d3_f3"
+  ],
+  "extractedFonts": {
+    "d3_f1": {
+      "name": "d3_f1",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "Daugherty Business Solutions",
+        "Bayer:",
+        "Cox Communications:",
+        "Charter Communications:",
+        "Mastercard:"
+      ]
+    },
+    "d3_f2": {
+      "name": "d3_f2",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "Sr. Software Developer (III - Sr. Consultant) | 20",
+        "President of Philosophy Club",
+        "Consultant & Creative Technologist | Present",
+        "I design, manage, and implement comprehensive digi",
+        "systems to graphic design, video presentations, an"
+      ]
+    },
+    "d3_f5": {
+      "name": "d3_f5",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "React, Next.js, React Native, Angular, AWS, AWS",
+        "Amplify, SOA, Git Hooks, CI/CD, MongoDB, SQL,",
+        "Docker, Terraform, Jenkins, Jira, Shell Automation",
+        "Node.js, Ruby on Rails, Java, JavaScript, TypeScri"
+      ]
+    },
+    "d3_f4": {
+      "name": "d3_f4",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "",
+        "Passionate about creating digital products that br",
+        "innovative technology, thoughtful design, and Agil",
+        "Committed to delivering solutions that not only ac",
+        "objectives but also make a meaningful impact on th"
+      ]
+    },
+    "d3_f3": {
+      "name": "d3_f3",
+      "type": "Unknown",
+      "subtype": "Unknown",
+      "encoding": "Unknown",
+      "isMonospace": false,
+      "isSerifFont": false,
+      "isSansSerif": false,
+      "isSymbolicFont": false,
+      "weight": "normal",
+      "italic": false,
+      "pages": [
+        1
+      ],
+      "usage": "text",
+      "fontSize": 0,
+      "samples": [
+        "www.csleathergoods.com",
+        "www.bluestrawberrystl.com",
+        "www.freshproducebeatbattle.com",
+        "www.icesplainandfancy.com"
+      ]
+    }
+  },
+  "extractedRoles": {
+    "heading": "d3_f1",
+    "body": "d3_f2",
+    "mono": null
+  }
+}

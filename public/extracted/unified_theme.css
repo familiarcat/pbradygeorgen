@@ -1,0 +1,79 @@
+/* Unified Theme CSS - Generated from PDF extraction */
+
+:root {
+  /* Color variables */
+  --theme-color-primary: #333333;
+  --theme-color-secondary: #666666;
+  --theme-color-accent: #7F5FA0;
+  --theme-color-background: #FFFFFF;
+  --theme-color-text: #333333;
+  --theme-color-textSecondary: #616161;
+  --theme-color-border: #4C4C4C;
+  --theme-color-success: #4B7F52;
+  --theme-color-warning: #D06D52;
+  --theme-color-error: #A0695F;
+  --theme-color-info: #3A7CA5;
+
+  /* Typography variables */
+  --theme-font-heading: d3_f1, Arial, sans-serif;
+  --theme-font-body: d3_f2, Georgia, serif;
+  --theme-font-mono: d3_f1, 'Courier New', monospace;
+  --theme-font-title: d3_f3;
+  --theme-font-subtitle: d3_f3;
+  --theme-font-button: d3_f1;
+  --theme-font-nav: d3_f3;
+  --theme-font-code: d3_f1;
+
+  /* Spacing variables */
+  --theme-spacing-0: 0rem;
+  --theme-spacing-1: 0.25rem;
+  --theme-spacing-2: 0.5rem;
+  --theme-spacing-3: 1rem;
+  --theme-spacing-4: 1.5rem;
+  --theme-spacing-5: 2rem;
+  --theme-spacing-6: 3rem;
+  --theme-spacing-7: 4rem;
+  --theme-spacing-8: 6rem;
+  --theme-spacing-9: 8rem;
+
+  /* Breakpoint variables */
+  --theme-breakpoint-sm: 640px;
+  --theme-breakpoint-md: 768px;
+  --theme-breakpoint-lg: 1024px;
+  --theme-breakpoint-xl: 1280px;
+
+  /* Component variables */
+  --theme-component-button-borderRadius: 0.25rem;
+  --theme-component-button-fontFamily: var(--pdf-button-font);
+  --theme-component-button-backgroundColor: var(--pdf-primary-color);
+  --theme-component-button-textColor: var(--pdf-background-color);
+  --theme-component-card-borderRadius: 0.5rem;
+  --theme-component-card-backgroundColor: var(--pdf-background-color);
+  --theme-component-card-borderColor: var(--pdf-border-color);
+  --theme-component-input-borderRadius: 0.25rem;
+  --theme-component-input-borderColor: var(--pdf-border-color);
+  --theme-component-input-backgroundColor: var(--pdf-background-color);
+}
+
+/* Utility classes */
+.theme-heading {
+  font-family: var(--theme-font-heading);
+}
+
+.theme-body {
+  font-family: var(--theme-font-body);
+}
+
+.theme-button {
+  font-family: var(--theme-component-button-fontFamily);
+  background-color: var(--theme-component-button-backgroundColor);
+  color: var(--theme-component-button-textColor);
+  border-radius: var(--theme-component-button-borderRadius);
+}
+
+.theme-card {
+  background-color: var(--theme-component-card-backgroundColor);
+  border-color: var(--theme-component-card-borderColor);
+  border-radius: var(--theme-component-card-borderRadius);
+}
+

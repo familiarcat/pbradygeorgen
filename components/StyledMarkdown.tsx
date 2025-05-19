@@ -58,12 +58,12 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     h1: ({ node, ...props }: any) => (
       <h1
         style={{
-          fontFamily: 'var(--pdf-heading-font, var(--font-heading, var(--dynamic-heading-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.8rem',
           marginTop: '0.5rem',
           marginBottom: '1.5rem', // Increased for better spacing
-          fontWeight: 400,
+          fontWeight: 600, // Increased for better visibility
           letterSpacing: '-0.5px',
           textAlign: 'left',
           lineHeight: '1.4', // Added for consistent spacing
@@ -76,12 +76,12 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     h2: ({ node, ...props }: any) => (
       <h2
         style={{
-          fontFamily: 'var(--pdf-heading-font, var(--font-heading, var(--dynamic-heading-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.5rem',
           marginTop: '2rem', // Increased for better spacing
           marginBottom: '1rem', // Increased for better spacing
-          fontWeight: 400,
+          fontWeight: 600, // Increased for better visibility
           borderBottom: '1px solid var(--pdf-border-color, var(--border-color, var(--dynamic-border, rgba(73, 66, 61, 0.1))))' + ' !important',
           paddingBottom: '0.5rem',
           textAlign: 'left',
@@ -95,12 +95,12 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     h3: ({ node, ...props }: any) => (
       <h3
         style={{
-          fontFamily: 'var(--pdf-heading-font, var(--font-heading, var(--dynamic-heading-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.25rem',
           marginTop: '1.75rem', // Increased for better spacing
           marginBottom: '0.75rem', // Increased for better spacing
-          fontWeight: 400,
+          fontWeight: 600, // Increased for better visibility
           textAlign: 'left',
           lineHeight: '1.4', // Added for consistent spacing
           display: 'block', // Ensures proper block formatting
@@ -112,12 +112,12 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     h4: ({ node, ...props }: any) => (
       <h4
         style={{
-          fontFamily: 'var(--pdf-heading-font, var(--font-heading, var(--dynamic-heading-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.1rem',
           marginTop: '1.5rem', // Increased for better spacing
           marginBottom: '0.75rem', // Increased for better spacing
-          fontWeight: 400,
+          fontWeight: 500, // Increased for better visibility
           fontStyle: 'italic',
           textAlign: 'left',
           lineHeight: '1.4', // Added for consistent spacing
@@ -130,14 +130,15 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     p: ({ node, ...props }: any) => (
       <p
         style={{
-          fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           marginBottom: '1.25rem', // Increased for better spacing
           lineHeight: '1.8', // Increased for better readability and to prevent overlap
           textAlign: 'left',
           display: 'block', // Ensures proper block formatting
           width: '100%', // Ensures full width
-          marginTop: '0.5rem' // Added for consistent spacing
+          marginTop: '0.5rem', // Added for consistent spacing
+          fontWeight: 400 // Normal weight for body text
         }}
         {...props}
       />
@@ -146,8 +147,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <ul
         style={{
           marginBottom: '1.25rem', // Increased for better spacing
-          paddingLeft: '2rem', // Increased for better indentation
+          paddingLeft: '2.5rem', // Increased for better indentation
           listStylePosition: 'outside', // Ensures bullets are outside the text
+          listStyleType: 'disc', // Explicit bullet style
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
         }}
@@ -158,8 +160,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <ol
         style={{
           marginBottom: '1.25rem', // Increased for better spacing
-          paddingLeft: '2rem', // Increased for better indentation
+          paddingLeft: '2.5rem', // Increased for better indentation
           listStylePosition: 'outside', // Ensures numbers are outside the text
+          listStyleType: 'decimal', // Explicit number style
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
         }}
@@ -169,13 +172,14 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     li: ({ node, ...props }: any) => (
       <li
         style={{
-          fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, serif)))' + ' !important',
+          fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
           color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
-          marginBottom: '0.5rem', // Increased for better spacing
+          marginBottom: '0.75rem', // Increased for better spacing
           textAlign: 'left',
           lineHeight: '1.6', // Added for consistent spacing
-          paddingLeft: '0.25rem', // Added for better readability
-          display: 'list-item' // Ensures proper list item formatting
+          paddingLeft: '0.5rem', // Added for better readability
+          display: 'list-item', // Ensures proper list item formatting
+          fontWeight: 400 // Normal weight for list items
         }}
         {...props}
       />
@@ -315,17 +319,21 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       className={`${className} pdf-styled-markdown`}
       style={{
         // Apply PDF-extracted styles to the container
-        fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, serif)))' + ' !important',
+        fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
         color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
         backgroundColor: 'var(--pdf-background-color, var(--background, var(--dynamic-background, #ffffff)))' + ' !important',
-        padding: '1rem',
+        padding: '1.5rem', // Increased padding for better readability
         width: '100%',
         maxWidth: '100%',
         overflowWrap: 'break-word', // Prevents text from overflowing
         wordWrap: 'break-word', // Ensures words break properly
         wordBreak: 'normal', // Ensures words break properly
         hyphens: 'auto', // Adds hyphens when breaking words
-        textAlign: 'left' // Ensures left alignment
+        textAlign: 'left', // Ensures left alignment
+        lineHeight: '1.6', // Consistent line height
+        fontWeight: 400, // Normal weight for body text
+        fontSize: '16px', // Base font size
+        letterSpacing: '0.01em' // Slight letter spacing for readability
       }}
       data-pdf-styles-loaded={stylesLoaded ? 'true' : 'false'} // Add data attribute for CSS targeting
     >

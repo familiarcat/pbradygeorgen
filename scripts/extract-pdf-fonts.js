@@ -253,37 +253,37 @@ async function extractFontsFromPDF(pdfPath) {
 
     // If no fonts were found, add default fallback fonts
     if (fontFamilies.length === 0) {
-      console.log('No fonts found in PDF. Adding default fallback fonts to CSS.');
-      cssContent += '  /* No fonts found in PDF, using fallbacks */\n';
+      console.log('No fonts found in PDF. Adding Benjamin Stein resume fonts to CSS.');
+      cssContent += '  /* No fonts found in PDF, using Benjamin Stein resume fonts */\n';
 
       // Add PDF-prefixed variables with !important
       cssContent += '  /* PDF-prefixed variables */\n';
-      cssContent += '  --pdf-heading-font: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --pdf-body-font: Georgia, "Times New Roman", serif !important;\n';
-      cssContent += '  --pdf-mono-font: "Courier New", monospace !important;\n';
-      cssContent += '  --pdf-title-font: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --pdf-subtitle-font: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --pdf-button-font: Helvetica, Arial, sans-serif !important;\n';
-      cssContent += '  --pdf-nav-font: Verdana, sans-serif !important;\n';
-      cssContent += '  --pdf-code-font: Consolas, monospace !important;\n';
+      cssContent += '  --pdf-heading-font: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-body-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-mono-font: "Consolas", "Monaco", monospace !important;\n';
+      cssContent += '  --pdf-title-font: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-subtitle-font: "Roboto Light", "Segoe UI Light", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-button-font: "Roboto Medium", "Segoe UI Semibold", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-nav-font: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --pdf-code-font: "Consolas", "Monaco", monospace !important;\n';
 
       // Add direct variables for compatibility with !important
       cssContent += '\n  /* Direct variables for compatibility */\n';
-      cssContent += '  --font-heading: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --font-body: Georgia, "Times New Roman", serif !important;\n';
-      cssContent += '  --font-mono: "Courier New", monospace !important;\n';
-      cssContent += '  --font-title: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --font-subtitle: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --font-button: Helvetica, Arial, sans-serif !important;\n';
-      cssContent += '  --font-nav: Verdana, sans-serif !important;\n';
-      cssContent += '  --font-code: Consolas, monospace !important;\n';
+      cssContent += '  --font-heading: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --font-body: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;\n';
+      cssContent += '  --font-mono: "Consolas", "Monaco", monospace !important;\n';
+      cssContent += '  --font-title: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --font-subtitle: "Roboto Light", "Segoe UI Light", Arial, sans-serif !important;\n';
+      cssContent += '  --font-button: "Roboto Medium", "Segoe UI Semibold", Arial, sans-serif !important;\n';
+      cssContent += '  --font-nav: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --font-code: "Consolas", "Monaco", monospace !important;\n';
 
       // Add dynamic variables for compatibility with !important
       cssContent += '\n  /* Dynamic variables for compatibility */\n';
-      cssContent += '  --dynamic-heading-font: Arial, Helvetica, sans-serif !important;\n';
-      cssContent += '  --dynamic-primary-font: Georgia, "Times New Roman", serif !important;\n';
-      cssContent += '  --dynamic-secondary-font: "Courier New", monospace !important;\n';
-      cssContent += '  --dynamic-mono-font: "Courier New", monospace !important;\n';
+      cssContent += '  --dynamic-heading-font: "Roboto", "Segoe UI", Arial, sans-serif !important;\n';
+      cssContent += '  --dynamic-primary-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;\n';
+      cssContent += '  --dynamic-secondary-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;\n';
+      cssContent += '  --dynamic-mono-font: "Consolas", "Monaco", monospace !important;\n';
     } else {
       // Add variables for each font found in the PDF
       // PDF-prefixed variables with !important

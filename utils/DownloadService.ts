@@ -153,20 +153,121 @@ export const DownloadService = {
   },
 
   /**
-   * Convert markdown to plain text by removing markdown syntax
+   * Convert markdown to plain text by removing markdown syntax while preserving structure
    * @param markdownContent Markdown content to convert
    * @returns Plain text content
    */
   convertMarkdownToText: (markdownContent: string): string => {
-    return markdownContent
-      .replace(/#{1,6}\s+/g, '') // Remove headers
-      .replace(/\*\*/g, '') // Remove bold
-      .replace(/\*/g, '') // Remove italic
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
-      .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
-      .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
-      .replace(/>/g, '') // Remove blockquotes
-      .replace(/\n\s*\n/g, '\n\n'); // Normalize line breaks
+    if (!markdownContent || markdownContent.trim() === '') {
+      console.warn('Empty markdown content provided to convertMarkdownToText');
+      return '';
+    }
+
+    console.log('Converting markdown to text, length:', markdownContent.length);
+
+    // Process the content line by line to better preserve structure
+    const lines = markdownContent.split('\n');
+    let result = '';
+    let inList = false;
+    let listIndent = '';
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+
+      // Handle headers - convert to uppercase with underlines for h1/h2
+      if (line.match(/^#{1,6}\s+/)) {
+        const level = line.match(/^(#{1,6})\s+/)?.[1].length || 1;
+        const text = line.replace(/^#{1,6}\s+/, '').toUpperCase();
+
+        // Add spacing before headers
+        if (result !== '') {
+          result += '\n\n';
+        }
+
+        result += text;
+
+        // Add underlines for h1 and h2
+        if (level <= 2) {
+          result += '\n' + (level === 1 ? '='.repeat(text.length) : '-'.repeat(text.length));
+        }
+
+        result += '\n\n';
+        continue;
+      }
+
+      // Handle lists
+      if (line.match(/^\s*[-*+]\s+/) || line.match(/^\s*\d+\.\s+/)) {
+        if (!inList) {
+          inList = true;
+          result += '\n';
+        }
+
+        // Determine list indent level
+        const indentMatch = line.match(/^(\s*)/);
+        const indent = indentMatch ? indentMatch[1].length : 0;
+
+        // Format list item
+        if (line.match(/^\s*[-*+]\s+/)) {
+          // Bullet list
+          line = line.replace(/^\s*[-*+]\s+/, '  • ');
+        } else {
+          // Numbered list
+          line = line.replace(/^\s*\d+\.\s+/, '  ' + (i + 1) + '. ');
+        }
+
+        // Add additional indentation based on nesting level
+        if (indent > 0) {
+          line = '  '.repeat(Math.floor(indent / 2)) + line;
+        }
+
+        result += line + '\n';
+        continue;
+      } else if (inList && line.trim() === '') {
+        inList = false;
+        result += '\n';
+        continue;
+      }
+
+      // Handle blockquotes
+      if (line.match(/^\s*>/)) {
+        line = line.replace(/^\s*>\s?/, '  | ');
+        result += line + '\n';
+        continue;
+      }
+
+      // Handle horizontal rules
+      if (line.match(/^\s*[-*_]{3,}\s*$/)) {
+        result += '\n' + '-'.repeat(40) + '\n\n';
+        continue;
+      }
+
+      // Handle regular paragraphs
+      if (line.trim() !== '') {
+        // Remove markdown formatting
+        line = line
+          .replace(/\*\*/g, '') // Remove bold
+          .replace(/\*/g, '') // Remove italic
+          .replace(/__/g, '') // Remove underline
+          .replace(/_/g, '') // Remove italic
+          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with just the text
+          .replace(/!\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace images with alt text
+          .replace(/`{1,3}[^`]*`{1,3}/g, '') // Remove code blocks
+
+        // Add line to result
+        if (result !== '' && !result.endsWith('\n\n')) {
+          result += ' '; // Join lines within paragraphs with spaces
+        }
+        result += line;
+      } else if (i > 0 && lines[i-1].trim() !== '' && !result.endsWith('\n\n')) {
+        // Add paragraph breaks
+        result += '\n\n';
+      }
+    }
+
+    // Final cleanup
+    return result
+      .replace(/\n{3,}/g, '\n\n') // Normalize multiple line breaks
+      .trim();
   },
 
   /**

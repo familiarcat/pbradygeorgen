@@ -6,6 +6,16 @@ import { stringCacheService } from './stringCacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 import { HesseLogger } from './HesseLogger';
 
+// Interface for PDF source identifier
+interface PDFSourceIdentifier {
+  name: string;
+  path: string;
+  contentHash: string;
+  lastModified: string;
+  fileSize: number;
+  timestamp: string;
+}
+
 // Initialize the OpenAI client with fallback for build-time
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time',
@@ -14,6 +24,31 @@ const openai = new OpenAI({
 // Function to check if OpenAI API key is available
 function isOpenAIKeyAvailable(): boolean {
   return !!process.env.OPENAI_API_KEY;
+}
+
+/**
+ * Get the PDF source identifier
+ * This is used to invalidate caches when the PDF source changes
+ * @returns The PDF source identifier or null if not found
+ */
+async function getPDFSourceIdentifier(): Promise<PDFSourceIdentifier | null> {
+  try {
+    const identifierPath = path.join(process.cwd(), 'public', 'extracted', 'pdf_source_identifier.json');
+
+    if (!fs.existsSync(identifierPath)) {
+      HesseLogger.cache.miss('PDF source identifier file not found');
+      return null;
+    }
+
+    const identifierContent = fs.readFileSync(identifierPath, 'utf8');
+    const identifier = JSON.parse(identifierContent) as PDFSourceIdentifier;
+
+    HesseLogger.cache.hit(`Using PDF source identifier: ${identifier.name} (${identifier.contentHash.substring(0, 8)}...)`);
+    return identifier;
+  } catch (error) {
+    HesseLogger.openai.error(`Error reading PDF source identifier: ${error instanceof Error ? error.message : String(error)}`);
+    return null;
+  }
 }
 
 // Types are now imported from @/types/openai
@@ -59,8 +94,15 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
       };
     }
 
-    // Generate a cache key based on the resume content
-    const cacheKey = cacheService.generateCacheKey(resumeContent);
+    // Get the PDF source identifier to include in the cache key
+    const pdfSourceIdentifier = await getPDFSourceIdentifier();
+
+    // Generate a cache key based on the resume content and PDF source
+    const contentKey = cacheService.generateCacheKey(resumeContent);
+    const sourceHash = pdfSourceIdentifier ? pdfSourceIdentifier.contentHash.substring(0, 8) : 'default';
+    const cacheKey = `${contentKey}_${sourceHash}`;
+
+    HesseLogger.cache.update(`Using cache key with PDF source: ${cacheKey}`);
 
     // Check if we have a cached response and aren't forcing a refresh
     if (!forceRefresh) {
@@ -270,9 +312,15 @@ export async function formatSummaryContent(
   forceRefresh: boolean = false
 ): Promise<string> {
   try {
-    // Create a cache key based on the content
+    // Get the PDF source identifier to include in the cache key
+    const pdfSourceIdentifier = await getPDFSourceIdentifier();
+
+    // Create a cache key based on the content and PDF source
     const contentHash = await createHash(resumeContent);
-    const cacheKey = `summary_format_${contentHash}`;
+    const sourceHash = pdfSourceIdentifier ? pdfSourceIdentifier.contentHash.substring(0, 8) : 'default';
+    const cacheKey = `summary_format_${contentHash}_${sourceHash}`;
+
+    HesseLogger.cache.update(`Using cache key with PDF source: ${cacheKey}`);
 
     // Check if we have a cached response and aren't forcing a refresh
     if (!forceRefresh) {

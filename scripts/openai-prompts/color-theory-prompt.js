@@ -1,6 +1,6 @@
 /**
  * Color Theory Prompt for OpenAI
- * 
+ *
  * This prompt is used to extract color theory from a PDF file.
  * It follows the philosophical frameworks of Hesse, Salinger, Derrida, and Dante.
  */
@@ -50,6 +50,8 @@ Provide your response in the following JSON format:
 6. Ensure the primary, secondary, and accent colors work well together.
 7. The background color should be light enough for good text readability.
 8. Text colors should have excellent contrast against the background.
+9. CRITICAL: If the background color is white (#FFFFFF) or very light, the text color MUST be dark (preferably #000000 or #333333) for readability.
+10. NEVER set text color to white (#FFFFFF) when the background is also white or very light.
 
 # Analysis Process (Dante Method)
 1. Identify the most prominent colors in the document.

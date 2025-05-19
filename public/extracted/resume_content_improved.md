@@ -1,176 +1,190 @@
-# I strive to continuously drive innovation by blending
+# Homer G. Phillips Memorial Hospital
 
-cutting-edge technology with creative design and Agile
+1320 N Jefferson Ave, St. Louis, MO 63106
 
-best practices, focused on delivering enterprise-grade
+Clinical Informatics Specialist
 
-solutions and digital transformations that empower
+MAR 2023 - Current
 
-teams and organizations.
+Shriners Hospital for Children
 
-P. Brady Georgen
+4400 Clayton Ave, St. Louis, MO 6311
 
+Clinical Analyst II
 
-## AREA EXPERTISE
 
+## MAR 2018 - MAR 2023
 
-## EXTENDED EXPERIENCE
+Advanced ICU Care
 
+1 Cityplace Dr Suite 570 Suite 570, St. Louis, MO 63141
 
-## ABOUT ME
+Clinical Analyst I
 
-4350 A De Tonty St,
 
-St. Louis, MO
+## APR 2012 - FEB 2015
 
+As one of the first employees hired at Homer G. Phillips Memorial
 
-## (314) 580-0608
+Hospital, myself and the CISO are solely responsible for all systems
 
-pbradygeorgen.com
+and technologies used at the hospital, Implementation, maintenance,
 
-brady@pbradygeorgen.com
+and training of our web-based EHR system(Thrive), Enterprise web
 
+browser (Island), Google Enterprise, Administrative roles within
 
-## WORK EPERIENCE
+Panorama 9, Verkada, SiPass, Zendesk,IT Glue, Chartnote. Typical
 
+tasks would include the On/Off-boarding of all office and clinical users.
 
-## EDUCATION
+Configuring securities and permissions for each user. Communicating
 
+with third party vendors, trouble-shooting analysis related to the EMR,
 
-## SKILLS / TECHNOLOGIES
+Network, Interfaces, PC’s, Hardware, and Web Applications.
 
-•Full Stack Development
+Creating, modifying, or running reports as needed via the TruBridge
 
-•Javascript/Typescript
+Report Builder.
 
-•Graphic Design & UI/UX
 
-•Illustration
+## BENJAMIN STEIN
 
-•Creative/Technical
 
-writing
+## WORK EXPERIENCE
 
-Providing strategic digital consultancy for
 
-local businesses, applying skills in web
+## CLINICAL INFORMATICS SPECIALIST
 
-development, networking, and design.
+2143 Alfred Ave. St. Louis, MO. 63110
 
-BFA Graphic Design
++1 (314)-809-1836          benjaminsteinstl@gmail.com
 
-Webster University
+Experience extended:
 
+Education:
 
-## 2001-2005
+Certifications:
 
-2022 - Present
+M.C.T.S - Windows Xp
 
-Digital Ronan (freelance)
 
-Consultant & Creative Technoligist
+## M.C.T.S - VISTA
 
+M.C.T.S - Server 08 R2
 
-## 2013 - 2014
+M.C.T.S - Active Directory
 
-Deliveries on Demand
 
-Lead Software Developer
+## M.C.T.S - SQL
 
+CompTIA - A+
 
-## 2011 - 2013
+Dell Certified Systems Expert
 
-Infuze
+Sony-certified - laptop repair
 
-Sr. Developer/Asst. Art Director
+HIPAA Certified
 
+References:
 
-## 2009 - 2011
+Provide day-to-day support for the entire clinical and office staff,
 
-Touchwood Creative
+Lead / Participate in the implementation of new functionality within the
 
-Lead Software Developer
+Cerner suite (PowerChart, Surginet, Anesthesia Module etc.), Provide
 
+training and access for any newly on boarded clinical staff, Design and
 
-## 2008 - 2009
+interpret reports in SAP Business Objects, and Discern Analytics. Develop
 
-ThinkTank (freelance)
+training material as needed, Track tickets issues using Service Now.
 
-Software and Creative Director
+Maintain an active maintenance schedule of all PC’s in the hospital,
 
+Manage user sessions with Citrix Desktop Director.
 
-## 2005 - 2008
+At AICU, I was one of four analysts responsible for providing 24x7 IT support
 
-Asynchrony Solutions
+for theclinical staff of the largest provider of tele-ICU services in the nation.
 
-Designer/Developer/Marketing Asst.
+Areas of support included: Hardware and OS issues. Applications associat-
 
-React, React Native, AWS, AWS
+ed with various hospital health Information systems such as Epic, Meditech,
 
-Amplify, SOA, CI/CD, MongoDB, SQL,
+and Mindray, Monitoring and Maintaining health information integration
 
-Docker, Terraform, Jenkins, Shell
+engines, such as Corepoint and Rapsody/Orion, including management
 
-Automation, Node, Ruby, Java,
+and manipulation of HL7 messages, VPN repair and eCare integration,
 
-Javascript, Typescript, Adobe CS,
+Remote support of NY and India clinical staff via Simple-Help remote
 
-UI/UX Prototyping
+desktop, Creation/configuration of virtual A/V servers, such as Vidyo, STI,
 
-Cox Communications
+and Axis.
 
-Implemented scaffolding framework for modular
+Karen Johnson
 
-React applications integrating with Adobe
+C.E.O.Homer G. Phillips Memorial
 
-Content Manager
+Hospital
 
-Bayer
 
-Architected, developed, migrated, and main-
+## +1 (314) 399-4288
 
-tained various enterprise scale applications
+Susan “Angie” Kinney
 
-utilizing React, AWS, and SOA architectures:
+Clinical Analyst II
 
-upholding Agile best practices.
+Shriners Hospital for Children
 
-Charter Communications
 
-Engineered interactive call center solutions
+## +1 (618) 960-5628
 
-empowering representatives to provide
+Justin Thuli
 
-enhanced customer service capabilities.
+Manager of I.T.
 
-Mastercard
+Advanced ICU Care
 
-Developed comprehensive onboarding documen-
 
-tation, sample code, and API integration to
+## +1 (608) 215-9302
 
-support the MasterPass online purchasing
+Ranken Technical College
 
-initiative.
 
+## 2010 - 2012
 
-## 2014 - 2023
+Network & Database Administration
 
-Daugherty Business Solutions
+St. Louis Community College
 
-Sr. Software Developer (III)
 
-BA Philosophy
+## 2002 - 2005
 
-Webster University
+Graphic Communications
 
+Boeing
 
-## 2001-2005
+Under Contract by RMS
 
-ASSC Motion Graphics
+IT Specialist - 2/17 - 2/18
 
-Saint Louis Community College
+Baked Tees
 
+Graphic Designer - 4/11 - 4/12
 
-## 1999-2001
+Tek Systems
+
+IT Specialist - 3/10 - 9/10
+
+Nexicore Technology
+
+Mobile Technician - 4/09 - 11/09
+
+Think Tank Design
+
+Graphic Designer - 2/07
 

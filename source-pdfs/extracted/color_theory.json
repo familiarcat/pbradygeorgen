@@ -1,0 +1,24 @@
+{
+  "primary": "#3366CC",
+  "secondary": "#FFFFFF",
+  "accent": "#FF9900",
+  "background": "#FFFFFF",
+  "text": "#000000",
+  "textSecondary": "#666666",
+  "border": "#CCCCCC",
+  "success": "#00CC66",
+  "warning": "#FFCC00",
+  "error": "#FF0033",
+  "info": "#3399FF",
+  "colorTheory": {
+    "description": "A modern and clean color palette with a focus on readability and visual interest.",
+    "harmony": "This palette uses a complementary color scheme with a pop of accent color for contrast.",
+    "contrast": "The text and background colors have been carefully chosen to meet WCAG AA compliance for readability.",
+    "accessibility": "The text colors provide sufficient contrast with the background to ensure accessibility for all users."
+  },
+  "allColors": [
+    "#000000",
+    "#3366CC",
+    "#FFFFFF"
+  ]
+}

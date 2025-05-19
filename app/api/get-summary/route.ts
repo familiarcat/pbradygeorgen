@@ -9,6 +9,14 @@ export async function GET(request: NextRequest) {
   try {
     DanteLogger.success.basic('Summary API called');
 
+    // Parse query parameters
+    const searchParams = request.nextUrl.searchParams;
+    const forceRefresh = searchParams.get('forceRefresh') === 'true';
+
+    if (forceRefresh) {
+      DanteLogger.warn.deprecated('Force refresh requested for summary');
+    }
+
     // Get the resume content from the public directory
     const publicDir = path.join(process.cwd(), 'public');
     const resumeFilePath = path.join(publicDir, 'extracted/resume_content.md');
@@ -35,7 +43,7 @@ export async function GET(request: NextRequest) {
         // First, try to format the content directly using our optimized prompt
         try {
           const startTime = Date.now();
-          const formattedSummary = await formatSummaryContent(content);
+          const formattedSummary = await formatSummaryContent(content, forceRefresh);
           const endTime = Date.now();
 
           HesseLogger.summary.complete(`Summary formatted in ${endTime - startTime}ms`);
@@ -50,7 +58,7 @@ export async function GET(request: NextRequest) {
 
           // If direct formatting fails, fall back to the analysis approach
           const startTime = Date.now();
-          const analysis = await analyzeResume(content, false);
+          const analysis = await analyzeResume(content, forceRefresh);
           const endTime = Date.now();
 
           DanteLogger.success.core(`OpenAI summary generated in ${endTime - startTime}ms`);

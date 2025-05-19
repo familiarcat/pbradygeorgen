@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from '@/styles/SalingerHeader.module.css';
 import PreviewModal from './PreviewModal';
 import SummaryModal from './SummaryModal';
 import DownloadService from '@/utils/DownloadService';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
+import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -25,6 +26,41 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   fileName = 'resume',
   title
 }) => {
+  // User information state
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    name: 'User',
+    firstName: 'User',
+    lastName: '',
+    fullName: 'User',
+    filePrefix: 'user',
+    resumeFileName: 'resume',
+    introductionFileName: 'introduction',
+    email: '',
+    phone: '',
+    location: '',
+    title: '',
+    extractionDate: new Date().toISOString()
+  });
+
+  // Load user information on component mount
+  useEffect(() => {
+    // This is a client-side component, so we need to load the user info differently
+    // than in server components where we can directly use UserInfoService.loadUserInfo()
+    fetch('/api/user-info')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setUserInfo(data.userInfo);
+          console.log('User information loaded in SalingerHeader');
+        } else {
+          console.warn('Failed to load user information, using defaults');
+        }
+      })
+      .catch(error => {
+        console.error('Error loading user information', error);
+      });
+  }, []);
+
   // Loading states for different download formats
   const [isLoadingMd, setIsLoadingMd] = useState(false);
   const [isLoadingTxt, setIsLoadingTxt] = useState(false);
@@ -67,53 +103,73 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
         // Show the summary modal
         setIsLoadingSummary(true);
 
-        // Fetch the summary content with proper error handling
-        fetch('/api/get-summary')
+        // First try to load the pre-generated introduction content
+        fetch('/extracted/introduction.md')
           .then(response => {
             if (!response.ok) {
-              console.error(`API responded with status: ${response.status}`);
-              throw new Error(`API responded with status: ${response.status}`);
+              console.warn('Pre-generated introduction not found, falling back to API');
+              throw new Error('Pre-generated introduction not found');
             }
-            return response.json();
+            return response.text();
           })
-          .then(data => {
-            if (data.success) {
-              console.log('Summary loaded successfully');
-              setSummaryContent(data.summary);
-              setShowSummaryModal(true);
-            } else {
-              console.error('API returned error:', data.error);
-              throw new Error(data.error || 'Failed to load summary');
-            }
+          .then(content => {
+            console.log('Pre-generated introduction loaded successfully');
+            setSummaryContent(content);
+            setShowSummaryModal(true);
           })
           .catch(error => {
-            console.error('Error loading summary:', error);
+            console.warn('Error loading pre-generated introduction:', error);
 
-            // Try the analyze-content API as a fallback
-            console.log('Attempting to use analyze-content API as fallback...');
+            // Fallback to the API
+            console.log('Falling back to get-summary API...');
 
-            fetch('/api/analyze-content', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                filePath: '/extracted/resume_content.md'
-              }),
-            })
+            // Fetch the summary content with proper error handling and force refresh
+            fetch('/api/get-summary?forceRefresh=true')
               .then(response => {
                 if (!response.ok) {
-                  throw new Error(`Fallback API responded with status: ${response.status}`);
+                  console.error(`API responded with status: ${response.status}`);
+                  throw new Error(`API responded with status: ${response.status}`);
                 }
                 return response.json();
               })
               .then(data => {
-                if (data.success && data.analysis) {
-                  console.log('Successfully loaded summary from fallback API');
+                if (data.success) {
+                  console.log('Summary loaded successfully from API');
+                  setSummaryContent(data.summary);
+                  setShowSummaryModal(true);
+                } else {
+                  console.error('API returned error:', data.error);
+                  throw new Error(data.error || 'Failed to load summary');
+                }
+              })
+              .catch(error => {
+                console.error('Error loading summary from API:', error);
 
-                  // Convert the analysis to markdown format
-                  const analysis = data.analysis;
-                  const markdown = `# P. Brady Georgen - Summary
+                // Try the analyze-content API as a second fallback
+                console.log('Attempting to use analyze-content API as second fallback...');
+
+                fetch('/api/analyze-content', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    filePath: '/extracted/resume_content.md'
+                  }),
+                })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error(`Fallback API responded with status: ${response.status}`);
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+                    if (data.success && data.analysis) {
+                      console.log('Successfully loaded summary from fallback API');
+
+                      // Convert the analysis to markdown format
+                      const analysis = data.analysis;
+                      const markdown = `# ${userInfo.fullName} - Summary
 
 ## Professional Summary
 
@@ -144,25 +200,26 @@ ${analysis.industryExperience.map((industry: string) => `- ${industry}`).join('\
 ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 `;
 
-                  setSummaryContent(markdown);
-                  setShowSummaryModal(true);
-                } else {
-                  throw new Error(data.error || 'Failed to load summary from fallback API');
-                }
-              })
-              .catch(fallbackError => {
-                console.error('Error with fallback API:', fallbackError);
+                      setSummaryContent(markdown);
+                      setShowSummaryModal(true);
+                    } else {
+                      throw new Error(data.error || 'Failed to load summary from fallback API');
+                    }
+                  })
+                  .catch(fallbackError => {
+                    console.error('Error with fallback API:', fallbackError);
 
-                // Final fallback to the original behavior
-                if (onViewSummary) {
-                  onViewSummary();
-                } else {
-                  // Scroll to summary section if no handler provided
-                  const summaryElement = document.querySelector('#summary-section');
-                  if (summaryElement) {
-                    summaryElement.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }
+                    // Final fallback to the original behavior
+                    if (onViewSummary) {
+                      onViewSummary();
+                    } else {
+                      // Scroll to summary section if no handler provided
+                      const summaryElement = document.querySelector('#summary-section');
+                      if (summaryElement) {
+                        summaryElement.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                  });
               });
           })
           .finally(() => {
@@ -232,7 +289,8 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
   const handlePdfDownload = () => {
     // Create a link to the PDF file and trigger download
     const a = document.createElement('a');
-    a.href = `/pbradygeorgen_resume.pdf?v=${Date.now()}`;
+    // Use the public/resume.pdf file which is always available
+    a.href = `/resume.pdf?v=${Date.now()}`;
     a.download = `${fileName}.pdf`;
     document.body.appendChild(a);
     a.click();
@@ -253,9 +311,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         // Define consistent options for both preview and download
         // Use PDF-extracted styles for the Introduction
         const pdfOptions = {
-          title: 'P. Brady Georgen - Introduction',
-          fileName: 'pbradygeorgen_introduction.pdf',
-          headerText: 'P. Brady Georgen - Introduction',
+          title: `${userInfo.fullName} - Introduction`,
+          fileName: `${userInfo.introductionFileName}.pdf`,
+          headerText: `${userInfo.fullName} - Introduction`,
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -293,7 +351,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
       // If we already have a data URL, use it
       if (introductionPdfDataUrl) {
-        await DownloadService.downloadPdf('', 'pbradygeorgen_introduction', {
+        await DownloadService.downloadPdf('', userInfo.introductionFileName, {
           dataUrl: introductionPdfDataUrl
         });
       }
@@ -302,9 +360,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         // Define consistent options for both preview and download - same as in preview function
         // Use PDF-extracted styles for the Introduction
         const pdfOptions = {
-          title: 'P. Brady Georgen - Introduction',
-          fileName: 'pbradygeorgen_introduction.pdf',
-          headerText: 'P. Brady Georgen - Introduction',
+          title: `${userInfo.fullName} - Introduction`,
+          fileName: `${userInfo.introductionFileName}.pdf`,
+          headerText: `${userInfo.fullName} - Introduction`,
           footerText: 'Generated with Salinger Design',
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
@@ -316,7 +374,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         const dataUrl = await DownloadService.generatePdfDataUrl(summaryContent, pdfOptions);
 
         // Then download using the data URL
-        await DownloadService.downloadPdf('', 'pbradygeorgen_cover_letter', {
+        await DownloadService.downloadPdf('', userInfo.introductionFileName, {
           dataUrl: dataUrl
         });
       }
@@ -368,7 +426,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
       // If we have content, download it
       if (summaryContent) {
-        await DownloadService.downloadMarkdown(summaryContent, 'pbradygeorgen_introduction');
+        await DownloadService.downloadMarkdown(summaryContent, userInfo.introductionFileName);
         DanteLogger.success.ux('Downloaded Introduction Markdown');
       } else {
         // If we don't have content yet, show the summary modal first
@@ -417,7 +475,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       // If we have content, convert to plain text and download
       if (summaryContent) {
         const plainText = DownloadService.convertMarkdownToText(summaryContent);
-        await DownloadService.downloadText(plainText, 'pbradygeorgen_introduction');
+        await DownloadService.downloadText(plainText, userInfo.introductionFileName);
         DanteLogger.success.ux('Downloaded Introduction Text');
       } else {
         // If we don't have content yet, show the summary modal first
@@ -437,34 +495,36 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     <>
       <header className={styles.salingerHeader}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.siteTitle}>P. Brady Georgen</h1>
-          <a
-            href="#"
-            className={styles.actionLink}
-            onClick={(e) => handleAction('summary', e)}
-            aria-label="View Summary"
-          >
-            {isLoadingSummary ? (
-              <>
-                <svg className={`${styles.loadingSpinner} ${styles.actionIcon}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Loading...
-              </>
-            ) : (
-              <>
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                Introduction
-              </>
-            )}
-          </a>
+          <h1 className={styles.siteTitle} style={{ color: '#000000' }}>{userInfo.fullName}</h1>
+          <div className={styles.actionGroup}>
+            <a
+              href="#"
+              className={styles.actionLink}
+              onClick={(e) => handleAction('summary', e)}
+              aria-label="View Introduction"
+            >
+              {isLoadingSummary ? (
+                <>
+                  <svg className={`${styles.loadingSpinner} ${styles.actionIcon}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Loading...
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  Introduction
+                </>
+              )}
+            </a>
+          </div>
         </div>
 
         <nav className={styles.headerActions}>
@@ -472,7 +532,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           {title && (
             <a
               href="/muller-test"
-              className={`${styles.actionLink} actionLink`}
+              className={styles.actionLink}
               aria-label="Müller-Brockmann Design System"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -562,6 +622,27 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setShowMdPreview(false); // Reset preview state
 
                   try {
+                    // First try to load the pre-generated resume content
+                    try {
+                      const response = await fetch('/extracted/resume.md');
+                      if (response.ok) {
+                        const content = await response.text();
+                        console.log('Pre-generated resume loaded successfully for preview');
+
+                        // Set the preview content and show the preview modal
+                        setPreviewContent(content);
+                        setShowMdPreview(true);
+                        return;
+                      } else {
+                        console.warn('Pre-generated resume not found, falling back to API for preview');
+                      }
+                    } catch (error) {
+                      console.warn('Error loading pre-generated resume for preview:', error);
+                    }
+
+                    // Fallback to the API
+                    console.log('Falling back to format-content API for preview...');
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -609,6 +690,26 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingMd(true);
 
                   try {
+                    // First try to load the pre-generated resume content
+                    try {
+                      const response = await fetch('/extracted/resume.md');
+                      if (response.ok) {
+                        const content = await response.text();
+                        console.log('Pre-generated resume loaded successfully');
+
+                        // Download the content
+                        await DownloadService.downloadMarkdown(content, userInfo.resumeFileName);
+                        return;
+                      } else {
+                        console.warn('Pre-generated resume not found, falling back to API');
+                      }
+                    } catch (error) {
+                      console.warn('Error loading pre-generated resume:', error);
+                    }
+
+                    // Fallback to the API
+                    console.log('Falling back to format-content API...');
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -639,7 +740,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `${fileName}.md`;
+                    a.download = `${userInfo.resumeFileName}.md`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -682,6 +783,30 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setShowTxtPreview(false); // Reset preview state
 
                   try {
+                    // First try to load the pre-generated resume content
+                    try {
+                      const response = await fetch('/extracted/resume.md');
+                      if (response.ok) {
+                        const content = await response.text();
+                        console.log('Pre-generated resume loaded successfully for text preview');
+
+                        // Convert to plain text
+                        const plainText = DownloadService.convertMarkdownToText(content);
+
+                        // Set the preview content and show the preview modal
+                        setPreviewContent(plainText);
+                        setShowTxtPreview(true);
+                        return;
+                      } else {
+                        console.warn('Pre-generated resume not found, falling back to API for text preview');
+                      }
+                    } catch (error) {
+                      console.warn('Error loading pre-generated resume for text preview:', error);
+                    }
+
+                    // Fallback to the API
+                    console.log('Falling back to format-content API for text preview...');
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -729,6 +854,29 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsLoadingTxt(true);
 
                   try {
+                    // First try to load the pre-generated resume content
+                    try {
+                      const response = await fetch('/extracted/resume.md');
+                      if (response.ok) {
+                        const content = await response.text();
+                        console.log('Pre-generated resume loaded successfully');
+
+                        // Convert to plain text
+                        const plainText = DownloadService.convertMarkdownToText(content);
+
+                        // Download the content
+                        await DownloadService.downloadText(plainText, userInfo.resumeFileName);
+                        return;
+                      } else {
+                        console.warn('Pre-generated resume not found, falling back to API');
+                      }
+                    } catch (error) {
+                      console.warn('Error loading pre-generated resume:', error);
+                    }
+
+                    // Fallback to the API
+                    console.log('Falling back to format-content API...');
+
                     // Call our server-side API to format the content
                     const apiResponse = await fetch('/api/format-content', {
                       method: 'POST',
@@ -759,7 +907,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `${fileName}.txt`;
+                    a.download = `${userInfo.resumeFileName}.txt`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -861,7 +1009,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       fileName={fileName}
       onDownload={handlePdfDownload}
       position="right"
-      pdfSource="/pbradygeorgen_resume.pdf" // Explicitly set to resume PDF
+      pdfSource={`/resume.pdf`} // Use the public/resume.pdf file which is always available
     />
 
     {/* Summary Modal - Using the new dark-themed SummaryModal */}
@@ -888,9 +1036,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowIntroductionPdfPreview(false)}
       content=""
       format="pdf"
-      fileName="pbradygeorgen_introduction"
+      fileName={userInfo.introductionFileName}
       onDownload={handleIntroductionPdfDownload}
-      onDownloadWithDataUrl={(dataUrl) => DownloadService.downloadPdf('', 'pbradygeorgen_introduction', { dataUrl })}
+      onDownloadWithDataUrl={(dataUrl) => DownloadService.downloadPdf('', userInfo.introductionFileName, { dataUrl })}
       position="right"
       pdfDataUrl={introductionPdfDataUrl || undefined}
     />
@@ -901,7 +1049,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowIntroductionMdPreview(false)}
       content={introductionTextContent}
       format="markdown"
-      fileName="pbradygeorgen_introduction"
+      fileName={userInfo.introductionFileName}
       onDownload={handleIntroductionMarkdownDownload}
       position="right"
     />
@@ -912,7 +1060,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onClose={() => setShowIntroductionTxtPreview(false)}
       content={introductionTextContent}
       format="text"
-      fileName="pbradygeorgen_introduction"
+      fileName={userInfo.introductionFileName}
       onDownload={handleIntroductionTextDownload}
       position="right"
     />

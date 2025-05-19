@@ -1,0 +1,38 @@
+/* 
+ * Force text color override
+ * This CSS file forces text to be black on white backgrounds
+ * It has extremely high specificity to override any other styles
+ */
+
+/* Force text color to be black for all text elements */
+html body,
+html h1, html h2, html h3, html h4, html h5, html h6,
+html p, html span, html div, html li, html td, html th, html label,
+html [class*="title"], html [class*="name"], html [class*="heading"],
+html [class*="content"], html [class*="text"], html [class*="preview"] {
+  color: #000000 !important;
+}
+
+/* Force site title to be black */
+html [class*="siteTitle"] {
+  color: #000000 !important;
+}
+
+/* Force markdown content to be black */
+html [class*="markdownPreview"] * {
+  color: #000000 !important;
+}
+
+/* Preserve white text on accent-colored buttons */
+html [class*="actionLink"],
+html [class*="actionLink"] *,
+html button[class*="action"],
+html a[class*="action"] {
+  color: #FFFFFF !important;
+}
+
+/* Ensure icons on buttons have proper contrast */
+html [class*="actionIcon"],
+html [class*="actionLink"] svg {
+  stroke: #FFFFFF !important;
+}

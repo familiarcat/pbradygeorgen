@@ -1,0 +1,17 @@
+{
+  "heading": "Arial, sans-serif",
+  "body": "Georgia, serif",
+  "mono": "Courier New, monospace",
+  "title": "Arial, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Arial, sans-serif",
+  "nav": "Arial, sans-serif",
+  "code": "Courier New, monospace",
+  "fontTheory": {
+    "description": "The typography system aims to provide a professional and easy-to-read experience suitable for a resume/CV.",
+    "readability": "The combination of Georgia for body text provides excellent readability, especially for longer sections, while Arial for headings and titles ensures clear hierarchy.",
+    "hierarchy": "The typographic hierarchy is established through the use of different font families and sizes for headings, body text, and titles.",
+    "fontPairings": "Arial and Georgia complement each other well, with Arial offering a modern and clean look for headings and Georgia providing a classic and elegant style for body text."
+  },
+  "allFonts": []
+}
