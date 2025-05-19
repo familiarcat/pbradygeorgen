@@ -8,7 +8,7 @@
 
 module.exports = {
   // The active PDF source to use for extraction
-  active: 'high-contrast', // Options: 'default', 'high-contrast', or any other PDF name in source-pdfs
+  active: 'default', // Options: 'default', 'high-contrast', or any other PDF name in source-pdfs
 
   // Configuration for each PDF source
   sources: {

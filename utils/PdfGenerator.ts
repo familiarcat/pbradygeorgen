@@ -132,7 +132,8 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
         .replace(/^#{1,6}\s+(.*)/gm, '$1') // Remove heading markers
         .replace(/^[-*+]\s+(.*)/gm, '$1') // Remove unordered list markers
         .replace(/^\d+\.\s+(.*)/gm, '$1') // Remove ordered list markers
-        .replace(/^(?:[-*_]){3,}$/gm, ''); // Remove horizontal rules
+        .replace(/^(?:[-*_]){3,}$/gm, '') // Remove horizontal rules
+        .replace(/^-{3,}|^\*{3,}|^_{3,}/gm, ''); // More aggressive removal of horizontal rules
 
       // Log the cleaned text for debugging
       console.log('Cleaned text after processing:', cleanedText);
@@ -175,6 +176,12 @@ function parseMarkdownForPdf(markdownContent: string, skipFirstHeading: boolean 
         type: 'heading3',
         content: cleanMarkdownFormatting(line.substring(4).trim())
       });
+    }
+    // Check for horizontal rules (three or more hyphens, asterisks, or underscores)
+    else if (/^[-*_]{3,}\s*$/.test(line)) {
+      // Skip horizontal rules in all PDFs to avoid overlap issues
+      // We'll handle section separation with proper spacing instead
+      continue;
     }
     // Check for list items
     else if (line.startsWith('- ') || line.startsWith('* ')) {
@@ -423,7 +430,8 @@ export async function generatePdfFromElement(
       hr {
         border: none;
         border-top: 1px solid ${borderColor};
-        margin: 1.5rem 0;
+        margin: 2rem 0; /* Increased margin for better spacing */
+        opacity: 0.5; /* Make horizontal rules more subtle */
       }
       img {
         max-width: 100%;
@@ -460,7 +468,8 @@ export async function generatePdfFromElement(
       hr {
         border: none;
         border-top: 1px solid ${borderColor};
-        margin: 2em 0;
+        margin: 2.5em 0; /* Increased margin for better spacing */
+        opacity: 0.5; /* Make horizontal rules more subtle */
       }
       .markdownPreview {
         background-color: ${bgColor};
@@ -865,14 +874,9 @@ export async function generatePdfFromMarkdown(
           pdf.text(block.content, effectiveMargin, yPosition);
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
 
-          // For introduction, add a subtle line under h2 using extracted colors
-          if (isIntroduction && !isDarkTheme) {
-            const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
-            pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
-            pdf.setLineWidth(0.01);
-            // Add more space between the heading text and the line
-            pdf.line(effectiveMargin, yPosition + 0.05, 8.5 - effectiveMargin, yPosition + 0.05);
-            // Add more space after the line
+          // For introduction, don't add horizontal lines under h2 headings
+          if (isIntroduction) {
+            // Just add some extra spacing after headings for better readability
             yPosition += 0.1;
           }
           break;
@@ -908,7 +912,8 @@ export async function generatePdfFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition);
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Reduced paragraph spacing for introduction
+          // Slightly increased paragraph spacing for introduction to prevent overlap with horizontal lines
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1);
           break;
 
         case 'listItem':
@@ -1276,14 +1281,9 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
 
-          // For introduction, add a subtle line under h2 using extracted colors
-          if (isIntroduction && !isDarkTheme) {
-            const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
-            pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
-            pdf.setLineWidth(0.01);
-            // Add more space between the heading text and the line
-            pdf.line(effectiveMargin, yPosition + 0.05, 8.5 - effectiveMargin, yPosition + 0.05);
-            // Add more space after the line
+          // For introduction, don't add horizontal lines under h2 headings
+          if (isIntroduction) {
+            // Just add some extra spacing after headings for better readability
             yPosition += 0.1;
           }
           break;
@@ -1319,7 +1319,8 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Reduced paragraph spacing for introduction
+          // Slightly increased paragraph spacing for introduction to prevent overlap with horizontal lines
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1);
           break;
 
         case 'listItem':

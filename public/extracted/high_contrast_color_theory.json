@@ -1,25 +1,26 @@
 {
   "primary": "#000000",
-  "secondary": "#FFFFFF",
+  "secondary": "#333333",
   "accent": "#00A99D",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
   "border": "#000000",
-  "success": "#FFC300",
-  "warning": "#FF5733",
-  "error": "#C70039",
-  "info": "#0096C7",
+  "success": "#5E8A7D",
+  "warning": "#FFA500",
+  "error": "#FF0000",
+  "info": "#6495ED",
   "colorTheory": {
-    "description": "The color palette is a blend of high contrast text and background colors with a vibrant accent color for visual interest.",
-    "mood": "The palette exudes clarity, professionalism, and a modern aesthetic.",
-    "accessibility": "The high contrast between text and background colors ensures excellent readability and accessibility.",
-    "colorRelationships": "The primary text color and background color provide a strong foundation, while the accent color adds a pop of energy to the palette."
+    "description": "This color palette combines neutral text colors with a vibrant accent color for visual interest.",
+    "mood": "Professional and sleek with a touch of modernity.",
+    "accessibility": "The high contrast between text and background colors ensures readability for all users.",
+    "colorRelationships": "The primary and secondary colors provide a strong foundation, while the accent color adds a refreshing contrast."
   },
   "allColors": [
     "#000000",
     "#00A99D",
     "#333333",
     "#FFFFFF"
-  ]
+  ],
+  "dropdownBackground": "#333333"
 }

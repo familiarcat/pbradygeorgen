@@ -280,18 +280,32 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
         {...props}
       />
     ),
-    hr: ({ node, ...props }: any) => (
-      <hr
-        style={{
-          border: 'none',
-          borderTop: '1px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))' + ' !important',
-          margin: '2rem 0', // Increased for better spacing
-          display: 'block', // Ensures proper block formatting
-          width: '100%' // Ensures full width
-        }}
-        {...props}
-      />
-    ),
+    hr: ({ node, ...props }: any) => {
+      // Check if this is an Introduction document
+      const isIntroduction = document.location.pathname.includes('introduction') ||
+                            document.title.toLowerCase().includes('introduction');
+
+      // If it's an Introduction, don't render horizontal rules
+      if (isIntroduction) {
+        return <div style={{ margin: '1.5rem 0' }} {...props} />;
+      }
+
+      // Otherwise render a subtle horizontal rule
+      return (
+        <hr
+          style={{
+            border: 'none',
+            borderTop: '1px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))' + ' !important',
+            margin: '2.5rem 0', // Further increased for better spacing
+            display: 'block', // Ensures proper block formatting
+            width: '100%', // Ensures full width
+            opacity: '0.5', // Make horizontal rules more subtle
+            height: '1px' // Ensure consistent height
+          }}
+          {...props}
+        />
+      );
+    },
     img: ({ node, ...props }: any) => (
       <img
         style={{

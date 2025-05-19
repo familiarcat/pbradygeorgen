@@ -107,6 +107,8 @@ The introduction should:
 - Include industry-specific keywords and phrases that ATS systems look for
 - Maintain a professional tone throughout
 - Be well-structured with clear headings and bullet points where appropriate
+- DO NOT use horizontal rules (---, ***, or ___) anywhere in the document
+- Use spacing between sections instead of horizontal lines
 
 IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do NOT add any text like "This introduction is tailored to..." or any explanations about how the introduction was created. The document should appear as if it was written directly by the candidate.
 `;
@@ -119,7 +121,7 @@ IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do 
       messages: [
         {
           role: 'system',
-          content: 'You are an expert ATS-optimization specialist and professional introduction writer. You create well-structured, compelling introductions in markdown format that are optimized for both Applicant Tracking Systems and human readers. Your introductions use industry-standard terminology, include relevant keywords, highlight measurable achievements, and present the candidate\'s unique value proposition in a clear, concise manner. You focus on specific accomplishments rather than generic statements and ensure all content is tailored to the candidate\'s target role and industry. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance.'
+          content: 'You are an expert ATS-optimization specialist and professional introduction writer. You create well-structured, compelling introductions in markdown format that are optimized for both Applicant Tracking Systems and human readers. Your introductions use industry-standard terminology, include relevant keywords, highlight measurable achievements, and present the candidate\'s unique value proposition in a clear, concise manner. You focus on specific accomplishments rather than generic statements and ensure all content is tailored to the candidate\'s target role and industry. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance. NEVER use horizontal rules (---, ***, or ___) in your markdown. Use spacing between sections instead of horizontal lines.'
         },
         { role: 'user', content: prompt }
       ],
@@ -186,7 +188,7 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a basic introduction optimized for ATS
+    // Create a basic introduction optimized for ATS without horizontal rules
     const introduction = `# ${userName} - Introduction
 
 ## Professional Summary

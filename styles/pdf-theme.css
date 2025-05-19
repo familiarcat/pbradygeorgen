@@ -270,7 +270,9 @@ th {
 hr {
   border: 0;
   border-top: 1px solid var(--pdf-border-color);
-  margin: 1rem 0;
+  margin: 2.5rem 0; /* Increased margin for better spacing */
+  opacity: 0.5; /* Make horizontal rules more subtle */
+  height: 1px; /* Ensure consistent height */
 }
 
 /* Badges */
