@@ -4,6 +4,30 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DanteLogger } from './DanteLogger';
 
+// Helper function to convert hex color to RGB
+function getBgColorRGB(hexColor: string) {
+  // Default to dark gray if no color provided
+  const hex = hexColor?.replace('#', '') || '333333';
+
+  return {
+    r: parseInt(hex.substring(0, 2), 16),
+    g: parseInt(hex.substring(2, 4), 16),
+    b: parseInt(hex.substring(4, 6), 16)
+  };
+}
+
+// Helper function to get text color in RGB
+function getTextColorRGB(hexColor: string) {
+  // Default to black if no color provided
+  const hex = hexColor?.replace('#', '') || '000000';
+
+  return {
+    r: parseInt(hex.substring(0, 2), 16),
+    g: parseInt(hex.substring(2, 4), 16),
+    b: parseInt(hex.substring(4, 6), 16)
+  };
+}
+
 /**
  * Generates a PDF from HTML content using the Salinger design principles
  *
@@ -753,6 +777,35 @@ export async function generatePdfFromMarkdown(
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
 
+    // Track if this is an introduction PDF (based on filename or title)
+    const isIntroduction = options.fileName?.toLowerCase().includes('introduction') ||
+                          options.title?.toLowerCase().includes('introduction') ||
+                          false;
+
+    // If this is an introduction, use more aggressive space optimization
+    let effectiveMargin = margin;
+    let effectiveLineHeight = lineHeight;
+    let fontSizeReduction = 0;
+
+    if (isIntroduction) {
+      console.log('Optimizing PDF for single-page introduction');
+      // Use smaller margins for introduction
+      effectiveMargin = 0.5; // Even smaller margins for introduction
+      // Use smaller line height for introduction
+      effectiveLineHeight = 0.18; // Even smaller line height for introduction
+      // Reduce font sizes for introduction
+      fontSizeReduction = 1; // Reduce all font sizes by 1pt
+
+      // Use extracted color theory for background if available
+      if (bgColor && !isDarkTheme) {
+        // Get background color in RGB format
+        const bgColorRGB = getBgColorRGB(bgColor);
+        pdf.setFillColor(bgColorRGB.r, bgColorRGB.g, bgColorRGB.b);
+        pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
+        console.log(`Applied extracted background color: ${bgColor}`);
+      }
+    }
+
     // Process each content block
     parsedContent.forEach((block, index) => {
       // Check if we need to add a new page
@@ -769,8 +822,8 @@ export async function generatePdfFromMarkdown(
 
       // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section, but no separator line
-        yPosition += 0.3; // Increased spacing between sections without separator
+        // Add extra space before new section, but less for introduction
+        yPosition += isIntroduction ? 0.2 : 0.3; // Less spacing for introduction
       }
 
       // Handle different block types
@@ -779,86 +832,138 @@ export async function generatePdfFromMarkdown(
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(16); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.3; // Reduced spacing after heading1
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition);
+          yPosition += isIntroduction ? 0.25 : 0.3; // Less spacing for introduction
           break;
 
         case 'heading2':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(14); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.2; // Minimal spacing after headings to fit more content
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition);
+          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
 
-          // Removed the line under h2 to prevent overlap issues
+          // For introduction, add a subtle line under h2 using extracted colors
+          if (isIntroduction && !isDarkTheme) {
+            const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
+            pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
+            pdf.setLineWidth(0.01);
+            pdf.line(effectiveMargin, yPosition - 0.05, 8.5 - effectiveMargin, yPosition - 0.05);
+          }
           break;
 
         case 'heading3':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold');
-          pdf.setFontSize(13); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition);
-          yPosition += 0.2; // Reduced spacing after heading3
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition);
+          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
           break;
 
         case 'paragraph':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal');
-          pdf.setFontSize(12);
+          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
+
+          // Calculate effective page width based on margins
+          const effectivePageWidth = 8.5 - (effectiveMargin * 2);
 
           // Split long paragraphs into multiple lines
-          const lines = pdf.splitTextToSize(block.content, pageWidth);
-          pdf.text(lines, margin, yPosition);
-          yPosition += (lines.length * lineHeight) + 0.1; // Reduced spacing after paragraphs to fit more content
+          const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
+          pdf.text(lines, effectiveMargin, yPosition);
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Less spacing for introduction
           break;
 
         case 'listItem':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal');
-          pdf.setFontSize(12);
+          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
+
+          // Use accent color for bullet points if available
+          if (!isDarkTheme && primaryColor) {
+            const accentColorRGB = getBgColorRGB(primaryColor);
+            pdf.setTextColor(accentColorRGB.r, accentColorRGB.g, accentColorRGB.b);
+          }
 
           // Add bullet point
-          pdf.text('•', margin, yPosition);
+          pdf.text('•', effectiveMargin, yPosition);
+
+          // Reset text color for the list item content
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+          }
+
+          // Calculate effective page width for list items
+          const effectiveListItemWidth = 8.5 - (effectiveMargin * 2) - 0.2;
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.2); // Wider content area
-          pdf.text(listItemLines, margin + 0.2, yPosition); // Reduced indentation further
-          yPosition += (listItemLines.length * lineHeight) + 0.05; // Minimal spacing after list items to fit more content
+          const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
+          pdf.text(listItemLines, effectiveMargin + 0.2, yPosition);
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.03 : 0.05); // Less spacing for introduction
           break;
       }
     });
 
     // Add footer if provided (without separator line)
-    if (options.footerText) {
+    if (options.footerText && !isIntroduction) {
+      // Skip footer for introduction PDFs to save space
       // Add footer text without separator line
       if (isDarkTheme) {
         pdf.setTextColor(245, 243, 231, 0.7); // #F5F3E7 light text with opacity
       } else {
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
-      pdf.setFont('courier', 'normal');
+      pdf.setFont('courier', 'normal'); // Use courier font for headings
       pdf.setFontSize(9); // Slightly smaller font size
       pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
+    }
+
+    // For introduction PDFs, add a subtle page number at the bottom
+    if (isIntroduction) {
+      // Use a very small font size for the page number
+      pdf.setFontSize(8);
+      if (isDarkTheme) {
+        pdf.setTextColor(245, 243, 231, 0.5); // Light text with more opacity
+      } else {
+        // Use extracted secondary color with opacity
+        const secondaryColorRGB = getBgColorRGB(secondaryColor || textColor);
+        pdf.setTextColor(secondaryColorRGB.r, secondaryColorRGB.g, secondaryColorRGB.b, 0.5);
+      }
+      pdf.text('1/1', 8.0, 10.8, { align: 'right' }); // Right-aligned page number
     }
 
     // Save the PDF
@@ -1025,7 +1130,7 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setTextColor(73, 66, 61); // #49423D Ebony
       }
 
-      pdf.setFont(headingPdfFont, 'bold');
+      pdf.setFont('courier', 'bold'); // Use courier font for headings
       pdf.setFontSize(22); // Slightly smaller font size
       pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
@@ -1052,7 +1157,7 @@ export async function generatePdfDataUrlFromMarkdown(
     // Use the font variables already defined above
 
     // Set default font
-    pdf.setFont(bodyPdfFont, 'normal');
+    pdf.setFont('times', 'normal'); // Use times font for body text
     pdf.setFontSize(12);
 
     // Add content with proper styling - optimized for single page with balanced spacing
@@ -1069,10 +1174,45 @@ export async function generatePdfDataUrlFromMarkdown(
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
 
+    // Track if this is an introduction PDF (based on filename or title)
+    const isIntroduction = options.fileName?.toLowerCase().includes('introduction') ||
+                          options.title?.toLowerCase().includes('introduction') ||
+                          false;
+
+    // If this is an introduction, use more aggressive space optimization
+    let effectiveMargin = margin;
+    let effectiveLineHeight = lineHeight;
+    let fontSizeReduction = 0;
+
+    if (isIntroduction) {
+      console.log('Optimizing PDF data URL for single-page introduction');
+      // Use smaller margins for introduction
+      effectiveMargin = 0.5; // Even smaller margins for introduction
+      // Use smaller line height for introduction
+      effectiveLineHeight = 0.18; // Even smaller line height for introduction
+      // Reduce font sizes for introduction
+      fontSizeReduction = 1; // Reduce all font sizes by 1pt
+
+      // Use extracted color theory for background if available
+      if (bgColor && !isDarkTheme) {
+        // Get background color in RGB format
+        const bgColorRGB = getBgColorRGB(bgColor);
+        pdf.setFillColor(bgColorRGB.r, bgColorRGB.g, bgColorRGB.b);
+        pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
+        console.log(`Applied extracted background color: ${bgColor}`);
+      }
+    }
+
     // Process each content block
     parsedContent.forEach((block, index) => {
       // Check if we need to add a new page
       if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
+        // If this is an introduction, log a warning that content might not fit on a single page
+        if (isIntroduction) {
+          console.warn('Warning: Introduction content might not fit on a single page');
+          DanteLogger.warning.ux('Introduction content might not fit on a single page');
+        }
+
         pdf.addPage();
         yPosition = 0.5;
 
@@ -1080,13 +1220,18 @@ export async function generatePdfDataUrlFromMarkdown(
         if (isDarkTheme) {
           pdf.setFillColor(34, 34, 34); // #222222 dark background
           pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
+        } else if (isIntroduction && bgColor) {
+          // Use extracted background color for introduction
+          const bgColorRGB = getBgColorRGB(bgColor);
+          pdf.setFillColor(bgColorRGB.r, bgColorRGB.g, bgColorRGB.b);
+          pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
         }
       }
 
       // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section, but no separator line
-        yPosition += 0.3; // Increased spacing between sections without separator
+        // Add extra space before new section, but less for introduction
+        yPosition += isIntroduction ? 0.2 : 0.3; // Less spacing for introduction
       }
 
       // Handle different block types
@@ -1095,86 +1240,138 @@ export async function generatePdfDataUrlFromMarkdown(
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont(headingPdfFont, 'bold');
-          pdf.setFontSize(16); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition, { align: textAlign });
-          yPosition += 0.3; // Reduced spacing after heading1
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
+          yPosition += isIntroduction ? 0.25 : 0.3; // Less spacing for introduction
           break;
 
         case 'heading2':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont(headingPdfFont, 'bold');
-          pdf.setFontSize(14); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition, { align: textAlign });
-          yPosition += 0.2; // Minimal spacing after headings to fit more content
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
+          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
 
-          // Removed the line under h2 to prevent overlap issues
+          // For introduction, add a subtle line under h2 using extracted colors
+          if (isIntroduction && !isDarkTheme) {
+            const borderColorRGB = getBgColorRGB(borderColor || primaryColor);
+            pdf.setDrawColor(borderColorRGB.r, borderColorRGB.g, borderColorRGB.b);
+            pdf.setLineWidth(0.01);
+            pdf.line(effectiveMargin, yPosition - 0.05, 8.5 - effectiveMargin, yPosition - 0.05);
+          }
           break;
 
         case 'heading3':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(73, 66, 61); // #49423D Ebony
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont(headingPdfFont, 'bold');
-          pdf.setFontSize(13); // Reduced font size to fit more content
-          pdf.text(block.content, margin, yPosition, { align: textAlign });
-          yPosition += 0.2; // Reduced spacing after heading3
+          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
+          pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
+          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
           break;
 
         case 'paragraph':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont(bodyPdfFont, 'normal');
-          pdf.setFontSize(12);
+          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
+
+          // Calculate effective page width based on margins
+          const effectivePageWidth = 8.5 - (effectiveMargin * 2);
 
           // Split long paragraphs into multiple lines
-          const lines = pdf.splitTextToSize(block.content, pageWidth);
-          pdf.text(lines, margin, yPosition, { align: textAlign });
-          yPosition += (lines.length * lineHeight) + 0.1; // Reduced spacing after paragraphs to fit more content
+          const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
+          pdf.text(lines, effectiveMargin, yPosition, { align: textAlign });
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Less spacing for introduction
           break;
 
         case 'listItem':
           if (isDarkTheme) {
             pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
           } else {
-            pdf.setTextColor(58, 69, 53); // #3A4535 Dark forest
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont(bodyPdfFont, 'normal');
-          pdf.setFontSize(12);
+          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
+
+          // Use accent color for bullet points if available
+          if (!isDarkTheme && primaryColor) {
+            const accentColorRGB = getBgColorRGB(primaryColor);
+            pdf.setTextColor(accentColorRGB.r, accentColorRGB.g, accentColorRGB.b);
+          }
 
           // Add bullet point
-          pdf.text('•', margin, yPosition, { align: textAlign });
+          pdf.text('•', effectiveMargin, yPosition, { align: textAlign });
+
+          // Reset text color for the list item content
+          if (isDarkTheme) {
+            pdf.setTextColor(245, 243, 231); // #F5F3E7 light text
+          } else {
+            // Use extracted text color if available
+            const textColorRGB = getTextColorRGB(textColor);
+            pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+          }
+
+          // Calculate effective page width for list items
+          const effectiveListItemWidth = 8.5 - (effectiveMargin * 2) - 0.2;
 
           // Split long list items into multiple lines with proper indentation
-          const listItemLines = pdf.splitTextToSize(block.content, pageWidth - 0.2); // Wider content area
-          pdf.text(listItemLines, margin + 0.2, yPosition, { align: textAlign }); // Reduced indentation further
-          yPosition += (listItemLines.length * lineHeight) + 0.05; // Minimal spacing after list items to fit more content
+          const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
+          pdf.text(listItemLines, effectiveMargin + 0.2, yPosition, { align: textAlign });
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.03 : 0.05); // Less spacing for introduction
           break;
       }
     });
 
     // Add footer if provided (without separator line)
-    if (options.footerText) {
+    if (options.footerText && !isIntroduction) {
+      // Skip footer for introduction PDFs to save space
       // Add footer text without separator line
       if (isDarkTheme) {
         pdf.setTextColor(245, 243, 231, 0.7); // #F5F3E7 light text with opacity
       } else {
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
-      pdf.setFont(headingPdfFont, 'normal');
+      pdf.setFont('courier', 'normal'); // Use courier font for headings
       pdf.setFontSize(9); // Slightly smaller font size
       pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
+    }
+
+    // For introduction PDFs, add a subtle page number at the bottom
+    if (isIntroduction) {
+      // Use a very small font size for the page number
+      pdf.setFontSize(8);
+      if (isDarkTheme) {
+        pdf.setTextColor(245, 243, 231, 0.5); // Light text with more opacity
+      } else {
+        // Use extracted secondary color with opacity
+        const secondaryColorRGB = getBgColorRGB(secondaryColor || textColor);
+        pdf.setTextColor(secondaryColorRGB.r, secondaryColorRGB.g, secondaryColorRGB.b, 0.5);
+      }
+      pdf.text('1/1', 8.0, 10.8, { align: 'right' }); // Right-aligned page number
     }
 
     // Return the PDF as a data URL
