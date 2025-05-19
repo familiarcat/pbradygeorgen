@@ -314,6 +314,35 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     }
   }, [stylesLoaded]);
 
+  // Clean up the markdown content if it has triple backticks
+  const cleanMarkdown = () => {
+    if (!children) return '';
+
+    let content = children.trim();
+    if (content.startsWith('```')) {
+      const endBackticks = content.lastIndexOf('```');
+      if (endBackticks > 3) {
+        // Extract content between backticks, skipping the language identifier if present
+        const firstLineEnd = content.indexOf('\n');
+        if (firstLineEnd > 0) {
+          content = content.substring(firstLineEnd + 1, endBackticks).trim();
+        } else {
+          content = content.substring(3, endBackticks).trim();
+        }
+      }
+    }
+    return content;
+  };
+
+  // Get the cleaned markdown content
+  const cleanedMarkdown = cleanMarkdown();
+
+  // Log the first few characters of the cleaned markdown for debugging
+  useEffect(() => {
+    console.log('StyledMarkdown content (first 50 chars):',
+      cleanedMarkdown.substring(0, 50).replace(/\n/g, '\\n'));
+  }, [cleanedMarkdown]);
+
   return (
     <div
       className={`${className} pdf-styled-markdown`}
@@ -333,12 +362,15 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
         lineHeight: '1.6', // Consistent line height
         fontWeight: 400, // Normal weight for body text
         fontSize: '16px', // Base font size
-        letterSpacing: '0.01em' // Slight letter spacing for readability
+        letterSpacing: '0.01em', // Slight letter spacing for readability
+        border: '1px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
+        borderRadius: '4px',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
       }}
       data-pdf-styles-loaded={stylesLoaded ? 'true' : 'false'} // Add data attribute for CSS targeting
     >
       <ReactMarkdown components={components}>
-        {children}
+        {cleanedMarkdown}
       </ReactMarkdown>
     </div>
   );

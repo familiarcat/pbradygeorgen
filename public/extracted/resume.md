@@ -1,4 +1,3 @@
-```markdown
 # Benjamin Stein
 
 **Professional Summary:**
@@ -50,5 +49,3 @@ APR 2012 - FEB 2015
 **Education:**
 - Ranken Technical College, Network & Database Administration, 2010 - 2012
 - St. Louis Community College, Graphic Communications, 2002 - 2005
-
-```

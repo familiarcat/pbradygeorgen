@@ -165,14 +165,49 @@ export const DownloadService = {
 
     console.log('Converting markdown to text, length:', markdownContent.length);
 
+    // Remove any triple backticks that might be wrapping the content
+    let cleanedContent = markdownContent.trim();
+    if (cleanedContent.startsWith('```')) {
+      const endBackticks = cleanedContent.lastIndexOf('```');
+      if (endBackticks > 3) {
+        // Extract content between backticks, skipping the language identifier if present
+        const firstLineEnd = cleanedContent.indexOf('\n');
+        if (firstLineEnd > 0) {
+          cleanedContent = cleanedContent.substring(firstLineEnd + 1, endBackticks).trim();
+        } else {
+          cleanedContent = cleanedContent.substring(3, endBackticks).trim();
+        }
+      }
+    }
+
     // Process the content line by line to better preserve structure
-    const lines = markdownContent.split('\n');
+    const lines = cleanedContent.split('\n');
     let result = '';
     let inList = false;
     let listIndent = '';
+    let inCodeBlock = false;
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
+
+      // Skip processing if this is a code block delimiter
+      if (line.trim().startsWith('```')) {
+        inCodeBlock = !inCodeBlock;
+        if (inCodeBlock) {
+          // Start of code block - add a header
+          result += '\n\nCODE BLOCK:\n';
+        } else {
+          // End of code block - add a separator
+          result += '\n--- END CODE BLOCK ---\n\n';
+        }
+        continue;
+      }
+
+      // If we're in a code block, add the line as is with some indentation
+      if (inCodeBlock) {
+        result += '    ' + line + '\n';
+        continue;
+      }
 
       // Handle headers - convert to uppercase with underlines for h1/h2
       if (line.match(/^#{1,6}\s+/)) {
@@ -265,9 +300,15 @@ export const DownloadService = {
     }
 
     // Final cleanup
-    return result
+    let finalResult = result
       .replace(/\n{3,}/g, '\n\n') // Normalize multiple line breaks
       .trim();
+
+    // Log the first few characters to help with debugging
+    console.log('Text conversion result (first 50 chars):',
+      finalResult.substring(0, 50).replace(/\n/g, '\\n'));
+
+    return finalResult;
   },
 
   /**
