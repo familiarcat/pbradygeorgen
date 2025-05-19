@@ -696,9 +696,20 @@ export async function generatePdfFromMarkdown(
       // Set text color using extracted color
       pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
 
+      // Get heading font from the already extracted fontHeading variable
+      const headingFontFamily = fontHeading.split(',')[0].replace(/['"]/g, '').trim();
+
+      // Use the extracted font if it's a standard PDF font, otherwise fallback to courier
+      const headingPdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(headingFontFamily.toLowerCase())
+        ? (headingFontFamily.toLowerCase() === 'arial' || headingFontFamily.toLowerCase() === 'verdana' || headingFontFamily.toLowerCase() === 'tahoma' || headingFontFamily.toLowerCase() === 'calibri')
+          ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+          : (headingFontFamily.toLowerCase() === 'georgia' || headingFontFamily.toLowerCase() === 'cambria')
+            ? 'times' // Map Georgia and Cambria to Times
+            : headingFontFamily.toLowerCase() // Use courier, helvetica, or times directly
+        : 'courier'; // Default fallback
+
       // Log the extracted font for debugging
       console.log('Extracted heading font:', fontHeading);
-      console.log('First heading font family:', headingFontFamily);
       console.log('Using PDF font for heading:', headingPdfFont);
 
       pdf.setFont(headingPdfFont, 'bold');
@@ -726,6 +737,18 @@ export async function generatePdfFromMarkdown(
 
     // Set text color using extracted colors
     pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
+
+    // Get heading font from the already extracted fontHeading variable
+    const headingFontFamily = fontHeading.split(',')[0].replace(/['"]/g, '').trim();
+
+    // Use the extracted font if it's a standard PDF font, otherwise fallback to courier
+    const headingPdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(headingFontFamily.toLowerCase())
+      ? (headingFontFamily.toLowerCase() === 'arial' || headingFontFamily.toLowerCase() === 'verdana' || headingFontFamily.toLowerCase() === 'tahoma' || headingFontFamily.toLowerCase() === 'calibri')
+        ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
+        : (headingFontFamily.toLowerCase() === 'georgia' || headingFontFamily.toLowerCase() === 'cambria')
+          ? 'times' // Map Georgia and Cambria to Times
+          : headingFontFamily.toLowerCase() // Use courier, helvetica, or times directly
+      : 'courier'; // Default fallback
 
     // Get body font from the already extracted fontBody variable
     const bodyFontFamily = fontBody.split(',')[0].replace(/['"]/g, '').trim();
