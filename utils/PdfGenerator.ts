@@ -788,13 +788,13 @@ export async function generatePdfFromMarkdown(
     let fontSizeReduction = 0;
 
     if (isIntroduction) {
-      console.log('Optimizing PDF for single-page introduction with balanced typography');
+      console.log('Optimizing PDF for single-page introduction with consistent vertical rhythm');
       // Use smaller margins for introduction but not too small to maintain readability
-      effectiveMargin = 0.55; // Balanced margin for introduction
-      // Use proper line height for introduction to maintain typographic grace
-      effectiveLineHeight = 0.22; // Balanced line height for proper leading
+      effectiveMargin = 0.6; // Slightly larger margin for better readability
+      // Use consistent line height for introduction to maintain typographic grace
+      effectiveLineHeight = 0.18; // Reduced line height for better vertical rhythm
       // Reduce font sizes for introduction but maintain proportions
-      fontSizeReduction = 0.5; // Reduce font sizes by 0.5pt to maintain readability
+      fontSizeReduction = 1; // Reduce font sizes by 1pt to ensure content fits on one page
 
       // Use extracted color theory for background if available
       if (bgColor && !isDarkTheme) {
@@ -822,8 +822,8 @@ export async function generatePdfFromMarkdown(
 
       // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section, but less for introduction
-        yPosition += isIntroduction ? 0.2 : 0.3; // Less spacing for introduction
+        // Add extra space before new section to clearly show section differences
+        yPosition += isIntroduction ? 0.25 : 0.3; // Clear section spacing for introduction
       }
 
       // Handle different block types
@@ -839,7 +839,7 @@ export async function generatePdfFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
-          yPosition += isIntroduction ? 0.25 : 0.3; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.2 : 0.3; // Consistent spacing for introduction
           break;
 
         case 'heading2':
@@ -853,7 +853,7 @@ export async function generatePdfFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
-          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
 
           // For introduction, add a subtle line under h2 using extracted colors
           if (isIntroduction && !isDarkTheme) {
@@ -875,7 +875,7 @@ export async function generatePdfFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
-          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
           break;
 
         case 'paragraph':
@@ -895,7 +895,7 @@ export async function generatePdfFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition);
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1); // Balanced paragraph spacing for introduction
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Reduced paragraph spacing for introduction
           break;
 
         case 'listItem':
@@ -933,7 +933,7 @@ export async function generatePdfFromMarkdown(
           // Split long list items into multiple lines with proper indentation
           const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
           pdf.text(listItemLines, effectiveMargin + 0.2, yPosition);
-          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.05); // Balanced list item spacing for introduction
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.04 : 0.05); // Reduced list item spacing for introduction
           break;
       }
     });
@@ -1185,13 +1185,13 @@ export async function generatePdfDataUrlFromMarkdown(
     let fontSizeReduction = 0;
 
     if (isIntroduction) {
-      console.log('Optimizing PDF data URL for single-page introduction with balanced typography');
+      console.log('Optimizing PDF data URL for single-page introduction with consistent vertical rhythm');
       // Use smaller margins for introduction but not too small to maintain readability
-      effectiveMargin = 0.55; // Balanced margin for introduction
-      // Use proper line height for introduction to maintain typographic grace
-      effectiveLineHeight = 0.22; // Balanced line height for proper leading
+      effectiveMargin = 0.6; // Slightly larger margin for better readability
+      // Use consistent line height for introduction to maintain typographic grace
+      effectiveLineHeight = 0.18; // Reduced line height for better vertical rhythm
       // Reduce font sizes for introduction but maintain proportions
-      fontSizeReduction = 0.5; // Reduce font sizes by 0.5pt to maintain readability
+      fontSizeReduction = 1; // Reduce font sizes by 1pt to ensure content fits on one page
 
       // Use extracted color theory for background if available
       if (bgColor && !isDarkTheme) {
@@ -1230,8 +1230,8 @@ export async function generatePdfDataUrlFromMarkdown(
 
       // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
-        // Add extra space before new section, but less for introduction
-        yPosition += isIntroduction ? 0.2 : 0.3; // Less spacing for introduction
+        // Add extra space before new section to clearly show section differences
+        yPosition += isIntroduction ? 0.25 : 0.3; // Clear section spacing for introduction
       }
 
       // Handle different block types
@@ -1247,7 +1247,7 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.25 : 0.3; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.2 : 0.3; // Consistent spacing for introduction
           break;
 
         case 'heading2':
@@ -1261,7 +1261,7 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
 
           // For introduction, add a subtle line under h2 using extracted colors
           if (isIntroduction && !isDarkTheme) {
@@ -1283,7 +1283,7 @@ export async function generatePdfDataUrlFromMarkdown(
           pdf.setFont('courier', 'bold'); // Use courier font for headings
           pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.15 : 0.2; // Less spacing for introduction
+          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
           break;
 
         case 'paragraph':
@@ -1303,7 +1303,7 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long paragraphs into multiple lines
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1); // Balanced paragraph spacing for introduction
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.1); // Reduced paragraph spacing for introduction
           break;
 
         case 'listItem':
@@ -1341,7 +1341,7 @@ export async function generatePdfDataUrlFromMarkdown(
           // Split long list items into multiple lines with proper indentation
           const listItemLines = pdf.splitTextToSize(block.content, effectiveListItemWidth);
           pdf.text(listItemLines, effectiveMargin + 0.2, yPosition, { align: textAlign });
-          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.08 : 0.05); // Balanced list item spacing for introduction
+          yPosition += (listItemLines.length * effectiveLineHeight) + (isIntroduction ? 0.04 : 0.05); // Reduced list item spacing for introduction
           break;
       }
     });
