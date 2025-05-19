@@ -318,7 +318,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
           // Don't force dark theme, use PDF-extracted styles instead
-          isDarkTheme: false
+          isDarkTheme: false,
+          // Explicitly mark this as an Introduction PDF to ensure proper styling
+          isIntroduction: true
         };
 
         // Generate PDF data URL
@@ -367,7 +369,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
           // Don't force dark theme, use PDF-extracted styles instead
-          isDarkTheme: false
+          isDarkTheme: false,
+          // Explicitly mark this as an Introduction PDF to ensure proper styling
+          isIntroduction: true
         };
 
         // First generate the data URL to ensure consistency with preview
@@ -495,7 +499,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
     <>
       <header className={styles.salingerHeader}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.siteTitle} style={{ color: '#000000' }}>{userInfo.fullName}</h1>
+          <h1 className={styles.siteTitle}>{userInfo.fullName}</h1>
           <div className={styles.actionGroup}>
             <a
               href="#"

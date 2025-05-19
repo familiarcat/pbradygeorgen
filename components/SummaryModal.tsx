@@ -123,7 +123,9 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
           margins: { top: 8, right: 8, bottom: 8, left: 8 },
           // Don't force dark theme, use PDF-extracted styles instead
-          isDarkTheme: false
+          isDarkTheme: false,
+          // Explicitly mark this as an Introduction PDF to ensure proper styling
+          isIntroduction: true
         };
 
         // If we have a cached PDF data URL from the preview, use it for consistency
@@ -184,7 +186,9 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
         pageSize: 'letter' as 'letter', // Explicitly type as literal 'letter'
         margins: { top: 8, right: 8, bottom: 8, left: 8 },
         // Don't force dark theme, use PDF-extracted styles instead
-        isDarkTheme: false
+        isDarkTheme: false,
+        // Explicitly mark this as an Introduction PDF to ensure proper styling
+        isIntroduction: true
       };
 
       // Generate a real-time PDF preview optimized for a single page

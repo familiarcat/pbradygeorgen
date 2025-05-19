@@ -6,15 +6,15 @@
   "text": "#000000",
   "textSecondary": "#333333",
   "border": "#000000",
-  "success": "#4CAF50",
-  "warning": "#FF9800",
-  "error": "#FF5722",
-  "info": "#2196F3",
+  "success": "#FFD700",
+  "warning": "#FF6347",
+  "error": "#FF0000",
+  "info": "#4169E1",
   "colorTheory": {
-    "description": "The color palette is a blend of dark text colors with a vibrant accent color for visual interest.",
-    "mood": "The palette conveys a sense of professionalism and modernity with a touch of vibrancy.",
-    "accessibility": "The high contrast between text and background colors ensures good readability and accessibility.",
-    "colorRelationships": "The primary text color (#000000) provides a strong base, complemented by the secondary text color (#333333). The accent color (#00A99D) adds a pop of contrast."
+    "description": "This color palette combines a classic black and white base with a teal accent for a modern touch.",
+    "mood": "Professional, modern, with a hint of vibrancy.",
+    "accessibility": "The high contrast between text and background colors ensures excellent readability.",
+    "colorRelationships": "The black and white text and background colors create a strong foundation, while the teal accent color adds a refreshing contrast."
   },
   "allColors": [
     "#000000",

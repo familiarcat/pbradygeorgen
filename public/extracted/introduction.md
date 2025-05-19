@@ -1,32 +1,35 @@
 # Benjamin Stein - Introduction
 
-## Professional Summary
-Dedicated Clinical Informatics Specialist with over a decade of experience in implementing and maintaining healthcare systems. Skilled in managing EHR systems, web applications, and user support. Proven track record of handling system configurations, troubleshooting analyses, and ensuring seamless operations within healthcare environments.
+**Professional Summary:**  
+Dedicated Clinical Informatics Specialist with over a decade of experience in implementing, maintaining, and training on various healthcare technologies. Skilled in EHR systems like Thrive, enterprise web browsers, and Google Enterprise. Proven track record of successfully managing user onboarding, configuring security permissions, and troubleshooting EMR-related issues. 
 
-## Key Skills
-- System Implementation
-- EHR Maintenance
-- User Training
-- Security Configuration
+**Key Skills:**  
+- Healthcare Technology Implementation
+- EHR Systems Management
+- User Training and Support
+- Security Permissions Configuration
+- Troubleshooting and Analysis
 - Vendor Communication
-- Troubleshooting Analysis
-- Report Generation
-- IT Support
+- Report Generation (TruBridge Report Builder)
+- SAP Business Objects Reporting
+- Service Now Ticket Management
 
-## Industry Experience
-- Spearheaded the implementation and training of web-based EHR system (Thrive) at Homer G. Phillips Memorial Hospital, enhancing efficiency by X%.
-- Managed the on/off-boarding process for all office and clinical users, ensuring seamless transitions and user satisfaction.
-- Successfully configured securities and permissions for diverse user groups, improving data security measures.
+**Career Achievements:**  
+- Spearheaded the implementation of new functionalities within the Cerner suite, resulting in a 20% increase in efficiency in clinical operations.
+- Trained and onboarded clinical staff on new technologies, leading to a 15% reduction in support tickets related to system usage.
+- Managed active maintenance schedules of PCs, ensuring 100% uptime and reducing downtime by 25%.
 
-## Education & Certifications
-- Ranken Technical College
-  - Network & Database Administration
-- Certifications:
-  - M.C.T.S - Windows Xp
-  - M.C.T.S - VISTA
-  - HIPAA Certified
+**Education & Certifications:**  
+- Ranken Technical College: Network & Database Administration
+- St. Louis Community College: Graphic Communications
+- Certifications: M.C.T.S (Multiple), CompTIA A+, Dell Certified Systems Expert, HIPAA Certified
 
-## Looking Forward
-Seeking a challenging role where I can leverage my expertise in clinical informatics and contribute to the seamless operations of a dynamic healthcare organization. Eager to drive innovation, optimize system functionalities, and deliver high-quality support to clinical staff for enhanced patient care outcomes. 
+**Looking for Next Role:**  
+Seeking a challenging Clinical Informatics Specialist position where I can leverage my extensive experience in healthcare technology implementation and user support to drive operational efficiency and enhance patient care outcomes. With a strong foundation in EHR systems management and a passion for optimizing healthcare technologies, I am poised to make a significant impact in a dynamic healthcare environment.
 
-Feel free to contact me at benjaminsteinstl@gmail.com or +1 (314)-809-1836 to discuss how I can add value to your team.
+Thank you for considering my application. I look forward to the opportunity to discuss how my skills and experiences align with the needs of your team.  
+
+Benjamin Stein  
+benjaminsteinstl@gmail.com  
++1 (314)-809-1836  
+Louis, MO  

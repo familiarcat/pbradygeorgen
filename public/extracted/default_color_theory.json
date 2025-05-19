@@ -1,20 +1,20 @@
 {
-  "primary": "#00A99D",
+  "primary": "#000000",
   "secondary": "#FFFFFF",
-  "accent": "#333333",
+  "accent": "#00A99D",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
   "border": "#000000",
   "success": "#FFD700",
   "warning": "#FF6347",
-  "error": "#DC143C",
-  "info": "#4169E1",
+  "error": "#FF0000",
+  "info": "#1E90FF",
   "colorTheory": {
-    "description": "A harmonious palette inspired by the resume content, balancing professional and modern tones.",
-    "mood": "The colors convey a sense of professionalism with a modern touch.",
-    "accessibility": "The palette ensures good readability and accessibility compliance with high contrast text colors.",
-    "colorRelationships": "The primary color (teal) stands out as the main brand color, complemented by a clean white background and dark secondary text colors for emphasis."
+    "description": "This color palette combines a classic black and white base with a vibrant teal accent to create a professional yet modern look.",
+    "mood": "The palette exudes sophistication, trustworthiness, and creativity.",
+    "accessibility": "The high contrast between the text and background colors ensures readability and complies with WCAG AA standards.",
+    "colorRelationships": "The black and white combination provides a strong foundation, while the teal accent adds a refreshing pop of color for emphasis and visual appeal."
   },
   "allColors": [
     "#000000",

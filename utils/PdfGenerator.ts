@@ -52,6 +52,7 @@ interface PdfGenerationOptions {
   footerText?: string;
   fileName?: string;
   isDarkTheme?: boolean; // Added for explicit theme control
+  isIntroduction?: boolean; // Added to explicitly mark Introduction PDFs
 }
 
 const defaultOptions: PdfGenerationOptions = {
@@ -256,56 +257,102 @@ export async function generatePdfFromElement(
     // Get CSS variables from the document with fallbacks for all naming conventions
     const computedStyle = getComputedStyle(document.documentElement);
 
+    // Check if this is an Introduction PDF (based on options)
+    const isIntroduction = options.title?.toLowerCase().includes('introduction') || false;
+
+    // For Introduction PDFs, prioritize the PDF-extracted styles
+    console.log(`Generating PDF from HTML element${isIntroduction ? ' for Introduction' : ''}`);
+
+    if (isIntroduction) {
+      console.log('Prioritizing PDF-extracted styles for Introduction PDF');
+    }
+
     // Try multiple variable names for each style property with fallbacks
-    const bgColor =
-      computedStyle.getPropertyValue('--bg-primary').trim() ||
-      computedStyle.getPropertyValue('--pdf-background-color').trim() ||
-      computedStyle.getPropertyValue('--background-primary').trim() ||
-      computedStyle.getPropertyValue('--dynamic-background').trim() ||
-      '#F5F1E0';
+    // For Introduction PDFs, prioritize the PDF-extracted variables
+    const bgColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+         computedStyle.getPropertyValue('--background').trim() ||
+         computedStyle.getPropertyValue('--bg-primary').trim() ||
+         computedStyle.getPropertyValue('--background-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-background').trim() ||
+         '#F5F1E0')
+      : (computedStyle.getPropertyValue('--bg-primary').trim() ||
+         computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+         computedStyle.getPropertyValue('--background-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-background').trim() ||
+         '#F5F1E0');
 
-    const textColor =
-      computedStyle.getPropertyValue('--text-color').trim() ||
-      computedStyle.getPropertyValue('--pdf-text-color').trim() ||
-      computedStyle.getPropertyValue('--text-primary').trim() ||
-      computedStyle.getPropertyValue('--dynamic-text').trim() ||
-      '#3A4535';
+    const textColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+         computedStyle.getPropertyValue('--text-color').trim() ||
+         computedStyle.getPropertyValue('--text-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-text').trim() ||
+         '#3A4535')
+      : (computedStyle.getPropertyValue('--text-color').trim() ||
+         computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+         computedStyle.getPropertyValue('--text-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-text').trim() ||
+         '#3A4535');
 
-    const fontBody =
-      computedStyle.getPropertyValue('--font-body').trim() ||
-      computedStyle.getPropertyValue('--pdf-body-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
-      'Garamond, Times New Roman, serif';
+    const fontBody = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+         computedStyle.getPropertyValue('--font-body').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+         'Garamond, Times New Roman, serif')
+      : (computedStyle.getPropertyValue('--font-body').trim() ||
+         computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+         'Garamond, Times New Roman, serif');
 
-    const fontHeading =
-      computedStyle.getPropertyValue('--font-heading').trim() ||
-      computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
-      'Courier New, monospace';
+    const fontHeading = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+         computedStyle.getPropertyValue('--font-heading').trim() ||
+         computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+         'Courier New, monospace')
+      : (computedStyle.getPropertyValue('--font-heading').trim() ||
+         computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+         'Courier New, monospace');
 
-    const fontMono =
-      computedStyle.getPropertyValue('--font-mono').trim() ||
-      computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
-      'Courier New, monospace';
+    const fontMono = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+         computedStyle.getPropertyValue('--font-mono').trim() ||
+         computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+         'Courier New, monospace')
+      : (computedStyle.getPropertyValue('--font-mono').trim() ||
+         computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+         'Courier New, monospace');
 
-    const primaryColor =
-      computedStyle.getPropertyValue('--primary').trim() ||
-      computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-primary').trim() ||
-      '#7E4E2D';
+    const primaryColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+         computedStyle.getPropertyValue('--primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+         '#7E4E2D')
+      : (computedStyle.getPropertyValue('--primary').trim() ||
+         computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+         '#7E4E2D');
 
-    const secondaryColor =
-      computedStyle.getPropertyValue('--secondary').trim() ||
-      computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
-      '#5F6B54';
+    const secondaryColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+         computedStyle.getPropertyValue('--secondary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+         '#5F6B54')
+      : (computedStyle.getPropertyValue('--secondary').trim() ||
+         computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+         '#5F6B54');
 
-    const borderColor =
-      computedStyle.getPropertyValue('--border-color').trim() ||
-      computedStyle.getPropertyValue('--pdf-border-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-border').trim() ||
-      'rgba(73, 66, 61, 0.1)';
+    const borderColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+         computedStyle.getPropertyValue('--border-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-border').trim() ||
+         'rgba(73, 66, 61, 0.1)')
+      : (computedStyle.getPropertyValue('--border-color').trim() ||
+         computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-border').trim() ||
+         'rgba(73, 66, 61, 0.1)');
 
     console.log('PDF Generator using extracted styles:', {
       bgColor,
@@ -794,8 +841,10 @@ export async function generatePdfFromMarkdown(
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
 
-    // Track if this is an introduction PDF (based on filename or title)
-    const isIntroduction = options.fileName?.toLowerCase().includes('introduction') ||
+    // Check if this is an introduction PDF (based on options)
+    // First check the explicit isIntroduction flag, then check filename and title
+    const isIntroduction = options.isIntroduction === true ||
+                          options.fileName?.toLowerCase().includes('introduction') ||
                           options.title?.toLowerCase().includes('introduction') ||
                           false;
 
@@ -1012,56 +1061,104 @@ export async function generatePdfDataUrlFromMarkdown(
     // Get CSS variables from the document with fallbacks for all naming conventions
     const computedStyle = getComputedStyle(document.documentElement);
 
+    // Track if this is an introduction PDF (based on filename or title)
+    const isIntroduction = options.fileName?.toLowerCase().includes('introduction') ||
+                          options.title?.toLowerCase().includes('introduction') ||
+                          false;
+
+    // For Introduction PDFs, prioritize the PDF-extracted styles
+    console.log(`Generating PDF data URL${isIntroduction ? ' for Introduction' : ''}`);
+
+    if (isIntroduction) {
+      console.log('Prioritizing PDF-extracted styles for Introduction PDF');
+    }
+
     // Try multiple variable names for each style property with fallbacks
-    const bgColor =
-      computedStyle.getPropertyValue('--bg-primary').trim() ||
-      computedStyle.getPropertyValue('--pdf-background-color').trim() ||
-      computedStyle.getPropertyValue('--background-primary').trim() ||
-      computedStyle.getPropertyValue('--dynamic-background').trim() ||
-      '#ffffff';
+    // For Introduction PDFs, prioritize the PDF-extracted variables
+    const bgColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+         computedStyle.getPropertyValue('--background').trim() ||
+         computedStyle.getPropertyValue('--bg-primary').trim() ||
+         computedStyle.getPropertyValue('--background-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-background').trim() ||
+         '#ffffff')
+      : (computedStyle.getPropertyValue('--bg-primary').trim() ||
+         computedStyle.getPropertyValue('--pdf-background-color').trim() ||
+         computedStyle.getPropertyValue('--background-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-background').trim() ||
+         '#ffffff');
 
-    const textColor =
-      computedStyle.getPropertyValue('--text-color').trim() ||
-      computedStyle.getPropertyValue('--pdf-text-color').trim() ||
-      computedStyle.getPropertyValue('--text-primary').trim() ||
-      computedStyle.getPropertyValue('--dynamic-text').trim() ||
-      '#000000';
+    const textColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+         computedStyle.getPropertyValue('--text-color').trim() ||
+         computedStyle.getPropertyValue('--text-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-text').trim() ||
+         '#000000')
+      : (computedStyle.getPropertyValue('--text-color').trim() ||
+         computedStyle.getPropertyValue('--pdf-text-color').trim() ||
+         computedStyle.getPropertyValue('--text-primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-text').trim() ||
+         '#000000');
 
-    const fontBody =
-      computedStyle.getPropertyValue('--font-body').trim() ||
-      computedStyle.getPropertyValue('--pdf-body-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
-      'Garamond, Times New Roman, serif';
+    const fontBody = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+         computedStyle.getPropertyValue('--font-body').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+         'Garamond, Times New Roman, serif')
+      : (computedStyle.getPropertyValue('--font-body').trim() ||
+         computedStyle.getPropertyValue('--pdf-body-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+         'Garamond, Times New Roman, serif');
 
-    const fontHeading =
-      computedStyle.getPropertyValue('--font-heading').trim() ||
-      computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
-      'Courier New, monospace';
+    const fontHeading = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+         computedStyle.getPropertyValue('--font-heading').trim() ||
+         computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+         'Courier New, monospace')
+      : (computedStyle.getPropertyValue('--font-heading').trim() ||
+         computedStyle.getPropertyValue('--pdf-heading-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+         'Courier New, monospace');
 
-    const fontMono =
-      computedStyle.getPropertyValue('--font-mono').trim() ||
-      computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
-      computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
-      'Courier New, monospace';
+    const fontMono = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+         computedStyle.getPropertyValue('--font-mono').trim() ||
+         computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+         'Courier New, monospace')
+      : (computedStyle.getPropertyValue('--font-mono').trim() ||
+         computedStyle.getPropertyValue('--pdf-mono-font').trim() ||
+         computedStyle.getPropertyValue('--dynamic-mono-font').trim() ||
+         'Courier New, monospace');
 
-    const primaryColor =
-      computedStyle.getPropertyValue('--primary').trim() ||
-      computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-primary').trim() ||
-      '#7E4E2D';
+    const primaryColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+         computedStyle.getPropertyValue('--primary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+         '#7E4E2D')
+      : (computedStyle.getPropertyValue('--primary').trim() ||
+         computedStyle.getPropertyValue('--pdf-primary-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+         '#7E4E2D');
 
-    const secondaryColor =
-      computedStyle.getPropertyValue('--secondary').trim() ||
-      computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
-      '#5F6B54';
+    const secondaryColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+         computedStyle.getPropertyValue('--secondary').trim() ||
+         computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+         '#5F6B54')
+      : (computedStyle.getPropertyValue('--secondary').trim() ||
+         computedStyle.getPropertyValue('--pdf-secondary-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+         '#5F6B54');
 
-    const borderColor =
-      computedStyle.getPropertyValue('--border-color').trim() ||
-      computedStyle.getPropertyValue('--pdf-border-color').trim() ||
-      computedStyle.getPropertyValue('--dynamic-border').trim() ||
-      '#D5CDB5';
+    const borderColor = isIntroduction
+      ? (computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+         computedStyle.getPropertyValue('--border-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-border').trim() ||
+         '#D5CDB5')
+      : (computedStyle.getPropertyValue('--border-color').trim() ||
+         computedStyle.getPropertyValue('--pdf-border-color').trim() ||
+         computedStyle.getPropertyValue('--dynamic-border').trim() ||
+         '#D5CDB5');
 
     console.log('PDF Generator (generatePdfDataUrlFromMarkdown) using extracted styles:', {
       bgColor,
@@ -1192,8 +1289,10 @@ export async function generatePdfDataUrlFromMarkdown(
     // Track the previous block type to add section separators
     let prevBlockType: string | null = null;
 
-    // Track if this is an introduction PDF (based on filename or title)
-    const isIntroduction = options.fileName?.toLowerCase().includes('introduction') ||
+    // Check if this is an introduction PDF (based on options)
+    // First check the explicit isIntroduction flag, then check filename and title
+    const isIntroductionPdf = options.isIntroduction === true ||
+                          options.fileName?.toLowerCase().includes('introduction') ||
                           options.title?.toLowerCase().includes('introduction') ||
                           false;
 
@@ -1202,7 +1301,7 @@ export async function generatePdfDataUrlFromMarkdown(
     let effectiveLineHeight = lineHeight;
     let fontSizeReduction = 0;
 
-    if (isIntroduction) {
+    if (isIntroductionPdf) {
       console.log('Optimizing PDF data URL for single-page introduction with consistent vertical rhythm');
       // Use smaller margins for introduction but not too small to maintain readability
       effectiveMargin = 0.6; // Slightly larger margin for better readability
@@ -1226,7 +1325,7 @@ export async function generatePdfDataUrlFromMarkdown(
       // Check if we need to add a new page
       if (yPosition > 10.2) { // Extended usable area (11 inches - minimal margin)
         // If this is an introduction, log a warning that content might not fit on a single page
-        if (isIntroduction) {
+        if (isIntroductionPdf) {
           console.warn('Warning: Introduction content might not fit on a single page');
           DanteLogger.warn.resources('Introduction content might not fit on a single page');
         }
@@ -1238,7 +1337,7 @@ export async function generatePdfDataUrlFromMarkdown(
         if (isDarkTheme) {
           pdf.setFillColor(34, 34, 34); // #222222 dark background
           pdf.rect(0, 0, 8.5, 11, 'F'); // Fill the entire page
-        } else if (isIntroduction && bgColor) {
+        } else if (isIntroductionPdf && bgColor) {
           // Use extracted background color for introduction
           const bgColorRGB = getBgColorRGB(bgColor);
           pdf.setFillColor(bgColorRGB.r, bgColorRGB.g, bgColorRGB.b);
@@ -1249,7 +1348,7 @@ export async function generatePdfDataUrlFromMarkdown(
       // Add spacing before heading2 (except for the first section)
       if (block.type === 'heading2' && index > 0) {
         // Add extra space before new section to clearly show section differences
-        yPosition += isIntroduction ? 0.25 : 0.3; // Clear section spacing for introduction
+        yPosition += isIntroductionPdf ? 0.25 : 0.3; // Clear section spacing for introduction
       }
 
       // Handle different block types
@@ -1263,9 +1362,9 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
           pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
-          pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
+          pdf.setFontSize(isIntroductionPdf ? 15 - fontSizeReduction : 16); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.2 : 0.3; // Consistent spacing for introduction
+          yPosition += isIntroductionPdf ? 0.2 : 0.3; // Consistent spacing for introduction
           break;
 
         case 'heading2':
@@ -1277,12 +1376,12 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
           pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
-          pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
+          pdf.setFontSize(isIntroductionPdf ? 13 - fontSizeReduction : 14); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
+          yPosition += isIntroductionPdf ? 0.12 : 0.2; // Reduced spacing for introduction
 
           // For introduction, don't add horizontal lines under h2 headings
-          if (isIntroduction) {
+          if (isIntroductionPdf) {
             // Just add some extra spacing after headings for better readability
             yPosition += 0.1;
           }
@@ -1297,9 +1396,9 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
           pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
-          pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
+          pdf.setFontSize(isIntroductionPdf ? 12 - fontSizeReduction : 13); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
-          yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
+          yPosition += isIntroductionPdf ? 0.12 : 0.2; // Reduced spacing for introduction
           break;
 
         case 'paragraph':
@@ -1311,7 +1410,7 @@ export async function generatePdfDataUrlFromMarkdown(
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
           pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
-          pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
+          pdf.setFontSize(isIntroductionPdf ? 11 - fontSizeReduction : 12); // Smaller for introduction
 
           // Calculate effective page width based on margins
           const effectivePageWidth = 8.5 - (effectiveMargin * 2);
@@ -1320,7 +1419,7 @@ export async function generatePdfDataUrlFromMarkdown(
           const lines = pdf.splitTextToSize(block.content, effectivePageWidth);
           pdf.text(lines, effectiveMargin, yPosition, { align: textAlign });
           // Slightly increased paragraph spacing for introduction to prevent overlap with horizontal lines
-          yPosition += (lines.length * effectiveLineHeight) + (isIntroduction ? 0.12 : 0.1);
+          yPosition += (lines.length * effectiveLineHeight) + (isIntroductionPdf ? 0.12 : 0.1);
           break;
 
         case 'listItem':
