@@ -1210,7 +1210,7 @@ export async function generatePdfDataUrlFromMarkdown(
         // If this is an introduction, log a warning that content might not fit on a single page
         if (isIntroduction) {
           console.warn('Warning: Introduction content might not fit on a single page');
-          DanteLogger.warning.ux('Introduction content might not fit on a single page');
+          DanteLogger.warn.resources('Introduction content might not fit on a single page');
         }
 
         pdf.addPage();
