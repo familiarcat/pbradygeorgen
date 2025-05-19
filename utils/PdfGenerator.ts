@@ -696,27 +696,12 @@ export async function generatePdfFromMarkdown(
       // Set text color using extracted color
       pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
 
-      // Get font family from the already extracted fontHeading variable
-      const fontFamily = fontHeading.split(',')[0].replace(/['"]/g, '').trim();
-
       // Log the extracted font for debugging
       console.log('Extracted heading font:', fontHeading);
-      console.log('First font family:', fontFamily);
+      console.log('First heading font family:', headingFontFamily);
+      console.log('Using PDF font for heading:', headingPdfFont);
 
-      // Use the extracted font if it's a standard PDF font, otherwise fallback to courier
-      // Standard PDF fonts are: courier, helvetica, times (and their variants)
-      // Add more common fonts that map to the standard PDF fonts
-      const pdfFont = ['courier', 'helvetica', 'times', 'arial', 'verdana', 'georgia', 'calibri', 'cambria', 'tahoma'].includes(fontFamily.toLowerCase())
-        ? (fontFamily.toLowerCase() === 'arial' || fontFamily.toLowerCase() === 'verdana' || fontFamily.toLowerCase() === 'tahoma' || fontFamily.toLowerCase() === 'calibri')
-          ? 'helvetica' // Map Arial, Verdana, Tahoma, and Calibri to Helvetica
-          : (fontFamily.toLowerCase() === 'georgia' || fontFamily.toLowerCase() === 'cambria')
-            ? 'times' // Map Georgia and Cambria to Times
-            : fontFamily.toLowerCase() // Use courier, helvetica, or times directly
-        : 'courier'; // Default fallback
-
-      console.log('Using PDF font for heading:', pdfFont);
-
-      pdf.setFont(pdfFont, 'bold');
+      pdf.setFont(headingPdfFont, 'bold');
       pdf.setFontSize(22); // Slightly smaller font size
       pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
@@ -787,6 +772,8 @@ export async function generatePdfFromMarkdown(
     let effectiveLineHeight = lineHeight;
     let fontSizeReduction = 0;
 
+
+
     if (isIntroduction) {
       console.log('Optimizing PDF for single-page introduction with consistent vertical rhythm');
       // Use smaller margins for introduction but not too small to maintain readability
@@ -836,7 +823,7 @@ export async function generatePdfFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
           yPosition += isIntroduction ? 0.2 : 0.3; // Consistent spacing for introduction
@@ -850,7 +837,7 @@ export async function generatePdfFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
@@ -872,7 +859,7 @@ export async function generatePdfFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition);
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
@@ -886,7 +873,7 @@ export async function generatePdfFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
           pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
 
           // Calculate effective page width based on margins
@@ -906,7 +893,7 @@ export async function generatePdfFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
           pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
 
           // Use accent color for bullet points if available
@@ -947,7 +934,7 @@ export async function generatePdfFromMarkdown(
       } else {
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
-      pdf.setFont('courier', 'normal'); // Use courier font for headings
+      pdf.setFont(headingPdfFont || 'courier', 'normal'); // Use extracted heading font
       pdf.setFontSize(9); // Slightly smaller font size
       pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
     }
@@ -1130,7 +1117,7 @@ export async function generatePdfDataUrlFromMarkdown(
         pdf.setTextColor(73, 66, 61); // #49423D Ebony
       }
 
-      pdf.setFont('courier', 'bold'); // Use courier font for headings
+      pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
       pdf.setFontSize(22); // Slightly smaller font size
       pdf.text(options.headerText, 4.25, 0.8, { align: 'center' }); // Moved up from 1.0 to 0.8
 
@@ -1157,7 +1144,7 @@ export async function generatePdfDataUrlFromMarkdown(
     // Use the font variables already defined above
 
     // Set default font
-    pdf.setFont('times', 'normal'); // Use times font for body text
+    pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
     pdf.setFontSize(12);
 
     // Add content with proper styling - optimized for single page with balanced spacing
@@ -1244,7 +1231,7 @@ export async function generatePdfDataUrlFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 15 - fontSizeReduction : 16); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
           yPosition += isIntroduction ? 0.2 : 0.3; // Consistent spacing for introduction
@@ -1258,7 +1245,7 @@ export async function generatePdfDataUrlFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 13 - fontSizeReduction : 14); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
@@ -1280,7 +1267,7 @@ export async function generatePdfDataUrlFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('courier', 'bold'); // Use courier font for headings
+          pdf.setFont(headingPdfFont || 'courier', 'bold'); // Use extracted heading font
           pdf.setFontSize(isIntroduction ? 12 - fontSizeReduction : 13); // Smaller for introduction
           pdf.text(block.content, effectiveMargin, yPosition, { align: textAlign });
           yPosition += isIntroduction ? 0.12 : 0.2; // Reduced spacing for introduction
@@ -1294,7 +1281,7 @@ export async function generatePdfDataUrlFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
           pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
 
           // Calculate effective page width based on margins
@@ -1314,7 +1301,7 @@ export async function generatePdfDataUrlFromMarkdown(
             const textColorRGB = getTextColorRGB(textColor);
             pdf.setTextColor(textColorRGB.r, textColorRGB.g, textColorRGB.b);
           }
-          pdf.setFont('times', 'normal'); // Use times font for body text
+          pdf.setFont(bodyPdfFont || 'times', 'normal'); // Use extracted body font
           pdf.setFontSize(isIntroduction ? 11 - fontSizeReduction : 12); // Smaller for introduction
 
           // Use accent color for bullet points if available
@@ -1355,7 +1342,7 @@ export async function generatePdfDataUrlFromMarkdown(
       } else {
         pdf.setTextColor(73, 66, 61, 0.7); // #49423D Ebony with opacity
       }
-      pdf.setFont('courier', 'normal'); // Use courier font for headings
+      pdf.setFont(headingPdfFont || 'courier', 'normal'); // Use extracted heading font
       pdf.setFontSize(9); // Slightly smaller font size
       pdf.text(options.footerText, 4.25, 10.7, { align: 'center' }); // Positioned at bottom of page
     }
