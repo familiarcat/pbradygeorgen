@@ -453,15 +453,21 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 aria-label="Download Summary"
                 aria-haspopup="true"
                 style={{
-                  backgroundColor: 'var(--pdf-primary-color, var(--cta-primary-bg, rgba(126, 78, 45, 0.1)))' + ' !important',
-                  color: 'var(--pdf-primary-contrast, var(--text-color, #333333))' + ' !important',
-                  fontFamily: 'var(--pdf-button-font, var(--font-button, sans-serif))' + ' !important',
+                  /* Match the SalingerHeader CTA styling */
+                  backgroundColor: '#00A99D !important', /* Force teal color for all CTAs */
+                  color: '#FFFFFF !important', /* Force white text for better contrast */
+                  fontFamily: 'var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, "Helvetica Neue", Arial, sans-serif))) !important',
                   fontWeight: 'bold',
-                  border: 'none'
+                  border: '1px solid #00A99D !important',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2) !important'
                 }}
                 data-pdf-styles-applied={pdfStylesLoaded ? 'true' : 'false'}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{
+                  stroke: '#FFFFFF !important', /* Force white stroke for icons on accent color buttons */
+                  fill: 'none !important', /* Prevent fill from affecting visibility */
+                  filter: 'drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5)) !important' /* Enhanced shadow for better contrast */
+                }}>
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>

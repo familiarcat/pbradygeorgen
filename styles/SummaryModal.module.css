@@ -119,11 +119,14 @@
 
 /* Action link styling - Matches SalingerHeader */
 .actionLink {
-  color: var(--text-color, #F5F3E7);
+  /* Text styling - Salinger principle of readability */
+  color: #FFFFFF !important; /* Force white text for better contrast on accent color buttons */
   text-decoration: none;
-  font-family: var(--font-button, 'Courier New', monospace);
+  font-family: var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, 'Helvetica Neue', Arial, sans-serif))) !important;
   font-size: 0.9rem;
   font-weight: bold;
+
+  /* Layout and spacing - Salinger principle of consistent visual language */
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
   transition: all 0.2s ease;
@@ -131,19 +134,42 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  /* Background and border - Hesse principle of color harmony */
+  background-color: #00A99D !important; /* Force teal color for all CTAs */
+  border: 1px solid #00A99D !important;
+  /* Add box shadow for better visibility - Josef Müller-Brockmann principle of clear visual communication */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 .actionLink:hover {
-  background-color: var(--hover-bg, rgba(126, 78, 45, 0.15));
-  color: var(--text-color, #F5F3E7);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Text styling - Salinger principle of interactive feedback */
+  color: #FFFFFF !important; /* Force white text for better contrast */
+  /* Background - Hesse principle of color harmony with subtle variation */
+  background-color: #008F85 !important; /* Darker teal for hover state */
+  /* Visual feedback - Salinger principle of depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #008F85 !important;
+}
+
+.actionLink:focus {
+  /* Accessibility - Salinger principle of usability */
+  outline: none;
+  color: #FFFFFF !important; /* Force white text for better contrast */
+  background-color: #00A99D !important; /* Match normal state */
+  /* Focus indicator - Salinger principle of accessibility */
+  box-shadow: 0 0 0 2px rgba(0, 169, 157, 0.5) !important; /* Light teal focus ring for better visibility */
 }
 
 /* Action icon */
 .actionIcon {
   width: 1.25rem;
   height: 1.25rem;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased stroke width for better visibility */
+  stroke: #FFFFFF !important; /* Force white stroke for icons on accent color buttons */
+  fill: none !important; /* Prevent fill from affecting visibility */
+  /* Ensure high contrast - Müller-Brockmann principle of clear visual communication */
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5)) !important; /* Enhanced shadow for better contrast */
 }
 
 /* Download menu styling - Matches SalingerHeader */
