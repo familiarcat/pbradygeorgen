@@ -211,8 +211,12 @@ export function GlobalStylesProvider({ children }: { children: React.ReactNode }
     root.style.setProperty('--salinger-header-accent', colorTheory.accent);
 
     // Add dropdown-specific variables for consistent styling across components
-    root.style.setProperty('--dropdown-bg', 'var(--bg-primary)');
-    root.style.setProperty('--dropdown-text', 'var(--text-color)');
+    // Use the fourth color from the PDF (textSecondary or secondary) for dropdown backgrounds
+    // This is typically #333333 in Benjamin Stein's resume
+    root.style.setProperty('--dropdown-bg', colorTheory.allColors && colorTheory.allColors.length >= 4
+      ? colorTheory.allColors[3]
+      : colorTheory.secondary || '#333333');
+    root.style.setProperty('--dropdown-text', '#FFFFFF'); // White text for contrast on dark background
     root.style.setProperty('--dropdown-border', 'var(--border-color)');
     // Dropdown hover background is now set in the CTA section
 
