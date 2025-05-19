@@ -183,11 +183,20 @@ async function extractColorsFromPDF(pdfPath) {
       warning: colorPalette.warning,
       error: colorPalette.error,
       info: colorPalette.info,
-      allColors: uniqueAllColors
+      allColors: uniqueAllColors,
+      // Add dropdownBackground property - always use the third color (index 2) from allColors
+      // This ensures consistent dropdown styling across any PDF we might encounter
+      dropdownBackground: uniqueAllColors.length >= 3 ? uniqueAllColors[2] : '#333333'
     };
   } else {
     // Ensure the allColors property is set
     colorTheory.allColors = uniqueAllColors;
+
+    // Add dropdownBackground property if it doesn't exist
+    if (!colorTheory.dropdownBackground) {
+      colorTheory.dropdownBackground = uniqueAllColors.length >= 3 ? uniqueAllColors[2] : '#333333';
+      console.log('Added dropdownBackground property:', colorTheory.dropdownBackground);
+    }
   }
 
   // Save the color theory to a JSON file
