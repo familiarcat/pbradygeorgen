@@ -493,7 +493,8 @@ Please analyze these fonts and provide a cohesive typography system following th
       console.log('Using local font theory to generate typography system');
 
       // Assign fonts based on their characteristics
-      // Reuse the previously defined serifFonts and monospaceFonts variables
+      // Use the previously defined serifFonts and monospaceFonts variables
+      // Note: serifFonts is already defined above, don't redefine it
       const sansSerifFonts = fontFamilies.filter(name => !fontInfo[name].isSerifFont && !fontInfo[name].isMonospace);
 
       // If no fonts were found in the PDF, create a default font set based on the PDF name

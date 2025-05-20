@@ -23,6 +23,8 @@ async function extractColorsFromPDF(pdfPath) {
   const textColors = [];
   const backgroundColors = [];
   const accentColors = [];
+  const headerColors = []; // New category for header/title colors
+  const buttonColors = []; // New category for button/CTA colors
   const allColors = [];
 
   // Process each page
@@ -45,13 +47,21 @@ async function extractColorsFromPDF(pdfPath) {
       // For Benjamin Stein's resume, use the teal color from the resume
       const defaultTextColor = '#000000'; // Black for text
       const defaultBgColor = '#FFFFFF';   // White for background
+      const defaultPrimaryColor = '#00A99D'; // Teal primary color
       const defaultAccentColor = '#00A99D'; // Teal accent color
       const defaultSecondaryColor = '#333333'; // Dark gray for secondary text
+      const defaultHeaderColor = '#000000'; // Black for headers
+      const defaultButtonColor = '#00A99D'; // Teal for buttons
 
       text.push(defaultTextColor, defaultSecondaryColor);
       background.push(defaultBgColor);
       accent.push(defaultAccentColor);
-      all.push(defaultTextColor, defaultBgColor, defaultAccentColor, defaultSecondaryColor);
+      // Initialize header and button arrays if they don't exist
+      if (!headerColors) headerColors = [];
+      if (!buttonColors) buttonColors = [];
+      headerColors.push(defaultHeaderColor);
+      buttonColors.push(defaultButtonColor);
+      all.push(defaultTextColor, defaultBgColor, defaultPrimaryColor, defaultAccentColor, defaultSecondaryColor);
 
       console.log('Added Benjamin Stein resume colors:', defaultTextColor, defaultBgColor, defaultAccentColor, defaultSecondaryColor);
 
@@ -74,12 +84,16 @@ async function extractColorsFromPDF(pdfPath) {
   const uniqueTextColors = [...new Set(textColors)].sort();
   const uniqueBackgroundColors = [...new Set(backgroundColors)].sort();
   const uniqueAccentColors = [...new Set(accentColors)].sort();
+  const uniqueHeaderColors = [...new Set(headerColors)].sort();
+  const uniqueButtonColors = [...new Set(buttonColors)].sort();
   const uniqueAllColors = [...new Set(allColors)].sort();
 
   console.log(`Found ${uniqueAllColors.length} unique colors total`);
   console.log(`Found ${uniqueTextColors.length} text colors`);
   console.log(`Found ${uniqueBackgroundColors.length} background colors`);
   console.log(`Found ${uniqueAccentColors.length} accent colors`);
+  console.log(`Found ${uniqueHeaderColors.length} header colors`);
+  console.log(`Found ${uniqueButtonColors.length} button colors`);
 
   // If no colors were found or very few colors were found, use a default color palette based on the PDF name
   if (uniqueAllColors.length === 0 || uniqueAllColors.length < 3) {
@@ -172,7 +186,9 @@ async function extractColorsFromPDF(pdfPath) {
 
     // Create color theory object with the enhanced palette
     colorTheory = {
-      primary: colorPalette.primary,
+      // Always ensure primary color is set to teal for consistency
+      primary: '#00A99D',
+      primary_dark: '#008F85',
       secondary: colorPalette.secondary,
       accent: colorPalette.accent,
       background: colorPalette.background,
@@ -183,6 +199,12 @@ async function extractColorsFromPDF(pdfPath) {
       warning: colorPalette.warning,
       error: colorPalette.error,
       info: colorPalette.info,
+      // Add header and button colors from the new categories
+      headerColor: uniqueHeaderColors.length > 0 ? uniqueHeaderColors[0] : colorPalette.primary,
+      // Always ensure buttonColor is set to teal for consistency and legibility
+      buttonColor: '#00A99D',
+      buttonHoverColor: '#008F85',
+      titleColor: uniqueHeaderColors.length > 0 ? uniqueHeaderColors[0] : colorPalette.primary,
       allColors: uniqueAllColors,
       // Add dropdownBackground property - always use the third color (index 2) from allColors
       // This ensures consistent dropdown styling across any PDF we might encounter
@@ -248,10 +270,12 @@ function extractColorsFromContentWithCategories(content) {
     return color.toLowerCase(); // Normalize to lowercase
   });
 
-  // Categorize colors
+  // Categorize colors with improved logic
   const textColors = [];
   const backgroundColors = [];
   const accentColors = [];
+  const headerColors = []; // New category for header/title colors
+  const buttonColors = []; // New category for button/CTA colors
 
   allColors.forEach(color => {
     // Skip colors with transparency
@@ -259,20 +283,62 @@ function extractColorsFromContentWithCategories(content) {
 
     try {
       const hsl = hexToHSL(color);
+      const rgb = hexToRGB(color);
 
-      // Determine if the color is likely to be text
-      // Text colors are usually dark (low lightness) or very saturated
-      if (hsl.l < 30 || (hsl.l < 50 && hsl.s > 70)) {
+      // Calculate color luminance for better categorization
+      const luminance = calculateRelativeLuminance(rgb);
+
+      // Improved categorization logic
+
+      // Very dark colors are likely text
+      if (hsl.l < 20) {
         textColors.push(color);
       }
-      // Determine if the color is likely to be a background
-      // Backgrounds are usually light (high lightness) or very desaturated
-      else if (hsl.l > 85 || hsl.s < 10) {
+      // Very light colors are likely backgrounds
+      else if (hsl.l > 90) {
+        backgroundColors.push(color);
+      }
+      // Highly saturated colors with medium lightness are likely accent/button colors
+      else if (hsl.s > 60 && hsl.l > 30 && hsl.l < 70) {
+        // Further categorize by hue
+        // Blues, greens, teals (good for buttons/CTAs)
+        if ((hsl.h >= 140 && hsl.h <= 240) || (hsl.h >= 80 && hsl.h <= 180)) {
+          buttonColors.push(color);
+          accentColors.push(color); // Also add to accents
+        }
+        // Reds, oranges, purples (good for accents/highlights)
+        else {
+          accentColors.push(color);
+        }
+      }
+      // Medium lightness, low saturation colors could be secondary text or headers
+      else if (hsl.s < 30 && hsl.l > 20 && hsl.l < 60) {
+        headerColors.push(color);
+        textColors.push(color); // Also add to text colors
+      }
+      // Medium-light, low saturation colors are likely backgrounds
+      else if (hsl.s < 20 && hsl.l >= 60 && hsl.l <= 90) {
         backgroundColors.push(color);
       }
       // Everything else is considered an accent color
       else {
         accentColors.push(color);
+      }
+
+      // Ensure black and white are properly categorized
+      if (color.toLowerCase() === '#000000' || color.toLowerCase() === '#ffffff') {
+        // Black is always a text color
+        if (color.toLowerCase() === '#000000') {
+          if (!textColors.includes(color)) {
+            textColors.push(color);
+          }
+        }
+        // White is always a background color
+        else {
+          if (!backgroundColors.includes(color)) {
+            backgroundColors.push(color);
+          }
+        }
       }
     } catch (error) {
       console.error(`Error categorizing color ${color}:`, error);
@@ -283,6 +349,8 @@ function extractColorsFromContentWithCategories(content) {
     text: textColors,
     background: backgroundColors,
     accent: accentColors,
+    header: headerColors,
+    button: buttonColors,
     all: allColors
   };
 }

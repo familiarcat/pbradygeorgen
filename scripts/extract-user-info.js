@@ -318,13 +318,41 @@ function extractUserInfo(textContent) {
         // Skip empty lines
         if (!line) continue;
 
-        // Check if the line is in ALL CAPS or Title Case and doesn't contain organization keywords
+        // Check if the line is in ALL CAPS or Title Case
         const isAllCaps = line === line.toUpperCase() && line.length > 3;
         const isTitleCase = line.split(' ').every(word => word.length > 0 && word[0] === word[0].toUpperCase());
 
+        // Additional checks to distinguish person names from business names
+        // 1. Person names typically have 2-3 words
+        const wordCount = line.split(' ').length;
+        const isLikelyPersonNameLength = wordCount >= 1 && wordCount <= 4;
+
+        // 2. Person names typically don't contain organization keywords
+        const containsOrgKeyword = orgKeywords.some(keyword => line.toLowerCase().includes(keyword));
+
+        // 3. Person names typically don't contain section keywords
+        const containsSectionKeyword = sectionKeywords.some(keyword => line.toLowerCase().includes(keyword));
+
+        // 4. Person names typically don't contain job title keywords at the beginning
+        const startsWithJobTitle = jobTitleKeywords.some(keyword =>
+          line.toLowerCase().startsWith(keyword.toLowerCase() + ' ') ||
+          line.toLowerCase().startsWith('senior ' + keyword.toLowerCase() + ' ') ||
+          line.toLowerCase().startsWith('junior ' + keyword.toLowerCase() + ' '));
+
+        // 5. Person names typically don't contain numbers or special characters except hyphens and periods
+        const hasValidNameChars = /^[A-Za-z\s\-\.]+$/.test(line);
+
+        // 6. Check for common name patterns (First Last, First M. Last, etc.)
+        const isCommonNamePattern = /^[A-Z][a-z]+(\s[A-Z]\.?)?\s[A-Z][a-z]+$/.test(line) || // First (M.) Last
+          /^[A-Z][a-z]+\s[A-Z][a-z]+(-[A-Z][a-z]+)?$/.test(line);  // First Last(-Last)
+
+        // Combine all checks to determine if this is likely a person name
         if ((isAllCaps || isTitleCase) &&
-          !orgKeywords.some(keyword => line.toLowerCase().includes(keyword)) &&
-          !sectionKeywords.some(keyword => line.toLowerCase().includes(keyword))) {
+          isLikelyPersonNameLength &&
+          !containsOrgKeyword &&
+          !containsSectionKeyword &&
+          !startsWithJobTitle &&
+          hasValidNameChars) {
 
           userInfo.fullName = line.trim();
 

@@ -6,6 +6,7 @@ import HesseColorTheory, { SalingerCtaColors } from './HesseColorTheory';
 // Define color theme interface
 export interface ColorTheme {
   primary: string;
+  primary_dark?: string;
   secondary: string;
   accent: string;
   background: string;
@@ -15,11 +16,17 @@ export interface ColorTheme {
   isLoading: boolean;
   rawColors: string[];
   ctaColors?: SalingerCtaColors;
+  // New color properties
+  headerColor?: string;
+  buttonColor?: string;
+  buttonHoverColor?: string;
+  titleColor?: string;
 }
 
 // Default color theme (our Salinger-inspired earth tones)
 export const defaultColorTheme: ColorTheme = {
   primary: '#7E6233', // coyote
+  primary_dark: '#5E4A26', // darker coyote
   secondary: '#5F6B54', // ebony
   accent: '#7E4E2D', // terracotta
   background: '#F5F1E0', // parchment
@@ -27,7 +34,12 @@ export const defaultColorTheme: ColorTheme = {
   border: '#D5CDB5', // light border
   isDark: false,
   isLoading: false,
-  rawColors: []
+  rawColors: [],
+  // New color properties with defaults
+  headerColor: '#3A4535', // dark forest
+  buttonColor: '#7E6233', // coyote
+  buttonHoverColor: '#5E4A26', // darker coyote
+  titleColor: '#3A4535' // dark forest
 };
 
 // Extract colors from PDF and apply Hesse color theory

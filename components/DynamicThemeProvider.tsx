@@ -5,6 +5,20 @@ import usePdfTheme from '@/hooks/usePdfTheme';
 import usePdfFonts from '@/hooks/usePdfFonts';
 import { ColorTheme, defaultColorTheme } from '@/utils/SimplePDFColorExtractor';
 
+// Helper function to convert hex to RGB
+const hexToRgb = (hex: string): string => {
+  // Remove the # if present
+  hex = hex.replace('#', '');
+
+  // Parse the hex values
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  // Return the RGB values as a string
+  return `${r}, ${g}, ${b}`;
+};
+
 // Create context for theme
 interface ThemeContextType {
   colorTheme: ColorTheme;
@@ -43,11 +57,17 @@ export default function DynamicThemeProvider({ children, pdfUrl }: DynamicThemeP
     if (typeof document !== 'undefined') {
       // Apply colors
       document.documentElement.style.setProperty('--dynamic-primary', colorTheme.primary);
+      document.documentElement.style.setProperty('--dynamic-primary-dark', colorTheme.primary_dark || '#008F85');
       document.documentElement.style.setProperty('--dynamic-secondary', colorTheme.secondary);
       document.documentElement.style.setProperty('--dynamic-accent', colorTheme.accent);
       document.documentElement.style.setProperty('--dynamic-background', colorTheme.background);
       document.documentElement.style.setProperty('--dynamic-text', colorTheme.text);
       document.documentElement.style.setProperty('--dynamic-border', colorTheme.border);
+
+      // Apply button colors
+      document.documentElement.style.setProperty('--pdf-button-color', colorTheme.buttonColor || colorTheme.primary || '#00A99D');
+      document.documentElement.style.setProperty('--pdf-button-hover-color', colorTheme.buttonHoverColor || colorTheme.primary_dark || '#008F85');
+      document.documentElement.style.setProperty('--pdf-button-focus-color', `rgba(${hexToRgb(colorTheme.buttonColor || colorTheme.primary || '#00A99D')}, 0.5)`);
 
       // Apply CTA colors if available
       if (colorTheme.ctaColors) {
