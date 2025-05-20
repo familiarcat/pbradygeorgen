@@ -511,14 +511,14 @@ function extractUserInfo(textContent) {
     };
 
     // Count industry keyword occurrences in the entire document
-    const allText = lines.join(' ').toLowerCase();
+    const documentText = lines.join(' ').toLowerCase();
     const industryCounts = {};
 
     for (const [industry, keywords] of Object.entries(industryKeywords)) {
       industryCounts[industry] = 0;
       for (const keyword of keywords) {
         const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
-        const matches = allText.match(regex);
+        const matches = documentText.match(regex);
         if (matches) {
           industryCounts[industry] += matches.length;
         }
@@ -602,7 +602,7 @@ function extractUserInfo(textContent) {
     // Then check the entire document for additional skills
     for (const skill of skillKeywords) {
       const regex = new RegExp(`\\b${skill}\\b`, 'gi');
-      if (regex.test(allText)) {
+      if (regex.test(documentText)) {
         foundSkills.add(skill);
       }
     }
@@ -616,7 +616,7 @@ function extractUserInfo(textContent) {
     ];
 
     for (const pattern of bulletPointPatterns) {
-      const matches = allText.match(pattern);
+      const matches = documentText.match(pattern);
       if (matches) {
         for (const match of matches) {
           const cleanedMatch = match.replace(/^[•\-\*\d\.]\s*/, '').trim().toLowerCase();
