@@ -36,6 +36,8 @@ function extractUserInfo(textContent) {
     location: '',
     title: '',
     skills: [],
+    industry: 'general',
+    keywords: [],
     extractionDate: new Date().toISOString()
   };
 
@@ -494,28 +496,159 @@ function extractUserInfo(textContent) {
       }
     }
 
-    // Extract skills
-    if (sections.skills.length > 0) {
-      // Common skill keywords to look for
-      const skillKeywords = [
-        'javascript', 'typescript', 'python', 'java', 'c#', 'c++', 'ruby', 'php', 'swift', 'kotlin',
-        'react', 'angular', 'vue', 'node', 'express', 'django', 'flask', 'spring', 'asp.net',
-        'html', 'css', 'sass', 'less', 'bootstrap', 'tailwind', 'material-ui', 'jquery',
-        'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'terraform', 'jenkins', 'git', 'github',
-        'sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'graphql', 'rest',
-        'agile', 'scrum', 'kanban', 'jira', 'confluence', 'trello', 'asana',
-        'leadership', 'management', 'communication', 'teamwork', 'problem-solving'
-      ];
+    // Extract skills with improved industry detection
+    // First, try to determine the candidate's industry based on the content
+    let detectedIndustry = 'general';
+    const industryKeywords = {
+      'technology': ['software', 'developer', 'engineer', 'programming', 'code', 'web', 'app', 'application', 'frontend', 'backend', 'fullstack', 'devops', 'cloud', 'architecture'],
+      'healthcare': ['medical', 'clinical', 'patient', 'health', 'hospital', 'doctor', 'nurse', 'physician', 'therapy', 'care', 'treatment', 'diagnosis', 'healthcare', 'informatics'],
+      'finance': ['financial', 'banking', 'investment', 'accounting', 'finance', 'audit', 'tax', 'budget', 'revenue', 'profit', 'loss', 'assets', 'liabilities', 'equity'],
+      'marketing': ['marketing', 'brand', 'campaign', 'social media', 'digital', 'content', 'seo', 'sem', 'advertising', 'market research', 'analytics', 'audience', 'conversion'],
+      'education': ['teaching', 'education', 'curriculum', 'student', 'school', 'university', 'college', 'academic', 'learning', 'instruction', 'classroom', 'professor', 'teacher'],
+      'legal': ['legal', 'law', 'attorney', 'lawyer', 'counsel', 'litigation', 'compliance', 'regulation', 'contract', 'policy', 'legislation', 'rights', 'justice'],
+      'manufacturing': ['manufacturing', 'production', 'assembly', 'quality', 'operations', 'supply chain', 'logistics', 'inventory', 'warehouse', 'procurement', 'lean', 'six sigma'],
+      'design': ['design', 'creative', 'ux', 'ui', 'user experience', 'graphic', 'visual', 'product design', 'interaction', 'wireframe', 'prototype', 'usability', 'accessibility']
+    };
 
-      // Extract skills from the skills section
-      const skillsText = sections.skills.join(' ').toLowerCase();
-      const foundSkills = skillKeywords.filter(skill => skillsText.includes(skill.toLowerCase()));
+    // Count industry keyword occurrences in the entire document
+    const allText = lines.join(' ').toLowerCase();
+    const industryCounts = {};
 
-      if (foundSkills.length > 0) {
-        userInfo.skills = foundSkills;
-        logger.success(`Found ${foundSkills.length} skills`);
+    for (const [industry, keywords] of Object.entries(industryKeywords)) {
+      industryCounts[industry] = 0;
+      for (const keyword of keywords) {
+        const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+        const matches = allText.match(regex);
+        if (matches) {
+          industryCounts[industry] += matches.length;
+        }
       }
     }
+
+    // Determine the most likely industry
+    let maxCount = 0;
+    for (const [industry, count] of Object.entries(industryCounts)) {
+      if (count > maxCount) {
+        maxCount = count;
+        detectedIndustry = industry;
+      }
+    }
+
+    logger.info(`Detected industry: ${detectedIndustry}`);
+    userInfo.industry = detectedIndustry;
+
+    // Define industry-specific skill keywords
+    const industrySkills = {
+      'technology': [
+        'javascript', 'typescript', 'python', 'java', 'c#', 'c++', 'ruby', 'php', 'swift', 'kotlin', 'go', 'rust',
+        'react', 'angular', 'vue', 'node', 'express', 'django', 'flask', 'spring', 'asp.net', 'laravel', 'symfony',
+        'html', 'css', 'sass', 'less', 'bootstrap', 'tailwind', 'material-ui', 'jquery', 'webpack', 'babel', 'vite',
+        'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'terraform', 'jenkins', 'git', 'github', 'gitlab', 'bitbucket',
+        'sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'graphql', 'rest', 'soap', 'microservices',
+        'agile', 'scrum', 'kanban', 'jira', 'confluence', 'trello', 'asana', 'devops', 'ci/cd', 'test-driven development',
+        'machine learning', 'artificial intelligence', 'data science', 'big data', 'hadoop', 'spark', 'tableau', 'power bi',
+        'cybersecurity', 'network security', 'penetration testing', 'encryption', 'authentication', 'authorization'
+      ],
+      'healthcare': [
+        'electronic health records', 'ehr', 'emr', 'epic', 'cerner', 'meditech', 'allscripts', 'nextgen', 'athenahealth',
+        'hipaa', 'hl7', 'fhir', 'dicom', 'icd-10', 'cpt', 'snomed', 'loinc', 'rxnorm', 'ndc',
+        'clinical informatics', 'health informatics', 'medical informatics', 'nursing informatics', 'pharmacy informatics',
+        'telehealth', 'telemedicine', 'remote patient monitoring', 'patient portal', 'population health', 'care coordination',
+        'revenue cycle management', 'medical billing', 'medical coding', 'claims processing', 'denial management',
+        'clinical documentation', 'clinical decision support', 'order entry', 'e-prescribing', 'medication reconciliation',
+        'quality improvement', 'quality measures', 'hedis', 'ncqa', 'joint commission', 'cms', 'meaningful use',
+        'patient safety', 'infection control', 'risk management', 'utilization review', 'case management'
+      ],
+      'finance': [
+        'financial analysis', 'financial modeling', 'financial reporting', 'financial planning', 'budgeting', 'forecasting',
+        'accounting', 'bookkeeping', 'accounts payable', 'accounts receivable', 'general ledger', 'balance sheet', 'income statement',
+        'cash flow', 'variance analysis', 'cost accounting', 'tax preparation', 'tax planning', 'audit', 'compliance',
+        'investment analysis', 'portfolio management', 'asset allocation', 'risk assessment', 'wealth management',
+        'banking', 'lending', 'credit analysis', 'underwriting', 'loan processing', 'mortgage', 'debt management',
+        'quickbooks', 'sap', 'oracle financials', 'microsoft dynamics', 'sage', 'xero', 'netsuite', 'bloomberg terminal',
+        'excel', 'vba', 'pivot tables', 'data analysis', 'financial modeling', 'scenario analysis', 'sensitivity analysis',
+        'gaap', 'ifrs', 'sox', 'fasb', 'sec reporting', 'regulatory reporting', 'financial controls'
+      ],
+      'general': [
+        'leadership', 'management', 'communication', 'teamwork', 'problem-solving', 'critical thinking', 'decision making',
+        'time management', 'organization', 'planning', 'coordination', 'delegation', 'negotiation', 'conflict resolution',
+        'presentation', 'public speaking', 'writing', 'editing', 'research', 'analysis', 'reporting', 'documentation',
+        'customer service', 'client relations', 'stakeholder management', 'relationship building', 'networking',
+        'microsoft office', 'word', 'excel', 'powerpoint', 'outlook', 'google workspace', 'docs', 'sheets', 'slides',
+        'project management', 'budget management', 'resource allocation', 'risk management', 'quality assurance',
+        'strategic planning', 'process improvement', 'change management', 'innovation', 'creativity', 'adaptability'
+      ]
+    };
+
+    // Combine general skills with industry-specific skills
+    const skillKeywords = [...industrySkills['general'], ...(industrySkills[detectedIndustry] || [])];
+
+    // Extract skills from the entire document, not just the skills section
+    const foundSkills = new Set();
+
+    // First check the skills section if available
+    if (sections.skills.length > 0) {
+      const skillsText = sections.skills.join(' ').toLowerCase();
+
+      // Look for skills in the skills section
+      for (const skill of skillKeywords) {
+        const regex = new RegExp(`\\b${skill}\\b`, 'gi');
+        if (regex.test(skillsText)) {
+          foundSkills.add(skill);
+        }
+      }
+    }
+
+    // Then check the entire document for additional skills
+    for (const skill of skillKeywords) {
+      const regex = new RegExp(`\\b${skill}\\b`, 'gi');
+      if (regex.test(allText)) {
+        foundSkills.add(skill);
+      }
+    }
+
+    // Extract additional skills using bullet point patterns
+    const bulletPointPatterns = [
+      /•\s*([^•\n]+)/g,  // Bullet point followed by text
+      /\n-\s*([^-\n]+)/g,  // Dash at start of line
+      /\n\*\s*([^\*\n]+)/g,  // Asterisk at start of line
+      /\n\d+\.\s*([^\n]+)/g  // Numbered list
+    ];
+
+    for (const pattern of bulletPointPatterns) {
+      const matches = allText.match(pattern);
+      if (matches) {
+        for (const match of matches) {
+          const cleanedMatch = match.replace(/^[•\-\*\d\.]\s*/, '').trim().toLowerCase();
+
+          // Check if this bullet point contains a skill keyword
+          for (const skill of skillKeywords) {
+            if (cleanedMatch.includes(skill.toLowerCase())) {
+              // If the bullet point is short, it might be just the skill itself
+              if (cleanedMatch.length < 30) {
+                foundSkills.add(cleanedMatch);
+              } else {
+                foundSkills.add(skill);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (foundSkills.size > 0) {
+      userInfo.skills = Array.from(foundSkills);
+      logger.success(`Found ${foundSkills.size} skills`);
+    } else {
+      // If no skills found, add some default skills based on the detected industry
+      userInfo.skills = industrySkills[detectedIndustry]?.slice(0, 5) || industrySkills['general'].slice(0, 5);
+      logger.warning(`No skills found, using default skills for ${detectedIndustry} industry`);
+    }
+
+    // Extract additional ATS keywords from the resume
+    const extractedKeywords = extractATSKeywords(allText, detectedIndustry);
+    userInfo.keywords = extractedKeywords;
+    logger.success(`Extracted ${extractedKeywords.length} ATS keywords`);
 
     return userInfo;
   } catch (error) {
@@ -601,7 +734,125 @@ if (require.main === module) {
     });
 }
 
+/**
+ * Extract ATS keywords from text content based on industry
+ *
+ * @param {string} textContent - The text content to analyze
+ * @param {string} industry - The detected industry
+ * @returns {Array<string>} - Extracted ATS keywords
+ */
+function extractATSKeywords(textContent, industry) {
+  // Common ATS keywords by industry
+  const atsKeywords = {
+    'technology': [
+      'software development', 'full stack', 'front end', 'back end', 'web development',
+      'mobile development', 'cloud computing', 'devops', 'agile methodology', 'scrum',
+      'continuous integration', 'continuous deployment', 'test-driven development',
+      'object-oriented programming', 'functional programming', 'api development',
+      'microservices', 'serverless', 'containerization', 'version control',
+      'code review', 'pair programming', 'technical documentation', 'debugging',
+      'performance optimization', 'scalability', 'security', 'authentication',
+      'authorization', 'encryption', 'data structures', 'algorithms', 'database design',
+      'query optimization', 'caching', 'load balancing', 'high availability',
+      'disaster recovery', 'monitoring', 'logging', 'alerting', 'troubleshooting'
+    ],
+    'healthcare': [
+      'patient care', 'clinical documentation', 'electronic health records', 'medical coding',
+      'medical billing', 'healthcare compliance', 'hipaa', 'patient safety', 'quality improvement',
+      'care coordination', 'case management', 'utilization review', 'disease management',
+      'population health', 'health informatics', 'clinical informatics', 'telehealth',
+      'remote patient monitoring', 'clinical decision support', 'order entry',
+      'medication administration', 'medication reconciliation', 'clinical workflows',
+      'healthcare analytics', 'revenue cycle management', 'claims processing',
+      'denial management', 'charge capture', 'patient engagement', 'patient education',
+      'care planning', 'care transitions', 'interdisciplinary collaboration',
+      'evidence-based practice', 'clinical guidelines', 'clinical protocols',
+      'quality measures', 'regulatory compliance', 'accreditation', 'risk management'
+    ],
+    'finance': [
+      'financial analysis', 'financial reporting', 'financial modeling', 'forecasting',
+      'budgeting', 'variance analysis', 'cost accounting', 'general ledger',
+      'accounts payable', 'accounts receivable', 'fixed assets', 'cash management',
+      'treasury management', 'risk assessment', 'internal controls', 'sox compliance',
+      'audit preparation', 'tax planning', 'tax compliance', 'financial statements',
+      'balance sheet', 'income statement', 'cash flow statement', 'financial ratios',
+      'profitability analysis', 'liquidity analysis', 'solvency analysis', 'efficiency analysis',
+      'investment analysis', 'portfolio management', 'asset allocation', 'wealth management',
+      'retirement planning', 'estate planning', 'financial regulations', 'financial compliance',
+      'anti-money laundering', 'know your customer', 'financial risk management',
+      'market risk', 'credit risk', 'operational risk', 'liquidity risk'
+    ],
+    'general': [
+      'leadership', 'management', 'team building', 'strategic planning', 'project management',
+      'process improvement', 'change management', 'stakeholder management', 'client relations',
+      'customer service', 'problem solving', 'decision making', 'critical thinking',
+      'analytical skills', 'attention to detail', 'organization', 'time management',
+      'prioritization', 'multitasking', 'communication', 'presentation', 'public speaking',
+      'writing', 'editing', 'research', 'data analysis', 'reporting', 'documentation',
+      'training', 'mentoring', 'coaching', 'performance management', 'conflict resolution',
+      'negotiation', 'collaboration', 'teamwork', 'cross-functional coordination',
+      'budget management', 'resource allocation', 'vendor management', 'contract management',
+      'quality assurance', 'continuous improvement', 'innovation', 'creativity'
+    ]
+  };
+
+  // Get keywords for the detected industry and general keywords
+  const industrySpecificKeywords = atsKeywords[industry] || [];
+  const generalKeywords = atsKeywords['general'];
+
+  // Combine all keywords to check
+  const allKeywords = [...industrySpecificKeywords, ...generalKeywords];
+
+  // Extract keywords that appear in the text
+  const foundKeywords = new Set();
+  const lowerText = textContent.toLowerCase();
+
+  for (const keyword of allKeywords) {
+    // Check for exact matches and variations
+    const variations = [
+      keyword,
+      keyword.replace(/\s+/g, '-'),  // hyphenated version
+      keyword.replace(/\s+/g, '')     // no spaces version
+    ];
+
+    for (const variation of variations) {
+      const regex = new RegExp(`\\b${variation.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'i');
+      if (regex.test(lowerText)) {
+        foundKeywords.add(keyword);
+        break;
+      }
+    }
+  }
+
+  // Extract additional keywords from bullet points and short phrases
+  const bulletPointPatterns = [
+    /•\s*([^•\n]+)/g,  // Bullet point followed by text
+    /\n-\s*([^-\n]+)/g,  // Dash at start of line
+    /\n\*\s*([^\*\n]+)/g,  // Asterisk at start of line
+    /\n\d+\.\s*([^\n]+)/g  // Numbered list
+  ];
+
+  for (const pattern of bulletPointPatterns) {
+    const matches = textContent.match(pattern);
+    if (matches) {
+      for (const match of matches) {
+        const cleanedMatch = match.replace(/^[•\-\*\d\.]\s*/, '').trim();
+
+        // If the bullet point is short (likely a skill or keyword)
+        if (cleanedMatch.length > 3 && cleanedMatch.length < 50 &&
+          cleanedMatch.split(' ').length <= 5 &&
+          !/[0-9]/.test(cleanedMatch)) { // Avoid phrases with numbers
+          foundKeywords.add(cleanedMatch.toLowerCase());
+        }
+      }
+    }
+  }
+
+  return Array.from(foundKeywords);
+}
+
 module.exports = {
   extractUserInfo,
-  extractUserInfoFromPdf
+  extractUserInfoFromPdf,
+  extractATSKeywords
 };

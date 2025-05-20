@@ -54,6 +54,8 @@ async function generateIntroduction(resumeContentPath, options = {}) {
     let userName = 'User';
     let userTitle = 'Professional';
     let userSkills = [];
+    let userKeywords = [];
+    let userIndustry = 'general';
     let userEmail = '';
     let userPhone = '';
     let userLocation = '';
@@ -64,16 +66,18 @@ async function generateIntroduction(resumeContentPath, options = {}) {
         userName = userInfo.fullName || 'User';
         userTitle = userInfo.title || 'Professional';
         userSkills = userInfo.skills || [];
+        userKeywords = userInfo.keywords || [];
+        userIndustry = userInfo.industry || 'general';
         userEmail = userInfo.email || '';
         userPhone = userInfo.phone || '';
         userLocation = userInfo.location || '';
-        logger.info(`Using user information from user_info.json: ${userName}, ${userTitle}`);
+        logger.info(`Using user information from user_info.json: ${userName}, ${userTitle}, Industry: ${userIndustry}`);
       } catch (error) {
         logger.error(`Error parsing user_info.json: ${error.message}`);
       }
     }
 
-    // Create the prompt with ATS-focused instructions
+    // Create the prompt with enhanced ATS-focused instructions
     const prompt = `
 I need you to create a professional introduction based on the following resume content.
 This introduction will be used as a cover letter or introduction document that will be processed by
@@ -85,14 +89,16 @@ ${resumeContent}
 User Information:
 - Name: ${userName}
 - Title: ${userTitle}
+- Industry: ${userIndustry}
 - Skills: ${userSkills.join(', ')}
+- ATS Keywords: ${userKeywords.join(', ')}
 - Email: ${userEmail}
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
 Please create an ATS-optimized introduction that:
 1. Starts with a title "# ${userName} - Introduction"
-2. Includes a professional summary section that clearly states the candidate's role and years of experience
+2. Includes a professional summary section that clearly states the candidate's role, years of experience, and core competencies
 3. Lists key skills using industry-standard terminology that will be recognized by ATS systems
 4. Mentions specific industry experience with measurable achievements and metrics when possible
 5. Highlights career achievements with quantifiable results (percentages, numbers, etc.)
@@ -100,15 +106,26 @@ Please create an ATS-optimized introduction that:
 7. Ends with what the candidate is looking for in their next role and why they're a good fit
 8. Uses keywords from the resume that will be recognized by ATS systems
 
-The introduction should:
+ATS Optimization Guidelines:
+- Use exact job title and skill keywords from the resume multiple times (3-5 times for primary keywords)
+- Include industry-specific technical terms, tools, methodologies, and certifications
+- Use both spelled-out terms and acronyms (e.g., "Applicant Tracking System (ATS)" then "ATS" later)
+- Place important keywords in section headings when possible
+- Use standard section headings that ATS systems recognize (e.g., "Professional Summary", "Skills", "Experience")
+- Ensure keyword density is natural (5-8% keyword density is optimal)
+- Include both hard skills (technical abilities) and soft skills (communication, leadership)
+- Match keywords to the candidate's industry and job level
+
+Formatting Guidelines:
 - Be concise and focused, suitable for a single-page PDF
-- Use active voice and strong action verbs
+- Use active voice and strong action verbs (achieved, implemented, led, developed, etc.)
 - Avoid generic statements and focus on specific accomplishments
-- Include industry-specific keywords and phrases that ATS systems look for
 - Maintain a professional tone throughout
-- Be well-structured with clear headings and bullet points where appropriate
+- Use clear headings and bullet points for better ATS parsing
 - DO NOT use horizontal rules (---, ***, or ___) anywhere in the document
 - Use spacing between sections instead of horizontal lines
+- Use a clean, simple structure with consistent formatting
+- Ensure proper spacing between sections for readability
 
 IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do NOT add any text like "This introduction is tailored to..." or any explanations about how the introduction was created. The document should appear as if it was written directly by the candidate.
 `;
@@ -121,7 +138,7 @@ IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do 
       messages: [
         {
           role: 'system',
-          content: 'You are an expert ATS-optimization specialist and professional introduction writer. You create well-structured, compelling introductions in markdown format that are optimized for both Applicant Tracking Systems and human readers. Your introductions use industry-standard terminology, include relevant keywords, highlight measurable achievements, and present the candidate\'s unique value proposition in a clear, concise manner. You focus on specific accomplishments rather than generic statements and ensure all content is tailored to the candidate\'s target role and industry. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance. NEVER use horizontal rules (---, ***, or ___) in your markdown. Use spacing between sections instead of horizontal lines.'
+          content: 'You are an expert ATS-optimization specialist and professional introduction writer with deep knowledge of how Applicant Tracking Systems parse and score documents. You create well-structured, compelling introductions in markdown format that achieve high ATS scores while remaining engaging for human readers. Your introductions strategically incorporate keywords with optimal density (5-8%), use industry-standard terminology, highlight measurable achievements with specific metrics, and present the candidate\'s unique value proposition in a clear, concise manner. You understand the importance of keyword placement, using exact match terms from the resume, and incorporating both acronyms and spelled-out terms. You focus on specific accomplishments with quantifiable results rather than generic statements and ensure all content is precisely tailored to the candidate\'s target role and industry. You use ATS-friendly formatting with standard section headings, clean structure, and proper spacing. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance. NEVER use horizontal rules (---, ***, or ___) in your markdown. Use spacing between sections instead of horizontal lines.'
         },
         { role: 'user', content: prompt }
       ],
