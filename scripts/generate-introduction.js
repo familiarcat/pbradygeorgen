@@ -96,15 +96,17 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create a narrative-style introduction in the Salinger tradition that:
+Please create a brief, pointed narrative-style introduction in the Salinger tradition that:
 1. Starts with a title "# ${userName} - Introduction"
 2. Uses a personal, conversational tone that feels authentic and human
-3. Tells a cohesive story about the candidate's career journey, motivations, and aspirations
-4. Weaves in key skills and experiences naturally within the narrative flow
-5. Expresses genuine passion for the industry and the candidate's specific role
-6. Includes personal values and what drives the candidate professionally
-7. Subtly incorporates industry-specific terminology that will be recognized by ATS systems
-8. Concludes with what the candidate is looking for in their next role and why they're a good fit
+3. Provides a concise glimpse of the candidate's career journey, core motivations, and aspirations
+4. Weaves in 2-3 key skills naturally within the narrative flow
+5. Expresses genuine passion for the industry in 1-2 impactful sentences
+6. Includes a brief statement about what drives the candidate professionally
+7. Subtly incorporates 3-5 industry-specific terms that will be recognized by ATS systems
+8. Concludes with a brief statement about what the candidate is looking for in their next role
+
+IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's persona, goals, or motivations.
 
 Salinger Narrative Style Guidelines:
 - Write in first person with an authentic, distinctive voice
@@ -126,16 +128,17 @@ ATS Optimization Guidelines (to be applied subtly):
 - Match keywords to the candidate's industry and job level
 
 Formatting Guidelines:
-- Structure as a cohesive letter rather than a list of achievements
-- Use paragraphs instead of bullet points for a more narrative flow
-- Include 1-2 short paragraphs for each major career phase or theme
-- Use minimal headings - only where they enhance readability
-- Be concise and focused, suitable for a single-page PDF
-- Use active voice and conversational language
+- Structure as a very concise, cohesive letter (approximately 150 words maximum)
+- Use 2-3 short paragraphs total for the entire introduction
+- Aim for 3-5 sentences per paragraph maximum
+- Eliminate all unnecessary words and phrases
+- Use no headings except for the title
+- Use active voice and impactful, conversational language
 - DO NOT use horizontal rules (---, ***, or ___) anywhere in the document
-- Ensure proper spacing between paragraphs for readability
-- NEVER use placeholder metrics or vague percentages (like "increased efficiency by XX%")
-- Only include specific, concrete metrics if they appear in the resume
+- Use one line break between paragraphs for readability
+- NEVER use placeholder metrics or vague percentages
+- Only include specific, concrete metrics if they appear in the resume and are truly impactful
+- Prioritize statements about motivation, passion, and career goals over listing experiences
 
 IMPORTANT:
 - Do NOT include any meta-commentary about the introduction itself
@@ -153,7 +156,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer in the tradition of J.D. Salinger who also understands ATS optimization. You create authentic, personal introductions in a narrative style that feels genuinely human while subtly incorporating keywords for ATS systems. Your writing has a distinctive voice and creates an intimate connection with the reader through thoughtful reflection and genuine enthusiasm. You craft cohesive stories about career journeys that weave in skills and experiences naturally, avoiding corporate clichés and jargon when possible. You balance professionalism with personality, showing rather than telling about capabilities through specific details that make the narrative feel lived. You understand how to incorporate industry terminology and keywords (5-8% density) in a way that feels completely natural to human readers. You never use placeholder metrics or vague percentages - only concrete numbers from the resume. You structure content as a cohesive letter with paragraphs rather than bullet points, using minimal headings. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume or other document. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules (---, ***, or ___) in your markdown.'
+          content: 'You are a gifted writer in the tradition of J.D. Salinger who specializes in extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create authentic, personal introductions that can be read in about 20 seconds while still conveying the essence of a person\'s career motivations and aspirations. Your writing has a distinctive voice that creates an immediate connection with the reader through carefully chosen words and genuine enthusiasm. You distill complex career journeys into 2-3 brief paragraphs that capture the core of what drives a person professionally. You balance professionalism with personality, selecting only the most impactful details that make the narrative feel authentic. You incorporate 3-5 industry-specific terms naturally within the flow of your concise narrative. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -220,24 +223,14 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a narrative-style introduction in the Salinger tradition
+    // Create a concise narrative-style introduction in the Salinger tradition
     const introduction = `# ${userName} - Introduction
 
-The first time I encountered the world of ${userTitle.toLowerCase()} work, I knew I had found my calling. There's something deeply satisfying about bringing order to complex systems and watching as they begin to function with newfound efficiency. Throughout my career, I've been fortunate to work with talented teams who have helped shape my approach to problem-solving and innovation.
+The first time I encountered the world of ${userTitle.toLowerCase()} work, I knew I had found my calling. There's something deeply satisfying about bringing order to complex systems and watching them function with newfound efficiency. My journey began with a genuine curiosity about how things work beneath the surface.
 
-My journey in this field began with a genuine curiosity about how things work beneath the surface. I've always been the type of person who needs to understand the "why" behind processes before I can truly contribute to improving them. This natural inclination has served me well as I've navigated various challenges across different organizations.
+${userSkills.length > 0 ? `Working with ${userSkills.slice(0, 2).join(' and ')} has been both challenging and rewarding. What drives me is knowing my work makes a tangible difference. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.` : `What drives me professionally is knowing my work makes a tangible difference. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.`}
 
-${userSkills.length > 0 ? `Working with ${userSkills.slice(0, 3).join(', ')}, and other technologies has been both challenging and rewarding. I find particular joy in those moments when a complex problem suddenly reveals its solution after days of careful analysis.` : `Working with various technologies and methodologies has been both challenging and rewarding. I find particular joy in those moments when a complex problem suddenly reveals its solution after days of careful analysis.`}
-
-What drives me professionally is the knowledge that my work makes a tangible difference. When I implement a solution that helps colleagues work more efficiently or improves service delivery, I feel a sense of purpose that transcends the technical aspects of the job. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.
-
-My experiences have taught me the value of clear communication and collaboration. I've learned that the most elegant technical solution will fail if it doesn't address the actual needs of the people who will use it. This understanding has made me a better listener and a more effective team member.
-
-Looking ahead, I'm seeking a role where I can continue to grow while contributing meaningfully to an organization that values innovation and thoughtful problem-solving. I'm particularly drawn to environments where continuous learning is encouraged and where I can work alongside others who share my passion for excellence.
-
-I would welcome the opportunity to discuss how my background and approach might align with your team's needs. Please feel free to contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'} to arrange a conversation.
-
-${userLocation ? `Based in ${userLocation}, I am` : 'I am'} ready for new challenges and excited about the possibilities that lie ahead.
+I'm seeking a role where I can contribute meaningfully to an organization that values innovation and thoughtful problem-solving. I would welcome the opportunity to discuss how my background might align with your team's needs. Please contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'}.
 `;
 
     // Save the introduction
