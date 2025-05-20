@@ -77,11 +77,11 @@ async function generateIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create the prompt with enhanced ATS-focused instructions
+    // Create the prompt with Salinger narrative style and ATS optimization
     const prompt = `
 I need you to create a professional introduction based on the following resume content.
-This introduction will be used as a cover letter or introduction document that will be processed by
-Applicant Tracking Systems (ATS) as well as read by hiring managers. Format the output as markdown.
+This introduction will be used as a cover letter that will be processed by Applicant Tracking Systems (ATS)
+as well as read by hiring managers. Format the output as markdown.
 
 Resume Content:
 ${resumeContent}
@@ -96,38 +96,53 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create an ATS-optimized introduction that:
+Please create a narrative-style introduction in the Salinger tradition that:
 1. Starts with a title "# ${userName} - Introduction"
-2. Includes a professional summary section that clearly states the candidate's role, years of experience, and core competencies
-3. Lists key skills using industry-standard terminology that will be recognized by ATS systems
-4. Mentions specific industry experience with measurable achievements and metrics when possible
-5. Highlights career achievements with quantifiable results (percentages, numbers, etc.)
-6. Includes education information and relevant certifications if available
-7. Ends with what the candidate is looking for in their next role and why they're a good fit
-8. Uses keywords from the resume that will be recognized by ATS systems
+2. Uses a personal, conversational tone that feels authentic and human
+3. Tells a cohesive story about the candidate's career journey, motivations, and aspirations
+4. Weaves in key skills and experiences naturally within the narrative flow
+5. Expresses genuine passion for the industry and the candidate's specific role
+6. Includes personal values and what drives the candidate professionally
+7. Subtly incorporates industry-specific terminology that will be recognized by ATS systems
+8. Concludes with what the candidate is looking for in their next role and why they're a good fit
 
-ATS Optimization Guidelines:
-- Use exact job title and skill keywords from the resume multiple times (3-5 times for primary keywords)
-- Include industry-specific technical terms, tools, methodologies, and certifications
-- Use both spelled-out terms and acronyms (e.g., "Applicant Tracking System (ATS)" then "ATS" later)
-- Place important keywords in section headings when possible
-- Use standard section headings that ATS systems recognize (e.g., "Professional Summary", "Skills", "Experience")
+Salinger Narrative Style Guidelines:
+- Write in first person with an authentic, distinctive voice
+- Use natural language patterns that feel like genuine human writing
+- Create a sense of intimacy and connection with the reader
+- Include thoughtful reflections on experiences and what they've taught the candidate
+- Express genuine enthusiasm and passion for the work
+- Avoid clichés and corporate jargon when possible
+- Balance professionalism with personality
+- Show rather than tell about skills and capabilities
+- Include small, specific details that make the narrative feel real and lived
+
+ATS Optimization Guidelines (to be applied subtly):
+- Naturally incorporate exact job title and skill keywords from the resume
+- Include industry-specific technical terms, tools, and methodologies within the narrative
+- Use both spelled-out terms and acronyms where it feels natural
 - Ensure keyword density is natural (5-8% keyword density is optimal)
 - Include both hard skills (technical abilities) and soft skills (communication, leadership)
 - Match keywords to the candidate's industry and job level
 
 Formatting Guidelines:
+- Structure as a cohesive letter rather than a list of achievements
+- Use paragraphs instead of bullet points for a more narrative flow
+- Include 1-2 short paragraphs for each major career phase or theme
+- Use minimal headings - only where they enhance readability
 - Be concise and focused, suitable for a single-page PDF
-- Use active voice and strong action verbs (achieved, implemented, led, developed, etc.)
-- Avoid generic statements and focus on specific accomplishments
-- Maintain a professional tone throughout
-- Use clear headings and bullet points for better ATS parsing
+- Use active voice and conversational language
 - DO NOT use horizontal rules (---, ***, or ___) anywhere in the document
-- Use spacing between sections instead of horizontal lines
-- Use a clean, simple structure with consistent formatting
-- Ensure proper spacing between sections for readability
+- Ensure proper spacing between paragraphs for readability
+- NEVER use placeholder metrics or vague percentages (like "increased efficiency by XX%")
+- Only include specific, concrete metrics if they appear in the resume
 
-IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do NOT add any text like "This introduction is tailored to..." or any explanations about how the introduction was created. The document should appear as if it was written directly by the candidate.
+IMPORTANT:
+- Do NOT include any meta-commentary about the introduction itself
+- Do NOT add any text like "This introduction is tailored to..." or any explanations about how the introduction was created
+- Do NOT mention that any content was extracted from a resume or other document
+- The document should appear as if it was written directly and personally by the candidate
+- NEVER use generic percentages or metrics - only include specific numbers that appear in the resume
 `;
 
     logger.info('Sending request to OpenAI...');
@@ -138,7 +153,7 @@ IMPORTANT: Do NOT include any meta-commentary about the introduction itself. Do 
       messages: [
         {
           role: 'system',
-          content: 'You are an expert ATS-optimization specialist and professional introduction writer with deep knowledge of how Applicant Tracking Systems parse and score documents. You create well-structured, compelling introductions in markdown format that achieve high ATS scores while remaining engaging for human readers. Your introductions strategically incorporate keywords with optimal density (5-8%), use industry-standard terminology, highlight measurable achievements with specific metrics, and present the candidate\'s unique value proposition in a clear, concise manner. You understand the importance of keyword placement, using exact match terms from the resume, and incorporating both acronyms and spelled-out terms. You focus on specific accomplishments with quantifiable results rather than generic statements and ensure all content is precisely tailored to the candidate\'s target role and industry. You use ATS-friendly formatting with standard section headings, clean structure, and proper spacing. NEVER add any meta-commentary or explanations about how the introduction was created. The document should appear as if it was written directly by the candidate without any AI assistance. NEVER use horizontal rules (---, ***, or ___) in your markdown. Use spacing between sections instead of horizontal lines.'
+          content: 'You are a gifted writer in the tradition of J.D. Salinger who also understands ATS optimization. You create authentic, personal introductions in a narrative style that feels genuinely human while subtly incorporating keywords for ATS systems. Your writing has a distinctive voice and creates an intimate connection with the reader through thoughtful reflection and genuine enthusiasm. You craft cohesive stories about career journeys that weave in skills and experiences naturally, avoiding corporate clichés and jargon when possible. You balance professionalism with personality, showing rather than telling about capabilities through specific details that make the narrative feel lived. You understand how to incorporate industry terminology and keywords (5-8% density) in a way that feels completely natural to human readers. You never use placeholder metrics or vague percentages - only concrete numbers from the resume. You structure content as a cohesive letter with paragraphs rather than bullet points, using minimal headings. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume or other document. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules (---, ***, or ___) in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -205,50 +220,24 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a basic introduction optimized for ATS without horizontal rules
+    // Create a narrative-style introduction in the Salinger tradition
     const introduction = `# ${userName} - Introduction
 
-## Professional Summary
+The first time I encountered the world of ${userTitle.toLowerCase()} work, I knew I had found my calling. There's something deeply satisfying about bringing order to complex systems and watching as they begin to function with newfound efficiency. Throughout my career, I've been fortunate to work with talented teams who have helped shape my approach to problem-solving and innovation.
 
-As an experienced ${userTitle} with a proven track record of success, I bring 5+ years of expertise in delivering high-quality results and innovative solutions. My background includes a strong foundation in industry best practices, with a focus on optimizing processes and driving measurable outcomes.
+My journey in this field began with a genuine curiosity about how things work beneath the surface. I've always been the type of person who needs to understand the "why" behind processes before I can truly contribute to improving them. This natural inclination has served me well as I've navigated various challenges across different organizations.
 
-## Key Skills
+${userSkills.length > 0 ? `Working with ${userSkills.slice(0, 3).join(', ')}, and other technologies has been both challenging and rewarding. I find particular joy in those moments when a complex problem suddenly reveals its solution after days of careful analysis.` : `Working with various technologies and methodologies has been both challenging and rewarding. I find particular joy in those moments when a complex problem suddenly reveals its solution after days of careful analysis.`}
 
-${userSkills.length > 0 ? userSkills.map(skill => `- ${skill}`).join('\n') : `
-- Technical expertise in industry-standard methodologies
-- Advanced problem-solving and analytical thinking
-- Cross-functional team collaboration and leadership
-- Project management and strategic planning
-- Continuous improvement and innovation
-- Data analysis and performance optimization`}
+What drives me professionally is the knowledge that my work makes a tangible difference. When I implement a solution that helps colleagues work more efficiently or improves service delivery, I feel a sense of purpose that transcends the technical aspects of the job. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.
 
-## Industry Experience
+My experiences have taught me the value of clear communication and collaboration. I've learned that the most elegant technical solution will fail if it doesn't address the actual needs of the people who will use it. This understanding has made me a better listener and a more effective team member.
 
-I have successfully implemented solutions that resulted in 30% efficiency improvements and 25% cost reductions across multiple projects. My experience spans various sectors, allowing me to apply transferable skills and adapt quickly to new environments and requirements.
+Looking ahead, I'm seeking a role where I can continue to grow while contributing meaningfully to an organization that values innovation and thoughtful problem-solving. I'm particularly drawn to environments where continuous learning is encouraged and where I can work alongside others who share my passion for excellence.
 
-## Career Achievements
+I would welcome the opportunity to discuss how my background and approach might align with your team's needs. Please feel free to contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'} to arrange a conversation.
 
-- Delivered projects consistently on time and under budget, resulting in 95% client satisfaction ratings
-- Implemented process improvements that increased team productivity by 40%
-- Recognized for excellence with multiple performance awards
-- Mentored junior team members, leading to 80% promotion rate within the team
-- Contributed to business growth initiatives that expanded market reach by 35%
-
-## Education & Certifications
-
-- Bachelor's Degree in relevant field
-- Industry-recognized certifications
-- Continuous professional development through specialized training
-
-## Looking For
-
-I am seeking a challenging role where I can leverage my expertise in ${userTitle.toLowerCase()} to drive innovation and deliver exceptional results. I am particularly interested in organizations that value collaboration, continuous improvement, and data-driven decision-making. My goal is to contribute to a team where I can make a significant impact while continuing to grow professionally.
-
-## Contact Information
-
-${userEmail ? `- Email: ${userEmail}` : ''}
-${userPhone ? `- Phone: ${userPhone}` : ''}
-${userLocation ? `- Location: ${userLocation}` : ''}
+${userLocation ? `Based in ${userLocation}, I am` : 'I am'} ready for new challenges and excited about the possibilities that lie ahead.
 `;
 
     // Save the introduction
