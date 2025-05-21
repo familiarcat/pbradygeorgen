@@ -662,6 +662,7 @@ function extractUserInfo(textContent) {
  *
  * @param {string} textPath - Path to the extracted text file
  * @param {Object} options - Options for extraction
+ * @param {boolean} options.showFull - Whether to show full user info in the console output
  * @returns {Promise<Object>} - Extracted user information
  */
 async function extractUserInfoFromPdf(textPath, options = {}) {
@@ -673,6 +674,9 @@ async function extractUserInfoFromPdf(textPath, options = {}) {
       logger.error(`Text file not found: ${textPath}`);
       return { success: false, error: 'Text file not found' };
     }
+
+    // Check if we should show full user info
+    const showFullFlag = options.showFull === true;
 
     // Read the text content
     const textContent = fs.readFileSync(textPath, 'utf8');
@@ -689,6 +693,18 @@ async function extractUserInfoFromPdf(textPath, options = {}) {
 
     logger.success(`User information saved to: ${outputPath}`);
 
+    // Display user information based on showFullFlag
+    if (showFullFlag) {
+      // Show full details when explicitly requested
+      console.log('# \n\n---\n\n*This document was automatically extracted from a PDF resume.*');
+      console.log(`*Generated on: ${new Date().toLocaleDateString()}*\n`);
+      console.log('User information extracted successfully');
+      console.log(JSON.stringify(userInfo, null, 2));
+    } else {
+      // Show minimal success message by default
+      console.log('[USER-INFO] ✅ User information extracted successfully');
+    }
+
     return {
       success: true,
       userInfo,
@@ -702,9 +718,6 @@ async function extractUserInfoFromPdf(textPath, options = {}) {
     };
   }
 }
-
-// Track if we've already shown the full user info
-let hasShownFullUserInfo = false;
 
 // If this script is run directly
 if (require.main === module) {
@@ -720,19 +733,21 @@ if (require.main === module) {
     inputPath = path.join(process.cwd(), 'public', 'extracted', 'resume_content.txt');
   }
 
+  // Check if we should show full user info
+  const showFullFlag = args.includes('--show-full') || args.includes('-f');
+
   // Extract user information
   extractUserInfoFromPdf(inputPath)
     .then(result => {
       if (result.success) {
-        if (!hasShownFullUserInfo) {
-          // First time extraction - show full details
+        if (showFullFlag) {
+          // Show full details when explicitly requested
           console.log('# \n\n---\n\n*This document was automatically extracted from a PDF resume.*');
           console.log(`*Generated on: ${new Date().toLocaleDateString()}*\n`);
           console.log('User information extracted successfully');
           console.log(JSON.stringify(result.userInfo, null, 2));
-          hasShownFullUserInfo = true;
         } else {
-          // Subsequent extractions - show minimal success message
+          // Show minimal success message by default
           console.log('[USER-INFO] ✅ User information extracted successfully');
         }
       } else {

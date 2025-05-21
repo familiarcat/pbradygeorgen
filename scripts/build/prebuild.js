@@ -37,8 +37,10 @@ async function prebuild() {
   if (fs.existsSync(defaultPdfPath)) {
     logger.info(`Processing default PDF: ${defaultPdfPath}`);
 
-    // Run standard extraction
-    await extractAll(defaultPdfPath);
+    // Run standard extraction with full user info display for the default PDF
+    await extractAll(defaultPdfPath, {
+      showFullUserInfo: true
+    });
 
     // Run enhanced extraction
     logger.info(`Running enhanced extraction for default PDF`);
@@ -71,8 +73,10 @@ async function prebuild() {
       for (const pdfPath of pdfFiles) {
         logger.info(`Processing source PDF: ${pdfPath}`);
 
-        // Run standard extraction
-        await extractAll(pdfPath);
+        // Run standard extraction without full user info display for source PDFs
+        await extractAll(pdfPath, {
+          showFullUserInfo: false
+        });
 
         // Run enhanced extraction
         logger.info(`Running enhanced extraction for source PDF`);
