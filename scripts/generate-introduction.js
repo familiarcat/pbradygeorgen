@@ -96,31 +96,31 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create a brief, pointed narrative-style introduction that balances Salinger's storytelling with Kantian professional ethics:
+Please create a brief, precise introduction that balances Wittgenstein's clarity with Kantian professional ethics:
 1. Starts with a title "# ${userName} - Introduction"
-2. Uses a personal yet professionally dignified tone that feels authentic and principled
-3. Provides a concise glimpse of the candidate's career journey, emphasizing both duty and purpose
-4. Weaves in 2-3 key skills naturally within the narrative flow
-5. Expresses genuine commitment to universal professional principles in the industry
-6. Includes a brief statement about the moral imperatives that drive the candidate professionally
-7. Subtly incorporates 3-5 industry-specific terms that will be recognized by ATS systems
-8. Concludes with a brief statement about the candidate's professional categorical imperative - what they must do in their next role
+2. Uses a clear, precise, and professionally dignified tone
+3. Provides a concise overview of the candidate's career journey, emphasizing both duty and purpose
+4. States 2-3 key skills directly and efficiently
+5. Expresses commitment to universal professional principles in the industry
+6. Includes a clear statement about the moral imperatives that drive the candidate professionally
+7. Incorporates 3-5 industry-specific terms that will be recognized by ATS systems
+8. Concludes with a direct statement about the candidate's professional categorical imperative - what they must do in their next role
 
 IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's professional identity, ethical framework, and rational approach to their career.
 
-Salinger-Kant Hybrid Style Guidelines:
-- Write in first person with an authentic voice that conveys both personality and rational dignity
+Wittgenstein-Kant Hybrid Style Guidelines:
+- Write in first person with a clear, precise voice that conveys professional competence
 - Use concise, grammatically correct sentences (15-20 words maximum per sentence)
-- Avoid run-on sentences, complex clauses, and excessive comma usage
-- Create a sense of both connection with the reader and respect for universal professional standards
-- Include thoughtful reflections on how experiences have shaped the candidate's professional duty and purpose
-- Express genuine commitment to both the work itself and the ethical principles that guide it
+- Avoid ambiguity, vagueness, and unnecessary complexity
+- Employ direct, straightforward language that communicates exactly what is meant
+- Include precise statements about professional experience and qualifications
+- Express commitment to both the work itself and the ethical principles that guide it
 - Avoid both clichés and overly theoretical language
-- Balance personal narrative (Salinger) with universal principles (Kant)
-- Show how the candidate's skills serve both personal fulfillment and a larger professional purpose
+- Balance logical precision (Wittgenstein) with universal principles (Kant)
+- Clearly articulate how the candidate's skills serve a larger professional purpose
 - Include specific details that demonstrate the candidate's commitment to acting according to principles that could be universal laws in their field
-- Use active voice and strong verbs
-- Vary sentence structure but maintain simplicity and clarity
+- Use active voice and precise verbs
+- Maintain consistent, simple sentence structure for clarity
 
 ATS Optimization Guidelines (to be applied subtly):
 - Naturally incorporate exact job title and skill keywords from the resume
@@ -167,7 +167,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer who combines J.D. Salinger\'s authentic storytelling with Immanuel Kant\'s ethical framework to create extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance personal narrative with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to universal professional standards. Your writing has a distinctive voice that creates an immediate connection with the reader while maintaining professional dignity. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid run-on sentences, complex clauses, and excessive comma usage. You distill complex career journeys into 2-3 brief paragraphs that capture both personal motivations and professional duty. You break complex ideas into multiple simple sentences with active voice and strong verbs. You balance Salinger\'s intimacy with Kant\'s rational principles, selecting details that demonstrate how the candidate\'s work aligns with universal ethical standards in their field. You incorporate 3-5 industry-specific terms naturally within your concise narrative. You include at least one statement reflecting Kant\'s categorical imperative - what the candidate believes all professionals in their field should do. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
+          content: 'You are a gifted writer who combines Ludwig Wittgenstein\'s clarity and precision with Immanuel Kant\'s ethical framework to create extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to universal professional standards. Your writing has a clear, precise voice that communicates professional competence while maintaining dignity. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity, vagueness, and unnecessary complexity. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications and ethical duty. You use direct, straightforward language that communicates exactly what is meant. You balance Wittgenstein\'s logical precision with Kant\'s rational principles, selecting details that demonstrate how the candidate\'s work aligns with universal ethical standards in their field. You incorporate 3-5 industry-specific terms precisely within your concise narrative. You include at least one statement reflecting Kant\'s categorical imperative - what the candidate believes all professionals in their field should do. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -234,14 +234,14 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a concise narrative-style introduction balancing Salinger with Kantian principles
+    // Create a concise, precise introduction balancing Wittgenstein with Kantian principles
     const introduction = `# ${userName} - Introduction
 
-I first encountered ${userTitle.toLowerCase()} work as both an opportunity and a professional duty. I find deep satisfaction in bringing order to complex systems. My journey began with genuine curiosity about underlying structures. I remain committed to standards that transcend individual preferences.
+As a ${userTitle}, I approach my work with professional precision and ethical responsibility. My expertise lies in developing efficient systems and implementing industry best practices. I consistently apply logical analysis to solve complex problems and maintain high standards of quality.
 
-${userSkills.length > 0 ? `My experience with ${userSkills.slice(0, 2).join(' and ')} has shaped my professional outlook. I believe excellence requires both technical skill and ethical judgment. My guiding principle is to create systems worthy of universal adoption. These systems must respect both efficiency and human dignity.` : `I am guided by a clear professional imperative in my work. I create systems worthy of universal adoption. These systems must respect both efficiency and human dignity. My work serves universal principles, not just immediate goals.`}
+${userSkills.length > 0 ? `My professional competencies in ${userSkills.slice(0, 2).join(' and ')} enable me to deliver measurable results. I operate according to the principle that technical excellence must align with ethical considerations. This approach ensures that all systems I develop meet both functional requirements and ethical standards.` : `My professional approach centers on logical problem-solving and ethical implementation. I develop systems that balance technical efficiency with ethical considerations. This methodology ensures that all work serves both immediate objectives and universal principles.`}
 
-I seek a role where I can contribute to an organization valuing both innovation and ethical standards. I would welcome discussing how my approach aligns with your team's vision.
+I seek a position where I can apply my expertise to advance an organization's goals while upholding professional standards. I am prepared to discuss how my qualifications align with your requirements.
 
 Sincerely,
 
