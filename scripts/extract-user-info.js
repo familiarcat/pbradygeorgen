@@ -473,7 +473,9 @@ function extractUserInfo(textContent) {
       for (const line of sections.summary) {
         if (titleKeywords.some(keyword => line.toLowerCase().includes(keyword))) {
           userInfo.title = line.trim();
-          logger.success(`Found title in summary: ${userInfo.title}`);
+          // Truncate title for logging to keep it to one line (max 50 chars)
+          const truncatedTitle = userInfo.title.length > 50 ? userInfo.title.substring(0, 47) + '...' : userInfo.title;
+          logger.success(`Found title in summary: ${truncatedTitle}`);
           break;
         }
       }
@@ -490,7 +492,9 @@ function extractUserInfo(textContent) {
       for (const line of sectionsToCheck) {
         if (titleKeywords.some(keyword => line.toLowerCase().includes(keyword))) {
           userInfo.title = line.trim();
-          logger.success(`Found title: ${userInfo.title}`);
+          // Truncate title for logging to keep it to one line (max 50 chars)
+          const truncatedTitle = userInfo.title.length > 50 ? userInfo.title.substring(0, 47) + '...' : userInfo.title;
+          logger.success(`Found title: ${truncatedTitle}`);
           break;
         }
       }
