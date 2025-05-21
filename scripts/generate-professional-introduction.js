@@ -109,38 +109,43 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create a brief, compelling introduction that balances clarity and precision with a touch of inspirational narrative:
+Please create a brief, compelling introduction that balances clarity and precision with a touch of inspirational narrative, following Salinger's restrained authenticity:
 1. Starts with a title "# ${userName} - Introduction"
-2. Uses a clear, professionally approachable tone with moments of genuine warmth
+2. Uses a clear, professionally approachable tone with moments of genuine warmth, but avoids overemoting or appearing aloof
 3. IMPORTANT: Before writing, carefully analyze the chronological order of the candidate's experiences in the resume
-4. Provides a concise overview of the candidate's career journey as a meaningful progression that STRICTLY follows the actual chronology from the resume
+4. Structure the introduction in exactly THREE paragraphs with this narrative arc:
+   - FIRST PARAGRAPH: Character introduction - Establish the foundation of their career journey, early experiences, and initial skills/technologies
+   - SECOND PARAGRAPH: Character growth - Detail their professional development, acquired skills, and meaningful experiences, showing evolution without excessive self-promotion
+   - THIRD PARAGRAPH: Character goals - Express aspirations and values with measured enthusiasm, avoiding grandiose statements while still conveying genuine interest
 5. When mentioning specific roles or employers, maintain the exact chronological order as presented in the resume
 6. For each accomplishment mentioned, explicitly state:
    - The specific technology or methodology used (e.g., Epic, Cerner, HL7)
    - The motivation or purpose behind using that technology
    - The measurable outcome or impact achieved (when available)
 7. NEVER invent or assume chronological details that aren't explicitly stated in the resume
-8. Expresses commitment to professional principles with authentic conviction
-9. Includes a thoughtful statement about the values that drive the candidate professionally
-10. Incorporates 3-5 industry-specific terms that will be recognized by ATS systems
-11. Concludes with an inspiring yet practical statement about what the candidate hopes to bring to their next role
+8. Express commitment to professional principles with authentic conviction but restrained emotion (Salinger-style)
+9. Include a thoughtful statement about the values that drive the candidate professionally
+10. Incorporate 3-5 industry-specific terms that will be recognized by ATS systems
+11. Conclude with a practical statement about what the candidate hopes to bring to their next role, avoiding overly enthusiastic language
 
-IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's professional identity, ethical framework, and rational approach to their career.
+IMPORTANT: The entire introduction should be readable in about 30 seconds (approximately 200-250 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's professional identity, ethical framework, and rational approach to their career. The three-paragraph structure is essential, with each paragraph serving its specific purpose in the narrative arc.
 
-Professional Style Guidelines with Narrative Warmth:
-- Write in first person with a clear voice that conveys both professional competence and authentic passion
+Professional Style Guidelines with Salinger-Inspired Restraint:
+- Write in first person with a clear voice that conveys professional competence and measured authenticity
 - Use concise, grammatically correct sentences (15-20 words maximum per sentence)
-- Avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing
-- Balance direct language with thoughtfully chosen descriptive elements that add depth
+- Avoid ambiguity and unnecessary complexity while allowing for occasional understated insights
+- Balance direct language with carefully chosen descriptive elements that add depth without overstatement
 - Include precise statements about professional experience with a sense of meaningful progression
-- Express commitment to both the work itself and the values that guide it with genuine conviction
+- Express commitment to both the work itself and the values that guide it with quiet conviction
 - Avoid both clichés and overly theoretical language
-- Balance logical precision with moments of inspirational insight
-- Articulate how the candidate's skills serve a larger professional purpose with authentic enthusiasm
+- Balance logical precision with moments of genuine but restrained reflection
+- Articulate how the candidate's skills serve a professional purpose without excessive claims
 - Include specific details that demonstrate the candidate's commitment to professional standards
-- Use active voice and vivid verbs that convey both precision and energy
+- Use active voice and thoughtful verbs that convey both precision and measured energy
 - Vary sentence structure while maintaining clarity and professionalism
-- Ensure the tone is approachable, relatable, and subtly inspiring to hiring managers
+- Ensure the tone is approachable and relatable, like a thoughtful conversation rather than a sales pitch
+- Capture the "Salinger voice" - authentic without being showy, meaningful without being grandiose
+- Allow small moments of vulnerability that feel genuine rather than strategic
 
 ATS Optimization Guidelines (to be applied subtly):
 - Naturally incorporate exact job title and skill keywords from the resume
@@ -197,7 +202,7 @@ IMPORTANT:
     logger.info('Sending request to OpenAI...');
 
     // Call OpenAI API with Katra-infused system message
-    const systemContent = 'You are a gifted writer who creates extremely concise, impactful professional introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles and a touch of inspirational narrative, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear voice that communicates professional competence while remaining approachable and occasionally revealing authentic passion. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications, values, and a sense of meaningful progression. You are meticulous about maintaining chronological accuracy and logical precision. Before writing, you carefully analyze the resume to understand the exact timeline of the candidate\'s career progression. You NEVER invent or assume chronological details that aren\'t explicitly stated in the resume. You maintain the exact chronological order of roles, employers, and accomplishments as presented in the resume. For each accomplishment you mention, you explicitly state: (1) the specific technology or methodology used, (2) the motivation or purpose behind using that technology, and (3) the measurable outcome or impact achieved when available. You balance direct language with thoughtfully chosen descriptive elements that add depth. When presented with a list of skills, you intelligently select 3-5 of the most relevant and impactful skills to highlight based on the resume content and industry context. You prioritize skills that demonstrate unique value, technical expertise, or specialized knowledge. You incorporate these selected skills precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize, expressed with genuine conviction. You use active voice and vivid verbs that convey both precision and energy. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.';
+    const systemContent = 'You are a gifted writer who creates extremely concise, impactful professional introductions (200-250 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles and a touch of inspirational narrative, can be read in about 30 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear voice that communicates professional competence while remaining approachable and revealing measured authenticity in the style of J.D. Salinger - genuine without being showy, meaningful without being grandiose. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity and unnecessary complexity while allowing for occasional understated insights. You structure complex career journeys into EXACTLY THREE paragraphs with a clear narrative arc: (1) Character introduction - establishing their foundation, early experiences, and initial skills; (2) Character growth - detailing their professional development and acquired skills without excessive self-promotion; and (3) Character goals - expressing aspirations with measured enthusiasm, avoiding grandiose statements. You are meticulous about maintaining chronological accuracy and logical precision. Before writing, you carefully analyze the resume to understand the exact timeline of the candidate\'s career progression. You NEVER invent or assume chronological details that aren\'t explicitly stated in the resume. You maintain the exact chronological order of roles, employers, and accomplishments as presented in the resume. For each accomplishment you mention, you explicitly state: (1) the specific technology or methodology used, (2) the motivation or purpose behind using that technology, and (3) the measurable outcome or impact achieved when available. You balance direct language with carefully chosen descriptive elements that add depth without overstatement. When presented with a list of skills, you intelligently select 3-5 of the most relevant and impactful skills to highlight based on the resume content and industry context. You prioritize skills that demonstrate unique value, technical expertise, or specialized knowledge. You incorporate these selected skills precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize, expressed with quiet conviction. You use active voice and thoughtful verbs that convey both precision and measured energy. You never use placeholder metrics or vague percentages. You structure content as a cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate, like a thoughtful conversation rather than a sales pitch. NEVER use horizontal rules in your markdown.';
 
     const response = await openai.chat.completions.create({
       model: config.openai.model || 'gpt-3.5-turbo',
@@ -206,7 +211,7 @@ IMPORTANT:
         { role: 'user', content: prompt }
       ],
       temperature: 0.7,
-      max_tokens: 1500
+      max_tokens: 2000
     });
 
     // Get the response text
@@ -312,16 +317,21 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       return selectedSkills.join(' and ');
     }
 
-    // Create a concise, compelling introduction balancing logical precision with authentic expression
-    let firstParagraph = `As a ${userTitle}, I approach my work with both precision and genuine passion for excellence. My journey has been shaped by implementing ${userSkills.length > 0 ? userSkills[0] : 'industry-standard'} systems to streamline operations and enhance data integrity. `;
+    // Create a concise, compelling introduction with Salinger-inspired restraint
+    // First paragraph: Character introduction - foundation, early experiences, initial skills
+    let firstParagraph = `As a ${userTitle}, I approach my work with both precision and a quiet dedication to excellence. My professional foundation began with ${userSkills.length > 0 ? userSkills[0] : 'industry-standard'} systems, where I learned the importance of thoughtful implementation and attention to detail. `;
 
     firstParagraph += userSkills.length > 0
-      ? `I've utilized ${selectRelevantSkill(userSkills, 1)} to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.`
-      : "I've utilized advanced methodologies to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.";
+      ? `Early in my career, I worked with ${selectRelevantSkill(userSkills, 1)} to develop solutions that balanced technical requirements with practical user needs.`
+      : "Early in my career, I focused on developing solutions that balanced technical requirements with practical user needs.";
 
+    // Second paragraph: Character growth - professional development, acquired skills
     let secondParagraph = userSkills.length > 0
-      ? `My experience with ${selectRelevantSkills(userSkills, 2)} has enabled me to address complex challenges with targeted technological approaches. By implementing ${selectRelevantSkill(userSkills, 2)}, I've achieved measurable improvements in process efficiency while maintaining rigorous compliance standards. This balanced approach ensures that technical excellence always serves a meaningful purpose, resulting in solutions that deliver tangible benefits to organizations.`
-      : `Throughout my career, I've strategically applied analytical methodologies to identify system inefficiencies and implement targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've developed solutions that consistently exceed performance benchmarks while enhancing user experience. This commitment to purposeful implementation has been the cornerstone of my professional success.`;
+      ? `Over time, my experience with ${selectRelevantSkills(userSkills, 2)} has deepened my understanding of complex technical challenges. By implementing ${selectRelevantSkill(userSkills, 2)}, I've been able to improve process efficiency while maintaining necessary compliance standards. This measured approach has taught me that technical excellence matters most when it serves a clear purpose and delivers tangible benefits to the people who rely on these systems.`
+      : `Throughout my career, I've developed a methodical approach to identifying system inefficiencies and implementing targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've created solutions that meet performance benchmarks while enhancing the user experience. This commitment to purposeful implementation has guided my professional development.`;
+
+    // Third paragraph: Character goals - aspirations with measured enthusiasm
+    let thirdParagraph = `Looking ahead, I'm interested in applying these experiences to contribute meaningful technological solutions to an organization where thoughtful innovation is valued. I believe that the best work happens when technical expertise is paired with a genuine understanding of user needs and organizational goals. I look forward to discussing how my approach might align with your specific objectives.`;
 
     const introduction = `# ${userName} - Introduction
 
@@ -329,7 +339,7 @@ ${firstParagraph}
 
 ${secondParagraph}
 
-I'm seeking a role where I can apply these proven approaches to contribute meaningful technological advancements to an organization that values both innovation and integrity. I look forward to discussing how my expertise might align with your specific objectives.
+${thirdParagraph}
 
 Sincerely,
 
