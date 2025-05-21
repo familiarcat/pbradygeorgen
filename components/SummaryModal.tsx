@@ -921,7 +921,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           }}
           content=""
           format="pdf"
-          fileName="pbradygeorgen_cover_letter"
+          fileName="introduction"
           onDownload={async () => {
             console.log('PDF download triggered from preview modal');
             try {
@@ -930,7 +930,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 console.log('Using cached PDF data URL for direct download');
                 const link = document.createElement('a');
                 link.href = pdfDataUrl;
-                link.download = 'pbradygeorgen_cover_letter.pdf';
+                link.download = 'introduction.pdf';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -950,7 +950,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               // Direct download approach
               const link = document.createElement('a');
               link.href = dataUrl;
-              link.download = 'pbradygeorgen_cover_letter.pdf';
+              link.download = 'introduction.pdf';
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
@@ -971,7 +971,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setActivePreview(null)}
           content={content}
           format="markdown"
-          fileName="pbradygeorgen_cover_letter"
+          fileName="introduction"
           onDownload={async () => {
             console.log('Markdown download triggered from preview modal');
             try {
@@ -980,7 +980,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
-              a.download = 'pbradygeorgen_cover_letter.md';
+              a.download = 'introduction.md';
               document.body.appendChild(a);
               a.click();
               document.body.removeChild(a);
@@ -1001,7 +1001,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onClose={() => setActivePreview(null)}
           content={previewContent}
           format="text"
-          fileName="pbradygeorgen_cover_letter"
+          fileName="introduction"
           onDownload={async () => {
             console.log('Text download triggered from preview modal');
             try {
@@ -1010,7 +1010,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
-              a.download = 'pbradygeorgen_cover_letter.txt';
+              a.download = 'introduction.txt';
               document.body.appendChild(a);
               a.click();
               document.body.removeChild(a);
