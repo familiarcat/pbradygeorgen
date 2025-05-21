@@ -139,8 +139,17 @@ async function main() {
 
     console.log(`Basic markdown saved to: ${outputPath}`);
     console.log(`Improved markdown saved to: ${improvedOutputPath}`);
-    console.log('\nImproved markdown preview:');
-    console.log(improvedMarkdown.substring(0, 500) + '...');
+
+    // Extract key points for minimal feedback
+    const lines = improvedMarkdown.split('\n').filter(line => line.trim());
+    const title = lines.find(line => line.startsWith('# ')) || 'Document';
+    const sections = lines.filter(line => line.startsWith('## ')).slice(0, 3);
+
+    console.log('\n✅ Successfully generated markdown with:');
+    console.log(`  - Title: ${title.replace('# ', '')}`);
+    if (sections.length > 0) {
+      console.log(`  - Key sections: ${sections.map(s => s.replace('## ', '')).join(', ')}`);
+    }
 
   } catch (error) {
     console.error('Error generating improved markdown:', error);
