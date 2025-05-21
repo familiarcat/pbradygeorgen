@@ -26,6 +26,11 @@ const logger = createLogger('build');
  */
 async function prebuild() {
   logger.info('Starting prebuild process');
+
+  // Reset the build summary for a new build
+  buildSummary.resetBuildSummary();
+
+  // Start the build process
   buildSummary.startTask('build');
 
   // Skip PDF extraction if disabled
@@ -106,8 +111,7 @@ async function prebuild() {
   // Mark build task as completed
   buildSummary.completeTask('build');
 
-  // Display build summary
-  buildSummary.displayBuildSummary();
+  // No need to display build summary here as it's updated in real-time
 
   logger.success('Prebuild process completed successfully');
 }
