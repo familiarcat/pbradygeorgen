@@ -1,6 +1,6 @@
 /**
  * OpenAI Analysis Module
- * 
+ *
  * This module provides functions for analyzing PDF content using OpenAI.
  */
 
@@ -12,7 +12,7 @@ const logger = createLogger('openai');
 
 /**
  * Analyze colors using OpenAI
- * 
+ *
  * @param {string} pdfPath - Path to the PDF file
  * @param {string[]} colors - Array of colors
  * @param {string[]} textColors - Array of text colors
@@ -27,21 +27,21 @@ async function analyzeColorsWithOpenAI(pdfPath, colors, textColors = [], backgro
       logger.warning('OpenAI API key not found. Skipping color analysis with OpenAI.');
       return null;
     }
-    
+
     // Import OpenAI
     const { OpenAI } = require('openai');
-    
+
     // Create OpenAI client
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });
-    
+
     // Get the PDF name
     const pdfName = path.basename(pdfPath, path.extname(pdfPath));
-    
+
     // Load the color theory prompt
     const colorTheoryPrompt = require('./prompts/color-theory');
-    
+
     // Create the prompt with PDF information and categorized colors
     const prompt = `
 ${colorTheoryPrompt}
@@ -63,9 +63,9 @@ IMPORTANT: Please analyze these colors and provide a cohesive color palette foll
 - Background color should ensure good readability with text colors
 - Text colors should have high contrast with the background
 `;
-    
+
     logger.info('Analyzing colors with OpenAI...');
-    
+
     // Call OpenAI API
     const response = await openai.chat.completions.create({
       model: config.openai.model,
@@ -76,10 +76,10 @@ IMPORTANT: Please analyze these colors and provide a cohesive color palette foll
       temperature: config.openai.temperature,
       max_tokens: config.openai.maxTokens
     });
-    
+
     // Get the response text
     const responseText = response.choices[0].message.content;
-    
+
     // Extract JSON from response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -103,7 +103,7 @@ IMPORTANT: Please analyze these colors and provide a cohesive color palette foll
 
 /**
  * Analyze fonts using OpenAI
- * 
+ *
  * @param {string} pdfPath - Path to the PDF file
  * @param {string[]} fontFamilies - Array of font family names
  * @param {Object} fontInfo - Font information object
@@ -116,27 +116,27 @@ async function analyzeFontsWithOpenAI(pdfPath, fontFamilies, fontInfo) {
       logger.warning('OpenAI API key not found. Skipping font analysis with OpenAI.');
       return null;
     }
-    
+
     // Import OpenAI
     const { OpenAI } = require('openai');
-    
+
     // Create OpenAI client
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });
-    
+
     // Get the PDF name
     const pdfName = path.basename(pdfPath, path.extname(pdfPath));
-    
+
     // Load the font theory prompt
     const fontTheoryPrompt = require('./prompts/font-theory');
-    
+
     // Create a summary of font information
     const fontSummary = fontFamilies.map(name => {
       const font = fontInfo[name];
       return `${name} (${font.isSerifFont ? 'Serif' : font.isMonospace ? 'Monospace' : 'Sans-serif'})`;
     }).join(', ');
-    
+
     // Create the prompt with PDF information
     const prompt = `
 ${fontTheoryPrompt}
@@ -147,9 +147,9 @@ PDF Purpose: This appears to be a ${pdfName.toLowerCase().includes('resume') ? '
 
 Please analyze these fonts and provide a cohesive typography system following the guidelines above.
 `;
-    
+
     logger.info('Analyzing fonts with OpenAI...');
-    
+
     // Call OpenAI API
     const response = await openai.chat.completions.create({
       model: config.openai.model,
@@ -160,10 +160,10 @@ Please analyze these fonts and provide a cohesive typography system following th
       temperature: config.openai.temperature,
       max_tokens: config.openai.maxTokens
     });
-    
+
     // Get the response text
     const responseText = response.choices[0].message.content;
-    
+
     // Extract JSON from response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -187,7 +187,7 @@ Please analyze these fonts and provide a cohesive typography system following th
 
 /**
  * Analyze text content using OpenAI
- * 
+ *
  * @param {string} text - The text content to analyze
  * @returns {Promise<Object|null>} - Analysis result or null if analysis failed
  */
@@ -198,15 +198,15 @@ async function analyzeTextWithOpenAI(text) {
       logger.warning('OpenAI API key not found. Skipping text analysis with OpenAI.');
       return null;
     }
-    
+
     // Import OpenAI
     const { OpenAI } = require('openai');
-    
+
     // Create OpenAI client
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });
-    
+
     // Create the prompt
     const prompt = `
 Convert the following resume text into well-formatted markdown:
@@ -220,26 +220,31 @@ Please follow these guidelines:
 4. Preserve the original content and structure
 5. Make the markdown clean and readable
 6. Return ONLY the markdown content, no explanations or comments
+7. Do NOT add any metadata summaries about ATS scores, resume optimization, or job search advice
+8. Do NOT add any text about "achieving a high ATS score" or "showcasing expertise"
+9. Do NOT add any text about "aligning with industry-specific keywords" or "best practices"
+10. Do NOT add any content outside the resume itself - no headers, footers, or additional sections
+11. Do NOT add any commentary about the quality or effectiveness of the resume
 `;
-    
+
     logger.info('Analyzing text with OpenAI...');
-    
+
     // Call OpenAI API
     const response = await openai.chat.completions.create({
       model: config.openai.model,
       messages: [
-        { role: 'system', content: 'You are a document formatting expert.' },
+        { role: 'system', content: 'You are a document formatting expert. You convert text to clean, well-structured markdown without adding any commentary, metadata, or additional content. You never add summaries, advice, or explanations to the content.' },
         { role: 'user', content: prompt }
       ],
       temperature: 0.3, // Lower temperature for more consistent formatting
       max_tokens: config.openai.maxTokens
     });
-    
+
     // Get the response text
     const markdown = response.choices[0].message.content;
-    
+
     logger.success('Successfully converted text to markdown with OpenAI');
-    
+
     return {
       success: true,
       markdown
