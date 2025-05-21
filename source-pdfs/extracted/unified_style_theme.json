@@ -3,26 +3,59 @@
   "version": "1.0.0",
   "description": "A unified style theme extracted from PDF",
   "colors": {
-    "primary": "#3366CC",
-    "secondary": "#FFFFFF",
-    "accent": "#3366CC",
-    "background": "#FFFFFF",
-    "text": "#000000",
-    "textSecondary": "#3366CC",
-    "border": "#000000",
-    "success": "#FFFFFF",
-    "warning": "#3366CC",
-    "error": "#000000",
-    "info": "#3366CC"
+    "primary": "#66BBcc",
+    "secondary": "#444444",
+    "accent": "#ccdddd",
+    "background": "#111111",
+    "text": "#FFFFFF",
+    "textSecondary": "#000000",
+    "border": "#884400",
+    "success": "#777722",
+    "warning": "#783893",
+    "error": "#000aaa",
+    "info": "#000000"
   },
   "typography": {
-    "heading": "d7_f1, Arial, sans-serif",
-    "body": "d7_f2, Georgia, serif",
-    "title": "d7_f3",
-    "subtitle": "d7_f4",
-    "button": "d7_f5",
-    "nav": "d7_f2",
-    "code": "d7_f1"
+    "heading": {
+      "fontFamily": "d7_f1, Arial, sans-serif",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "body": {
+      "fontFamily": "d7_f2, Georgia, serif",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "mono": {
+      "fontFamily": "d7_f1, 'Courier New', monospace",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "title": {
+      "fontFamily": "d7_f1",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "subtitle": {
+      "fontFamily": "d7_f2",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "button": {
+      "fontFamily": "d7_f2",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "nav": {
+      "fontFamily": "d7_f2",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    },
+    "code": {
+      "fontFamily": "d7_f3",
+      "fontWeight": "normal",
+      "fontStyle": "normal"
+    }
   },
   "spacing": {
     "unit": "rem",

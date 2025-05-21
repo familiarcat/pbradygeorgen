@@ -1,24 +1,30 @@
 {
-  "primary": "#3366CC",
-  "secondary": "#FFFFFF",
-  "accent": "#3366CC",
-  "background": "#FFFFFF",
-  "text": "#000000",
-  "textSecondary": "#3366CC",
-  "border": "#000000",
-  "success": "#FFFFFF",
-  "warning": "#3366CC",
-  "error": "#000000",
-  "info": "#3366CC",
+  "primary": "#66BBcc",
+  "secondary": "#444444",
+  "accent": "#ccdddd",
+  "background": "#111111",
+  "text": "#FFFFFF",
+  "textSecondary": "#000000",
+  "border": "#884400",
+  "success": "#777722",
+  "warning": "#783893",
+  "error": "#000aaa",
+  "info": "#000000",
   "colorTheory": {
-    "description": "A color theme strictly using only the colors extracted from the PDF: #000000, #FFFFFF, #3366CC. Following Derrida's philosophy of deconstruction, we've preserved the original colors without introducing external elements.",
-    "harmony": "The primary-secondary contrast between #3366CC and #FFFFFF establishes a clear hierarchy, while the accent colors disrupt traditional patterns.",
-    "contrast": "Binary oppositions between text (#000000) and background (#FFFFFF) create meaningful contrast that emphasizes legibility and guides the user's attention. Primary (#3366CC) and secondary (#FFFFFF) colors establish a clear hierarchy of interactive elements.",
-    "accessibility": "The color choices prioritize visibility and legibility, with text-background differentiation meeting accessibility standards."
+    "description": "A color theme strictly using only the colors extracted from the PDF: #66BBcc, #ccdddd, #783893, #777722, #444444, #884400, #000000, #000aaa, #111111. Following Derrida's philosophy of deconstruction, we've preserved the original colors without introducing external elements.",
+    "harmony": "The theme establishes clear binary oppositions between primary and secondary elements, accentuating their roles.",
+    "contrast": "Binary oppositions between text (#000000) and background (#111111) create meaningful contrast that emphasizes legibility and guides the user's attention. Primary (#66BBcc) and secondary (#444444) colors establish a clear hierarchy of interactive elements.",
+    "accessibility": "The chosen colors ensure good accessibility and visibility, prioritizing user experience."
   },
   "allColors": [
+    "#66BBcc",
+    "#ccdddd",
+    "#783893",
+    "#777722",
+    "#444444",
+    "#884400",
     "#000000",
-    "#FFFFFF",
-    "#3366CC"
+    "#000aaa",
+    "#111111"
   ]
 }

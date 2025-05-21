@@ -1,0 +1,17 @@
+{
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "_603198935f7c60a1886895f573d2a8cf.bensteinstl.com",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "_15efec0737ed259ad6c7f4bf01c5ee1f.xlfgrmvvlj.acm-validations.aws"
+          }
+        ]
+      }
+    }
+  ]
+}

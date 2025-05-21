@@ -1,17 +1,17 @@
 {
-  "heading": "Arial, sans-serif",
-  "body": "Georgia, serif",
-  "mono": "Courier New, monospace",
-  "title": "Arial, sans-serif",
-  "subtitle": "Arial, sans-serif",
-  "button": "Helvetica, sans-serif",
-  "nav": "Arial, sans-serif",
-  "code": "Courier New, monospace",
+  "heading": "Montserrat, Arial, sans-serif",
+  "body": "Roboto, Helvetica, sans-serif",
+  "mono": "Inconsolata, Courier New, monospace",
+  "title": "Montserrat, Arial, sans-serif",
+  "subtitle": "Roboto, Helvetica, sans-serif",
+  "button": "Montserrat, Arial, sans-serif",
+  "nav": "Roboto, Helvetica, sans-serif",
+  "code": "Inconsolata, Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system aims to balance professionalism with readability. Using classic serif and sans-serif fonts enhances the document's formal tone while ensuring easy legibility.",
-    "readability": "The serif body text improves readability for long passages, while the sans-serif headings and titles provide contrast and hierarchy.",
-    "hierarchy": "Clear hierarchy is achieved through font sizes, weights, and styles. Headings are bold and larger, while body text is regular and slightly smaller.",
-    "fontPairings": "The pairing of Georgia and Arial creates a harmonious balance between traditional elegance and modern clarity. The monospace font Courier New is chosen for code blocks to ensure clear distinction and readability."
+    "description": "The typography system is designed to convey a modern and professional look suitable for a resume/CV. It aims to provide a clean and organized layout for easy readability.",
+    "readability": "Readability is prioritized by using clear sans-serif fonts for body text and headings. Monospace font is used for code snippets to enhance readability in technical sections.",
+    "hierarchy": "Typographic hierarchy is established through font sizes, weights, and styles. Headings are distinct from body text, creating a clear visual structure.",
+    "fontPairings": "Font pairings are chosen based on complementary styles and readability. Montserrat and Roboto offer a harmonious combination for headings and body text, while Inconsolata provides a contrast for code elements."
   },
   "allFonts": []
 }

@@ -1,31 +1,31 @@
 /* Font families extracted from PDF */
 
 :root {
-  /* No fonts found in PDF, using Benjamin Stein resume fonts */
+  /* No fonts found in PDF, using fallbacks */
   /* PDF-prefixed variables */
-  --pdf-heading-font: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --pdf-body-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;
-  --pdf-mono-font: "Consolas", "Monaco", monospace !important;
-  --pdf-title-font: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --pdf-subtitle-font: "Roboto Light", "Segoe UI Light", Arial, sans-serif !important;
-  --pdf-button-font: "Roboto Medium", "Segoe UI Semibold", Arial, sans-serif !important;
-  --pdf-nav-font: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --pdf-code-font: "Consolas", "Monaco", monospace !important;
+  --pdf-heading-font: Arial, Helvetica, sans-serif !important;
+  --pdf-body-font: Georgia, "Times New Roman", serif !important;
+  --pdf-mono-font: "Courier New", monospace !important;
+  --pdf-title-font: Arial, Helvetica, sans-serif !important;
+  --pdf-subtitle-font: Arial, Helvetica, sans-serif !important;
+  --pdf-button-font: Helvetica, Arial, sans-serif !important;
+  --pdf-nav-font: Verdana, sans-serif !important;
+  --pdf-code-font: Consolas, monospace !important;
 
   /* Direct variables for compatibility */
-  --font-heading: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --font-body: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;
-  --font-mono: "Consolas", "Monaco", monospace !important;
-  --font-title: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --font-subtitle: "Roboto Light", "Segoe UI Light", Arial, sans-serif !important;
-  --font-button: "Roboto Medium", "Segoe UI Semibold", Arial, sans-serif !important;
-  --font-nav: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --font-code: "Consolas", "Monaco", monospace !important;
+  --font-heading: Arial, Helvetica, sans-serif !important;
+  --font-body: Georgia, "Times New Roman", serif !important;
+  --font-mono: "Courier New", monospace !important;
+  --font-title: Arial, Helvetica, sans-serif !important;
+  --font-subtitle: Arial, Helvetica, sans-serif !important;
+  --font-button: Helvetica, Arial, sans-serif !important;
+  --font-nav: Verdana, sans-serif !important;
+  --font-code: Consolas, monospace !important;
 
   /* Dynamic variables for compatibility */
-  --dynamic-heading-font: "Roboto", "Segoe UI", Arial, sans-serif !important;
-  --dynamic-primary-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;
-  --dynamic-secondary-font: "Open Sans", "Helvetica Neue", Arial, sans-serif !important;
-  --dynamic-mono-font: "Consolas", "Monaco", monospace !important;
+  --dynamic-heading-font: Arial, Helvetica, sans-serif !important;
+  --dynamic-primary-font: Georgia, "Times New Roman", serif !important;
+  --dynamic-secondary-font: "Courier New", monospace !important;
+  --dynamic-mono-font: "Courier New", monospace !important;
 }
 

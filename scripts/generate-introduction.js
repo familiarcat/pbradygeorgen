@@ -146,7 +146,7 @@ Formatting Guidelines:
 - NEVER use placeholder metrics or vague percentages
 - Only include specific, concrete metrics if they appear in the resume and are truly impactful
 - Prioritize statements about professional duty, ethical principles, and universal standards in the field
-- Include at least one statement that reflects Kant's categorical imperative - what the candidate believes all professionals in their field should do
+- Include at least one statement about universal professional principles - what the candidate believes all professionals in their field should uphold
 - End with a proper closing salutation that includes:
   * A brief closing statement (e.g., "Sincerely," or "Best regards,")
   * The candidate's full name

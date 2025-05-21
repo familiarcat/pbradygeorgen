@@ -4,28 +4,28 @@
   /* PDF-prefixed variables */
   --pdf-heading-font: d3_f1, Arial, sans-serif !important;
   --pdf-body-font: d3_f2, Georgia, serif !important;
-  --pdf-mono-font: d3_f1, 'Courier New', monospace !important;
-  --pdf-title-font: d3_f3 !important;
-  --pdf-subtitle-font: d3_f3 !important;
+  --pdf-mono-font: d3_f2, 'Courier New', monospace !important;
+  --pdf-title-font: d3_f1 !important;
+  --pdf-subtitle-font: d3_f2 !important;
   --pdf-button-font: d3_f1 !important;
-  --pdf-nav-font: d3_f3 !important;
-  --pdf-code-font: d3_f1 !important;
+  --pdf-nav-font: d3_f2 !important;
+  --pdf-code-font: d3_f2 !important;
 
   /* Direct variables for compatibility */
   --font-heading: d3_f1, Arial, sans-serif !important;
   --font-body: d3_f2, Georgia, serif !important;
-  --font-mono: d3_f1, 'Courier New', monospace !important;
-  --font-title: d3_f3 !important;
-  --font-subtitle: d3_f3 !important;
+  --font-mono: d3_f2, 'Courier New', monospace !important;
+  --font-title: d3_f1 !important;
+  --font-subtitle: d3_f2 !important;
   --font-button: d3_f1 !important;
-  --font-nav: d3_f3 !important;
-  --font-code: d3_f1 !important;
+  --font-nav: d3_f2 !important;
+  --font-code: d3_f2 !important;
 
   /* Dynamic variables for compatibility */
   --dynamic-heading-font: d3_f1, Arial, sans-serif !important;
   --dynamic-primary-font: d3_f2, Georgia, serif !important;
   --dynamic-secondary-font: d3_f2, Georgia, serif !important;
-  --dynamic-mono-font: d3_f1, 'Courier New', monospace !important;
+  --dynamic-mono-font: d3_f2, 'Courier New', monospace !important;
 }
 
 /* Utility classes */

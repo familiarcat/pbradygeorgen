@@ -1,17 +1,17 @@
 {
-  "heading": "Arial, sans-serif",
-  "body": "Georgia, serif",
+  "heading": "Helvetica Neue, Arial, sans-serif",
+  "body": "Georgia, Times New Roman, serif",
   "mono": "Courier New, monospace",
-  "title": "Arial, sans-serif",
-  "subtitle": "Arial, sans-serif",
-  "button": "Helvetica, sans-serif",
-  "nav": "Arial, sans-serif",
+  "title": "Helvetica Neue, Arial, sans-serif",
+  "subtitle": "Helvetica Neue, Arial, sans-serif",
+  "button": "Helvetica Neue, Arial, sans-serif",
+  "nav": "Helvetica Neue, Arial, sans-serif",
   "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system aims to balance professionalism with readability. Using classic serif and sans-serif fonts enhances the document's formal tone while ensuring easy legibility.",
-    "readability": "The serif body text improves readability for long passages, while the sans-serif headings and titles provide contrast and hierarchy.",
-    "hierarchy": "Clear hierarchy is achieved through font sizes, weights, and styles. Headings are bold and larger, while body text is regular and slightly smaller.",
-    "fontPairings": "The pairing of Georgia and Arial creates a harmonious balance between traditional elegance and modern clarity. The monospace font Courier New is chosen for code blocks to ensure clear distinction and readability."
+    "description": "The typography system for this resume aims to strike a balance between professionalism and readability. It utilizes classic serif and sans-serif fonts for easy reading while maintaining a clean and modern appearance.",
+    "readability": "The serif body text enhances readability for longer sections, while the sans-serif headings and titles provide a clear hierarchy and visual contrast. The monospace font ensures code and technical details are easily distinguished.",
+    "hierarchy": "The hierarchy is established through font styles, sizes, and weights. Headings are bold and larger, while body text is regular and slightly smaller for easy scanning.",
+    "fontPairings": "The serif and sans-serif font pairing creates a harmonious balance between traditional and modern styles. The monospace font complements the overall system by providing a distinct look for technical content."
   },
   "allFonts": []
 }

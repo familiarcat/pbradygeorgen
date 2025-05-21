@@ -3,27 +3,27 @@
   "version": "1.0.0",
   "description": "A unified style theme extracted from PDF",
   "colors": {
-    "primary": "#333333",
-    "secondary": "#666666",
-    "accent": "#7F5FA0",
-    "background": "#FFFFFF",
-    "text": "#333333",
-    "textSecondary": "#616161",
-    "border": "#4C4C4C",
-    "success": "#4B7F52",
-    "warning": "#D06D52",
-    "error": "#A0695F",
-    "info": "#3A7CA5"
+    "primary": "#66BBcc",
+    "secondary": "#444444",
+    "accent": "#ccdddd",
+    "background": "#111111",
+    "text": "#FFFFFF",
+    "textSecondary": "#000000",
+    "border": "#884400",
+    "success": "#777722",
+    "warning": "#783893",
+    "error": "#000aaa",
+    "info": "#000000"
   },
   "typography": {
     "heading": "d3_f1, Arial, sans-serif",
     "body": "d3_f2, Georgia, serif",
-    "mono": "d3_f1, 'Courier New', monospace",
-    "title": "d3_f3",
-    "subtitle": "d3_f3",
+    "mono": "d3_f2, 'Courier New', monospace",
+    "title": "d3_f1",
+    "subtitle": "d3_f2",
     "button": "d3_f1",
-    "nav": "d3_f3",
-    "code": "d3_f1"
+    "nav": "d3_f2",
+    "code": "d3_f2"
   },
   "spacing": {
     "unit": "rem",

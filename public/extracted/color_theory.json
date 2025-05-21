@@ -1,26 +1,24 @@
 {
-  "primary": "#000000",
-  "secondary": "#333333",
-  "accent": "#00A99D",
+  "primary": "#3366CC",
+  "secondary": "#E8EEF8",
+  "accent": "#FFA500",
   "background": "#FFFFFF",
   "text": "#000000",
-  "textSecondary": "#333333",
-  "border": "#000000",
-  "success": "#FFD700",
-  "warning": "#FF6347",
-  "error": "#FF0000",
-  "info": "#4169E1",
+  "textSecondary": "#666666",
+  "border": "#CCCCCC",
+  "success": "#4CAF50",
+  "warning": "#FFC107",
+  "error": "#F44336",
+  "info": "#2196F3",
   "colorTheory": {
-    "description": "This color palette combines a classic black and white base with a teal accent for a modern touch.",
-    "mood": "Professional, modern, with a hint of vibrancy.",
-    "accessibility": "The high contrast between text and background colors ensures excellent readability.",
-    "colorRelationships": "The black and white text and background colors create a strong foundation, while the teal accent color adds a refreshing contrast."
+    "description": "The color palette for this resume/CV exudes professionalism and modernity.",
+    "harmony": "Analogous color harmony is used, with a main color and its adjacent hues creating a cohesive look.",
+    "contrast": "The palette ensures good contrast for readability and visual appeal.",
+    "accessibility": "Text and background colors adhere to WCAG AA standards for accessibility."
   },
   "allColors": [
     "#000000",
-    "#00A99D",
-    "#333333",
+    "#3366CC",
     "#FFFFFF"
-  ],
-  "dropdownBackground": "#333333"
+  ]
 }

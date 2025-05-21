@@ -2,9 +2,9 @@
 
 ## Source PDF
 
-- **File**: `pbradygeorgen_resume.pdf`
-- **Path**: `/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/pbradygeorgen_resume.pdf`
-- **Extraction Date**: 2025-05-16T05:44:32.756Z
+- **File**: `resume.pdf`
+- **Path**: `/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf`
+- **Extraction Date**: 2025-05-21T03:37:50.148Z
 
 ## Text Extraction
 
@@ -20,17 +20,17 @@
 
 | Color | Hex | Role |
 | --- | --- | --- |
-| <div style="width: 20px; height: 20px; background-color: #333333;"></div> | `#333333` | primary |
-| <div style="width: 20px; height: 20px; background-color: #666666;"></div> | `#666666` | secondary |
-| <div style="width: 20px; height: 20px; background-color: #7F5FA0;"></div> | `#7F5FA0` | accent |
-| <div style="width: 20px; height: 20px; background-color: #FFFFFF;"></div> | `#FFFFFF` | background |
-| <div style="width: 20px; height: 20px; background-color: #333333;"></div> | `#333333` | text |
-| <div style="width: 20px; height: 20px; background-color: #616161;"></div> | `#616161` | textSecondary |
-| <div style="width: 20px; height: 20px; background-color: #4C4C4C;"></div> | `#4C4C4C` | border |
-| <div style="width: 20px; height: 20px; background-color: #4B7F52;"></div> | `#4B7F52` | success |
-| <div style="width: 20px; height: 20px; background-color: #D06D52;"></div> | `#D06D52` | warning |
-| <div style="width: 20px; height: 20px; background-color: #A0695F;"></div> | `#A0695F` | error |
-| <div style="width: 20px; height: 20px; background-color: #3A7CA5;"></div> | `#3A7CA5` | info |
+| <div style="width: 20px; height: 20px; background-color: #66BBcc;"></div> | `#66BBcc` | primary |
+| <div style="width: 20px; height: 20px; background-color: #444444;"></div> | `#444444` | secondary |
+| <div style="width: 20px; height: 20px; background-color: #ccdddd;"></div> | `#ccdddd` | accent |
+| <div style="width: 20px; height: 20px; background-color: #111111;"></div> | `#111111` | background |
+| <div style="width: 20px; height: 20px; background-color: #FFFFFF;"></div> | `#FFFFFF` | text |
+| <div style="width: 20px; height: 20px; background-color: #000000;"></div> | `#000000` | textSecondary |
+| <div style="width: 20px; height: 20px; background-color: #884400;"></div> | `#884400` | border |
+| <div style="width: 20px; height: 20px; background-color: #777722;"></div> | `#777722` | success |
+| <div style="width: 20px; height: 20px; background-color: #783893;"></div> | `#783893` | warning |
+| <div style="width: 20px; height: 20px; background-color: #000aaa;"></div> | `#000aaa` | error |
+| <div style="width: 20px; height: 20px; background-color: #000000;"></div> | `#000000` | info |
 
 ## Font Extraction
 
@@ -44,12 +44,12 @@
 | --- | --- |
 | heading | `d3_f1, Arial, sans-serif` |
 | body | `d3_f2, Georgia, serif` |
-| mono | `d3_f1, 'Courier New', monospace` |
-| title | `d3_f3` |
-| subtitle | `d3_f3` |
+| mono | `d3_f2, 'Courier New', monospace` |
+| title | `d3_f1` |
+| subtitle | `d3_f2` |
 | button | `d3_f1` |
-| nav | `d3_f3` |
-| code | `d3_f1` |
+| nav | `d3_f2` |
+| code | `d3_f2` |
 
 ## Unified Style Theme
 

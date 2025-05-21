@@ -2,26 +2,19 @@
 
 :root {
   /* Color variables */
-  --theme-color-primary: #3366CC;
-  --theme-color-secondary: #FFFFFF;
-  --theme-color-accent: #3366CC;
-  --theme-color-background: #FFFFFF;
-  --theme-color-text: #000000;
-  --theme-color-textSecondary: #3366CC;
-  --theme-color-border: #000000;
-  --theme-color-success: #FFFFFF;
-  --theme-color-warning: #3366CC;
-  --theme-color-error: #000000;
-  --theme-color-info: #3366CC;
+  --theme-color-primary: #66BBcc;
+  --theme-color-secondary: #444444;
+  --theme-color-accent: #ccdddd;
+  --theme-color-background: #111111;
+  --theme-color-text: #FFFFFF;
+  --theme-color-textSecondary: #000000;
+  --theme-color-border: #884400;
+  --theme-color-success: #777722;
+  --theme-color-warning: #783893;
+  --theme-color-error: #000aaa;
+  --theme-color-info: #000000;
 
   /* Typography variables */
-  --theme-font-heading: d7_f1, Arial, sans-serif;
-  --theme-font-body: d7_f2, Georgia, serif;
-  --theme-font-title: d7_f3;
-  --theme-font-subtitle: d7_f4;
-  --theme-font-button: d7_f5;
-  --theme-font-nav: d7_f2;
-  --theme-font-code: d7_f1;
 
   /* Spacing variables */
   --theme-spacing-0: 0rem;

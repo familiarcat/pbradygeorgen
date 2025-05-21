@@ -1,0 +1,17 @@
+{
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "www.bensteinstl.com",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "d1wk0i56p4y09b.cloudfront.net"
+          }
+        ]
+      }
+    }
+  ]
+}
