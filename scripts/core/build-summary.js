@@ -171,7 +171,16 @@ function generateTreeVisualization() {
   let output = '\n📦 Build Process Summary:\n';
 
   function renderTask(task, path = [], indent = '') {
-    const isLast = path.length === 0 || path[path.length - 1] === Object.keys(getParentByPath(path.slice(0, -1)).tasks).pop();
+    let isLast = true;
+
+    if (path.length > 0) {
+      const parent = getParentByPath(path.slice(0, -1));
+      if (parent && parent.tasks) {
+        const keys = Object.keys(parent.tasks);
+        isLast = path[path.length - 1] === keys[keys.length - 1];
+      }
+    }
+
     const prefix = indent + (isLast ? '└── ' : '├── ');
     const nextIndent = indent + (isLast ? '    ' : '│   ');
 
