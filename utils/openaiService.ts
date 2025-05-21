@@ -6,6 +6,10 @@ import { stringCacheService } from './stringCacheService';
 import { ResumeAnalysisResponse } from '@/types/openai';
 import { HesseLogger } from './HesseLogger';
 
+// Import the Katra essence module
+// @ts-ignore - This is a CommonJS module
+import { infuseKatra, createKatraSystemMessage } from '../scripts/core/katra-essence';
+
 // Interface for PDF source identifier
 interface PDFSourceIdentifier {
   name: string;
@@ -173,11 +177,11 @@ export async function analyzeResume(resumeContent: string, forceRefresh = false)
     // Start timing the request
     const apiStartTime = Date.now();
 
-    // Call the OpenAI API
+    // Call the OpenAI API with Katra-infused system message
     const response = await openai.chat.completions.create({
       model: "gpt-4-turbo",
       messages: [
-        { role: "system", content: systemMessage },
+        createKatraSystemMessage(systemMessage),
         { role: "user", content: userMessage }
       ],
       temperature: 0.4, // Balanced temperature for creativity while maintaining consistency
@@ -380,14 +384,13 @@ Format the content as a complete markdown document with the title "# P. Brady Ge
     // Start timing the request
     const apiStartTime = Date.now();
 
-    // Call the OpenAI API
+    // Call the OpenAI API with Katra-infused system message
     const response = await openai.chat.completions.create({
       model: "gpt-4-turbo",
       messages: [
-        {
-          role: "system",
-          content: "You are a professional cover letter writer that creates well-structured, compelling cover letters in markdown format. You follow the Salinger philosophy of writing: direct, personal, and authentic. Your cover letters are concise, focused, and highlight the unique value proposition of the candidate. You MUST create content that fits on a SINGLE 8.5x11\" page when converted to PDF. This means being extremely concise and prioritizing only the most important information. Follow the instructions exactly and only return the formatted markdown."
-        },
+        createKatraSystemMessage(
+          "You are a professional cover letter writer that creates well-structured, compelling cover letters in markdown format. You follow the Salinger philosophy of writing: direct, personal, and authentic. Your cover letters are concise, focused, and highlight the unique value proposition of the candidate. You MUST create content that fits on a SINGLE 8.5x11\" page when converted to PDF. This means being extremely concise and prioritizing only the most important information. Follow the instructions exactly and only return the formatted markdown."
+        ),
         { role: "user", content: prompt }
       ],
       temperature: 0.4, // Slightly higher temperature for more natural writing style
