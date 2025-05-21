@@ -45,13 +45,17 @@ async function processPDF(pdfPath) {
     log('FONT', 'Extracting fonts...', '33'); // Yellow
     execSync(`node scripts/extract-pdf-fonts.js "${pdfPath}"`, { stdio: 'inherit' });
 
+    log('DOCX', 'Updating DOCX template...', '36'); // Cyan
+    execSync(`node scripts/update-docx-template.js`, { stdio: 'inherit' });
+
     // Verify that all files were created
     const requiredFiles = [
       path.join(extractedDir, 'resume_content.txt'),
       path.join(extractedDir, 'resume_content.md'),
       path.join(extractedDir, 'color_theory.json'),
       path.join(extractedDir, 'font_theory.json'),
-      path.join(extractedDir, 'pdf_fonts.css')
+      path.join(extractedDir, 'pdf_fonts.css'),
+      path.join(process.cwd(), 'templates', 'reference.docx')
     ];
 
     const missingFiles = requiredFiles.filter(file => !fs.existsSync(file));
