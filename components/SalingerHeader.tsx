@@ -6,7 +6,7 @@ import DownloadService from '@/utils/DownloadService';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
-import DocxDownloadOption from './DocxDownloadOption';
+import DocxService from '@/utils/DocxService';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -1027,89 +1027,61 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                   setIsGeneratingDocx(true);
 
                   try {
-                    // Check if the pre-generated DOCX file exists
-                    const response = await fetch('/api/generate-docx?fileName=resume');
-
-                    if (response.ok) {
-                      const data = await response.json();
-
-                      if (data.success) {
-                        // Create a link to download the file
-                        const link = document.createElement('a');
-                        link.href = data.docxUrl;
-                        link.download = `${userInfo.resumeFileName}.docx`;
-                        link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                        document.body.appendChild(link);
-                        link.click();
-
-                        // Small delay before removing the element
-                        setTimeout(() => {
-                          document.body.removeChild(link);
-                        }, 100);
-
-                        DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
-                      } else {
-                        throw new Error(data.error || 'Failed to get DOCX file');
-                      }
-                    } else {
-                      throw new Error(`API responded with status: ${response.status}`);
-                    }
-                  } catch (error) {
-                    console.error('Error downloading DOCX:', error);
-
-                    // Fallback to generating a new DOCX file
+                    // First try to use the pre-generated DOCX file
                     try {
-                      // First load the content if we don't have it
-                      if (!previewContent) {
+                      // Check if the pre-generated DOCX file exists
+                      const response = await fetch('/api/generate-docx?fileName=resume');
+
+                      if (response.ok) {
+                        const data = await response.json();
+
+                        if (data.success) {
+                          // Create a link to download the file
+                          const link = document.createElement('a');
+                          link.href = data.docxUrl;
+                          link.download = `${userInfo.resumeFileName}.docx`;
+                          link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                          document.body.appendChild(link);
+                          link.click();
+
+                          // Small delay before removing the element
+                          setTimeout(() => {
+                            document.body.removeChild(link);
+                          }, 100);
+
+                          DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
+                          return;
+                        }
+                      }
+                    } catch (preGenError) {
+                      console.warn('Error using pre-generated DOCX:', preGenError);
+                    }
+
+                    // Fallback to generating a new DOCX file using DocxService
+                    // First load the content if we don't have it
+                    if (!previewContent) {
+                      try {
                         const response = await fetch('/extracted/resume.md');
                         if (response.ok) {
                           const content = await response.text();
                           setPreviewContent(content);
+
+                          // Use DocxService to download the DOCX
+                          await DocxService.downloadDocx(content, userInfo.resumeFileName);
                         } else {
                           throw new Error('Failed to load resume content');
                         }
+                      } catch (error) {
+                        console.error('Error loading resume content:', error);
+                        throw error;
                       }
-
-                      // Use the DocxDownloadOption component's functionality
-                      const docxResponse = await fetch('/api/generate-docx', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          markdownContent: previewContent || '# Resume content not loaded',
-                          fileName: userInfo.resumeFileName,
-                        }),
-                      });
-
-                      if (!docxResponse.ok) {
-                        throw new Error(`Failed to generate DOCX: ${docxResponse.statusText}`);
-                      }
-
-                      const docxData = await docxResponse.json();
-
-                      if (!docxData.success) {
-                        throw new Error(`Failed to generate DOCX: ${docxData.error}`);
-                      }
-
-                      // Create a link to download the file
-                      const link = document.createElement('a');
-                      link.href = docxData.docxUrl;
-                      link.download = `${userInfo.resumeFileName}.docx`;
-                      link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                      document.body.appendChild(link);
-                      link.click();
-
-                      // Small delay before removing the element
-                      setTimeout(() => {
-                        document.body.removeChild(link);
-                      }, 100);
-
-                      DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
-                    } catch (fallbackError) {
-                      console.error('Fallback DOCX generation failed:', fallbackError);
-                      alert('Failed to download Word document. Please try again.');
+                    } else {
+                      // Use DocxService to download the DOCX with existing content
+                      await DocxService.downloadDocx(previewContent, userInfo.resumeFileName);
                     }
+                  } catch (error) {
+                    console.error('Error downloading DOCX:', error);
+                    alert('Failed to download Word document. Please try again.');
                   } finally {
                     setIsGeneratingDocx(false);
                   }
@@ -1217,32 +1189,42 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         try {
           setIsGeneratingDocx(true);
 
-          // Check if the pre-generated DOCX file exists
-          const response = await fetch('/api/generate-docx?fileName=resume');
+          // First try to use the pre-generated DOCX file
+          try {
+            // Check if the pre-generated DOCX file exists
+            const response = await fetch('/api/generate-docx?fileName=resume');
 
-          if (response.ok) {
-            const data = await response.json();
+            if (response.ok) {
+              const data = await response.json();
 
-            if (data.success) {
-              // Create a link to download the file
-              const link = document.createElement('a');
-              link.href = data.docxUrl;
-              link.download = `${userInfo.resumeFileName}.docx`;
-              link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-              document.body.appendChild(link);
-              link.click();
+              if (data.success) {
+                // Create a link to download the file
+                const link = document.createElement('a');
+                link.href = data.docxUrl;
+                link.download = `${userInfo.resumeFileName}.docx`;
+                link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                document.body.appendChild(link);
+                link.click();
 
-              // Small delay before removing the element
-              setTimeout(() => {
-                document.body.removeChild(link);
-              }, 100);
+                // Small delay before removing the element
+                setTimeout(() => {
+                  document.body.removeChild(link);
+                }, 100);
 
-              DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
-            } else {
-              throw new Error(data.error || 'Failed to get DOCX file');
+                DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
+                return;
+              }
             }
+          } catch (preGenError) {
+            console.warn('Error using pre-generated DOCX:', preGenError);
+          }
+
+          // Fallback to generating a new DOCX file using DocxService
+          if (previewContent) {
+            // Use DocxService to download the DOCX with existing content
+            await DocxService.downloadDocx(previewContent, userInfo.resumeFileName);
           } else {
-            throw new Error(`API responded with status: ${response.status}`);
+            alert('Failed to load resume content for DOCX generation.');
           }
         } catch (error) {
           console.error('Error downloading DOCX:', error);
