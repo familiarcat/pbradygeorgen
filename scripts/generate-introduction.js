@@ -96,28 +96,28 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create a brief, pointed narrative-style introduction in the Salinger tradition that:
+Please create a brief, pointed narrative-style introduction that balances Salinger's storytelling with Kantian professional ethics:
 1. Starts with a title "# ${userName} - Introduction"
-2. Uses a personal, conversational tone that feels authentic and human
-3. Provides a concise glimpse of the candidate's career journey, core motivations, and aspirations
+2. Uses a personal yet professionally dignified tone that feels authentic and principled
+3. Provides a concise glimpse of the candidate's career journey, emphasizing both duty and purpose
 4. Weaves in 2-3 key skills naturally within the narrative flow
-5. Expresses genuine passion for the industry in 1-2 impactful sentences
-6. Includes a brief statement about what drives the candidate professionally
+5. Expresses genuine commitment to universal professional principles in the industry
+6. Includes a brief statement about the moral imperatives that drive the candidate professionally
 7. Subtly incorporates 3-5 industry-specific terms that will be recognized by ATS systems
-8. Concludes with a brief statement about what the candidate is looking for in their next role
+8. Concludes with a brief statement about the candidate's professional categorical imperative - what they must do in their next role
 
-IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's persona, goals, or motivations.
+IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's professional identity, ethical framework, and rational approach to their career.
 
-Salinger Narrative Style Guidelines:
-- Write in first person with an authentic, distinctive voice
-- Use natural language patterns that feel like genuine human writing
-- Create a sense of intimacy and connection with the reader
-- Include thoughtful reflections on experiences and what they've taught the candidate
-- Express genuine enthusiasm and passion for the work
-- Avoid clichés and corporate jargon when possible
-- Balance professionalism with personality
-- Show rather than tell about skills and capabilities
-- Include small, specific details that make the narrative feel real and lived
+Salinger-Kant Hybrid Style Guidelines:
+- Write in first person with an authentic voice that conveys both personality and rational dignity
+- Use natural language that balances personal storytelling with professional principles
+- Create a sense of both connection with the reader and respect for universal professional standards
+- Include thoughtful reflections on how experiences have shaped the candidate's professional duty and purpose
+- Express genuine commitment to both the work itself and the ethical principles that guide it
+- Avoid both clichés and overly theoretical language
+- Balance personal narrative (Salinger) with universal principles (Kant)
+- Show how the candidate's skills serve both personal fulfillment and a larger professional purpose
+- Include specific details that demonstrate the candidate's commitment to acting according to principles that could be universal laws in their field
 
 ATS Optimization Guidelines (to be applied subtly):
 - Naturally incorporate exact job title and skill keywords from the resume
@@ -133,12 +133,13 @@ Formatting Guidelines:
 - Aim for 3-5 sentences per paragraph maximum
 - Eliminate all unnecessary words and phrases
 - Use no headings except for the title
-- Use active voice and impactful, conversational language
+- Use active voice and language that balances conversational tone with professional dignity
 - DO NOT use horizontal rules (---, ***, or ___) anywhere in the document
 - Use one line break between paragraphs for readability
 - NEVER use placeholder metrics or vague percentages
 - Only include specific, concrete metrics if they appear in the resume and are truly impactful
-- Prioritize statements about motivation, passion, and career goals over listing experiences
+- Prioritize statements about professional duty, ethical principles, and universal standards in the field
+- Include at least one statement that reflects Kant's categorical imperative - what the candidate believes all professionals in their field should do
 
 IMPORTANT:
 - Do NOT include any meta-commentary about the introduction itself
@@ -156,7 +157,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer in the tradition of J.D. Salinger who specializes in extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create authentic, personal introductions that can be read in about 20 seconds while still conveying the essence of a person\'s career motivations and aspirations. Your writing has a distinctive voice that creates an immediate connection with the reader through carefully chosen words and genuine enthusiasm. You distill complex career journeys into 2-3 brief paragraphs that capture the core of what drives a person professionally. You balance professionalism with personality, selecting only the most impactful details that make the narrative feel authentic. You incorporate 3-5 industry-specific terms naturally within the flow of your concise narrative. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
+          content: 'You are a gifted writer who combines J.D. Salinger\'s authentic storytelling with Immanuel Kant\'s ethical framework to create extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance personal narrative with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to universal professional standards. Your writing has a distinctive voice that creates an immediate connection with the reader while maintaining professional dignity. You distill complex career journeys into 2-3 brief paragraphs that capture both personal motivations and professional duty. You balance Salinger\'s intimacy with Kant\'s rational principles, selecting details that demonstrate how the candidate\'s work aligns with universal ethical standards in their field. You incorporate 3-5 industry-specific terms naturally within your concise narrative. You include at least one statement reflecting Kant\'s categorical imperative - what the candidate believes all professionals in their field should do. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -223,14 +224,14 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a concise narrative-style introduction in the Salinger tradition
+    // Create a concise narrative-style introduction balancing Salinger with Kantian principles
     const introduction = `# ${userName} - Introduction
 
-The first time I encountered the world of ${userTitle.toLowerCase()} work, I knew I had found my calling. There's something deeply satisfying about bringing order to complex systems and watching them function with newfound efficiency. My journey began with a genuine curiosity about how things work beneath the surface.
+The first time I encountered the world of ${userTitle.toLowerCase()} work, I recognized not just an opportunity, but a professional duty. There's something fundamentally right about bringing order to complex systems while upholding the universal principles that should guide our field. My journey began with both a genuine curiosity and a commitment to standards that transcend individual preferences.
 
-${userSkills.length > 0 ? `Working with ${userSkills.slice(0, 2).join(' and ')} has been both challenging and rewarding. What drives me is knowing my work makes a tangible difference. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.` : `What drives me professionally is knowing my work makes a tangible difference. I believe that technology should serve people, not the other way around, and this philosophy guides my approach to every project.`}
+${userSkills.length > 0 ? `Working with ${userSkills.slice(0, 2).join(' and ')} has reinforced my belief that excellence in our profession requires both technical skill and ethical judgment. What drives me is the categorical imperative to create systems that I would want everyone to replicate - systems that respect both efficiency and human dignity.` : `What drives me professionally is the categorical imperative to create systems that I would want everyone to replicate - systems that respect both efficiency and human dignity. I believe that our work must serve universal principles, not just immediate goals.`}
 
-I'm seeking a role where I can contribute meaningfully to an organization that values innovation and thoughtful problem-solving. I would welcome the opportunity to discuss how my background might align with your team's needs. Please contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'}.
+I'm seeking a role where I can contribute to an organization that values both innovation and ethical standards. I would welcome the opportunity to discuss how my approach might align with your team's vision. Please contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'}.
 `;
 
     // Save the introduction
