@@ -14,6 +14,7 @@ const { extractText, generateImprovedMarkdown } = require('./text');
 const { extractEnhancedColors } = require('./enhanced-colors');
 const { extractEnhancedFonts } = require('./enhanced-fonts');
 const { OpenAI } = require('openai');
+const buildSummary = require('../core/build-summary');
 
 // Initialize OpenAI client if API key is available
 const openai = process.env.OPENAI_API_KEY ? new OpenAI({
@@ -31,6 +32,7 @@ const logger = createLogger('enhanced-extractor');
  */
 async function extractEnhanced(pdfPath, options = {}) {
   logger.info(`Starting enhanced extraction for ${pdfPath}`);
+  buildSummary.startTask('build.enhanced');
 
   try {
     // Create output directory
@@ -49,11 +51,15 @@ async function extractEnhanced(pdfPath, options = {}) {
 
     // Extract enhanced colors
     logger.info('Extracting enhanced colors...');
+    buildSummary.startTask('build.enhanced.enhancedColors');
     const colorResult = await extractEnhancedColors(pdfPath, { outputDir });
+    buildSummary.completeTask('build.enhanced.enhancedColors');
 
     // Extract enhanced fonts
     logger.info('Extracting enhanced fonts...');
+    buildSummary.startTask('build.enhanced.enhancedFonts');
     const fontResult = await extractEnhancedFonts(pdfPath, { outputDir });
+    buildSummary.completeTask('build.enhanced.enhancedFonts');
 
     // Generate improved markdown if text was extracted successfully
     let markdownResult = null;
@@ -64,11 +70,14 @@ async function extractEnhanced(pdfPath, options = {}) {
 
     // Generate a unified style theme
     logger.info('Generating unified style theme...');
+    buildSummary.startTask('build.enhanced.unifiedTheme');
     const styleTheme = await generateUnifiedStyleTheme(colorResult, fontResult, outputDir);
+    buildSummary.completeTask('build.enhanced.unifiedTheme');
 
     // Generate documentation
     if (options.generateDocs !== false) {
       logger.info('Generating extraction documentation...');
+      buildSummary.startTask('build.enhanced.documentation');
       await generateExtractionDocs(pdfPath, {
         text: textResult,
         colors: colorResult,
@@ -76,6 +85,7 @@ async function extractEnhanced(pdfPath, options = {}) {
         markdown: markdownResult,
         styleTheme
       }, outputDir);
+      buildSummary.completeTask('build.enhanced.documentation');
     }
 
     // Summarize the results
@@ -92,6 +102,7 @@ async function extractEnhanced(pdfPath, options = {}) {
     // Log the results
     if (results.success) {
       logger.success(`Enhanced PDF extraction completed successfully. Files saved to ${outputDir}`);
+      buildSummary.completeTask('build.enhanced');
     } else {
       logger.warning('Enhanced PDF extraction completed with some errors.');
     }

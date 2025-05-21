@@ -21,6 +21,7 @@ const config = require('./core/config');
 const utils = require('./core/utils');
 const { OpenAI } = require('openai');
 const { infuseKatra, createKatraSystemMessage } = require('./core/katra-essence');
+const buildSummary = require('./core/build-summary');
 
 const logger = createLogger('professional-introduction');
 
@@ -38,6 +39,7 @@ const logger = createLogger('professional-introduction');
 async function generateIntroduction(resumeContentPath, options = {}) {
   try {
     logger.info(`Generating introduction from resume content: ${resumeContentPath}`);
+    buildSummary.startTask('build.introduction');
 
     // Check if OpenAI API key is available
     if (!process.env.OPENAI_API_KEY) {
@@ -228,6 +230,7 @@ IMPORTANT:
     utils.saveText(outputPath, introduction);
 
     logger.success(`Introduction saved to: ${outputPath}`);
+    buildSummary.completeTask('build.introduction');
 
     return {
       success: true,
@@ -358,6 +361,7 @@ ${userPhone || '[your phone]'}`;
     utils.saveText(outputPath, introduction);
 
     logger.success(`Fallback introduction saved to: ${outputPath} `);
+    buildSummary.completeTask('build.introduction');
 
     return {
       success: true,

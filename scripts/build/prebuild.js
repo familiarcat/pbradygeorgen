@@ -17,6 +17,7 @@ const config = require('../core/config');
 const { extractAll } = require('../pdf/extractor');
 const { extractEnhanced } = require('../pdf/enhanced-extractor');
 const { generateIntroduction } = require('../generate-professional-introduction');
+const buildSummary = require('../core/build-summary');
 
 const logger = createLogger('build');
 
@@ -25,6 +26,7 @@ const logger = createLogger('build');
  */
 async function prebuild() {
   logger.info('Starting prebuild process');
+  buildSummary.startTask('build');
 
   // Skip PDF extraction if disabled
   if (!config.build.prebuildExtraction) {
@@ -100,6 +102,12 @@ async function prebuild() {
   } else {
     logger.info('source-pdfs directory not found');
   }
+
+  // Mark build task as completed
+  buildSummary.completeTask('build');
+
+  // Display build summary
+  buildSummary.displayBuildSummary();
 
   logger.success('Prebuild process completed successfully');
 }

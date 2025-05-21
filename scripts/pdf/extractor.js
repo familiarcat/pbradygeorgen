@@ -13,6 +13,7 @@ const { extractText, generateImprovedMarkdown } = require('./text');
 const { extractColors } = require('./colors');
 const { extractFonts } = require('./fonts');
 const { extractUserInfoFromPdf } = require('../extract-user-info');
+const buildSummary = require('../core/build-summary');
 
 const logger = createLogger('pdf');
 
@@ -26,6 +27,7 @@ const logger = createLogger('pdf');
 async function extractAll(pdfPath, options = {}) {
   try {
     logger.info(`Starting extraction for ${pdfPath}`);
+    buildSummary.startTask('build.pdf');
 
     // Validate the PDF path
     if (!fs.existsSync(pdfPath)) {
@@ -48,33 +50,43 @@ async function extractAll(pdfPath, options = {}) {
 
     // Extract text
     logger.info('Extracting text...');
+    buildSummary.startTask('build.pdf.text');
     const textResult = await extractText(pdfPath, { outputDir });
+    buildSummary.completeTask('build.pdf.text');
 
     // Extract colors
     logger.info('Extracting colors...');
+    buildSummary.startTask('build.pdf.colors');
     const colorResult = await extractColors(pdfPath, { outputDir });
+    buildSummary.completeTask('build.pdf.colors');
 
     // Extract fonts
     logger.info('Extracting fonts...');
+    buildSummary.startTask('build.pdf.fonts');
     const fontResult = await extractFonts(pdfPath, { outputDir });
+    buildSummary.completeTask('build.pdf.fonts');
 
     // Generate improved markdown if text was extracted successfully
     let markdownResult = null;
     if (textResult.success && (options.generateMarkdown !== false && config.build.generateImprovedMarkdown)) {
       logger.info('Generating improved markdown...');
+      buildSummary.startTask('build.pdf.markdown');
       markdownResult = await generateImprovedMarkdown(textResult.outputPath, { outputDir });
+      buildSummary.completeTask('build.pdf.markdown');
     }
 
     // Extract user information if text was extracted successfully
     let userInfoResult = null;
     if (textResult.success && (options.extractUserInfo !== false && config.build.extractUserInfo !== false)) {
       logger.info('Extracting user information...');
+      buildSummary.startTask('build.pdf.userInfo');
       // Only show full user info on the first run
       const showFullFlag = options.showFullUserInfo === true;
       userInfoResult = await extractUserInfoFromPdf(textResult.outputPath, {
         outputDir,
         showFull: showFullFlag
       });
+      buildSummary.completeTask('build.pdf.userInfo');
     }
 
     // Summarize the results
@@ -91,6 +103,7 @@ async function extractAll(pdfPath, options = {}) {
     // Log the results
     if (results.success) {
       logger.success(`PDF extraction completed successfully. Files saved to ${outputDir}`);
+      buildSummary.completeTask('build.pdf');
     } else {
       logger.warning('PDF extraction completed with some errors.');
     }
