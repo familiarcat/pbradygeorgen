@@ -1,6 +1,6 @@
 /**
  * Unified Logging System for AlexAI
- * 
+ *
  * This module provides a consistent logging interface following the Dante philosophy
  * of methodical logging with clear categorization and visual indicators.
  */
@@ -18,24 +18,54 @@ const colors = {
 };
 
 const emojis = {
+  // Log levels
   info: 'ℹ️',
   success: '✅',
   warning: '⚠️',
   error: '❌',
   debug: '🔍',
+
+  // Core components
   build: '🏗️',
+  config: '⚙️',
+  system: '🖥️',
+  utils: '🛠️',
+
+  // PDF processing
   pdf: '📄',
   color: '🎨',
   font: '🔤',
   text: '📝',
-  openai: '🤖',
-  config: '⚙️',
+  markdown: '📊',
+  extraction: '🔎',
+
+  // External services
+  openai: '🧠',
+  api: '🌐',
+
+  // Resources
   file: '📁',
   network: '🌐',
   time: '⏱️',
   memory: '💾',
+
+  // User interaction
   user: '👤',
-  system: '🖥️'
+  ui: '🖼️',
+
+  // Enhanced extraction
+  'enhanced-extractor': '🔎',
+  'enhanced-color': '🎭',
+  'enhanced-font': '📝',
+  'professional-introduction': '📋',
+
+  // Philosophical frameworks
+  salinger: '📚',
+  hesse: '🧮',
+  derrida: '🧩',
+  dante: '🔥',
+  kant: '⚖️',
+  muller: '📐'
 };
 
 /**
@@ -50,7 +80,7 @@ function log(level, message, options = {}) {
   const emoji = options.emoji || emojis[category] || emojis[level];
   const color = getColorForLevel(level);
   const prefix = options.prefix || category.toUpperCase();
-  
+
   console.log(`${color}${colors.bright}${emoji} [${prefix}]${colors.reset} ${message}`);
 }
 

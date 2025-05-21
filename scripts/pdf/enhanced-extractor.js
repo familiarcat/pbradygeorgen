@@ -31,41 +31,41 @@ const logger = createLogger('enhanced-extractor');
  */
 async function extractEnhanced(pdfPath, options = {}) {
   logger.info(`Starting enhanced extraction for ${pdfPath}`);
-  
+
   try {
     // Create output directory
     const outputDir = options.outputDir || path.join(path.dirname(pdfPath), 'extracted');
     utils.ensureDir(outputDir);
-    
+
     // Backup the original PDF if requested
     if (options.backup !== false && config.build.backupOriginalPdf) {
       const backupDir = path.join(process.cwd(), config.paths.backup);
       utils.backupFile(pdfPath, backupDir);
     }
-    
+
     // Extract text
     logger.info('Extracting text...');
     const textResult = await extractText(pdfPath, { outputDir });
-    
+
     // Extract enhanced colors
     logger.info('Extracting enhanced colors...');
     const colorResult = await extractEnhancedColors(pdfPath, { outputDir });
-    
+
     // Extract enhanced fonts
     logger.info('Extracting enhanced fonts...');
     const fontResult = await extractEnhancedFonts(pdfPath, { outputDir });
-    
+
     // Generate improved markdown if text was extracted successfully
     let markdownResult = null;
     if (textResult.success && (options.generateMarkdown !== false && config.build.generateImprovedMarkdown)) {
       logger.info('Generating improved markdown...');
       markdownResult = await generateImprovedMarkdown(textResult.outputPath, { outputDir });
     }
-    
+
     // Generate a unified style theme
     logger.info('Generating unified style theme...');
     const styleTheme = await generateUnifiedStyleTheme(colorResult, fontResult, outputDir);
-    
+
     // Generate documentation
     if (options.generateDocs !== false) {
       logger.info('Generating extraction documentation...');
@@ -77,7 +77,7 @@ async function extractEnhanced(pdfPath, options = {}) {
         styleTheme
       }, outputDir);
     }
-    
+
     // Summarize the results
     const results = {
       success: textResult.success || colorResult.success || fontResult.success,
@@ -88,14 +88,14 @@ async function extractEnhanced(pdfPath, options = {}) {
       styleTheme,
       outputDir
     };
-    
+
     // Log the results
     if (results.success) {
       logger.success(`Enhanced PDF extraction completed successfully. Files saved to ${outputDir}`);
     } else {
       logger.warning('Enhanced PDF extraction completed with some errors.');
     }
-    
+
     return results;
   } catch (error) {
     logger.error(`Error extracting PDF: ${error.message}`);
@@ -116,17 +116,15 @@ async function extractEnhanced(pdfPath, options = {}) {
  */
 async function generateUnifiedStyleTheme(colorResult, fontResult, outputDir) {
   try {
-    logger.info('Generating unified style theme...');
-    
     // Get color and font data
     const colorTheme = colorResult.success ? colorResult.colors : null;
     const fontSystem = fontResult.success ? fontResult.fontSystem : null;
-    
+
     // If OpenAI is available, use it to generate a unified theme
     if (openai && colorTheme && fontSystem) {
       try {
         logger.info('Generating unified style theme with OpenAI...');
-        
+
         const response = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
@@ -137,13 +135,13 @@ async function generateUnifiedStyleTheme(colorResult, fontResult, outputDir) {
             {
               role: "user",
               content: `Create a unified style theme from these extracted colors and fonts:
-              
+
               Colors:
               ${JSON.stringify(colorTheme, null, 2)}
-              
+
               Fonts:
               ${JSON.stringify(fontSystem, null, 2)}
-              
+
               Return a JSON object with the following structure:
               {
                 "name": "PDF-Extracted Theme",
@@ -190,24 +188,24 @@ async function generateUnifiedStyleTheme(colorResult, fontResult, outputDir) {
           max_tokens: 1500,
           response_format: { type: "json_object" }
         });
-        
+
         logger.success('Successfully generated unified style theme with OpenAI');
-        
+
         // Parse the response
         const styleTheme = JSON.parse(response.choices[0].message.content);
-        
+
         // Save the unified style theme
         const themePath = path.join(outputDir, 'unified_style_theme.json');
         utils.saveJson(themePath, styleTheme);
-        
+
         // Generate CSS variables
         const cssContent = generateThemeCss(styleTheme);
         const cssPath = path.join(outputDir, 'unified_theme.css');
         utils.saveText(cssPath, cssContent);
-        
+
         logger.success(`Unified style theme saved to ${themePath}`);
         logger.success(`Unified theme CSS saved to ${cssPath}`);
-        
+
         return {
           success: true,
           theme: styleTheme,
@@ -219,7 +217,7 @@ async function generateUnifiedStyleTheme(colorResult, fontResult, outputDir) {
         // Fall back to manual generation
       }
     }
-    
+
     // Manual generation if OpenAI is not available or fails
     return generateManualStyleTheme(colorTheme, fontSystem, outputDir);
   } catch (error) {
@@ -297,19 +295,19 @@ function generateManualStyleTheme(colorTheme, fontSystem, outputDir) {
       }
     }
   };
-  
+
   // Save the unified style theme
   const themePath = path.join(outputDir, 'unified_style_theme.json');
   utils.saveJson(themePath, defaultTheme);
-  
+
   // Generate CSS variables
   const cssContent = generateThemeCss(defaultTheme);
   const cssPath = path.join(outputDir, 'unified_theme.css');
   utils.saveText(cssPath, cssContent);
-  
+
   logger.success(`Unified style theme saved to ${themePath}`);
   logger.success(`Unified theme CSS saved to ${cssPath}`);
-  
+
   return {
     success: true,
     theme: defaultTheme,
@@ -327,7 +325,7 @@ function generateManualStyleTheme(colorTheme, fontSystem, outputDir) {
 function generateThemeCss(theme) {
   let cssContent = '/* Unified Theme CSS - Generated from PDF extraction */\n\n';
   cssContent += ':root {\n';
-  
+
   // Add color variables
   cssContent += '  /* Color variables */\n';
   for (const [key, value] of Object.entries(theme.colors)) {
@@ -336,7 +334,7 @@ function generateThemeCss(theme) {
     }
   }
   cssContent += '\n';
-  
+
   // Add typography variables
   cssContent += '  /* Typography variables */\n';
   for (const [key, value] of Object.entries(theme.typography)) {
@@ -345,21 +343,21 @@ function generateThemeCss(theme) {
     }
   }
   cssContent += '\n';
-  
+
   // Add spacing variables
   cssContent += '  /* Spacing variables */\n';
   theme.spacing.scale.forEach((value, index) => {
     cssContent += `  --theme-spacing-${index}: ${value}${theme.spacing.unit};\n`;
   });
   cssContent += '\n';
-  
+
   // Add breakpoint variables
   cssContent += '  /* Breakpoint variables */\n';
   for (const [key, value] of Object.entries(theme.breakpoints)) {
     cssContent += `  --theme-breakpoint-${key}: ${value};\n`;
   }
   cssContent += '\n';
-  
+
   // Add component variables
   cssContent += '  /* Component variables */\n';
   for (const [component, props] of Object.entries(theme.components)) {
@@ -367,21 +365,21 @@ function generateThemeCss(theme) {
       cssContent += `  --theme-component-${component}-${prop}: ${value};\n`;
     }
   }
-  
+
   cssContent += '}\n\n';
-  
+
   // Add utility classes
   cssContent += '/* Utility classes */\n';
-  
+
   // Typography classes
   cssContent += '.theme-heading {\n';
   cssContent += '  font-family: var(--theme-font-heading);\n';
   cssContent += '}\n\n';
-  
+
   cssContent += '.theme-body {\n';
   cssContent += '  font-family: var(--theme-font-body);\n';
   cssContent += '}\n\n';
-  
+
   // Button class
   cssContent += '.theme-button {\n';
   cssContent += '  font-family: var(--theme-component-button-fontFamily);\n';
@@ -389,14 +387,14 @@ function generateThemeCss(theme) {
   cssContent += '  color: var(--theme-component-button-textColor);\n';
   cssContent += '  border-radius: var(--theme-component-button-borderRadius);\n';
   cssContent += '}\n\n';
-  
+
   // Card class
   cssContent += '.theme-card {\n';
   cssContent += '  background-color: var(--theme-component-card-backgroundColor);\n';
   cssContent += '  border-color: var(--theme-component-card-borderColor);\n';
   cssContent += '  border-radius: var(--theme-component-card-borderRadius);\n';
   cssContent += '}\n\n';
-  
+
   return cssContent;
 }
 
@@ -410,15 +408,14 @@ function generateThemeCss(theme) {
  */
 async function generateExtractionDocs(pdfPath, results, outputDir) {
   try {
-    logger.info('Generating extraction documentation...');
-    
+
     // Create a markdown document
     let markdown = `# PDF Extraction Documentation\n\n`;
     markdown += `## Source PDF\n\n`;
     markdown += `- **File**: \`${path.basename(pdfPath)}\`\n`;
     markdown += `- **Path**: \`${pdfPath}\`\n`;
     markdown += `- **Extraction Date**: ${new Date().toISOString()}\n\n`;
-    
+
     // Add text extraction results
     markdown += `## Text Extraction\n\n`;
     if (results.text.success) {
@@ -431,18 +428,18 @@ async function generateExtractionDocs(pdfPath, results, outputDir) {
       }
     }
     markdown += '\n';
-    
+
     // Add color extraction results
     markdown += `## Color Extraction\n\n`;
     if (results.colors.success) {
       markdown += `- **Status**: ✅ Success\n`;
       markdown += `- **Output**: \`${path.basename(results.colors.outputPath)}\`\n`;
-      
+
       // Add color swatches
       markdown += `\n### Color Palette\n\n`;
       markdown += `| Color | Hex | Role |\n`;
       markdown += `| --- | --- | --- |\n`;
-      
+
       const colorTheme = results.colors.colors;
       for (const [key, value] of Object.entries(colorTheme)) {
         if (typeof value === 'string' && value.startsWith('#')) {
@@ -456,19 +453,19 @@ async function generateExtractionDocs(pdfPath, results, outputDir) {
       }
     }
     markdown += '\n';
-    
+
     // Add font extraction results
     markdown += `## Font Extraction\n\n`;
     if (results.fonts.success) {
       markdown += `- **Status**: ✅ Success\n`;
       markdown += `- **Output**: \`${path.basename(results.fonts.fontTheoryPath)}\`\n`;
       markdown += `- **CSS**: \`${path.basename(results.fonts.cssPath)}\`\n`;
-      
+
       // Add font samples
       markdown += `\n### Font System\n\n`;
       markdown += `| Role | Font Family |\n`;
       markdown += `| --- | --- |\n`;
-      
+
       const fontSystem = results.fonts.fontSystem;
       for (const [key, value] of Object.entries(fontSystem)) {
         if (typeof value === 'string') {
@@ -482,18 +479,18 @@ async function generateExtractionDocs(pdfPath, results, outputDir) {
       }
     }
     markdown += '\n';
-    
+
     // Add unified style theme
     markdown += `## Unified Style Theme\n\n`;
     if (results.styleTheme.success) {
       markdown += `- **Status**: ✅ Success\n`;
       markdown += `- **Output**: \`${path.basename(results.styleTheme.themePath)}\`\n`;
       markdown += `- **CSS**: \`${path.basename(results.styleTheme.cssPath)}\`\n`;
-      
+
       // Add theme description
       markdown += `\n### Theme Description\n\n`;
       markdown += `${results.styleTheme.theme.description}\n\n`;
-      
+
       // Add component examples
       markdown += `### Component Styles\n\n`;
       markdown += `#### Button\n\n`;
@@ -511,13 +508,13 @@ async function generateExtractionDocs(pdfPath, results, outputDir) {
         markdown += `- **Error**: ${results.styleTheme.error}\n`;
       }
     }
-    
+
     // Save the documentation
     const docsPath = path.join(outputDir, 'extraction_documentation.md');
     utils.saveText(docsPath, markdown);
-    
+
     logger.success(`Extraction documentation saved to ${docsPath}`);
-    
+
     return {
       success: true,
       docsPath
