@@ -9,7 +9,8 @@ import PreviewModal from './PreviewModal';
 import { usePdfThemeContext } from '@/components/DynamicThemeProvider';
 import StyledMarkdown from './StyledMarkdown';
 import DownloadService from '@/utils/DownloadService';
-import DocxDownloadOption from './DocxDownloadOption';
+import DocxService from '@/utils/DocxService';
+import DocxDownloadHandler from './DocxDownloadHandler';
 
 interface SummaryModalProps {
   isOpen: boolean;
@@ -804,109 +805,52 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 </div>
 
                 <div className={styles.downloadOptionGroup}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
+                  {/* Preview button using DocxDownloadHandler */}
+                  <DocxDownloadHandler
+                    content={content}
+                    fileName="introduction"
+                    documentType="introduction"
+                    className={styles.previewButton}
+                    iconClassName={styles.previewIcon}
+                    buttonText="Preview"
+                    isPreviewButton={true}
+                    onPreview={() => {
                       if (onDocxPreview) {
                         onDocxPreview();
                       } else {
                         handleDocxPreview(); // Fallback to internal handler
                       }
                     }}
-                    className={styles.previewButton}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                      <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    Preview
-                  </a>
-                  <a
-                    href="#"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      if (onDocxDownload) {
-                        onDocxDownload();
-                      } else {
-                        try {
-                          setIsGeneratingDocx(true);
+                  />
 
-                          // Check if the pre-generated DOCX file exists
-                          const response = await fetch('/api/generate-docx?fileName=introduction');
-
-                          if (response.ok) {
-                            const data = await response.json();
-
-                            if (data.success) {
-                              // Get user info from the API for the filename
-                              let downloadFileName = 'introduction';
-                              try {
-                                const userInfoResponse = await fetch('/api/user-info');
-                                const userInfoData = await userInfoResponse.json();
-                                if (userInfoData.success && userInfoData.userInfo) {
-                                  downloadFileName = userInfoData.userInfo.introductionFileName;
-                                }
-                              } catch (error) {
-                                console.error('Error fetching user info for download:', error);
-                              }
-
-                              // Create a link to download the file
-                              const link = document.createElement('a');
-                              link.href = data.docxUrl;
-                              link.download = `${downloadFileName}.docx`;
-                              link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                              document.body.appendChild(link);
-                              link.click();
-
-                              // Small delay before removing the element
-                              setTimeout(() => {
-                                document.body.removeChild(link);
-                              }, 100);
-
-                              DanteLogger.success.ux(`Downloaded ${downloadFileName}.docx successfully`);
-                            } else {
-                              throw new Error(data.error || 'Failed to get DOCX file');
-                            }
-                          } else {
-                            throw new Error(`API responded with status: ${response.status}`);
-                          }
-                        } catch (error) {
-                          console.error('Error downloading DOCX:', error);
-
-                          // Fallback to generating a new DOCX file
-                          try {
-                            await handleExportToDocx();
-                          } catch (fallbackError) {
-                            console.error('Fallback DOCX generation failed:', fallbackError);
-                            alert('Failed to download Word document. Please try again.');
-                          }
-                        } finally {
-                          setIsGeneratingDocx(false);
-                        }
-                      }
-                    }}
+                  {/* Download button using DocxDownloadHandler */}
+                  <DocxDownloadHandler
+                    content={content}
+                    fileName="introduction"
+                    documentType="introduction"
                     className={styles.downloadOption}
-                  >
-                    {isGeneratingDocx ? (
-                      <span className={styles.loadingText}>
-                        <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Downloading...
-                      </span>
-                    ) : (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Word Format
-                      </>
-                    )}
-                  </a>
+                    iconClassName={styles.downloadIcon}
+                    buttonText="Word Format"
+                    loadingText="Downloading..."
+                    onDownloadStart={() => setIsGeneratingDocx(true)}
+                    onDownloadComplete={() => setIsGeneratingDocx(false)}
+                    onError={(error) => {
+                      console.error('Error downloading DOCX:', error);
+                      setIsGeneratingDocx(false);
+                      alert('Failed to download Word document. Please try again.');
+                    }}
+                    options={{
+                      title: 'Introduction',
+                      creator: 'AlexAI',
+                      description: 'Generated Introduction',
+                      // Use PDF-extracted styles
+                      headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
+                      bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
+                      primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
+                      secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
+                      textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -1091,56 +1035,27 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
           onDownload={async () => {
             console.log('DOCX download triggered from preview modal');
             try {
-              // Get user info from the API for the filename
-              let downloadFileName = 'introduction';
-              try {
-                const userInfoResponse = await fetch('/api/user-info');
-                const userInfoData = await userInfoResponse.json();
-                if (userInfoData.success && userInfoData.userInfo) {
-                  downloadFileName = userInfoData.userInfo.introductionFileName;
-                }
-              } catch (error) {
-                console.error('Error fetching user info for download:', error);
-              }
+              setIsGeneratingDocx(true);
 
-              // Check if the pre-generated DOCX file exists
-              const response = await fetch('/api/generate-docx?fileName=introduction');
+              // Use the enhanced DocxService for consistent download experience
+              await DocxService.downloadDocx(content, 'introduction', {
+                title: 'Introduction',
+                creator: 'AlexAI',
+                description: 'Generated Introduction',
+                // Use PDF-extracted styles
+                headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
+                bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
+                primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
+                secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
+                textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+              });
 
-              if (response.ok) {
-                const data = await response.json();
-
-                if (data.success) {
-                  // Create a link to download the file
-                  const link = document.createElement('a');
-                  link.href = data.docxUrl;
-                  link.download = `${downloadFileName}.docx`;
-                  link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                  document.body.appendChild(link);
-                  link.click();
-
-                  // Small delay before removing the element
-                  setTimeout(() => {
-                    document.body.removeChild(link);
-                  }, 100);
-
-                  DanteLogger.success.ux(`Downloaded ${downloadFileName}.docx successfully`);
-                  return Promise.resolve();
-                } else {
-                  throw new Error(data.error || 'Failed to get DOCX file');
-                }
-              } else {
-                throw new Error(`API responded with status: ${response.status}`);
-              }
+              return Promise.resolve();
             } catch (error) {
               console.error('Error in DOCX download from preview:', error);
-
-              // Fallback to the handler
-              try {
-                return await handleExportToDocx();
-              } catch (fallbackError) {
-                console.error('Fallback DOCX generation failed:', fallbackError);
-                return Promise.reject(fallbackError);
-              }
+              return Promise.reject(error);
+            } finally {
+              setIsGeneratingDocx(false);
             }
           }}
           position="right"

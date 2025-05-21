@@ -7,6 +7,7 @@ import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
 import DocxService from '@/utils/DocxService';
+import DocxDownloadHandler from './DocxDownloadHandler';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -951,10 +952,15 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
 
             {/* Add DOCX download option */}
             <div className={styles.downloadOptionGroup}>
-              <a
-                href="#"
-                onClick={async (e) => {
-                  e.preventDefault();
+              <DocxDownloadHandler
+                content={previewContent || ''}
+                fileName={userInfo.resumeFileName}
+                documentType="resume"
+                className={styles.previewButton}
+                iconClassName={styles.previewIcon}
+                buttonText="Preview"
+                isPreviewButton={true}
+                onPreview={async () => {
                   setIsLoadingPreview(true);
                   setShowDocxPreview(false); // Reset preview state
 
@@ -1012,101 +1018,34 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                     setIsLoadingPreview(false);
                   }
                 }}
-                className={styles.previewButton}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                Preview
-              </a>
-              <a
-                href="#"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  setIsGeneratingDocx(true);
-
-                  try {
-                    // First try to use the pre-generated DOCX file
-                    try {
-                      // Check if the pre-generated DOCX file exists
-                      const response = await fetch('/api/generate-docx?fileName=resume');
-
-                      if (response.ok) {
-                        const data = await response.json();
-
-                        if (data.success) {
-                          // Create a link to download the file
-                          const link = document.createElement('a');
-                          link.href = data.docxUrl;
-                          link.download = `${userInfo.resumeFileName}.docx`;
-                          link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                          document.body.appendChild(link);
-                          link.click();
-
-                          // Small delay before removing the element
-                          setTimeout(() => {
-                            document.body.removeChild(link);
-                          }, 100);
-
-                          DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
-                          return;
-                        }
-                      }
-                    } catch (preGenError) {
-                      console.warn('Error using pre-generated DOCX:', preGenError);
-                    }
-
-                    // Fallback to generating a new DOCX file using DocxService
-                    // First load the content if we don't have it
-                    if (!previewContent) {
-                      try {
-                        const response = await fetch('/extracted/resume.md');
-                        if (response.ok) {
-                          const content = await response.text();
-                          setPreviewContent(content);
-
-                          // Use DocxService to download the DOCX
-                          await DocxService.downloadDocx(content, userInfo.resumeFileName);
-                        } else {
-                          throw new Error('Failed to load resume content');
-                        }
-                      } catch (error) {
-                        console.error('Error loading resume content:', error);
-                        throw error;
-                      }
-                    } else {
-                      // Use DocxService to download the DOCX with existing content
-                      await DocxService.downloadDocx(previewContent, userInfo.resumeFileName);
-                    }
-                  } catch (error) {
-                    console.error('Error downloading DOCX:', error);
-                    alert('Failed to download Word document. Please try again.');
-                  } finally {
-                    setIsGeneratingDocx(false);
-                  }
-                }}
+              />
+              <DocxDownloadHandler
+                content={previewContent || ''}
+                fileName={userInfo.resumeFileName}
+                documentType="resume"
                 className={styles.downloadOption}
-              >
-                {isGeneratingDocx ? (
-                  <span className={styles.loadingText}>
-                    <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Downloading...
-                  </span>
-                ) : (
-                  <>
-                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                      <polyline points="7 10 12 15 17 10"></polyline>
-                      <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    Word Format
-                  </>
-                )}
-              </a>
+                iconClassName={styles.downloadIcon}
+                buttonText="Word Format"
+                loadingText="Downloading..."
+                onDownloadStart={() => setIsGeneratingDocx(true)}
+                onDownloadComplete={() => setIsGeneratingDocx(false)}
+                onError={(error) => {
+                  console.error('Error downloading DOCX:', error);
+                  setIsGeneratingDocx(false);
+                  alert('Failed to download Word document. Please try again.');
+                }}
+                options={{
+                  title: `${userInfo.fullName} - Resume`,
+                  creator: 'AlexAI',
+                  description: 'Generated Resume',
+                  // Use PDF-extracted styles
+                  headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
+                  bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
+                  primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
+                  secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
+                  textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+                }}
+              />
             </div>
           </div>
         </div>
@@ -1189,46 +1128,24 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         try {
           setIsGeneratingDocx(true);
 
-          // First try to use the pre-generated DOCX file
-          try {
-            // Check if the pre-generated DOCX file exists
-            const response = await fetch('/api/generate-docx?fileName=resume');
+          // Use the enhanced DocxService for consistent download experience
+          await DocxService.downloadDocx(previewContent, userInfo.resumeFileName, {
+            title: `${userInfo.fullName} - Resume`,
+            creator: 'AlexAI',
+            description: 'Generated Resume',
+            // Use PDF-extracted styles
+            headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
+            bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
+            primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
+            secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
+            textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+          });
 
-            if (response.ok) {
-              const data = await response.json();
-
-              if (data.success) {
-                // Create a link to download the file
-                const link = document.createElement('a');
-                link.href = data.docxUrl;
-                link.download = `${userInfo.resumeFileName}.docx`;
-                link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                document.body.appendChild(link);
-                link.click();
-
-                // Small delay before removing the element
-                setTimeout(() => {
-                  document.body.removeChild(link);
-                }, 100);
-
-                DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
-                return;
-              }
-            }
-          } catch (preGenError) {
-            console.warn('Error using pre-generated DOCX:', preGenError);
-          }
-
-          // Fallback to generating a new DOCX file using DocxService
-          if (previewContent) {
-            // Use DocxService to download the DOCX with existing content
-            await DocxService.downloadDocx(previewContent, userInfo.resumeFileName);
-          } else {
-            alert('Failed to load resume content for DOCX generation.');
-          }
+          return Promise.resolve();
         } catch (error) {
           console.error('Error downloading DOCX:', error);
           alert('Failed to download Word document. Please try again.');
+          return Promise.reject(error);
         } finally {
           setIsGeneratingDocx(false);
         }
