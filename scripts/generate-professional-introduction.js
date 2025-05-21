@@ -140,6 +140,8 @@ Professional Style Guidelines with Narrative Warmth:
 
 ATS Optimization Guidelines (to be applied subtly):
 - Naturally incorporate exact job title and skill keywords from the resume
+- From the provided skills list, select 3-5 of the most relevant and impactful skills to highlight
+- Prioritize skills that demonstrate unique value, technical expertise, or specialized knowledge
 - Include industry-specific technical terms, tools, and methodologies within the narrative
 - Use both spelled-out terms and acronyms where it feels natural
 - Ensure keyword density is natural (5-8% keyword density is optimal)
@@ -183,7 +185,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer who creates extremely concise, impactful professional introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles and a touch of inspirational narrative, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear voice that communicates professional competence while remaining approachable and occasionally revealing authentic passion. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications, values, and a sense of meaningful progression. For each accomplishment you mention, you explicitly state: (1) the specific technology or methodology used, (2) the motivation or purpose behind using that technology, and (3) the measurable outcome or impact achieved when available. You balance direct language with thoughtfully chosen descriptive elements that add depth. You incorporate 3-5 industry-specific terms precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize, expressed with genuine conviction. You use active voice and vivid verbs that convey both precision and energy. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
+          content: 'You are a gifted writer who creates extremely concise, impactful professional introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles and a touch of inspirational narrative, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear voice that communicates professional competence while remaining approachable and occasionally revealing authentic passion. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications, values, and a sense of meaningful progression. For each accomplishment you mention, you explicitly state: (1) the specific technology or methodology used, (2) the motivation or purpose behind using that technology, and (3) the measurable outcome or impact achieved when available. You balance direct language with thoughtfully chosen descriptive elements that add depth. When presented with a list of skills, you intelligently select 3-5 of the most relevant and impactful skills to highlight based on the resume content and industry context. You prioritize skills that demonstrate unique value, technical expertise, or specialized knowledge. You incorporate these selected skills precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize, expressed with genuine conviction. You use active voice and vivid verbs that convey both precision and energy. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -255,12 +257,61 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
+    // Helper function to select a relevant skill from the skills array
+    function selectRelevantSkill(skills, preferredIndex) {
+      // If the preferred index exists, use it
+      if (skills.length > preferredIndex) {
+        return skills[preferredIndex];
+      }
+      // Otherwise, use a random skill from the available skills
+      if (skills.length > 0) {
+        return skills[Math.floor(Math.random() * skills.length)];
+      }
+      // Fallback values if no skills are available
+      const fallbacks = ['advanced methodologies', 'specialized systems', 'industry best practices'];
+      return fallbacks[preferredIndex % fallbacks.length];
+    }
+
+    // Helper function to select 2 relevant skills from the skills array
+    function selectRelevantSkills(skills, count) {
+      if (skills.length <= count) {
+        return skills.join(' and ');
+      }
+
+      // Select 'count' skills from the array, prioritizing the first few
+      const selectedSkills = [];
+
+      // Always include the first skill if available
+      if (skills.length > 0) {
+        selectedSkills.push(skills[0]);
+      }
+
+      // Add one more skill, preferably from a different part of the array
+      if (skills.length > 3) {
+        selectedSkills.push(skills[3]);
+      } else if (skills.length > 1) {
+        selectedSkills.push(skills[1]);
+      }
+
+      return selectedSkills.join(' and ');
+    }
+
     // Create a concise, compelling introduction balancing logical precision with authentic expression
+    let firstParagraph = `As a ${userTitle}, I approach my work with both precision and genuine passion for excellence. My journey has been shaped by implementing ${userSkills.length > 0 ? userSkills[0] : 'industry-standard'} systems to streamline operations and enhance data integrity. `;
+
+    firstParagraph += userSkills.length > 0
+      ? `I've utilized ${selectRelevantSkill(userSkills, 1)} to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.`
+      : 'I've utilized advanced methodologies to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.';
+
+    let secondParagraph = userSkills.length > 0
+        ? `My experience with ${selectRelevantSkills(userSkills, 2)} has enabled me to address complex challenges with targeted technological approaches. By implementing ${selectRelevantSkill(userSkills, 2)}, I've achieved measurable improvements in process efficiency while maintaining rigorous compliance standards. This balanced approach ensures that technical excellence always serves a meaningful purpose, resulting in solutions that deliver tangible benefits to organizations.`
+        : `Throughout my career, I've strategically applied analytical methodologies to identify system inefficiencies and implement targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've developed solutions that consistently exceed performance benchmarks while enhancing user experience. This commitment to purposeful implementation has been the cornerstone of my professional success.`;
+
     const introduction = `# ${userName} - Introduction
 
-As a ${userTitle}, I approach my work with both precision and genuine passion for excellence. My journey has been shaped by implementing ${userSkills.length > 0 ? userSkills[0] : 'industry-standard'} systems to streamline operations and enhance data integrity. I've utilized ${userSkills.length > 1 ? userSkills[1] : 'advanced methodologies'} to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.
+${firstParagraph}
 
-${userSkills.length > 0 ? `My experience with ${userSkills.slice(0, 2).join(' and ')} has enabled me to address complex challenges with targeted technological approaches. By implementing ${userSkills.length > 2 ? userSkills[2] : 'specialized systems'}, I've achieved measurable improvements in process efficiency while maintaining rigorous compliance standards. This balanced approach ensures that technical excellence always serves a meaningful purpose, resulting in solutions that deliver tangible benefits to organizations.` : `Throughout my career, I've strategically applied analytical methodologies to identify system inefficiencies and implement targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've developed solutions that consistently exceed performance benchmarks while enhancing user experience. This commitment to purposeful implementation has been the cornerstone of my professional success.`}
+${secondParagraph}
 
 I'm seeking a role where I can apply these proven approaches to contribute meaningful technological advancements to an organization that values both innovation and integrity. I look forward to discussing how my expertise might align with your specific objectives.
 
@@ -268,15 +319,14 @@ Sincerely,
 
 ${userName}
 ${userEmail || '[your email]'}
-${userPhone || '[your phone]'}
-`;
+${userPhone || '[your phone]'}`;
 
     // Save the introduction
     const outputDir = options.outputDir || path.dirname(resumeContentPath);
     const outputPath = path.join(outputDir, 'introduction.md');
     utils.saveText(outputPath, introduction);
 
-    logger.success(`Fallback introduction saved to: ${outputPath}`);
+    logger.success(`Fallback introduction saved to: ${outputPath} `);
 
     return {
       success: true,
@@ -284,7 +334,7 @@ ${userPhone || '[your phone]'}
       outputPath
     };
   } catch (error) {
-    logger.error(`Error generating fallback introduction: ${error.message}`);
+    logger.error(`Error generating fallback introduction: ${error.message} `);
     return {
       success: false,
       error: error.message
@@ -312,12 +362,12 @@ if (require.main === module) {
       if (result.success) {
         console.log('Introduction generated successfully');
       } else {
-        console.error(`Failed to generate introduction: ${result.error}`);
+        console.error(`Failed to generate introduction: ${result.error} `);
         process.exit(1);
       }
     })
     .catch(error => {
-      console.error(`Error: ${error.message}`);
+      console.error(`Error: ${error.message} `);
       process.exit(1);
     });
 }
