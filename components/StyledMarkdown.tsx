@@ -138,7 +138,11 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
           display: 'block', // Ensures proper block formatting
           width: '100%', // Ensures full width
           marginTop: '0.5rem', // Added for consistent spacing
-          fontWeight: 400 // Normal weight for body text
+          fontWeight: 400, // Normal weight for body text
+          hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
+          overflowWrap: 'break-word', // Prevents text from overflowing
+          wordWrap: 'break-word', // Ensures words break properly
+          wordBreak: 'normal' // Ensures words break properly
         }}
         {...props}
       />
@@ -371,7 +375,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
         overflowWrap: 'break-word', // Prevents text from overflowing
         wordWrap: 'break-word', // Ensures words break properly
         wordBreak: 'normal', // Ensures words break properly
-        hyphens: 'auto', // Adds hyphens when breaking words
+        hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
         textAlign: 'left', // Ensures left alignment
         lineHeight: '1.6', // Consistent line height
         fontWeight: 400, // Normal weight for body text

@@ -19,8 +19,8 @@
   background-color: var(--bg-secondary, #333333);
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  width: 45%; /* Reduced from 90% to allow for left/right positioning */
-  max-width: 900px;
+  width: 60%; /* Increased from 45% to reduce hyphenation */
+  max-width: 1200px; /* Increased from 900px to provide more space for text */
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@
   left: 5% !important;
   right: auto !important;
   margin: 0 !important;
-  width: 45%;
+  width: 60%; /* Increased from 45% to match the main modal width */
   animation: slideInLeft 0.3s ease !important;
 }
 
@@ -49,7 +49,7 @@
   right: 5% !important;
   left: auto !important;
   margin: 0 !important;
-  width: 45%;
+  width: 60%; /* Increased from 45% to match the main modal width */
   animation: slideInRight 0.3s ease !important;
 }
 
@@ -478,11 +478,24 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+  .modalContent,
+  .modalContentLeft,
+  .modalContentRight {
+    width: 75% !important; /* Adjusted for medium-sized screens */
+    max-height: 95vh;
+    left: 5% !important;
+    right: 5% !important;
+    margin: 0 !important;
+    animation: slideIn 0.3s ease !important;
+  }
+}
+
 @media (max-width: 768px) {
   .modalContent,
   .modalContentLeft,
   .modalContentRight {
-    width: 90% !important;
+    width: 90% !important; /* Full width for mobile */
     max-height: 95vh;
     left: 5% !important;
     right: 5% !important;
