@@ -96,32 +96,32 @@ User Information:
 - Phone: ${userPhone}
 - Location: ${userLocation}
 
-Please create a brief, precise introduction that balances clarity and precision with professional ethics:
+Please create a brief, compelling introduction that balances clarity and precision with a touch of inspirational narrative:
 1. Starts with a title "# ${userName} - Introduction"
-2. Uses a clear, precise, and professionally approachable tone
-3. Provides a concise overview of the candidate's career journey, emphasizing both competence and purpose
-4. States 2-3 key skills directly and efficiently
-5. Expresses commitment to professional principles in the industry
-6. Includes a clear statement about the values that drive the candidate professionally
+2. Uses a clear, professionally approachable tone with moments of genuine warmth
+3. Provides a concise overview of the candidate's career journey as a meaningful progression
+4. Weaves 2-3 key skills into the narrative while maintaining clarity
+5. Expresses commitment to professional principles with authentic conviction
+6. Includes a thoughtful statement about the values that drive the candidate professionally
 7. Incorporates 3-5 industry-specific terms that will be recognized by ATS systems
-8. Concludes with a direct statement about what the candidate considers essential in their next role
+8. Concludes with an inspiring yet practical statement about what the candidate hopes to bring to their next role
 
 IMPORTANT: The entire introduction should be readable in about 20 seconds (approximately 150 words maximum, excluding the title). Focus on quality over quantity - every sentence should provide meaningful insight into the candidate's professional identity, ethical framework, and rational approach to their career.
 
-Professional Style Guidelines:
-- Write in first person with a clear, precise voice that conveys professional competence
+Professional Style Guidelines with Narrative Warmth:
+- Write in first person with a clear voice that conveys both professional competence and authentic passion
 - Use concise, grammatically correct sentences (15-20 words maximum per sentence)
-- Avoid ambiguity, vagueness, and unnecessary complexity
-- Employ direct, straightforward language that communicates exactly what is meant
-- Include precise statements about professional experience and qualifications
-- Express commitment to both the work itself and the ethical principles that guide it
+- Avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing
+- Balance direct language with thoughtfully chosen descriptive elements that add depth
+- Include precise statements about professional experience with a sense of meaningful progression
+- Express commitment to both the work itself and the values that guide it with genuine conviction
 - Avoid both clichés and overly theoretical language
-- Balance logical precision with universal principles
-- Clearly articulate how the candidate's skills serve a larger professional purpose
+- Balance logical precision with moments of inspirational insight
+- Articulate how the candidate's skills serve a larger professional purpose with authentic enthusiasm
 - Include specific details that demonstrate the candidate's commitment to professional standards
-- Use active voice and precise verbs
-- Maintain consistent, simple sentence structure for clarity
-- Ensure the tone is approachable and relatable to hiring managers
+- Use active voice and vivid verbs that convey both precision and energy
+- Vary sentence structure while maintaining clarity and professionalism
+- Ensure the tone is approachable, relatable, and subtly inspiring to hiring managers
 
 ATS Optimization Guidelines (to be applied subtly):
 - Naturally incorporate exact job title and skill keywords from the resume
@@ -168,7 +168,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer who creates extremely concise, impactful professional introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear, precise voice that communicates professional competence while remaining approachable. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity, vagueness, and unnecessary complexity. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications and values. You use direct, straightforward language that communicates exactly what is meant. You balance logical precision with ethical principles, selecting details that demonstrate how the candidate\'s work aligns with industry standards. You incorporate 3-5 industry-specific terms precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
+          content: 'You are a gifted writer who creates extremely concise, impactful professional introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance logical precision with professional principles and a touch of inspirational narrative, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to professional standards. Your writing has a clear voice that communicates professional competence while remaining approachable and occasionally revealing authentic passion. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid ambiguity and unnecessary complexity while allowing for occasional expressive phrasing. You distill complex career journeys into 2-3 brief paragraphs that capture professional qualifications, values, and a sense of meaningful progression. You balance direct language with thoughtfully chosen descriptive elements that add depth. You incorporate 3-5 industry-specific terms precisely within your concise narrative. You include at least one statement reflecting what the candidate believes all professionals in their field should prioritize, expressed with genuine conviction. You use active voice and vivid verbs that convey both precision and energy. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. NEVER mention philosophers or authors by name. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -235,14 +235,14 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
       }
     }
 
-    // Create a concise, precise, and approachable professional introduction
+    // Create a concise, compelling, and approachable professional introduction
     const introduction = `# ${userName} - Introduction
 
-As a ${userTitle}, I approach my work with precision and a strong sense of professional responsibility. My expertise lies in developing efficient systems and implementing industry best practices. I consistently apply analytical thinking to solve complex problems and maintain high standards of quality.
+As a ${userTitle}, I approach my work with both precision and genuine passion for excellence. My journey has been shaped by a commitment to developing systems that not only function efficiently but truly enhance the work of those who rely on them. Through thoughtful analysis and dedication to quality, I've consistently turned complex challenges into elegant solutions.
 
-${userSkills.length > 0 ? `My professional experience in ${userSkills.slice(0, 2).join(' and ')} has equipped me to deliver measurable results. I believe that technical excellence must always align with ethical considerations. This balanced approach ensures that my work meets both functional requirements and professional standards.` : `My professional approach centers on practical problem-solving and responsible implementation. I develop systems that balance technical efficiency with ethical considerations. This methodology ensures that my work serves both immediate objectives and long-term goals.`}
+${userSkills.length > 0 ? `My experience in ${userSkills.slice(0, 2).join(' and ')} has deepened my appreciation for the balance between technical excellence and human-centered design. I believe that the most valuable work happens when rigorous standards meet meaningful purpose. This philosophy guides every project I undertake, ensuring outcomes that are both technically sound and genuinely beneficial.` : `Throughout my career, I've cultivated an approach that balances analytical precision with a deep respect for the human element in all systems. I find particular satisfaction in creating solutions that not only meet technical requirements but also enhance the experience of users. This commitment to purposeful implementation has been the cornerstone of my professional journey.`}
 
-I'm seeking a position where I can apply my expertise to advance an organization's goals while maintaining high professional standards. I look forward to discussing how my qualifications align with your team's needs.
+I'm seeking a role where I can contribute my expertise to an organization that values both innovation and integrity. I look forward to discussing how my unique perspective might align with your vision for the future.
 
 Sincerely,
 
