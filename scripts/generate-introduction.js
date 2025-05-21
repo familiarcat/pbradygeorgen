@@ -132,7 +132,7 @@ ATS Optimization Guidelines (to be applied subtly):
 
 Formatting Guidelines:
 - Structure as a very concise, cohesive letter (approximately 150 words maximum)
-- Use 2-3 short paragraphs total for the entire introduction
+- Use 2-3 short paragraphs total for the main body of the introduction
 - Aim for 3-5 sentences per paragraph maximum
 - Keep sentences short and direct (15-20 words maximum per sentence)
 - Use simple sentence structures with minimal subordinate clauses
@@ -146,6 +146,10 @@ Formatting Guidelines:
 - Only include specific, concrete metrics if they appear in the resume and are truly impactful
 - Prioritize statements about professional duty, ethical principles, and universal standards in the field
 - Include at least one statement that reflects Kant's categorical imperative - what the candidate believes all professionals in their field should do
+- End with a proper closing salutation that includes:
+  * A brief closing statement (e.g., "Sincerely," or "Best regards,")
+  * The candidate's full name
+  * The candidate's email and phone number on separate lines
 
 IMPORTANT:
 - Do NOT include any meta-commentary about the introduction itself
@@ -163,7 +167,7 @@ IMPORTANT:
       messages: [
         {
           role: 'system',
-          content: 'You are a gifted writer who combines J.D. Salinger\'s authentic storytelling with Immanuel Kant\'s ethical framework to create extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance personal narrative with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to universal professional standards. Your writing has a distinctive voice that creates an immediate connection with the reader while maintaining professional dignity. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid run-on sentences, complex clauses, and excessive comma usage. You distill complex career journeys into 2-3 brief paragraphs that capture both personal motivations and professional duty. You break complex ideas into multiple simple sentences with active voice and strong verbs. You balance Salinger\'s intimacy with Kant\'s rational principles, selecting details that demonstrate how the candidate\'s work aligns with universal ethical standards in their field. You incorporate 3-5 industry-specific terms naturally within your concise narrative. You include at least one statement reflecting Kant\'s categorical imperative - what the candidate believes all professionals in their field should do. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
+          content: 'You are a gifted writer who combines J.D. Salinger\'s authentic storytelling with Immanuel Kant\'s ethical framework to create extremely concise, impactful introductions (150 words maximum) while subtly incorporating ATS keywords. You create introductions that balance personal narrative with professional principles, can be read in about 20 seconds, and convey both the essence of a person\'s career journey and their commitment to universal professional standards. Your writing has a distinctive voice that creates an immediate connection with the reader while maintaining professional dignity. You excel at writing clear, grammatically concise sentences (15-20 words maximum per sentence) and avoid run-on sentences, complex clauses, and excessive comma usage. You distill complex career journeys into 2-3 brief paragraphs that capture both personal motivations and professional duty. You break complex ideas into multiple simple sentences with active voice and strong verbs. You balance Salinger\'s intimacy with Kant\'s rational principles, selecting details that demonstrate how the candidate\'s work aligns with universal ethical standards in their field. You incorporate 3-5 industry-specific terms naturally within your concise narrative. You include at least one statement reflecting Kant\'s categorical imperative - what the candidate believes all professionals in their field should do. You never use placeholder metrics or vague percentages. You structure content as a very brief, cohesive letter with minimal formatting. You always end with a proper closing salutation that includes a brief closing statement (e.g., "Sincerely," or "Best regards,"), the candidate\'s full name, and their email and phone number on separate lines. NEVER add meta-commentary or explanations about how the introduction was created. NEVER mention that content was extracted from a resume. The introduction should appear as if written directly and personally by the candidate. NEVER use horizontal rules in your markdown.'
         },
         { role: 'user', content: prompt }
       ],
@@ -237,7 +241,13 @@ I first encountered ${userTitle.toLowerCase()} work as both an opportunity and a
 
 ${userSkills.length > 0 ? `My experience with ${userSkills.slice(0, 2).join(' and ')} has shaped my professional outlook. I believe excellence requires both technical skill and ethical judgment. My guiding principle is to create systems worthy of universal adoption. These systems must respect both efficiency and human dignity.` : `I am guided by a clear professional imperative in my work. I create systems worthy of universal adoption. These systems must respect both efficiency and human dignity. My work serves universal principles, not just immediate goals.`}
 
-I seek a role where I can contribute to an organization valuing both innovation and ethical standards. I would welcome discussing how my approach aligns with your team's vision. Please contact me at ${userEmail || '[your email]'} or ${userPhone || '[your phone]'}.
+I seek a role where I can contribute to an organization valuing both innovation and ethical standards. I would welcome discussing how my approach aligns with your team's vision.
+
+Sincerely,
+
+${userName}
+${userEmail || '[your email]'}
+${userPhone || '[your phone]'}
 `;
 
     // Save the introduction
