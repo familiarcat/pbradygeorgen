@@ -1,0 +1,140 @@
+/* 
+ * Centralized Theme CSS
+ * 
+ * This file provides a single source of truth for all theme variables
+ * derived from PDF extraction. It ensures consistent application of
+ * fonts, colors, and other styling throughout the application.
+ *
+ * Philosophy:
+ * - Salinger: Intuitive UX with consistent visual language
+ * - Hesse: Mathematical color theory
+ * - Derrida: Deconstructing hardcoded values with CSS variables
+ * - Kant: Universal principles that apply across the application
+ * - Müller-Brockmann: Grid-based layouts, clear typography, functional design
+ */
+
+:root {
+  /* 
+   * Font Variables - Single source of truth
+   * These variables are set by the PDF extraction process and used throughout the application
+   */
+  --pdf-font-primary: var(--pdf-body-font, var(--font-body, 'Helvetica Neue', Arial, sans-serif));
+  --pdf-font-heading: var(--pdf-heading-font, var(--font-heading, 'Helvetica Neue', Arial, sans-serif));
+  --pdf-font-title: var(--pdf-title-font, var(--pdf-heading-font, var(--font-heading, 'Helvetica Neue', Arial, sans-serif)));
+  --pdf-font-mono: var(--pdf-mono-font, var(--font-mono, 'Courier New', monospace));
+  --pdf-font-button: var(--pdf-button-font, var(--pdf-heading-font, var(--font-heading, 'Helvetica Neue', Arial, sans-serif)));
+  
+  /* 
+   * Color Variables - Single source of truth
+   * These variables are set by the PDF extraction process and used throughout the application
+   */
+  --pdf-color-primary: var(--pdf-primary-color, var(--primary, #00A99D));
+  --pdf-color-primary-dark: var(--pdf-primary-dark, var(--primary-dark, #008F85));
+  --pdf-color-secondary: var(--pdf-secondary-color, var(--secondary, #5A7682));
+  --pdf-color-accent: var(--pdf-accent-color, var(--accent, #7E4E2D));
+  --pdf-color-background: var(--pdf-background-color, var(--background, #FFFFFF));
+  --pdf-color-text: var(--pdf-text-color, var(--text-color, #333333));
+  --pdf-color-text-secondary: var(--pdf-text-secondary, var(--text-secondary, #666666));
+  --pdf-color-border: var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.15)));
+  
+  /* 
+   * Button/CTA Variables - Single source of truth
+   * These variables ensure consistent button styling throughout the application
+   */
+  --pdf-button-color: var(--pdf-button-color, var(--buttonColor, var(--pdf-color-primary)));
+  --pdf-button-hover-color: var(--pdf-button-hover-color, var(--buttonHoverColor, var(--pdf-color-primary-dark)));
+  --pdf-button-text-color: #FFFFFF;
+  --pdf-button-focus-color: rgba(0, 169, 157, 0.5);
+  
+  /* 
+   * Component-specific Variables
+   * These variables provide consistent styling for specific components
+   */
+  --pdf-header-background: var(--pdf-color-background);
+  --pdf-header-text: var(--pdf-color-text);
+  --pdf-header-border: var(--pdf-color-border);
+  
+  --pdf-modal-background: var(--pdf-color-background);
+  --pdf-modal-text: var(--pdf-color-text);
+  --pdf-modal-border: var(--pdf-color-border);
+  
+  --pdf-dropdown-background: #333333;
+  --pdf-dropdown-text: #FFFFFF;
+  --pdf-dropdown-hover: rgba(0, 169, 157, 0.15);
+}
+
+/* 
+ * Universal Button/CTA Styling
+ * These classes ensure consistent button styling throughout the application
+ */
+.pdf-button,
+.pdf-cta,
+.actionLink,
+button[class*="action"],
+a[class*="action"] {
+  /* Text styling - Salinger principle of readability */
+  color: var(--pdf-button-text-color) !important;
+  text-decoration: none;
+  font-family: var(--pdf-font-button) !important;
+  font-size: 0.9rem;
+  font-weight: bold;
+
+  /* Layout and spacing - Salinger principle of consistent visual language */
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  /* Background and border - Hesse principle of color harmony */
+  background-color: var(--pdf-button-color) !important;
+  border: 1px solid var(--pdf-button-color) !important;
+  /* Add box shadow for better visibility - Josef Müller-Brockmann principle of clear visual communication */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.pdf-button:hover,
+.pdf-cta:hover,
+.actionLink:hover,
+button[class*="action"]:hover,
+a[class*="action"]:hover {
+  /* Text styling - Salinger principle of interactive feedback */
+  color: var(--pdf-button-text-color) !important;
+  /* Background - Hesse principle of color harmony with subtle variation */
+  background-color: var(--pdf-button-hover-color) !important;
+  /* Visual feedback - Salinger principle of depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--pdf-button-hover-color) !important;
+}
+
+.pdf-button:focus,
+.pdf-cta:focus,
+.actionLink:focus,
+button[class*="action"]:focus,
+a[class*="action"]:focus {
+  /* Accessibility - Salinger principle of usability */
+  outline: none;
+  color: var(--pdf-button-text-color) !important;
+  background-color: var(--pdf-button-color) !important;
+  /* Focus indicator - Salinger principle of accessibility */
+  box-shadow: 0 0 0 2px var(--pdf-button-focus-color) !important;
+}
+
+/* 
+ * Icon styling for buttons/CTAs
+ */
+.pdf-button svg,
+.pdf-cta svg,
+.actionLink svg,
+button[class*="action"] svg,
+a[class*="action"] svg,
+.actionIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2.5;
+  stroke: var(--pdf-button-text-color) !important;
+  fill: none !important;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5)) !important;
+}

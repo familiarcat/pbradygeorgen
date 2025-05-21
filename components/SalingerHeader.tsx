@@ -503,7 +503,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           <div className={styles.actionGroup}>
             <a
               href="#"
-              className={styles.actionLink}
+              className={`${styles.actionLink} pdf-cta`}
               onClick={(e) => handleAction('summary', e)}
               aria-label="View Introduction"
             >
@@ -536,7 +536,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           {title && (
             <a
               href="/muller-test"
-              className={styles.actionLink}
+              className={`${styles.actionLink} pdf-cta`}
               aria-label="Müller-Brockmann Design System"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -550,7 +550,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         <div className={styles.downloadContainer}>
           <a
             href="#"
-            className={styles.actionLink}
+            className={`${styles.actionLink} pdf-cta`}
             onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
             aria-label="Download Resume"
             aria-haspopup="true"
@@ -952,7 +952,7 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
         <a
           ref={contactButtonRef}
           href="#"
-          className={styles.actionLink}
+          className={`${styles.actionLink} pdf-cta`}
           onClick={(e) => handleAction('contact', e)}
           aria-label="Contact"
         >

@@ -56,48 +56,12 @@
 }
 
 .actionLink {
-  /* Text styling - Salinger principle of readability */
-  color: #FFFFFF !important; /* Force white text for better contrast on accent color buttons */
-  text-decoration: none;
-  font-family: var(--pdf-button-font, var(--font-button, var(--dynamic-heading-font, 'Helvetica Neue', Arial, sans-serif))) !important;
-  font-size: 0.9rem;
-  font-weight: bold;
-
-  /* Layout and spacing - Salinger principle of consistent visual language */
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  /* Use centralized theme for consistent styling */
+  /* All styling is now handled by the pdf-cta class in centralized-theme.css */
   position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
-  /* Background and border - Hesse principle of color harmony */
-  /* Use the primary color for buttons to ensure legibility and consistency */
-  background-color: var(--pdf-button-color, var(--buttonColor, var(--primary, #00A99D))) !important;
-  border: 1px solid var(--pdf-button-color, var(--buttonColor, var(--primary, #00A99D))) !important;
-  /* Add box shadow for better visibility - Josef Müller-Brockmann principle of clear visual communication */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
-}
-
-.actionLink:hover {
-  /* Text styling - Salinger principle of interactive feedback */
-  color: #FFFFFF !important; /* Force white text for better contrast */
-  /* Background - Hesse principle of color harmony with subtle variation */
-  /* Use a darker version of the primary color */
-  background-color: var(--pdf-button-hover-color, var(--buttonHoverColor, var(--primary-dark, #008F85))) !important;
-  /* Visual feedback - Salinger principle of depth */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--pdf-button-hover-color, var(--buttonHoverColor, var(--primary-dark, #008F85))) !important;
-}
-
-.actionLink:focus {
-  /* Accessibility - Salinger principle of usability */
-  outline: none;
-  color: #FFFFFF !important; /* Force white text for better contrast */
-  background-color: var(--pdf-button-color, var(--buttonColor, var(--primary, #00A99D))) !important; /* Match normal state */
-  /* Focus indicator - Salinger principle of accessibility */
-  box-shadow: 0 0 0 2px var(--pdf-button-focus-color, var(--buttonFocusColor, rgba(0, 169, 157, 0.5))) !important; /* Focus ring for better visibility */
 }
 
 /* Dropdown menu styling */
@@ -192,13 +156,10 @@
 
 /* Action icons */
 .actionIcon {
+  /* Use centralized theme for consistent styling */
+  /* Most styling is now handled by the actionIcon class in centralized-theme.css */
   width: 1.25rem;
   height: 1.25rem;
-  stroke-width: 2.5; /* Increased stroke width for better visibility */
-  stroke: #FFFFFF !important; /* Force white stroke for icons on accent color buttons */
-  fill: none !important; /* Prevent fill from affecting visibility */
-  /* Ensure high contrast - Müller-Brockmann principle of clear visual communication */
-  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5)) !important; /* Enhanced shadow for better contrast */
 }
 
 /* Refresh button */
@@ -209,22 +170,22 @@
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background-color: var(--pdf-button-color, var(--buttonColor, var(--primary, #00A99D))) !important; /* Use primary color for consistency */
-  border: 1px solid var(--pdf-button-color, var(--buttonColor, var(--primary, #00A99D))) !important;
+  background-color: var(--pdf-button-color) !important;
+  border: 1px solid var(--pdf-button-color) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .refreshButton:hover {
-  background-color: #008F85 !important; /* Darker teal for hover state */
+  background-color: var(--pdf-button-hover-color) !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transform: rotate(45deg);
 }
 
 .refreshButton:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 169, 157, 0.5) !important; /* Light teal focus ring for better visibility */
+  box-shadow: 0 0 0 2px var(--pdf-button-focus-color) !important;
 }
 
 /* Preview icon */
