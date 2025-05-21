@@ -6,6 +6,7 @@ import DownloadService from '@/utils/DownloadService';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import UserInfoService, { UserInfo } from '@/utils/UserInfoService';
+import DocxDownloadOption from './DocxDownloadOption';
 
 interface SalingerHeaderProps {
   onDownload?: () => void;
@@ -70,6 +71,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [showMdPreview, setShowMdPreview] = useState(false);
   const [showTxtPreview, setShowTxtPreview] = useState(false);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
+  const [showDocxPreview, setShowDocxPreview] = useState(false);
 
   // Introduction states
   const [showSummaryModal, setShowSummaryModal] = useState(false);
@@ -89,6 +91,7 @@ const SalingerHeader: React.FC<SalingerHeaderProps> = ({
   const [isGeneratingIntroductionPdf, setIsGeneratingIntroductionPdf] = useState(false);
   const [isGeneratingIntroductionMd, setIsGeneratingIntroductionMd] = useState(false);
   const [isGeneratingIntroductionTxt, setIsGeneratingIntroductionTxt] = useState(false);
+  const [isGeneratingDocx, setIsGeneratingDocx] = useState(false);
 
   const contactButtonRef = useRef<HTMLAnchorElement>(null);
 
@@ -946,6 +949,193 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
               </a>
             </div>
 
+            {/* Add DOCX download option */}
+            <div className={styles.downloadOptionGroup}>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsLoadingPreview(true);
+                  setShowDocxPreview(false); // Reset preview state
+
+                  try {
+                    // First try to load the pre-generated resume content
+                    try {
+                      const response = await fetch('/extracted/resume.md');
+                      if (response.ok) {
+                        const content = await response.text();
+                        console.log('Pre-generated resume loaded successfully for DOCX preview');
+
+                        // Set the preview content and show the preview modal
+                        setPreviewContent(content);
+                        setShowDocxPreview(true);
+                        return;
+                      } else {
+                        console.warn('Pre-generated resume not found, falling back to API for DOCX preview');
+                      }
+                    } catch (error) {
+                      console.warn('Error loading pre-generated resume for DOCX preview:', error);
+                    }
+
+                    // Fallback to the API
+                    console.log('Falling back to format-content API for DOCX preview...');
+
+                    // Call our server-side API to format the content
+                    const apiResponse = await fetch('/api/format-content', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'markdown'
+                      }),
+                    });
+
+                    if (!apiResponse.ok) {
+                      throw new Error(`API responded with status: ${apiResponse.status}`);
+                    }
+
+                    const result = await apiResponse.json();
+
+                    if (!result.success) {
+                      throw new Error(result.error || 'Unknown error');
+                    }
+
+                    // Set the preview content and show the preview modal
+                    setPreviewContent(result.formattedContent);
+                    setShowDocxPreview(true);
+                  } catch (error) {
+                    console.error('Error generating DOCX preview:', error);
+                    alert('Failed to generate DOCX preview. Please try again.');
+                  } finally {
+                    setIsLoadingPreview(false);
+                  }
+                }}
+                className={styles.previewButton}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Preview
+              </a>
+              <a
+                href="#"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setIsGeneratingDocx(true);
+
+                  try {
+                    // Check if the pre-generated DOCX file exists
+                    const response = await fetch('/api/generate-docx?fileName=resume');
+
+                    if (response.ok) {
+                      const data = await response.json();
+
+                      if (data.success) {
+                        // Create a link to download the file
+                        const link = document.createElement('a');
+                        link.href = data.docxUrl;
+                        link.download = `${userInfo.resumeFileName}.docx`;
+                        link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                        document.body.appendChild(link);
+                        link.click();
+
+                        // Small delay before removing the element
+                        setTimeout(() => {
+                          document.body.removeChild(link);
+                        }, 100);
+
+                        DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
+                      } else {
+                        throw new Error(data.error || 'Failed to get DOCX file');
+                      }
+                    } else {
+                      throw new Error(`API responded with status: ${response.status}`);
+                    }
+                  } catch (error) {
+                    console.error('Error downloading DOCX:', error);
+
+                    // Fallback to generating a new DOCX file
+                    try {
+                      // First load the content if we don't have it
+                      if (!previewContent) {
+                        const response = await fetch('/extracted/resume.md');
+                        if (response.ok) {
+                          const content = await response.text();
+                          setPreviewContent(content);
+                        } else {
+                          throw new Error('Failed to load resume content');
+                        }
+                      }
+
+                      // Use the DocxDownloadOption component's functionality
+                      const docxResponse = await fetch('/api/generate-docx', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          markdownContent: previewContent || '# Resume content not loaded',
+                          fileName: userInfo.resumeFileName,
+                        }),
+                      });
+
+                      if (!docxResponse.ok) {
+                        throw new Error(`Failed to generate DOCX: ${docxResponse.statusText}`);
+                      }
+
+                      const docxData = await docxResponse.json();
+
+                      if (!docxData.success) {
+                        throw new Error(`Failed to generate DOCX: ${docxData.error}`);
+                      }
+
+                      // Create a link to download the file
+                      const link = document.createElement('a');
+                      link.href = docxData.docxUrl;
+                      link.download = `${userInfo.resumeFileName}.docx`;
+                      link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                      document.body.appendChild(link);
+                      link.click();
+
+                      // Small delay before removing the element
+                      setTimeout(() => {
+                        document.body.removeChild(link);
+                      }, 100);
+
+                      DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
+                    } catch (fallbackError) {
+                      console.error('Fallback DOCX generation failed:', fallbackError);
+                      alert('Failed to download Word document. Please try again.');
+                    }
+                  } finally {
+                    setIsGeneratingDocx(false);
+                  }
+                }}
+                className={styles.downloadOption}
+              >
+                {isGeneratingDocx ? (
+                  <span className={styles.loadingText}>
+                    <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Downloading...
+                  </span>
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Word Format
+                  </>
+                )}
+              </a>
+            </div>
           </div>
         </div>
         <span className={styles.actionSeparator}>•</span>
@@ -1014,6 +1204,54 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
       onDownload={handlePdfDownload}
       position="right"
       pdfSource={`/resume.pdf`} // Use the public/resume.pdf file which is always available
+    />
+
+    {/* DOCX Preview Modal */}
+    <PreviewModal
+      isOpen={showDocxPreview}
+      onClose={() => setShowDocxPreview(false)}
+      content={previewContent}
+      format="docx"
+      fileName={userInfo.resumeFileName}
+      onDownload={async () => {
+        try {
+          setIsGeneratingDocx(true);
+
+          // Check if the pre-generated DOCX file exists
+          const response = await fetch('/api/generate-docx?fileName=resume');
+
+          if (response.ok) {
+            const data = await response.json();
+
+            if (data.success) {
+              // Create a link to download the file
+              const link = document.createElement('a');
+              link.href = data.docxUrl;
+              link.download = `${userInfo.resumeFileName}.docx`;
+              link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+              document.body.appendChild(link);
+              link.click();
+
+              // Small delay before removing the element
+              setTimeout(() => {
+                document.body.removeChild(link);
+              }, 100);
+
+              DanteLogger.success.ux(`Downloaded ${userInfo.resumeFileName}.docx successfully`);
+            } else {
+              throw new Error(data.error || 'Failed to get DOCX file');
+            }
+          } else {
+            throw new Error(`API responded with status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error('Error downloading DOCX:', error);
+          alert('Failed to download Word document. Please try again.');
+        } finally {
+          setIsGeneratingDocx(false);
+        }
+      }}
+      position="right"
     />
 
     {/* Summary Modal - Using the new dark-themed SummaryModal */}

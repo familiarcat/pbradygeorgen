@@ -105,6 +105,10 @@ async function processPDF(pdfPath, outputPrefix = '', isActive = false) {
     log('RESUME', 'Generating resume content...', colors.green);
     execSync(`node scripts/generate-resume.js "public/extracted/resume_content.md"`, { stdio: 'inherit' });
 
+    // Generate DOCX files
+    log('DOCX', 'Generating DOCX files...', colors.yellow);
+    execSync(`node scripts/generate-docx-files.js`, { stdio: 'inherit' });
+
     // If this is the active PDF source, copy the output files to the standard locations
     if (isActive) {
       log('ACTIVE', `Processing active PDF: ${pdfPath}`, colors.green);

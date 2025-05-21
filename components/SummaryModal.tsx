@@ -8,6 +8,8 @@ import PdfGenerator from '@/utils/PdfGenerator';
 import PreviewModal from './PreviewModal';
 import { usePdfThemeContext } from '@/components/DynamicThemeProvider';
 import StyledMarkdown from './StyledMarkdown';
+import DownloadService from '@/utils/DownloadService';
+import DocxDownloadOption from './DocxDownloadOption';
 
 interface SummaryModalProps {
   isOpen: boolean;
@@ -23,6 +25,8 @@ interface SummaryModalProps {
   onMarkdownDownload?: () => void;
   onTextPreview?: () => void;
   onTextDownload?: () => void;
+  onDocxPreview?: () => void;
+  onDocxDownload?: () => void;
 }
 
 const SummaryModal: React.FC<SummaryModalProps> = ({
@@ -38,7 +42,9 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   onMarkdownPreview,
   onMarkdownDownload,
   onTextPreview,
-  onTextDownload
+  onTextDownload,
+  onDocxPreview,
+  onDocxDownload
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -83,17 +89,21 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [isGeneratingMd, setIsGeneratingMd] = useState(false);
   const [isGeneratingTxt, setIsGeneratingTxt] = useState(false);
+  const [isGeneratingDocx, setIsGeneratingDocx] = useState(false);
 
   // States for preview modals
   // Track which preview is active to prevent multiple previews from showing simultaneously
-  const [activePreview, setActivePreview] = useState<'pdf' | 'markdown' | 'text' | null>(null);
+  const [activePreview, setActivePreview] = useState<'pdf' | 'markdown' | 'text' | 'docx' | null>(null);
   const [previewContent, setPreviewContent] = useState('');
   const [pdfDataUrl, setPdfDataUrl] = useState<string | null>(null);
+  const [docxUrl, setDocxUrl] = useState<string | null>(null);
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
   // Computed states for previews based on activePreview
   const showPdfPreview = activePreview === 'pdf';
   const showMdPreview = activePreview === 'markdown';
   const showTxtPreview = activePreview === 'text';
+  const showDocxPreview = activePreview === 'docx';
 
   // State for dropdown
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
@@ -397,6 +407,110 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
     }
   };
 
+  // Function to handle DOCX export
+  const handleExportToDocx = async (): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setIsGeneratingDocx(true);
+        HesseLogger.summary.start('Exporting summary as DOCX');
+
+        // Get user info from the API for the filename
+        let downloadFileName = 'introduction';
+        try {
+          const userInfoResponse = await fetch('/api/user-info');
+          const userInfoData = await userInfoResponse.json();
+          if (userInfoData.success && userInfoData.userInfo) {
+            downloadFileName = userInfoData.userInfo.introductionFileName;
+          }
+        } catch (error) {
+          console.error('Error fetching user info for download:', error);
+        }
+
+        // Use the DownloadService to download the DOCX
+        await DownloadService.downloadDocx(content, downloadFileName, {
+          title: `${downloadFileName} - Introduction`,
+          creator: 'AlexAI',
+          description: 'Generated Introduction',
+          // Use PDF-extracted styles
+          headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
+          bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
+          primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
+          secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
+          textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+        });
+
+        DanteLogger.success.basic('Exported summary as DOCX');
+        HesseLogger.summary.complete('Summary exported as DOCX');
+        resolve();
+      } catch (error) {
+        DanteLogger.error.runtime(`Error exporting to DOCX: ${error}`);
+        HesseLogger.summary.error(`Error exporting to DOCX: ${error}`);
+        alert('There was an error generating the DOCX file. Please try again.');
+        reject(error);
+      } finally {
+        setIsGeneratingDocx(false);
+      }
+    });
+  };
+
+  // Function to handle DOCX preview
+  const handleDocxPreview = async () => {
+    try {
+      HesseLogger.summary.start('Opening DOCX preview');
+      setIsLoadingPreview(true);
+
+      // Get user info from the API for the filename
+      let downloadFileName = 'introduction';
+      try {
+        const userInfoResponse = await fetch('/api/user-info');
+        const userInfoData = await userInfoResponse.json();
+        if (userInfoData.success && userInfoData.userInfo) {
+          downloadFileName = userInfoData.userInfo.introductionFileName;
+        }
+      } catch (error) {
+        console.error('Error fetching user info for download:', error);
+      }
+
+      // Generate a DOCX file on the server
+      const response = await fetch('/api/generate-docx', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          markdownContent: content,
+          fileName: downloadFileName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to generate DOCX preview: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(`Failed to generate DOCX preview: ${data.error}`);
+      }
+
+      // Set the preview content to the original markdown
+      // but indicate that a DOCX file has been generated
+      setPreviewContent(content);
+      setActivePreview('docx');
+
+      // Store the DOCX URL for download
+      setDocxUrl(data.docxUrl);
+
+      DanteLogger.success.basic('Opened DOCX preview with Salinger design');
+    } catch (error) {
+      DanteLogger.error.runtime(`Error showing DOCX preview: ${error}`);
+      HesseLogger.summary.error(`DOCX preview failed: ${error}`);
+      alert('There was an error generating the DOCX preview. Please try again.');
+    } finally {
+      setIsLoadingPreview(false);
+    }
+  };
+
   // Handle click outside to close modal or dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -688,6 +802,112 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                     )}
                   </a>
                 </div>
+
+                <div className={styles.downloadOptionGroup}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (onDocxPreview) {
+                        onDocxPreview();
+                      } else {
+                        handleDocxPreview(); // Fallback to internal handler
+                      }
+                    }}
+                    className={styles.previewButton}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Preview
+                  </a>
+                  <a
+                    href="#"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      if (onDocxDownload) {
+                        onDocxDownload();
+                      } else {
+                        try {
+                          setIsGeneratingDocx(true);
+
+                          // Check if the pre-generated DOCX file exists
+                          const response = await fetch('/api/generate-docx?fileName=introduction');
+
+                          if (response.ok) {
+                            const data = await response.json();
+
+                            if (data.success) {
+                              // Get user info from the API for the filename
+                              let downloadFileName = 'introduction';
+                              try {
+                                const userInfoResponse = await fetch('/api/user-info');
+                                const userInfoData = await userInfoResponse.json();
+                                if (userInfoData.success && userInfoData.userInfo) {
+                                  downloadFileName = userInfoData.userInfo.introductionFileName;
+                                }
+                              } catch (error) {
+                                console.error('Error fetching user info for download:', error);
+                              }
+
+                              // Create a link to download the file
+                              const link = document.createElement('a');
+                              link.href = data.docxUrl;
+                              link.download = `${downloadFileName}.docx`;
+                              link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                              document.body.appendChild(link);
+                              link.click();
+
+                              // Small delay before removing the element
+                              setTimeout(() => {
+                                document.body.removeChild(link);
+                              }, 100);
+
+                              DanteLogger.success.ux(`Downloaded ${downloadFileName}.docx successfully`);
+                            } else {
+                              throw new Error(data.error || 'Failed to get DOCX file');
+                            }
+                          } else {
+                            throw new Error(`API responded with status: ${response.status}`);
+                          }
+                        } catch (error) {
+                          console.error('Error downloading DOCX:', error);
+
+                          // Fallback to generating a new DOCX file
+                          try {
+                            await handleExportToDocx();
+                          } catch (fallbackError) {
+                            console.error('Fallback DOCX generation failed:', fallbackError);
+                            alert('Failed to download Word document. Please try again.');
+                          }
+                        } finally {
+                          setIsGeneratingDocx(false);
+                        }
+                      }
+                    }}
+                    className={styles.downloadOption}
+                  >
+                    {isGeneratingDocx ? (
+                      <span className={styles.loadingText}>
+                        <svg className={`${styles.loadingSpinner} h-4 w-4 mr-2`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Downloading...
+                      </span>
+                    ) : (
+                      <>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={styles.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="7 10 12 15 17 10"></polyline>
+                          <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Word Format
+                      </>
+                    )}
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -855,6 +1075,72 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
             } catch (error) {
               console.error('Error in Text download from preview:', error);
               return handleExportToText(); // Fall back to the handler
+            }
+          }}
+          position="right"
+        />
+      )}
+
+      {showDocxPreview && (
+        <PreviewModal
+          isOpen={showDocxPreview}
+          onClose={() => setActivePreview(null)}
+          content={previewContent}
+          format="docx"
+          fileName="introduction"
+          onDownload={async () => {
+            console.log('DOCX download triggered from preview modal');
+            try {
+              // Get user info from the API for the filename
+              let downloadFileName = 'introduction';
+              try {
+                const userInfoResponse = await fetch('/api/user-info');
+                const userInfoData = await userInfoResponse.json();
+                if (userInfoData.success && userInfoData.userInfo) {
+                  downloadFileName = userInfoData.userInfo.introductionFileName;
+                }
+              } catch (error) {
+                console.error('Error fetching user info for download:', error);
+              }
+
+              // Check if the pre-generated DOCX file exists
+              const response = await fetch('/api/generate-docx?fileName=introduction');
+
+              if (response.ok) {
+                const data = await response.json();
+
+                if (data.success) {
+                  // Create a link to download the file
+                  const link = document.createElement('a');
+                  link.href = data.docxUrl;
+                  link.download = `${downloadFileName}.docx`;
+                  link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                  document.body.appendChild(link);
+                  link.click();
+
+                  // Small delay before removing the element
+                  setTimeout(() => {
+                    document.body.removeChild(link);
+                  }, 100);
+
+                  DanteLogger.success.ux(`Downloaded ${downloadFileName}.docx successfully`);
+                  return Promise.resolve();
+                } else {
+                  throw new Error(data.error || 'Failed to get DOCX file');
+                }
+              } else {
+                throw new Error(`API responded with status: ${response.status}`);
+              }
+            } catch (error) {
+              console.error('Error in DOCX download from preview:', error);
+
+              // Fallback to the handler
+              try {
+                return await handleExportToDocx();
+              } catch (fallbackError) {
+                console.error('Fallback DOCX generation failed:', fallbackError);
+                return Promise.reject(fallbackError);
+              }
             }
           }}
           position="right"

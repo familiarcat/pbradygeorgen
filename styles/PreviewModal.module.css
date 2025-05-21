@@ -268,6 +268,52 @@
   border: 1px solid var(--border-color, rgba(73, 66, 61, 0.1));
 }
 
+/* DOCX Preview Message */
+.docxPreviewMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.docxIcon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  color: var(--cta-primary, #00A99D);
+}
+
+.docxPreviewMessage h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: var(--text-color, #333333);
+  font-family: var(--font-heading, sans-serif);
+}
+
+.docxPreviewMessage p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 600px;
+  color: var(--text-color, #333333);
+  font-family: var(--font-body, serif);
+}
+
+.docxPreviewContent {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color, rgba(73, 66, 61, 0.1));
+  border-radius: 4px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: var(--bg-primary, #FFFFFF);
+  text-align: left;
+}
+
 /* Modal footer */
 .modalFooter {
   padding: 1rem 1.5rem;

@@ -10,7 +10,7 @@ interface PreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   content: string;
-  format: 'markdown' | 'text' | 'pdf';
+  format: 'markdown' | 'text' | 'pdf' | 'docx';
   fileName: string;
   onDownload: () => void; // Default download handler
   onDownloadWithDataUrl?: (dataUrl: string) => void; // Optional handler for downloading with data URL
@@ -124,7 +124,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
               ? 'Markdown Preview'
               : format === 'pdf'
                 ? 'PDF Preview'
-                : 'Text Preview'}
+                : format === 'docx'
+                  ? 'Word Preview'
+                  : 'Text Preview'}
           </h2>
           <div className={styles.headerActions}>
             {/* Removed Export PDF button to maintain consistent UI across all preview modals */}
@@ -187,6 +189,30 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                   title="PDF Preview (File)"
                 />
               )}
+            </div>
+          ) : format === 'docx' ? (
+            <div
+              className={styles.markdownPreview}
+              style={{
+                backgroundColor: 'var(--pdf-background-color, var(--bg-primary, #ffffff))',
+                color: 'var(--pdf-text-color, var(--text-color, #333333))',
+                borderColor: 'var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
+                fontFamily: 'var(--pdf-body-font, var(--font-body, var(--dynamic-primary-font, "Helvetica Neue", Arial, sans-serif)))'
+              }}>
+              <div className={styles.docxPreviewMessage}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={styles.docxIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <h3>Word Document Preview</h3>
+                <p>A Microsoft Word document has been generated and is ready for download. Click the download button below to save the document.</p>
+                <div className={styles.docxPreviewContent}>
+                  <StyledMarkdown>{content}</StyledMarkdown>
+                </div>
+              </div>
             </div>
           ) : (
             <pre
@@ -351,7 +377,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
                 ? 'Markdown'
                 : format === 'pdf'
                   ? 'PDF'
-                  : 'Text'
+                  : format === 'docx'
+                    ? 'Word'
+                    : 'Text'
             } File
           </button>
           <button
