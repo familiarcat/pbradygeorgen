@@ -301,11 +301,11 @@ async function generateFallbackIntroduction(resumeContentPath, options = {}) {
 
     firstParagraph += userSkills.length > 0
       ? `I've utilized ${selectRelevantSkill(userSkills, 1)} to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.`
-      : 'I've utilized advanced methodologies to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.';
+      : "I've utilized advanced methodologies to develop solutions that not only meet technical requirements but significantly improve workflow efficiency for stakeholders.";
 
     let secondParagraph = userSkills.length > 0
-        ? `My experience with ${selectRelevantSkills(userSkills, 2)} has enabled me to address complex challenges with targeted technological approaches. By implementing ${selectRelevantSkill(userSkills, 2)}, I've achieved measurable improvements in process efficiency while maintaining rigorous compliance standards. This balanced approach ensures that technical excellence always serves a meaningful purpose, resulting in solutions that deliver tangible benefits to organizations.`
-        : `Throughout my career, I've strategically applied analytical methodologies to identify system inefficiencies and implement targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've developed solutions that consistently exceed performance benchmarks while enhancing user experience. This commitment to purposeful implementation has been the cornerstone of my professional success.`;
+      ? `My experience with ${selectRelevantSkills(userSkills, 2)} has enabled me to address complex challenges with targeted technological approaches. By implementing ${selectRelevantSkill(userSkills, 2)}, I've achieved measurable improvements in process efficiency while maintaining rigorous compliance standards. This balanced approach ensures that technical excellence always serves a meaningful purpose, resulting in solutions that deliver tangible benefits to organizations.`
+      : `Throughout my career, I've strategically applied analytical methodologies to identify system inefficiencies and implement targeted improvements. By integrating user-centered design principles with robust technical frameworks, I've developed solutions that consistently exceed performance benchmarks while enhancing user experience. This commitment to purposeful implementation has been the cornerstone of my professional success.`;
 
     const introduction = `# ${userName} - Introduction
 
