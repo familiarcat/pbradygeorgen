@@ -48,3 +48,9 @@ amplify-build-config.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated files
+/public/backup/
+/public/extracted/
+/source-pdfs/extracted/
+/test-results/
