@@ -2,9 +2,12 @@
  * Prebuild Script
  *
  * This script runs before the build process to ensure that PDF extraction
- * is completed before any UI components are rendered.
+ * and content generation are completed before any UI components are rendered.
  *
- * It now includes enhanced extraction capabilities for better style theme extraction.
+ * It includes:
+ * - Enhanced extraction capabilities for better style theme extraction
+ * - Professional introduction generation with balanced logical precision and authentic expression
+ * - ATS optimization for modern hiring processes
  */
 
 const fs = require('fs');
@@ -13,6 +16,7 @@ const { createLogger } = require('../core/logger');
 const config = require('../core/config');
 const { extractAll } = require('../pdf/extractor');
 const { extractEnhanced } = require('../pdf/enhanced-extractor');
+const { generateIntroduction } = require('../generate-professional-introduction');
 
 const logger = createLogger('build');
 
@@ -41,6 +45,15 @@ async function prebuild() {
     await extractEnhanced(defaultPdfPath, {
       generateDocs: true
     });
+
+    // Generate professional introduction
+    const resumeContentPath = path.join(process.cwd(), 'public/extracted/resume_content.md');
+    if (fs.existsSync(resumeContentPath)) {
+      logger.info(`Generating professional introduction from resume content`);
+      await generateIntroduction(resumeContentPath);
+    } else {
+      logger.warning(`Resume content not found: ${resumeContentPath}`);
+    }
   } else {
     logger.warning(`Default PDF not found: ${defaultPdfPath}`);
   }
@@ -66,6 +79,16 @@ async function prebuild() {
         await extractEnhanced(pdfPath, {
           generateDocs: true
         });
+
+        // Generate professional introduction
+        const pdfBaseName = path.basename(pdfPath, '.pdf');
+        const resumeContentPath = path.join(process.cwd(), `public/extracted/${pdfBaseName}_content.md`);
+        if (fs.existsSync(resumeContentPath)) {
+          logger.info(`Generating professional introduction from resume content for ${pdfBaseName}`);
+          await generateIntroduction(resumeContentPath);
+        } else {
+          logger.warning(`Resume content not found: ${resumeContentPath}`);
+        }
       }
     } else {
       logger.info('No PDFs found in source-pdfs directory');
