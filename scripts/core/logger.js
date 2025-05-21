@@ -81,7 +81,8 @@ function log(level, message, options = {}) {
   const color = getColorForLevel(level);
   const prefix = options.prefix || category.toUpperCase();
 
-  console.log(`${color}${colors.bright}${emoji} [${prefix}]${colors.reset} ${message}`);
+  // Move emoji after the designation text
+  console.log(`${color}${colors.bright}[${prefix}] ${emoji}${colors.reset} ${message}`);
 }
 
 /**

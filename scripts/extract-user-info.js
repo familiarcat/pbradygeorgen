@@ -703,6 +703,9 @@ async function extractUserInfoFromPdf(textPath, options = {}) {
   }
 }
 
+// Track if we've already shown the full user info
+let hasShownFullUserInfo = false;
+
 // If this script is run directly
 if (require.main === module) {
   // Get the input file path from command line arguments
@@ -721,15 +724,24 @@ if (require.main === module) {
   extractUserInfoFromPdf(inputPath)
     .then(result => {
       if (result.success) {
-        console.log('User information extracted successfully');
-        console.log(JSON.stringify(result.userInfo, null, 2));
+        if (!hasShownFullUserInfo) {
+          // First time extraction - show full details
+          console.log('# \n\n---\n\n*This document was automatically extracted from a PDF resume.*');
+          console.log(`*Generated on: ${new Date().toLocaleDateString()}*\n`);
+          console.log('User information extracted successfully');
+          console.log(JSON.stringify(result.userInfo, null, 2));
+          hasShownFullUserInfo = true;
+        } else {
+          // Subsequent extractions - show minimal success message
+          console.log('[USER-INFO] ✅ User information extracted successfully');
+        }
       } else {
-        console.error(`Failed to extract user information: ${result.error}`);
+        console.error(`[USER-INFO] ❌ Failed to extract user information: ${result.error}`);
         process.exit(1);
       }
     })
     .catch(error => {
-      console.error(`Error: ${error.message}`);
+      console.error(`[USER-INFO] ❌ Error: ${error.message}`);
       process.exit(1);
     });
 }
