@@ -1,6 +1,6 @@
 /**
  * Build Summary
- * 
+ *
  * This module provides a hierarchical visualization of the build process
  * with a folder-like structure to help visualize the build process.
  */
@@ -88,7 +88,7 @@ let currentTaskPath = [];
 
 /**
  * Mark a task as started
- * 
+ *
  * @param {string} taskPath - Path to the task (e.g., 'build.pdf.text')
  */
 function startTask(taskPath) {
@@ -97,26 +97,29 @@ function startTask(taskPath) {
 
 /**
  * Mark a task as completed
- * 
+ *
  * @param {string} taskPath - Path to the task (e.g., 'build.pdf.text')
  */
 function completeTask(taskPath) {
   const path = taskPath.split('.');
   let current = tasks;
-  
+
   for (const segment of path) {
     if (!current[segment]) {
       return;
     }
     current = current[segment];
   }
-  
+
   current.completed = true;
+
+  // Update parent task status
+  updateParentTaskStatus(taskPath);
 }
 
 /**
  * Check if all subtasks of a task are completed
- * 
+ *
  * @param {Object} task - The task to check
  * @returns {boolean} - Whether all subtasks are completed
  */
@@ -124,55 +127,57 @@ function areAllSubtasksCompleted(task) {
   if (!task.tasks) {
     return true;
   }
-  
+
   return Object.values(task.tasks).every(subtask => subtask.completed);
 }
 
 /**
  * Recursively update parent task completion status
- * 
+ *
  * @param {string} taskPath - Path to the task (e.g., 'build.pdf')
  */
 function updateParentTaskStatus(taskPath) {
   const path = taskPath.split('.');
-  
+
   if (path.length <= 1) {
     return;
   }
-  
+
   const parentPath = path.slice(0, -1).join('.');
   let parent = tasks;
-  
+
   for (const segment of path.slice(0, -1)) {
     if (!parent[segment]) {
       return;
     }
     parent = parent[segment];
   }
-  
-  parent.completed = areAllSubtasksCompleted(parent);
-  
-  if (path.length > 2) {
-    updateParentTaskStatus(parentPath);
+
+  if (parent && parent.tasks) {
+    parent.completed = areAllSubtasksCompleted(parent);
+
+    if (path.length > 2) {
+      updateParentTaskStatus(parentPath);
+    }
   }
 }
 
 /**
  * Generate a tree-like visualization of the build process
- * 
+ *
  * @returns {string} - The tree visualization
  */
 function generateTreeVisualization() {
   let output = '\n📦 Build Process Summary:\n';
-  
+
   function renderTask(task, path = [], indent = '') {
     const isLast = path.length === 0 || path[path.length - 1] === Object.keys(getParentByPath(path.slice(0, -1)).tasks).pop();
     const prefix = indent + (isLast ? '└── ' : '├── ');
     const nextIndent = indent + (isLast ? '    ' : '│   ');
-    
+
     const statusEmoji = task.completed ? '✅' : '⏳';
     output += `${prefix}${task.emoji} ${task.name} ${statusEmoji}\n`;
-    
+
     if (task.tasks) {
       const taskKeys = Object.keys(task.tasks);
       for (let i = 0; i < taskKeys.length; i++) {
@@ -181,17 +186,20 @@ function generateTreeVisualization() {
       }
     }
   }
-  
+
   function getParentByPath(path) {
     let current = tasks;
     for (const segment of path) {
+      if (!current[segment]) {
+        return current;
+      }
       current = current[segment];
     }
     return current;
   }
-  
+
   renderTask(tasks.build, ['build']);
-  
+
   return output;
 }
 
