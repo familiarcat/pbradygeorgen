@@ -40,6 +40,8 @@ export interface PreviewModalProps {
   fileName: string;
   /** Optional PDF data URL for PDF previews */
   pdfDataUrl?: string;
+  /** Optional PDF source path for PDF previews */
+  pdfSource?: string;
   /** Optional DOCX URL for DOCX previews */
   docxUrl?: string;
   /** Optional callback for downloading the content */
@@ -63,6 +65,7 @@ const PreviewModalClient: React.FC<PreviewModalProps> = ({
   title,
   fileName,
   pdfDataUrl,
+  pdfSource,
   docxUrl,
   onDownload,
   onDownloadWithDataUrl,
