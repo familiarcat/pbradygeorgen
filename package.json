@@ -25,6 +25,8 @@
     "pdf:select": "chmod +x scripts/select-pdf.sh && ./scripts/select-pdf.sh",
     "test:pdf-conversion": "chmod +x scripts/pdf-conversion-e2e-test.sh && ./scripts/pdf-conversion-e2e-test.sh",
     "test:pdf-extraction": "chmod +x scripts/test-pdf-extraction.sh && ./scripts/test-pdf-extraction.sh",
+    "test:docx": "node scripts/test-docx-functionality.js",
+    "test:docx:ci": "node scripts/test-docx-ci.js",
     "deploy:aws": "chmod +x scripts/deploy-to-aws.sh && ./scripts/deploy-to-aws.sh",
     "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh"
   },
