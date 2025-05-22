@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCX Download Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #00A99D;
+        }
+        .download-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .download-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #00A99D;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .download-link:hover {
+            background-color: #008C82;
+        }
+        .method {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 5px solid #00A99D;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #00A99D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #008C82;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>DOCX Download Test Page</h1>
+    <p>This page tests different methods for downloading DOCX files.</p>
+
+    <div class="download-section">
+        <h2>Direct Download Links</h2>
+        <p>These links use the HTML anchor tag with download attribute:</p>
+        
+        <a href="/extracted/resume.docx" download="resume.docx" class="download-link">Download Resume DOCX</a>
+        <a href="/extracted/introduction.docx" download="introduction.docx" class="download-link">Download Introduction DOCX</a>
+    </div>
+
+    <div class="download-section">
+        <h2>JavaScript Download Methods</h2>
+        
+        <div class="method">
+            <h3>Method 1: window.location</h3>
+            <button onclick="downloadMethod1('/extracted/resume.docx', 'resume.docx')">Download Resume</button>
+            <button onclick="downloadMethod1('/extracted/introduction.docx', 'introduction.docx')">Download Introduction</button>
+            <pre>
+function downloadMethod1(url, filename) {
+    window.location.href = url;
+}
+            </pre>
+        </div>
+
+        <div class="method">
+            <h3>Method 2: Create and Click Link</h3>
+            <button onclick="downloadMethod2('/extracted/resume.docx', 'resume.docx')">Download Resume</button>
+            <button onclick="downloadMethod2('/extracted/introduction.docx', 'introduction.docx')">Download Introduction</button>
+            <pre>
+function downloadMethod2(url, filename) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+            </pre>
+        </div>
+
+        <div class="method">
+            <h3>Method 3: Fetch and Blob</h3>
+            <button onclick="downloadMethod3('/extracted/resume.docx', 'resume.docx')">Download Resume</button>
+            <button onclick="downloadMethod3('/extracted/introduction.docx', 'introduction.docx')">Download Introduction</button>
+            <pre>
+function downloadMethod3(url, filename) {
+    fetch(url)
+        .then(response => {
+            console.log('Fetch response status:', response.status);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch file: ${response.statusText}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            console.log('Blob created, size:', blob.size, 'type:', blob.type);
+            const blobUrl = URL.createObjectURL(blob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = filename;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(blobUrl);
+        })
+        .catch(error => {
+            console.error('Error in fetch and blob method:', error);
+            alert('Error downloading file: ' + error.message);
+        });
+}
+            </pre>
+        </div>
+
+        <div class="method">
+            <h3>Method 4: Open in New Tab</h3>
+            <button onclick="downloadMethod4('/extracted/resume.docx')">Open Resume in New Tab</button>
+            <button onclick="downloadMethod4('/extracted/introduction.docx')">Open Introduction in New Tab</button>
+            <pre>
+function downloadMethod4(url) {
+    window.open(url, '_blank');
+}
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        function downloadMethod1(url, filename) {
+            window.location.href = url;
+        }
+
+        function downloadMethod2(url, filename) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadMethod3(url, filename) {
+            fetch(url)
+                .then(response => {
+                    console.log('Fetch response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch file: ${response.statusText}`);
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    console.log('Blob created, size:', blob.size, 'type:', blob.type);
+                    const blobUrl = URL.createObjectURL(blob);
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = blobUrl;
+                    downloadLink.download = filename;
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(blobUrl);
+                })
+                .catch(error => {
+                    console.error('Error in fetch and blob method:', error);
+                    alert('Error downloading file: ' + error.message);
+                });
+        }
+
+        function downloadMethod4(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

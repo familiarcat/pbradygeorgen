@@ -48,25 +48,34 @@ export const DocxService = {
    */
   checkPreGeneratedDocx: async (fileName: string): Promise<DocxDownloadResult> => {
     try {
+      console.log(`[DEBUG] Checking for pre-generated DOCX: ${fileName}`);
       HesseLogger.summary.start(`Checking for pre-generated DOCX: ${fileName}`);
       DanteLogger.success.basic(`Checking for pre-generated DOCX: ${fileName}`);
 
       // Call the API to check if the DOCX file exists
-      const response = await fetch(`/api/generate-docx?fileName=${fileName}`);
+      const apiUrl = `/api/generate-docx?fileName=${fileName}`;
+      console.log(`[DEBUG] Making API request to: ${apiUrl}`);
+      const response = await fetch(apiUrl);
 
+      console.log(`[DEBUG] API response status: ${response.status}`);
       if (!response.ok) {
+        console.error(`[DEBUG] API error: ${response.status} ${response.statusText}`);
         throw new Error(`API responded with status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log(`[DEBUG] API response data:`, data);
 
       if (!data.success) {
+        console.error(`[DEBUG] API returned error: ${data.error || 'Unknown error'}`);
         throw new Error(data.error || 'Failed to get DOCX file');
       }
 
+      console.log(`[DEBUG] Found pre-generated DOCX: ${data.docxUrl}, isHtml: ${data.isHtml || false}`);
       DanteLogger.success.basic(`Found pre-generated DOCX: ${data.docxUrl}`);
       return data;
     } catch (error) {
+      console.error(`[DEBUG] Error checking pre-generated DOCX: ${error}`);
       DanteLogger.error.runtime(`Pre-generated DOCX not found: ${error}`);
       return { success: false, error: String(error) };
     }
@@ -87,12 +96,14 @@ export const DocxService = {
   ): Promise<void> => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log(`[DEBUG] Downloading DOCX from URL: ${docxUrl}, fileName: ${fileName}, isHtml: ${isHtml}`);
         HesseLogger.summary.start(`Downloading DOCX from URL: ${docxUrl}`);
         DanteLogger.success.basic(`Downloading DOCX from URL: ${docxUrl}`);
 
         if (isHtml) {
           // For HTML fallback, we need to open it in a new tab
           // and let the user save it as a Word document
+          console.log(`[DEBUG] Using HTML fallback for DOCX download`);
           DanteLogger.success.basic(`Using HTML fallback for DOCX download`);
           window.open(docxUrl, '_blank');
           DanteLogger.success.ux(`Opened ${fileName} in a new tab for saving as Word document`);
@@ -101,23 +112,58 @@ export const DocxService = {
           return;
         }
 
-        // Create a link to download the file
-        const link = document.createElement('a');
-        link.href = docxUrl;
-        link.download = `${fileName}.docx`;
-        link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        document.body.appendChild(link);
-        link.click();
+        // The most reliable method: Using fetch and blob
+        console.log(`[DEBUG] Using fetch and blob method for DOCX download`);
 
-        // Small delay before removing the element
-        setTimeout(() => {
-          document.body.removeChild(link);
-        }, 100);
+        try {
+          // Fetch the file
+          const response = await fetch(docxUrl);
+          console.log(`[DEBUG] Fetch response status: ${response.status}`);
 
-        DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully`);
-        HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
-        resolve();
+          if (!response.ok) {
+            throw new Error(`Failed to fetch file: ${response.statusText}`);
+          }
+
+          // Convert to blob
+          const blob = await response.blob();
+          console.log(`[DEBUG] Blob created, size: ${blob.size}, type: ${blob.type}`);
+
+          // Create a blob URL
+          const blobUrl = URL.createObjectURL(blob);
+
+          // Create a download link
+          const downloadLink = document.createElement('a');
+          downloadLink.href = blobUrl;
+          downloadLink.download = `${fileName}.docx`;
+          downloadLink.style.display = 'none';
+
+          // Add to document, click, and remove
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+
+          // Clean up
+          setTimeout(() => {
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(blobUrl);
+          }, 100);
+
+          console.log(`[DEBUG] DOCX download initiated successfully`);
+          DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully`);
+          HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
+          resolve();
+        } catch (fetchError) {
+          console.error(`[DEBUG] Error in fetch and blob method: ${fetchError}`);
+
+          // Fallback to opening in a new tab
+          console.log(`[DEBUG] Falling back to opening in a new tab`);
+          window.open(docxUrl, '_blank');
+
+          DanteLogger.success.ux(`Opened ${fileName}.docx in a new tab`);
+          HesseLogger.summary.complete(`${fileName}.docx opened in a new tab`);
+          resolve();
+        }
       } catch (error) {
+        console.error(`[DEBUG] Error downloading DOCX from URL: ${error}`);
         DanteLogger.error.runtime(`Error downloading DOCX from URL: ${error}`);
         HesseLogger.summary.error(`DOCX download from URL failed: ${error}`);
         reject(error);
