@@ -16,6 +16,8 @@ import React, { useState } from 'react';
 import { DanteLogger } from '@/utils/DanteLogger';
 import { HesseLogger } from '@/utils/HesseLogger';
 import DocxService, { DocxDownloadOptions } from '@/utils/DocxService';
+import DirectDocxDownloader from '@/utils/DirectDocxDownloader';
+import { extractPdfStyleVariables } from '@/utils/CssVariableExtractor';
 
 interface DocxDownloadHandlerProps {
   // Content and file information
@@ -89,77 +91,162 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
       HesseLogger.summary.start(`Exporting ${fileName} as DOCX`);
       DanteLogger.success.basic(`Starting DOCX download for ${fileName}`);
 
-      // Apply PDF-extracted styles if enabled
-      let docxOptions = { ...options };
+      // Check if this is an introduction document
+      if (documentType === 'introduction') {
+        try {
+          // Use the dedicated API endpoint for downloading the Introduction DOCX file
+          DanteLogger.success.basic('Using dedicated API endpoint for Introduction DOCX download');
 
-      if (usePdfStyles) {
-        // Get CSS variables from the document
-        const computedStyle = getComputedStyle(document.documentElement);
+          // Track if download has started
+          let downloadStarted = false;
 
-        // Get font variables
-        const headingFont = computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
-                           computedStyle.getPropertyValue('--font-heading').trim() ||
-                           'sans-serif';
+          // Try the direct download approach first (works in most modern browsers)
+          try {
+            DanteLogger.success.basic('Trying direct link download first');
+            // Create a direct download link
+            const link = document.createElement('a');
+            link.href = `/api/download-introduction-docx?t=${new Date().getTime()}`;
+            link.download = `${fileName}.docx`;
+            link.setAttribute('type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+            document.body.appendChild(link);
+            link.click();
 
-        const bodyFont = computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
-                        computedStyle.getPropertyValue('--font-body').trim() ||
-                        'serif';
+            // Clean up
+            setTimeout(() => {
+              document.body.removeChild(link);
+            }, 100);
 
-        // Get color variables
-        const primaryColor = computedStyle.getPropertyValue('--dynamic-primary').trim() ||
-                            computedStyle.getPropertyValue('--primary-color').trim() ||
-                            '#00A99D';
+            downloadStarted = true;
 
-        const secondaryColor = computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
-                              computedStyle.getPropertyValue('--secondary-color').trim() ||
-                              '#333333';
+            // Notify that download is complete after a short delay
+            setTimeout(() => {
+              DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via direct link`);
+              HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
 
-        const textColor = computedStyle.getPropertyValue('--dynamic-text').trim() ||
-                         computedStyle.getPropertyValue('--text-color').trim() ||
-                         '#333333';
+              // Notify that download is complete
+              if (onDownloadComplete) {
+                onDownloadComplete();
+              }
+            }, 1000);
+          } catch (directError) {
+            console.error('Direct download failed:', directError);
+            // Continue to iframe method
+          }
 
-        // Log the extracted styles
-        console.log(`[DocxDownloadHandler] Using PDF-extracted styles:`, {
-          headingFont,
-          bodyFont,
-          primaryColor,
-          secondaryColor,
-          textColor
-        });
+          // If direct download failed, try the iframe approach
+          if (!downloadStarted) {
+            DanteLogger.success.basic('Falling back to iframe download method');
+            // Create an iframe to handle the download (works in all browsers)
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-        // Apply the styles to the options
-        docxOptions = {
-          ...docxOptions,
-          headingFont,
-          bodyFont,
-          primaryColor,
-          secondaryColor,
-          textColor
-        };
+            // Set up a load event to track when the iframe has loaded
+            iframe.onload = () => {
+              // After loading, remove the iframe after a short delay
+              setTimeout(() => {
+                document.body.removeChild(iframe);
+                DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via iframe`);
+                HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
+
+                // Notify that download is complete
+                if (onDownloadComplete) {
+                  onDownloadComplete();
+                }
+              }, 1000);
+            };
+
+            // Set the iframe source to the dedicated API endpoint
+            iframe.src = `/api/download-introduction-docx?t=${new Date().getTime()}`;
+          }
+
+          return; // Exit early if we're using the dedicated endpoint
+        } catch (dedicatedError) {
+          DanteLogger.error.runtime(`Error using dedicated endpoint: ${dedicatedError}`);
+          // Continue to fallback methods
+        }
       }
 
-      // Use the enhanced DocxService to handle the download
-      await DocxService.downloadDocx(content, fileName, docxOptions);
+      // For resume or if the dedicated endpoint failed, use the direct DOCX downloader
+      try {
+        // Use the direct DOCX downloader for reliable downloads
+        await DirectDocxDownloader.generateAndDownloadDocx(content, fileName);
 
-      // Notify that download is complete
-      if (onDownloadComplete) {
-        onDownloadComplete();
+        // Notify that download is complete
+        if (onDownloadComplete) {
+          onDownloadComplete();
+        }
+
+        DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully`);
+        HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
+        return; // Exit early if direct download succeeded
+      } catch (directError) {
+        DanteLogger.error.runtime(`Error using DirectDocxDownloader: ${directError}`);
+        // Continue to fallback methods
       }
 
-      DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully`);
-    } catch (error) {
-      DanteLogger.error.runtime(`Error downloading DOCX: ${error}`);
+      // Try the fallback method if direct download fails
+      try {
+        DanteLogger.success.basic(`Trying fallback download method for ${fileName}`);
 
-      // Notify of error
-      if (onError && error instanceof Error) {
-        onError(error);
-      } else if (onError) {
-        onError(new Error(String(error)));
-      }
+        // Apply PDF-extracted styles if enabled
+        let docxOptions = { ...options };
 
-      // Show alert as fallback if no error handler provided
-      if (!onError) {
-        alert('There was an error generating the Word document. Please try again.');
+        if (usePdfStyles) {
+          // Extract PDF style variables with enhanced fallback mechanisms
+          HesseLogger.summary.start('Extracting PDF style variables for DOCX generation');
+          DanteLogger.success.basic('Extracting PDF style variables for DOCX generation');
+
+          const extractedStyles = extractPdfStyleVariables({
+            verbose: true,
+            useDanteLogger: true
+          });
+
+          // Log the extracted styles with Dante logger
+          DanteLogger.success.ux('PDF style variables extracted successfully');
+
+          // Log detailed information about the extracted styles
+          console.log(`[DocxDownloadHandler] Using PDF-extracted styles:`, extractedStyles);
+
+          // Apply the styles to the options
+          docxOptions = {
+            ...docxOptions,
+            headingFont: extractedStyles.headingFont,
+            bodyFont: extractedStyles.bodyFont,
+            primaryColor: extractedStyles.primaryColor,
+            secondaryColor: extractedStyles.secondaryColor,
+            textColor: extractedStyles.textColor,
+            accentColor: extractedStyles.accentColor,
+            backgroundColor: extractedStyles.backgroundColor,
+            borderColor: extractedStyles.borderColor
+          };
+
+          HesseLogger.summary.complete('PDF style variables extracted and applied to DOCX options');
+        }
+
+        // Use the DocxService as fallback
+        await DocxService.downloadDocx(content, fileName, docxOptions);
+
+        // Notify that download is complete
+        if (onDownloadComplete) {
+          onDownloadComplete();
+        }
+
+        DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via fallback`);
+      } catch (fallbackError) {
+        DanteLogger.error.runtime(`Fallback download also failed: ${fallbackError}`);
+
+        // Notify of error
+        if (onError && fallbackError instanceof Error) {
+          onError(fallbackError);
+        } else if (onError) {
+          onError(new Error(String(fallbackError)));
+        }
+
+        // Show alert as fallback if no error handler provided
+        if (!onError) {
+          alert('There was an error generating the Word document. Please try again.');
+        }
       }
     } finally {
       setIsLoading(false);
