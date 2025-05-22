@@ -1037,14 +1037,9 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
                 options={{
                   title: `${userInfo.fullName} - Resume`,
                   creator: 'AlexAI',
-                  description: 'Generated Resume',
-                  // Use PDF-extracted styles
-                  headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
-                  bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
-                  primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
-                  secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
-                  textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+                  description: 'Generated Resume'
                 }}
+                usePdfStyles={true}
               />
             </div>
           </div>
@@ -1129,16 +1124,49 @@ ${analysis.recommendations.map((rec: string) => `- ${rec}`).join('\n')}
           setIsGeneratingDocx(true);
 
           // Use the enhanced DocxService for consistent download experience
+          // Get CSS variables from the document
+          const computedStyle = getComputedStyle(document.documentElement);
+
+          // Get font variables
+          const headingFont = computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+                             computedStyle.getPropertyValue('--font-heading').trim() ||
+                             'sans-serif';
+
+          const bodyFont = computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+                          computedStyle.getPropertyValue('--font-body').trim() ||
+                          'serif';
+
+          // Get color variables
+          const primaryColor = computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+                              computedStyle.getPropertyValue('--primary-color').trim() ||
+                              '#00A99D';
+
+          const secondaryColor = computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+                                computedStyle.getPropertyValue('--secondary-color').trim() ||
+                                '#333333';
+
+          const textColor = computedStyle.getPropertyValue('--dynamic-text').trim() ||
+                           computedStyle.getPropertyValue('--text-color').trim() ||
+                           '#333333';
+
+          // Log the extracted styles
+          console.log(`[SalingerHeader] Using PDF-extracted styles for DOCX preview:`, {
+            headingFont,
+            bodyFont,
+            primaryColor,
+            secondaryColor,
+            textColor
+          });
+
           await DocxService.downloadDocx(previewContent, userInfo.resumeFileName, {
             title: `${userInfo.fullName} - Resume`,
             creator: 'AlexAI',
             description: 'Generated Resume',
-            // Use PDF-extracted styles
-            headingFont: 'var(--pdf-heading-font, var(--font-heading, sans-serif))',
-            bodyFont: 'var(--pdf-body-font, var(--font-body, serif))',
-            primaryColor: 'var(--pdf-primary-color, var(--primary-color, #00A99D))',
-            secondaryColor: 'var(--pdf-secondary-color, var(--secondary-color, #333333))',
-            textColor: 'var(--pdf-text-color, var(--text-color, #333333))'
+            headingFont,
+            bodyFont,
+            primaryColor,
+            secondaryColor,
+            textColor
           });
 
           return Promise.resolve();

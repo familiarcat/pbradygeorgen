@@ -22,24 +22,27 @@ interface DocxDownloadHandlerProps {
   content: string;
   fileName: string;
   documentType: 'resume' | 'introduction';
-  
+
   // UI customization
   className?: string;
   iconClassName?: string;
   buttonText?: string;
   loadingText?: string;
-  
+
   // Callbacks
   onPreview?: () => void;
   onDownloadStart?: () => void;
   onDownloadComplete?: () => void;
   onError?: (error: Error) => void;
-  
+
   // Styling options
   options?: DocxDownloadOptions;
-  
+
   // Component type
   isPreviewButton?: boolean;
+
+  // PDF-extracted styles
+  usePdfStyles?: boolean;
 }
 
 const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
@@ -47,24 +50,27 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
   content,
   fileName,
   documentType,
-  
+
   // UI customization
   className = '',
   iconClassName = '',
   buttonText = 'Word Format',
   loadingText = 'Downloading...',
-  
+
   // Callbacks
   onPreview,
   onDownloadStart,
   onDownloadComplete,
   onError,
-  
+
   // Styling options
   options = {},
-  
+
   // Component type
-  isPreviewButton = false
+  isPreviewButton = false,
+
+  // PDF-extracted styles
+  usePdfStyles = true
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -74,34 +80,83 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
   const handleDownload = async () => {
     try {
       setIsLoading(true);
-      
+
       // Notify that download has started
       if (onDownloadStart) {
         onDownloadStart();
       }
-      
+
       HesseLogger.summary.start(`Exporting ${fileName} as DOCX`);
       DanteLogger.success.basic(`Starting DOCX download for ${fileName}`);
 
+      // Apply PDF-extracted styles if enabled
+      let docxOptions = { ...options };
+
+      if (usePdfStyles) {
+        // Get CSS variables from the document
+        const computedStyle = getComputedStyle(document.documentElement);
+
+        // Get font variables
+        const headingFont = computedStyle.getPropertyValue('--dynamic-heading-font').trim() ||
+                           computedStyle.getPropertyValue('--font-heading').trim() ||
+                           'sans-serif';
+
+        const bodyFont = computedStyle.getPropertyValue('--dynamic-primary-font').trim() ||
+                        computedStyle.getPropertyValue('--font-body').trim() ||
+                        'serif';
+
+        // Get color variables
+        const primaryColor = computedStyle.getPropertyValue('--dynamic-primary').trim() ||
+                            computedStyle.getPropertyValue('--primary-color').trim() ||
+                            '#00A99D';
+
+        const secondaryColor = computedStyle.getPropertyValue('--dynamic-secondary').trim() ||
+                              computedStyle.getPropertyValue('--secondary-color').trim() ||
+                              '#333333';
+
+        const textColor = computedStyle.getPropertyValue('--dynamic-text').trim() ||
+                         computedStyle.getPropertyValue('--text-color').trim() ||
+                         '#333333';
+
+        // Log the extracted styles
+        console.log(`[DocxDownloadHandler] Using PDF-extracted styles:`, {
+          headingFont,
+          bodyFont,
+          primaryColor,
+          secondaryColor,
+          textColor
+        });
+
+        // Apply the styles to the options
+        docxOptions = {
+          ...docxOptions,
+          headingFont,
+          bodyFont,
+          primaryColor,
+          secondaryColor,
+          textColor
+        };
+      }
+
       // Use the enhanced DocxService to handle the download
-      await DocxService.downloadDocx(content, fileName, options);
-      
+      await DocxService.downloadDocx(content, fileName, docxOptions);
+
       // Notify that download is complete
       if (onDownloadComplete) {
         onDownloadComplete();
       }
-      
+
       DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully`);
     } catch (error) {
       DanteLogger.error.runtime(`Error downloading DOCX: ${error}`);
-      
+
       // Notify of error
       if (onError && error instanceof Error) {
         onError(error);
       } else if (onError) {
         onError(new Error(String(error)));
       }
-      
+
       // Show alert as fallback if no error handler provided
       if (!onError) {
         alert('There was an error generating the Word document. Please try again.');
@@ -126,7 +181,7 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
   // Determine which action to take based on component type
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
+
     if (isPreviewButton) {
       handlePreview();
     } else {

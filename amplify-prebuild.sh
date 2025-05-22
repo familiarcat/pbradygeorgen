@@ -26,6 +26,16 @@ if [ -f "public/pbradygeorgen_resume.pdf" ]; then
     else
         echo "Warning: PDF extraction process failed, but continuing build"
     fi
+
+    # Generate the reference.docx template with PDF-extracted styles
+    echo "Generating reference.docx template with PDF-extracted styles..."
+    node scripts/generate-reference-docx.js
+
+    if [ $? -eq 0 ]; then
+        echo "Reference DOCX template generated successfully"
+    else
+        echo "Warning: Reference DOCX template generation failed, but continuing build"
+    fi
 else
     echo "Warning: PDF file not found at public/pbradygeorgen_resume.pdf"
 fi
