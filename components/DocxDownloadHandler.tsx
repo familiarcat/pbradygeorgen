@@ -18,6 +18,7 @@ import { HesseLogger } from '@/utils/HesseLogger';
 import DocxService, { DocxDownloadOptions } from '@/utils/DocxService';
 import DirectDocxDownloader from '@/utils/DirectDocxDownloader';
 import { extractPdfStyleVariables } from '@/utils/CssVariableExtractor';
+import { handleDocxError, determineErrorType, DocxErrorType } from '@/utils/DocxErrorHandler';
 
 interface DocxDownloadHandlerProps {
   // Content and file information
@@ -181,7 +182,16 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
         HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
         return; // Exit early if direct download succeeded
       } catch (directError) {
-        DanteLogger.error.runtime(`Error using DirectDocxDownloader: ${directError}`);
+        // Log the error with detailed information
+        const errorType = determineErrorType(directError);
+        handleDocxError({
+          type: errorType,
+          message: `Error using DirectDocxDownloader: ${directError}`,
+          originalError: directError,
+          fileName,
+          documentType,
+          context: { isPreviewButton, usePdfStyles }
+        });
         // Continue to fallback methods
       }
 
@@ -234,18 +244,25 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
 
         DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via fallback`);
       } catch (fallbackError) {
-        DanteLogger.error.runtime(`Fallback download also failed: ${fallbackError}`);
-
-        // Notify of error
-        if (onError && fallbackError instanceof Error) {
-          onError(fallbackError);
-        } else if (onError) {
-          onError(new Error(String(fallbackError)));
-        }
+        // Log the error with detailed information
+        const errorType = determineErrorType(fallbackError);
+        const userFriendlyMessage = handleDocxError({
+          type: errorType,
+          message: `Fallback download also failed: ${fallbackError}`,
+          originalError: fallbackError,
+          fileName,
+          documentType,
+          context: {
+            isPreviewButton,
+            usePdfStyles,
+            usingFallback: true,
+            extractedStyles: usePdfStyles ? 'Applied' : 'Not applied'
+          }
+        }, onError);
 
         // Show alert as fallback if no error handler provided
         if (!onError) {
-          alert('There was an error generating the Word document. Please try again.');
+          alert(userFriendlyMessage);
         }
       }
     } finally {
@@ -258,10 +275,39 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
    */
   const handlePreview = () => {
     if (onPreview) {
-      onPreview();
+      try {
+        onPreview();
+      } catch (previewError) {
+        // Handle preview errors
+        const errorType = determineErrorType(previewError);
+        const userFriendlyMessage = handleDocxError({
+          type: errorType,
+          message: `Error in preview handler: ${previewError}`,
+          originalError: previewError,
+          fileName,
+          documentType,
+          context: { isPreviewButton: true }
+        }, onError);
+
+        // Show alert if no error handler provided
+        if (!onError) {
+          alert(userFriendlyMessage);
+        }
+      }
     } else {
-      DanteLogger.error.runtime('No preview handler provided');
-      alert('Preview functionality not available.');
+      // Handle missing preview handler
+      const userFriendlyMessage = handleDocxError({
+        type: DocxErrorType.UNKNOWN,
+        message: 'No preview handler provided',
+        fileName,
+        documentType,
+        context: { isPreviewButton: true }
+      }, onError);
+
+      // Show alert if no error handler provided
+      if (!onError) {
+        alert(userFriendlyMessage || 'Preview functionality not available.');
+      }
     }
   };
 
