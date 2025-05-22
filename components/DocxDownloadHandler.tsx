@@ -97,9 +97,20 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
         try {
           // Use the dedicated API endpoint for downloading the Introduction DOCX file
           DanteLogger.success.basic('Using dedicated API endpoint for Introduction DOCX download');
+          HesseLogger.summary.start('Using dedicated API endpoint for Introduction DOCX download');
 
-          // Track if download has started
+          // Track if download has started and completed
           let downloadStarted = false;
+          let downloadCompleted = false;
+
+          // Set a timeout to detect if download doesn't complete
+          const downloadTimeout = setTimeout(() => {
+            if (!downloadCompleted) {
+              DanteLogger.warn.deprecated(`Introduction DOCX download timeout after 5 seconds. Trying fallback methods.`);
+              HesseLogger.summary.error('Introduction DOCX download timeout');
+              // We'll continue to fallback methods below
+            }
+          }, 5000); // 5 second timeout
 
           // Try the direct download approach first (works in most modern browsers)
           try {
@@ -119,6 +130,11 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
 
             downloadStarted = true;
 
+            // We can't reliably detect if the direct link download completed,
+            // so we'll assume it worked and set the flag
+            downloadCompleted = true;
+            clearTimeout(downloadTimeout);
+
             // Notify that download is complete after a short delay
             setTimeout(() => {
               DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via direct link`);
@@ -129,14 +145,19 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
                 onDownloadComplete();
               }
             }, 1000);
+
+            // Return early if direct link download worked
+            return;
           } catch (directError) {
             console.error('Direct download failed:', directError);
+            DanteLogger.error.runtime(`Error using direct link download: ${directError}`);
             // Continue to iframe method
           }
 
           // If direct download failed, try the iframe approach
           if (!downloadStarted) {
             DanteLogger.success.basic('Falling back to iframe download method');
+
             // Create an iframe to handle the download (works in all browsers)
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
@@ -147,6 +168,9 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
               // After loading, remove the iframe after a short delay
               setTimeout(() => {
                 document.body.removeChild(iframe);
+                downloadCompleted = true;
+                clearTimeout(downloadTimeout);
+
                 DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via iframe`);
                 HesseLogger.summary.complete(`${fileName}.docx downloaded successfully`);
 
@@ -157,11 +181,32 @@ const DocxDownloadHandler: React.FC<DocxDownloadHandlerProps> = ({
               }, 1000);
             };
 
+            // Set up an error event to detect if the iframe fails to load
+            iframe.onerror = () => {
+              document.body.removeChild(iframe);
+              DanteLogger.error.runtime(`Iframe failed to load for Introduction DOCX download`);
+              // We'll continue to fallback methods
+            };
+
             // Set the iframe source to the dedicated API endpoint
             iframe.src = `/api/download-introduction-docx?t=${new Date().getTime()}`;
+
+            // Wait a bit to see if the iframe method works
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            // If download completed successfully, return early
+            if (downloadCompleted) {
+              return;
+            }
+
+            // Otherwise, clear the timeout and continue to fallback methods
+            clearTimeout(downloadTimeout);
+            DanteLogger.warn.deprecated(`Iframe download method failed or timed out. Trying fallback methods.`);
           }
 
-          return; // Exit early if we're using the dedicated endpoint
+          // If we get here, both dedicated endpoint methods failed
+          // We'll continue to the fallback methods below
+
         } catch (dedicatedError) {
           DanteLogger.error.runtime(`Error using dedicated endpoint: ${dedicatedError}`);
           // Continue to fallback methods
