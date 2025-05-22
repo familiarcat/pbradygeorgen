@@ -53,13 +53,18 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     };
   }, []);
 
+  // Check if this is being rendered inside a SummaryModal (Introduction)
+  const isSummaryModal = document.querySelector('.summary-modal-content') !== null;
+
   // Define components with PDF-extracted styles with higher specificity
   const components = {
     h1: ({ node, ...props }: any) => (
       <h1
         style={{
           fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.8rem',
           marginTop: '0.5rem',
           marginBottom: '1.5rem', // Increased for better spacing
@@ -77,12 +82,16 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <h2
         style={{
           fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.5rem',
           marginTop: '2rem', // Increased for better spacing
           marginBottom: '1rem', // Increased for better spacing
           fontWeight: 600, // Increased for better visibility
-          borderBottom: '1px solid var(--pdf-border-color, var(--border-color, var(--dynamic-border, rgba(73, 66, 61, 0.1))))' + ' !important',
+          borderBottom: isSummaryModal
+            ? '1px solid rgba(255, 255, 255, 0.1)' + ' !important'
+            : '1px solid var(--pdf-border-color, var(--border-color, var(--dynamic-border, rgba(73, 66, 61, 0.1))))' + ' !important',
           paddingBottom: '0.5rem',
           textAlign: 'left',
           lineHeight: '1.4', // Added for consistent spacing
@@ -96,7 +105,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <h3
         style={{
           fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.25rem',
           marginTop: '1.75rem', // Increased for better spacing
           marginBottom: '0.75rem', // Increased for better spacing
@@ -113,7 +124,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <h4
         style={{
           fontFamily: 'var(--pdf-heading-font, var(--font-heading, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           fontSize: '1.1rem',
           marginTop: '1.5rem', // Increased for better spacing
           marginBottom: '0.75rem', // Increased for better spacing
@@ -131,7 +144,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <p
         style={{
           fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           marginBottom: '1.25rem', // Increased for better spacing
           lineHeight: '1.8', // Increased for better readability and to prevent overlap
           textAlign: 'left',
@@ -177,7 +192,9 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       <li
         style={{
           fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-          color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--text-color, #F5F3E7)' + ' !important'
+            : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           marginBottom: '0.75rem', // Increased for better spacing
           textAlign: 'left',
           lineHeight: '1.6', // Added for consistent spacing
@@ -191,10 +208,14 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     a: ({ node, ...props }: any) => (
       <a
         style={{
-          color: 'var(--pdf-primary-color, var(--primary, var(--dynamic-primary, #5A7682)))' + ' !important',
+          color: isSummaryModal
+            ? 'var(--primary, #00A99D)' + ' !important'
+            : 'var(--pdf-primary-color, var(--primary, var(--dynamic-primary, #5A7682)))' + ' !important',
           textDecoration: 'none',
           fontWeight: 500, // Added for better visibility
-          borderBottom: '1px dotted var(--pdf-primary-color, var(--primary, var(--dynamic-primary, #5A7682)))' // Added for better visibility
+          borderBottom: isSummaryModal
+            ? '1px dotted var(--primary, #00A99D)'
+            : '1px dotted var(--pdf-primary-color, var(--primary, var(--dynamic-primary, #5A7682)))' // Added for better visibility
         }}
         {...props}
       />
@@ -361,30 +382,56 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       cleanedMarkdown.substring(0, 50).replace(/\n/g, '\\n'));
   }, [cleanedMarkdown]);
 
+  // Check if this is being rendered inside a SummaryModal (Introduction)
+  const isSummaryModal = document.querySelector('.summary-modal-content') !== null;
+
+  // Determine the appropriate styles based on the context
+  const containerStyles = isSummaryModal ? {
+    // Styles for Introduction modal (dark theme)
+    fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
+    color: 'var(--text-color, #F5F3E7)' + ' !important',
+    backgroundColor: 'transparent' + ' !important',
+    padding: '1.5rem', // Increased padding for better readability
+    width: '100%',
+    maxWidth: '100%',
+    overflowWrap: 'break-word', // Prevents text from overflowing
+    wordWrap: 'break-word', // Ensures words break properly
+    wordBreak: 'normal', // Ensures words break properly
+    hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
+    textAlign: 'left', // Ensures left alignment
+    lineHeight: '1.6', // Consistent line height
+    fontWeight: 400, // Normal weight for body text
+    fontSize: '16px', // Base font size
+    letterSpacing: '0.01em', // Slight letter spacing for readability
+    border: 'none',
+    borderRadius: '0',
+    boxShadow: 'none'
+  } : {
+    // Default styles for other contexts (light theme)
+    fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
+    color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
+    backgroundColor: 'var(--pdf-background-color, var(--background, var(--dynamic-background, #ffffff)))' + ' !important',
+    padding: '1.5rem', // Increased padding for better readability
+    width: '100%',
+    maxWidth: '100%',
+    overflowWrap: 'break-word', // Prevents text from overflowing
+    wordWrap: 'break-word', // Ensures words break properly
+    wordBreak: 'normal', // Ensures words break properly
+    hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
+    textAlign: 'left', // Ensures left alignment
+    lineHeight: '1.6', // Consistent line height
+    fontWeight: 400, // Normal weight for body text
+    fontSize: '16px', // Base font size
+    letterSpacing: '0.01em', // Slight letter spacing for readability
+    border: '1px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
+    borderRadius: '4px',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  };
+
   return (
     <div
-      className={`${className} pdf-styled-markdown`}
-      style={{
-        // Apply PDF-extracted styles to the container
-        fontFamily: 'var(--pdf-body-font, var(--font-body, "Helvetica Neue", Arial, sans-serif))' + ' !important',
-        color: 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
-        backgroundColor: 'var(--pdf-background-color, var(--background, var(--dynamic-background, #ffffff)))' + ' !important',
-        padding: '1.5rem', // Increased padding for better readability
-        width: '100%',
-        maxWidth: '100%',
-        overflowWrap: 'break-word', // Prevents text from overflowing
-        wordWrap: 'break-word', // Ensures words break properly
-        wordBreak: 'normal', // Ensures words break properly
-        hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
-        textAlign: 'left', // Ensures left alignment
-        lineHeight: '1.6', // Consistent line height
-        fontWeight: 400, // Normal weight for body text
-        fontSize: '16px', // Base font size
-        letterSpacing: '0.01em', // Slight letter spacing for readability
-        border: '1px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))',
-        borderRadius: '4px',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-      }}
+      className={`${className} pdf-styled-markdown ${isSummaryModal ? 'summary-modal-markdown' : ''}`}
+      style={containerStyles}
       data-pdf-styles-loaded={stylesLoaded ? 'true' : 'false'} // Add data attribute for CSS targeting
     >
       <ReactMarkdown components={components}>
