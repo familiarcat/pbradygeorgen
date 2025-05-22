@@ -70,7 +70,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
           marginBottom: '1.5rem', // Increased for better spacing
           fontWeight: 600, // Increased for better visibility
           letterSpacing: '-0.5px',
-          textAlign: 'left',
+          textAlign: 'left' as const,
           lineHeight: '1.4', // Added for consistent spacing
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
@@ -93,7 +93,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
             ? '1px solid rgba(255, 255, 255, 0.1)' + ' !important'
             : '1px solid var(--pdf-border-color, var(--border-color, var(--dynamic-border, rgba(73, 66, 61, 0.1))))' + ' !important',
           paddingBottom: '0.5rem',
-          textAlign: 'left',
+          textAlign: 'left' as const,
           lineHeight: '1.4', // Added for consistent spacing
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
@@ -112,7 +112,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
           marginTop: '1.75rem', // Increased for better spacing
           marginBottom: '0.75rem', // Increased for better spacing
           fontWeight: 600, // Increased for better visibility
-          textAlign: 'left',
+          textAlign: 'left' as const,
           lineHeight: '1.4', // Added for consistent spacing
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
@@ -132,7 +132,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
           marginBottom: '0.75rem', // Increased for better spacing
           fontWeight: 500, // Increased for better visibility
           fontStyle: 'italic',
-          textAlign: 'left',
+          textAlign: 'left' as const,
           lineHeight: '1.4', // Added for consistent spacing
           display: 'block', // Ensures proper block formatting
           width: '100%' // Ensures full width
@@ -149,15 +149,17 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
             : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           marginBottom: '1.25rem', // Increased for better spacing
           lineHeight: '1.8', // Increased for better readability and to prevent overlap
-          textAlign: 'left',
+          textAlign: 'left' as const,
           display: 'block', // Ensures proper block formatting
           width: '100%', // Ensures full width
           marginTop: '0.5rem', // Added for consistent spacing
           fontWeight: 400, // Normal weight for body text
-          hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
-          overflowWrap: 'break-word', // Prevents text from overflowing
-          wordWrap: 'break-word', // Ensures words break properly
-          wordBreak: 'normal' // Ensures words break properly
+          WebkitHyphens: 'none' as const, // Disables hyphenation to prevent excessive hyphens
+          msHyphens: 'none' as const, // For IE/Edge
+          hyphens: 'none' as const, // TypeScript needs 'as const' for the enum type
+          overflowWrap: 'break-word' as const, // Prevents text from overflowing
+          wordWrap: 'break-word' as const, // Ensures words break properly
+          wordBreak: 'normal' as const // Ensures words break properly
         }}
         {...props}
       />
@@ -196,7 +198,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
             ? 'var(--text-color, #F5F3E7)' + ' !important'
             : 'var(--pdf-text-color, var(--text-color, var(--dynamic-text, #333333)))' + ' !important',
           marginBottom: '0.75rem', // Increased for better spacing
-          textAlign: 'left',
+          textAlign: 'left' as const,
           lineHeight: '1.6', // Added for consistent spacing
           paddingLeft: '0.5rem', // Added for better readability
           display: 'list-item', // Ensures proper list item formatting
@@ -288,7 +290,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
           fontWeight: 'bold',
           padding: '0.75rem', // Increased for better spacing
           borderBottom: '2px solid var(--pdf-border-color, var(--border-color, rgba(73, 66, 61, 0.1)))' + ' !important',
-          textAlign: 'left'
+          textAlign: 'left' as const
         }}
         {...props}
       />
@@ -382,8 +384,7 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
       cleanedMarkdown.substring(0, 50).replace(/\n/g, '\\n'));
   }, [cleanedMarkdown]);
 
-  // Check if this is being rendered inside a SummaryModal (Introduction)
-  const isSummaryModal = document.querySelector('.summary-modal-content') !== null;
+  // We already have isSummaryModal defined above
 
   // Determine the appropriate styles based on the context
   const containerStyles = isSummaryModal ? {
@@ -394,11 +395,13 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     padding: '1.5rem', // Increased padding for better readability
     width: '100%',
     maxWidth: '100%',
-    overflowWrap: 'break-word', // Prevents text from overflowing
-    wordWrap: 'break-word', // Ensures words break properly
-    wordBreak: 'normal', // Ensures words break properly
-    hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
-    textAlign: 'left', // Ensures left alignment
+    overflowWrap: 'break-word' as const, // Prevents text from overflowing
+    wordWrap: 'break-word' as const, // Ensures words break properly
+    wordBreak: 'normal' as const, // Ensures words break properly
+    WebkitHyphens: 'none' as const, // Disables hyphenation to prevent excessive hyphens
+    msHyphens: 'none' as const, // For IE/Edge
+    hyphens: 'none' as const, // TypeScript needs 'as const' for the enum type
+    textAlign: 'left' as const, // Ensures left alignment
     lineHeight: '1.6', // Consistent line height
     fontWeight: 400, // Normal weight for body text
     fontSize: '16px', // Base font size
@@ -414,11 +417,13 @@ const StyledMarkdown: React.FC<StyledMarkdownProps> = ({ children, className }) 
     padding: '1.5rem', // Increased padding for better readability
     width: '100%',
     maxWidth: '100%',
-    overflowWrap: 'break-word', // Prevents text from overflowing
-    wordWrap: 'break-word', // Ensures words break properly
-    wordBreak: 'normal', // Ensures words break properly
-    hyphens: 'none', // Disables hyphenation to prevent excessive hyphens
-    textAlign: 'left', // Ensures left alignment
+    overflowWrap: 'break-word' as const, // Prevents text from overflowing
+    wordWrap: 'break-word' as const, // Ensures words break properly
+    wordBreak: 'normal' as const, // Ensures words break properly
+    WebkitHyphens: 'none' as const, // Disables hyphenation to prevent excessive hyphens
+    msHyphens: 'none' as const, // For IE/Edge
+    hyphens: 'none' as const, // TypeScript needs 'as const' for the enum type
+    textAlign: 'left' as const, // Ensures left alignment
     lineHeight: '1.6', // Consistent line height
     fontWeight: 400, // Normal weight for body text
     fontSize: '16px', // Base font size
