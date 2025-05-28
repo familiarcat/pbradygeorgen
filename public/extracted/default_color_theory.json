@@ -1,20 +1,20 @@
 {
   "primary": "#00A99D",
-  "secondary": "#333333",
-  "accent": "#FF6F61",
+  "secondary": "#FFFFFF",
+  "accent": "#333333",
   "background": "#FFFFFF",
-  "text": "#333333",
-  "textSecondary": "#000000",
-  "border": "#D3D3D3",
-  "success": "#4CAF50",
-  "warning": "#FFC107",
-  "error": "#FF5733",
-  "info": "#03A9F4",
+  "text": "#000000",
+  "textSecondary": "#333333",
+  "border": "#000000",
+  "success": "#FFC107",
+  "warning": "#FF5722",
+  "error": "#F44336",
+  "info": "#2196F3",
   "colorTheory": {
-    "description": "Analogous color scheme with a pop of complementary color for vibrancy.",
-    "mood": "Professional and modern with a touch of creativity.",
-    "accessibility": "High contrast text against background for readability.",
-    "colorRelationships": "The primary and secondary colors create a harmonious base, while the accent color adds visual interest and the success color signifies achievement."
+    "description": "This color palette combines a professional and modern look with high readability.",
+    "mood": "The colors convey a sense of professionalism, trustworthiness, and modernity.",
+    "accessibility": "The high contrast between text and background colors ensures good readability for all users.",
+    "colorRelationships": "The primary color (#00A99D) stands out as the main brand color, complemented by a clean background color (#FFFFFF) for readability. The secondary color (#FFFFFF) provides a stark contrast for elements, while the accent color (#333333) adds depth and visual interest. The success color (#FFC107) distinguishes positive states from the primary color."
   },
   "allColors": [
     "#000000",

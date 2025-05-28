@@ -1,17 +1,17 @@
 {
-  "heading": "Montserrat, Arial, sans-serif",
-  "body": "Roboto, Helvetica, sans-serif",
-  "mono": "Inconsolata, Courier New, monospace",
-  "title": "Montserrat, Arial, sans-serif",
-  "subtitle": "Roboto, Helvetica, sans-serif",
-  "button": "Montserrat, Arial, sans-serif",
-  "nav": "Roboto, Helvetica, sans-serif",
-  "code": "Inconsolata, Courier New, monospace",
+  "heading": "Roboto",
+  "body": "Open Sans",
+  "mono": "Fira Code",
+  "title": "Montserrat",
+  "subtitle": "Lato",
+  "button": "Poppins",
+  "nav": "Nunito",
+  "code": "Inconsolata",
   "fontTheory": {
-    "description": "The typography system is designed to convey a modern and professional look suitable for a resume/CV. It aims to provide a clean and organized layout for easy readability.",
-    "readability": "Readability is prioritized by using clear sans-serif fonts for body text and headings. Monospace font is used for code snippets to enhance readability in technical sections.",
-    "hierarchy": "Typographic hierarchy is established through font sizes, weights, and styles. Headings are distinct from body text, creating a clear visual structure.",
-    "fontPairings": "Font pairings are chosen based on complementary styles and readability. Montserrat and Roboto offer a harmonious combination for headings and body text, while Inconsolata provides a contrast for code elements."
+    "description": "The typography system for this resume aims to combine modernity with readability, catering to a professional yet engaging tone.",
+    "readability": "The chosen fonts offer a balance between elegance and clarity, ensuring easy readability across various screen sizes.",
+    "hierarchy": "The hierarchy is established through a mix of sans-serif fonts for headings and body text, with variations in weight and style to denote importance.",
+    "fontPairings": "Roboto and Open Sans work harmoniously for headings and body text, while Fira Code provides a clear monospace option for technical content."
   },
   "allFonts": []
 }

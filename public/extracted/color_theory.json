@@ -1,24 +1,26 @@
 {
-  "primary": "#3366CC",
-  "secondary": "#E8EEF8",
-  "accent": "#FFA500",
+  "primary": "#000000",
+  "secondary": "#FFFFFF",
+  "accent": "#00A99D",
   "background": "#FFFFFF",
   "text": "#000000",
-  "textSecondary": "#666666",
-  "border": "#CCCCCC",
-  "success": "#4CAF50",
-  "warning": "#FFC107",
-  "error": "#F44336",
-  "info": "#2196F3",
+  "textSecondary": "#333333",
+  "border": "#333333",
+  "success": "#FFC300",
+  "warning": "#FF5733",
+  "error": "#C70039",
+  "info": "#4DABF5",
   "colorTheory": {
-    "description": "The color palette for this resume/CV exudes professionalism and modernity.",
-    "harmony": "Analogous color harmony is used, with a main color and its adjacent hues creating a cohesive look.",
-    "contrast": "The palette ensures good contrast for readability and visual appeal.",
-    "accessibility": "Text and background colors adhere to WCAG AA standards for accessibility."
+    "description": "The color palette is designed to provide high contrast and readability while incorporating a vibrant accent color for visual interest.",
+    "mood": "The palette exudes a professional and modern feel with a touch of vibrancy.",
+    "accessibility": "The contrast ratios between text and background colors meet WCAG AA standards for accessibility.",
+    "colorRelationships": "The primary color (#000000) and secondary color (#FFFFFF) create a strong contrast, with the accent color (#00A99D) adding a refreshing pop."
   },
   "allColors": [
     "#000000",
-    "#3366CC",
+    "#00A99D",
+    "#333333",
     "#FFFFFF"
-  ]
+  ],
+  "dropdownBackground": "#333333"
 }
