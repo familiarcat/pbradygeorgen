@@ -5,6 +5,7 @@ import "../styles/pdf-theme.css"; // Import the PDF theme CSS
 import "../styles/pdf-global-styles.css"; // Import the PDF global styles with high specificity
 import DirectStyleInjector from "@/components/DirectStyleInjector"; // Import the direct style injector
 import "../public/force-text-color.css"; // Import the force text color CSS
+import { AgentBoardroomProvider } from '../components/AgentBoardroomProvider';
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -31,10 +32,12 @@ export default function RootLayout({
         className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${sourceSans.variable} ${geistMono.variable} antialiased m-0 p-0`}
       >
         {/* Inject PDF styles directly into the document head */}
+        <AgentBoardroomProvider>
         <DirectStyleInjector />
 
         {/* Navigation is hidden on the home page since it has its own Salinger header */}
         {children}
+        </AgentBoardroomProvider>
       </body>
     </html>
   );

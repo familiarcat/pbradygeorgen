@@ -1,17 +1,17 @@
 {
-  "heading": "Roboto",
-  "body": "Open Sans",
-  "mono": "Fira Code",
-  "title": "Montserrat",
-  "subtitle": "Lato",
-  "button": "Poppins",
-  "nav": "Nunito",
-  "code": "Inconsolata",
+  "heading": "Helvetica Neue, Arial, sans-serif",
+  "body": "Georgia, Times New Roman, serif",
+  "mono": "Courier New, monospace",
+  "title": "Helvetica Neue, Arial, sans-serif",
+  "subtitle": "Helvetica Neue, Arial, sans-serif",
+  "button": "Helvetica Neue, Arial, sans-serif",
+  "nav": "Helvetica Neue, Arial, sans-serif",
+  "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system for this resume aims to combine modernity with readability, catering to a professional yet engaging tone.",
-    "readability": "The chosen fonts offer a balance between elegance and clarity, ensuring easy readability across various screen sizes.",
-    "hierarchy": "The hierarchy is established through a mix of sans-serif fonts for headings and body text, with variations in weight and style to denote importance.",
-    "fontPairings": "Roboto and Open Sans work harmoniously for headings and body text, while Fira Code provides a clear monospace option for technical content."
+    "description": "The typography system for this resume aims to balance professionalism and readability. It utilizes classic and widely supported fonts for a clean and clear presentation.",
+    "readability": "The chosen font families offer excellent readability both in print and on digital screens, ensuring easy comprehension of the content.",
+    "hierarchy": "Clear typographic hierarchy is established through font sizes, weights, and styles, guiding the reader through different sections of the resume.",
+    "fontPairings": "The combination of Helvetica Neue for headings and titles with Georgia for body text creates a harmonious contrast that enhances readability and visual appeal."
   },
   "allFonts": []
 }

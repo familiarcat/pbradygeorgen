@@ -31,13 +31,18 @@
     "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh"
   },
   "dependencies": {
+    "@langchain/community": "^0.3.45",
     "autoprefixer": "^10.4.21",
-    "docx": "^9.4.1",
+    "docx": "^9.5.0",
+    "file-saver": "^2.0.5",
+    "highlight.js": "^11.11.1",
     "html-to-pdf": "^0.1.11",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
+    "langchain": "^0.3.27",
     "next": "15.3.1",
     "openai": "^4.95.1",
+    "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^3.11.174",
     "postcss": "^8.5.3",
@@ -46,6 +51,8 @@
     "react-markdown": "^10.1.0",
     "react-pdf": "^9.2.1",
     "react-syntax-highlighter": "^15.6.1",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
     "zod": "^3.24.3"
   },
   "devDependencies": {

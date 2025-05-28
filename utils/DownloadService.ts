@@ -1,6 +1,7 @@
 import { DanteLogger } from './DanteLogger';
 import { HesseLogger } from './HesseLogger';
 import PdfGenerator from './PdfGenerator';
+import DocxService, { DocxDownloadOptions } from './DocxService';
 
 /**
  * Centralized service for handling all download operations in the application.
@@ -350,6 +351,35 @@ export const DownloadService = {
     } catch (error) {
       DanteLogger.error.runtime(`Error generating PDF data URL: ${error}`);
       HesseLogger.summary.error(`PDF data URL generation failed: ${error}`);
+      throw error;
+    }
+  },
+
+  /**
+   * Download a DOCX file from markdown content
+   * Delegates to DocxService to maintain consistency
+   * @param content Markdown content to convert to DOCX
+   * @param fileName Base file name without extension
+   * @param options DOCX generation options
+   * @returns Promise that resolves when download is complete
+   */
+  downloadDocx: async (
+    content: string,
+    fileName: string = 'document',
+    options: DocxDownloadOptions = {}
+  ): Promise<void> => {
+    try {
+      HesseLogger.summary.start(`Exporting ${fileName} as DOCX via DownloadService`);
+      DanteLogger.success.basic(`Starting DOCX download for ${fileName} via DownloadService`);
+      
+      // Delegate to DocxService for actual implementation
+      await DocxService.downloadDocx(content, fileName, options);
+      
+      DanteLogger.success.ux(`Downloaded ${fileName}.docx successfully via DownloadService`);
+      HesseLogger.summary.complete(`${fileName}.docx downloaded successfully via DownloadService`);
+    } catch (error) {
+      DanteLogger.error.runtime(`Error downloading DOCX via DownloadService: ${error}`);
+      HesseLogger.summary.error(`DOCX download failed via DownloadService: ${error}`);
       throw error;
     }
   }

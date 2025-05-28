@@ -1,17 +1,17 @@
 {
-  "heading": "Helvetica Neue, Arial, sans-serif",
-  "body": "Georgia, Times New Roman, serif",
+  "heading": "Arial, Helvetica, sans-serif",
+  "body": "Georgia, serif",
   "mono": "Courier New, monospace",
-  "title": "Helvetica Neue, Arial, sans-serif",
-  "subtitle": "Helvetica Neue, Arial, sans-serif",
-  "button": "Helvetica Neue, Arial, sans-serif",
-  "nav": "Helvetica Neue, Arial, sans-serif",
-  "code": "Courier New, monospace",
+  "title": "Times New Roman, Times, serif",
+  "subtitle": "Verdana, Geneva, sans-serif",
+  "button": "Arial, Helvetica, sans-serif",
+  "nav": "Trebuchet MS, Helvetica, sans-serif",
+  "code": "Consolas, monospace",
   "fontTheory": {
-    "description": "The typography system aims to balance modern readability with a touch of classic elegance, suitable for a professional document.",
-    "readability": "The chosen font families prioritize readability by using well-known typefaces with good legibility both on screen and in print.",
-    "hierarchy": "Distinct font families for headings, body text, and code ensure a clear typographic hierarchy that guides the reader through the content.",
-    "fontPairings": "Helvetica Neue and Arial offer a modern, clean look for headings, titles, subtitles, buttons, and navigation, while Georgia and Times New Roman bring a classic touch to body text for enhanced readability. Courier New provides a clear monospace font for code blocks."
+    "description": "The typography system aims to balance readability and hierarchy by utilizing a mix of serif and sans-serif fonts with distinct characteristics.",
+    "readability": "The chosen fonts prioritize readability by combining serif and sans-serif options suitable for different text sizes and screen resolutions.",
+    "hierarchy": "The typographic hierarchy is established through font weights, sizes, and styles to create visual distinctions between headings, body text, titles, and other elements.",
+    "fontPairings": "The selected fonts complement each other by offering a harmonious blend of traditional and modern styles, enhancing the document's overall aesthetic."
   },
   "allFonts": []
 }

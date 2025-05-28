@@ -1,20 +1,20 @@
 {
-  "primary": "#00A99D",
+  "primary": "#000000",
   "secondary": "#FFFFFF",
-  "accent": "#333333",
+  "accent": "#00A99D",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#000000",
-  "success": "#FFC107",
-  "warning": "#FF5722",
-  "error": "#F44336",
-  "info": "#2196F3",
+  "border": "#333333",
+  "success": "#FFD700",
+  "warning": "#FF6347",
+  "error": "#B22222",
+  "info": "#1E90FF",
   "colorTheory": {
-    "description": "This color palette combines a professional and modern look with high readability.",
-    "mood": "The colors convey a sense of professionalism, trustworthiness, and modernity.",
-    "accessibility": "The high contrast between text and background colors ensures good readability for all users.",
-    "colorRelationships": "The primary color (#00A99D) stands out as the main brand color, complemented by a clean background color (#FFFFFF) for readability. The secondary color (#FFFFFF) provides a stark contrast for elements, while the accent color (#333333) adds depth and visual interest. The success color (#FFC107) distinguishes positive states from the primary color."
+    "description": "This color palette combines a classic black and white scheme with a vibrant teal accent color to create a professional yet visually appealing look.",
+    "mood": "The colors convey a sense of professionalism, modernity, and trustworthiness.",
+    "accessibility": "The high contrast between the black text and white background ensures excellent readability for all users.",
+    "colorRelationships": "The black primary color provides a strong foundation, complemented by the white secondary color for balance and the teal accent color for added visual interest."
   },
   "allColors": [
     "#000000",
