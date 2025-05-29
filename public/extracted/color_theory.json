@@ -5,16 +5,16 @@
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#000000",
-  "success": "#FFFFFF",
-  "warning": "#FFC107",
-  "error": "#FF5722",
-  "info": "#2196F3",
+  "border": "#333333",
+  "success": "#FFD700",
+  "warning": "#FF6347",
+  "error": "#DC143C",
+  "info": "#1E90FF",
   "colorTheory": {
-    "description": "This palette combines a classic black and white base with a vibrant teal accent to create a balance of professionalism and modernity.",
-    "mood": "The colors convey a sense of sophistication, cleanliness, and a touch of energy.",
-    "accessibility": "The black text on white background ensures high contrast for readability, while the teal accent provides visual interest without sacrificing accessibility.",
-    "colorRelationships": "The primary black and secondary white create a timeless foundation, with the teal accent adding a refreshing pop of color. The warning, error, and info colors offer clear distinctions for different states."
+    "description": "The color palette combines a classic black and white foundation with a pop of teal for a modern touch.",
+    "mood": "The palette exudes professionalism and modernity, with a hint of energy and vibrancy.",
+    "accessibility": "The high contrast between the black text and white background ensures excellent readability. The teal accent color adds visual interest without compromising accessibility.",
+    "colorRelationships": "The black and white color scheme provides a strong base for content legibility, while the teal accent color adds a refreshing contrast and highlights key elements."
   },
   "allColors": [
     "#000000",

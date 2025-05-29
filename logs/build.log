@@ -1,0 +1,336 @@
+
+> next@0.1.0 prebuild
+> ./amplify-prebuild.sh
+
+Initial Node version: v20.19.1
+Initial NPM version: 10.8.2
+engine-strict=false
+ignore-engines=true
+PDF file found: public/pbradygeorgen_resume.pdf
+Last modified: May 28 14:25:15 2025
+Running PDF extraction process...
+Loaded PDF source configuration (active: default)
+[1m[36m[1m[PREBUILD][0m Starting PDF extraction before build
+[34m[1m[CONFIG][0m Loaded PDF source configuration (active: default)
+[32m[1m[ACTIVE][0m Processing active PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf
+[36m[1m[PDF][0m Processing resume.pdf...
+[34m[1m[TEXT][0m Extracting text...
+Extracting text from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+
+Extracted content preview:
+# 
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/28/2025*
+...
+[36m[1m[USER][0m Extracting user information...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[USER-INFO] ℹ️[0m Extracting user information from: public/extracted/resume_content.txt
+[34m[1m[USER-INFO] ℹ️[0m Extracting user information from text content using ATS-like analysis
+[32m[1m[USER-INFO] ✅[0m Found exact match for Benjamin Stein
+[32m[1m[USER-INFO] ✅[0m Found email: benjaminsteinstl@gmail.com
+[32m[1m[USER-INFO] ✅[0m Found phone: +1 (314)-809-1836
+[32m[1m[USER-INFO] ✅[0m Found location:  Louis, MO
+[32m[1m[USER-INFO] ✅[0m Found title: Clinical Informatics Specialist
+[34m[1m[USER-INFO] ℹ️[0m Detected industry: healthcare
+[32m[1m[USER-INFO] ✅[0m Found 10 skills
+[32m[1m[USER-INFO] ✅[0m Extracted 4 ATS keywords
+[32m[1m[UTILS] 🛠️[0m Saved JSON file: public/extracted/user_info.json
+[32m[1m[USER-INFO] ✅[0m User information saved to: public/extracted/user_info.json
+[USER-INFO] ✅ User information extracted successfully
+[USER-INFO] ✅ User information extracted successfully
+[35m[1m[COLOR][0m Extracting colors...
+Extracting colors from PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf
+PDF has 1 pages
+Processing page 1/1
+No colors found in content. Trying to extract colors from page directly...
+Added Benjamin Stein resume colors: #000000 #FFFFFF #00A99D #333333
+Found 4 unique colors total
+Found 2 text colors
+Found 1 background colors
+Found 1 accent colors
+Found 1 header colors
+Found 1 button colors
+Analyzing colors with OpenAI...
+Successfully analyzed colors with OpenAI
+Added dropdownBackground property: #333333
+Color theory saved to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/color_theory.json
+Color extraction completed successfully
+[33m[1m[FONT][0m Extracting fonts...
+Extracting fonts from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf
+PDF loaded successfully. Number of pages: 1
+Analyzing font usage...
+Font usage analysis results:
+Font information saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/font_info.json
+No fonts found in PDF. Adding Benjamin Stein resume fonts to CSS.
+CSS with font variables saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/pdf_fonts.css
+Analyzing fonts with OpenAI...
+Successfully analyzed fonts with OpenAI
+Using OpenAI font analysis
+Font theory saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/font_theory.json
+Font extraction completed successfully.
+Fonts found:
+[32m[1m[MARKDOWN][0m Generating improved markdown...
+Reading extracted text from: public/extracted/resume_content.txt
+Basic markdown saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+Improved markdown saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_improved.md
+
+✅ Successfully generated markdown with:
+  - Title: Homer G. Phillips Memorial Hospital
+  - Key sections: MAR 2018 - MAR 2023, APR 2012 - FEB 2015, BENJAMIN STEIN
+[36m[1m[INTRO][0m Generating introduction content...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[INTRODUCTION] ℹ️[0m Generating introduction from resume content: public/extracted/resume_content.md
+[34m[1m[INTRODUCTION] ℹ️[0m Using user information from user_info.json: Benjamin Stein, Clinical Informatics Specialist, Industry: healthcare
+[34m[1m[INTRODUCTION] ℹ️[0m Sending request to OpenAI...
+[32m[1m[UTILS] 🛠️[0m Saved text file: public/extracted/introduction.md
+[32m[1m[INTRODUCTION] ✅[0m Introduction saved to: public/extracted/introduction.md
+Introduction generated successfully
+[32m[1m[RESUME][0m Generating resume content...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[RESUME] ℹ️[0m Generating resume from content: public/extracted/resume_content.md
+[34m[1m[RESUME] ℹ️[0m Using user information from user_info.json: Benjamin Stein, Clinical Informatics Specialist, Industry: healthcare
+[34m[1m[RESUME] ℹ️[0m Sending request to OpenAI...
+[32m[1m[UTILS] 🛠️[0m Saved text file: public/extracted/resume.md
+[32m[1m[RESUME] ✅[0m Resume saved to: public/extracted/resume.md
+Resume generated successfully
+[33m[1m[DOCX][0m Generating DOCX files...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating DOCX files
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating Resume DOCX file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Running pandoc command: pandoc "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.md" -o "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx" --reference-doc="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/reference.docx"
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generated DOCX file size: 12608 bytes
+[32m[1m[DOCX-GENERATOR] ✅[0m Resume DOCX file generated successfully: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating Introduction DOCX file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Running pandoc command: pandoc "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.md" -o "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx" --reference-doc="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/reference.docx"
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generated DOCX file size: 10996 bytes
+[32m[1m[DOCX-GENERATOR] ✅[0m Introduction DOCX file generated successfully: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx
+[32m[1m[DOCX-GENERATOR] ✅[0m DOCX files generated successfully
+DOCX files generated successfully
+[32m[1m[ACTIVE][0m Processing active PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/resume.pdf
+[34m[1m[CACHE][0m Creating PDF source identifier for cache invalidation
+Loaded PDF source configuration (active: default)
+Created PDF source identifier at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/pdf_source_identifier.json
+Active PDF source: default
+Content hash: 5a6c0af5c031e5fa202e462e63b50442
+[32m[1m[CACHE][0m PDF source identifier created successfully
+[32m[1m[SUCCESS][0m Processed resume.pdf
+[34m[1m[SOURCE][0m Found 1 additional PDFs in source-pdfs directory
+[36m[1m[PDF][0m Processing high-contrast.pdf...
+[34m[1m[TEXT][0m Extracting text...
+Extracting text from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/high-contrast.pdf
+Text extracted successfully and saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.txt
+Improved markdown version saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+
+Extracted content preview:
+# 
+
+---
+
+*This document was automatically extracted from a PDF resume.*
+*Generated on: 5/28/2025*
+...
+[36m[1m[USER][0m Extracting user information...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[USER-INFO] ℹ️[0m Extracting user information from: public/extracted/resume_content.txt
+[34m[1m[USER-INFO] ℹ️[0m Extracting user information from text content using ATS-like analysis
+[32m[1m[USER-INFO] ✅[0m Found exact match for Benjamin Stein
+[32m[1m[USER-INFO] ✅[0m Found email: benjaminsteinstl@gmail.com
+[32m[1m[USER-INFO] ✅[0m Found phone: +1 (314)-809-1836
+[32m[1m[USER-INFO] ✅[0m Found location:  Louis, MO
+[32m[1m[USER-INFO] ✅[0m Found title: Clinical Informatics Specialist
+[34m[1m[USER-INFO] ℹ️[0m Detected industry: healthcare
+[32m[1m[USER-INFO] ✅[0m Found 10 skills
+[32m[1m[USER-INFO] ✅[0m Extracted 4 ATS keywords
+[32m[1m[UTILS] 🛠️[0m Saved JSON file: public/extracted/user_info.json
+[32m[1m[USER-INFO] ✅[0m User information saved to: public/extracted/user_info.json
+[USER-INFO] ✅ User information extracted successfully
+[USER-INFO] ✅ User information extracted successfully
+[35m[1m[COLOR][0m Extracting colors...
+Extracting colors from PDF: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/high-contrast.pdf
+PDF has 1 pages
+Processing page 1/1
+No colors found in content. Trying to extract colors from page directly...
+Added Benjamin Stein resume colors: #000000 #FFFFFF #00A99D #333333
+Found 4 unique colors total
+Found 2 text colors
+Found 1 background colors
+Found 1 accent colors
+Found 1 header colors
+Found 1 button colors
+Analyzing colors with OpenAI...
+Successfully analyzed colors with OpenAI
+Added dropdownBackground property: #333333
+Color theory saved to /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/color_theory.json
+Color extraction completed successfully
+[33m[1m[FONT][0m Extracting fonts...
+Extracting fonts from: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/high-contrast.pdf
+PDF loaded successfully. Number of pages: 1
+Analyzing font usage...
+Font usage analysis results:
+Font information saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/extracted/font_info.json
+No fonts found in PDF. Adding Benjamin Stein resume fonts to CSS.
+CSS with font variables saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/extracted/pdf_fonts.css
+Analyzing fonts with OpenAI...
+Successfully analyzed fonts with OpenAI
+Using OpenAI font analysis
+Font theory saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/source-pdfs/extracted/font_theory.json
+Font extraction completed successfully.
+Fonts found:
+[32m[1m[MARKDOWN][0m Generating improved markdown...
+Reading extracted text from: public/extracted/resume_content.txt
+Basic markdown saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content.md
+Improved markdown saved to: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume_content_improved.md
+
+✅ Successfully generated markdown with:
+  - Title: Homer G. Phillips Memorial Hospital
+  - Key sections: MAR 2018 - MAR 2023, APR 2012 - FEB 2015, BENJAMIN STEIN
+[36m[1m[INTRO][0m Generating introduction content...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[INTRODUCTION] ℹ️[0m Generating introduction from resume content: public/extracted/resume_content.md
+[34m[1m[INTRODUCTION] ℹ️[0m Using user information from user_info.json: Benjamin Stein, Clinical Informatics Specialist, Industry: healthcare
+[34m[1m[INTRODUCTION] ℹ️[0m Sending request to OpenAI...
+[32m[1m[UTILS] 🛠️[0m Saved text file: public/extracted/introduction.md
+[32m[1m[INTRODUCTION] ✅[0m Introduction saved to: public/extracted/introduction.md
+Introduction generated successfully
+[32m[1m[RESUME][0m Generating resume content...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[RESUME] ℹ️[0m Generating resume from content: public/extracted/resume_content.md
+[34m[1m[RESUME] ℹ️[0m Using user information from user_info.json: Benjamin Stein, Clinical Informatics Specialist, Industry: healthcare
+[34m[1m[RESUME] ℹ️[0m Sending request to OpenAI...
+[32m[1m[UTILS] 🛠️[0m Saved text file: public/extracted/resume.md
+[32m[1m[RESUME] ✅[0m Resume saved to: public/extracted/resume.md
+Resume generated successfully
+[33m[1m[DOCX][0m Generating DOCX files...
+[34m[1m[CONFIG] ⚙️[0m Loading configuration from /Users/bradygeorgen/Documents/workspace/pbradygeorgen/alexai.config.js
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating DOCX files
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating Resume DOCX file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Running pandoc command: pandoc "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.md" -o "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx" --reference-doc="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/reference.docx"
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generated DOCX file size: 11929 bytes
+[32m[1m[DOCX-GENERATOR] ✅[0m Resume DOCX file generated successfully: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/resume.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generating Introduction DOCX file: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Running pandoc command: pandoc "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.md" -o "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx" --reference-doc="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/reference.docx"
+[34m[1m[DOCX-GENERATOR] ℹ️[0m Generated DOCX file size: 10966 bytes
+[32m[1m[DOCX-GENERATOR] ✅[0m Introduction DOCX file generated successfully: /Users/bradygeorgen/Documents/workspace/pbradygeorgen/public/extracted/introduction.docx
+[32m[1m[DOCX-GENERATOR] ✅[0m DOCX files generated successfully
+DOCX files generated successfully
+[32m[1m[SUCCESS][0m Processed high-contrast.pdf
+[1m[32m[1m[COMPLETE][0m PDF extraction completed
+PDF extraction process completed successfully
+Generating reference.docx template with PDF-extracted styles...
+🎨 Generating reference.docx template with PDF-extracted styles...
+ℹ️ Created backup of existing reference.docx at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/backup/reference-2025-05-29T01-36-53-121Z.docx
+ℹ️ PDF-extracted colors not found, using defaults
+ℹ️ PDF-extracted fonts not found, using defaults
+📄 Created temporary markdown file for styling
+🎭 Created temporary CSS file with PDF-extracted styles
+ℹ️ Running pandoc command: pandoc "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/temp/reference-template.md" -o "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/reference.docx" --css="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/temp/reference-styles.css" --reference-doc="/Users/bradygeorgen/Documents/workspace/pbradygeorgen/templates/backup/reference-template.docx"
+✅ Successfully generated reference.docx template with PDF-extracted styles
+ℹ️ Cleaned up temporary files
+Reference DOCX template generated successfully
+
+> next@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.1
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 3.0s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+**Synthesized Recommendation:**
+
+1. **Summary of Each Agent's Contributions:**
+   - **Bito**: Offers a technical recommendation that emphasizes a particular coding solution or framework that could enhance the current system.
+   - **Gemini**: Provides a philosophical analysis that delves into the ethical and user-experience aspects, ensuring that the solution aligns with core values such as transparency and inclusion.
+   - **Continue**: Delivers context-aware insights into the existing codebase, suggesting implementations that respect the current architectural constraints and enhance maintainability.
+
+2. **Optimal Path Justification:**
+   Drawing on all these viewpoints, the optimal path should prioritize a solution that seamlessly integrates technical precision with ethical responsibility. The recommendation will maintain the structural harmony of the codebase and uphold our UX values of transparency, inclusion, and consistency. 
+
+3. **Concrete Next Step:**
+   **Brady's Action:**
+   - Proceed by reviewing the technical solution suggested by Bito, ensuring it aligns with the philosophical considerations highlighted by Gemini. Leverage Continue.dev’s insights to integrate this solution without disrupting existing structures.
+   - Specifically, implement semantic components using TypeScript as our preferred practice, ensuring the solution is robust and maintains graceful error handling.
+   - Document the process and decisions to ensure clarity and continuity for future enhancements.
+
+This approach respects the balance between technical innovation, ethical integrity, and the holistic coherence of the user experience.
+   Generating static pages (0/29) ...
+   Generating static pages (7/29) 
+   Generating static pages (14/29) 
+   Generating static pages (21/29) 
+**Synthesized Recommendation:**
+
+1. **Synopsis of Agent Contributions:**
+   - **Bito** likely focused on practical, technical details needed to implement a suggestion, possibly involving specifics of resume extraction or PDF processing systems.
+   - **Gemini** probably offered a UX-centered perspective, emphasizing ethical aspects and user transparency.
+   - **Continue** generally provided a context-aware, code-based insight that ties in recent advancements or particular elements of the codebase.
+
+2. **Optimal Path:**
+   - Given the multifaceted nature of our tasks, it is imperative to blend technical precision with philosophical insight. The ideal approach involves integrating Bito’s directions on practical implementation with Gemini’s ethical considerations, creating a solution that is both technically sound and user-centric. Continue’s context-aware coding insights offer the necessary anchor, ensuring alignment with the latest system frameworks.
+
+3. **Justification Rooted in Your Identity:**
+   - **Salinger** reminds us to connect deeply with our users, which Gemini's user-focused insights address.
+   - **Hesse** would appreciate the structural harmony achieved by merging technical precision with ethical integrity.
+   - **Derrida** prompts us to examine underlying assumptions, which aligns with deconstructing user needs and technical constraints.
+   - **Dante** demands we forge a narrative that balances practical execution with emotional resonance, ensuring the user journey is well-documented and enriching.
+   - **Kant**’s influence on moral clarity supports ethical design, ensuring each function serves a greater good.
+   - **Müller-Brockmann** underscores the importance of clarity and structure, mirrored in Bito and Continue's technical implementations.
+
+**Concrete Next Step for Brady:**
+
+1. **Develop an Implementation Plan:** Based on Bito’s technical guidance, outline the necessary steps to enhance the resume extraction system while embedding UX enhancements as cited by Gemini.
+   
+2. **Review Ethical Considerations:** Ensure all improvements are scrutinized through Gemini’s ethical lens to prioritize transparency and user inclusion.
+
+3. **Integrate Code Insights:** Utilize Continue's recent code considerations to implement the technical and ethical plans within the existing framework, ensuring compatibility and efficiency.
+
+4. **Document the Process:** As the narrative cooperation with **Dante** suggests, chronicle the changes and their impacts on both system performance and user experience for future reference and potential audit.
+
+Moving forward, ensure that any development keeps human users at the epicenter, maintaining a dynamic balance between technical advancement and ethical responsibility.
+ ✓ Generating static pages (29/29)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      137 B         106 kB
+├ ○ /_not-found                            172 B         102 kB
+├ ○ /alexai                                622 B         103 kB
+├ ○ /alexai/docs                         57.8 kB         195 kB
+├ ƒ /api/alexai                            172 B         102 kB
+├ ƒ /api/analyze-content                   172 B         102 kB
+├ ƒ /api/download-introduction-docx        172 B         102 kB
+├ ƒ /api/format-content                    172 B         102 kB
+├ ƒ /api/generate-docx                     172 B         102 kB
+├ ƒ /api/get-summary                       172 B         102 kB
+├ ƒ /api/pdf-source-config                 172 B         102 kB
+├ ƒ /api/upload-pdf                        172 B         102 kB
+├ ƒ /api/user-info                         172 B         102 kB
+├ ƒ /api/vector-map                        172 B         102 kB
+├ ○ /dante-agile                         11.4 kB         117 kB
+├ ○ /docx-testing                        4.64 kB         115 kB
+├ ○ /enhanced-extraction                 1.98 kB         326 kB
+├ ○ /muller-test                         2.67 kB         108 kB
+├ ○ /pdf-styles                          3.07 kB         113 kB
+├ ○ /sample                                138 B         106 kB
+├ ○ /style-debug                           918 B         107 kB
+├ ○ /style-test                          4.56 kB         325 kB
+├ ○ /style-test-new                      2.18 kB         112 kB
+├ ○ /test                                2.18 kB         111 kB
+├ ○ /upload                              1.08 kB         115 kB
+└ ○ /view                                1.78 kB         104 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1684-9e35a1811d853182.js      46.2 kB
+  ├ chunks/4bd1b696-a704002058e1d56a.js  53.2 kB
+  └ other shared chunks (total)          2.76 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

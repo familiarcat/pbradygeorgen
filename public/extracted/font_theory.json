@@ -1,17 +1,17 @@
 {
-  "heading": "Helvetica Neue, Arial, sans-serif",
-  "body": "Georgia, Times New Roman, serif",
+  "heading": "Arial, sans-serif",
+  "body": "Georgia, serif",
   "mono": "Courier New, monospace",
-  "title": "Helvetica Neue, Arial, sans-serif",
-  "subtitle": "Helvetica Neue, Arial, sans-serif",
-  "button": "Helvetica Neue, Arial, sans-serif",
-  "nav": "Helvetica Neue, Arial, sans-serif",
+  "title": "Arial, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Arial, sans-serif",
+  "nav": "Arial, sans-serif",
   "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system for this resume aims to balance professionalism and readability. It utilizes classic and widely supported fonts for a clean and clear presentation.",
-    "readability": "The chosen font families offer excellent readability both in print and on digital screens, ensuring easy comprehension of the content.",
-    "hierarchy": "Clear typographic hierarchy is established through font sizes, weights, and styles, guiding the reader through different sections of the resume.",
-    "fontPairings": "The combination of Helvetica Neue for headings and titles with Georgia for body text creates a harmonious contrast that enhances readability and visual appeal."
+    "description": "The typography system is designed to balance professionalism and readability, catering to the formal nature of a resume while ensuring clear communication.",
+    "readability": "The chosen fonts prioritize legibility, with serif and sans-serif options for easy reading across various screen sizes.",
+    "hierarchy": "The hierarchy is established through font sizes, weights, and styles. Headings are bold and larger for emphasis, while body text is regular for clarity.",
+    "fontPairings": "Arial for headings and functional elements create a modern and clean look, while Georgia for body text adds a touch of sophistication and traditional appeal. The monospaced Courier New ensures code and technical content stand out distinctly."
   },
   "allFonts": []
 }

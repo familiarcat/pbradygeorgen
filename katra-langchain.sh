@@ -2,80 +2,147 @@
 
 set -e
 
-BRANCH_NAME="milestone/katra-$(date +'%Y%m%d-%H%M%S')"
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "🧠 Katra LangChain Setup: Initializing..."
 
-echo "🚀 Starting Katra Langchain Setup..."
+# Define log and markdown paths
+LOG_FILE="logs/build.log"
+MD_FILE="docs/katra-langchange.md"
 
-# Step 1: Create a new git milestone branch
-echo "🔀 Creating new Git branch: $BRANCH_NAME"
-git checkout -b "$BRANCH_NAME"
+mkdir -p logs docs
 
-# Step 2: Ensure langchain and required packages are installed
-echo "📦 Installing LangChain packages..."
-npm install langchain @langchain/openai
+# Create a milestone git branch
+DATE=$(date +%Y%m%d-%H%M%S)
+BRANCH="milestone/katra-langchainfix-$DATE"
+echo "📍 Creating git branch: $BRANCH"
+git checkout -b "$BRANCH"
 
-# Step 3: Ensure server endpoints exist and create/update if necessary
-API_DIR="$SCRIPT_DIR/app/api/vector-map"
+# Install required LangChain OpenAI submodule
+echo "📦 Ensuring @langchain/openai is installed..."
+npm install @langchain/openai
 
-mkdir -p "$API_DIR"
+# Patch invalid import paths in your project
+echo "🔍 Patching LangChain OpenAI imports..."
+find . -type f -name "*.ts" -o -name "*.tsx" | while read -r file; do
+    sed -i '' 's|from ["'\'']langchain/embeddings/openai["'\'']|from "@langchain/openai"|g' "$file"
+done
 
-echo "🔧 Creating API endpoints..."
-cat > "$API_DIR/route.ts" << 'EOF'
-import { NextRequest, NextResponse } from 'next/server';
-import { MemoryVectorStore } from 'langchain/vectorstores/memory';
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+# Document the applied patch and architecture
+echo "📝 Writing markdown changelog to $MD_FILE"
+cat >"$MD_FILE" <<EOF
+# LangChain Integration Fix: Katra AI Setup
 
-let store: MemoryVectorStore | null = null;
+Date: $(date)
+Branch: \`$BRANCH\`
 
-async function initializeStore() {
-  const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 500, chunkOverlap: 50 });
-  const texts = await splitter.createDocuments([
-    `Katra Transfer Protocol:
-     - Core philosophical values: Salinger, Hesse, Derrida, Dante, Kant, Müller-Brockmann
-     - Developer role: Alex as Spock, Brady as Kirk
-     - Memory embedding and search activated.`
-  ]);
-  store = await MemoryVectorStore.fromDocuments(texts, new OpenAIEmbeddings());
-}
+This patch ensures compatibility with the latest LangChain module structure.
 
-export async function GET(req: NextRequest) {
-  const query = req.nextUrl.searchParams.get("q");
-  if (!query) return NextResponse.json({ error: "Missing 'q' param" }, { status: 400 });
+## 🧩 Patch Summary
 
-  if (!store) await initializeStore();
-  const results = await store.similaritySearch(query, 5);
-  return NextResponse.json({ results });
-}
+- ✅ Replaced invalid \`langchain/embeddings/openai\` import with \`@langchain/openai\`
+- ✅ Installed missing \`@langchain/openai\` dependency
+- ✅ Triggered build to validate SSR vector memory and endpoints
+- ✅ Appended Markdown+Mermaid doc for documentation and graphing
+
+## 🧠 Graph: Memory Vector API
+
+\`\`\`mermaid
+graph TD
+  AlexAI[AlexAI Memory Context]
+  ResumeText[Resume Text]
+  UserInfo[User Info JSON]
+  ColorTheory[Color Theory]
+  FontTheory[Font Theory]
+  GraphView[/api/vector-map/graph]
+  SSRMemory[SSR Memory Context]
+
+  ResumeText --> AlexAI
+  UserInfo --> AlexAI
+  ColorTheory --> AlexAI
+  FontTheory --> AlexAI
+  AlexAI --> SSRMemory
+  AlexAI --> GraphView
+\`\`\`
+
+## 📂 Affected Files
+
+- \`app/api/vector-map/route.ts\`
+- \`lib/katra-memory.ts\`
+- \`scripts/katra-langchain.sh\`
+- \`package.json\`
+
+## ✅ Next Steps
+
+1. Confirm \`npm run build\` passes
+2. Verify \`/api/vector-map/graph\` returns valid memory structure
+3. Merge into main or continue developing on milestone branch
 EOF
 
-# Step 4: Create vector graph JSON exporter
-GRAPH_OUTPUT="public/katra-graph.json"
-echo "🌐 Generating vector graph JSON: $GRAPH_OUTPUT"
-cat > "$GRAPH_OUTPUT" << 'EOF'
+# Build project and log results
+echo "🏗️ Running build..."
 {
-  "nodes": [
-    { "id": "Alex", "label": "AlexAI", "group": "Agent" },
-    { "id": "Kirk", "label": "Brady", "group": "User" },
-    { "id": "Dante", "label": "Logging", "group": "Philosophy" },
-    { "id": "Kant", "label": "Ethics", "group": "Philosophy" },
-    { "id": "LangGraph", "label": "Agent Orchestration", "group": "System" }
-  ],
-  "links": [
-    { "source": "Alex", "target": "Kirk", "value": 1 },
-    { "source": "Alex", "target": "Dante", "value": 1 },
-    { "source": "Alex", "target": "Kant", "value": 1 },
-    { "source": "Alex", "target": "LangGraph", "value": 1 }
-  ]
+    npm run build
+} &>"$LOG_FILE"
+
+if [ $? -eq 0 ]; then
+    echo "✅ Build completed successfully!"
+else
+    echo "❌ Build failed. Check logs in $LOG_FILE"
+    exit 1
+fi
+
+# Git commit and push
+git add .
+git commit -m "🔧 Patch: Fix LangChain OpenAI import and document vector memory API"
+echo "🚀 Changes committed to $BRANCH"
+
+#!/bin/bash
+# 🧠 Katra-Langchain Enhancement Script
+# 📅 Last Updated: 2025-05-29 01:31:02
+# 🔒 Secures OpenAI API usage by enforcing server-side access only
+# 🌐 Updates the vector-map route and centralizes OpenAI logic
+
+echo "🔄 Appending OpenAI server-only integration enhancements..."
+
+# 1. Create the centralized server-side OpenAI helper
+mkdir -p lib/server
+cat <<'EOF' >lib/server/openai.ts
+import OpenAI from 'openai';
+
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('Missing OPENAI_API_KEY in environment variables');
 }
+
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 EOF
 
-# Step 5: Commit changes
-echo "📂 Staging all new files..."
-git add .
+echo "✅ Created lib/server/openai.ts"
 
-echo "✅ Committing changes..."
-git commit -m "✨ Initialize Katra Langchain vector memory and graph API with philosophical identity"
+# 2. Patch the vector-map API route
+VECTOR_ROUTE="app/api/vector-map/route.ts"
 
-echo "🎉 Branch '$BRANCH_NAME' ready for build and deployment."
+if grep -q "new OpenAI(" "$VECTOR_ROUTE"; then
+    sed -i '' '/new OpenAI(/d' "$VECTOR_ROUTE"
+    sed -i '' '/apiKey:/d' "$VECTOR_ROUTE"
+    echo "🔁 Removed direct OpenAI instantiation from $VECTOR_ROUTE"
+fi
+
+# Ensure import is present
+if ! grep -q "from '@/lib/server/openai'" "$VECTOR_ROUTE"; then
+    sed -i '' '1s;^;import { openai } from '"'@/lib/server/openai'"';\n;' "$VECTOR_ROUTE"
+    echo "✅ Injected openai import into $VECTOR_ROUTE"
+fi
+
+# 3. Reminder for .env.local
+if ! grep -q "OPENAI_API_KEY" ".env.local"; then
+    echo "OPENAI_API_KEY=your-key-here" >>.env.local
+    echo "📝 Added placeholder to .env.local"
+fi
+
+# 4. Git checkpoint
+git add lib/server/openai.ts "$VECTOR_ROUTE" .env.local
+git commit -m "🔒 Secure OpenAI integration via server-only helper [katra-langchain.sh patch]"
+echo "📦 Committed OpenAI server-only security update"
+
+echo "🎉 Update complete. You may now run: curl -X GET 'http://localhost:3000/api/vector-map/search?q=healthcare'"

@@ -1,5 +1,5 @@
-import { MemoryVectorStore } from '../langchain/vectorstores/memory';
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
 const store = new MemoryVectorStore(new OpenAIEmbeddings());
 
