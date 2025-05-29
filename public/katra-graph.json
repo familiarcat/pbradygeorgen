@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "id": "Alex", "label": "AlexAI", "group": "Agent" },
+    { "id": "Kirk", "label": "Brady", "group": "User" },
+    { "id": "Dante", "label": "Logging", "group": "Philosophy" },
+    { "id": "Kant", "label": "Ethics", "group": "Philosophy" },
+    { "id": "LangGraph", "label": "Agent Orchestration", "group": "System" }
+  ],
+  "links": [
+    { "source": "Alex", "target": "Kirk", "value": 1 },
+    { "source": "Alex", "target": "Dante", "value": 1 },
+    { "source": "Alex", "target": "Kant", "value": 1 },
+    { "source": "Alex", "target": "LangGraph", "value": 1 }
+  ]
+}
