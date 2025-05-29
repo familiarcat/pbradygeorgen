@@ -1,17 +1,17 @@
 {
   "heading": "Arial, sans-serif",
   "body": "Georgia, serif",
-  "mono": "Courier New, monospace",
+  "mono": "Consolas, monospace",
   "title": "Arial, sans-serif",
-  "subtitle": "Helvetica, sans-serif",
-  "button": "Verdana, sans-serif",
-  "nav": "Tahoma, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Helvetica, sans-serif",
+  "nav": "Verdana, sans-serif",
   "code": "Consolas, monospace",
   "fontTheory": {
-    "description": "The typography system aims to balance readability and modern aesthetics, catering to a professional tone with a touch of creativity.",
-    "readability": "The chosen fonts prioritize readability with clear distinctions between headings, body text, and code elements.",
-    "hierarchy": "The hierarchy is established through font sizes, weights, and styles, ensuring a clear visual structure for different content types.",
-    "fontPairings": "Arial for headings provides a clean and modern look, contrasting well with the serif Georgia for body text. Mono and sans-serif fonts are used strategically for code, titles, buttons, and navigation."
+    "description": "The typography system aims to balance readability and modernity, catering to a professional yet accessible tone.",
+    "readability": "The chosen fonts prioritize readability, especially considering different screen sizes and contrast requirements.",
+    "hierarchy": "The typographic hierarchy emphasizes headings with Arial for a clean, modern look, while body text in Georgia adds a touch of elegance.",
+    "fontPairings": "Arial and Georgia work harmoniously to provide a clear visual distinction between headings and body text, enhancing readability and user experience."
   },
   "allFonts": []
 }

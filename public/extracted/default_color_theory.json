@@ -1,20 +1,20 @@
 {
-  "primary": "#000000",
-  "secondary": "#333333",
-  "accent": "#00A99D",
+  "primary": "#00A99D",
+  "secondary": "#FFFFFF",
+  "accent": "#FFD700",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#000000",
-  "success": "#7B113A",
-  "warning": "#FFD700",
-  "error": "#FF0000",
-  "info": "#4682B4",
+  "border": "#333333",
+  "success": "#CC3333",
+  "warning": "#FFA500",
+  "error": "#990000",
+  "info": "#3366CC",
   "colorTheory": {
-    "description": "This palette combines classic text colors with a modern accent, creating a balance of professionalism and creativity.",
-    "mood": "The colors evoke a sense of sophistication and modernity while maintaining readability.",
-    "accessibility": "The high contrast between text and background colors ensures good readability, meeting WCAG AA compliance.",
-    "colorRelationships": "The primary and secondary colors create a harmonious base, while the accent color adds a pop of freshness. The success, warning, error, and info colors provide clear distinctions for different states."
+    "description": "This color palette combines a professional and modern feel with a touch of vibrancy.",
+    "mood": "Elegant and professional with a hint of creativity and energy.",
+    "accessibility": "The text colors have high contrast against the background for readability.",
+    "colorRelationships": "The primary color (teal) is complemented by a clean white secondary color and accented with a vibrant gold. The success color provides a contrasting element while maintaining harmony within the palette."
   },
   "allColors": [
     "#000000",

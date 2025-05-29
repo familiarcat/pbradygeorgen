@@ -1,17 +1,17 @@
 {
-  "heading": "Arial, sans-serif",
-  "body": "Georgia, serif",
-  "mono": "Courier New, monospace",
-  "title": "Arial, sans-serif",
-  "subtitle": "Arial, sans-serif",
-  "button": "Arial, sans-serif",
-  "nav": "Arial, sans-serif",
-  "code": "Courier New, monospace",
+  "heading": "Roboto",
+  "body": "Lato",
+  "mono": "Fira Code",
+  "title": "Playfair Display",
+  "subtitle": "Open Sans",
+  "button": "Montserrat",
+  "nav": "Poppins",
+  "code": "Inconsolata",
   "fontTheory": {
-    "description": "The typography system is designed to balance professionalism and readability, catering to the formal nature of a resume while ensuring clear communication.",
-    "readability": "The chosen fonts prioritize legibility, with serif and sans-serif options for easy reading across various screen sizes.",
-    "hierarchy": "The hierarchy is established through font sizes, weights, and styles. Headings are bold and larger for emphasis, while body text is regular for clarity.",
-    "fontPairings": "Arial for headings and functional elements create a modern and clean look, while Georgia for body text adds a touch of sophistication and traditional appeal. The monospaced Courier New ensures code and technical content stand out distinctly."
+    "description": "The typography system for this resume aims to balance professionalism with modernity, ensuring readability and visual appeal.",
+    "readability": "Careful consideration has been given to font sizes, line spacing, and contrast to enhance readability across various devices.",
+    "hierarchy": "The typographic hierarchy is established through font sizes, weights, and styles to guide the reader through the resume sections effectively.",
+    "fontPairings": "The font pairings have been chosen to create a harmonious blend of traditional and contemporary styles, maintaining a cohesive visual identity."
   },
   "allFonts": []
 }
