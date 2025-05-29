@@ -1,33 +1,63 @@
 #!/bin/bash
-# katra-langchain.sh — updated with bottom-up introspective indexing
-# Timestamp: 20250529-015420
 
-echo "🧠 [KATRA] Starting bottom-up memory indexing phase..."
+# katra-langchain.sh
+# Master initialization script for AlexAI vector-indexed architecture
+# Created: 2025-05-29T02:40:54.520149
 
-# Ensure universal-ctags is installed
-if ! command -v ctags &>/dev/null; then
-    echo "📦 Installing universal-ctags via Homebrew..."
-    brew install universal-ctags
+set -e
+
+echo "🧠 [KATRA] Starting Katra LangChain Initialization Flow..."
+
+# Step 1: Create milestone Git branch
+echo "🌿 [GIT] Creating milestone branch..."
+BRANCH_NAME="milestone/katra-integration-$(date +%Y%m%d-%H%M%S)"
+git checkout -b "$BRANCH_NAME"
+
+# Step 2: Inject OpenAI Key from .env.local into system for SSR-only
+if [ -f .env.local ]; then
+  echo "🔐 [ENV] Exporting secrets from .env.local"
+  export $(grep -v '^#' .env.local | xargs)
 else
-    echo "✅ universal-ctags already installed."
+  echo "⚠️  [ENV] .env.local file not found. Skipping env export."
 fi
 
-# Step 1: Generate ctags
-echo "🔍 Generating code index tags..."
-ctags -R --languages=TypeScript,JavaScript --fields=+n --extras=+q -f .ctags.tags
+# Step 3: Patch OpenAI calls to use server-only instantiation
+echo "🛠️  [PATCH] Refactoring OpenAI instantiation to be SSR-only..."
+find ./app -type f -name "*.ts" -o -name "*.tsx" | while read -r file; do
+  if grep -q "new OpenAI(" "$file"; then
+    sed -i '' 's/new OpenAI({ apiKey: .* })/new OpenAI({ apiKey: process.env.OPENAI_API_KEY })/g' "$file"
+    echo "✅ Patched: $file"
+  fi
+done
 
-# Step 2: Convert tags to Mermaid-compatible format
-if [ -f "./scripts/convert-tags-to-mermaid.js" ]; then
-    echo "🎨 Building dependency mermaid graph..."
-    node ./scripts/convert-tags-to-mermaid.js >docs/kgraph.mmd
-else
-    echo "⚠️ Missing parser script: ./scripts/convert-tags-to-mermaid.js"
-    echo "❌ Mermaid graph not generated."
-fi
+# Step 4: Run local build
+echo "🏗️  [BUILD] Running local build to verify..."
+npm run build
 
-# Step 3: Commit graph for introspective visual memory
-echo "📝 Committing introspective memory files to version control..."
-git add .ctags.tags docs/kgraph.mmd
-git commit -m '🤖 Auto-generated self-referential dependency graph [Katra Indexing Update]'
+# Step 5: Commit the updates
+echo "💾 [GIT] Committing changes to $BRANCH_NAME..."
+git add .
+git commit -m "Integrate AlexAI SSR secret strategy + build validation"
 
-echo "✅ [KATRA] Indexing phase complete. Introspective memory committed."
+# Step 6: Index project file system excluding node_modules, etc.
+echo "📦 [INDEX] Indexing file structure and extracting content types..."
+IGNORE="node_modules|.git|.next|dist|build|coverage"
+INDEX_FILE="public/extracted/code_index.json"
+TEMP_TREE="public/extracted/file_tree.txt"
+
+mkdir -p public/extracted
+npx tree -I "$IGNORE" -L 10 >"$TEMP_TREE"
+
+echo "[" >"$INDEX_FILE"
+find . -type f | grep -Ev "$IGNORE" | while read -r file; do
+  EXT=$(basename "$file" | awk -F. '{print $NF}')
+  TYPE=$(file -b --mime-type "$file")
+  echo "{\"path\": \"$file\", \"type\": \"$TYPE\", \"ext\": \"$EXT\"}," >>"$INDEX_FILE"
+done
+sed -i '' '$ s/,$//' "$INDEX_FILE"
+echo "]" >>"$INDEX_FILE"
+rm "$TEMP_TREE"
+
+# Step 7: Log complete
+echo "✅ [KATRA] Initialization complete. Branch: $BRANCH_NAME"
+echo "👉 Push to remote with: git push -u origin $BRANCH_NAME"

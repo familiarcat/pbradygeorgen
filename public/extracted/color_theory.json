@@ -1,20 +1,20 @@
 {
-  "primary": "#000000",
+  "primary": "#00A99D",
   "secondary": "#FFFFFF",
-  "accent": "#00A99D",
+  "accent": "#333333",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
   "border": "#333333",
   "success": "#FFD700",
   "warning": "#FF6347",
-  "error": "#B22222",
+  "error": "#DC143C",
   "info": "#1E90FF",
   "colorTheory": {
-    "description": "The color palette is designed to be high contrast, with a balance of dark and light shades for readability and visual interest.",
-    "mood": "The colors convey a sense of professionalism and modernity, with a touch of vibrancy from the accent color.",
-    "accessibility": "The palette ensures good readability and complies with WCAG AA standards for text contrast against the background.",
-    "colorRelationships": "The primary black color provides a strong base, complemented by the white background for clarity and the teal accent for a pop of color."
+    "description": "The color palette combines a bold primary color with a clean background and supporting text colors for readability.",
+    "mood": "The palette conveys a sense of professionalism and clarity.",
+    "accessibility": "High contrast ratios between text and background colors ensure readability and accessibility.",
+    "colorRelationships": "The primary accent color (#00A99D) stands out against the light background (#FFFFFF) while the secondary color (#FFFFFF) provides a clean backdrop for text content."
   },
   "allColors": [
     "#000000",

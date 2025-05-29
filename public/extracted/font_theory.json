@@ -1,17 +1,17 @@
 {
-  "heading": "Roboto",
-  "body": "Lato",
-  "mono": "Fira Code",
-  "title": "Playfair Display",
-  "subtitle": "Open Sans",
-  "button": "Montserrat",
-  "nav": "Poppins",
-  "code": "Inconsolata",
+  "heading": "Arial, sans-serif",
+  "body": "Georgia, serif",
+  "mono": "Courier New, monospace",
+  "title": "Arial, sans-serif",
+  "subtitle": "Arial, sans-serif",
+  "button": "Helvetica, sans-serif",
+  "nav": "Arial, sans-serif",
+  "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system for this resume aims to balance professionalism with modernity, ensuring readability and visual appeal.",
-    "readability": "Careful consideration has been given to font sizes, line spacing, and contrast to enhance readability across various devices.",
-    "hierarchy": "The typographic hierarchy is established through font sizes, weights, and styles to guide the reader through the resume sections effectively.",
-    "fontPairings": "The font pairings have been chosen to create a harmonious blend of traditional and contemporary styles, maintaining a cohesive visual identity."
+    "description": "The typography system aims to balance professionalism and readability for a resume/CV. It combines classic serif and sans-serif fonts for a timeless look.",
+    "readability": "The serif body text enhances readability, especially for longer sections, while the sans-serif headings and titles provide clear hierarchy and visual appeal.",
+    "hierarchy": "The hierarchy is established through font sizes, weights, and styles. Headings are larger and bold, while body text is medium weight for easy reading.",
+    "fontPairings": "The pairing of Georgia for body text and Arial for headings creates a harmonious contrast, with Courier New for code blocks ensuring clarity and distinction."
   },
   "allFonts": []
 }
