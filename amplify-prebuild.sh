@@ -2,11 +2,16 @@
 # This script ensures the correct Node.js version is used for Amplify builds
 # and ensures the PDF file is properly included in the build
 # It runs the PDF extraction process before the build to ensure styles are available
-
+if [ -f ".env.local" ]; then
+  echo "[ENV] ✅ .env.local file detected."
+else
+  echo "[ENV] ❌ .env.local file missing. Build may fail."
+  exit 1
+fi
 # Print current Node.js and npm versions
 echo "Initial Node version: $(node -v)"
 echo "Initial NPM version: $(npm -v)"
-
+echo "Amplify Prebuild \n\n\n\n"
 # Create .npmrc file to ignore engine requirements
 echo "engine-strict=false" >.npmrc
 echo "ignore-engines=true" >>.npmrc

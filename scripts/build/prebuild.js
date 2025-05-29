@@ -25,7 +25,7 @@ const logger = createLogger('build');
  * Main prebuild function
  */
 async function prebuild() {
-  logger.info('Starting prebuild process');
+  logger.info('Starting prebuild process !!!!!!!!!');
 
   // Reset the build summary for a new build
   buildSummary.resetBuildSummary();

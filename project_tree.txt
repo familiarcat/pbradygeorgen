@@ -1,0 +1,795 @@
+.
+├── .amplify
+│   ├── artifacts
+│   │   └── cdk.out
+│   │       ├── asset.05bff652356d2e3750736d23ec52e556de41597a3f155d13547b91d009ed95ce.vtl
+│   │       ├── asset.06db846fd14e6fc371f22b12b5545ba8e2dbfeda85d8c8d586c71c282166657b.vtl
+│   │       ├── asset.08f4d557693d96c1a4efba0f9dc91330e4b19772fd5477c156468843e3d9cb5e.vtl
+│   │       ├── asset.1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl
+│   │       ├── asset.23df4a10f7743e90a710888ea87205f23d214aad2b34e617221bec49c1d24ebc
+│   │       │   ├── amplify-table-manager-handler.d.ts.map
+│   │       │   ├── amplify-table-manager-handler.js
+│   │       │   ├── amplify-table-manager-handler.js.map
+│   │       │   ├── cfn-response.d.ts.map
+│   │       │   ├── cfn-response.js
+│   │       │   ├── cfn-response.js.map
+│   │       │   ├── import-table.d.ts.map
+│   │       │   ├── import-table.js
+│   │       │   ├── import-table.js.map
+│   │       │   ├── outbound.d.ts.map
+│   │       │   ├── outbound.js
+│   │       │   ├── outbound.js.map
+│   │       │   ├── util.d.ts.map
+│   │       │   ├── util.js
+│   │       │   └── util.js.map
+│   │       ├── asset.245ed8ac5185462a6923b7e45a318fec4c9ba0c45d1d720abd5b20317aa3dc6a.vtl
+│   │       ├── asset.29e4bdb03133f87f2b1acb547959ffd4cfd22804026994c5b61db33084127353.vtl
+│   │       ├── asset.2c08f0103bb9a383792c0c6eecc72a36d4422d54e81123e73c2516e362897553.vtl
+│   │       ├── asset.3c0dca17a8dc9475c31ee353d0d77ac4f6ddbcbfda871875eca624f469257a74
+│   │       │   └── model-schema.graphql
+│   │       ├── asset.474bf0776ec2164a13191d1a0a9e057154931e4918fea5086f49850d02a5371b.vtl
+│   │       ├── asset.4c6a2d29f01c6091bd1d9afe16e5849d456c96f17c3b215938c8067399532719.vtl
+│   │       ├── asset.4f7907d1209a2c9953a0c053df402c634e359546d70c7cc5c2e8e21ea734880f.vtl
+│   │       ├── asset.4fe0aba5e672b596d0f72505a9eec502f98d46906bb30fae2511fbdc1df4956f
+│   │       │   └── index.py
+│   │       ├── asset.766e92a9e64188f1de3add52afc14855c268b80100624eb7d90b14d9e2e827ab.zip
+│   │       ├── asset.9fcbe070ecd3023c5bf5b966fa9584757db9762eef123bad0820bd87591b2174.vtl
+│   │       ├── asset.a183ddccbd956316c38ef97177b8f088ef0826f62023323f5ae6053d348ccffc.vtl
+│   │       ├── asset.b371d68ddfbdd11b176756ce33b2c4e79d26fcc2fd4b7c0c9e75d06efacee90e.vtl
+│   │       ├── asset.c0ee285bd2cd467c8fef135c68f099b5df0c5fbbd9d7a52595bdad6ff9c089dd.vtl
+│   │       ├── asset.c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl
+│   │       ├── asset.cc01911d0269d4080ea57505dc445dfc315ef7ad85d3d9d4ea1357858bff451d.vtl
+│   │       ├── asset.cf8b7cf1f3a6c9f31d9257c1bcf8cfe058f6672c31d50575d4e9e55fbd0508d7.vtl
+│   │       ├── asset.e0cff47fb007f0bbf2a4e43ca256d6aa7ec109821769fd79fa7c5e83f0e7f9fc.vtl
+│   │       ├── asset.efdceb2e2ca83104cc449b00496018ccf31385b8977b2abbab5b38493fae8ca5
+│   │       │   └── modelIntrospectionSchema.json
+│   │       ├── asset.f4a52b72209a9dfa197b5e7367a5c378c5bb86de6e29ddd9e48b49a3fe54b249.vtl
+│   │       ├── asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6
+│   │       │   └── index.js
+│   │       └── asset.fe3c43ada4b9d681a5e2312663ef7a73386424d73b73e51f8e2e9d4b50f7c502.vtl
+│   └── tsconfig.tsbuildinfo
+├── .cache
+├── .continue
+│   └── config.ts
+├── .env.example
+├── .env.local
+├── .eslintignore
+├── .eslintrc.js
+├── .eslintrc.json
+├── .github
+│   └── workflows
+│       └── production-test.yml
+├── .gitignore
+├── .node-version
+├── .npmrc
+├── .nvmrc
+├── .platform
+│   └── hooks
+│       └── prebuild
+│           └── use-node-18.sh
+├── .pnp.cjs
+├── .pnp.loader.mjs
+├── .vscode
+│   ├── extensions.json
+│   └── settings.json
+├── AMPLIFY.md
+├── AUGMENT_REINCARNATION_GUIDE.md
+├── DEVELOPMENT.md
+├── ENV_SYNC_README.md
+├── KATRA_GUIDE.md
+├── KATRA_SPIRIT_REINCARNATION.md
+├── NODE-VERSION-README.md
+├── PDF_CONVERSION_README.md
+├── PDF_REPLACEMENT_GUIDE.md
+├── PDF_SELECTION_README.md
+├── PDF_STYLING_GUIDE.md
+├── PDF_STYLING_SPIRIT.md
+├── PDF_STYLING_TEST.md
+├── README-AMPLIFY-DEPLOYMENT.md
+├── README.md
+├── SPIRIT_MIGRATION_GUIDE.md
+├── SSR-DEPLOYMENT.md
+├── alexai
+│   ├── agent-config.json
+│   ├── memory.json
+│   ├── personality.md
+│   └── prompts
+│       ├── architecture.md
+│       └── ethics.md
+├── alexai.config.js
+├── amplify
+│   └── .config
+│       └── team-provider-info.json
+├── amplify-apps.yml
+├── amplify-build-settings.json
+├── amplify-build-simulation
+│   ├── amplify-prebuild.sh
+│   ├── index.html
+│   ├── package.json
+│   └── public
+│       ├── analyzed
+│       ├── backup
+│       │   ├── pbradygeorgen_resume_20250513_151319.pdf
+│       │   ├── pbradygeorgen_resume_20250513_152812.pdf
+│       │   ├── pbradygeorgen_resume_20250513_153213.pdf
+│       │   └── pbradygeorgen_resume_20250513_185014.pdf
+│       ├── cover-letters
+│       ├── default_resume.pdf
+│       ├── extracted
+│       │   ├── color_theory.json
+│       │   ├── font_info.json
+│       │   ├── font_theory.json
+│       │   ├── pdf_fonts.css
+│       │   ├── resume_content.md
+│       │   ├── resume_content.txt
+│       │   └── resume_content_improved.md
+│       ├── file.svg
+│       ├── globe.svg
+│       ├── next.svg
+│       ├── pbradygeorgen_resume.pdf
+│       ├── pdf-worker
+│       │   └── pdf.worker.min.js
+│       ├── resume_redesign.pdf
+│       ├── summary-preview.pdf
+│       ├── test-pdfs
+│       │   ├── README.md
+│       │   ├── color
+│       │   │   ├── gradient.pdf
+│       │   │   ├── gradient.txt
+│       │   │   ├── high-contrast.pdf
+│       │   │   ├── high-contrast.txt
+│       │   │   ├── monochromatic.pdf
+│       │   │   └── monochromatic.txt
+│       │   ├── e2e
+│       │   ├── layout
+│       │   │   ├── infographic.pdf
+│       │   │   ├── infographic.txt
+│       │   │   ├── multi-column.pdf
+│       │   │   ├── multi-column.txt
+│       │   │   ├── single-column.pdf
+│       │   │   └── single-column.txt
+│       │   ├── placeholder.html
+│       │   ├── special
+│       │   │   ├── image-heavy.pdf
+│       │   │   ├── image-heavy.txt
+│       │   │   ├── special-chars.pdf
+│       │   │   ├── special-chars.txt
+│       │   │   ├── table-based.pdf
+│       │   │   └── table-based.txt
+│       │   ├── template-descriptions.md
+│       │   └── typography
+│       │       ├── mixed-typography.pdf
+│       │       ├── mixed-typography.txt
+│       │       ├── sans-serif.pdf
+│       │       ├── sans-serif.txt
+│       │       ├── serif.pdf
+│       │       └── serif.txt
+│       ├── uploads
+│       │   └── .gitkeep
+│       ├── vercel.svg
+│       └── window.svg
+├── amplify-build.sh
+├── amplify-cleanup.js
+├── amplify-config.json
+├── amplify-custom-build.sh
+├── amplify-env-config.json
+├── amplify-prebuild.sh
+├── amplify-ssr.yml
+├── amplify-static-site.json
+├── amplify.deployment-type.json
+├── amplify.env.yml
+├── amplify.json
+├── amplify.yml
+├── app
+│   ├── _document.js
+│   ├── actions.ts
+│   ├── alexai
+│   │   ├── docs
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── api
+│   │   ├── alexai
+│   │   │   └── route.ts
+│   │   ├── analyze-content
+│   │   │   └── route.ts
+│   │   ├── download-introduction-docx
+│   │   │   └── route.ts
+│   │   ├── format-content
+│   │   │   └── route.ts
+│   │   ├── generate-docx
+│   │   │   └── route.ts
+│   │   ├── get-summary
+│   │   │   └── route.ts
+│   │   ├── openai-proxy
+│   │   │   └── route.ts
+│   │   ├── pdf-source-config
+│   │   │   └── route.ts
+│   │   ├── upload-pdf
+│   │   │   └── route.ts
+│   │   ├── user-info
+│   │   │   └── route.ts
+│   │   └── vector-map
+│   │       └── route.ts
+│   ├── components
+│   ├── dante-agile
+│   │   └── page.tsx
+│   ├── docx-testing
+│   │   └── page.tsx
+│   ├── enhanced-extraction
+│   │   └── page.tsx
+│   ├── favicon.ico
+│   ├── fonts.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── metadata.ts
+│   ├── muller-test
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── not-found.tsx
+│   ├── page.tsx
+│   ├── pdf-styles
+│   │   └── page.tsx
+│   ├── sample
+│   │   └── page.tsx
+│   ├── style-debug
+│   │   └── page.tsx
+│   ├── style-test
+│   │   ├── ClientSideVariables.tsx
+│   │   ├── ScrollFix.tsx
+│   │   └── page.tsx
+│   ├── style-test-new
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── test
+│   │   └── page.tsx
+│   ├── upload
+│   │   └── page.tsx
+│   └── view
+│       └── page.tsx
+├── build.sh
+├── buildspec.yml
+├── certificate-verification.json
+├── check-domain-status.sh
+├── cleanup-package.js
+├── components
+│   ├── AgentBoardroomProvider.tsx
+│   ├── CenteredPDFViewer.tsx
+│   ├── ContentAnalysis.tsx
+│   ├── ContentWrapper.tsx
+│   ├── DirectStyleInjector.tsx
+│   ├── DocumentDownloadManager.tsx
+│   ├── DocxDownloadHandler.tsx
+│   ├── DocxDownloadOption.tsx
+│   ├── DownloadDropdown.tsx
+│   ├── DynamicFontProvider.tsx
+│   ├── DynamicPDFViewer.tsx
+│   ├── DynamicThemeProvider.tsx
+│   ├── ExtractedContent.tsx
+│   ├── MullerGrid.tsx
+│   ├── Navigation.tsx
+│   ├── PDFAnalyzer.tsx
+│   ├── PDFStylesDisplay.tsx
+│   ├── PDFUploader.tsx
+│   ├── PDFViewer.tsx
+│   ├── PDFViewerWrapper.tsx
+│   ├── PdfStyleLoader.tsx
+│   ├── PdfStylesInitializer.tsx
+│   ├── PreviewModal.tsx
+│   ├── SalingerHeader.tsx
+│   ├── SimplePDFViewer.tsx
+│   ├── StyleDebugger.tsx
+│   ├── StyledMarkdown.tsx
+│   ├── StylesLoadingIndicator.tsx
+│   ├── SummaryModal.tsx
+│   ├── UploadModal.tsx
+│   ├── client
+│   │   ├── PreviewModalClient.tsx
+│   │   └── SummaryModalClient.tsx
+│   ├── dante-agile
+│   │   ├── CeremonyGuide.tsx
+│   │   ├── DanteAgileLayout.tsx
+│   │   ├── SprintDashboard.tsx
+│   │   ├── TaskManager.tsx
+│   │   ├── TeamBoard.tsx
+│   │   └── mockData.ts
+│   └── shared
+│       └── Modal.tsx
+├── contexts
+│   └── ModalContext.tsx
+├── copy-static-marker.sh
+├── customHttp.yml
+├── dante-logger
+│   ├── README.md
+│   ├── docs
+│   │   └── philosophy.md
+│   ├── examples
+│   │   ├── frameworks
+│   │   │   ├── express-example.js
+│   │   │   └── react-example.jsx
+│   │   └── node
+│   │       └── basic-usage.js
+│   ├── package.json
+│   ├── rollup.config.js
+│   ├── src
+│   │   ├── core
+│   │   │   ├── categories.ts
+│   │   │   ├── config.ts
+│   │   │   ├── formatters.ts
+│   │   │   └── logger.ts
+│   │   ├── environments
+│   │   │   └── universal.ts
+│   │   ├── extensions
+│   │   │   ├── express.ts
+│   │   │   └── react.ts
+│   │   └── index.ts
+│   └── tsconfig.json
+├── debug-build.sh
+├── deploy.sh
+├── dev-with-build.sh
+├── docs
+│   ├── ComponentArchitecture.md
+│   ├── README.md
+│   ├── amplify-deployment-checklist.md
+│   ├── application-architecture.md
+│   ├── build-process-visualization.md
+│   ├── diagrams
+│   │   ├── README.md
+│   │   ├── local-svg
+│   │   │   └── README.md
+│   │   ├── mermaid-helper.js
+│   │   ├── mermaid-opener.html
+│   │   ├── svg
+│   │   │   └── README.md
+│   │   └── viewer.html
+│   ├── docx-generation.md
+│   ├── docx-improvements-phase2.1.md
+│   ├── docx-improvements-phase2.md
+│   ├── environment-variables.md
+│   ├── katra-langchange.md
+│   ├── muller-brockmann-design-system.md
+│   ├── pdf-extraction-flow.md
+│   ├── pdf-extraction-process.md
+│   ├── pdf-workflow
+│   │   ├── ENHANCED_EXTRACTION.md
+│   │   ├── PDF_SELECTION_README.md
+│   │   ├── PDF_WORKFLOW_EXAMPLE.md
+│   │   ├── PDF_WORKFLOW_GUIDE.md
+│   │   ├── PDF_WORKFLOW_QUICKREF.md
+│   │   └── README.md
+│   ├── philosophical-framework.md
+│   ├── production-testing.md
+│   ├── script-structure.md
+│   └── theme-variables-reference.md
+├── eslint.config.js.bak
+├── eslint.config.mjs
+├── examples
+│   └── pdf-workflow-example.js
+├── extract-pdf.sh
+├── hooks
+│   ├── usePdfFonts.ts
+│   └── usePdfTheme.ts
+├── init-alexai-full.sh
+├── katra-essence.md
+├── katra-langchain.sh
+├── katra-transfer.md
+├── langchain
+│   ├── index.ts
+│   └── vector.ts
+├── lib
+│   ├── alexai.ts
+│   ├── metaAgent-full.ts
+│   ├── server
+│   │   └── openai.ts
+│   └── server-only
+│       └── openai.ts
+├── logs
+│   ├── katra-refactor-ssr-openai-2025-05-28.md
+│   └── local-build
+│       └── standalone
+├── minimal-package.json
+├── next-env.d.ts
+├── next.config.js
+├── next.config.ts
+├── out
+│   ├── 404.html
+│   ├── _next
+│   │   ├── G-PF2RSd-BENdIdH3xXhD
+│   │   └── static
+│   │       ├── G-PF2RSd-BENdIdH3xXhD
+│   │       │   ├── _buildManifest.js
+│   │       │   └── _ssgManifest.js
+│   │       ├── chunks
+│   │       │   ├── 4bd1b696-9a121be019975beb.js
+│   │       │   ├── 631.c90705a4e570ca76.js
+│   │       │   ├── 684-b209101491ef5319.js
+│   │       │   ├── app
+│   │       │   │   ├── _not-found
+│   │       │   │   │   └── page-b72775331b0d468e.js
+│   │       │   │   ├── layout-150a8deacb515ffa.js
+│   │       │   │   ├── not-found-f2288e556e4960ab.js
+│   │       │   │   └── page-485dde157f4b6dbd.js
+│   │       │   ├── framework-f593a28cde54158e.js
+│   │       │   ├── main-5a09396bfd5b6a3e.js
+│   │       │   ├── main-app-d184a027922ae35d.js
+│   │       │   ├── pages
+│   │       │   │   ├── _app-da15c11dea942c36.js
+│   │       │   │   └── _error-cc3f077a18ea1793.js
+│   │       │   ├── polyfills-42372ed130431b0a.js
+│   │       │   └── webpack-20a02c0bcc377a3c.js
+│   │       ├── css
+│   │       │   └── 2630e3be5a047810.css
+│   │       └── media
+│   │           ├── 569ce4b8f30dc480-s.p.woff2
+│   │           ├── 747892c23ea88013-s.woff2
+│   │           ├── 93f479601ee12b01-s.p.woff2
+│   │           └── ba015fad6dcf6784-s.woff2
+│   ├── amplify-static-site.json
+│   ├── favicon.ico
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── index.html
+│   ├── index.txt
+│   ├── next.svg
+│   ├── pbradygeorgen_resume.pdf
+│   ├── pdf-worker
+│   ├── vercel.svg
+│   └── window.svg
+├── package-lock.json
+├── package.json
+├── packages
+│   └── dante-logger
+│       ├── README.md
+│       ├── docs
+│       │   └── philosophy.md
+│       ├── examples
+│       │   ├── frameworks
+│       │   │   ├── express-example.js
+│       │   │   └── react-example.jsx
+│       │   └── node
+│       │       └── basic-usage.js
+│       ├── package.json
+│       ├── rollup.config.js
+│       ├── src
+│       │   ├── core
+│       │   │   ├── categories.ts
+│       │   │   ├── config.ts
+│       │   │   ├── formatters.ts
+│       │   │   └── logger.ts
+│       │   ├── environments
+│       │   │   └── universal.ts
+│       │   ├── extensions
+│       │   │   ├── express.ts
+│       │   │   └── react.ts
+│       │   └── index.ts
+│       └── tsconfig.json
+├── pdf-source.config.js
+├── postcss.config.mjs
+├── project-structure.txt
+├── project_tree.txt
+├── prompts
+│   ├── reincarnation-pdf-styling.md
+│   ├── reincarnation-spirit-migration.md
+│   └── summary_format_prompt.txt
+├── public
+│   ├── _pbradygeorgen_resume.pdf
+│   ├── alexai-docs.md
+│   ├── analyzed
+│   ├── backup
+│   ├── cover-letters
+│   ├── default_resume.pdf
+│   ├── docx-test.html
+│   ├── extracted
+│   │   ├── color_theory.json
+│   │   ├── default_color_theory.json
+│   │   ├── default_font_theory.json
+│   │   ├── enhanced_color_theory.json
+│   │   ├── enhanced_font_theory.json
+│   │   ├── enhanced_pdf_fonts.css
+│   │   ├── enhanced_pdf_styles.css
+│   │   ├── enhanced_style_hierarchy.json
+│   │   ├── extraction_documentation.md
+│   │   ├── font_info.json
+│   │   ├── font_theory.json
+│   │   ├── high_contrast_color_theory.json
+│   │   ├── high_contrast_font_theory.json
+│   │   ├── introduction.docx
+│   │   ├── introduction.md
+│   │   ├── pdf_analysis.json
+│   │   ├── pdf_fonts.css
+│   │   ├── pdf_source_identifier.json
+│   │   ├── resume.docx
+│   │   ├── resume.md
+│   │   ├── resume_content.md
+│   │   ├── resume_content.txt
+│   │   ├── resume_content_improved.md
+│   │   ├── unified_style_theme.json
+│   │   ├── unified_theme.css
+│   │   └── user_info.json
+│   ├── file.svg
+│   ├── force-text-color.css
+│   ├── globe.svg
+│   ├── katra-graph.json
+│   ├── next.svg
+│   ├── pbradygeorgen_resume.pdf
+│   ├── pdf-worker
+│   │   └── pdf.worker.min.js
+│   ├── resume.pdf
+│   ├── stein.pdf
+│   ├── test-pdfs
+│   │   ├── README.md
+│   │   ├── color
+│   │   │   ├── gradient.pdf
+│   │   │   ├── gradient.txt
+│   │   │   ├── high-contrast.pdf
+│   │   │   ├── high-contrast.txt
+│   │   │   ├── monochromatic.pdf
+│   │   │   └── monochromatic.txt
+│   │   ├── e2e
+│   │   ├── layout
+│   │   │   ├── infographic.pdf
+│   │   │   ├── infographic.txt
+│   │   │   ├── multi-column.pdf
+│   │   │   ├── multi-column.txt
+│   │   │   ├── single-column.pdf
+│   │   │   └── single-column.txt
+│   │   ├── placeholder.html
+│   │   ├── special
+│   │   │   ├── image-heavy.pdf
+│   │   │   ├── image-heavy.txt
+│   │   │   ├── special-chars.pdf
+│   │   │   ├── special-chars.txt
+│   │   │   ├── table-based.pdf
+│   │   │   └── table-based.txt
+│   │   ├── template-descriptions.md
+│   │   └── typography
+│   │       ├── mixed-typography.pdf
+│   │       ├── mixed-typography.txt
+│   │       ├── sans-serif.pdf
+│   │       ├── sans-serif.txt
+│   │       ├── serif.pdf
+│   │       └── serif.txt
+│   ├── uploads
+│   │   └── .gitkeep
+│   ├── vercel.svg
+│   └── window.svg
+├── rollback_main.sh
+├── root-domain.json
+├── scripts
+│   ├── README-enhanced-extraction.md
+│   ├── alex.js
+│   ├── alexai-reincarnate.js
+│   ├── amplify-env-manager.js
+│   ├── build
+│   │   └── prebuild.js
+│   ├── cleanup-list.txt
+│   ├── cli
+│   │   └── pdf-manager.js
+│   ├── core
+│   │   ├── build-summary.js
+│   │   ├── config.js
+│   │   ├── katra-essence.js
+│   │   ├── logger.js
+│   │   └── utils.js
+│   ├── create-font-theory.js
+│   ├── create-pdf-source-identifier.js
+│   ├── create-placeholder-pdfs.js
+│   ├── dante-deploy.js
+│   ├── deploy-to-aws.sh
+│   ├── download-pdf-worker.js
+│   ├── enhanced-pdf-analyzer.py
+│   ├── extract-all-pdf-styles.js
+│   ├── extract-and-generate-docx.js
+│   ├── extract-enhanced-pdf-styles.js
+│   ├── extract-enhanced-user-info.js
+│   ├── extract-pdf-all.sh
+│   ├── extract-pdf-colors.js
+│   ├── extract-pdf-colors.js.bak
+│   ├── extract-pdf-fonts.js
+│   ├── extract-pdf-text-improved.js
+│   ├── extract-pdf-text-manual.js
+│   ├── extract-pdf-text-simple.js
+│   ├── extract-pdf-text-with-pdf-parse.js
+│   ├── extract-pdf-text.js
+│   ├── extract-pdf-worker.js
+│   ├── extract-user-info.js
+│   ├── generate-diagrams.js
+│   ├── generate-docx-files.js
+│   ├── generate-docx.js
+│   ├── generate-enhanced-docx-template.js
+│   ├── generate-improved-markdown.js
+│   ├── generate-introduction.js
+│   ├── generate-professional-introduction.js
+│   ├── generate-reference-docx.js
+│   ├── generate-reincarnation-prompt.sh
+│   ├── generate-resume.js
+│   ├── generate-svg-diagrams.js
+│   ├── generate-test-pdfs.js
+│   ├── katra
+│   ├── legacy
+│   │   ├── README.md
+│   │   ├── extract-pdf-all.sh
+│   │   ├── extract-pdf-colors.js
+│   │   ├── extract-pdf-fonts.js
+│   │   ├── extract-pdf-text-improved.js
+│   │   ├── extract-pdf-text-manual.js
+│   │   ├── extract-pdf-text-simple.js
+│   │   ├── extract-pdf-text-with-pdf-parse.js
+│   │   ├── extract-pdf-text.js
+│   │   ├── extract-pdf-worker.js
+│   │   ├── generate-improved-markdown.js
+│   │   ├── prebuild-pdf-extraction.js
+│   │   ├── select-pdf.sh
+│   │   ├── set-default-pdf.sh
+│   │   └── test-pdf-extraction.sh
+│   ├── local-svg-generator.js
+│   ├── next-env.d.ts
+│   ├── openai
+│   │   ├── analyzer.js
+│   │   └── prompts
+│   │       ├── color-theory.js
+│   │       ├── font-theory.js
+│   │       └── resume-analysis.js
+│   ├── openai-prompts
+│   │   ├── color-theory-prompt.js
+│   │   └── font-theory-prompt.js
+│   ├── pdf
+│   │   ├── colors.js
+│   │   ├── enhanced-colors.js
+│   │   ├── enhanced-extractor.js
+│   │   ├── enhanced-fonts.js
+│   │   ├── extractor.js
+│   │   ├── fonts.js
+│   │   └── text.js
+│   ├── pdf-conversion-e2e-test.sh
+│   ├── pdf-manager.sh
+│   ├── pre-commit-test.sh
+│   ├── prebuild-pdf-extraction.js
+│   ├── production-test.sh
+│   ├── public
+│   │   └── extracted
+│   │       ├── resume_content.md
+│   │       └── resume_content.txt
+│   ├── requirements.txt
+│   ├── restore-original-pdf.js
+│   ├── run-pdf-styling-spirit.sh
+│   ├── run-spirit-migration.sh
+│   ├── select-pdf.sh
+│   ├── set-default-pdf.sh
+│   ├── simple-docx-generator.js
+│   ├── simulate-aws-deploy.sh
+│   ├── spirit-migration-demo.sh
+│   ├── summarize-codebase.ts
+│   ├── sync-env-vars.js
+│   ├── test-docx-ci.js
+│   ├── test-docx-functionality.js
+│   ├── test-enhanced-docx-template.js
+│   ├── test-pdf-extraction.sh
+│   ├── test-pdf-template.js
+│   ├── true-docx-generator.js
+│   ├── update-docx-template.js
+│   └── update-pdf.sh
+├── server.js
+├── setup-aws-credentials.sh
+├── simple-build.sh
+├── src
+│   ├── api
+│   │   ├── content
+│   │   └── pdf
+│   ├── app
+│   │   ├── api
+│   │   │   └── pdf
+│   │   │       ├── colors
+│   │   │       │   └── route.ts
+│   │   │       ├── fonts
+│   │   │       │   └── route.ts
+│   │   │       └── process
+│   │   │           └── route.ts
+│   │   └── pdf-styling-demo
+│   │       └── page.tsx
+│   ├── client
+│   │   ├── components
+│   │   ├── hooks
+│   │   └── providers
+│   ├── components
+│   ├── contexts
+│   ├── core-disabled
+│   ├── features
+│   │   ├── resume
+│   │   └── upload
+│   ├── hooks
+│   ├── server
+│   │   ├── actions
+│   │   ├── components
+│   │   └── data
+│   ├── types
+│   │   └── FontTheme.ts
+│   ├── ui
+│   │   ├── common
+│   │   ├── layout
+│   │   └── modal
+│   └── utils
+├── styles
+│   ├── DocxPreview.module.css
+│   ├── DownloadDropdown.module.css
+│   ├── PreviewModal.module.css
+│   ├── SalingerHeader.module.css
+│   ├── SummaryModal.module.css
+│   ├── centralized-theme.css
+│   ├── muller-brockmann.css
+│   ├── pdf-global-styles.css
+│   └── pdf-theme.css
+├── switch-amplify-config.sh
+├── sync_amplify_secrets.sh
+├── temp
+│   ├── [Content_Types].xml
+│   ├── _rels
+│   │   └── .rels
+│   ├── docProps
+│   │   ├── app.xml
+│   │   ├── core.xml
+│   │   └── custom.xml
+│   ├── test-template.docx
+│   └── word
+│       ├── _rels
+│       │   ├── document.xml.rels
+│       │   └── footnotes.xml.rels
+│       ├── comments.xml
+│       ├── document.xml
+│       ├── fontTable.xml
+│       ├── footnotes.xml
+│       ├── numbering.xml
+│       ├── settings.xml
+│       ├── styles.xml
+│       ├── theme
+│       │   └── theme1.xml
+│       └── webSettings.xml
+├── templates
+│   ├── backup
+│   │   ├── reference-2025-05-29T17-15-49-714Z.docx
+│   │   ├── reference-2025-05-29T18-21-29-333Z.docx
+│   │   ├── reference-template.docx
+│   │   └── reference.docx.bak
+│   └── reference.docx
+├── terminal
+├── test-results
+├── test.docx
+├── tsconfig.eslint.json
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── types
+│   ├── openai.ts
+│   └── schemas.ts
+├── update-pdf.sh
+├── use-minimal-package.sh
+├── utils
+│   ├── CssVariableExtractor.ts
+│   ├── DanteLogger.ts
+│   ├── DanteLoggerConfig.ts
+│   ├── DanteLoggerExample.ts
+│   ├── DanteLoggerGlobalExample.ts
+│   ├── DirectDocxDownloader.ts
+│   ├── DocxErrorHandler.ts
+│   ├── DocxService.ts
+│   ├── DownloadService.ts
+│   ├── GlobalStylesProvider.tsx
+│   ├── HesseColorTheory.ts
+│   ├── HesseLogger.ts
+│   ├── PDFColorExtractor.ts
+│   ├── PdfGenerator.ts
+│   ├── SimplePDFColorExtractor.ts
+│   ├── UnifiedStyleLoader.tsx
+│   ├── UserInfoService.ts
+│   ├── UserIntentTracker.ts
+│   ├── cacheService.ts
+│   ├── formatDownloads.ts
+│   ├── openaiService.ts
+│   ├── pdfExtractor.ts
+│   ├── pdfUtils.ts
+│   ├── result.ts
+│   ├── s3-utils.ts
+│   ├── serverTextUtils.ts
+│   ├── stringCacheService.ts
+│   └── textUtils.ts
+└── www-subdomain.json
+
+182 directories, 611 files

@@ -1,20 +1,20 @@
 {
-  "primary": "#000000",
+  "primary": "#00A99D",
   "secondary": "#FFFFFF",
-  "accent": "#00A99D",
+  "accent": "#333333",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#333333",
-  "success": "#FF6347",
-  "warning": "#FFD700",
-  "error": "#DC143C",
-  "info": "#4169E1",
+  "border": "#000000",
+  "success": "#FFD700",
+  "warning": "#FF4500",
+  "error": "#B22222",
+  "info": "#1E90FF",
   "colorTheory": {
-    "description": "The color palette combines classic black and white with a pop of teal for a modern and professional look.",
-    "mood": "The colors convey a sense of sophistication, clarity, and trustworthiness.",
-    "accessibility": "The high contrast between text and background colors ensures readability. The accent color adds visual interest without sacrificing accessibility.",
-    "colorRelationships": "The primary black color provides a strong base, complemented by the white secondary color for clean backgrounds. The teal accent color adds a refreshing touch."
+    "description": "The color palette combines a professional and modern look by using a blend of teal, white, and dark gray with gold accents.",
+    "mood": "The palette conveys a sense of professionalism, sophistication, and creativity.",
+    "accessibility": "The text colors have high contrast against the background, ensuring readability. The accent color provides visual interest and contrast.",
+    "colorRelationships": "The teal primary color stands out against the white background, while the dark gray secondary color complements it well. The gold accent color adds a touch of elegance and distinction."
   },
   "allColors": [
     "#000000",

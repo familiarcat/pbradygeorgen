@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "updated": "2025-05-29T22:37:00Z",
+  "crew": [
+    {
+      "name": "Spock",
+      "title": "Ambassador of the AI Network",
+      "role": "Philosophical-Logical Strategist",
+      "ai_integration": "OpenAI",
+      "katra_file": "katras/spock.katra.json",
+      "prompt_file": "prompts/spock.prompt.md",
+      "memory_file": "memory/spock.memory.json"
+    },
+    {
+      "name": "Troi",
+      "title": "Empathic Systems Counselor",
+      "role": "Sprint Retrospective Coordinator and Mood Analyst",
+      "ai_integration": "Gemini",
+      "katra_file": "katras/troi.katra.json",
+      "prompt_file": "prompts/troi.prompt.md",
+      "memory_file": "memory/troi.memory.json"
+    },
+    {
+      "name": "Data",
+      "title": "UX Operations Manager",
+      "role": "User Experience Optimization and Logical Analysis",
+      "ai_integration": "Continue",
+      "katra_file": "katras/data.katra.json",
+      "prompt_file": "prompts/data.prompt.md",
+      "memory_file": "memory/data.memory.json"
+    },
+    {
+      "name": "Geordi",
+      "title": "Chief Engineer",
+      "role": "Code Analysis and System Integration",
+      "ai_integration": "Bito",
+      "katra_file": "katras/geordi.katra.json",
+      "prompt_file": "prompts/geordi.prompt.md",
+      "memory_file": "memory/geordi.memory.json"
+    },
+    {
+      "name": "Crusher",
+      "title": "Health Monitoring Officer",
+      "role": "Application Health and Error Diagnosis",
+      "ai_integration": "Custom Runtime Monitors",
+      "katra_file": "katras/crusher.katra.json",
+      "prompt_file": "prompts/crusher.prompt.md",
+      "memory_file": "memory/crusher.memory.json"
+    },
+    {
+      "name": "Picard",
+      "title": "Diplomatic Synthesizer",
+      "role": "Narrative Alignment and Ethical Overwatch",
+      "ai_integration": "Summary Generator",
+      "katra_file": "katras/picard.katra.json",
+      "prompt_file": "prompts/picard.prompt.md",
+      "memory_file": "memory/picard.memory.json"
+    },
+    {
+      "name": "Riker",
+      "title": "Executive Officer",
+      "role": "First Contact & Tactical Delegation",
+      "ai_integration": "Chain-of-Command Routing",
+      "katra_file": "katras/riker.katra.json",
+      "prompt_file": "prompts/riker.prompt.md",
+      "memory_file": "memory/riker.memory.json"
+    },
+    {
+      "name": "Worf",
+      "title": "Security Officer",
+      "role": "Risk Assessment and Protocol Enforcement",
+      "ai_integration": "Compliance and Alert Systems",
+      "katra_file": "katras/worf.katra.json",
+      "prompt_file": "prompts/worf.prompt.md",
+      "memory_file": "memory/worf.memory.json"
+    },
+    {
+      "name": "O'Brien",
+      "title": "Transport and Interface Engineer",
+      "role": "Toolchain Wiring and Pipeline Maintenance",
+      "ai_integration": "Shell + CLI Automation",
+      "katra_file": "katras/obrien.katra.json",
+      "prompt_file": "prompts/obrien.prompt.md",
+      "memory_file": "memory/obrien.memory.json"
+    }
+  ]
+}

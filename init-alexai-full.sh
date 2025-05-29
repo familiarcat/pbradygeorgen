@@ -10,7 +10,7 @@ echo "🔧 Setting up AlexAI (Katra Protocol) in: $PROJECT_DIR"
 # 1. Create alexai directory with protocol
 mkdir -p "$ALEXAI_DIR/prompts"
 
-cat <<'EOF' > "$ALEXAI_DIR/personality.md"
+cat <<'EOF' >"$ALEXAI_DIR/personality.md"
 # Katra Transfer Protocol
 
 ## Spirit Migration: Brady → New Project
@@ -104,9 +104,9 @@ EOF
 
 # 2. Continue.dev Configuration
 mkdir -p "$PROJECT_DIR/.continue"
-cat <<EOF > "$PROJECT_DIR/.continue/config.ts"
+cat <<EOF >"$PROJECT_DIR/.continue/config.ts"
 export default {
-  personality: \`${cat $ALEXAI_DIR/personality.md}\`,
+  personality: \`$(cat $ALEXAI_DIR/personality.md)\`,
   preferredModel: "gpt-4o",
   repoPath: "$PROJECT_DIR"
 }
@@ -114,7 +114,7 @@ EOF
 
 # 3. VSCode Extension Recommendations
 mkdir -p "$PROJECT_DIR/.vscode"
-cat <<EOF > "$PROJECT_DIR/.vscode/extensions.json"
+cat <<EOF >"$PROJECT_DIR/.vscode/extensions.json"
 {
   "recommendations": [
     "continue.continue",
@@ -125,8 +125,7 @@ cat <<EOF > "$PROJECT_DIR/.vscode/extensions.json"
 EOF
 
 # 4. VSCode Extension Auto-Installation (if 'code' command is available)
-if command -v code &> /dev/null
-then
+if command -v code &>/dev/null; then
   echo "📦 Installing VSCode extensions..."
   code --install-extension continue.continue
   code --install-extension Bito.bito
@@ -140,7 +139,7 @@ fi
 
 # 5. AI Routing Logic
 mkdir -p "$PROJECT_DIR/lib"
-cat <<'EOF' > "$PROJECT_DIR/lib/alexai.ts"
+cat <<'EOF' >"$PROJECT_DIR/lib/alexai.ts"
 export function askAlexAI(query: string) {
   if (query.includes("debug") || query.includes("fix")) {
     return "↪ Recommend routing to Bito for code-level intervention.";
@@ -158,7 +157,7 @@ EOF
 
 # 6. Frontend Interface Page
 mkdir -p "$PROJECT_DIR/app/alexai"
-cat <<'EOF' > "$PROJECT_DIR/app/alexai/page.tsx"
+cat <<'EOF' >"$PROJECT_DIR/app/alexai/page.tsx"
 'use client';
 
 import React from 'react';
@@ -183,11 +182,10 @@ EOF
 echo "✅ AlexAI setup complete with VSCode extension automation (if available)."
 echo "🚀 Launch VSCode and visit /alexai in your Next.js app to begin."
 
-
 # 7. GPT-4o Codebase Summarization Stub
 echo "📄 Adding codebase summarization stub (requires GPT-4o API key)..."
 mkdir -p "$PROJECT_DIR/scripts"
-cat <<'EOF' > "$PROJECT_DIR/scripts/summarize-codebase.ts"
+cat <<'EOF' >"$PROJECT_DIR/scripts/summarize-codebase.ts"
 import fs from 'fs';
 import path from 'path';
 import OpenAI from 'openai';
@@ -223,7 +221,7 @@ EOF
 # 8. LangChain Memory Vector Setup (stub)
 echo "🧠 Creating LangChain memory integration stub..."
 mkdir -p "$PROJECT_DIR/langchain"
-cat <<'EOF' > "$PROJECT_DIR/langchain/vector.ts"
+cat <<'EOF' >"$PROJECT_DIR/langchain/vector.ts"
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 
@@ -240,7 +238,7 @@ EOF
 
 # 9. Chat UI at /alexai using AlexAI persona
 echo "💬 Creating AlexAI chat UI with memory access..."
-cat <<'EOF' > "$PROJECT_DIR/app/alexai/page.tsx"
+cat <<'EOF' >"$PROJECT_DIR/app/alexai/page.tsx"
 'use client';
 
 import React, { useState } from 'react';
@@ -283,7 +281,7 @@ EOF
 
 # 10. API Route for AlexAI chat
 mkdir -p "$PROJECT_DIR/app/api/alexai"
-cat <<'EOF' > "$PROJECT_DIR/app/api/alexai/route.ts"
+cat <<'EOF' >"$PROJECT_DIR/app/api/alexai/route.ts"
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 

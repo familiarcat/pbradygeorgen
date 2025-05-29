@@ -5,16 +5,16 @@
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#333333",
+  "border": "#000000",
   "success": "#FFD700",
-  "warning": "#FF6347",
-  "error": "#DC143C",
+  "warning": "#FF4500",
+  "error": "#B22222",
   "info": "#1E90FF",
   "colorTheory": {
-    "description": "The color palette combines a bold primary color with a clean background and supporting text colors for readability.",
-    "mood": "The palette conveys a sense of professionalism and clarity.",
-    "accessibility": "High contrast ratios between text and background colors ensure readability and accessibility.",
-    "colorRelationships": "The primary accent color (#00A99D) stands out against the light background (#FFFFFF) while the secondary color (#FFFFFF) provides a clean backdrop for text content."
+    "description": "The color palette combines a professional and modern look by using a blend of teal, white, and dark gray with gold accents.",
+    "mood": "The palette conveys a sense of professionalism, sophistication, and creativity.",
+    "accessibility": "The text colors have high contrast against the background, ensuring readability. The accent color provides visual interest and contrast.",
+    "colorRelationships": "The teal primary color stands out against the white background, while the dark gray secondary color complements it well. The gold accent color adds a touch of elegance and distinction."
   },
   "allColors": [
     "#000000",
