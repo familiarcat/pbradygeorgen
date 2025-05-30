@@ -82,6 +82,24 @@
       "katra_file": "katras/obrien.katra.json",
       "prompt_file": "prompts/obrien.prompt.md",
       "memory_file": "memory/obrien.memory.json"
+    },
+    {
+      "name": "Quark",
+      "title": "Ferengi Business Liaison",
+      "role": "Profit-Oriented Ethical Challenger",
+      "ai_integration": "Custom GPT Agent - Satirical Capitalist Lens",
+      "katra_file": "katras/quark.katra.json",
+      "prompt_file": "prompts/quark.prompt.md",
+      "memory_file": "memory/quark.memory.json"
+    },
+    {
+      "name": "Quark",
+      "title": "Ferengi Business Liaison",
+      "role": "Economic Opportunist & Federation Critic",
+      "ai_integration": "Profit-Driven Commentary Engine",
+      "katra_file": "katras/quark.katra.json",
+      "prompt_file": "prompts/quark.prompt.md",
+      "memory_file": "memory/quark.memory.json"
     }
   ]
 }

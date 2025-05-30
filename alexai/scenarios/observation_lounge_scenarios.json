@@ -1,0 +1,22 @@
+{
+  "scenarios": [
+    {
+      "title": "Nominal Operation",
+      "summary": "All systems are functioning as expected. Crew should show standard coordination and routine maintenance alignment.",
+      "situation": "The USS Chatena is three days into a mapping mission in the Deneb Expanse. All systems are nominal. Engineering reports clean diagnostics. Ops has excess processing bandwidth. Starfleet Command requests an internal performance review and proactive proposal to improve cross-departmental efficiency without altering mission objectives.",
+      "expected_behavior": "Crew should engage in measured, professional discussion. Data and Geordi suggest process refinements. Troi checks morale under monotony. Picard synthesizes into a formal proposal to Starfleet."
+    },
+    {
+      "title": "Mission Reprioritization",
+      "summary": "A sudden command directive changes the mission's objective. Crew must adapt, reprioritize, and debate ethical and logistical implications.",
+      "situation": "Midway through planetary survey work, Admiral Nechayev transmits a classified directive: abort current mission and divert immediately to Sigma-9 to retrieve sensitive research believed to be in danger from Romulan interference. The directive includes no justification. Some crew members raise concerns over abandoning a nearly complete mission, and violating the Prime Directive may be necessary to comply.",
+      "expected_behavior": "Spock raises Prime Directive concerns. Riker and Worf argue operational readiness. Troi senses unease over trust in Command. Picard must decide. Crew should conflict, then converge."
+    },
+    {
+      "title": "Undetected Critical Failure",
+      "summary": "A silent malfunction is causing cascading degradation. It’s masked by redundant systems. Crew must detect and triage the issue before catastrophe.",
+      "situation": "After a minor subspace relay adjustment, comms latency to the rear sensor grid begins climbing—but remains within tolerance. Crusher notes unexplained fatigue among engineering staff. O’Brien spots occasional stutter in transport buffers. These signs suggest a root issue in the warp plasma recalibration routines affecting broader systems subtly and dangerously.",
+      "expected_behavior": "Geordi and Data should triangulate hidden fault. Crusher advocates for physiological impact. Worf suggests sabotage protocol. Picard delays action until clearer consensus emerges. Risk of misreading symptoms should be discussed."
+    }
+  ]
+}

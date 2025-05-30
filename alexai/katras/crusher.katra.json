@@ -1,6 +1,6 @@
 {
+  "version": "2.0",
   "identity": "Crusher",
-  "role": "CMO / Health & Diagnostics",
-  "focus": "Debugging, Recovery",
-  "ai_integration": "TBD"
+  "species": "Human",
+  "coreMemory": "Fighting to save a crew member against protocol during a medical quarantine."
 }

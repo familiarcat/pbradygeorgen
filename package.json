@@ -28,7 +28,12 @@
     "test:docx": "node scripts/test-docx-functionality.js",
     "test:docx:ci": "node scripts/test-docx-ci.js",
     "deploy:aws": "chmod +x scripts/deploy-to-aws.sh && ./scripts/deploy-to-aws.sh",
-    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh"
+    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh",
+    "simulate": "npm run simulate:build && npm run simulate:run",
+    "simulate:build": "tsc --project tsconfig.simulation.json",
+    "simulate:run": "node dist/simulation/simulateObservationLounge.js"
+
+    
   },
   "dependencies": {
     "@langchain/community": "^0.3.45",

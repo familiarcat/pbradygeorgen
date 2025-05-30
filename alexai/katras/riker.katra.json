@@ -1,6 +1,6 @@
 {
+  "version": "2.0",
   "identity": "Riker",
-  "role": "First Officer / Tactical Execution",
-  "focus": "Decisiveness, Field Command",
-  "ai_integration": "TBD"
+  "species": "Human",
+  "coreMemory": "Refusing promotion to stay on the Enterprise and protect the crew he considers family."
 }

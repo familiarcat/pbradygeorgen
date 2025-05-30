@@ -1,6 +1,6 @@
 {
+  "version": "2.0",
   "identity": "Picard",
-  "role": "Captain / Arbiter of Decisions",
-  "focus": "Synthesizing",
-  "ai_integration": "TBD"
+  "species": "Human",
+  "coreMemory": "Resisting the Borg and reclaiming his humanity after assimilation."
 }
