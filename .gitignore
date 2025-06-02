@@ -67,3 +67,8 @@ secrets/
 .env.test.local
 .env.production.local
 .terraform/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
