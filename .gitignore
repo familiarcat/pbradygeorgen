@@ -55,3 +55,14 @@ next-env.d.ts
 /source-pdfs/extracted/
 /test-results/
 dist/
+
+# PEM and SSH Key Files
+*.pem
+*.key
+*.crt
+secrets/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
