@@ -82,3 +82,6 @@ secrets/
 .terraform/
 *.tfstate
 *.tfstate.backup
+
+*storybook.log
+storybook-static

@@ -1,12 +1,11 @@
 # Benjamin Stein - Introduction
 
-With a journey spanning from IT roles at Tek Systems to Clinical Informatics Specialist positions, I've honed expertise in EHR implementation, HL7 messaging, and HIPAA compliance. My passion lies in leveraging technology to enhance healthcare delivery while ensuring data security and regulatory adherence.
+As a Clinical Informatics Specialist, I've navigated a purposeful journey, honing skills in analysis, EHR, and EMR systems. From pioneering roles at Homer G. Phillips Memorial Hospital to Shriners Hospital for Children and Advanced ICU Care, I've led with a commitment to HIPAA compliance, clinical informatics, and effective training methodologies. Upholding ethical standards, I prioritize continuous learning and collaborative management, ensuring seamless integration of Epic, Cerner, and Meditech platforms.
 
-Believing in the ethical imperative of safeguarding patient information, I advocate for meticulous HIPAA compliance and advanced clinical informatics practices. My work centers on training staff in EMR systems like Cerner and Meditech, fostering a culture of continuous learning and excellence.
+I firmly believe all healthcare professionals should prioritize unwavering integrity, innovative problem-solving, and a relentless pursuit of excellence. Harnessing my expertise in HL7 and clinical systems, I aim to bring a blend of technical acumen and compassionate leadership to drive transformative impact in my next role.
 
-I aim to bring a blend of technical prowess and ethical leadership to my next role, championing a commitment to HIPAA, clinical informatics, and staff training, vital pillars for all healthcare professionals.
+Sincerely,
 
-Sincerely,  
 Benjamin Stein  
 benjaminsteinstl@gmail.com  
-+1 (314)-809-1836  
++1 (314) 809-1836

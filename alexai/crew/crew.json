@@ -91,15 +91,6 @@
       "katra_file": "katras/quark.katra.json",
       "prompt_file": "prompts/quark.prompt.md",
       "memory_file": "memory/quark.memory.json"
-    },
-    {
-      "name": "Quark",
-      "title": "Ferengi Business Liaison",
-      "role": "Economic Opportunist & Federation Critic",
-      "ai_integration": "Profit-Driven Commentary Engine",
-      "katra_file": "katras/quark.katra.json",
-      "prompt_file": "prompts/quark.prompt.md",
-      "memory_file": "memory/quark.memory.json"
     }
   ]
 }

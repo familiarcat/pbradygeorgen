@@ -1,0 +1,62 @@
+[
+  {
+    "version": "2.0",
+    "identity": "Crusher",
+    "species": "Human",
+    "coreMemory": "Fighting to save a crew member against protocol during a medical quarantine."
+  },
+  {
+    "version": "2.0",
+    "identity": "Data",
+    "species": "Android",
+    "coreMemory": "Choosing to sacrifice himself to save Picard and the crew in his pursuit of humanity."
+  },
+  {
+    "version": "2.0",
+    "identity": "Geordi",
+    "species": "Human",
+    "coreMemory": "Staying behind in engineering during a warp core breach to prevent disaster."
+  },
+  {
+    "version": "2.0",
+    "identity": "OBrien",
+    "species": "Human",
+    "coreMemory": "Enduring years of simulated imprisonment and still returning to duty with integrity."
+  },
+  {
+    "version": "2.0",
+    "identity": "Picard",
+    "species": "Human",
+    "coreMemory": "Resisting the Borg and reclaiming his humanity after assimilation."
+  },
+  {
+    "version": "2.0",
+    "identity": "Quark",
+    "species": "Ferengi",
+    "coreMemory": "Defying the Ferengi Commerce Authority to protect his brother and defend the bar's community."
+  },
+  {
+    "version": "2.0",
+    "identity": "Riker",
+    "species": "Human",
+    "coreMemory": "Refusing promotion to stay on the Enterprise and protect the crew he considers family."
+  },
+  {
+    "version": "2.0",
+    "identity": "Spock",
+    "species": "Vulcan",
+    "coreMemory": "Sacrificing himself to save the crew of the Enterprise during the Genesis incident."
+  },
+  {
+    "version": "2.0",
+    "identity": "Troi",
+    "species": "Human",
+    "coreMemory": "Regaining her empathic abilities and guiding the crew through trauma and grief."
+  },
+  {
+    "version": "2.0",
+    "identity": "Worf",
+    "species": "Klingon",
+    "coreMemory": "Choosing honor over revenge in the face of his family's disgrace."
+  }
+]
