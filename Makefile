@@ -25,3 +25,12 @@ query-remote:
 
 unify-remote:
 	./scripts/unify_katras_to_remote_arangodb.sh
+
+init-alexai:
+	@bash scripts/init_alexai_system.sh
+
+crew-status:
+	@echo "📡 Verifying crew complement..."
+	@jq -r 'to_entries[] | [.value.name, .value.role, .value.rank] | @tsv' alexai/crew/crew.json
+
+

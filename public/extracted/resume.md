@@ -1,54 +1,90 @@
 # Benjamin Stein
 
-**Professional Summary:**
-Dedicated Clinical Informatics Specialist with over a decade of experience in implementing, managing, and training on various EHR systems. Skilled in analyzing and troubleshooting EMR issues, leading system enhancements, and ensuring HIPAA compliance. Proficient in Epic, Cerner, Meditech, and HL7, with a proven track record of driving operational efficiencies and enhancing patient care.
++1 (314)-809-1836 | benjaminsteinstl@gmail.com | St. Louis, MO
 
-**Contact Information:**
-- +1 (314)-809-1836
-- benjaminsteinstl@gmail.com
-- St. Louis, MO
+---
 
-**Work Experience:**
+## Professional Summary
 
-**Clinical Informatics Specialist**  
-*Homer G. Phillips Memorial Hospital, St. Louis, MO*  
-*Mar 2023 - Present*
-- Solely responsible for overseeing all systems and technologies at the hospital, including implementation, maintenance, and training on the web-based EHR system (Thrive) and various enterprise tools.
-- Managed on/off-boarding processes for office and clinical users, configured security permissions, and liaised with third-party vendors to troubleshoot EMR, network, and hardware issues.
-- Generated custom reports using TruBridge Report Builder, ensuring data accuracy and accessibility.
+Seasoned Clinical Informatics Specialist with a proven track record of over a decade in managing EHR systems, providing comprehensive training, and ensuring HIPAA compliance. Skilled in analyzing and optimizing clinical workflows, leading system implementations, and interpreting reports to drive operational efficiency. Experienced in working with industry-leading platforms including Epic, Cerner, and Meditech.
 
-**Clinical Analyst II**  
-*Shriners Hospital for Children, St. Louis, MO*  
-*Mar 2018 - Mar 2023*
-- Led the implementation of new functionalities within the Cerner suite, providing training and support to clinical staff.
-- Designed and interpreted reports in SAP Business Objects, fostering data-driven decision-making processes.
-- Managed user sessions with Citrix Desktop Director, ensuring seamless access to critical applications and resources.
+---
 
-**Clinical Analyst I**  
-*Advanced ICU Care, St. Louis, MO*  
-*Apr 2012 - Feb 2015*
-- Provided 24x7 IT support to clinical staff, resolving hardware and OS issues and ensuring smooth operation of health information systems.
-- Monitored and maintained health information integration engines, such as Corepoint and Rapsody, optimizing data exchange and interoperability.
-- Facilitated remote support for clinical staff in NY and India, showcasing strong problem-solving skills and technical expertise.
+## Work Experience
 
-**Education:**
-- *Ranken Technical College*  
-  *Network & Database Administration*  
-  *2010 - 2012*
+### Clinical Informatics Specialist  
+**Homer G. Phillips Memorial Hospital**  
+St. Louis, MO  
+March 2023 - Present
 
-- *St. Louis Community College*  
-  *Graphic Communications*  
-  *2002 - 2005*
+- Spearheaded the implementation, maintenance, and training of the web-based EHR system (Thrive) and enterprise web browser (Island) at the hospital.
+- Managed administrative roles within Panorama 9, Verkada, SiPass, Zendesk, IT Glue, and Chartnote, ensuring seamless operations.
+- Conducted on/off-boarding of office and clinical users, configured securities, and communicated with third-party vendors for system troubleshooting.
+- Generated and modified reports using the TruBridge Report Builder, contributing to data-driven decision-making processes.
 
-**Certifications:**
-- M.C.T.S - Windows XP, VISTA, Server 08 R2, Active Directory, SQL
+### Clinical Analyst II  
+**Shriners Hospital for Children**  
+St. Louis, MO  
+March 2018 - March 2023
+
+- Led the implementation of new functionalities within the Cerner suite, providing training and access to newly onboarded clinical staff.
+- Designed and interpreted reports in SAP Business Objects to enhance operational insights.
+- Tracked ticket issues using Service Now, ensuring prompt resolution of clinical system challenges.
+- Maintained an active maintenance schedule for all PCs in the hospital and managed user sessions with Citrix Desktop Director.
+
+### Clinical Analyst I  
+**Advanced ICU Care**  
+St. Louis, MO  
+April 2012 - February 2015
+
+- Provided 24x7 IT support to clinical staff, resolving hardware, OS, and application issues efficiently.
+- Monitored and maintained health information integration engines like Corepoint and Rapsody/Orion, ensuring data accuracy and system reliability.
+- Configured virtual A/V servers such as Vidyo, STI, and Axis, enabling seamless communication within the healthcare environment.
+
+---
+
+## Skills
+
+### Technical Skills
+- EHR Systems (Thrive, Epic, Cerner, Meditech)
+- HL7 Messaging
+- Data Analysis and Reporting
+- System Implementation and Maintenance
+- IT Troubleshooting and Support
+
+### Soft Skills
+- Training and Development
+- Problem-Solving
+- Communication
+- Team Collaboration
+- Time Management
+
+---
+
+## Education
+
+**Ranken Technical College**  
+Network & Database Administration  
+2010 - 2012
+
+**St. Louis Community College**  
+Graphic Communications  
+2002 - 2005
+
+---
+
+## Certifications
+
+- M.C.T.S - Windows XP
+- M.C.T.S - VISTA
+- M.C.T.S - Server 08 R2
+- M.C.T.S - Active Directory
+- M.C.T.S - SQL
 - CompTIA - A+
 - Dell Certified Systems Expert
 - Sony-certified - Laptop Repair
 - HIPAA Certified
 
-**Skills:**
-*Technical Skills:* EHR Systems, EMR Troubleshooting, Epic, Cerner, Meditech, HL7, SAP Business Objects
-*Soft Skills:* Team Leadership, Training & Development, Communication, Problem-Solving, HIPAA Compliance
+---
 
 References available upon request.

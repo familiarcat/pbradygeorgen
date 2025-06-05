@@ -1,0 +1,49 @@
+type CrewMember = { name: string; specialization?: string; katraFile?: string };
+// File: app/api/commission/route.ts
+import { promises as fs } from 'fs';
+import { openai } from '@/lib/server/openai';
+import path from 'path';
+
+export async function POST(req: Request) {
+  try {
+    const { name, specialization } = await req.json();
+    if (!name || !specialization) {
+      return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+    }
+
+    const crewPath = path.resolve('./alexai/crew.json');
+    const katrasDir = path.resolve('./alexai/katras');
+    const katraPath = path.join(katrasDir, `${name.toLowerCase().replace(/\s+/g, '_')}.katra.json`);
+
+    // Ensure crew.json exists
+    let crew: CrewMember[] = [];
+    try {
+      const crewData = await fs.readFile(crewPath, 'utf-8');
+      crew = JSON.parse(crewData);
+    } catch {
+      console.warn('No crew.json found, initializing new crew manifest.');
+    }
+
+    // Append new crew member if not already present
+    const newCrewMember = { name, specialization, katraFile: path.basename(katraPath) };
+    const updatedCrew = [...crew.filter(c => c.name !== name), newCrewMember];
+    await fs.writeFile(crewPath, JSON.stringify(updatedCrew, null, 2));
+
+    // Create Katra file
+    const katra = {
+      name,
+      specialization,
+      memory: [],
+      role: "crew-member",
+      createdAt: new Date().toISOString(),
+    };
+
+    await fs.mkdir(katrasDir, { recursive: true });
+    await fs.writeFile(katraPath, JSON.stringify(katra, null, 2));
+
+    return new Response(JSON.stringify({ success: true, katra }), { status: 200 });
+  } catch (err) {
+    console.error("Commissioning error:", err);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
+  }
+}

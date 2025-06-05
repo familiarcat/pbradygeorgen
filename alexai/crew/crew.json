@@ -91,6 +91,15 @@
       "katra_file": "katras/quark.katra.json",
       "prompt_file": "prompts/quark.prompt.md",
       "memory_file": "memory/quark.memory.json"
+    },
+    {
+      "name": "Nyota Uhura",
+      "title": "Communications Officer",
+      "role": "Communications and Log Synchronization",
+      "ai_integration": "OpenAI",
+      "katra_file": "katras/uhura.katra.json",
+      "prompt_file": "prompts/uhura.prompt.md",
+      "memory_file": "memory/uhura.memory.json"
     }
   ]
 }

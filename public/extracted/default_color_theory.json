@@ -1,20 +1,20 @@
 {
-  "primary": "#333333",
-  "secondary": "#FFFFFF",
-  "accent": "#00A99D",
+  "primary": "#00A99D",
+  "secondary": "#333333",
+  "accent": "#FFB612",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#333333",
-  "success": "#0F4C5C",
-  "warning": "#FFA500",
-  "error": "#FF0000",
-  "info": "#1E90FF",
+  "border": "#CCCCCC",
+  "success": "#4CAF50",
+  "warning": "#FFC107",
+  "error": "#FF5722",
+  "info": "#03A9F4",
   "colorTheory": {
-    "description": "This palette combines a neutral base with a pop of color for visual interest and accessibility.",
-    "mood": "Professional and modern with a touch of creativity.",
-    "accessibility": "The high contrast between text and background colors ensures readability.",
-    "colorRelationships": "The primary and secondary colors create a balanced and harmonious foundation, while the accent color adds vibrancy."
+    "description": "The color palette combines a professional teal with a dark secondary color and a vibrant accent color to create a balanced and engaging visual experience.",
+    "mood": "The palette conveys professionalism, reliability, and creativity.",
+    "accessibility": "The palette ensures good color contrast for readability and accessibility, adhering to WCAG guidelines.",
+    "colorRelationships": "The teal primary color is complemented by the dark secondary color and accent color, creating a harmonious balance throughout the document."
   },
   "allColors": [
     "#000000",

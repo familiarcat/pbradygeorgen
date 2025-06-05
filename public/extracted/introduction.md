@@ -1,11 +1,12 @@
 # Benjamin Stein - Introduction
 
-As a Clinical Informatics Specialist, I've navigated a purposeful journey, honing skills in analysis, EHR, and EMR systems. From pioneering roles at Homer G. Phillips Memorial Hospital to Shriners Hospital for Children and Advanced ICU Care, I've led with a commitment to HIPAA compliance, clinical informatics, and effective training methodologies. Upholding ethical standards, I prioritize continuous learning and collaborative management, ensuring seamless integration of Epic, Cerner, and Meditech platforms.
+As a Clinical Informatics Specialist, my journey has been a tapestry of growth and dedication. From honing my skills in EHR and EMR systems at Shriners Hospital to spearheading pivotal projects at Homer G. Phillips Memorial Hospital, I've navigated the intricate landscapes of clinical informatics with precision and passion. 
 
-I firmly believe all healthcare professionals should prioritize unwavering integrity, innovative problem-solving, and a relentless pursuit of excellence. Harnessing my expertise in HL7 and clinical systems, I aim to bring a blend of technical acumen and compassionate leadership to drive transformative impact in my next role.
+My commitment to HIPAA compliance, HL7 standards, and training excellence is unwavering. I believe all professionals in healthcare should prioritize continuous learning and patient data security as non-negotiable standards. 
 
-Sincerely,
+In my next role, I aspire to bring a blend of strategic management, analytical acumen, and a relentless pursuit of innovation to drive impactful change. Together, let's elevate healthcare delivery to new heights.
 
+Sincerely,  
 Benjamin Stein  
 benjaminsteinstl@gmail.com  
-+1 (314) 809-1836
++1 (314)-809-1836  

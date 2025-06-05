@@ -1,0 +1,136 @@
+{
+  "riker": {
+    "name": "Riker",
+    "role": "unknown",
+    "katra": "riker.katra.json",
+    "prompt": "riker.prompt.md",
+    "backend": "openai",
+    "memory": "riker.memory.json"
+  },
+  "picard": {
+    "name": "Picard",
+    "role": "unknown",
+    "katra": "picard.katra.json",
+    "prompt": "picard.prompt.md",
+    "backend": "openai",
+    "memory": "picard.memory.json"
+  },
+  "crusher": {
+    "name": "Crusher",
+    "role": "unknown",
+    "katra": "crusher.katra.json",
+    "prompt": "crusher.prompt.md",
+    "backend": "openai",
+    "memory": "crusher.memory.json"
+  },
+  "uhura": {
+    "name": "Uhura",
+    "role": "Communications Officer",
+    "katra": "uhura.katra.json",
+    "prompt": "uhura.prompt.md",
+    "backend": "openai",
+    "memory": "uhura.memory.json"
+  },
+  "obrien": {
+    "name": "Obrien",
+    "role": "unknown",
+    "katra": "obrien.katra.json",
+    "prompt": "obrien.prompt.md",
+    "backend": "openai",
+    "memory": "obrien.memory.json"
+  },
+  "spock": {
+    "name": "Spock",
+    "role": "unknown",
+    "katra": "spock.katra.json",
+    "prompt": "spock.prompt.md",
+    "backend": "openai",
+    "memory": "spock.memory.json"
+  },
+  "worf": {
+    "name": "Worf",
+    "role": "unknown",
+    "katra": "worf.katra.json",
+    "prompt": "worf.prompt.md",
+    "backend": "openai",
+    "memory": "worf.memory.json"
+  },
+  "troi": {
+    "name": "Troi",
+    "role": "unknown",
+    "katra": "troi.katra.json",
+    "prompt": "troi.prompt.md",
+    "backend": "openai",
+    "memory": "troi.memory.json"
+  },
+  "data": {
+    "name": "Data",
+    "role": "unknown",
+    "katra": "data.katra.json",
+    "prompt": "data.prompt.md",
+    "backend": "openai",
+    "memory": "data.memory.json"
+  },
+  "geordi": {
+    "name": "Geordi",
+    "role": "unknown",
+    "katra": "geordi.katra.json",
+    "prompt": "geordi.prompt.md",
+    "backend": "openai",
+    "memory": "geordi.memory.json"
+  },
+  "quark": {
+    "name": "Quark",
+    "role": "unknown",
+    "katra": "quark.katra.json",
+    "prompt": "quark.prompt.md",
+    "backend": "openai",
+    "memory": "quark.memory.json"
+  },
+  "crew": [
+    {
+      "name": "Riker",
+      "katra": "riker.katra.json"
+    },
+    {
+      "name": "Picard",
+      "katra": "picard.katra.json"
+    },
+    {
+      "name": "Crusher",
+      "katra": "crusher.katra.json"
+    },
+    {
+      "name": "Uhura",
+      "katra": "uhura.katra.json"
+    },
+    {
+      "name": "Obrien",
+      "katra": "obrien.katra.json"
+    },
+    {
+      "name": "Spock",
+      "katra": "spock.katra.json"
+    },
+    {
+      "name": "Worf",
+      "katra": "worf.katra.json"
+    },
+    {
+      "name": "Troi",
+      "katra": "troi.katra.json"
+    },
+    {
+      "name": "Data",
+      "katra": "data.katra.json"
+    },
+    {
+      "name": "Geordi",
+      "katra": "geordi.katra.json"
+    },
+    {
+      "name": "Quark",
+      "katra": "quark.katra.json"
+    }
+  ]
+}

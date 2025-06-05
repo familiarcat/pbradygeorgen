@@ -36,6 +36,7 @@
   "dependencies": {
     "@langchain/community": "^0.3.45",
     "@langchain/openai": "^0.5.11",
+    "arangojs": "^10.1.1",
     "autoprefixer": "^10.4.21",
     "canvas": "^3.1.0",
     "docx": "^9.5.0",
@@ -64,6 +65,7 @@
     "@chromatic-com/storybook": "^4.0.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.4",
+    "@types/bun": "^1.2.15",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
