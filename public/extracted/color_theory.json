@@ -1,20 +1,20 @@
 {
-  "primary": "#000000",
-  "secondary": "#EFEFEF",
-  "accent": "#3366CC",
+  "primary": "#3366CC",
+  "secondary": "#FFFFFF",
+  "accent": "#FF0000",
   "background": "#FFFFFF",
   "text": "#000000",
-  "textSecondary": "#333333",
+  "textSecondary": "#666666",
   "border": "#CCCCCC",
-  "success": "#4CAF50",
-  "warning": "#FFC107",
-  "error": "#FF5722",
-  "info": "#2196F3",
+  "success": "#00CC66",
+  "warning": "#FFD700",
+  "error": "#FF6347",
+  "info": "#4B0082",
   "colorTheory": {
-    "description": "This palette combines a classic black and white scheme with a touch of blue for contrast and emphasis.",
-    "mood": "The colors evoke a sense of professionalism and clarity, with a modern touch.",
-    "accessibility": "The high contrast between text and background colors ensures readability, and the accent color adds visual interest.",
-    "colorRelationships": "The black text color and white background create a strong base, while the blue accent color provides a pop of color without overwhelming the design."
+    "description": "The color palette combines a cool primary blue with a clean white background and vibrant red accent for visual interest.",
+    "mood": "The palette evokes a sense of professionalism and clarity with a touch of energy.",
+    "accessibility": "The high contrast between the black text and white background ensures readability, while the accent color provides visual hierarchy.",
+    "colorRelationships": "The primary blue and white create a clean and modern look, with the red accent adding a pop of color."
   },
   "allColors": [
     "#000000",
