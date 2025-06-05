@@ -48,6 +48,9 @@ amplify-build-config.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-#terraform
-/infrastructure
+# Terraform
+.terraform/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
