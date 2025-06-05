@@ -1,20 +1,20 @@
 {
   "primary": "#000000",
-  "secondary": "#FFFFFF",
+  "secondary": "#EFEFEF",
   "accent": "#3366CC",
   "background": "#FFFFFF",
   "text": "#000000",
-  "textSecondary": "#FFFFFF",
-  "border": "#000000",
-  "success": "#00FF00",
-  "warning": "#FFA500",
-  "error": "#FF0000",
-  "info": "#6495ED",
+  "textSecondary": "#333333",
+  "border": "#CCCCCC",
+  "success": "#4CAF50",
+  "warning": "#FFC107",
+  "error": "#FF5722",
+  "info": "#2196F3",
   "colorTheory": {
-    "description": "This palette combines high contrast text and background colors with a vibrant accent color for visual interest.",
-    "mood": "The palette conveys a sense of professionalism and clarity while maintaining visual appeal.",
-    "accessibility": "The high contrast between text and background colors ensures readability for all users.",
-    "colorRelationships": "The primary and secondary colors create a strong foundation, while the accent color adds a pop of energy."
+    "description": "This palette combines a classic black and white scheme with a touch of blue for contrast and emphasis.",
+    "mood": "The colors evoke a sense of professionalism and clarity, with a modern touch.",
+    "accessibility": "The high contrast between text and background colors ensures readability, and the accent color adds visual interest.",
+    "colorRelationships": "The black text color and white background create a strong base, while the blue accent color provides a pop of color without overwhelming the design."
   },
   "allColors": [
     "#000000",

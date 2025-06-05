@@ -8,10 +8,10 @@
   "nav": "Arial, sans-serif",
   "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system aims to provide a balance between readability and modern aesthetic.",
-    "readability": "The chosen fonts have good contrast and legibility, ensuring readability across different screen sizes.",
-    "hierarchy": "The hierarchy is maintained through font sizes, weights, and styles to guide the reader through the content.",
-    "fontPairings": "Arial for headings and UI elements paired with Georgia for body text creates a harmonious contrast."
+    "description": "The typography system aims to balance readability and familiarity with a touch of professionalism.",
+    "readability": "The chosen fonts offer a high level of readability across different screen sizes and contexts.",
+    "hierarchy": "The hierarchy is established through font size, weight, and styling to guide the reader's attention effectively.",
+    "fontPairings": "Arial for headings and other UI elements provide a modern and clean look, while Georgia for body text adds a touch of sophistication and elegance. Courier New ensures code readability and differentiation."
   },
   "allFonts": []
 }

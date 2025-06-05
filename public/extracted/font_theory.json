@@ -5,13 +5,13 @@
   "title": "Arial, sans-serif",
   "subtitle": "Arial, sans-serif",
   "button": "Helvetica, sans-serif",
-  "nav": "Helvetica, sans-serif",
-  "code": "Consolas, monospace",
+  "nav": "Arial, sans-serif",
+  "code": "Courier New, monospace",
   "fontTheory": {
-    "description": "The typography system is designed to be professional, clear, and easily readable for a resume/CV.",
-    "readability": "The chosen fonts offer a balance between readability and formality, ensuring content is easy to scan and comprehend.",
-    "hierarchy": "Headings are distinct in Arial for emphasis, while body text in Georgia provides a classic and elegant feel.",
-    "fontPairings": "Arial and Georgia complement each other well, maintaining a harmonious balance between modernity and tradition."
+    "description": "The typography system is designed to balance professionalism and readability, catering to the purpose of a resume.",
+    "readability": "The combination of Georgia for body text provides readability and a touch of elegance, while Arial for headings ensures clarity and modern appeal.",
+    "hierarchy": "The typographic hierarchy is established through contrasting font families and sizes, guiding the reader through the resume sections effectively.",
+    "fontPairings": "Georgia and Arial complement each other by offering a balance of traditional and modern typographic styles, enhancing the overall visual appeal."
   },
   "allFonts": []
 }
