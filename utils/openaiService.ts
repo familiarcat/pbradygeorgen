@@ -22,7 +22,7 @@ interface PDFSourceIdentifier {
 
 // Initialize the OpenAI client with fallback for build-time
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time',
+  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time', dangerouslyAllowBrowser:true
 });
 
 // Function to check if OpenAI API key is available

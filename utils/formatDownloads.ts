@@ -10,7 +10,7 @@ let openai: OpenAI | null = null;
 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
 if (apiKey) {
   try {
-    openai = new OpenAI({ apiKey });
+    openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
   } catch (error) {
     console.warn('Failed to initialize OpenAI client:', error);
     openai = null;

@@ -1,20 +1,20 @@
 {
   "primary": "#00A99D",
   "secondary": "#333333",
-  "accent": "#FFB612",
+  "accent": "#FFD700",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#CCCCCC",
+  "border": "#C0C0C0",
   "success": "#4CAF50",
-  "warning": "#FFC107",
-  "error": "#FF5722",
-  "info": "#03A9F4",
+  "warning": "#FF9800",
+  "error": "#F44336",
+  "info": "#2196F3",
   "colorTheory": {
-    "description": "The color palette combines a professional teal with a dark secondary color and a vibrant accent color to create a balanced and engaging visual experience.",
-    "mood": "The palette conveys professionalism, reliability, and creativity.",
-    "accessibility": "The palette ensures good color contrast for readability and accessibility, adhering to WCAG guidelines.",
-    "colorRelationships": "The teal primary color is complemented by the dark secondary color and accent color, creating a harmonious balance throughout the document."
+    "description": "The color palette is inspired by a professional resume/CV, aiming for a harmonious and sophisticated look.",
+    "mood": "The colors convey professionalism, trustworthiness, and modernity.",
+    "accessibility": "High contrast text against the light background ensures readability, following WCAG AA guidelines.",
+    "colorRelationships": "The primary color (#00A99D) represents a modern and bold choice, complemented by the secondary color (#333333) for clear differentiation. The accent color (#FFD700) adds vibrancy and draws attention where needed."
   },
   "allColors": [
     "#000000",

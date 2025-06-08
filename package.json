@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "bash ./scripts/maintenance/pull_katras_runtime.sh",
     "dev": "next dev",
     "dev:smart": "./dev-with-build.sh",
-    "prebuild": "./amplify-prebuild.sh",
-    "build": "next build",
+    "prebuild": "bash scripts/maintenance/migrate_katras.sh && ./scripts/maintenance/pull_katras_runtime.sh &&./scripts/maintenance/sync_katras_runtime.sh && ./amplify-prebuild.sh",
+    "build": "bash ./scripts/maintenance/pull_katras_runtime.sh && bash ./scripts/maintenance/sync_katras_runtime.sh && next build",
+    "postbuild": "./scripts/maintenance/migrate_katras.sh && ./scripts/maintenance/sync_katras_runtime.sh",
+    "prestart": "./scripts/maintenance/pull_katras_runtime.sh && ./scripts/maintenance/sync_katras_runtime.sh",
     "start": "next start",
     "start:standalone": "node .next/standalone/server.js",
+    "regen-readme-diagram": "node --loader ts-node/esm scripts/maintenance/generate_katra_svg_diagram.mts",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "amplify:build": "./build.sh",
@@ -81,7 +85,8 @@
     "playwright": "^1.52.0",
     "serve": "^14.2.4",
     "tailwindcss": "^4.1.4",
-    "typescript": "^5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "vitest": "^3.2.0"
   },
   "engines": {

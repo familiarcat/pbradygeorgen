@@ -1,17 +1,17 @@
 {
-  "heading": "Helvetica Neue, Arial, sans-serif",
-  "body": "Georgia, Times New Roman, serif",
-  "mono": "Courier New, monospace",
-  "title": "Helvetica, Arial, sans-serif",
-  "subtitle": "Helvetica Neue, Arial, sans-serif",
-  "button": "Helvetica Neue, Arial, sans-serif",
-  "nav": "Helvetica, Arial, sans-serif",
-  "code": "Courier New, monospace",
+  "heading": "Roboto",
+  "body": "Lato",
+  "mono": "Fira Code",
+  "title": "Montserrat",
+  "subtitle": "Open Sans",
+  "button": "Nunito",
+  "nav": "Poppins",
+  "code": "Inconsolata",
   "fontTheory": {
-    "description": "The typography system aims to balance professionalism and readability. It combines web-safe fonts for a clean and classic look suitable for a resume.",
-    "readability": "The selected fonts prioritize readability, especially in body text, ensuring easy legibility for hiring managers or recruiters.",
-    "hierarchy": "The typographic hierarchy is established through font weights and styles, distinguishing headings from body text for clear information organization.",
-    "fontPairings": "Helvetica Neue is used for headings to convey a modern and clean aesthetic, while Georgia offers a traditional and elegant feel for body text, creating a harmonious balance."
+    "description": "The typography system combines modern and highly readable fonts to create a professional yet approachable look suitable for a resume.",
+    "readability": "The chosen fonts offer excellent legibility across different screen sizes, ensuring easy reading for potential recruiters.",
+    "hierarchy": "The hierarchy is established through font weights and sizes, with distinct fonts for headings, body text, and special elements like code blocks.",
+    "fontPairings": "Roboto and Lato work harmoniously for headings and body text, providing a clear contrast. The mono font Fira Code ensures code sections are easily distinguishable, while title, subtitle, button, and navigation elements are differentiated with Montserrat, Open Sans, Nunito, and Poppins respectively."
   },
   "allFonts": []
 }

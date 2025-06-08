@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import { openai } from '@/lib/server/openai';
 import fs from 'fs';
 import path from 'path';
 import {
@@ -9,11 +9,6 @@ import {
   ResultSchema
 } from '@/types/schemas';
 import { DanteLogger } from '@/utils/DanteLogger';
-
-// Initialize OpenAI client with fallback for build-time
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build-time',
-});
 
 // Function to check if OpenAI API key is available
 function isOpenAIKeyAvailable(): boolean {

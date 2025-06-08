@@ -1,0 +1,11 @@
+./app/api/format-content/route.ts
+./app/api/openapi/route.ts
+./app/api/alexai/route.ts
+./app/api/generate-summary/route.ts
+./app/alexai/crew-comission/route.ts
+./app/alexai/crew-comission/route.ts.bak
+./app/alexai/crew-conversations/route.ts
+./scripts/maintenance/repair_openai_imports_and_bun_writes.sh
+./scripts/maintenance/patch_openai_usage_in_routes.sh
+./scripts/maintenance/patch_crew_routes.sh
+./scripts/maintenance/maintenance_sweep_openai_routes.sh

@@ -43,7 +43,7 @@ amplify-meta.json
 amplify-build-config.json
 
 # local env files
-.env*.local
+.env*
 
 # typescript
 *.tsbuildinfo

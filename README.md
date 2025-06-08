@@ -120,3 +120,9 @@ The deployment process will:
 3. Push to the specified branch
 4. Trigger Amplify's CI/CD pipeline
 5. Deploy to your custom domain
+
+### 🧠 AlexAI Katra Lifecycle Sync Sequence
+
+<!-- alexai-diagram-start -->
+![AlexAI Lifecycle](docs/alexai-lifecycle.svg)
+<!-- alexai-diagram-end -->

@@ -1,28 +1,29 @@
+// ✅ Load .env variables before anything else
+require('dotenv').config();
+
 /** @type {import('next').NextConfig} */
+
+// ✅ Optional: Warn if missing OPENAI_API_KEY during build
+if (!process.env.OPENAI_API_KEY) {
+  console.warn('⚠️  Warning: OPENAI_API_KEY is not defined in .env.local or process.env');
+}
+
 const nextConfig = {
-  // Webpack configuration
+  env: {
+    // ✅ Export it for client-side use if needed
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+  },
   webpack: (config) => {
-    // Ignore canvas dependency
     config.resolve.alias.canvas = false;
-
-    // Ignore express dependency in dante-logger
     config.resolve.alias.express = false;
-
     return config;
   },
-  // React strict mode
   reactStrictMode: true,
-  // ESLint configuration
   eslint: {
-    // Ignore ESLint errors during builds to prevent blocking deployment
     ignoreDuringBuilds: true,
     dirs: ['pages', 'components', 'app', 'utils', 'hooks'],
   },
-  // Improve build performance
   poweredByHeader: false,
-  // Use the default export mode instead of standalone for better static asset handling
-  // output: 'standalone',
-  // outputFileTracingRoot: process.cwd(),
 };
 
 module.exports = nextConfig;
