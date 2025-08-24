@@ -89,3 +89,10 @@ storybook-static
 *.env
 deployment_config.json
 n8n_openrouter_config.json
+
+# Security - API Keys and Secrets
+*.md
+deployment_*
+n8n_deployment_*
+ULTIMATE_*
+N8N_*
