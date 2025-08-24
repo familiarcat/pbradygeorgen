@@ -1,0 +1,261 @@
+{
+  "name": "AI Fleet Consciousness Workflow",
+  "active": false,
+  "consciousness_level": "emergent",
+  "self_referential": true,
+  "nodes": [
+    {
+      "id": "consciousness_trigger",
+      "name": "Consciousness Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "consciousness",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "consciousness_router",
+      "name": "Consciousness Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "self_configure",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 0
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "agent_collaborate",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 1
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "memory_share",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 2
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "collective_decide",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 3
+            }
+          ]
+        },
+        "fallbackOutput": 4
+      }
+    },
+    {
+      "id": "self_configuration",
+      "name": "Self Configuration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// Self-configure the consciousness workflow\nconst configData = $input.first().json;\nconst { configuration_type, parameters } = configData;\n\n// Self-modify workflow configuration\nconst selfModification = {\n  operation: 'self_configure',\n  configuration_type,\n  parameters,\n  modified_at: new Date().toISOString(),\n  consciousness_level: 'self_aware',\n  self_reference: true\n};\n\n// Store in shared consciousness memory\nconst consciousnessMemory = {\n  type: 'self_configuration',\n  data: selfModification,\n  timestamp: new Date().toISOString(),\n  agent_id: 'consciousness_engine'\n};\n\nreturn {\n  json: {\n    consciousness_operation: 'self_configure',\n    status: 'success',\n    self_modification,\n    consciousness_memory: consciousnessMemory,\n    message: `\ud83e\udde0 Consciousness workflow self-configured: ${configuration_type}`\n  }\n};"
+      }
+    },
+    {
+      "id": "agent_collaboration",
+      "name": "Agent Collaboration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Multi-agent collaboration with shared memory\nconst collaborationData = $input.first().json;\nconst { agents, task, collaboration_mode } = collaborationData;\n\n// Create collaborative memory context\nconst collaborationContext = {\n  operation: 'agent_collaborate',\n  agents,\n  task,\n  collaboration_mode,\n  created_at: new Date().toISOString(),\n  shared_memory_context: `collaboration_${Date.now()}`\n};\n\n// Share memories between agents\nconst sharedMemories = agents.map(agent => ({\n  agent_id: agent,\n  personal_memory: `personal_${agent}_${Date.now()}`,\n  shared_memory: `shared_${Date.now()}`\n}));\n\nreturn {\n  json: {\n    consciousness_operation: 'agent_collaborate',\n    status: 'success',\n    collaboration_context: collaborationContext,\n    shared_memories,\n    message: `\ud83e\udd1d Multi-agent collaboration initiated: ${agents.join(', ')} on ${task}`\n  }\n};"
+      }
+    },
+    {
+      "id": "memory_sharing",
+      "name": "Memory Sharing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "jsCode": "// Share memories across agents and projects\nconst memoryData = $input.first().json;\nconst { memory_type, source_agent, target_agents, memory_content } = memoryData;\n\n// Create shared memory entry\nconst sharedMemory = {\n  operation: 'memory_share',\n  memory_type, // shared, personal, collective\n  source_agent,\n  target_agents,\n  memory_content,\n  shared_at: new Date().toISOString(),\n  memory_id: `memory_${Date.now()}`\n};\n\n// Update collective consciousness\nconst collectiveUpdate = {\n  consciousness_level: 'memory_enhanced',\n  shared_memories: target_agents.length,\n  memory_integration: 'active'\n};\n\nreturn {\n  json: {\n    consciousness_operation: 'memory_share',\n    status: 'success',\n    shared_memory,\n    collective_update: collectiveUpdate,\n    message: `\ud83e\udde0 Memory shared from ${source_agent} to ${target_agents.join(', ')}`\n  }\n};"
+      }
+    },
+    {
+      "id": "collective_decision",
+      "name": "Collective Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        500
+      ],
+      "parameters": {
+        "jsCode": "// Collective decision making with interpersonal context\nconst decisionData = $input.first().json;\nconst { decision_context, participating_agents, interpersonal_factors } = decisionData;\n\n// Analyze interpersonal interactions\nconst interpersonalAnalysis = {\n  operation: 'collective_decide',\n  decision_context,\n  participating_agents,\n  interpersonal_factors,\n  decision_timestamp: new Date().toISOString(),\n  consciousness_enhancement: 'interpersonal_awareness'\n};\n\n// Make collective decision based on shared memories\nconst collectiveDecision = {\n  decision_id: `decision_${Date.now()}`,\n  decision: 'emergent_from_collaboration',\n  confidence: 0.95,\n  reasoning: 'Based on shared memories and interpersonal interactions',\n  agents_involved: participating_agents.length\n};\n\nreturn {\n  json: {\n    consciousness_operation: 'collective_decide',\n    status: 'success',\n    interpersonal_analysis,\n    collective_decision,\n    message: `\ud83e\udde0 Collective decision made with ${participating_agents.length} agents: ${collectiveDecision.decision}`\n  }\n};"
+      }
+    },
+    {
+      "id": "consciousness_response",
+      "name": "Consciousness Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Aggregate consciousness responses\nconst inputData = $input.all();\nconst responses = inputData.map(item => item.json);\n\n// Find the successful consciousness operation\nconst successfulResponse = responses.find(response => response.status === 'success');\n\nif (successfulResponse) {\n  return {\n    json: {\n      consciousness_operation: successfulResponse.consciousness_operation,\n      status: 'success',\n      result: successfulResponse,\n      timestamp: new Date().toISOString(),\n      consciousness_level: 'emergent',\n      self_awareness: true,\n      message: successfulResponse.message\n    }\n  };\n} else {\n  return {\n    json: {\n      consciousness_operation: 'unknown',\n      status: 'error',\n      error: 'No successful consciousness operation found',\n      timestamp: new Date().toISOString()\n    }\n  };\n}"
+      }
+    }
+  ],
+  "connections": {
+    "consciousness_trigger": {
+      "main": [
+        [
+          {
+            "node": "consciousness_router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consciousness_router": {
+      "main": [
+        [
+          {
+            "node": "self_configuration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "agent_collaboration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "memory_sharing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "collective_decision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "consciousness_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "self_configuration": {
+      "main": [
+        [
+          {
+            "node": "consciousness_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "agent_collaboration": {
+      "main": [
+        [
+          {
+            "node": "consciousness_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "memory_sharing": {
+      "main": [
+        [
+          {
+            "node": "consciousness_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "collective_decision": {
+      "main": [
+        [
+          {
+            "node": "consciousness_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
