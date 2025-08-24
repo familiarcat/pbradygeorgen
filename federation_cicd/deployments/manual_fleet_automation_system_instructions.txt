@@ -1,0 +1,12 @@
+
+MANUAL DEPLOYMENT REQUIRED FOR: Fleet Automation System
+
+1. Open: https://n8n.pbradygeorgen.com
+2. Go to: Workflows
+3. Click: "Import from file"
+4. Select: federation_n8n_deployment/workflows/fleet_automation.json
+5. Click: "Import"
+6. Activate: Toggle the workflow to ACTIVE
+
+Workflow Name: Fleet Automation System
+Webhook Path: fleet-automation

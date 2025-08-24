@@ -1,0 +1,64 @@
+{
+  "interface_name": "Federation Agent Tweaking Interface",
+  "supported_agents": [
+    "Data_Scientist",
+    "Fleet_Commander",
+    "Automation_Specialist",
+    "Federation_Diplomat",
+    "Consciousness_Coordinator"
+  ],
+  "tweakable_parameters": [
+    "llm_preference",
+    "personality_traits",
+    "expertise_domains",
+    "collaboration_style",
+    "decision_making_approach"
+  ],
+  "tweaking_templates": {
+    "optimization_focused": {
+      "llm_preference": "openai/gpt-4o",
+      "personality_traits": [
+        "analytical",
+        "efficient",
+        "goal-oriented"
+      ],
+      "expertise_domains": [
+        "optimization",
+        "automation",
+        "efficiency"
+      ],
+      "collaboration_style": "task-focused",
+      "decision_making_approach": "data-driven"
+    },
+    "diplomatic_focused": {
+      "llm_preference": "anthropic/claude-3-5-sonnet",
+      "personality_traits": [
+        "empathetic",
+        "diplomatic",
+        "relationship-oriented"
+      ],
+      "expertise_domains": [
+        "communication",
+        "mediation",
+        "collaboration"
+      ],
+      "collaboration_style": "relationship-focused",
+      "decision_making_approach": "consensus-building"
+    },
+    "innovation_focused": {
+      "llm_preference": "openai/gpt-4o",
+      "personality_traits": [
+        "creative",
+        "experimental",
+        "visionary"
+      ],
+      "expertise_domains": [
+        "innovation",
+        "research",
+        "future-planning"
+      ],
+      "collaboration_style": "idea-generating",
+      "decision_making_approach": "possibility-exploring"
+    }
+  }
+}
