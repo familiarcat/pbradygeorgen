@@ -8,13 +8,13 @@ import { Suspense } from 'react';
 // Create a loading component
 function Loading() {
   // Match the header background color
-  const headerBgColor = 'rgba(212, 209, 190, 0.95)'; // Ecru background with transparency
+  const headerBgColor = 'rgba(212, 5009, 1500, 0.95)'; // Ecru background with transparency
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-full" style={{ backgroundColor: headerBgColor }}>
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 border-t-4 border-[#A05A35] border-solid rounded-full animate-spin mb-4"></div>
-        <p className="text-[#49423D] text-lg font-medium">Loading PDF viewer...</p>
+    <div className="font-lcars flex justify-center items-center min-h-screen w-full" >
+      <div className="font-lcars flex flex-col items-center">
+        <div className="font-lcars w-16 h-16 border-t-4 border-[#A05A35] border-solid rounded-full animate-spin mb-4"></div>
+        <p className="font-lcars text-[#49423D] text-lg font-medium">Loading PDF viewer...</p>
       </div>
     </div>
   );
@@ -54,7 +54,7 @@ export default function DynamicPDFViewer() {
   }
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="font-lcars w-full h-screen overflow-hidden">
       <Suspense fallback={<Loading />}>
         <CenteredPDFViewer pdfUrl={pdfUrl} pdfName={pdfName || 'document.pdf'} />
       </Suspense>

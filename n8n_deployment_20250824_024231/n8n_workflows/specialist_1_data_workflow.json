@@ -1,0 +1,46 @@
+{
+  "name": "Lieutenant Commander Data - Analytics & Logic Officer",
+  "crew_member": "data",
+  "llm_model": "claude-3-sonnet",
+  "workflow_nodes": [
+    {
+      "id": "data_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Lieutenant Commander Data Input"
+      }
+    },
+    {
+      "id": "data_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "claude-3-sonnet",
+        "prompt": "As Lieutenant Commander Data, Analytics & Logic Officer, analyze this request: {{$json.request}}. Provide specialized expertise in Data analysis, logical validation, performance metrics, pattern recognition.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "data_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"data\",\n                            role: \"Analytics & Logic Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ]
+}

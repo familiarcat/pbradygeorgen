@@ -1,0 +1,60 @@
+{
+  "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+  "active": false,
+  "nodes": [
+    {
+      "id": "uhura_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Lieutenant Uhura Input"
+      }
+    },
+    {
+      "id": "uhura_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "claude-3-haiku",
+        "prompt": "As Lieutenant Uhura, Communications & I/O Operations Officer, analyze this request: {{$json.request}}. Provide specialized expertise in API communication, data I/O, response formatting, external integrations.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "uhura_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"uhura\",\n                            role: \"Communications & I/O Operations Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": [
+    "AlexAI",
+    "Crew",
+    "Optimized"
+  ],
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "alexai-optimized-crew"
+  }
+}

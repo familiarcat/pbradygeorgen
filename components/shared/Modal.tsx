@@ -7,7 +7,7 @@
  * - Salinger: Intuitive UX with consistent component behavior
  * - Hesse: Mathematical harmony in component proportions
  * - Derrida: Deconstruction through CSS variables
- * - Müller-Brockmann: Grid-based design with consistent sizing
+ * - MÃ¼ller-Brockmann: Grid-based design with consistent sizing
  * 
  * This component serves as the foundation for all modals in the application,
  * ensuring consistent behavior, styling, and accessibility.

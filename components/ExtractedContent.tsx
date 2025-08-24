@@ -78,13 +78,13 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 
   if (loading) {
     return (
-      <div className="analyzer-section-content p-4">
-        <div className="animate-pulse flex space-x-4">
-          <div className="flex-1 space-y-4 py-1">
-            <div className="h-4 bg-[var(--bg-tertiary)] rounded w-3/4"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-[var(--bg-tertiary)] rounded"></div>
-              <div className="h-4 bg-[var(--bg-tertiary)] rounded w-5/6"></div>
+      <div className="font-lcars analyzer-section-content p-4">
+        <div className="font-lcars animate-pulse flex space-x-4">
+          <div className="font-lcars flex-1 space-y-4 py-1">
+            <div className="font-lcars h-4 bg-[var(--bg-tertiary)] rounded w-3/4"></div>
+            <div className="font-lcars space-y-2">
+              <div className="font-lcars h-4 bg-[var(--bg-tertiary)] rounded"></div>
+              <div className="font-lcars h-4 bg-[var(--bg-tertiary)] rounded w-5/6"></div>
             </div>
           </div>
         </div>
@@ -94,19 +94,19 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 
   if (error) {
     return (
-      <div className="analyzer-section-content p-4">
-        <p className="text-[var(--state-error)]">{error}</p>
+      <div className="font-lcars analyzer-section-content p-4">
+        <p className="font-lcars text-[var(--state-error)]">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="analyzer-section-content p-4">
+    <div className="font-lcars analyzer-section-content p-4">
       {showDownloadButton && content && (
-        <div className="mb-4 flex justify-start">
+        <div className="font-lcars mb-4 flex justify-start">
           <button
             onClick={handleDownload}
-            className="analyzer-button analyzer-button-primary text-sm flex items-center"
+            className="font-lcars analyzer-button analyzer-button-primary text-sm flex items-center"
             style={{
               backgroundColor: 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))',
               color: 'var(--text-color, #333333)',
@@ -121,14 +121,14 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
               transition: 'all 0.2s ease'
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="font-lcars h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h500a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
             Download Resume
           </button>
         </div>
       )}
-      <div className="prose max-w-none" style={{
+      <div className="font-lcars prose max-w-none" style={{
         maxHeight: 'calc(85vh - 6rem)',
         overflowY: 'auto',
         paddingRight: '0.5rem',
@@ -139,7 +139,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
           <StyledMarkdown>{content || ''}</StyledMarkdown>
         ) : (
           <pre
-            className="whitespace-pre-wrap analyzer-section-content p-4 rounded"
+            className="font-lcars whitespace-pre-wrap analyzer-section-content p-4 rounded"
             style={{
               fontFamily: 'var(--font-mono, monospace)',
               fontSize: '0.9rem',
@@ -161,7 +161,7 @@ export default function ExtractedContent({ filePath, showDownloadButton = true }
 function formatMarkdown(markdown: string): string {
   return markdown
     // Headers with sticky positioning for better scrolling
-    .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-10">$1</h1>')
+    .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mb-4 sticky top-0 analyzer-section-header py-2 z-500">$1</h1>')
     .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
     // Special handling for education entries (school name and years)
     .replace(/^### (BFA|BA|ASSC).*?\n\*\*(.*?) \((.*?)\)\*\*/gm, '<h3 class="text-xl font-bold mt-6 mb-1">$1</h3><p class="font-semibold -mt-1 mb-3 education-entry">$2 <span class="education-years">($3)</span></p>')

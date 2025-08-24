@@ -1,0 +1,49 @@
+{
+  "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+  "active": false,
+  "nodes": [
+    {
+      "id": "crusher_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Dr. Beverly Crusher Input"
+      }
+    },
+    {
+      "id": "crusher_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "claude-3-haiku",
+        "prompt": "As Dr. Beverly Crusher, Health & Diagnostics Officer, analyze this request: {{$json.request}}. Provide specialized expertise in System health monitoring, performance diagnostics, error detection, preventive maintenance.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "crusher_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"crusher\",\n                            role: \"Health & Diagnostics Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

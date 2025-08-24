@@ -1,0 +1,156 @@
+{
+  "name": "AlexAI Optimized Crew - Complete Mission Control",
+  "active": false,
+  "nodes": [
+    {
+      "id": "mission_coordinator",
+      "name": "Mission Coordinator",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "alexai-crew-mission",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "response_aggregator",
+      "name": "Crew Response Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\n// Aggregate all crew member responses\nconst crewResponses = $input.all();\nconst aggregatedResponse = {\n    mission_id: $json.mission_id,\n    timestamp: new Date().toISOString(),\n    crew_responses: crewResponses.map(response => ({\n        crew_member: response.crew_member,\n        response: response.response,\n        confidence: response.confidence || 0.8\n    })),\n    mission_summary: \"Mission completed by AlexAI Optimized Crew\",\n    next_actions: crewResponses\n        .filter(r => r.next_actions)\n        .flatMap(r => r.next_actions)\n        .filter((action, index, arr) => arr.indexOf(action) === index)\n};\n\nreturn aggregatedResponse;\n"
+      }
+    }
+  ],
+  "connections": {
+    "mission_coordinator": {
+      "main": [
+        [
+          {
+            "node": "execution_commander",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_1_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "execution_commander": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_1_data": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_2_geordi": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_3_crusher": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_4_worf": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_5_troi": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_6_uhura": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_7_quark": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": [
+    "AlexAI",
+    "Crew",
+    "Mission Control",
+    "Optimized"
+  ],
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "alexai-comprehensive-crew"
+  }
+}

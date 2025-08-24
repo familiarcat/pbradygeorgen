@@ -1,0 +1,46 @@
+{
+  "name": "Counselor Deanna Troi - User Experience & Empathy Officer",
+  "crew_member": "troi",
+  "llm_model": "claude-3-sonnet",
+  "workflow_nodes": [
+    {
+      "id": "troi_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Counselor Deanna Troi Input"
+      }
+    },
+    {
+      "id": "troi_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "claude-3-sonnet",
+        "prompt": "As Counselor Deanna Troi, User Experience & Empathy Officer, analyze this request: {{$json.request}}. Provide specialized expertise in User empathy, UX optimization, user journey mapping, accessibility.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "troi_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"troi\",\n                            role: \"User Experience & Empathy Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ]
+}

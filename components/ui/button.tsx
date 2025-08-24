@@ -9,7 +9,7 @@ export function Button({ children, className = "", ...props }: ButtonProps) {
   return (
     <button
       {...props}
-      className={`bg-lime-600 hover:bg-lime-400 transition-colors duration-300 ease-in-out text-black font-bold py-2 px-6 rounded-full shadow-md animate-pulse-slow ${className}`}
+      className={`bg-lime-1000 hover:bg-lime-1000 transition-colors duration-1000 ease-in-out text-black font-bold py-2 px-6 rounded-full shadow-md animate-pulse-slow ${className}`}
     >
       {children}
     </button>

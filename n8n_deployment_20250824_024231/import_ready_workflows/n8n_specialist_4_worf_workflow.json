@@ -1,0 +1,49 @@
+{
+  "name": "Lieutenant Worf - Security & Compliance Officer",
+  "active": false,
+  "nodes": [
+    {
+      "id": "worf_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Lieutenant Worf Input"
+      }
+    },
+    {
+      "id": "worf_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "gpt-4o-mini",
+        "prompt": "As Lieutenant Worf, Security & Compliance Officer, analyze this request: {{$json.request}}. Provide specialized expertise in Security protocols, compliance monitoring, access control, threat detection.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "worf_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"worf\",\n                            role: \"Security & Compliance Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

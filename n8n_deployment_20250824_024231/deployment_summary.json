@@ -1,0 +1,18 @@
+{
+  "deployment_timestamp": "2025-08-24T00:00:00.000Z",
+  "n8n_url": "https://n8n.pbradygeorgen.com",
+  "openrouter_configured": true,
+  "workflows_generated": 9,
+  "crew_members": [
+    "picard",
+    "quark",
+    "troi",
+    "riker",
+    "geordi",
+    "worf",
+    "uhura",
+    "data",
+    "crusher"
+  ],
+  "deployment_method": "Hybrid - Ready-to-Import Files"
+}

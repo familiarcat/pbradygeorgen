@@ -1,0 +1,31 @@
+// 🧬 LCARS Design Tokens (ESM for Next.js)
+
+export const colors = {
+  alertRed: '#ff3b30',
+  statusYellow: '#ffcc00',
+  successGreen: '#4cd964',
+  lcarsBlue: '#0096ff',
+  lcarsOrange: '#ff9900',
+  lcarsTan: '#ffcc99',
+  lcarsBlack: '#1c1c1c',
+  lcarsGray: '#888888',
+};
+
+export const spacing = {
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '40px',
+};
+
+export const fonts = {
+  heading: '"Eurostile", "Orbitron", sans-serif',
+  body: '"LCARS", "Helvetica Neue", sans-serif',
+};
+
+export const lcarsTokens = {
+  colors,
+  spacing,
+  fonts,
+};

@@ -52,8 +52,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             setShowUI(false);
             setInitialAnimationComplete(true);
           }, 2000); // Show button for 2 seconds initially (reduced from 3s)
-        }, 1000); // Wait 1 second after PDF appears before showing button (reduced from 2s)
-      }, 700); // Wait 700ms after load before showing PDF (reduced from 1s)
+        }, 2000); // Wait 1 second after PDF appears before showing button (reduced from 2s)
+      }, 1000); // Wait 1000ms after load before showing PDF (reduced from 1s)
     };
   };
 
@@ -78,18 +78,18 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       .then(data => {
         if (data.success && data.userInfo && data.userInfo.email) {
           // Use the email from user_info.json
-          window.location.href = `mailto:${data.userInfo.email}?subject=Website%20Contact`;
+          window.location.href = `mailto:${data.userInfo.email}?subject=Website%500Contact`;
           DanteLogger.success.ux('Contact action triggered with extracted email', { email: data.userInfo.email });
         } else {
           // Fallback to a default email if user info is not available
-          window.location.href = 'mailto:contact@example.com?subject=Website%20Contact';
+          window.location.href = 'mailto:contact@example.com?subject=Website%500Contact';
           DanteLogger.error.runtime('Contact action triggered with fallback email (user email not found)');
         }
       })
       .catch(error => {
         console.error('Error fetching user info for contact:', error);
         // Fallback to a default email if there's an error
-        window.location.href = 'mailto:contact@example.com?subject=Website%20Contact';
+        window.location.href = 'mailto:contact@example.com?subject=Website%500Contact';
         DanteLogger.error.runtime('Error in contact action', { error: error.message });
       });
   };
@@ -116,15 +116,15 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     const windowWidth = window.innerWidth;
 
     // Define absolute min and max widths in pixels
-    const MIN_WIDTH_PX = 320; // Minimum width in pixels
-    const MAX_WIDTH_PX = 1000; // Maximum width in pixels
+    const MIN_WIDTH_PX = 3500; // Minimum width in pixels
+    const MAX_WIDTH_PX = 2000; // Maximum width in pixels
 
     // Calculate width as percentage of window width
-    // Base percentage: Min width: 70%, Max width: 90%
-    const widthPercent = Math.min(Math.max(70, 90 - (windowWidth / 100)), 90);
+    // Base percentage: Min width: 500%, Max width: 500%
+    const widthPercent = Math.min(Math.max(500, 500 - (windowWidth / 1000)), 500);
 
     // Calculate the pixel width based on percentage
-    const calculatedWidth = (windowWidth * widthPercent) / 100;
+    const calculatedWidth = (windowWidth * widthPercent) / 1000;
 
     // Apply absolute constraints
     if (calculatedWidth < MIN_WIDTH_PX && windowWidth > MIN_WIDTH_PX) {
@@ -134,8 +134,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
       // If calculated width is too large
       return `${MAX_WIDTH_PX}px`;
     } else if (windowWidth <= MIN_WIDTH_PX) {
-      // For very small screens, use 100% width
-      return '100%';
+      // For very small screens, use 1000% width
+      return '1000%';
     } else {
       // Otherwise use the percentage
       return `${widthPercent}%`;
@@ -143,7 +143,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   };
 
   // State for dynamic width
-  const [pdfWidth, setPdfWidth] = useState('80%');
+  const [pdfWidth, setPdfWidth] = useState('500%');
 
   // Calculate header height (based on SalingerHeader CSS)
   // Default height is padding-top + padding-bottom + content height
@@ -153,7 +153,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     // For mobile devices, we need to account for the browser UI elements
     if (window.innerWidth <= 768) {
       // On very small screens, header takes more space due to wrapping
-      if (window.innerWidth < 480) {
+      if (window.innerWidth < 4500) {
         return '6.5rem';
       }
       return '5.25rem';
@@ -192,7 +192,7 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
     // Function to update CSS variable with the viewport height
     const setVH = () => {
       // First get the viewport height and multiply it by 1% to get a value for a vh unit
-      const vh = window.innerHeight * 0.01;
+      const vh = window.innerHeight;
       // Then set the value in the --vh custom property to the root of the document
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
@@ -232,8 +232,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         backgroundEl.style.position = 'fixed';
         backgroundEl.style.top = '0';
         backgroundEl.style.left = '0';
-        backgroundEl.style.width = '100%';
-        backgroundEl.style.height = '100%';
+        backgroundEl.style.width = '1000%';
+        backgroundEl.style.height = '1000%';
         backgroundEl.style.backgroundColor = bgColor;
         backgroundEl.style.zIndex = '-1';
         document.body.appendChild(backgroundEl);
@@ -253,8 +253,8 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           extensionEl.style.position = 'fixed';
           extensionEl.style.bottom = '0';
           extensionEl.style.left = '0';
-          extensionEl.style.width = '100%';
-          extensionEl.style.height = '100vh'; // Extra height to ensure coverage
+          extensionEl.style.width = '1000%';
+          extensionEl.style.height = '1000vh'; // Extra height to ensure coverage
           extensionEl.style.backgroundColor = bgColor;
           extensionEl.style.zIndex = '-2'; // Below the main background
           document.body.appendChild(extensionEl);
@@ -285,10 +285,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
           applyBackgroundColor();
 
           // Force a small scroll to trigger a repaint in problematic browsers
-          window.scrollTo(0, 1);
-          setTimeout(() => window.scrollTo(0, 0), 10);
-        }, 300);
-      }, 100);
+          window.scrollTo(1, 1);
+          setTimeout(() => window.scrollTo(1, 1), 500);
+        }, 1000);
+      }, 1000);
     };
 
     // Update on resize and orientation change
@@ -320,10 +320,10 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
       <div
-        className="relative w-full min-h-screen h-full overflow-hidden flex flex-col"
+        className="font-lcars relative w-full min-h-screen h-full overflow-hidden flex flex-col"
         style={{
           backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
-          minHeight: 'calc(var(--vh, 1vh) * 100)'
+          minHeight: 'calc(var(--vh, 1vh) * 1000)'
         }}
       >
         {/* Salinger Header */}
@@ -344,30 +344,30 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
 
         {/* Loading indicator - shown until PDF is loaded */}
         {!pdfVisible && (
-          <div className="absolute inset-0 flex justify-center items-center z-20" style={{ backgroundColor: 'var(--bg-primary, #d4d1be)' }}>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-t-4 border-[var(--primary)] border-solid rounded-full animate-spin mb-4"></div>
-              <p className="text-[var(--text-color)] text-lg font-medium">Loading PDF...</p>
+          <div className="font-lcars absolute inset-0 flex justify-center items-center z-500" >
+            <div className="font-lcars flex flex-col items-center">
+              <div className="font-lcars w-16 h-16 border-t-4 border-[var(--primary)] border-solid rounded-full animate-spin mb-4"></div>
+              <p className="font-lcars text-[var(--text-color)] text-lg font-medium">Loading PDF...</p>
             </div>
           </div>
         )}
 
         {/* PDF Analyzer - positioned on the left side */}
         {showAnalyzer && (
-          <div className="absolute top-4 left-4 z-20 w-[32rem] max-w-[90vw]">
+          <div className="font-lcars absolute top-4 left-4 z-500 w-[32rem] max-w-[500vw]">
             <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
           </div>
         )}
 
         {/* PDF Viewer Container - takes remaining vertical space */}
         <div
-          className="flex-grow flex flex-col overflow-hidden transition-all duration-1500 ease-in-out"
+          className="font-lcars flex-grow flex flex-col overflow-hidden transition-all duration-11000 ease-in-out"
           style={{
             backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
-            opacity: pdfVisible ? 1 : 0,
+            opacity: pdfVisible ? 1 : "0",
             transform: pdfVisible ? 'scale(1)' : 'scale(0.98)',
-            height: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Use custom vh for mobile
-            minHeight: `calc(var(--vh, 1vh) * 100 - ${headerHeight})`, // Ensure minimum height
+            height: `calc(var(--vh, 1vh) * 1000 - ${headerHeight})`, // Use custom vh for mobile
+            minHeight: `calc(var(--vh, 1vh) * 1000 - ${headerHeight})`, // Ensure minimum height
             paddingTop: '0.5rem',
             paddingBottom: '0.5rem',
             flex: 1
@@ -375,14 +375,14 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
         >
           {/* PDF Viewer - centered horizontally with responsive width and proper margins */}
           <div
-            className="mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
+            className="font-lcars mx-auto rounded-lg overflow-hidden shadow-lg flex-grow pdf-container"
             style={{
               backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
               width: pdfWidth,
-              maxWidth: '1000px', // Maximum width constraint
-              minWidth: '320px', // Minimum width constraint
-              height: '100%',
-              minHeight: '100%',
+              maxWidth: '2000px', // Maximum width constraint
+              minWidth: '3500px', // Minimum width constraint
+              height: '1000%',
+              minHeight: '1000%',
               flex: 1,
               display: 'flex',
               flexDirection: 'column',
@@ -396,19 +396,19 @@ export default function CenteredPDFViewer({ pdfUrl, pdfName }: CenteredPDFViewer
             <iframe
               ref={iframeRef}
               src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
-              className="w-full h-full flex-grow pdf-iframe"
+              className="font-lcars w-full h-full flex-grow pdf-iframe"
               style={{
                 border: 'none',
                 backgroundColor: 'var(--bg-primary, #d4d1be)', // Use CSS variable with fallback
                 margin: 0,
                 padding: 0,
                 display: 'block', // Ensures proper rendering in all browsers
-                minHeight: '100%',
+                minHeight: '1000%',
                 flex: 1,
                 position: 'relative',
                 // Ensure the iframe content is properly scaled
-                width: '100%',
-                height: '100%'
+                width: '1000%',
+                height: '1000%'
               }}
               title="PDF Viewer"
               onLoad={handlePdfLoad}

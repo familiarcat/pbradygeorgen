@@ -1,0 +1,124 @@
+{
+  "deployment_timestamp": "2025-08-24 03:16:57",
+  "n8n_instance": "https://n8n.pbradygeorgen.com",
+  "total_workflows": 9,
+  "workflow_details": [
+    {
+      "name": "mission_coordinator_workflow.json",
+      "size_bytes": 1803,
+      "crew_member": "mission_coordinator_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_7_quark_workflow.json",
+      "size_bytes": 1679,
+      "crew_member": "specialist_7_quark_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_5_troi_workflow.json",
+      "size_bytes": 1691,
+      "crew_member": "specialist_5_troi_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "execution_commander_workflow.json",
+      "size_bytes": 1475,
+      "crew_member": "execution_commander_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_2_geordi_workflow.json",
+      "size_bytes": 1762,
+      "crew_member": "specialist_2_geordi_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_4_worf_workflow.json",
+      "size_bytes": 1662,
+      "crew_member": "specialist_4_worf_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_6_uhura_workflow.json",
+      "size_bytes": 1702,
+      "crew_member": "specialist_6_uhura_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_1_data_workflow.json",
+      "size_bytes": 1688,
+      "crew_member": "specialist_1_data_workflow",
+      "status": "ready_for_deployment"
+    },
+    {
+      "name": "specialist_3_crusher_workflow.json",
+      "size_bytes": 1707,
+      "crew_member": "specialist_3_crusher_workflow",
+      "status": "ready_for_deployment"
+    }
+  ],
+  "import_ready_files": [
+    {
+      "name": "enhanced_specialist_4_worf_workflow.json",
+      "size_bytes": 1914,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_6_uhura_workflow.json",
+      "size_bytes": 1950,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_5_troi_workflow.json",
+      "size_bytes": 1939,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_execution_commander_workflow.json",
+      "size_bytes": 1723,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_7_quark_workflow.json",
+      "size_bytes": 1928,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_mission_coordinator_workflow.json",
+      "size_bytes": 2053,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_3_crusher_workflow.json",
+      "size_bytes": 1953,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_2_geordi_workflow.json",
+      "size_bytes": 2017,
+      "format": "n8n_compatible"
+    },
+    {
+      "name": "enhanced_specialist_1_data_workflow.json",
+      "size_bytes": 1936,
+      "format": "n8n_compatible"
+    }
+  ],
+  "deployment_methods": [
+    "API",
+    "Manual Import"
+  ],
+  "aws_restrictions": {
+    "ssh_blocked": true,
+    "port_22_filtered": true,
+    "api_limited": true
+  },
+  "solution_approach": "Hybrid API + Manual Import",
+  "next_steps": [
+    "Import workflows via n8n UI",
+    "Activate each workflow",
+    "Test crew member functionality",
+    "Monitor performance and costs"
+  ]
+}

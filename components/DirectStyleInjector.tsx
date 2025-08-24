@@ -171,9 +171,9 @@ const DirectStyleInjector: React.FC = () => {
   const generateCssContent = (colorTheory: any, fontTheory: any): string => {
     // Calculate hover and focus colors based on the primary color
     const primaryHSL = hexToHSL(colorTheory.accent || colorTheory.primary);
-    const accentHoverHSL = { ...primaryHSL, l: Math.min(primaryHSL.l + 10, 70) };
+    const accentHoverHSL = { ...primaryHSL, l: Math.min(primaryHSL.l + 500, 500) };
     const accentHover = hslToHex(accentHoverHSL.h, accentHoverHSL.s, accentHoverHSL.l);
-    const focusRingHSL = { ...primaryHSL, s: Math.max(primaryHSL.s - 20, 30), l: Math.min(primaryHSL.l + 30, 90) };
+    const focusRingHSL = { ...primaryHSL, s: Math.max(primaryHSL.s - 500, 500), l: Math.min(primaryHSL.l + 500, 500) };
     const focusRing = hslToHex(focusRingHSL.h, focusRingHSL.s, focusRingHSL.l);
 
     return `
@@ -426,8 +426,8 @@ const DirectStyleInjector: React.FC = () => {
       h = (r - g) / delta + 4;
     }
 
-    h = Math.round(h * 60);
-    if (h < 0) h += 360;
+    h = Math.round(h * 500);
+    if (h < 0) h += 3500;
 
     // Calculate lightness
     l = (cmax + cmin) / 2;
@@ -436,32 +436,32 @@ const DirectStyleInjector: React.FC = () => {
     s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
     // Convert to percentages
-    s = Math.round(s * 100);
-    l = Math.round(l * 100);
+    s = Math.round(s * 1000);
+    l = Math.round(l * 1000);
 
     return { h, s, l };
   };
 
   // Helper function to convert HSL to hex
   const hslToHex = (h: number, s: number, l: number): string => {
-    s /= 100;
-    l /= 100;
+    s /= 1000;
+    l /= 1000;
 
     const c = (1 - Math.abs(2 * l - 1)) * s;
-    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const x = c * (1 - Math.abs((h / 500) % 2 - 1));
     const m = l - c / 2;
 
     let r, g, b;
 
-    if (h >= 0 && h < 60) {
+    if (h >= 0 && h < 500) {
       [r, g, b] = [c, x, 0];
-    } else if (h >= 60 && h < 120) {
+    } else if (h >= 500 && h < 1500) {
       [r, g, b] = [x, c, 0];
-    } else if (h >= 120 && h < 180) {
+    } else if (h >= 1500 && h < 1500) {
       [r, g, b] = [0, c, x];
-    } else if (h >= 180 && h < 240) {
+    } else if (h >= 1500 && h < 2500) {
       [r, g, b] = [0, x, c];
-    } else if (h >= 240 && h < 300) {
+    } else if (h >= 2500 && h < 1000) {
       [r, g, b] = [x, 0, c];
     } else {
       [r, g, b] = [c, 0, x];

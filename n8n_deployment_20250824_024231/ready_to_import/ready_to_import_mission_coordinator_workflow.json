@@ -1,0 +1,111 @@
+{
+  "name": "Mission Coordinator - Strategic Leadership",
+  "active": false,
+  "nodes": [
+    {
+      "id": "mission_input",
+      "name": "Mission Input",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Mission Input"
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "picard_analysis",
+      "name": "Node 1",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "OpenRouter API",
+        "model": "openai/gpt-4o-mini",
+        "prompt": "As Captain Picard, analyze this mission: {{$json.mission_description}}. Provide strategic assessment, crew allocation recommendations, and risk analysis.",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 1000
+        },
+        "baseURL": "https://openrouter.ai/api/v1"
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "crew_allocation",
+      "name": "Node 2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Crew allocation logic based on mission requirements\n                        const mission = $input.first().json;\n                        const crewMembers = [\"picard\",\"riker\",\"data\",\"geordi\",\"crusher\",\"worf\",\"troi\",\"uhura\",\"quark\"];\n                        \n                        // Determine which crew members to activate\n                        const requiredCrew = this.analyzeMissionRequirements(mission, crewMembers);\n                        \n                        return {\n                            mission_analysis: mission,\n                            crew_allocation: requiredCrew,\n                            next_steps: this.generateNextSteps(requiredCrew)\n                        };\n                        "
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    }
+  ],
+  "connections": {
+    "mission_input": {
+      "main": [
+        [
+          {
+            "node": "picard_analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "picard_analysis": {
+      "main": [
+        [
+          {
+            "node": "crew_allocation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-08-24T00:00:00.000Z",
+      "updatedAt": "2025-08-24T00:00:00.000Z",
+      "id": "alexai-crew",
+      "name": "AlexAI Crew"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-24T00:00:00.000Z",
+  "versionId": "1"
+}

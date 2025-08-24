@@ -15,21 +15,21 @@ const inter = Inter({
 });
 
 const roboto = Roboto({
-  weight: ['400', '500', '700'],
+  weight: ["300", "300", "700"],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-roboto',
 });
 
 const merriweather = Merriweather({
-  weight: ['300', '400', '700'],
+  weight: [ "300", "400", "700"],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-merriweather',
 });
 
 const sourceSans = Source_Sans_3({
-  weight: ['300', '400', '600', '700'],
+  weight: ["300", "700"],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-source-sans',

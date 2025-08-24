@@ -106,20 +106,20 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
           ref={fileInputRef}
           onChange={handleFileInputChange}
           accept="application/pdf"
-          className="hidden"
+          className="font-lcars hidden"
         />
 
         {isUploading ? (
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 border-t-4 border-solid rounded-full animate-spin mb-4"
-                 style={{ borderTopColor: 'var(--cta-primary, #7E4E2D)' }}></div>
-            <p style={{ color: 'var(--text-color, #333333)' }}>Uploading PDF...</p>
+          <div className="font-lcars flex flex-col items-center">
+            <div className="font-lcars w-12 h-12 border-t-4 border-solid rounded-full animate-spin mb-4"
+                 ></div>
+            <p >Uploading PDF...</p>
           </div>
         ) : (
           <>
             <svg
-              className="w-12 h-12 mx-auto mb-4"
-              style={{ color: 'var(--text-secondary, #666666)' }}
+              className="font-lcars w-12 h-12 mx-auto mb-4"
+              
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -129,15 +129,15 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                d="M7 16a4 4 0 01-.88-7.5003A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               ></path>
             </svg>
-            <p className="mb-2 text-lg font-medium"
-               style={{ color: 'var(--text-color, #333333)' }}>
+            <p className="font-lcars mb-2 text-lg font-medium"
+               >
               Drag and drop your PDF here
             </p>
-            <p className="text-sm"
-               style={{ color: 'var(--text-secondary, #666666)' }}>
+            <p className="font-lcars text-sm"
+               >
               or click to select a file
             </p>
           </>
@@ -145,8 +145,8 @@ export default function PDFUploader({ onPdfUploaded, className = '' }: PDFUpload
       </div>
 
       {errorMessage && (
-        <div className="mt-3 text-sm"
-             style={{ color: 'var(--state-error, #dc3545)' }}>
+        <div className="font-lcars mt-3 text-sm"
+             >
           {errorMessage}
         </div>
       )}

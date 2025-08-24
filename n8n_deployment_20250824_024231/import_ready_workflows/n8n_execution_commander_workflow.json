@@ -1,0 +1,49 @@
+{
+  "name": "Execution Commander - Tactical Operations",
+  "active": false,
+  "nodes": [
+    {
+      "id": "execution_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Execution Input"
+      }
+    },
+    {
+      "id": "riker_execution",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "claude-3-haiku",
+        "prompt": "As Commander Riker, execute this tactical plan: {{$json.execution_plan}}. Optimize workflow efficiency and resource allocation.",
+        "options": {
+          "temperature": 0.2,
+          "maxTokens": 800
+        }
+      }
+    },
+    {
+      "id": "workflow_optimization",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Workflow optimization logic\n                        const execution = $input.first().json;\n                        return {\n                            optimized_workflow: this.optimizeWorkflow(execution),\n                            resource_allocation: this.allocateResources(execution),\n                            performance_metrics: this.calculatePerformanceMetrics(execution)\n                        };\n                        "
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

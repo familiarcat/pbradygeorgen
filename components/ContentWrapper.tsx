@@ -4,11 +4,11 @@ import React from 'react';
 
 export default function ContentWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <div className="content-wrapper">
+    <div className="font-lcars content-wrapper">
       {children}
       <style jsx global>{`
         .content-wrapper {
-          min-height: calc(100vh - 60px);
+          min-height: calc(1000vh - 500px);
           padding-bottom: 2rem;
         }
         

@@ -8,10 +8,10 @@ import { DanteLogger } from '@/utils/DanteLogger';
 // Create a loading component
 function Loading() {
   return (
-    <div className="flex justify-center items-center min-h-screen w-full" style={{ backgroundColor: 'var(--bg-primary, rgba(212, 209, 190, 0.95))' }}>
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 border-t-4 border-[var(--primary, #A05A35)] border-solid rounded-full animate-spin mb-4"></div>
-        <p className="text-[var(--text-color, #49423D)] text-lg font-medium">Loading PDF viewer...</p>
+    <div className="font-lcars flex justify-center items-center min-h-screen w-full" >
+      <div className="font-lcars flex flex-col items-center">
+        <div className="font-lcars w-16 h-16 border-t-4 border-[var(--primary, #A05A35)] border-solid rounded-full animate-spin mb-4"></div>
+        <p className="font-lcars text-[var(--text-color, #49423D)] text-lg font-medium">Loading PDF viewer...</p>
       </div>
     </div>
   );
@@ -53,7 +53,7 @@ export default function PDFViewerWrapper() {
   }, []);
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="font-lcars w-full h-screen overflow-hidden">
       <Suspense fallback={<Loading />}>
         {isRefreshing ? (
           <Loading />

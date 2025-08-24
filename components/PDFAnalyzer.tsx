@@ -40,13 +40,13 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
   }, [onClose]);
 
   return (
-    <div ref={analyzerRef} className="analyzer-panel relative">
-      <div className="analyzer-header flex justify-between items-center border-b border-[var(--border-medium)] pb-3">
-        <h2 className="text-[1.5rem] font-bold m-0 text-[var(--text-primary)] tracking-tight">Summary Preview</h2>
+    <div ref={analyzerRef} className="font-lcars analyzer-panel relative">
+      <div className="font-lcars analyzer-header flex justify-between items-center border-b border-[var(--border-medium)] pb-3">
+        <h2 className="font-lcars text-[1.5rem] font-bold m-0 text-[var(--text-primary)] tracking-tight">Summary Preview</h2>
         {onClose && (
           <button
             onClick={onClose}
-            className="bg-transparent border-none text-[var(--text-primary)] text-[1.5rem] cursor-pointer p-[0.25rem_0.5rem] rounded transition-all duration-200 hover:bg-[rgba(90,118,130,0.1)]"
+            className="font-lcars bg-transparent border-none text-[var(--text-primary)] text-[1.5rem] cursor-pointer p-[0.25rem_0.5rem] rounded transition-all duration-1000 hover:bg-[rgba(500,118,1500,0.1)]"
             aria-label="Close"
           >
             &times;
@@ -54,15 +54,15 @@ export default function PDFAnalyzer({ onClose }: PDFAnalyzerProps) {
         )}
       </div>
 
-      <div className="analyzer-content">
+      <div className="font-lcars analyzer-content">
         {error && (
-          <div className="mb-4 p-3 analyzer-section-content">
+          <div className="font-lcars mb-4 p-3 analyzer-section-content">
             {error}
           </div>
         )}
 
         {/* Content - now showing only the analysis content */}
-        <div className="mt-4">
+        <div className="font-lcars mt-4">
           <ContentAnalysis filePath="/extracted/resume_content_improved.md" />
 
           {/* No bottom close button - using only the X icon in the upper right */}

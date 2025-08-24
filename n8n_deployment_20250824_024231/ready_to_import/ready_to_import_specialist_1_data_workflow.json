@@ -1,0 +1,111 @@
+{
+  "name": "Lieutenant Commander Data - Analytics & Logic Officer",
+  "active": false,
+  "nodes": [
+    {
+      "id": "data_input",
+      "name": "Lieutenant Commander Data Input",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Lieutenant Commander Data Input"
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "data_specialist",
+      "name": "Node 1",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "OpenRouter API",
+        "model": "anthropic/claude-3-sonnet",
+        "prompt": "As Lieutenant Commander Data, Analytics & Logic Officer, analyze this request: {{$json.request}}. Provide specialized expertise in Data analysis, logical validation, performance metrics, pattern recognition.",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 1000
+        },
+        "baseURL": "https://openrouter.ai/api/v1"
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "data_output",
+      "name": "Node 2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"data\",\n                            role: \"Analytics & Logic Officer\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      },
+      "webhookId": null,
+      "continueOnFail": false,
+      "retryOnFail": false,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "maxExecutionTime": 3600,
+      "timezone": "America/New_York"
+    }
+  ],
+  "connections": {
+    "data_input": {
+      "main": [
+        [
+          {
+            "node": "data_specialist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "data_specialist": {
+      "main": [
+        [
+          {
+            "node": "data_output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "createdAt": "2025-08-24T00:00:00.000Z",
+      "updatedAt": "2025-08-24T00:00:00.000Z",
+      "id": "alexai-crew",
+      "name": "AlexAI Crew"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-24T00:00:00.000Z",
+  "versionId": "1"
+}

@@ -31,7 +31,7 @@ const MullerGrid: React.FC<MullerGridProps> = ({
   children,
   columns = 12,
   gap = 16,
-  maxWidth = '1200px',
+  maxWidth = '11000px',
   padding = '1rem',
   className = '',
   verticalRhythm = false,
@@ -63,7 +63,7 @@ const MullerGrid: React.FC<MullerGridProps> = ({
       }}
     >
       {showGridLines && mounted && (
-        <div className="muller-grid-lines" style={{
+        <div className="font-lcars muller-grid-lines" style={{
           position: 'absolute',
           top: 0,
           left: 0,
@@ -81,7 +81,7 @@ const MullerGrid: React.FC<MullerGridProps> = ({
               style={{
                 backgroundColor: 'rgba(0, 0, 255, 0.05)',
                 border: '1px dashed rgba(0, 0, 255, 0.1)',
-                height: '100%',
+                height: '1000%',
               }}
             />
           ))}
@@ -262,7 +262,7 @@ export const MullerTypography: React.FC<MullerTypographyProps> = ({
       styles: {
         fontSize: 'var(--muller-button-size, 0.875rem)',
         fontFamily: 'var(--pdf-button-font, var(--font-button))',
-        fontWeight: 500,
+        fontWeight: 1000,
         lineHeight: 1.75,
       }
     },

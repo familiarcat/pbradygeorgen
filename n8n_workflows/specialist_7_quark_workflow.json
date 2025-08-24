@@ -1,0 +1,46 @@
+{
+  "name": "Quark - Business Intelligence & Budget Optimization",
+  "crew_member": "quark",
+  "llm_model": "gpt-3.5-turbo",
+  "workflow_nodes": [
+    {
+      "id": "quark_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Quark Input"
+      }
+    },
+    {
+      "id": "quark_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "gpt-3.5-turbo",
+        "prompt": "As Quark, Business Intelligence & Budget Optimization, analyze this request: {{$json.request}}. Provide specialized expertise in Cost analysis, ROI optimization, business metrics, growth opportunities.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "quark_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"quark\",\n                            role: \"Business Intelligence & Budget Optimization\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@
  * - Occam's razor: the simplest solution is often the best
  * - Derrida: deconstructing hardcoded implementations
  * - Hesse: mathematical harmony in implementation patterns
- * - Müller-Brockmann: clean, grid-based structure
+ * - MÃ¼ller-Brockmann: clean, grid-based structure
  * - Dante: methodical logging
  */
 

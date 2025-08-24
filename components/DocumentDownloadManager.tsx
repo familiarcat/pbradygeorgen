@@ -6,7 +6,7 @@
  *
  * This component follows:
  * - Derrida philosophy by deconstructing hardcoded download implementations
- * - Müller-Brockmann philosophy with clean, grid-based structure
+ * - MÃ¼ller-Brockmann philosophy with clean, grid-based structure
  * - Hesse philosophy by ensuring mathematical harmony in implementation patterns
  * - Dante philosophy with methodical logging
  * - Kantian ethics by maintaining professional business orientation

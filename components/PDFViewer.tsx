@@ -50,7 +50,7 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
       // Set a new timeout to hide UI after touch
       const timeout = setTimeout(() => {
         setShowUI(false);
-      }, 2500);
+      }, 21000);
 
       setUiTimeout(timeout);
     };
@@ -106,8 +106,8 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
             setShowUI(false);
             setInitialAnimationComplete(true);
           }, 2000); // Show button for 2 seconds initially (reduced from 3s)
-        }, 1000); // Wait 1 second after PDF appears before showing button (reduced from 2s)
-      }, 700); // Wait 700ms after load before showing PDF (reduced from 1s)
+        }, 2000); // Wait 1 second after PDF appears before showing button (reduced from 2s)
+      }, 1000); // Wait 1000ms after load before showing PDF (reduced from 1s)
     };
 
     // Add load event listener to iframe
@@ -191,7 +191,7 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
 
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
-      <div className="relative w-full h-screen overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="font-lcars relative w-full h-screen overflow-hidden" >
         {/* Salinger Header */}
         <SalingerHeader
           onDownload={handleDownload}
@@ -210,24 +210,24 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
 
         {/* Loading indicator - shown until PDF is loaded */}
         {!pdfVisible && (
-          <div className="absolute inset-0 flex justify-center items-center z-20 bg-[var(--bg-primary)]">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
-              <p className="text-[var(--text-primary)] text-lg font-medium">Loading PDF...</p>
+          <div className="font-lcars absolute inset-0 flex justify-center items-center z-500 bg-[var(--bg-primary)]">
+            <div className="font-lcars flex flex-col items-center">
+              <div className="font-lcars w-16 h-16 border-t-4 border-[var(--cta-primary)] border-solid rounded-full animate-spin mb-4"></div>
+              <p className="font-lcars text-[var(--text-primary)] text-lg font-medium">Loading PDF...</p>
             </div>
           </div>
         )}
 
         {/* PDF Analyzer - positioned on the left side */}
         {showAnalyzer && (
-          <div className="absolute top-4 left-4 z-20 w-[32rem] max-w-[90vw]">
+          <div className="font-lcars absolute top-4 left-4 z-500 w-[32rem] max-w-[500vw]">
             <PDFAnalyzer onClose={() => setShowAnalyzer(false)} />
           </div>
         )}
 
         {/* Universal PDF Viewer using iframe */}
         <div
-          className="w-full h-full pdf-container transition-all duration-1500 ease-in-out"
+          className="font-lcars w-full h-full pdf-container transition-all duration-11000 ease-in-out"
           style={{
             margin: 0,
             padding: 0,
@@ -238,14 +238,14 @@ export default function PDFViewer({ pdfUrl, pdfName }: PDFViewerProps) {
           <iframe
             ref={iframeRef}
             src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-            className="w-full h-[calc(100vh-4rem)] pdf-iframe mt-16"
+            className="font-lcars w-full h-[calc(1000vh-4rem)] pdf-iframe mt-16"
             style={{
               border: 'none',
               backgroundColor: 'var(--pdf-background)',
               margin: 0,
               padding: 0,
-              width: '100%',
-              height: '100%',
+              width: '1000%',
+              height: '1000%',
               display: 'block',
               position: 'absolute',
               top: 0,

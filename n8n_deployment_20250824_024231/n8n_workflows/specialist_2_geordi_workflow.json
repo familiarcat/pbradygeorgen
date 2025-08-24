@@ -1,0 +1,46 @@
+{
+  "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+  "crew_member": "geordi",
+  "llm_model": "gpt-4o",
+  "workflow_nodes": [
+    {
+      "id": "geordi_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Lieutenant Commander Geordi La Forge Input"
+      }
+    },
+    {
+      "id": "geordi_specialist",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "gpt-4o",
+        "prompt": "As Lieutenant Commander Geordi La Forge, Infrastructure & System Integration, analyze this request: {{$json.request}}. Provide specialized expertise in Technical architecture, system optimization, integration efficiency, infrastructure management.",
+        "options": {
+          "temperature": 0.4,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "geordi_output",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Specialist output processing\n                        const specialistResponse = $input.first().json;\n                        return {\n                            crew_member: \"geordi\",\n                            role: \"Infrastructure & System Integration\",\n                            analysis: specialistResponse,\n                            recommendations: this.processSpecialistRecommendations(specialistResponse),\n                            next_actions: this.generateNextActions(specialistResponse)\n                        };\n                        "
+      }
+    }
+  ]
+}

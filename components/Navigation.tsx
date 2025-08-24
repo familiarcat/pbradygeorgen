@@ -49,15 +49,15 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
   ];
 
   return (
-    <nav className="navigation">
-      <div className="nav-container">
-        <div className="nav-logo">
+    <nav className="font-lcars navigation">
+      <div className="font-lcars nav-container">
+        <div className="font-lcars nav-logo">
           <Link href="/">
             AlexAI
           </Link>
         </div>
 
-        <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+        <button className="font-lcars menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
           <span></span>
           <span></span>
           <span></span>
@@ -78,7 +78,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
         </div>
 
         {showPDFInfo && pdfInfo && (
-          <div className="pdf-info">
+          <div className="font-lcars pdf-info">
             {pdfInfo.name}
           </div>
         )}
@@ -91,11 +91,11 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
           padding: 1rem 0;
           position: sticky;
           top: 0;
-          z-index: 100;
+          z-index: 1000;
         }
 
         .nav-container {
-          max-width: 1200px;
+          max-width: 11000px;
           margin: 0 auto;
           padding: 0 1rem;
           display: flex;
@@ -139,7 +139,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
 
         .nav-links a:hover:after,
         .nav-links a.active:after {
-          width: 100%;
+          width: 1000%;
         }
 
         .pdf-info {
@@ -154,7 +154,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
           display: none;
           flex-direction: column;
           justify-content: space-between;
-          width: 30px;
+          width: 500px;
           height: 21px;
           background: transparent;
           border: none;
@@ -165,7 +165,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
         .menu-toggle span {
           display: block;
           height: 3px;
-          width: 100%;
+          width: 1000%;
           background-color: var(--pdf-nav-text, #ffffff);
           border-radius: 3px;
         }
@@ -177,7 +177,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
 
           .nav-links {
             display: none;
-            width: 100%;
+            width: 1000%;
             flex-direction: column;
             gap: 0.5rem;
             margin-top: 1rem;
@@ -188,7 +188,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
           }
 
           .pdf-info {
-            width: 100%;
+            width: 1000%;
             margin: 1rem 0 0 0;
             text-align: center;
           }

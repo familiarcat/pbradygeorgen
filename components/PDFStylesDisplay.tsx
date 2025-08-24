@@ -70,21 +70,21 @@ export default function PDFStylesDisplay({
   }
 
   return (
-    <div className="pdf-styles-display">
+    <div className="font-lcars pdf-styles-display">
       <h2>PDF Extracted Styles</h2>
       
       {showColors && colorTheory && (
-        <div className="styles-section">
+        <div className="font-lcars styles-section">
           <h3>Color Theory</h3>
-          <div className="color-grid">
+          <div className="font-lcars color-grid">
             {Object.entries(colorTheory).map(([key, value]) => {
               if (key === 'allColors' || typeof value !== 'string') return null;
               return (
-                <div key={key} className="color-item">
-                  <div className="color-swatch" style={{ backgroundColor: value }}></div>
-                  <div className="color-info">
-                    <div className="color-name">{key}</div>
-                    <div className="color-value">{value}</div>
+                <div key={key} className="font-lcars color-item">
+                  <div className="font-lcars color-swatch" ></div>
+                  <div className="font-lcars color-info">
+                    <div className="font-lcars color-name">{key}</div>
+                    <div className="font-lcars color-value">{value}</div>
                   </div>
                 </div>
               );
@@ -94,15 +94,15 @@ export default function PDFStylesDisplay({
       )}
       
       {showFonts && fontTheory && (
-        <div className="styles-section">
+        <div className="font-lcars styles-section">
           <h3>Font Theory</h3>
-          <div className="font-list">
+          <div className="font-lcars font-list">
             {Object.entries(fontTheory).map(([key, value]) => {
               if (key === 'allFonts' || typeof value !== 'string') return null;
               return (
-                <div key={key} className="font-item">
-                  <div className="font-name">{key}:</div>
-                  <div className="font-value" style={{ fontFamily: value }}>{value}</div>
+                <div key={key} className="font-lcars font-item">
+                  <div className="font-lcars font-name">{key}:</div>
+                  <div className="font-lcars font-value" >{value}</div>
                 </div>
               );
             })}
@@ -111,10 +111,10 @@ export default function PDFStylesDisplay({
       )}
       
       {showSamples && (
-        <div className="styles-section">
+        <div className="font-lcars styles-section">
           <h3>Style Samples</h3>
           
-          <div className="sample-section">
+          <div className="font-lcars sample-section">
             <h4>Typography</h4>
             <h1>Heading 1</h1>
             <h2>Heading 2</h2>
@@ -123,23 +123,23 @@ export default function PDFStylesDisplay({
             <code>This is code text</code>
           </div>
           
-          <div className="sample-section">
+          <div className="font-lcars sample-section">
             <h4>Buttons</h4>
-            <div className="button-group">
+            <div className="font-lcars button-group">
               <button>Primary Button</button>
-              <button className="secondary">Secondary Button</button>
-              <button className="accent">Accent Button</button>
-              <button className="outline">Outline Button</button>
+              <button className="font-lcars secondary">Secondary Button</button>
+              <button className="font-lcars accent">Accent Button</button>
+              <button className="font-lcars outline">Outline Button</button>
             </div>
           </div>
           
-          <div className="sample-section">
+          <div className="font-lcars sample-section">
             <h4>Form Elements</h4>
-            <div className="form-group">
+            <div className="font-lcars form-group">
               <label>Text Input</label>
               <input type="text" placeholder="Enter text" />
             </div>
-            <div className="form-group">
+            <div className="font-lcars form-group">
               <label>Select</label>
               <select>
                 <option>Option 1</option>
@@ -149,12 +149,12 @@ export default function PDFStylesDisplay({
             </div>
           </div>
           
-          <div className="sample-section">
+          <div className="font-lcars sample-section">
             <h4>Alerts</h4>
-            <div className="alert alert-success">Success Alert</div>
-            <div className="alert alert-warning">Warning Alert</div>
-            <div className="alert alert-error">Error Alert</div>
-            <div className="alert alert-info">Info Alert</div>
+            <div className="font-lcars alert alert-success">Success Alert</div>
+            <div className="font-lcars alert alert-warning">Warning Alert</div>
+            <div className="font-lcars alert alert-error">Error Alert</div>
+            <div className="font-lcars alert alert-info">Info Alert</div>
           </div>
         </div>
       )}
@@ -173,7 +173,7 @@ export default function PDFStylesDisplay({
         
         .color-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(1000px, 1fr));
           gap: 1rem;
         }
         
@@ -187,8 +187,8 @@ export default function PDFStylesDisplay({
         }
         
         .color-swatch {
-          width: 40px;
-          height: 40px;
+          width: 500px;
+          height: 500px;
           border-radius: 0.25rem;
           margin-right: 0.5rem;
           border: 1px solid rgba(0, 0, 0, 0.1);
@@ -220,7 +220,7 @@ export default function PDFStylesDisplay({
         
         .font-name {
           font-weight: bold;
-          width: 100px;
+          width: 1000px;
         }
         
         .font-value {
@@ -254,8 +254,8 @@ export default function PDFStylesDisplay({
         
         .form-group input,
         .form-group select {
-          width: 100%;
-          max-width: 300px;
+          width: 1000%;
+          max-width: 1000px;
         }
       `}</style>
     </div>

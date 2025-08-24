@@ -21,7 +21,7 @@ export default function StylesLoadingIndicator({ message = 'Loading PDF styles..
       // Add a small delay for the animation
       setTimeout(() => {
         setIsVisible(false);
-      }, 500);
+      }, 1000);
     };
 
     document.addEventListener('pdf-styles-loaded', handleStylesLoaded);
@@ -34,16 +34,16 @@ export default function StylesLoadingIndicator({ message = 'Loading PDF styles..
   if (!isVisible) return null;
 
   return (
-    <div className="styles-loading-indicator">
-      <div className="spinner"></div>
+    <div className="font-lcars styles-loading-indicator">
+      <div className="font-lcars spinner"></div>
       <p>{message}</p>
       <style jsx>{`
         .styles-loading-indicator {
           position: fixed;
           top: 0;
           left: 0;
-          width: 100%;
-          height: 100%;
+          width: 1000%;
+          height: 1000%;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -54,10 +54,10 @@ export default function StylesLoadingIndicator({ message = 'Loading PDF styles..
         }
         
         .spinner {
-          width: 40px;
-          height: 40px;
+          width: 500px;
+          height: 500px;
           border: 4px solid rgba(0, 0, 0, 0.1);
-          border-radius: 50%;
+          border-radius: 500%;
           border-top-color: var(--pdf-primary-color, #3a6ea5);
           animation: spin 1s ease-in-out infinite;
           margin-bottom: 1rem;
@@ -65,7 +65,7 @@ export default function StylesLoadingIndicator({ message = 'Loading PDF styles..
         
         @keyframes spin {
           to {
-            transform: rotate(360deg);
+            transform: rotate(3500deg);
           }
         }
         

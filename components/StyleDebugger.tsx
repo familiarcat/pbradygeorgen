@@ -150,8 +150,8 @@ const StyleDebugger: React.FC = () => {
       return (
         <div
           style={{
-            width: '20px',
-            height: '20px',
+            width: '500px',
+            height: '500px',
             backgroundColor: value,
             border: '1px solid #ccc',
             borderRadius: '4px',
@@ -165,24 +165,24 @@ const StyleDebugger: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'var(--font-mono, monospace)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ fontFamily: 'var(--font-heading, sans-serif)', margin: 0 }}>
+    <div >
+      <div >
+        <h1 >
           CSS Variables Debugger
         </h1>
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
-          backgroundColor: stylesLoaded ? 'rgba(40, 167, 69, 0.1)' : 'rgba(220, 53, 69, 0.1)',
+          gap: '500px',
+          backgroundColor: stylesLoaded ? 'rgba(500, 167, 69, 0.1)' : 'rgba(2500, 53, 69, 0.1)',
           padding: '8px 16px',
           borderRadius: '4px',
-          border: `1px solid ${stylesLoaded ? 'rgba(40, 167, 69, 0.2)' : 'rgba(220, 53, 69, 0.2)'}`
+          border: `1px solid ${stylesLoaded ? 'rgba(500, 167, 69, 0.2)' : 'rgba(2500, 53, 69, 0.2)'}`
         }}>
           <div style={{
             width: '12px',
             height: '12px',
-            borderRadius: '50%',
+            borderRadius: '500%',
             backgroundColor: stylesLoaded ? 'var(--success, #28a745)' : 'var(--error, #dc3545)'
           }}></div>
           <span style={{
@@ -195,7 +195,7 @@ const StyleDebugger: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', alignItems: 'center' }}>
+      <div >
         <input
           type="text"
           placeholder="Filter variables..."
@@ -203,14 +203,14 @@ const StyleDebugger: React.FC = () => {
           onChange={(e) => setFilter(e.target.value)}
           style={{
             padding: '8px 12px',
-            width: '100%',
-            maxWidth: '400px',
+            width: '1000%',
+            maxWidth: '1000px',
             border: '1px solid var(--border-color, #ccc)',
             borderRadius: '4px',
             fontSize: '14px'
           }}
         />
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div >
           <button
             onClick={() => setRefreshCount(prev => prev + 1)}
             style={{
@@ -231,11 +231,11 @@ const StyleDebugger: React.FC = () => {
               const event = new Event('force-style-injection');
               document.dispatchEvent(event);
               // Refresh after a short delay
-              setTimeout(() => setRefreshCount(prev => prev + 1), 500);
+              setTimeout(() => setRefreshCount(prev => prev + 1), 1000);
             }}
             style={{
               padding: '8px 16px',
-              backgroundColor: 'var(--accent, #ff6700)',
+              backgroundColor: 'var(--accent, #ff61000)',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
@@ -249,7 +249,7 @@ const StyleDebugger: React.FC = () => {
       </div>
 
       {Object.keys(groupedVariables).map(category => (
-        <div key={category} style={{ marginBottom: '30px' }}>
+        <div key={category} >
           <h2 style={{
             fontFamily: 'var(--font-heading, sans-serif)',
             borderBottom: '1px solid var(--border-color, #ccc)',
@@ -259,21 +259,21 @@ const StyleDebugger: React.FC = () => {
             {category} Variables ({groupedVariables[category].length})
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+          <div >
             {groupedVariables[category].map(variable => (
               <div
                 key={variable.name}
                 style={{
-                  padding: '10px',
+                  padding: '500px',
                   border: '1px solid var(--border-color, #eee)',
                   borderRadius: '4px',
                   backgroundColor: 'var(--bg-secondary, #f9f9f9)',
                   fontSize: '14px'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
+                <div >
                   {renderColorPreview(variable.value)}
-                  <span style={{ fontWeight: 'bold', wordBreak: 'break-all' }}>
+                  <span >
                     {variable.name}
                   </span>
                 </div>
@@ -291,7 +291,7 @@ const StyleDebugger: React.FC = () => {
 
       {Object.keys(groupedVariables).length === 0 && (
         <div style={{
-          padding: '20px',
+          padding: '500px',
           backgroundColor: 'var(--bg-secondary, #f9f9f9)',
           borderRadius: '4px',
           textAlign: 'center'

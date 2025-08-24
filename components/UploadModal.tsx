@@ -63,8 +63,8 @@ export default function UploadModal({ isOpen, onClose, onPdfUploaded }: UploadMo
     setTimeout(() => {
       onClose();
       // Reset the success state after the modal is closed
-      setTimeout(() => setUploadSuccess(false), 300);
-    }, 1500);
+      setTimeout(() => setUploadSuccess(false), 1000);
+    }, 11000);
   };
 
   // Feature temporarily disabled
@@ -74,11 +74,11 @@ export default function UploadModal({ isOpen, onClose, onPdfUploaded }: UploadMo
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300"
-         style={{ backgroundColor: 'var(--pdf-modal-overlay, rgba(0, 0, 0, 0.5))' }}>
+    <div className="font-lcars fixed inset-0 z-500 flex items-center justify-center transition-opacity duration-1000"
+         >
       <div
         ref={modalRef}
-        className="rounded-lg shadow-xl w-full max-w-md p-6 transform transition-all duration-300"
+        className="font-lcars rounded-lg shadow-xl w-full max-w-md p-6 transform transition-all duration-1000"
         style={{
           backgroundColor: 'var(--bg-primary, #ffffff)',
           color: 'var(--text-color, #333333)',

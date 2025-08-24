@@ -27,19 +27,19 @@ export default function TaskManager() {
   
   const getRealmEmoji = (realm: string) => {
     switch (realm) {
-      case 'inferno': return '🔥';
-      case 'purgatorio': return '⛰️';
-      case 'paradiso': return '✨';
+      case 'inferno': return 'ğŸ”¥';
+      case 'purgatorio': return 'â›°ï¸�';
+      case 'paradiso': return 'âœ¨';
       default: return '';
     }
   };
   
   const getRealmColor = (realm: string) => {
     switch (realm) {
-      case 'inferno': return 'bg-red-50 border-red-200 text-red-800';
-      case 'purgatorio': return 'bg-yellow-50 border-yellow-200 text-yellow-800';
-      case 'paradiso': return 'bg-green-50 border-green-200 text-green-800';
-      default: return 'bg-gray-50 border-gray-200 text-gray-800';
+      case 'inferno': return 'bg-red-500 border-red-1000 text-red-1000';
+      case 'purgatorio': return 'bg-yellow-500 border-yellow-1000 text-yellow-1000';
+      case 'paradiso': return 'bg-green-500 border-green-1000 text-green-1000';
+      default: return 'bg-gray-500 border-gray-1000 text-gray-1000';
     }
   };
   
@@ -72,59 +72,59 @@ export default function TaskManager() {
   
   const getLevelEmoji = (realm: string, level: number) => {
     if (realm === 'inferno') {
-      const emojis = ['🧩', '🔄', '🔋', '💾', '⚡', '⚙️', '🔨', '🔒', '💥'];
-      return emojis[level - 1] || '🔥';
+      const emojis = ['ğŸ§©', 'ğŸ”„', 'ğŸ”‹', 'ğŸ’¾', 'âš¡', 'âš™ï¸�', 'ğŸ”¨', 'ğŸ”’', 'ğŸ’¥'];
+      return emojis[level - 1] || 'ğŸ”¥';
     } else if (realm === 'purgatorio') {
-      const emojis = ['📜', '⏱️', '📊', '🐢', '📦', '🧠', '🛡️'];
-      return emojis[level - 1] || '⛰️';
+      const emojis = ['ğŸ“œ', 'â�±ï¸�', 'ğŸ“Š', 'ğŸ�¢', 'ğŸ“¦', 'ğŸ§ ', 'ğŸ›¡ï¸�'];
+      return emojis[level - 1] || 'â›°ï¸�';
     } else if (realm === 'paradiso') {
-      const emojis = ['✅', '🚀', '😊', '🧠', '🔐', '🌐', '🏛️', '🚢', '💡', '✨'];
-      return emojis[level - 1] || '✨';
+      const emojis = ['âœ…', 'ğŸš€', 'ğŸ˜Š', 'ğŸ§ ', 'ğŸ”�', 'ğŸŒ�', 'ğŸ�›ï¸�', 'ğŸš¢', 'ğŸ’¡', 'âœ¨'];
+      return emojis[level - 1] || 'âœ¨';
     }
     return '';
   };
   
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'todo': return 'bg-gray-100 text-gray-800';
-      case 'in-progress': return 'bg-blue-100 text-blue-800';
-      case 'review': return 'bg-purple-100 text-purple-800';
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'blocked': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'todo': return 'bg-gray-1000 text-gray-1000';
+      case 'in-progress': return 'bg-blue-1000 text-blue-1000';
+      case 'review': return 'bg-purple-1000 text-purple-1000';
+      case 'completed': return 'bg-green-1000 text-green-1000';
+      case 'blocked': return 'bg-red-1000 text-red-1000';
+      default: return 'bg-gray-1000 text-gray-1000';
     }
   };
   
   const getStatusEmoji = (status: string) => {
     switch (status) {
-      case 'todo': return '📋';
-      case 'in-progress': return '🔄';
-      case 'review': return '👀';
-      case 'completed': return '✅';
-      case 'blocked': return '🚫';
+      case 'todo': return 'ğŸ“‹';
+      case 'in-progress': return 'ğŸ”„';
+      case 'review': return 'ğŸ‘€';
+      case 'completed': return 'âœ…';
+      case 'blocked': return 'ğŸš«';
       default: return '';
     }
   };
   
   return (
-    <div className="space-y-8">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4 text-[var(--text-primary, #333)]">
+    <div className="font-lcars space-y-8">
+      <div className="font-lcars bg-white rounded-lg shadow-md p-6">
+        <h2 className="font-lcars text-2xl font-bold mb-4 text-[var(--text-primary, #333)]">
           Task Manager
         </h2>
-        <p className="text-[var(--text-secondary, #666)] mb-6">
+        <p className="font-lcars text-[var(--text-secondary, #666)] mb-6">
           Manage tasks across the three realms of Dante's journey.
         </p>
         
-        <div className="flex flex-wrap gap-4 mb-6">
+        <div className="font-lcars flex flex-wrap gap-4 mb-6">
           <div>
-            <h3 className="text-sm font-medium text-[var(--text-secondary, #666)] mb-2">Filter by Status</h3>
-            <div className="flex flex-wrap gap-2">
+            <h3 className="font-lcars text-sm font-medium text-[var(--text-secondary, #666)] mb-2">Filter by Status</h3>
+            <div className="font-lcars flex flex-wrap gap-2">
               <button
                 onClick={() => handleFilterChange('all')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'all'
-                    ? 'bg-[var(--cta-primary, #0070f3)] text-white'
+                    ? 'bg-[var(--cta-primary, #00500f3)] text-white'
                     : 'bg-[var(--bg-secondary, #f0f0f0)] text-[var(--text-secondary, #666)] hover:bg-[var(--bg-tertiary, #e0e0e0)]'
                 }`}
               >
@@ -134,63 +134,63 @@ export default function TaskManager() {
                 onClick={() => handleFilterChange('todo')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'todo'
-                    ? 'bg-gray-700 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-gray-1000 text-white'
+                    : 'bg-gray-1000 text-gray-1000 hover:bg-gray-1000'
                 }`}
               >
-                📋 To Do
+                ğŸ“‹ To Do
               </button>
               <button
                 onClick={() => handleFilterChange('in-progress')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'in-progress'
-                    ? 'bg-blue-700 text-white'
-                    : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    ? 'bg-blue-1000 text-white'
+                    : 'bg-blue-1000 text-blue-1000 hover:bg-blue-1000'
                 }`}
               >
-                🔄 In Progress
+                ğŸ”„ In Progress
               </button>
               <button
                 onClick={() => handleFilterChange('review')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'review'
-                    ? 'bg-purple-700 text-white'
-                    : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    ? 'bg-purple-1000 text-white'
+                    : 'bg-purple-1000 text-purple-1000 hover:bg-purple-1000'
                 }`}
               >
-                👀 Review
+                ğŸ‘€ Review
               </button>
               <button
                 onClick={() => handleFilterChange('completed')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'completed'
-                    ? 'bg-green-700 text-white'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    ? 'bg-green-1000 text-white'
+                    : 'bg-green-1000 text-green-1000 hover:bg-green-1000'
                 }`}
               >
-                ✅ Completed
+                âœ… Completed
               </button>
               <button
                 onClick={() => handleFilterChange('blocked')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeFilter === 'blocked'
-                    ? 'bg-red-700 text-white'
-                    : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    ? 'bg-red-1000 text-white'
+                    : 'bg-red-1000 text-red-1000 hover:bg-red-1000'
                 }`}
               >
-                🚫 Blocked
+                ğŸš« Blocked
               </button>
             </div>
           </div>
           
           <div>
-            <h3 className="text-sm font-medium text-[var(--text-secondary, #666)] mb-2">Filter by Realm</h3>
-            <div className="flex flex-wrap gap-2">
+            <h3 className="font-lcars text-sm font-medium text-[var(--text-secondary, #666)] mb-2">Filter by Realm</h3>
+            <div className="font-lcars flex flex-wrap gap-2">
               <button
                 onClick={() => handleRealmChange('all')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeRealm === 'all'
-                    ? 'bg-[var(--cta-primary, #0070f3)] text-white'
+                    ? 'bg-[var(--cta-primary, #00500f3)] text-white'
                     : 'bg-[var(--bg-secondary, #f0f0f0)] text-[var(--text-secondary, #666)] hover:bg-[var(--bg-tertiary, #e0e0e0)]'
                 }`}
               >
@@ -200,91 +200,91 @@ export default function TaskManager() {
                 onClick={() => handleRealmChange('inferno')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeRealm === 'inferno'
-                    ? 'bg-red-700 text-white'
-                    : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    ? 'bg-red-1000 text-white'
+                    : 'bg-red-1000 text-red-1000 hover:bg-red-1000'
                 }`}
               >
-                🔥 Inferno
+                ğŸ”¥ Inferno
               </button>
               <button
                 onClick={() => handleRealmChange('purgatorio')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeRealm === 'purgatorio'
-                    ? 'bg-yellow-700 text-white'
-                    : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    ? 'bg-yellow-1000 text-white'
+                    : 'bg-yellow-1000 text-yellow-1000 hover:bg-yellow-1000'
                 }`}
               >
-                ⛰️ Purgatorio
+                â›°ï¸� Purgatorio
               </button>
               <button
                 onClick={() => handleRealmChange('paradiso')}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   activeRealm === 'paradiso'
-                    ? 'bg-green-700 text-white'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    ? 'bg-green-1000 text-white'
+                    : 'bg-green-1000 text-green-1000 hover:bg-green-1000'
                 }`}
               >
-                ✨ Paradiso
+                âœ¨ Paradiso
               </button>
             </div>
           </div>
         </div>
         
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className="font-lcars overflow-x-auto">
+          <table className="font-lcars min-w-full divide-y divide-gray-1000">
+            <thead className="font-lcars bg-gray-500">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="font-lcars px-6 py-3 text-left text-xs font-medium text-gray-1000 uppercase tracking-wider">
                   Task
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="font-lcars px-6 py-3 text-left text-xs font-medium text-gray-1000 uppercase tracking-wider">
                   Realm & Level
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="font-lcars px-6 py-3 text-left text-xs font-medium text-gray-1000 uppercase tracking-wider">
                   Assigned To
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="font-lcars px-6 py-3 text-left text-xs font-medium text-gray-1000 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="font-lcars px-6 py-3 text-left text-xs font-medium text-gray-1000 uppercase tracking-wider">
                   Due Date
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="font-lcars bg-white divide-y divide-gray-1000">
               {filteredTasks.map((task, index) => (
                 <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{task.name}</div>
-                    <div className="text-xs text-gray-500">{task.description}</div>
+                  <td className="font-lcars px-6 py-4 whitespace-nowrap">
+                    <div className="font-lcars text-sm font-medium text-gray-1000">{task.name}</div>
+                    <div className="font-lcars text-xs text-gray-1000">{task.description}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="font-lcars px-6 py-4 whitespace-nowrap">
                     <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRealmColor(task.realm)}`}>
-                      <span className="mr-1">{getRealmEmoji(task.realm)}</span>
+                      <span className="font-lcars mr-1">{getRealmEmoji(task.realm)}</span>
                       {task.realm.charAt(0).toUpperCase() + task.realm.slice(1)}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1 flex items-center">
-                      <span className="mr-1">{getLevelEmoji(task.realm, task.level)}</span>
+                    <div className="font-lcars text-xs text-gray-1000 mt-1 flex items-center">
+                      <span className="font-lcars mr-1">{getLevelEmoji(task.realm, task.level)}</span>
                       {getLevelName(task.realm, task.level)}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-[var(--cta-primary, #0070f3)] flex items-center justify-center text-white text-xs font-medium">
+                  <td className="font-lcars px-6 py-4 whitespace-nowrap">
+                    <div className="font-lcars flex items-center">
+                      <div className="font-lcars flex-shrink-0 h-8 w-8 rounded-full bg-[var(--cta-primary, #00500f3)] flex items-center justify-center text-white text-xs font-medium">
                         {task.assignee.split(' ').map(n => n[0]).join('')}
                       </div>
-                      <div className="ml-3">
-                        <div className="text-sm font-medium text-gray-900">{task.assignee}</div>
+                      <div className="font-lcars ml-3">
+                        <div className="font-lcars text-sm font-medium text-gray-1000">{task.assignee}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="font-lcars px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}>
-                      <span className="mr-1">{getStatusEmoji(task.status)}</span>
+                      <span className="font-lcars mr-1">{getStatusEmoji(task.status)}</span>
                       {task.status.charAt(0).toUpperCase() + task.status.slice(1).replace('-', ' ')}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="font-lcars px-6 py-4 whitespace-nowrap text-sm text-gray-1000">
                     {task.dueDate}
                   </td>
                 </tr>
@@ -294,85 +294,85 @@ export default function TaskManager() {
         </div>
         
         {filteredTasks.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-[var(--text-secondary, #666)]">No tasks match the current filters.</p>
+          <div className="font-lcars text-center py-8">
+            <p className="font-lcars text-[var(--text-secondary, #666)]">No tasks match the current filters.</p>
           </div>
         )}
       </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4 text-[var(--text-primary, #333)]">
+      <div className="font-lcars bg-white rounded-lg shadow-md p-6">
+        <h2 className="font-lcars text-2xl font-bold mb-4 text-[var(--text-primary, #333)]">
           Task Creation Guide
         </h2>
-        <p className="text-[var(--text-secondary, #666)] mb-6">
+        <p className="font-lcars text-[var(--text-secondary, #666)] mb-6">
           How to create tasks using our philosophical framework.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-            <h3 className="flex items-center text-lg font-medium text-red-800 mb-2">
-              <span className="mr-2">🔥</span> Inferno Tasks
+        <div className="font-lcars grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="font-lcars bg-red-500 rounded-lg p-4 border border-red-1000">
+            <h3 className="font-lcars flex items-center text-lg font-medium text-red-1000 mb-2">
+              <span className="font-lcars mr-2">ğŸ”¥</span> Inferno Tasks
             </h3>
-            <p className="text-sm text-red-700 mb-4">
+            <p className="font-lcars text-sm text-red-1000 mb-4">
               Tasks that address challenges, bugs, and technical debt.
             </p>
-            <ul className="space-y-2 text-sm text-red-700">
-              <li className="flex items-start">
-                <span className="text-red-500 mr-2">•</span>
+            <ul className="font-lcars space-y-2 text-sm text-red-1000">
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-red-1000 mr-2">â€¢</span>
                 <span>Focus on fixing what's broken</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-red-1000 mr-2">â€¢</span>
                 <span>Address technical debt</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-red-1000 mr-2">â€¢</span>
                 <span>Resolve security vulnerabilities</span>
               </li>
             </ul>
           </div>
           
-          <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-            <h3 className="flex items-center text-lg font-medium text-yellow-800 mb-2">
-              <span className="mr-2">⛰️</span> Purgatorio Tasks
+          <div className="font-lcars bg-yellow-500 rounded-lg p-4 border border-yellow-1000">
+            <h3 className="font-lcars flex items-center text-lg font-medium text-yellow-1000 mb-2">
+              <span className="font-lcars mr-2">â›°ï¸�</span> Purgatorio Tasks
             </h3>
-            <p className="text-sm text-yellow-700 mb-4">
+            <p className="font-lcars text-sm text-yellow-1000 mb-4">
               Tasks that improve existing functionality and processes.
             </p>
-            <ul className="space-y-2 text-sm text-yellow-700">
-              <li className="flex items-start">
-                <span className="text-yellow-500 mr-2">•</span>
+            <ul className="font-lcars space-y-2 text-sm text-yellow-1000">
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-yellow-1000 mr-2">â€¢</span>
                 <span>Refactor code for better maintainability</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-yellow-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-yellow-1000 mr-2">â€¢</span>
                 <span>Optimize performance</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-yellow-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-yellow-1000 mr-2">â€¢</span>
                 <span>Improve documentation</span>
               </li>
             </ul>
           </div>
           
-          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-            <h3 className="flex items-center text-lg font-medium text-green-800 mb-2">
-              <span className="mr-2">✨</span> Paradiso Tasks
+          <div className="font-lcars bg-green-500 rounded-lg p-4 border border-green-1000">
+            <h3 className="font-lcars flex items-center text-lg font-medium text-green-1000 mb-2">
+              <span className="font-lcars mr-2">âœ¨</span> Paradiso Tasks
             </h3>
-            <p className="text-sm text-green-700 mb-4">
+            <p className="font-lcars text-sm text-green-1000 mb-4">
               Tasks that create new value and innovation.
             </p>
-            <ul className="space-y-2 text-sm text-green-700">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">•</span>
+            <ul className="font-lcars space-y-2 text-sm text-green-1000">
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-green-1000 mr-2">â€¢</span>
                 <span>Develop new features</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-green-1000 mr-2">â€¢</span>
                 <span>Enhance user experience</span>
               </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">•</span>
+              <li className="font-lcars flex items-start">
+                <span className="font-lcars text-green-1000 mr-2">â€¢</span>
                 <span>Create innovative solutions</span>
               </li>
             </ul>
