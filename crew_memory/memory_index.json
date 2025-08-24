@@ -1,0 +1,88 @@
+{
+  "crew_operations": [
+    {
+      "operation_id": "op_20250824_044012_deploy_workflow",
+      "timestamp": "2025-08-24T04:40:12.676873",
+      "operation_type": "deploy_workflow",
+      "crew_name": "system",
+      "status": "failed",
+      "file_path": "crew_memory/op_20250824_044012_deploy_workflow.json"
+    },
+    {
+      "operation_id": "op_20250824_044012_add_crew",
+      "timestamp": "2025-08-24T04:40:12.678644",
+      "operation_type": "add_crew",
+      "crew_name": "Test Specialist",
+      "status": "success",
+      "file_path": "crew_memory/op_20250824_044012_add_crew.json"
+    },
+    {
+      "operation_id": "op_20250824_044012_generate_report",
+      "timestamp": "2025-08-24T04:40:12.678864",
+      "operation_type": "generate_report",
+      "crew_name": "system",
+      "status": "success",
+      "file_path": "crew_memory/op_20250824_044012_generate_report.json"
+    },
+    {
+      "operation_id": "op_20250824_044012_remove_crew",
+      "timestamp": "2025-08-24T04:40:12.679063",
+      "operation_type": "remove_crew",
+      "crew_name": "Test Specialist",
+      "status": "success",
+      "file_path": "crew_memory/op_20250824_044012_remove_crew.json"
+    }
+  ],
+  "missions": {
+    "initial-deployment-test": {
+      "timestamp": "2025-08-24T04:40:12.678091",
+      "name": "Integrated Crew System Deployment Test",
+      "mission_type": "project_development",
+      "status": "completed",
+      "crew_size": 5,
+      "file_path": "crew_memory/initial-deployment-test.json"
+    }
+  },
+  "performance_data": {},
+  "learning_patterns": {
+    "crew_operations": {
+      "deploy_workflow": {
+        "total": 1,
+        "successful": 0,
+        "failed": 1
+      },
+      "add_crew": {
+        "total": 1,
+        "successful": 1,
+        "failed": 0
+      },
+      "generate_report": {
+        "total": 1,
+        "successful": 1,
+        "failed": 0
+      },
+      "remove_crew": {
+        "total": 1,
+        "successful": 1,
+        "failed": 0
+      }
+    },
+    "mission_success_factors": {
+      "total_missions": 1,
+      "completed_missions": 1,
+      "mission_types": {
+        "project_development": 1
+      },
+      "crew_size_distribution": {
+        "5": 1
+      }
+    },
+    "performance_trends": {},
+    "optimization_opportunities": [
+      "Improve deploy_workflow operations - current success rate: 0.0%"
+    ],
+    "analysis_timestamp": "2025-08-24T04:40:12.679662"
+  },
+  "optimization_recommendations": {},
+  "last_updated": "2025-08-24T04:40:12.679461"
+}

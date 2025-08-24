@@ -1,0 +1,7 @@
+{
+  "operation": "remove_crew",
+  "crew_name": "Test Specialist",
+  "role": "engineering_specialist",
+  "status": "success",
+  "timestamp": "2025-08-24T04:40:12.679063"
+}

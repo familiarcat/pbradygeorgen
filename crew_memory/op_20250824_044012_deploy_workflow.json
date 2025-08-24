@@ -1,0 +1,8 @@
+{
+  "operation": "deploy_workflow",
+  "crew_name": "system",
+  "role": "deployment",
+  "status": "failed",
+  "error": "{\"message\":\"unauthorized\"}",
+  "timestamp": "2025-08-24T04:40:12.676873"
+}

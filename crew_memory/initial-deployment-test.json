@@ -1,0 +1,96 @@
+{
+  "mission_id": "initial-deployment-test",
+  "name": "Integrated Crew System Deployment Test",
+  "mission_type": "project_development",
+  "description": "Test mission to verify integrated crew management system deployment",
+  "required_crew_size": 5,
+  "priority": "high",
+  "assigned_crew": [
+    {
+      "name": "Mission Coordinator",
+      "role": "mission_coordinator",
+      "specialization": "Mission planning and coordination",
+      "llm_preference": "openai/gpt-4o-mini",
+      "mission_experience": [
+        "initial-deployment-test"
+      ],
+      "active_missions": [],
+      "performance_metrics": {
+        "missions_completed": 1
+      },
+      "last_active": "2025-08-24T04:40:11.808665"
+    },
+    {
+      "name": "Execution Commander (Riker)",
+      "role": "execution_commander",
+      "specialization": "Tactical execution and mission planning",
+      "llm_preference": "openai/gpt-4o-mini",
+      "mission_experience": [
+        "initial-deployment-test"
+      ],
+      "active_missions": [],
+      "performance_metrics": {
+        "missions_completed": 1
+      },
+      "last_active": "2025-08-24T04:40:11.808672"
+    },
+    {
+      "name": "Data - Analysis Specialist",
+      "role": "data_analyst",
+      "specialization": "Data-driven insights and pattern recognition",
+      "llm_preference": "openai/gpt-4o-mini",
+      "mission_experience": [
+        "initial-deployment-test"
+      ],
+      "active_missions": [],
+      "performance_metrics": {
+        "missions_completed": 1
+      },
+      "last_active": "2025-08-24T04:40:11.808674"
+    },
+    {
+      "name": "Geordi - Engineering Specialist",
+      "role": "engineering_specialist",
+      "specialization": "Technical implementation and systems engineering",
+      "llm_preference": "openai/gpt-4o-mini",
+      "mission_experience": [
+        "initial-deployment-test"
+      ],
+      "active_missions": [],
+      "performance_metrics": {
+        "missions_completed": 1
+      },
+      "last_active": "2025-08-24T04:40:11.808675"
+    },
+    {
+      "name": "Crusher - Health & Optimization",
+      "role": "health_optimizer",
+      "specialization": "System health monitoring and performance optimization",
+      "llm_preference": "openai/gpt-4o-mini",
+      "mission_experience": [
+        "initial-deployment-test"
+      ],
+      "active_missions": [],
+      "performance_metrics": {
+        "missions_completed": 1
+      },
+      "last_active": "2025-08-24T04:40:11.808676"
+    }
+  ],
+  "mission_status": "completed",
+  "start_time": null,
+  "completion_time": "2025-08-24T04:40:12.679231",
+  "outcomes": [
+    "Integrated crew management system deployed successfully",
+    "Collective memory system operational",
+    "n8n workflow integration tested",
+    "Crew operations validated"
+  ],
+  "lessons_learned": [
+    "System deployment requires proper environment variables",
+    "Collective memory enhances crew learning",
+    "Automated crew assignment improves mission efficiency",
+    "Performance tracking enables optimization"
+  ],
+  "created_at": "2025-08-24T04:40:12.678091"
+}

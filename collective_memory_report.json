@@ -1,0 +1,29 @@
+{
+  "report_type": "collective_memory_analysis",
+  "generated_at": "2025-08-24T04:40:08.547917",
+  "memory_summary": {
+    "total_crew_operations": 0,
+    "total_missions": 0,
+    "total_crew_members": 0,
+    "learning_patterns": 5,
+    "last_updated": "2025-08-24T04:40:08.547602"
+  },
+  "learning_patterns": {
+    "crew_operations": {},
+    "mission_success_factors": {
+      "total_missions": 0,
+      "completed_missions": 0,
+      "mission_types": {},
+      "crew_size_distribution": {}
+    },
+    "performance_trends": {},
+    "optimization_opportunities": [
+      "System performing optimally - no immediate changes needed"
+    ],
+    "analysis_timestamp": "2025-08-24T04:40:08.547807"
+  },
+  "optimization_recommendations": [
+    "System performing optimally - no immediate changes needed"
+  ],
+  "crew_specific_recommendations": {}
+}
