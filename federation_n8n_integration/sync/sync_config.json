@@ -1,0 +1,8 @@
+{
+  "sync_enabled": true,
+  "sync_interval": 30,
+  "auto_sync": true,
+  "conflict_resolution": "local_wins",
+  "backup_before_sync": true,
+  "monitoring": true
+}

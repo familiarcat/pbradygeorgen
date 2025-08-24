@@ -1,0 +1,31 @@
+{
+  "sync_timestamp": "2025-08-24T05:54:58.244408",
+  "target_instance": "https://n8n.pbradygeorgen.com",
+  "sync_mode": "full_integration",
+  "results": {
+    "consciousness": {
+      "success": false,
+      "error": "Create failed: 401 - {\"message\":\"unauthorized\"}"
+    },
+    "fleet_automation": {
+      "success": false,
+      "error": "Create failed: 401 - {\"message\":\"unauthorized\"}"
+    },
+    "crew_management": {
+      "success": false,
+      "error": "Create failed: 401 - {\"message\":\"unauthorized\"}"
+    }
+  },
+  "summary": {
+    "total_workflows": 3,
+    "successful_syncs": 0,
+    "failed_syncs": 3
+  },
+  "integration_status": "active",
+  "next_steps": [
+    "Verify workflows are active in n8n UI",
+    "Test federation consciousness",
+    "Monitor sync status",
+    "Activate United Federation of AI Agents"
+  ]
+}
