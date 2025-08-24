@@ -9,13 +9,13 @@
 ## 🔐 Step 1: OpenRouter Credential Setup
 
 ### Option A: Manual Creation (Recommended)
-1. Open **https://n8n.pbradygeorgen.com**
+1. Open **{N8N_URL}**
 2. Go to **Settings → Credentials**
 3. Click **'Add Credential'**
 4. Select **'OpenAI'** as the credential type
 5. Configure:
    - **Name**: `OpenRouter API`
-   - **API Key**: `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`
+   - **API Key**: `{OPENROUTER_API_KEY}` (from your ~/.zshrc)
    - **Base URL**: `https://openrouter.ai/api/v1`
 6. **Save the credential**
 
@@ -28,7 +28,7 @@ The credential has been automatically created via SSH at:
 ### Option A: Import Comprehensive Workflow (Recommended)
 1. Go to **Workflows** in n8n UI
 2. Click **'Import from file'**
-3. Import: `ultimate_import_ready/comprehensive_crew_workflow.json`
+3. Import: `ultimate_import_ready/complete_comprehensive_crew_workflow.json`
 4. **Activate the workflow**
 
 ### Option B: Import Individual Crew Members
@@ -38,9 +38,9 @@ Import each file from `ultimate_import_ready/enhanced_*.json`
 
 ### Test Webhook Endpoint
 ```bash
-curl -X POST https://n8n.pbradygeorgen.com/webhook/alexai-crew-mission \
-  -H "Content-Type: application/json" \
-  -d '{"mission_description": "Test mission", "mission_id": "test-001"}'
+curl -X POST {N8N_URL}/webhook/alexai-crew-mission \\
+  -H "Content-Type: application/json" \\
+  -d '{{"mission_description": "Test mission", "mission_id": "test-001"}}'
 ```
 
 ## 📊 Crew Member Details
@@ -78,6 +78,12 @@ curl -X POST https://n8n.pbradygeorgen.com/webhook/alexai-crew-mission \
 - ✅ Workflow status shows as "Active"
 - ✅ Webhook endpoint responds to test requests
 - ✅ All crew member nodes are properly connected
+
+## 🔒 Security Note
+**NEVER commit API keys to version control!**
+- Use environment variables in ~/.zshrc
+- Reference them as {VARIABLE_NAME} in templates
+- Keep sensitive configuration files out of public repositories
 
 ## 📞 Support
 This deployment was automated using the Ultimate Hybrid Deployment System.
