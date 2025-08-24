@@ -91,7 +91,7 @@ deployment_config.json
 n8n_openrouter_config.json
 
 # Security - API Keys and Secrets
-*.md
+# *.md  # Allow markdown files for documentation
 deployment_*
 n8n_deployment_*
 ULTIMATE_*
