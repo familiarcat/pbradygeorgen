@@ -1,0 +1,54 @@
+{
+  "memory_id": "git_deployment_best_practices_001",
+  "memory_type": "deployment_best_practices",
+  "timestamp": "2025-08-24T04:58:00Z",
+  "category": "git_operations",
+  "title": "Git Command Best Practices - Avoiding cmdand dquote> Lock",
+  
+  "issue_encountered": {
+    "problem": "cmdand dquote> process lock during git commit",
+    "description": "When using complex multi-line commit messages with quotes in git commands, the process can lock up with 'cmdand dquote>' prompt, requiring manual intervention to exit",
+    "root_cause": "Complex multi-line commit messages with nested quotes can confuse the shell parser",
+    "impact": "Blocks deployment process, requires manual intervention, delays milestone pushes"
+  },
+  
+  "solution_implemented": {
+    "approach": "Use simple, single-line commit messages",
+    "pattern": "git commit -m \"🚀 MILESTONE: Brief descriptive message\"",
+    "avoid": "Multi-line commit messages with complex formatting",
+    "benefit": "Clean, fast commits without shell parsing issues"
+  },
+  
+  "best_practices": [
+    "Keep git commit messages simple and single-line",
+    "Avoid nested quotes in commit messages",
+    "Use emojis for visual clarity without complexity",
+    "Test commit commands before running in deployment scripts",
+    "Have fallback commit message templates ready"
+  ],
+  
+  "deployment_script_requirements": [
+    "Validate commit message format before execution",
+    "Use simple commit message templates",
+    "Include error handling for git operations",
+    "Test git commands in isolated environment first",
+    "Document all git command patterns used"
+  ],
+  
+  "lessons_learned": [
+    "Shell parsing can be unpredictable with complex strings",
+    "Simple is better than complex for deployment automation",
+    "Always test git commands before including in scripts",
+    "Keep deployment processes robust and predictable",
+    "Document bad practices to prevent recurrence"
+  ],
+  
+  "related_memories": [
+    "crew_management_system_deployment",
+    "n8n_workflow_deployment",
+    "milestone_commit_process"
+  ],
+  
+  "status": "resolved_and_documented",
+  "prevention_measures": "Added to deployment script requirements and collective memory"
+}
