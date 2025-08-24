@@ -1,0 +1,47 @@
+{
+  "deployment_id": "fleet-automation-20250824-051511",
+  "deployment_type": "fleet_automation_to_n8n",
+  "timestamp": "2025-08-24T05:15:11.806041",
+  "status": "deployment_completed",
+  "deployment_results": {
+    "timestamp": "2025-08-24T05:15:11.396379",
+    "deployment_type": "fleet_automation_to_n8n",
+    "status": "initializing",
+    "workflow_deployment": {
+      "name": "Fleet Automation System",
+      "nodes": 8,
+      "connections": 7,
+      "webhook_path": "fleet-automation",
+      "validation": "passed",
+      "api_deployment": {
+        "status": "failed",
+        "response_code": 401,
+        "error": "{\"message\":\"unauthorized\"}",
+        "attempted_at": "2025-08-24T05:15:11.804837"
+      }
+    },
+    "collective_memory_integration": {},
+    "deployment_steps": [
+      {
+        "step": "import_instructions_created",
+        "status": "success",
+        "file": "FLEET_AUTOMATION_N8N_IMPORT_GUIDE.md",
+        "timestamp": "2025-08-24T05:15:11.806016"
+      }
+    ]
+  },
+  "fleet_automation_features": [
+    "Multi-level crew management (fleet, project, mission)",
+    "Automated crew assignment scripts",
+    "Fleet status reporting",
+    "Workflow deployment automation",
+    "Collective memory integration"
+  ],
+  "next_steps": [
+    "Import fleet_automation_workflow.json to n8n",
+    "Activate Fleet Automation System workflow",
+    "Test fleet operations via webhooks",
+    "Integrate with existing crew management",
+    "Scale fleet operations as needed"
+  ]
+}
