@@ -1,0 +1,17 @@
+import { keyframes } from 'styled-components';
+
+export const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+export const slideLeft = keyframes`
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+`;
+
+export const pulse = keyframes`
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+`;

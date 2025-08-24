@@ -1,0 +1,13 @@
+lcars24_integration_bundle/
+lcars24_integration_bundle//integrate_lcars24.sh
+lcars24_integration_bundle//.DS_Store
+lcars24_integration_bundle//lcars-token-map.ts
+lcars24_integration_bundle//lcars-animations.ts
+lcars24_integration_bundle//apply_lcars24_patch.sh
+lcars24_integration_bundle//styles
+lcars24_integration_bundle//components
+lcars24_integration_bundle//lcars24-components-readme.md
+lcars24_integration_bundle//lcars24-components.tsx
+lcars24_integration_bundle//tokens
+lcars24_integration_bundle//animations
+lcars24_integration_bundle//animations/lcars-animations.ts

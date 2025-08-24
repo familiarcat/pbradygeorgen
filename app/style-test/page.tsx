@@ -45,18 +45,18 @@ export default function StyleTestPage() {
       .then(data => {
         if (data.success && data.userInfo && data.userInfo.email) {
           // Use the email from user_info.json
-          window.location.href = `mailto:${data.userInfo.email}?subject=Style%20Test%20Contact`;
+          window.location.href = `mailto:${data.userInfo.email}?subject=Style%500Test%500Contact`;
           DanteLogger.success.ux('Contact action triggered with extracted email', { email: data.userInfo.email });
         } else {
           // Fallback to a default email if user info is not available
-          window.location.href = 'mailto:contact@example.com?subject=Style%20Test%20Contact';
+          window.location.href = 'mailto:contact@example.com?subject=Style%500Test%500Contact';
           DanteLogger.error.runtime('Contact action triggered with fallback email (user email not found)');
         }
       })
       .catch(error => {
         console.error('Error fetching user info for contact:', error);
         // Fallback to a default email if there's an error
-        window.location.href = 'mailto:contact@example.com?subject=Style%20Test%20Contact';
+        window.location.href = 'mailto:contact@example.com?subject=Style%500Test%500Contact';
         DanteLogger.error.runtime('Error in contact action', { error: error.message });
       });
   };
@@ -67,7 +67,7 @@ export default function StyleTestPage() {
 
   return (
     <DynamicThemeProvider pdfUrl={pdfUrl}>
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-primary, #f6f6f6)' }}>
+      <div className="min-h-screen flex flex-col TODO_REVIEW_TAILWIND" >
         <SalingerHeader
           onDownload={handleDownload}
           onViewSummary={handleViewSummary}
@@ -78,12 +78,12 @@ export default function StyleTestPage() {
 
         <div className="p-8 style-test-container">
           <ScrollFix />
-          <h1 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-color, #333333)', fontFamily: 'var(--font-heading, sans-serif)' }}>
+          <h1 className="text-3xl font-bold mb-6 TODO_REVIEW_TAILWIND" >
             PDF-Driven Styling Test
           </h1>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--pdf-primary-color, #3a6ea5)', fontFamily: 'var(--font-heading, sans-serif)' }}>
+        <h2 className="text-2xl font-bold mb-4 TODO_REVIEW_TAILWIND">
           Typography
         </h2>
         <h1 style={{
@@ -121,45 +121,45 @@ export default function StyleTestPage() {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--pdf-primary-color, #3a6ea5)', fontFamily: 'var(--font-heading, sans-serif)' }}>
+        <h2 className="text-2xl font-bold mb-4">
           Colors
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--pdf-primary-color, #3a6ea5)', color: 'var(--pdf-primary-contrast, #ffffff)' }}>
+          <div className="p-4 rounded shadow-sm">
             --pdf-primary-color
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--pdf-secondary-color, #004e98)', color: 'var(--pdf-secondary-contrast, #ffffff)' }}>
+          <div className="p-4 rounded shadow-sm">
             --pdf-secondary-color
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--pdf-accent-color, #ff6700)', color: 'var(--pdf-accent-contrast, #000000)' }}>
+          <div className="p-4 rounded shadow-sm">
             --pdf-accent-color
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--pdf-background-color, #f6f6f6)', color: 'var(--pdf-text-color, #333333)', border: '1px solid var(--pdf-border-color, #dddddd)' }}>
+          <div className="p-4 rounded shadow-sm">
             --pdf-background-color
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--bg-primary, #ffffff)', color: 'var(--text-color, #333333)', border: '1px solid var(--border-color, #dddddd)' }}>
+          <div className="p-4 rounded shadow-sm">
             --text-color
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--bg-primary, #ffffff)', color: 'var(--text-secondary, #666666)', border: '1px solid var(--border-color, #dddddd)' }}>
+          <div className="p-4 rounded shadow-sm">
             --text-secondary
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--cta-primary-bg, rgba(126, 78, 45, 0.1))', color: 'var(--text-color, #333333)' }}>
+          <div className="p-4 rounded shadow-sm">
             --cta-primary-bg
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--hover-bg, rgba(126, 78, 45, 0.15))', color: 'var(--text-color, #333333)' }}>
+          <div className="p-4 rounded shadow-sm">
             --hover-bg
           </div>
-          <div className="p-4 rounded shadow-sm" style={{ backgroundColor: 'var(--active-bg, rgba(126, 78, 45, 0.2))', color: 'var(--text-color, #333333)' }}>
+          <div className="p-4 rounded shadow-sm">
             --active-bg
           </div>
         </div>
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--pdf-primary-color, #3a6ea5)', fontFamily: 'var(--font-heading, sans-serif)' }}>
+        <h2 className="text-2xl font-bold mb-4">
           UI Elements
         </h2>
         <div className="space-y-4">
@@ -188,7 +188,7 @@ export default function StyleTestPage() {
             <button
               className="mr-2 mb-2 px-4 py-2 rounded transition-all"
               style={{
-                backgroundColor: 'var(--pdf-accent-color, #ff6700)',
+                backgroundColor: 'var(--pdf-accent-color, #ff61000)',
                 color: 'var(--pdf-accent-contrast, #000000)',
                 fontFamily: 'var(--font-button, sans-serif)'
               }}
@@ -216,10 +216,10 @@ export default function StyleTestPage() {
             boxShadow: 'var(--pdf-card-shadow, 0 4px 6px rgba(0, 0, 0, 0.1))',
             border: '1px solid var(--border-color, #dddddd)'
           }}>
-            <h3 className="font-bold mb-2" style={{ color: 'var(--text-color, #333333)', fontFamily: 'var(--font-heading, sans-serif)' }}>
+            <h3 className="font-bold mb-2">
               Card with PDF Styling
             </h3>
-            <p style={{ color: 'var(--text-secondary, #666666)', fontFamily: 'var(--font-body, serif)' }}>
+            <p>
               This card uses background, shadow, and border colors from the PDF.
               All components in the application should use these theme variables for consistent styling.
             </p>
@@ -228,7 +228,7 @@ export default function StyleTestPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="hover:underline" style={{ color: 'var(--cta-primary, #7E4E2D)' }}>
+        <Link href="/" className="hover:underline">
           Back to Home
         </Link>
       </div>

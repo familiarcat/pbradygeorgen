@@ -64,8 +64,7 @@ export default function EnhancedExtractionPage() {
     return (
       <div className="flex flex-col items-center mr-4 mb-4">
         <div
-          className="w-16 h-16 rounded-md shadow-md mb-2"
-          style={{ backgroundColor: color }}
+          className="w-16 h-16 rounded-md shadow-md mb-2 TODO_REVIEW_TAILWIND"
         />
         <div className="text-xs font-mono">{name}</div>
         <div className="text-xs font-mono">{color}</div>
@@ -79,8 +78,7 @@ export default function EnhancedExtractionPage() {
       <div className="mb-6">
         <h3 className="text-sm font-semibold mb-2">{name}</h3>
         <div
-          className="p-3 border rounded-md"
-          style={{ fontFamily }}
+          className="p-3 border rounded-md TODO_REVIEW_TAILWIND"
         >
           <p className="text-xl mb-2">The quick brown fox jumps over the lazy dog.</p>
           <p className="text-sm">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</p>
@@ -150,10 +148,10 @@ export default function EnhancedExtractionPage() {
           This page displays the results of the enhanced PDF extraction process, including the unified style theme, color palette, and typography system.
         </p>
         <div className="flex space-x-4 mb-4">
-          <Link href="/pdf-styles" className="px-4 py-2 border rounded-md hover:bg-gray-100">
+          <Link href="/pdf-styles" className="px-4 py-2 border rounded-md hover:bg-gray-1000">
             Standard PDF Styles
           </Link>
-          <Link href="/style-debug" className="px-4 py-2 border rounded-md hover:bg-gray-100">
+          <Link href="/style-debug" className="px-4 py-2 border rounded-md hover:bg-gray-1000">
             Style Debugger
           </Link>
         </div>
@@ -164,25 +162,25 @@ export default function EnhancedExtractionPage() {
           <div className="text-lg">Loading extraction data...</div>
         </div>
       ) : error ? (
-        <div className="mb-8 border border-red-300 rounded-md overflow-hidden">
-          <div className="bg-red-50 px-4 py-3 border-b border-red-300">
-            <h2 className="text-lg font-semibold text-red-700">Error Loading Data</h2>
+        <div className="mb-8 border border-red-1000 rounded-md overflow-hidden">
+          <div className="bg-red-500 px-4 py-3 border-b border-red-1000">
+            <h2 className="text-lg font-semibold text-red-1000">Error Loading Data</h2>
           </div>
           <div className="p-4">
             <p>{error}</p>
             <p className="mt-4">
               This could be because the enhanced extraction has not been run yet. Try running the build process with:
             </p>
-            <pre className="bg-gray-100 p-3 rounded-md mt-2">npm run build</pre>
+            <pre className="bg-gray-1000 p-3 rounded-md mt-2">npm run build</pre>
           </div>
         </div>
       ) : (
         <div className="w-full">
-          <div className="mb-6 border-b border-gray-200">
+          <div className="mb-6 border-b border-gray-1000">
             <ul className="flex flex-wrap -mb-px" id="extraction-tabs" role="tablist">
               <li className="mr-2" role="presentation">
                 <button
-                  className="inline-block p-4 border-b-2 border-blue-500 rounded-t-lg active"
+                  className="inline-block p-4 border-b-2 border-blue-1000 rounded-t-lg active"
                   id="unified-tab"
                   type="button"
                   role="tab"
@@ -194,7 +192,7 @@ export default function EnhancedExtractionPage() {
               </li>
               <li className="mr-2" role="presentation">
                 <button
-                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-300"
+                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-1000"
                   id="colors-tab"
                   type="button"
                   role="tab"
@@ -206,7 +204,7 @@ export default function EnhancedExtractionPage() {
               </li>
               <li className="mr-2" role="presentation">
                 <button
-                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-300"
+                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-1000"
                   id="typography-tab"
                   type="button"
                   role="tab"
@@ -218,7 +216,7 @@ export default function EnhancedExtractionPage() {
               </li>
               <li className="mr-2" role="presentation">
                 <button
-                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-300"
+                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-1000"
                   id="components-tab"
                   type="button"
                   role="tab"
@@ -230,7 +228,7 @@ export default function EnhancedExtractionPage() {
               </li>
               <li role="presentation">
                 <button
-                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-300"
+                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:border-gray-1000"
                   id="raw-tab"
                   type="button"
                   role="tab"
@@ -246,9 +244,9 @@ export default function EnhancedExtractionPage() {
           <div id="extraction-content">
             <div className="p-4 rounded-lg bg-white" id="unified" role="tabpanel" aria-labelledby="unified-tab">
               <div className="mb-8 border rounded-md overflow-hidden">
-                <div className="bg-gray-50 px-4 py-3 border-b">
+                <div className="bg-gray-500 px-4 py-3 border-b">
                   <h2 className="text-lg font-semibold">Unified Style Theme</h2>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-1000">
                     A comprehensive style theme extracted from the PDF, combining colors, typography, and component styles.
                   </p>
                 </div>

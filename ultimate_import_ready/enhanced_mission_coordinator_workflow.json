@@ -1,0 +1,60 @@
+{
+  "name": "Mission Coordinator - Strategic Leadership",
+  "active": false,
+  "nodes": [
+    {
+      "id": "mission_input",
+      "type": "n8n-nodes-base.start",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "name": "Mission Input"
+      }
+    },
+    {
+      "id": "picard_analysis",
+      "type": "n8n-nodes-base.openAi",
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "authentication": "openRouter",
+        "model": "gpt-4o-mini",
+        "prompt": "As Captain Picard, analyze this mission: {{$json.mission_description}}. Provide strategic assessment, crew allocation recommendations, and risk analysis.",
+        "options": {
+          "temperature": 0.3,
+          "maxTokens": 1000
+        }
+      }
+    },
+    {
+      "id": "crew_allocation",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "\n                        // Crew allocation logic based on mission requirements\n                        const mission = $input.first().json;\n                        const crewMembers = [\"picard\",\"riker\",\"data\",\"geordi\",\"crusher\",\"worf\",\"troi\",\"uhura\",\"quark\"];\n                        \n                        // Determine which crew members to activate\n                        const requiredCrew = this.analyzeMissionRequirements(mission, crewMembers);\n                        \n                        return {\n                            mission_analysis: mission,\n                            crew_allocation: requiredCrew,\n                            next_steps: this.generateNextSteps(requiredCrew)\n                        };\n                        "
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": [
+    "AlexAI",
+    "Crew",
+    "Optimized"
+  ],
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "alexai-optimized-crew"
+  }
+}

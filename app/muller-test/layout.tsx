@@ -21,7 +21,7 @@ export default function MullerTestLayout({
   }, []);
 
   return (
-    <div className="muller-test-layout" style={{ overflow: 'auto', minHeight: '100vh' }}>
+    <div className="muller-test-layout TODO_REVIEW_TAILWIND">
       {children}
     </div>
   );

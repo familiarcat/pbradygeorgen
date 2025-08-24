@@ -1,73 +1,78 @@
 # Benjamin Stein
 
-+1 (314)-809-1836 | benjaminsteinstl@gmail.com | St. Louis, MO
+**Contact Information:**
+- +1 (314)-809-1836
+- benjaminsteinstl@gmail.com
+- St. Louis, MO
 
 ---
 
-## Professional Summary
-
-Highly skilled Clinical Informatics Specialist with over a decade of experience in managing EHR systems, providing IT support, and facilitating training programs within healthcare settings. Adept at analyzing clinical data, ensuring HIPAA compliance, and optimizing information systems to enhance patient care. Proven track record of successfully implementing and maintaining EMR systems and leading cross-functional teams to achieve operational excellence.
+**Professional Summary:**
+Experienced Clinical Informatics Specialist with a proven track record of effectively managing EHR systems, providing training, and leading implementation projects. Skilled in analyzing EMR data, ensuring HIPAA compliance, and optimizing clinical workflows. Adept at utilizing Epic, Cerner, and Meditech to enhance healthcare operations. 
 
 ---
 
-## Work Experience
+**Work Experience:**
 
-### Homer G. Phillips Memorial Hospital
 **Clinical Informatics Specialist**  
-1320 N Jefferson Ave, St. Louis, MO  
-MAR 2023 - Current
+Homer G. Phillips Memorial Hospital, St. Louis, MO  
+*(Mar 2023 - Present)*
 
-- Solely responsible for all systems and technologies at the hospital, including implementation, maintenance, and training of the web-based EHR system (Thrive), Google Enterprise, and various IT tools.
-- Managed on/off-boarding processes for office and clinical users, configured securities, and communicated with third-party vendors.
-- Conducted troubleshooting analysis related to EMR, network, interfaces, PCs, hardware, and web applications, ensuring seamless operations.
+- Spearheaded the implementation and maintenance of the web-based EHR system "Thrive" and other key technologies.
+- Managed on/off-boarding processes for office and clinical users, configuring security settings and permissions effectively.
+- Collaborated with third-party vendors to troubleshoot and resolve issues related to EMR, network, and hardware.
+- Generated and customized reports using TruBridge Report Builder to support data-driven decision-making.
 
-### Shriners Hospital for Children
 **Clinical Analyst II**  
-4400 Clayton Ave, St. Louis, MO  
-MAR 2018 - MAR 2023
+Shriners Hospital for Children, St. Louis, MO  
+*(Mar 2018 - Mar 2023)*
 
-- Led the implementation of new functionalities within the Cerner suite, providing training to clinical staff and designing reports in SAP Business Objects.
-- Tracked ticket issues using Service Now, maintained PC maintenance schedules, and managed user sessions with Citrix Desktop Director.
+- Led the implementation of new functionalities within the Cerner suite, enhancing clinical staff efficiency.
+- Provided training and support for newly onboarded clinical staff, ensuring seamless integration.
+- Designed and interpreted reports using SAP Business Objects to extract actionable insights.
+- Managed user sessions with Citrix Desktop Director, ensuring smooth operations across the hospital.
 
-### Advanced ICU Care
 **Clinical Analyst I**  
-1 Cityplace Dr Suite 570, St. Louis, MO  
-APR 2012 - FEB 2015
+Advanced ICU Care, St. Louis, MO  
+*(Apr 2012 - Feb 2015)*
 
-- Provided 24x7 IT support for clinical staff, handling hardware and OS issues, integrating health information systems, and managing HL7 messages.
-- Supported remote clinical staff via Simple-Help remote desktop, configured virtual A/V servers, and ensured seamless eCare integration.
+- Offered 24x7 IT support to clinical staff, resolving hardware, OS, and application issues promptly.
+- Monitored and maintained health information integration engines like Corepoint and Rapsody/Orion.
+- Provided remote support to clinical staff in different locations via Simple-Help remote desktop solutions.
+- Configured virtual A/V servers such as Vidyo and STI to facilitate telemedicine services.
 
 ---
 
-## Skills
+**Skills:**
 
-### Technical Skills
-- EHR Systems Implementation
-- EMR Troubleshooting
-- Clinical Data Analysis
+**Technical Skills:**
+- EHR Systems Management
+- EMR Analysis
+- Epic, Cerner, Meditech
 - HIPAA Compliance
-- HL7 Messaging
-- IT Systems Management
+- HL7 Standards
 
-### Soft Skills
+**Soft Skills:**
+- Training and Development
 - Team Leadership
-- Training & Development
-- Communication
 - Problem-Solving
-- Time Management
+- Communication Skills
 
 ---
 
-## Education
+**Education:**
 
-- **Ranken Technical College**
-  - Network & Database Administration, 2010 - 2012
+**Ranken Technical College**  
+Network & Database Administration  
+2010 - 2012
 
-- **St. Louis Community College**
-  - Graphic Communications, 2002 - 2005
+**St. Louis Community College**  
+Graphic Communications  
+2002 - 2005
 
-## Certifications
+---
 
+**Certifications:**
 - M.C.T.S - Windows XP
 - M.C.T.S - VISTA
 - M.C.T.S - Server 08 R2

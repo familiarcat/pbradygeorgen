@@ -21,7 +21,7 @@ export default function StyleTestLayout({
   }, []);
 
   return (
-    <div className="style-test-layout" style={{ overflow: 'auto', minHeight: '100vh' }}>
+    <div className="style-test-layout" >
       {children}
     </div>
   );

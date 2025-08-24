@@ -46,9 +46,9 @@ export default function ClientSideVariables() {
   }, []);
 
   return (
-    <div className="mt-8 p-4 rounded" style={{ backgroundColor: 'var(--pdf-info-color, #17a2b8)', color: '#fff' }}>
+    <div className="mt-8 p-4 rounded TODO_REVIEW_TAILWIND">
       <h3 className="font-bold mb-2">Current CSS Variables</h3>
-      <pre className="text-xs overflow-auto" style={{ maxHeight: '300px' }}>
+      <pre className="text-xs overflow-auto TODO_REVIEW_TAILWIND">
 {`
 /* Color Variables */
 --pdf-primary-color: ${cssVars.primary}

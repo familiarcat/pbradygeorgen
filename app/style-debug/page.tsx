@@ -18,10 +18,10 @@ const StyleDebugPage: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div >
       <h1 style={{ 
         fontFamily: 'var(--font-heading, sans-serif)',
-        marginBottom: '20px',
+        marginBottom: '500px',
         color: 'var(--text-color, #333)'
       }}>
         AlexAI Style Debugging
@@ -29,9 +29,9 @@ const StyleDebugPage: React.FC = () => {
       
       <p style={{ 
         fontFamily: 'var(--font-body, sans-serif)',
-        marginBottom: '20px',
+        marginBottom: '500px',
         color: 'var(--text-color, #333)',
-        maxWidth: '800px',
+        maxWidth: '1000px',
         lineHeight: '1.6'
       }}>
         This page shows all CSS variables currently set on the :root element, grouped by category.
@@ -44,12 +44,12 @@ const StyleDebugPage: React.FC = () => {
         padding: '15px',
         backgroundColor: 'var(--bg-secondary, #f5f5f5)',
         borderRadius: '4px',
-        marginBottom: '30px',
+        marginBottom: '500px',
         border: '1px solid var(--border-color, #ddd)'
       }}>
         <h2 style={{ 
           fontFamily: 'var(--font-heading, sans-serif)',
-          marginBottom: '10px',
+          marginBottom: '500px',
           color: 'var(--text-color, #333)',
           fontSize: '1.2rem'
         }}>
@@ -59,7 +59,7 @@ const StyleDebugPage: React.FC = () => {
         <ul style={{ 
           fontFamily: 'var(--font-body, sans-serif)',
           color: 'var(--text-color, #333)',
-          paddingLeft: '20px',
+          paddingLeft: '500px',
           lineHeight: '1.6'
         }}>
           <li>Look for variables with empty or unexpected values</li>

@@ -110,7 +110,7 @@ export default function DocxTestingPage() {
         logToConsole(`Resume DOCX size: ${resumeSize} bytes`);
         logToConsole(`Introduction DOCX size: ${introSize} bytes`);
 
-        if (parseInt(resumeSize || '0') < 1000 || parseInt(introSize || '0') < 1000) {
+        if (parseInt(resumeSize || '0') < 2000 || parseInt(introSize || '0') < 2000) {
           throw new Error('DOCX files are too small, may be invalid');
         }
 
@@ -266,25 +266,25 @@ export default function DocxTestingPage() {
               <div 
                 key={key} 
                 className={`p-4 rounded-lg border ${
-                  test.status === 'success' ? 'border-green-500 bg-green-50' : 
-                  test.status === 'failure' ? 'border-red-500 bg-red-50' : 
-                  'border-yellow-500 bg-yellow-50'
+                  test.status === 'success' ? 'border-green-1000 bg-green-500' : 
+                  test.status === 'failure' ? 'border-red-1000 bg-red-500' : 
+                  'border-yellow-1000 bg-yellow-500'
                 }`}
               >
                 <h3 className="font-semibold mb-2 capitalize">{key} Test</h3>
                 <p className="mb-2">{test.message}</p>
                 {test.details && (
-                  <div className="text-sm bg-white bg-opacity-50 p-2 rounded">
+                  <div className="text-sm bg-white bg-opacity-500 p-2 rounded">
                     {test.details}
                   </div>
                 )}
                 <div className="mt-2 text-sm">
                   Status: {' '}
                   <span className={`font-semibold ${
-                    test.status === 'success' ? 'text-green-600' : 
-                    test.status === 'failure' ? 'text-red-600' : 
-                    test.status === 'running' ? 'text-blue-600' :
-                    'text-gray-600'
+                    test.status === 'success' ? 'text-green-1000' : 
+                    test.status === 'failure' ? 'text-red-1000' : 
+                    test.status === 'running' ? 'text-blue-1000' :
+                    'text-gray-1000'
                   }`}>
                     {test.status.toUpperCase()}
                   </span>
@@ -344,13 +344,13 @@ export default function DocxTestingPage() {
                 
                 <div className="flex space-x-4">
                   <button
-                    className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                    className="px-4 py-2 bg-green-1000 text-white rounded hover:bg-green-1000 transition-colors"
                     onClick={() => handleStylingTest(true, 'Styling verified manually by user')}
                   >
                     Styling Works ✅
                   </button>
                   <button
-                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                    className="px-4 py-2 bg-red-1000 text-white rounded hover:bg-red-1000 transition-colors"
                     onClick={() => handleStylingTest(false, 'Styling reported as broken by user')}
                   >
                     Styling Broken ❌
@@ -363,12 +363,12 @@ export default function DocxTestingPage() {
         
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Console Output</h2>
-          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm h-64 overflow-y-auto">
+          <div className="bg-gray-1000 text-gray-1000 p-4 rounded-lg font-mono text-sm h-64 overflow-y-auto">
             {consoleOutput.map((line, index) => (
               <div key={index} className="mb-1">{line}</div>
             ))}
             {consoleOutput.length === 0 && (
-              <div className="text-gray-500">No console output yet...</div>
+              <div className="text-gray-1000">No console output yet...</div>
             )}
           </div>
         </div>

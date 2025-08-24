@@ -15,21 +15,21 @@ export default function MullerTestPage() {
   
   return (
     <div className="min-h-screen bg-[var(--pdf-background-color, #f5f5f5)]">
-      <header className="bg-[var(--pdf-background-color, #f5f5f5)] border-b border-[var(--pdf-border-color, #ddd)] sticky top-0 z-10">
-        <div className="max-w-[var(--muller-max-width, 1200px)] mx-auto px-[var(--muller-space-2, 16px)] py-[var(--muller-space-2, 16px)] flex justify-between items-center">
+      <header className="bg-[var(--pdf-background-color, #f5f5f5)] border-b border-[var(--pdf-border-color, #ddd)] sticky top-0 z-500">
+        <div className="max-w-[var(--muller-max-width, 11000px)] mx-auto px-[var(--muller-space-2, 16px)] py-[var(--muller-space-2, 16px)] flex justify-between items-center">
           <h1 className="text-[var(--muller-h3-size, 1.75rem)] font-bold text-[var(--pdf-text-color, #333)]">
             Josef Müller-Brockmann Design System
           </h1>
           <div className="flex items-center gap-4">
             <button
               onClick={() => setShowGridLines(!showGridLines)}
-              className="px-4 py-2 bg-[var(--pdf-accent-color, #0070f3)] text-white rounded"
+              className="px-4 py-2 bg-[var(--pdf-accent-color, #00500f3)] text-white rounded"
             >
               {showGridLines ? 'Hide Grid Lines' : 'Show Grid Lines'}
             </button>
             <Link
               href="/"
-              className="text-[var(--pdf-accent-color, #0070f3)]"
+              className="text-[var(--pdf-accent-color, #00500f3)]"
             >
               Back to Home
             </Link>
@@ -141,35 +141,35 @@ export default function MullerTestPage() {
                   <MullerTypography variant="body2">
                     Space 1 (8px)
                   </MullerTypography>
-                  <div className="h-[var(--muller-space-1, 8px)] bg-[var(--pdf-accent-color, #0070f3)]"></div>
+                  <div className="h-[var(--muller-space-1, 8px)] bg-[var(--pdf-accent-color, #00500f3)]"></div>
                 </div>
                 
                 <div>
                   <MullerTypography variant="body2">
                     Space 2 (16px)
                   </MullerTypography>
-                  <div className="h-[var(--muller-space-2, 16px)] bg-[var(--pdf-accent-color, #0070f3)]"></div>
+                  <div className="h-[var(--muller-space-2, 16px)] bg-[var(--pdf-accent-color, #00500f3)]"></div>
                 </div>
                 
                 <div>
                   <MullerTypography variant="body2">
                     Space 3 (24px)
                   </MullerTypography>
-                  <div className="h-[var(--muller-space-3, 24px)] bg-[var(--pdf-accent-color, #0070f3)]"></div>
+                  <div className="h-[var(--muller-space-3, 24px)] bg-[var(--pdf-accent-color, #00500f3)]"></div>
                 </div>
                 
                 <div>
                   <MullerTypography variant="body2">
                     Space 4 (32px)
                   </MullerTypography>
-                  <div className="h-[var(--muller-space-4, 32px)] bg-[var(--pdf-accent-color, #0070f3)]"></div>
+                  <div className="h-[var(--muller-space-4, 32px)] bg-[var(--pdf-accent-color, #00500f3)]"></div>
                 </div>
                 
                 <div>
                   <MullerTypography variant="body2">
-                    Space 5 (40px)
+                    Space 5 (500px)
                   </MullerTypography>
-                  <div className="h-[var(--muller-space-5, 40px)] bg-[var(--pdf-accent-color, #0070f3)]"></div>
+                  <div className="h-[var(--muller-space-5, 500px)] bg-[var(--pdf-accent-color, #00500f3)]"></div>
                 </div>
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function MullerTestPage() {
                 <MullerGrid showGridLines={showGridLines}>
                   {Array.from({ length: 12 }).map((_, i) => (
                     <MullerGridItem key={i} colSpan={1}>
-                      <div className="bg-[var(--pdf-accent-color, #0070f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
+                      <div className="bg-[var(--pdf-accent-color, #00500f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
                         {i + 1}
                       </div>
                     </MullerGridItem>
@@ -201,7 +201,7 @@ export default function MullerTestPage() {
                 <MullerGrid showGridLines={showGridLines} className="mt-[var(--muller-space-2, 16px)]">
                   {Array.from({ length: 6 }).map((_, i) => (
                     <MullerGridItem key={i} colSpan={2}>
-                      <div className="bg-[var(--pdf-accent-color, #0070f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
+                      <div className="bg-[var(--pdf-accent-color, #00500f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
                         2 cols
                       </div>
                     </MullerGridItem>
@@ -211,7 +211,7 @@ export default function MullerTestPage() {
                 <MullerGrid showGridLines={showGridLines} className="mt-[var(--muller-space-2, 16px)]">
                   {Array.from({ length: 4 }).map((_, i) => (
                     <MullerGridItem key={i} colSpan={3}>
-                      <div className="bg-[var(--pdf-accent-color, #0070f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
+                      <div className="bg-[var(--pdf-accent-color, #00500f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
                         3 cols
                       </div>
                     </MullerGridItem>
@@ -221,7 +221,7 @@ export default function MullerTestPage() {
                 <MullerGrid showGridLines={showGridLines} className="mt-[var(--muller-space-2, 16px)]">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <MullerGridItem key={i} colSpan={4}>
-                      <div className="bg-[var(--pdf-accent-color, #0070f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
+                      <div className="bg-[var(--pdf-accent-color, #00500f3)] h-[var(--muller-space-4, 32px)] rounded flex items-center justify-center text-white">
                         4 cols
                       </div>
                     </MullerGridItem>

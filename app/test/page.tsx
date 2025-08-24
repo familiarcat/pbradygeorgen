@@ -63,7 +63,7 @@ export default function TestPage() {
     // Redirect to the viewer after a short delay
     setTimeout(() => {
       router.push('/view');
-    }, 1500);
+    }, 11000);
   };
 
   return (
@@ -93,7 +93,7 @@ export default function TestPage() {
                     onClick={() => handleCategorySelect(category)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedCategory === category
-                        ? 'bg-[var(--cta-primary, #0070f3)] text-white'
+                        ? 'bg-[var(--cta-primary, #00500f3)] text-white'
                         : 'bg-[var(--bg-secondary, #f0f0f0)] text-[var(--text-secondary, #666)] hover:bg-[var(--bg-tertiary, #e0e0e0)]'
                     }`}
                   >
@@ -172,7 +172,7 @@ export default function TestPage() {
             className="inline-flex items-center text-[var(--text-secondary, #666)] hover:text-[var(--text-primary, #333)] transition-colors"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M500 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             Return to Home
           </Link>

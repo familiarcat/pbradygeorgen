@@ -1,83 +1,302 @@
 .
-├── .amplify
-│   ├── artifacts
-│   │   └── cdk.out
-│   │       ├── asset.05bff652356d2e3750736d23ec52e556de41597a3f155d13547b91d009ed95ce.vtl
-│   │       ├── asset.06db846fd14e6fc371f22b12b5545ba8e2dbfeda85d8c8d586c71c282166657b.vtl
-│   │       ├── asset.08f4d557693d96c1a4efba0f9dc91330e4b19772fd5477c156468843e3d9cb5e.vtl
-│   │       ├── asset.1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl
-│   │       ├── asset.23df4a10f7743e90a710888ea87205f23d214aad2b34e617221bec49c1d24ebc
-│   │       │   ├── amplify-table-manager-handler.d.ts.map
-│   │       │   ├── amplify-table-manager-handler.js
-│   │       │   ├── amplify-table-manager-handler.js.map
-│   │       │   ├── cfn-response.d.ts.map
-│   │       │   ├── cfn-response.js
-│   │       │   ├── cfn-response.js.map
-│   │       │   ├── import-table.d.ts.map
-│   │       │   ├── import-table.js
-│   │       │   ├── import-table.js.map
-│   │       │   ├── outbound.d.ts.map
-│   │       │   ├── outbound.js
-│   │       │   ├── outbound.js.map
-│   │       │   ├── util.d.ts.map
-│   │       │   ├── util.js
-│   │       │   └── util.js.map
-│   │       ├── asset.245ed8ac5185462a6923b7e45a318fec4c9ba0c45d1d720abd5b20317aa3dc6a.vtl
-│   │       ├── asset.29e4bdb03133f87f2b1acb547959ffd4cfd22804026994c5b61db33084127353.vtl
-│   │       ├── asset.2c08f0103bb9a383792c0c6eecc72a36d4422d54e81123e73c2516e362897553.vtl
-│   │       ├── asset.3c0dca17a8dc9475c31ee353d0d77ac4f6ddbcbfda871875eca624f469257a74
-│   │       │   └── model-schema.graphql
-│   │       ├── asset.474bf0776ec2164a13191d1a0a9e057154931e4918fea5086f49850d02a5371b.vtl
-│   │       ├── asset.4c6a2d29f01c6091bd1d9afe16e5849d456c96f17c3b215938c8067399532719.vtl
-│   │       ├── asset.4f7907d1209a2c9953a0c053df402c634e359546d70c7cc5c2e8e21ea734880f.vtl
-│   │       ├── asset.4fe0aba5e672b596d0f72505a9eec502f98d46906bb30fae2511fbdc1df4956f
-│   │       │   └── index.py
-│   │       ├── asset.766e92a9e64188f1de3add52afc14855c268b80100624eb7d90b14d9e2e827ab.zip
-│   │       ├── asset.9fcbe070ecd3023c5bf5b966fa9584757db9762eef123bad0820bd87591b2174.vtl
-│   │       ├── asset.a183ddccbd956316c38ef97177b8f088ef0826f62023323f5ae6053d348ccffc.vtl
-│   │       ├── asset.b371d68ddfbdd11b176756ce33b2c4e79d26fcc2fd4b7c0c9e75d06efacee90e.vtl
-│   │       ├── asset.c0ee285bd2cd467c8fef135c68f099b5df0c5fbbd9d7a52595bdad6ff9c089dd.vtl
-│   │       ├── asset.c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl
-│   │       ├── asset.cc01911d0269d4080ea57505dc445dfc315ef7ad85d3d9d4ea1357858bff451d.vtl
-│   │       ├── asset.cf8b7cf1f3a6c9f31d9257c1bcf8cfe058f6672c31d50575d4e9e55fbd0508d7.vtl
-│   │       ├── asset.e0cff47fb007f0bbf2a4e43ca256d6aa7ec109821769fd79fa7c5e83f0e7f9fc.vtl
-│   │       ├── asset.efdceb2e2ca83104cc449b00496018ccf31385b8977b2abbab5b38493fae8ca5
-│   │       │   └── modelIntrospectionSchema.json
-│   │       ├── asset.f4a52b72209a9dfa197b5e7367a5c378c5bb86de6e29ddd9e48b49a3fe54b249.vtl
-│   │       ├── asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6
-│   │       │   └── index.js
-│   │       └── asset.fe3c43ada4b9d681a5e2312663ef7a73386424d73b73e51f8e2e9d4b50f7c502.vtl
-│   └── tsconfig.tsbuildinfo
-├── .cache
-├── .continue
-│   └── config.ts
-├── .env.example
-├── .env.local
-├── .eslintignore
-├── .eslintrc.js
-├── .eslintrc.json
-├── .github
-│   └── workflows
-│       └── production-test.yml
-├── .gitignore
-├── .node-version
-├── .npmrc
-├── .nvmrc
-├── .platform
-│   └── hooks
-│       └── prebuild
-│           └── use-node-18.sh
-├── .pnp.cjs
-├── .pnp.loader.mjs
-├── .vscode
-│   ├── extensions.json
-│   └── settings.json
 ├── AMPLIFY.md
 ├── AUGMENT_REINCARNATION_GUIDE.md
+├── AlexAI_EC2_ArangoDB_Deployment_Instructions.sh
+├── Archive_tailwind
+│   ├── app
+│   │   ├── _document.js
+│   │   ├── actions.ts
+│   │   ├── alexai
+│   │   │   ├── crew-comission
+│   │   │   │   ├── route.ts
+│   │   │   │   └── route.ts.bak
+│   │   │   ├── crew-conversations
+│   │   │   │   └── route.ts
+│   │   │   ├── docs
+│   │   │   │   └── page.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── sickbay
+│   │   │   │   └── page.tsx
+│   │   │   └── sprint-tasks
+│   │   │       └── route.ts
+│   │   ├── api
+│   │   │   ├── alexai
+│   │   │   │   └── route.ts
+│   │   │   ├── analyze-content
+│   │   │   │   └── route.ts
+│   │   │   ├── crew
+│   │   │   │   ├── route.ts
+│   │   │   │   └── route.ts.bak
+│   │   │   ├── download-introduction-docx
+│   │   │   │   └── route.ts
+│   │   │   ├── format-content
+│   │   │   │   └── route.ts
+│   │   │   ├── generate-docx
+│   │   │   │   └── route.ts
+│   │   │   ├── generate-summary
+│   │   │   │   └── route.ts
+│   │   │   ├── get-summary
+│   │   │   │   └── route.ts
+│   │   │   ├── health
+│   │   │   │   └── route.ts
+│   │   │   ├── metrics
+│   │   │   │   └── route.ts
+│   │   │   ├── openai-proxy
+│   │   │   │   └── route.ts
+│   │   │   ├── openapi
+│   │   │   │   └── route.ts
+│   │   │   ├── pdf-source-config
+│   │   │   │   └── route.ts
+│   │   │   ├── stories
+│   │   │   │   └── route.ts
+│   │   │   ├── upload-pdf
+│   │   │   │   └── route.ts
+│   │   │   ├── user-info
+│   │   │   │   └── route.ts
+│   │   │   └── vector-map
+│   │   │       └── route.ts
+│   │   ├── app
+│   │   │   └── api
+│   │   │       └── health
+│   │   │           └── route.ts
+│   │   ├── components
+│   │   ├── dante-agile
+│   │   │   └── page.tsx
+│   │   ├── docx-testing
+│   │   │   └── page.tsx
+│   │   ├── enhanced-extraction
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── fonts.ts
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── layout.tsx.bak
+│   │   ├── lcars
+│   │   │   └── index.tsx
+│   │   ├── lcars-root
+│   │   │   ├── layout.tsx
+│   │   │   ├── lcars-root
+│   │   │   │   ├── layout.tsx
+│   │   │   │   └── lcars-theme.css
+│   │   │   └── lcars-theme.css
+│   │   ├── lib
+│   │   │   └── utils
+│   │   │       └── normalizeHost.ts
+│   │   ├── metadata.ts
+│   │   ├── muller-test
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── not-found.tsx
+│   │   ├── page.tsx
+│   │   ├── pdf-styles
+│   │   │   └── page.tsx
+│   │   ├── sample
+│   │   │   └── page.tsx
+│   │   ├── style-debug
+│   │   │   └── page.tsx
+│   │   ├── style-test
+│   │   │   ├── ClientSideVariables.tsx
+│   │   │   ├── ScrollFix.tsx
+│   │   │   └── page.tsx
+│   │   ├── style-test-new
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── test
+│   │   │   └── page.tsx
+│   │   ├── upload
+│   │   │   └── page.tsx
+│   │   └── view
+│   │       └── page.tsx
+│   ├── components
+│   │   ├── AgentBoardroomProvider.tsx
+│   │   ├── CenteredPDFViewer.tsx
+│   │   ├── ContentAnalysis.tsx
+│   │   ├── ContentWrapper.tsx
+│   │   ├── CrewConversationPanel.tsx
+│   │   ├── DirectStyleInjector.tsx
+│   │   ├── DocumentDownloadManager.tsx
+│   │   ├── DocxDownloadHandler.tsx
+│   │   ├── DocxDownloadOption.tsx
+│   │   ├── DownloadDropdown.tsx
+│   │   ├── DynamicFontProvider.tsx
+│   │   ├── DynamicPDFViewer.tsx
+│   │   ├── DynamicThemeProvider.tsx
+│   │   ├── ExtractedContent.tsx
+│   │   ├── MullerGrid.tsx
+│   │   ├── Navigation.tsx
+│   │   ├── PDFAnalyzer.tsx
+│   │   ├── PDFStylesDisplay.tsx
+│   │   ├── PDFUploader.tsx
+│   │   ├── PDFViewer.tsx
+│   │   ├── PDFViewerWrapper.tsx
+│   │   ├── PdfStyleLoader.tsx
+│   │   ├── PdfStylesInitializer.tsx
+│   │   ├── PreviewModal.tsx
+│   │   ├── SalingerHeader.tsx
+│   │   ├── SimplePDFViewer.tsx
+│   │   ├── StyleDebugger.tsx
+│   │   ├── StyledMarkdown.tsx
+│   │   ├── StylesLoadingIndicator.tsx
+│   │   ├── SummaryModal.tsx
+│   │   ├── UploadModal.tsx
+│   │   ├── client
+│   │   │   ├── PreviewModalClient.tsx
+│   │   │   └── SummaryModalClient.tsx
+│   │   ├── dante-agile
+│   │   │   ├── CeremonyGuide.tsx
+│   │   │   ├── DanteAgileLayout.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── SprintDashboard.tsx
+│   │   │   ├── TaskManager.tsx
+│   │   │   ├── TeamBoard.tsx
+│   │   │   ├── dante-agile
+│   │   │   │   └── Dashboard.tsx
+│   │   │   └── mockData.ts
+│   │   ├── lcars
+│   │   │   ├── CrewHealthPanel.tsx
+│   │   │   ├── LCARSVoiceFX.ts
+│   │   │   ├── LcarsNavRail.tsx
+│   │   │   ├── NavBar.tsx
+│   │   │   ├── Panel.tsx
+│   │   │   ├── SprintBoard.tsx
+│   │   │   ├── SprintFooter.tsx
+│   │   │   ├── SprintHeader.tsx
+│   │   │   ├── SprintMetricsPanel.tsx
+│   │   │   ├── StoryCard.tsx
+│   │   │   └── lcars24-components.tsx
+│   │   ├── shared
+│   │   │   └── Modal.tsx
+│   │   └── ui
+│   │       ├── button.tsx
+│   │       └── card.tsx
+│   ├── hooks
+│   │   ├── usePdfFonts.ts
+│   │   ├── usePdfTheme.ts
+│   │   └── useStories.ts
+│   ├── lcars-ship-logs.zip
+│   ├── src
+│   │   ├── api
+│   │   │   ├── content
+│   │   │   └── pdf
+│   │   ├── app
+│   │   │   ├── api
+│   │   │   │   └── pdf
+│   │   │   │       ├── colors
+│   │   │   │       │   └── route.ts
+│   │   │   │       ├── fonts
+│   │   │   │       │   └── route.ts
+│   │   │   │       └── process
+│   │   │   │           └── route.ts
+│   │   │   └── pdf-styling-demo
+│   │   │       └── page.tsx
+│   │   ├── client
+│   │   │   ├── components
+│   │   │   ├── hooks
+│   │   │   └── providers
+│   │   ├── components
+│   │   ├── contexts
+│   │   ├── core-disabled
+│   │   ├── features
+│   │   │   ├── resume
+│   │   │   └── upload
+│   │   ├── hooks
+│   │   ├── katra
+│   │   │   ├── katras
+│   │   │   │   ├── crusher.katra.json
+│   │   │   │   ├── data.katra.json
+│   │   │   │   ├── geordi.katra.json
+│   │   │   │   ├── obrien.katra.json
+│   │   │   │   ├── picard.katra.json
+│   │   │   │   ├── quark.katra.json
+│   │   │   │   ├── riker.katra.json
+│   │   │   │   ├── spock.katra.json
+│   │   │   │   ├── troi.katra.json
+│   │   │   │   └── worf.katra.json
+│   │   │   ├── memory
+│   │   │   │   ├── crusher.memory.json
+│   │   │   │   ├── data.memory.json
+│   │   │   │   ├── geordi.memory.json
+│   │   │   │   ├── obrien.memory.json
+│   │   │   │   ├── picard.memory.json
+│   │   │   │   ├── quark.memory.json
+│   │   │   │   ├── riker.memory.json
+│   │   │   │   ├── spock.memory.json
+│   │   │   │   ├── troi.memory.json
+│   │   │   │   └── worf.memory.json
+│   │   │   └── prompts
+│   │   │       ├── crusher.prompt.md
+│   │   │       ├── data.prompt.md
+│   │   │       ├── geordi.prompt.md
+│   │   │       ├── obrien.prompt.md
+│   │   │       ├── picard.prompt.md
+│   │   │       ├── quark.prompt.md
+│   │   │       ├── riker.prompt.md
+│   │   │       ├── spock.prompt.md
+│   │   │       ├── troi.prompt.md
+│   │   │       └── worf.prompt.md
+│   │   ├── server
+│   │   │   ├── actions
+│   │   │   ├── components
+│   │   │   └── data
+│   │   ├── stories
+│   │   │   ├── Button.tsx
+│   │   │   ├── Configure.mdx
+│   │   │   ├── Header.tsx
+│   │   │   ├── Page.tsx
+│   │   │   ├── assets
+│   │   │   │   ├── accessibility.png
+│   │   │   │   ├── accessibility.svg
+│   │   │   │   ├── addon-library.png
+│   │   │   │   ├── assets.png
+│   │   │   │   ├── avif-test-image.avif
+│   │   │   │   ├── context.png
+│   │   │   │   ├── discord.svg
+│   │   │   │   ├── docs.png
+│   │   │   │   ├── figma-plugin.png
+│   │   │   │   ├── github.svg
+│   │   │   │   ├── share.png
+│   │   │   │   ├── styling.png
+│   │   │   │   ├── testing.png
+│   │   │   │   ├── theming.png
+│   │   │   │   ├── tutorials.svg
+│   │   │   │   └── youtube.svg
+│   │   │   ├── button.css
+│   │   │   ├── header.css
+│   │   │   └── page.css
+│   │   ├── types
+│   │   │   └── FontTheme.ts
+│   │   ├── ui
+│   │   │   ├── common
+│   │   │   ├── layout
+│   │   │   └── modal
+│   │   └── utils
+│   └── styles
+│       ├── DocxPreview.module.css
+│       ├── DownloadDropdown.module.css
+│       ├── PreviewModal.module.css
+│       ├── SalingerHeader.module.css
+│       ├── SummaryModal.module.css
+│       ├── centralized-theme.css
+│       ├── globals.css
+│       ├── lcars
+│       │   ├── lcars-core.css
+│       │   ├── lcars-fonts.css
+│       │   ├── lcars-vars.css
+│       │   ├── lcars24.css
+│       │   └── original
+│       │       ├── lcars-colors.css
+│       │       └── lcars-ultra-classic.css
+│       ├── lcars.css
+│       ├── muller-brockmann.css
+│       ├── pdf-global-styles.css
+│       └── pdf-theme.css
+├── Archive_tailwind.zip
+├── Archive_tailwind_clean.zip
 ├── DEVELOPMENT.md
 ├── ENV_SYNC_README.md
 ├── KATRA_GUIDE.md
 ├── KATRA_SPIRIT_REINCARNATION.md
+├── Makefile
 ├── NODE-VERSION-README.md
 ├── PDF_CONVERSION_README.md
 ├── PDF_REPLACEMENT_GUIDE.md
@@ -91,15 +310,79 @@
 ├── SSR-DEPLOYMENT.md
 ├── alexai
 │   ├── agent-config.json
+│   ├── agents
+│   │   ├── crusher.ts
+│   │   ├── data.ts
+│   │   ├── geordi.ts
+│   │   ├── obrien.ts
+│   │   ├── picard.ts
+│   │   ├── quark.ts
+│   │   ├── riker.ts
+│   │   ├── spock.ts
+│   │   ├── troi.ts
+│   │   └── worf.ts
+│   ├── crew
+│   │   ├── crew.json
+│   │   ├── crew.json.bak
+│   │   └── crew_repaired.json
+│   ├── crew.json
+│   ├── katra_bundle.md
+│   ├── katras
+│   │   ├── crusher.katra.json
+│   │   ├── data.katra.json
+│   │   ├── geordi.katra.json
+│   │   ├── obrien.katra.json
+│   │   ├── picard.katra.json
+│   │   ├── quark.katra.json
+│   │   ├── riker.katra.json
+│   │   ├── sample_katra.json
+│   │   ├── spock.katra.json
+│   │   ├── troi.katra.json
+│   │   ├── uhura.katra.json
+│   │   └── worf.katra.json
+│   ├── load_katras_from_bundle.sh
+│   ├── memory
+│   │   ├── crusher.memory.json
+│   │   ├── data.memory.json
+│   │   ├── geordi.memory.json
+│   │   ├── obrien.memory.json
+│   │   ├── picard.memory.json
+│   │   ├── quark.memory.json
+│   │   ├── riker.memory.json
+│   │   ├── spock.memory.json
+│   │   ├── troi.memory.json
+│   │   ├── uhura.memory.json
+│   │   └── worf.memory.json
 │   ├── memory.json
 │   ├── personality.md
-│   └── prompts
-│       ├── architecture.md
-│       └── ethics.md
+│   ├── prompts
+│   │   ├── crusher.prompt.md
+│   │   ├── data.prompt.md
+│   │   ├── geordi.prompt.md
+│   │   ├── obrien.prompt.md
+│   │   ├── picard.prompt.md
+│   │   ├── quark.prompt.md
+│   │   ├── riker.prompt.md
+│   │   ├── spock.prompt.md
+│   │   ├── troi.prompt.md
+│   │   ├── uhura.prompt.md
+│   │   └── worf.prompt.md
+│   ├── scenarios
+│   │   └── observation_lounge_scenarios.json
+│   ├── setup_multiship_katra_continuity.sh
+│   ├── simulation
+│   │   └── simulateObservationLounge.ts
+│   ├── sprint-planning
+│   │   └── page.tsx
+│   └── sprint-tasks
+│       └── route.ts
+├── alexai-relevant.zip
 ├── alexai.config.js
+├── alexai.zip
+├── alexai_observation_lounge_milestone_2025_05_29.zip
+├── alexai_openai_diagnostics.zip
+├── alexai_project_bundle.zip
 ├── amplify
-│   └── .config
-│       └── team-provider-info.json
 ├── amplify-apps.yml
 ├── amplify-build-settings.json
 ├── amplify-build-simulation
@@ -165,7 +448,6 @@
 │       │       ├── serif.pdf
 │       │       └── serif.txt
 │       ├── uploads
-│       │   └── .gitkeep
 │       ├── vercel.svg
 │       └── window.svg
 ├── amplify-build.sh
@@ -180,29 +462,55 @@
 ├── amplify.env.yml
 ├── amplify.json
 ├── amplify.yml
+├── animations
+│   ├── lcars-animations.ts
+│   ├── lcars-animations.ts.bak
+│   └── lcars-animations.ts.bak-final
 ├── app
 │   ├── _document.js
 │   ├── actions.ts
 │   ├── alexai
+│   │   ├── crew-comission
+│   │   │   ├── route.ts
+│   │   │   └── route.ts.bak
+│   │   ├── crew-conversations
+│   │   │   └── route.ts
 │   │   ├── docs
 │   │   │   └── page.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── sickbay
+│   │   │   └── page.tsx
+│   │   └── sprint-tasks
+│   │       └── route.ts
 │   ├── api
 │   │   ├── alexai
 │   │   │   └── route.ts
 │   │   ├── analyze-content
 │   │   │   └── route.ts
+│   │   ├── crew
+│   │   │   ├── route.ts
+│   │   │   └── route.ts.bak
 │   │   ├── download-introduction-docx
 │   │   │   └── route.ts
 │   │   ├── format-content
 │   │   │   └── route.ts
 │   │   ├── generate-docx
 │   │   │   └── route.ts
+│   │   ├── generate-summary
+│   │   │   └── route.ts
 │   │   ├── get-summary
+│   │   │   └── route.ts
+│   │   ├── health
+│   │   │   └── route.ts
+│   │   ├── metrics
 │   │   │   └── route.ts
 │   │   ├── openai-proxy
 │   │   │   └── route.ts
+│   │   ├── openapi
+│   │   │   └── route.ts
 │   │   ├── pdf-source-config
+│   │   │   └── route.ts
+│   │   ├── stories
 │   │   │   └── route.ts
 │   │   ├── upload-pdf
 │   │   │   └── route.ts
@@ -210,6 +518,10 @@
 │   │   │   └── route.ts
 │   │   └── vector-map
 │   │       └── route.ts
+│   ├── app
+│   │   └── api
+│   │       └── health
+│   │           └── route.ts
 │   ├── components
 │   ├── dante-agile
 │   │   └── page.tsx
@@ -221,6 +533,17 @@
 │   ├── fonts.ts
 │   ├── globals.css
 │   ├── layout.tsx
+│   ├── lcars
+│   │   └── index.tsx
+│   ├── lcars-root
+│   │   ├── layout.tsx
+│   │   ├── lcars-root
+│   │   │   ├── layout.tsx
+│   │   │   └── lcars-theme.css
+│   │   └── lcars-theme.css
+│   ├── lib
+│   │   └── utils
+│   │       └── normalizeHost.ts
 │   ├── metadata.ts
 │   ├── muller-test
 │   │   ├── layout.tsx
@@ -246,6 +569,19 @@
 │   │   └── page.tsx
 │   └── view
 │       └── page.tsx
+├── app.zip
+├── apply_crew_consensus_patch.sh
+├── apply_lcars24_patch.sh
+├── apply_lcars24_patch_and_tokenize.sh
+├── apply_lcars_root_integration.sh
+├── apply_lcars_token_patch.sh
+├── assets
+│   └── lcars
+│       ├── LCARS.ttf
+│       └── lcars-fonts.css
+├── backups
+│   ├── layout.tsx.bak
+│   └── page.tsx.bak
 ├── build.sh
 ├── buildspec.yml
 ├── certificate-verification.json
@@ -256,6 +592,7 @@
 │   ├── CenteredPDFViewer.tsx
 │   ├── ContentAnalysis.tsx
 │   ├── ContentWrapper.tsx
+│   ├── CrewConversationPanel.tsx
 │   ├── DirectStyleInjector.tsx
 │   ├── DocumentDownloadManager.tsx
 │   ├── DocxDownloadHandler.tsx
@@ -288,16 +625,39 @@
 │   ├── dante-agile
 │   │   ├── CeremonyGuide.tsx
 │   │   ├── DanteAgileLayout.tsx
+│   │   ├── Dashboard.tsx
 │   │   ├── SprintDashboard.tsx
 │   │   ├── TaskManager.tsx
 │   │   ├── TeamBoard.tsx
+│   │   ├── dante-agile
+│   │   │   └── Dashboard.tsx
 │   │   └── mockData.ts
-│   └── shared
-│       └── Modal.tsx
+│   ├── lcars
+│   │   ├── CrewHealthPanel.tsx
+│   │   ├── LCARSVoiceFX.ts
+│   │   ├── LcarsNavRail.tsx
+│   │   ├── NavBar.tsx
+│   │   ├── Panel.tsx
+│   │   ├── SprintBoard.tsx
+│   │   ├── SprintFooter.tsx
+│   │   ├── SprintHeader.tsx
+│   │   ├── SprintMetricsPanel.tsx
+│   │   ├── StoryCard.tsx
+│   │   └── lcars24-components.tsx
+│   ├── lcars24-components.tsx
+│   ├── shared
+│   │   └── Modal.tsx
+│   └── ui
+│       ├── button.tsx
+│       └── card.tsx
+├── components.zip
+├── consolidate_lcars_css.sh
 ├── contexts
 │   └── ModalContext.tsx
 ├── copy-static-marker.sh
 ├── customHttp.yml
+├── dante-agile
+│   └── Dashboard.tsx
 ├── dante-logger
 │   ├── README.md
 │   ├── docs
@@ -329,6 +689,7 @@
 ├── docs
 │   ├── ComponentArchitecture.md
 │   ├── README.md
+│   ├── alexai-lifecycle.svg
 │   ├── amplify-deployment-checklist.md
 │   ├── application-architecture.md
 │   ├── build-process-visualization.md
@@ -365,31 +726,102 @@
 ├── examples
 │   └── pdf-workflow-example.js
 ├── extract-pdf.sh
+├── generate_lcars_ui.sh
 ├── hooks
 │   ├── usePdfFonts.ts
-│   └── usePdfTheme.ts
+│   ├── usePdfTheme.ts
+│   └── useStories.ts
+├── infrastructure
+│   └── arangodb
+│       ├── README-AlexAI-ArangoDB.md
+│       ├── alexai-arangodb-deployment-bundle.zip
+│       ├── scripts
+│       │   └── deploy_alexai_arangodb.sh
+│       └── terraform
+│           ├── main.tf
+│           ├── terraform.tfstate
+│           └── terraform.tfstate.backup
 ├── init-alexai-full.sh
+├── install_tailwind_clean.sh
 ├── katra-essence.md
 ├── katra-langchain.sh
 ├── katra-transfer.md
+├── katras_seed.json
 ├── langchain
 │   ├── index.ts
 │   └── vector.ts
+├── lcars-root
+│   ├── layout.tsx
+│   └── lcars-theme.css
+├── lcars-ship-logs.zip
+├── lcars24_filelist.txt
+├── lcars24_integration_bundle
+│   ├── animations
+│   │   └── lcars-animations.ts
+│   ├── apply_lcars24_patch.sh
+│   ├── components
+│   ├── integrate_lcars24.sh
+│   ├── lcars-animations.ts
+│   ├── lcars-token-map.ts
+│   ├── lcars24-components-readme.md
+│   ├── lcars24-components.tsx
+│   ├── styles
+│   └── tokens
+├── lcars24_repair_route.sh
+├── lcars_agile_sprint_ui.zip
+├── lcars_css_refactor_patch
+│   ├── scripts
+│   │   └── maintenance
+│   │       └── lcars_css_refactor_patch.sh
+│   └── styles
+│       └── lcars
+│           ├── lcars.animations.css
+│           ├── lcars.grid.css
+│           └── lcars.typography.css
+├── lcars_css_refactor_patch.sh
+├── lcars_css_refactor_patch.zip
 ├── lib
 │   ├── alexai.ts
+│   ├── arangodb.ts
 │   ├── metaAgent-full.ts
 │   ├── server
 │   │   └── openai.ts
 │   └── server-only
 │       └── openai.ts
 ├── logs
+│   ├── build.log
+│   ├── crew_patch.log
 │   ├── katra-refactor-ssr-openai-2025-05-28.md
-│   └── local-build
-│       └── standalone
+│   ├── local-build
+│   │   └── standalone
+│   └── medical_log.txt
 ├── minimal-package.json
+├── move_and_update_unify_script.sh
 ├── next-env.d.ts
 ├── next.config.js
+├── next.config.js.bak
 ├── next.config.ts
+├── observation_lounge_prompts_and_memory
+│   ├── alexai
+│   │   ├── alexai.memory.json
+│   │   └── alexai.prompt.md
+│   ├── crusher
+│   │   ├── crusher.memory.json
+│   │   └── crusher.prompt.md
+│   ├── data
+│   │   ├── data.memory.json
+│   │   └── data.prompt.md
+│   ├── geordi
+│   │   ├── geordi.memory.json
+│   │   └── geordi.prompt.md
+│   ├── troi
+│   │   ├── troi.memory.json
+│   │   └── troi.prompt.md
+│   └── worf
+│       ├── worf.memory.json
+│       └── worf.prompt.md
+├── openai_usages.txt
+├── organize_alexai.sh
 ├── out
 │   ├── 404.html
 │   ├── _next
@@ -436,6 +868,7 @@
 │   └── window.svg
 ├── package-lock.json
 ├── package.json
+├── package.json.bak
 ├── packages
 │   └── dante-logger
 │       ├── README.md
@@ -462,9 +895,12 @@
 │       │   │   └── react.ts
 │       │   └── index.ts
 │       └── tsconfig.json
+├── patch_lcarsTokens_export.sh
+├── patch_lcars_token_map.sh
+├── patch_token_imports.sh
 ├── pdf-source.config.js
+├── postcss.config.js
 ├── postcss.config.mjs
-├── project-structure.txt
 ├── project_tree.txt
 ├── prompts
 │   ├── reincarnation-pdf-styling.md
@@ -474,7 +910,17 @@
 │   ├── _pbradygeorgen_resume.pdf
 │   ├── alexai-docs.md
 │   ├── analyzed
-│   ├── backup
+│   ├── assets
+│   │   ├── lcars
+│   │   │   ├── LCARS.ttf
+│   │   │   ├── computer_alarm.mp3
+│   │   │   ├── computer_work_beep.mp3
+│   │   │   ├── execution_beep.mp3
+│   │   │   ├── navigation_change_beep.mp3
+│   │   │   ├── option_beep.mp3
+│   │   │   ├── panel-tap.mp3
+│   │   │   └── small_beep.mp3
+│   │   └── lcars24
 │   ├── cover-letters
 │   ├── default_resume.pdf
 │   ├── docx-test.html
@@ -506,6 +952,13 @@
 │   │   ├── unified_theme.css
 │   │   └── user_info.json
 │   ├── file.svg
+│   ├── fonts
+│   │   ├── Antonio-Bold.ttf
+│   │   ├── Antonio-Bold.woff
+│   │   ├── Antonio-Bold.woff2
+│   │   ├── Antonio-Regular.ttf
+│   │   ├── Antonio-Regular.woff
+│   │   └── Antonio-Regular.woff2
 │   ├── force-text-color.css
 │   ├── globe.svg
 │   ├── katra-graph.json
@@ -515,6 +968,7 @@
 │   │   └── pdf.worker.min.js
 │   ├── resume.pdf
 │   ├── stein.pdf
+│   ├── tailwind.config.js
 │   ├── test-pdfs
 │   │   ├── README.md
 │   │   ├── color
@@ -549,18 +1003,29 @@
 │   │       ├── serif.pdf
 │   │       └── serif.txt
 │   ├── uploads
-│   │   └── .gitkeep
 │   ├── vercel.svg
 │   └── window.svg
+├── refactor_components_to_tailwind.log
+├── refactor_layouts_to_tailwind.log
+├── repair_lcars_styles_and_tokens.sh
+├── repair_tailwind_postcss_v2.sh
+├── revert_malformed_tailwind_values.sh
 ├── rollback_main.sh
 ├── root-domain.json
+├── run_observation_lounge.js
+├── run_observation_lounge_advanced.sh
+├── run_observation_tests.sh
 ├── scripts
+│   ├── AlexAI_EC2_ArangoDB_Deployment.sh
 │   ├── README-enhanced-extraction.md
 │   ├── alex.js
 │   ├── alexai-reincarnate.js
 │   ├── amplify-env-manager.js
-│   ├── build
-│   │   └── prebuild.js
+│   ├── arangodb-cli.sh
+│   ├── backups
+│   │   └── lcars_phase3_20250610_002010
+│   ├── bootstrap
+│   │   └── initialize_crew_and_commission_uhura.sh
 │   ├── cleanup-list.txt
 │   ├── cli
 │   │   └── pdf-manager.js
@@ -573,8 +1038,10 @@
 │   ├── create-font-theory.js
 │   ├── create-pdf-source-identifier.js
 │   ├── create-placeholder-pdfs.js
+│   ├── create_arangodb_collection.sh
 │   ├── dante-deploy.js
 │   ├── deploy-to-aws.sh
+│   ├── deploy_arangodb_ec2.sh
 │   ├── download-pdf-worker.js
 │   ├── enhanced-pdf-analyzer.py
 │   ├── extract-all-pdf-styles.js
@@ -604,7 +1071,10 @@
 │   ├── generate-resume.js
 │   ├── generate-svg-diagrams.js
 │   ├── generate-test-pdfs.js
+│   ├── generate_katras_seed.sh
+│   ├── init_alexai_system.sh
 │   ├── katra
+│   ├── katras_seed.json
 │   ├── legacy
 │   │   ├── README.md
 │   │   ├── extract-pdf-all.sh
@@ -622,6 +1092,58 @@
 │   │   ├── set-default-pdf.sh
 │   │   └── test-pdf-extraction.sh
 │   ├── local-svg-generator.js
+│   ├── maintenance
+│   │   ├── add_lcars_token_map.sh
+│   │   ├── apply_crew_consensus_lcars.sh
+│   │   ├── apply_lcars_tokens.sh
+│   │   ├── commission_uhura.sh
+│   │   ├── ensure_arango_multiship_katra.sh
+│   │   ├── ensure_openai_env_integrity.sh
+│   │   ├── final_keyframes_patch.sh
+│   │   ├── find-client-openai-usage.sh
+│   │   ├── fix_lcars_token_usage.sh
+│   │   ├── fix_tailwind_setup.sh
+│   │   ├── full_lcars_styled_components_repair.sh
+│   │   ├── generate_katra_svg_diagram.mts
+│   │   ├── initialize_crew_member.sh
+│   │   ├── lcars24_merge_and_refactor.sh
+│   │   ├── lcars_css_refactor_patch.sh
+│   │   ├── lcars_sync_styles.sh
+│   │   ├── maintenance_sweep_openai_routes.sh
+│   │   ├── migrate_katras.sh
+│   │   ├── patch_arango_host_url.sh
+│   │   ├── patch_arango_useDatabase_typing.sh
+│   │   ├── patch_crew_comission_typing.sh
+│   │   ├── patch_crew_routes.sh
+│   │   ├── patch_katras_seed_generator.sh
+│   │   ├── patch_openai_usage_in_routes.sh
+│   │   ├── patch_package_json_sync.sh
+│   │   ├── patch_package_json_sync_build.sh
+│   │   ├── patch_package_json_sync_build_and_dev.sh
+│   │   ├── patch_tailwind_with_antonio.sh
+│   │   ├── patch_typing_crew_array.sh
+│   │   ├── pull_katras_runtime.sh
+│   │   ├── recover_lcars_fonts.sh
+│   │   ├── refactor_components_to_tailwind.sh
+│   │   ├── refactor_katra_structure.sh
+│   │   ├── refactor_layouts_to_tailwind.sh
+│   │   ├── repair_crew_json.sh
+│   │   ├── repair_lcars_fonts_and_tokens.sh
+│   │   ├── repair_lcars_styles_and_tokens.sh
+│   │   ├── repair_openai_imports_and_bun_writes.sh
+│   │   ├── repair_tailwind_postcss.sh
+│   │   ├── reset_arangodb_container_with_password.sh
+│   │   ├── reset_tailwind_install.sh
+│   │   ├── run_phase3_lcars_tailwind_sync.sh
+│   │   ├── sync_katras_runtime.sh
+│   │   ├── sync_lcars_tokens.sh
+│   │   ├── unify_lcars_styles.sh
+│   │   ├── unify_lcars_system_patch.sh
+│   │   ├── update_components_with_tailwind_tokens.sh
+│   │   ├── validate_lcars_fonts.sh
+│   │   ├── verify_css_imports.sh
+│   │   └── verify_token_module_patch.sh
+│   ├── move_and_update_unify_script.sh
 │   ├── next-env.d.ts
 │   ├── openai
 │   │   ├── analyzer.js
@@ -652,25 +1174,36 @@
 │   ├── requirements.txt
 │   ├── restore-original-pdf.js
 │   ├── run-pdf-styling-spirit.sh
+│   ├── run-simulation.sh
 │   ├── run-spirit-migration.sh
+│   ├── seed_katras_to_arangodb.sh
 │   ├── select-pdf.sh
+│   ├── self_heal_infra.sh
 │   ├── set-default-pdf.sh
 │   ├── simple-docx-generator.js
 │   ├── simulate-aws-deploy.sh
+│   ├── speak_crew_lines.sh
 │   ├── spirit-migration-demo.sh
 │   ├── summarize-codebase.ts
 │   ├── sync-env-vars.js
+│   ├── sync_ec2_ip.sh
 │   ├── test-docx-ci.js
 │   ├── test-docx-functionality.js
 │   ├── test-enhanced-docx-template.js
 │   ├── test-pdf-extraction.sh
 │   ├── test-pdf-template.js
 │   ├── true-docx-generator.js
+│   ├── unify-katras.sh
+│   ├── unify_katras_to_remote_arangodb.sh
 │   ├── update-docx-template.js
-│   └── update-pdf.sh
+│   ├── update-ec2-env.sh
+│   ├── update-pdf.sh
+│   └── validate-ec2-network.sh
 ├── server.js
 ├── setup-aws-credentials.sh
+├── setup_observation_logs.sh
 ├── simple-build.sh
+├── source-pdfs
 ├── src
 │   ├── api
 │   │   ├── content
@@ -697,10 +1230,69 @@
 │   │   ├── resume
 │   │   └── upload
 │   ├── hooks
+│   ├── katra
+│   │   ├── katras
+│   │   │   ├── crusher.katra.json
+│   │   │   ├── data.katra.json
+│   │   │   ├── geordi.katra.json
+│   │   │   ├── obrien.katra.json
+│   │   │   ├── picard.katra.json
+│   │   │   ├── quark.katra.json
+│   │   │   ├── riker.katra.json
+│   │   │   ├── spock.katra.json
+│   │   │   ├── troi.katra.json
+│   │   │   └── worf.katra.json
+│   │   ├── memory
+│   │   │   ├── crusher.memory.json
+│   │   │   ├── data.memory.json
+│   │   │   ├── geordi.memory.json
+│   │   │   ├── obrien.memory.json
+│   │   │   ├── picard.memory.json
+│   │   │   ├── quark.memory.json
+│   │   │   ├── riker.memory.json
+│   │   │   ├── spock.memory.json
+│   │   │   ├── troi.memory.json
+│   │   │   └── worf.memory.json
+│   │   └── prompts
+│   │       ├── crusher.prompt.md
+│   │       ├── data.prompt.md
+│   │       ├── geordi.prompt.md
+│   │       ├── obrien.prompt.md
+│   │       ├── picard.prompt.md
+│   │       ├── quark.prompt.md
+│   │       ├── riker.prompt.md
+│   │       ├── spock.prompt.md
+│   │       ├── troi.prompt.md
+│   │       └── worf.prompt.md
 │   ├── server
 │   │   ├── actions
 │   │   ├── components
 │   │   └── data
+│   ├── stories
+│   │   ├── Button.tsx
+│   │   ├── Configure.mdx
+│   │   ├── Header.tsx
+│   │   ├── Page.tsx
+│   │   ├── assets
+│   │   │   ├── accessibility.png
+│   │   │   ├── accessibility.svg
+│   │   │   ├── addon-library.png
+│   │   │   ├── assets.png
+│   │   │   ├── avif-test-image.avif
+│   │   │   ├── context.png
+│   │   │   ├── discord.svg
+│   │   │   ├── docs.png
+│   │   │   ├── figma-plugin.png
+│   │   │   ├── github.svg
+│   │   │   ├── share.png
+│   │   │   ├── styling.png
+│   │   │   ├── testing.png
+│   │   │   ├── theming.png
+│   │   │   ├── tutorials.svg
+│   │   │   └── youtube.svg
+│   │   ├── button.css
+│   │   ├── header.css
+│   │   └── page.css
 │   ├── types
 │   │   └── FontTheme.ts
 │   ├── ui
@@ -715,15 +1307,28 @@
 │   ├── SalingerHeader.module.css
 │   ├── SummaryModal.module.css
 │   ├── centralized-theme.css
+│   ├── globals.css
+│   ├── lcars
+│   │   ├── lcars-core.css
+│   │   ├── lcars-fonts.css
+│   │   ├── lcars-vars.css
+│   │   ├── lcars24.css
+│   │   └── original
+│   │       ├── lcars-colors.css
+│   │       └── lcars-ultra-classic.css
+│   ├── lcars.css
 │   ├── muller-brockmann.css
 │   ├── pdf-global-styles.css
 │   └── pdf-theme.css
+├── styles.zip
 ├── switch-amplify-config.sh
+├── sync-alexai-crew.sh
 ├── sync_amplify_secrets.sh
+├── tailwind.config.js
+├── tailwind_repair.sh
 ├── temp
 │   ├── [Content_Types].xml
 │   ├── _rels
-│   │   └── .rels
 │   ├── docProps
 │   │   ├── app.xml
 │   │   ├── core.xml
@@ -747,18 +1352,125 @@
 │   ├── backup
 │   │   ├── reference-2025-05-29T17-15-49-714Z.docx
 │   │   ├── reference-2025-05-29T18-21-29-333Z.docx
+│   │   ├── reference-2025-06-03T15-53-15-022Z.docx
+│   │   ├── reference-2025-06-03T17-39-01-298Z.docx
+│   │   ├── reference-2025-06-03T18-05-02-948Z.docx
+│   │   ├── reference-2025-06-03T18-07-40-556Z.docx
+│   │   ├── reference-2025-06-04T09-38-23-758Z.docx
+│   │   ├── reference-2025-06-04T09-51-12-723Z.docx
+│   │   ├── reference-2025-06-04T09-52-10-369Z.docx
+│   │   ├── reference-2025-06-04T10-00-46-685Z.docx
+│   │   ├── reference-2025-06-04T10-08-51-023Z.docx
+│   │   ├── reference-2025-06-04T10-14-08-675Z.docx
+│   │   ├── reference-2025-06-04T10-29-12-936Z.docx
+│   │   ├── reference-2025-06-04T10-38-51-487Z.docx
+│   │   ├── reference-2025-06-04T10-59-51-052Z.docx
+│   │   ├── reference-2025-06-04T11-16-33-878Z.docx
+│   │   ├── reference-2025-06-04T11-25-10-807Z.docx
+│   │   ├── reference-2025-06-05T18-36-46-313Z.docx
+│   │   ├── reference-2025-06-05T19-17-07-450Z.docx
+│   │   ├── reference-2025-06-05T19-28-51-886Z.docx
+│   │   ├── reference-2025-06-07T21-58-50-414Z.docx
+│   │   ├── reference-2025-06-07T22-56-12-931Z.docx
+│   │   ├── reference-2025-06-07T23-13-02-026Z.docx
+│   │   ├── reference-2025-06-07T23-14-47-245Z.docx
+│   │   ├── reference-2025-06-07T23-21-53-377Z.docx
+│   │   ├── reference-2025-06-07T23-22-33-693Z.docx
+│   │   ├── reference-2025-06-07T23-59-19-028Z.docx
+│   │   ├── reference-2025-06-08T07-13-19-815Z.docx
+│   │   ├── reference-2025-06-08T07-13-58-709Z.docx
+│   │   ├── reference-2025-06-08T07-21-33-752Z.docx
+│   │   ├── reference-2025-06-08T07-22-02-814Z.docx
+│   │   ├── reference-2025-06-08T07-30-32-642Z.docx
+│   │   ├── reference-2025-06-08T07-54-17-560Z.docx
+│   │   ├── reference-2025-06-08T07-54-46-556Z.docx
+│   │   ├── reference-2025-06-08T07-58-26-872Z.docx
+│   │   ├── reference-2025-06-08T17-48-32-195Z.docx
+│   │   ├── reference-2025-06-08T18-01-31-516Z.docx
+│   │   ├── reference-2025-06-08T18-03-20-584Z.docx
+│   │   ├── reference-2025-06-08T18-06-45-534Z.docx
+│   │   ├── reference-2025-06-08T19-34-43-102Z.docx
+│   │   ├── reference-2025-06-08T19-35-49-509Z.docx
+│   │   ├── reference-2025-06-08T20-21-58-192Z.docx
+│   │   ├── reference-2025-06-08T20-22-47-067Z.docx
+│   │   ├── reference-2025-06-08T20-27-10-799Z.docx
+│   │   ├── reference-2025-06-08T20-31-20-225Z.docx
+│   │   ├── reference-2025-06-08T20-35-07-739Z.docx
+│   │   ├── reference-2025-06-08T20-37-09-638Z.docx
+│   │   ├── reference-2025-06-08T20-47-20-638Z.docx
+│   │   ├── reference-2025-06-08T20-58-41-630Z.docx
+│   │   ├── reference-2025-06-08T23-36-12-975Z.docx
+│   │   ├── reference-2025-06-08T23-39-44-830Z.docx
+│   │   ├── reference-2025-06-08T23-40-44-933Z.docx
+│   │   ├── reference-2025-06-09T06-15-32-910Z.docx
+│   │   ├── reference-2025-06-09T06-25-03-789Z.docx
+│   │   ├── reference-2025-06-09T06-33-10-668Z.docx
+│   │   ├── reference-2025-06-09T06-36-11-746Z.docx
+│   │   ├── reference-2025-06-09T06-56-48-348Z.docx
+│   │   ├── reference-2025-06-09T07-00-48-863Z.docx
+│   │   ├── reference-2025-06-09T07-07-01-120Z.docx
+│   │   ├── reference-2025-06-09T07-13-44-168Z.docx
+│   │   ├── reference-2025-06-09T07-20-37-813Z.docx
+│   │   ├── reference-2025-06-09T07-23-48-757Z.docx
+│   │   ├── reference-2025-06-09T07-46-05-911Z.docx
+│   │   ├── reference-2025-06-09T07-49-29-129Z.docx
+│   │   ├── reference-2025-06-09T08-07-12-880Z.docx
+│   │   ├── reference-2025-06-09T08-50-53-063Z.docx
+│   │   ├── reference-2025-06-09T16-31-35-656Z.docx
+│   │   ├── reference-2025-06-09T16-33-42-032Z.docx
+│   │   ├── reference-2025-06-09T16-37-36-542Z.docx
+│   │   ├── reference-2025-06-09T16-39-39-756Z.docx
+│   │   ├── reference-2025-06-09T16-53-30-658Z.docx
+│   │   ├── reference-2025-06-09T18-09-57-088Z.docx
+│   │   ├── reference-2025-06-09T18-27-13-403Z.docx
+│   │   ├── reference-2025-06-09T18-49-28-720Z.docx
+│   │   ├── reference-2025-06-09T19-18-26-644Z.docx
+│   │   ├── reference-2025-06-09T21-24-37-734Z.docx
+│   │   ├── reference-2025-06-09T21-25-18-114Z.docx
+│   │   ├── reference-2025-06-09T21-42-41-394Z.docx
+│   │   ├── reference-2025-06-09T22-31-52-837Z.docx
+│   │   ├── reference-2025-06-09T22-32-44-415Z.docx
+│   │   ├── reference-2025-06-09T22-41-06-504Z.docx
+│   │   ├── reference-2025-06-10T03-47-45-801Z.docx
+│   │   ├── reference-2025-06-10T03-59-17-189Z.docx
+│   │   ├── reference-2025-06-10T04-08-17-446Z.docx
+│   │   ├── reference-2025-06-10T20-05-52-389Z.docx
+│   │   ├── reference-2025-06-10T20-24-27-361Z.docx
+│   │   ├── reference-2025-06-10T20-41-09-099Z.docx
+│   │   ├── reference-2025-06-10T20-41-59-495Z.docx
+│   │   ├── reference-2025-06-10T20-47-28-201Z.docx
+│   │   ├── reference-2025-06-10T20-49-23-377Z.docx
+│   │   ├── reference-2025-06-10T20-50-25-680Z.docx
+│   │   ├── reference-2025-06-10T20-52-26-121Z.docx
+│   │   ├── reference-2025-06-10T21-48-26-874Z.docx
+│   │   ├── reference-2025-06-10T21-50-12-249Z.docx
+│   │   ├── reference-2025-06-10T21-54-57-940Z.docx
+│   │   ├── reference-2025-06-11T17-35-07-148Z.docx
+│   │   ├── reference-2025-06-11T17-36-18-937Z.docx
 │   │   ├── reference-template.docx
 │   │   └── reference.docx.bak
 │   └── reference.docx
 ├── terminal
 ├── test-results
+│   ├── pre-commit-test-20250605_121327.log
+│   └── pre-commit-test-20250608_131948.log
 ├── test.docx
+├── tokens
+│   ├── lcars-token-map.backup.ts
+│   ├── lcars-token-map.d.ts
+│   ├── lcars-token-map.js
+│   ├── lcars-token-map.ts
+│   └── lcars-token-map.ts.bak
 ├── tsconfig.eslint.json
 ├── tsconfig.json
+├── tsconfig.simulation.json
 ├── tsconfig.tsbuildinfo
 ├── types
+│   ├── index.ts
 │   ├── openai.ts
 │   └── schemas.ts
+├── unify_tailwind_styles.sh
+├── update-ec2-env.sh
 ├── update-pdf.sh
 ├── use-minimal-package.sh
 ├── utils
@@ -792,4 +1504,4 @@
 │   └── textUtils.ts
 └── www-subdomain.json
 
-182 directories, 611 files
+335 directories, 1170 files

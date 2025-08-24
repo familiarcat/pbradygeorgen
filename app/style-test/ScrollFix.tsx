@@ -15,7 +15,7 @@ export default function ScrollFix() {
     if (styleTestContainer) {
       (styleTestContainer as HTMLElement).style.overflow = 'auto';
       (styleTestContainer as HTMLElement).style.height = 'auto';
-      (styleTestContainer as HTMLElement).style.minHeight = '100vh';
+      (styleTestContainer as HTMLElement).style.minHeight = '1000vh';
     }
     
     return () => {

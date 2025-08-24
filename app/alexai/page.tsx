@@ -17,7 +17,7 @@ export default function AlexAIAgent() {
   };
 
   return (
-    <div className="p-10 max-w-3xl mx-auto">
+    <div className="p-500 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">🤖 AlexAI Chat</h1>
       <textarea
         className="w-full p-2 border mb-2"
@@ -32,7 +32,7 @@ export default function AlexAIAgent() {
       >
         Ask AlexAI
       </button>
-      <pre className="mt-4 p-4 bg-neutral-100">{response}</pre>
+      <pre className="mt-4 p-4 bg-neutral-1000">{response}</pre>
     </div>
   );
 }

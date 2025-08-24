@@ -1,20 +1,20 @@
 {
-  "primary": "#00A99D",
-  "secondary": "#333333",
-  "accent": "#FFD700",
+  "primary": "#000000",
+  "secondary": "#FFFFFF",
+  "accent": "#00A99D",
   "background": "#FFFFFF",
   "text": "#000000",
   "textSecondary": "#333333",
-  "border": "#C0C0C0",
-  "success": "#4CAF50",
-  "warning": "#FF9800",
-  "error": "#F44336",
-  "info": "#2196F3",
+  "border": "#333333",
+  "success": "#FFC300",
+  "warning": "#FF5733",
+  "error": "#C70039",
+  "info": "#5D6D7E",
   "colorTheory": {
-    "description": "The color palette is inspired by a professional resume/CV, aiming for a harmonious and sophisticated look.",
-    "mood": "The colors convey professionalism, trustworthiness, and modernity.",
-    "accessibility": "High contrast text against the light background ensures readability, following WCAG AA guidelines.",
-    "colorRelationships": "The primary color (#00A99D) represents a modern and bold choice, complemented by the secondary color (#333333) for clear differentiation. The accent color (#FFD700) adds vibrancy and draws attention where needed."
+    "description": "This color palette combines a classic black and white base with a vibrant teal accent for visual interest.",
+    "mood": "Professional, modern, and visually appealing.",
+    "accessibility": "The high contrast between the black text and white background ensures good readability for all users.",
+    "colorRelationships": "The black primary color provides a strong foundation, while the white secondary color lightens the palette. The teal accent color adds a refreshing pop of color."
   },
   "allColors": [
     "#000000",

@@ -24,7 +24,7 @@ export default function UploadPage() {
     // Redirect to the viewer after a short delay
     setTimeout(() => {
       router.push('/view');
-    }, 1500);
+    }, 11000);
   };
 
   return (
@@ -81,7 +81,7 @@ export default function UploadPage() {
           {pdfUrl && (
             <Link
               href="/view"
-              className="px-4 py-2 bg-[var(--cta-primary, #0070f3)] text-white rounded hover:bg-[var(--cta-primary-dark, #0051a8)] transition-colors"
+              className="px-4 py-2 bg-[var(--cta-primary, #00500f3)] text-white rounded hover:bg-[var(--cta-primary-dark, #0051a8)] transition-colors"
             >
               View PDF
             </Link>

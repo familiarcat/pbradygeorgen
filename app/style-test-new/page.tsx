@@ -61,7 +61,7 @@ export default function StyleTestPage() {
   }, []);
 
   return (
-    <div className="p-8" style={{ minHeight: '200vh' }}>
+    <div className="p-8" >
       <h1 className="text-3xl font-bold mb-6">PDF-Driven Styling Test</h1>
 
       <div className="mb-8">
@@ -69,39 +69,39 @@ export default function StyleTestPage() {
 
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">PDF-prefixed Variables</h3>
-          <h1 style={{ fontFamily: 'var(--pdf-heading-font)' }}>Heading 1 with PDF Font</h1>
-          <h2 style={{ fontFamily: 'var(--pdf-heading-font)' }}>Heading 2 with PDF Font</h2>
-          <p style={{ fontFamily: 'var(--pdf-body-font)' }}>
+          <h1 >Heading 1 with PDF Font</h1>
+          <h2 >Heading 2 with PDF Font</h2>
+          <p >
             This paragraph uses the body font extracted from the PDF.
             The text should be styled according to the PDF's typography.
           </p>
-          <code style={{ fontFamily: 'var(--pdf-mono-font)' }}>
+          <code >
             This code block uses the monospace font from the PDF.
           </code>
         </div>
 
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">Direct Variables</h3>
-          <h1 style={{ fontFamily: 'var(--font-heading)' }}>Heading 1 with Direct Font Variable</h1>
-          <h2 style={{ fontFamily: 'var(--font-heading)' }}>Heading 2 with Direct Font Variable</h2>
-          <p style={{ fontFamily: 'var(--font-body)' }}>
+          <h1 >Heading 1 with Direct Font Variable</h1>
+          <h2 >Heading 2 with Direct Font Variable</h2>
+          <p >
             This paragraph uses the direct body font variable.
             It should match the styling above.
           </p>
-          <code style={{ fontFamily: 'var(--font-mono)' }}>
+          <code >
             This code block uses the direct mono font variable.
           </code>
         </div>
 
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">Dynamic Variables</h3>
-          <h1 style={{ fontFamily: 'var(--dynamic-heading-font)' }}>Heading 1 with Dynamic Font Variable</h1>
-          <h2 style={{ fontFamily: 'var(--dynamic-heading-font)' }}>Heading 2 with Dynamic Font Variable</h2>
-          <p style={{ fontFamily: 'var(--dynamic-primary-font)' }}>
+          <h1 >Heading 1 with Dynamic Font Variable</h1>
+          <h2 >Heading 2 with Dynamic Font Variable</h2>
+          <p >
             This paragraph uses the dynamic primary font variable.
             It should match the styling above.
           </p>
-          <code style={{ fontFamily: 'var(--dynamic-mono-font)' }}>
+          <code >
             This code block uses the dynamic mono font variable.
           </code>
         </div>
@@ -113,22 +113,22 @@ export default function StyleTestPage() {
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">PDF-prefixed Variables</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--pdf-primary-color)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Primary Color (pdf)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--pdf-secondary-color)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Secondary Color (pdf)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--pdf-accent-color)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Accent Color (pdf)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--pdf-background-color)', color: 'var(--pdf-text-color)', border: '1px solid var(--pdf-border-color)' }}>
+            <div className="p-4 rounded" >
               Background Color (pdf)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: '#fff', color: 'var(--pdf-text-color)', border: '1px solid var(--pdf-border-color)' }}>
+            <div className="p-4 rounded" >
               Text Color (pdf)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: '#fff', color: 'var(--pdf-text-secondary)', border: '1px solid var(--pdf-border-color)' }}>
+            <div className="p-4 rounded" >
               Secondary Text (pdf)
             </div>
           </div>
@@ -137,22 +137,22 @@ export default function StyleTestPage() {
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">Direct Variables</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--primary)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Primary Color (direct)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--secondary)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Secondary Color (direct)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--accent)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Accent Color (direct)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-color)', border: '1px solid var(--border-color)' }}>
+            <div className="p-4 rounded" >
               Background Color (direct)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: '#fff', color: 'var(--text-color)', border: '1px solid var(--border-color)' }}>
+            <div className="p-4 rounded" >
               Text Color (direct)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: '#fff', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
+            <div className="p-4 rounded" >
               Secondary Text (direct)
             </div>
           </div>
@@ -161,19 +161,19 @@ export default function StyleTestPage() {
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-2">Dynamic Variables</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--dynamic-primary)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Primary Color (dynamic)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--dynamic-secondary)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Secondary Color (dynamic)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--dynamic-accent)', color: 'white' }}>
+            <div className="p-4 rounded" >
               Accent Color (dynamic)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--dynamic-background)', color: 'var(--dynamic-text)', border: '1px solid var(--dynamic-border)' }}>
+            <div className="p-4 rounded" >
               Background Color (dynamic)
             </div>
-            <div className="p-4 rounded" style={{ backgroundColor: '#fff', color: 'var(--dynamic-text)', border: '1px solid var(--dynamic-border)' }}>
+            <div className="p-4 rounded" >
               Text Color (dynamic)
             </div>
           </div>
@@ -368,14 +368,14 @@ export default function StyleTestPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/" className="text-blue-500 hover:underline">
+        <Link href="/" className="text-blue-1000 hover:underline">
           Back to Home
         </Link>
       </div>
 
-      <div className="mt-8 p-4 rounded" style={{ backgroundColor: 'var(--pdf-info-color)', color: '#fff' }}>
+      <div className="mt-8 p-4 rounded" >
         <h3 className="font-bold mb-2">Current CSS Variables</h3>
-        <pre className="text-xs overflow-auto" style={{ maxHeight: '200px' }}>
+        <pre className="text-xs overflow-auto" >
 {`
 --pdf-primary-color: ${cssVars.primary}
 --pdf-secondary-color: ${cssVars.secondary}

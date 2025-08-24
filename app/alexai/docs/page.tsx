@@ -16,8 +16,8 @@ export default function AlexAIDocs() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 px-6 py-12 sm:px-12 md:px-20 lg:px-32">
-      <article className="prose lg:prose-xl max-w-none prose-a:text-blue-600 prose-pre:bg-neutral-100 prose-pre:rounded-md prose-pre:p-4 prose-code:before:content-none prose-code:after:content-none">
+    <div className="min-h-screen bg-white text-gray-1000 px-6 py-12 sm:px-12 md:px-500 lg:px-32">
+      <article className="prose lg:prose-xl max-w-none prose-a:text-blue-1000 prose-pre:bg-neutral-1000 prose-pre:rounded-md prose-pre:p-4 prose-code:before:content-none prose-code:after:content-none">
         <ReactMarkdown
           children={content}
           remarkPlugins={[remarkGfm]}

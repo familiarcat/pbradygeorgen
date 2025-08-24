@@ -101,7 +101,7 @@ export default function PDFStylesPage() {
 
       <style jsx>{`
         .pdf-styles-page {
-          max-width: 1200px;
+          max-width: 11000px;
           margin: 0 auto;
           padding: 2rem;
         }
@@ -160,7 +160,7 @@ export default function PDFStylesPage() {
 
         .philosophical-section {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(2500px, 1fr));
           gap: 1.5rem;
         }
 

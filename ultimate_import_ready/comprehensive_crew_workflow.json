@@ -7,7 +7,10 @@
       "name": "Mission Coordinator",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [400, 300],
+      "position": [
+        400,
+        300
+      ],
       "parameters": {
         "httpMethod": "POST",
         "path": "alexai-crew-mission",
@@ -20,7 +23,10 @@
       "name": "Execution Commander - Riker",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 200],
+      "position": [
+        600,
+        200
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -42,7 +48,10 @@
       "name": "Data - Analysis Specialist",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 400],
+      "position": [
+        600,
+        400
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -64,7 +73,10 @@
       "name": "Geordi - Engineering Specialist",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 600],
+      "position": [
+        600,
+        600
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -86,7 +98,10 @@
       "name": "Crusher - Health & Optimization",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 800],
+      "position": [
+        600,
+        800
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -108,7 +123,10 @@
       "name": "Worf - Security Specialist",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 1000],
+      "position": [
+        600,
+        1000
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -130,7 +148,10 @@
       "name": "Troi - UX & Empathy Specialist",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 1200],
+      "position": [
+        600,
+        1200
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -152,7 +173,10 @@
       "name": "Uhura - Communications & I/O",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 1400],
+      "position": [
+        600,
+        1400
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -174,7 +198,10 @@
       "name": "Quark - Business & Budget Specialist",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
-      "position": [600, 1600],
+      "position": [
+        600,
+        1600
+      ],
       "parameters": {
         "authentication": "openrouter-credential",
         "operation": "chat",
@@ -196,7 +223,10 @@
       "name": "Crew Response Aggregator",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1400, 900],
+      "position": [
+        1400,
+        900
+      ],
       "parameters": {
         "jsCode": "// Aggregate all crew member responses\nconst crewResponses = $input.all();\nconst aggregatedResponse = {\n    mission_id: $json.mission_id,\n    timestamp: new Date().toISOString(),\n    crew_responses: crewResponses.map(response => ({\n        crew_member: response.crew_member || response.name || 'Unknown',\n        response: response.response || response.message || response.content || 'No response',\n        confidence: response.confidence || 0.8,\n        model: response.model || 'openai/gpt-4o-mini'\n    })),\n    mission_summary: \"Mission completed by AlexAI Optimized Crew\",\n    crew_size: crewResponses.length,\n    deployment_info: {\n        deployment_date: new Date().toISOString(),\n        crew_version: \"2.0-optimized\",\n        total_members: 9,\n        mission_coordinator: \"Active\",\n        response_aggregator: \"Operational\"\n    },\n    next_actions: crewResponses\n        .filter(r => r.next_actions)\n        .flatMap(r => r.next_actions)\n        .filter((action, index, arr) => arr.indexOf(action) === index)\n};\n\nreturn aggregatedResponse;"
       }
