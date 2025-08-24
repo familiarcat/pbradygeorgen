@@ -18,7 +18,7 @@
 5. **Click "Import"** to add it to your n8n instance
 
 ### **3️⃣ Activate the Workflow**
-1. **Find "AlexAI Crew Management System"** in your workflows list
+1. **Find "Crew Management System"** in your workflows list
 2. **Toggle the activation switch** to turn it ON
 3. **Verify the webhook endpoint** is available at `/webhook/crew-management`
 
