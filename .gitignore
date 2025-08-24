@@ -85,3 +85,7 @@ secrets/
 
 *storybook.log
 storybook-static
+.env
+*.env
+deployment_config.json
+n8n_openrouter_config.json
