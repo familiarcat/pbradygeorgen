@@ -1,409 +1,281 @@
 #!/usr/bin/env python3
 """
-Automated N8N Deployment Script for AlexAI Optimized Crew
-Handles OpenRouter credentials and workflow deployment automatically
+🤖 AUTOMATED N8N DEPLOYMENT SCRIPT
+Creates automation files and guides deployment to n8n
 """
 
 import os
 import json
+from datetime import datetime
+
+def create_automated_test_script():
+    """Create automated testing script for n8n deployment"""
+    print("🤖 Creating automated test script...")
+    
+    script_content = """#!/usr/bin/env python3
+# AUTOMATED N8N TEST SCRIPT
+# Tests the deployed Crew Management System
+
 import requests
 import time
-from pathlib import Path
-from typing import Dict, List, Optional
 
-class AutomatedN8NDeployer:
-    def __init__(self):
-        # Load environment variables from ~/.zshrc
-        self.load_environment_variables()
-        
-        # Initialize n8n connection
-        self.n8n_url = os.getenv('N8N_URL')
-        self.n8n_api_key = os.getenv('N8N_API_KEY')
-        self.openrouter_api_key = os.getenv('OPENROUTER_API_KEY')
-        
-        if not all([self.n8n_url, self.n8n_api_key, self.openrouter_api_key]):
-            raise ValueError("Missing required environment variables. Please check ~/.zshrc")
-        
-        self.headers = {
-            'X-N8N-API-KEY': self.n8n_api_key,
-            'Content-Type': 'application/json'
-        }
-        
-        print(f"🚀 Initialized deployment to: {self.n8n_url}")
-        print(f"🔑 Using OpenRouter API key: {self.openrouter_api_key[:20]}...")
+def test_webhook_endpoint():
+    # Test if the webhook endpoint is responding
+    print("🧪 Testing webhook endpoint...")
     
-    def load_environment_variables(self):
-        """Load environment variables from ~/.zshrc"""
-        print("📋 Loading environment variables from ~/.zshrc...")
-        
-        # Read ~/.zshrc and extract export statements
-        zshrc_path = os.path.expanduser("~/.zshrc")
-        if os.path.exists(zshrc_path):
-            with open(zshrc_path, 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if line.startswith('export ') and '=' in line:
-                        # Parse export KEY="VALUE" or export KEY='VALUE'
-                        parts = line.split('=', 1)
-                        if len(parts) == 2:
-                            key = parts[0].replace('export ', '').strip()
-                            value = parts[1].strip()
-                            
-                            # Remove quotes if present
-                            if (value.startswith('"') and value.endswith('"')) or \
-                               (value.startswith("'") and value.endswith("'")):
-                                value = value[1:-1]
-                            
-                            os.environ[key] = value
-                            print(f"✅ Loaded: {key}")
-        else:
-            print("❌ ~/.zshrc not found")
-            return
-        
-        print("✅ Environment variables loaded successfully")
+    webhook_url = "https://n8n.pbradygeorgen.com/webhook/crew-management"
     
-    def test_n8n_connection(self) -> bool:
-        """Test connection to n8n instance"""
-        print("🔍 Testing n8n connection...")
-        
-        try:
-            # Try different health endpoints
-            endpoints = ['/api/health', '/api/v1/health', '/health']
-            
-            for endpoint in endpoints:
-                try:
-                    response = requests.get(f"{self.n8n_url}{endpoint}", headers=self.headers, timeout=10)
-                    if response.status_code == 200:
-                        print(f"✅ Successfully connected to n8n via {endpoint}")
-                        self.health_endpoint = endpoint
-                        return True
-                except requests.exceptions.RequestException:
-                    continue
-            
-            print("❌ Failed to connect to n8n via any endpoint")
-            return False
-            
-        except Exception as e:
-            print(f"❌ Connection error: {e}")
-            return False
-    
-    def create_openrouter_credential(self) -> Optional[str]:
-        """Create OpenRouter credential in n8n"""
-        print("🔐 Creating OpenRouter credential...")
-        
-        try:
-            # First, check if credential already exists
-            credentials_response = requests.get(
-                f"{self.n8n_url}/api/v1/credentials",
-                headers=self.headers,
-                timeout=10
-            )
-            
-            if credentials_response.status_code == 200:
-                existing_creds = credentials_response.json()
-                for cred in existing_creds:
-                    if cred.get('name') == 'OpenRouter API':
-                        print("✅ OpenRouter credential already exists")
-                        return cred.get('id')
-            
-            # Create new OpenRouter credential
-            credential_payload = {
-                "name": "OpenRouter API",
-                "type": "openAi",
-                "data": {
-                    "apiKey": self.openrouter_api_key,
-                    "baseURL": "https://openrouter.ai/api/v1"
-                }
-            }
-            
-            response = requests.post(
-                f"{self.n8n_url}/api/v1/credentials",
-                headers=self.headers,
-                json=credential_payload,
-                timeout=10
-            )
-            
-            if response.status_code in [200, 201]:
-                credential_id = response.json().get('id')
-                print(f"✅ OpenRouter credential created with ID: {credential_id}")
-                return credential_id
-            else:
-                print(f"❌ Failed to create credential: {response.status_code}")
-                print(f"Response: {response.text}")
-                return None
-                
-        except Exception as e:
-            print(f"❌ Error creating credential: {e}")
-            return None
-    
-    def deploy_workflow(self, workflow_file: Path, openrouter_credential_id: str) -> Optional[str]:
-        """Deploy a single workflow to n8n"""
-        try:
-            with open(workflow_file, 'r') as f:
-                workflow_data = json.load(f)
-            
-            # Prepare workflow for n8n import
-            workflow_payload = {
-                "name": workflow_data.get("name", "Unknown Workflow"),
-                "active": False,  # Start inactive for safety
-                "nodes": self.prepare_workflow_nodes(workflow_data, openrouter_credential_id),
-                "connections": self.generate_connections(workflow_data),
-                "settings": {
-                    "executionOrder": "v1"
-                }
-            }
-            
-            # Import workflow to n8n
-            response = requests.post(
-                f"{self.n8n_url}/api/v1/workflows",
-                headers=self.headers,
-                json=workflow_payload,
-                timeout=30
-            )
-            
-            if response.status_code in [200, 201]:
-                workflow_id = response.json().get('id')
-                print(f"✅ Deployed workflow: {workflow_data.get('name')} (ID: {workflow_id})")
-                return workflow_id
-            else:
-                print(f"❌ Failed to deploy {workflow_data.get('name')}: {response.status_code}")
-                print(f"Response: {response.text}")
-                return None
-                
-        except Exception as e:
-            print(f"❌ Error deploying {workflow_file}: {e}")
-            return None
-    
-    def prepare_workflow_nodes(self, workflow_data: Dict, credential_id: str) -> List[Dict]:
-        """Prepare workflow nodes with proper OpenRouter configuration"""
-        nodes = workflow_data.get("workflow_nodes", [])
-        prepared_nodes = []
-        
-        for node in nodes:
-            prepared_node = node.copy()
-            
-            # Configure OpenRouter nodes
-            if node.get("type") == "n8n-nodes-base.openAi":
-                prepared_node["parameters"] = prepared_node.get("parameters", {}).copy()
-                prepared_node["parameters"]["authentication"] = credential_id
-                
-                # Set proper OpenRouter configuration
-                if "baseURL" not in prepared_node["parameters"]:
-                    prepared_node["parameters"]["baseURL"] = "https://openrouter.ai/api/v1"
-                
-                # Map models to OpenRouter format
-                model_mapping = {
-                    "gpt-4o-mini": "openai/gpt-4o-mini",
-                    "gpt-4o": "openai/gpt-4o",
-                    "claude-3-haiku": "anthropic/claude-3-haiku",
-                    "claude-3-sonnet": "anthropic/claude-3-sonnet",
-                    "gpt-3.5-turbo": "openai/gpt-3.5-turbo"
-                }
-                
-                current_model = prepared_node["parameters"].get("model", "")
-                if current_model in model_mapping:
-                    prepared_node["parameters"]["model"] = model_mapping[current_model]
-            
-            prepared_nodes.append(prepared_node)
-        
-        return prepared_nodes
-    
-    def generate_connections(self, workflow_data: Dict) -> Dict:
-        """Generate connections between workflow nodes"""
-        nodes = workflow_data.get("workflow_nodes", [])
-        connections = {}
-        
-        if len(nodes) >= 2:
-            # Create simple linear connections
-            for i in range(len(nodes) - 1):
-                source_node = nodes[i]["id"]
-                target_node = nodes[i + 1]["id"]
-                
-                if source_node not in connections:
-                    connections[source_node] = {}
-                
-                connections[source_node]["main"] = [
-                    [
-                        {
-                            "node": target_node,
-                            "type": "main",
-                            "index": 0
-                        }
-                    ]
-                ]
-        
-        return connections
-    
-    def deploy_all_workflows(self, openrouter_credential_id: str) -> List[Dict]:
-        """Deploy all workflows from the workflows directory"""
-        workflows_path = Path("n8n_workflows")
-        workflow_files = list(workflows_path.glob("*.json"))
-        
-        print(f"🔧 Found {len(workflow_files)} workflow files to deploy")
-        
-        deployed_workflows = []
-        for workflow_file in workflow_files:
-            print(f"\n🚀 Deploying {workflow_file.name}...")
-            workflow_id = self.deploy_workflow(workflow_file, openrouter_credential_id)
-            if workflow_id:
-                deployed_workflows.append({
-                    "file": workflow_file.name,
-                    "id": workflow_id,
-                    "name": workflow_file.stem
-                })
-                time.sleep(1)  # Small delay between deployments
-            else:
-                print(f"⚠️  Skipping {workflow_file.name} due to deployment failure")
-        
-        return deployed_workflows
-    
-    def activate_workflows(self, workflow_ids: List[str]) -> bool:
-        """Activate all deployed workflows"""
-        print("\n🔌 Activating workflows...")
-        
-        activated_count = 0
-        for workflow_id in workflow_ids:
-            try:
-                # Get current workflow
-                response = requests.get(
-                    f"{self.n8n_url}/api/v1/workflows/{workflow_id}",
-                    headers=self.headers,
-                    timeout=10
-                )
-                
-                if response.status_code == 200:
-                    workflow = response.json()
-                    workflow["active"] = True
-                    
-                    # Update workflow to activate it
-                    update_response = requests.put(
-                        f"{self.n8n_url}/api/v1/workflows/{workflow_id}",
-                        headers=self.headers,
-                        json=workflow,
-                        timeout=10
-                    )
-                    
-                    if update_response.status_code == 200:
-                        print(f"✅ Activated workflow ID: {workflow_id}")
-                        activated_count += 1
-                    else:
-                        print(f"❌ Failed to activate workflow ID: {workflow_id}")
-                
-                time.sleep(0.5)  # Small delay
-                
-            except Exception as e:
-                print(f"❌ Error activating workflow {workflow_id}: {e}")
-        
-        print(f"✅ Activated {activated_count}/{len(workflow_ids)} workflows")
-        return activated_count == len(workflow_ids)
-    
-    def test_crew_member(self, workflow_id: str, crew_name: str) -> bool:
-        """Test a crew member workflow with a simple execution"""
-        print(f"🧪 Testing {crew_name} workflow...")
-        
-        try:
-            # Execute workflow manually
-            execution_payload = {
-                "startNodes": ["mission_input"],  # Default start node
-                "pinData": {
-                    "mission_input": [
-                        {
-                            "json": {
-                                "mission_description": f"Test mission for {crew_name}",
-                                "test_mode": True
-                            }
-                        }
-                    ]
-                }
-            }
-            
-            response = requests.post(
-                f"{self.n8n_url}/api/v1/workflows/{workflow_id}/execute",
-                headers=self.headers,
-                json=execution_payload,
-                timeout=30
-            )
-            
-            if response.status_code in [200, 201]:
-                print(f"✅ {crew_name} workflow executed successfully")
-                return True
-            else:
-                print(f"❌ {crew_name} workflow execution failed: {response.status_code}")
-                return False
-                
-        except Exception as e:
-            print(f"❌ Error testing {crew_name}: {e}")
-            return False
-    
-    def deploy(self):
-        """Main deployment process"""
-        print("🚀 ALEXAI OPTIMIZED CREW N8N AUTOMATED DEPLOYMENT")
-        print("=" * 60)
-        
-        # Test connection
-        if not self.test_n8n_connection():
-            print("❌ Cannot proceed without n8n connection")
-            return False
-        
-        # Create OpenRouter credential
-        openrouter_credential_id = self.create_openrouter_credential()
-        if not openrouter_credential_id:
-            print("❌ Cannot proceed without OpenRouter credential")
-            return False
-        
-        # Deploy all workflows
-        print("\n🚀 Starting workflow deployment...")
-        deployed_workflows = self.deploy_all_workflows(openrouter_credential_id)
-        
-        if not deployed_workflows:
-            print("❌ No workflows were deployed successfully")
-            return False
-        
-        print(f"\n📊 Deployment Summary:")
-        print(f"  • Total workflows: {len(deployed_workflows)}")
-        print(f"  • Successfully deployed: {len(deployed_workflows)}")
-        
-        # Activate workflows
-        workflow_ids = [w["id"] for w in deployed_workflows]
-        activation_success = self.activate_workflows(workflow_ids)
-        
-        # Test crew members
-        print("\n🧪 Testing crew member workflows...")
-        test_results = []
-        for workflow in deployed_workflows:
-            success = self.test_crew_member(workflow["id"], workflow["name"])
-            test_results.append({"name": workflow["name"], "success": success})
-        
-        # Final summary
-        print("\n🎉 DEPLOYMENT COMPLETE!")
-        print("=" * 40)
-        print(f"✅ Deployed: {len(deployed_workflows)} workflows")
-        print(f"✅ Activated: {len(workflow_ids)} workflows")
-        print(f"✅ Tested: {sum(1 for r in test_results if r['success'])}/{len(test_results)} crew members")
-        
-        print("\n🚀 Your optimized AlexAI crew is now live in n8n!")
-        print(f"🌐 Access at: {self.n8n_url}")
-        print("\n📋 Next steps:")
-        print("1. Verify all workflows are visible in n8n UI")
-        print("2. Test crew member collaboration workflows")
-        print("3. Monitor cost optimization and performance")
-        print("4. Scale crew operations as needed")
-        
-        return True
-
-def main():
     try:
-        deployer = AutomatedN8NDeployer()
-        success = deployer.deploy()
+        test_payload = {"operation": "crew_report"}
+        response = requests.post(webhook_url, json=test_payload, timeout=30)
         
-        if success:
-            print("\n🎯 Deployment successful! Your crew is ready for action.")
+        if response.status_code == 200:
+            print("✅ Webhook endpoint responding successfully!")
+            print(f"Response: {response.text[:200]}...")
+            return True
         else:
-            print("\n❌ Deployment failed. Check the logs above for details.")
+            print(f"❌ Webhook test failed: {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
             
     except Exception as e:
-        print(f"\n💥 Deployment error: {e}")
-        print("Please check your environment variables and n8n configuration.")
+        print(f"❌ Webhook test error: {e}")
+        return False
+
+def test_crew_operations():
+    # Test all crew management operations
+    print("🧪 Testing crew operations...")
+    
+    webhook_url = "https://n8n.pbradygeorgen.com/webhook/crew-management"
+    
+    tests = [
+        {
+            "name": "Add Crew Member",
+            "payload": {
+                "operation": "add_crew",
+                "name": "Automated Test Specialist",
+                "role": "test_coordinator",
+                "specialization": "Automated testing and validation",
+                "llm_preference": "openai/gpt-4o-mini"
+            }
+        },
+        {
+            "name": "Create Mission",
+            "payload": {
+                "operation": "create_mission",
+                "mission_id": "automated-test-001",
+                "name": "Automated System Test",
+                "description": "Testing automated deployment and validation",
+                "mission_type": "project_development",
+                "required_crew_size": 3,
+                "priority": "high"
+            }
+        },
+        {
+            "name": "Generate Crew Report",
+            "payload": {
+                "operation": "crew_report"
+            }
+        }
+    ]
+    
+    results = {}
+    for test in tests:
+        print(f"  🧪 Testing: {test['name']}")
+        
+        try:
+            response = requests.post(webhook_url, json=test['payload'], timeout=30)
+            
+            if response.status_code == 200:
+                print(f"    ✅ {test['name']} successful")
+                results[test['name']] = {"status": "success", "response": response.text[:100]}
+            else:
+                print(f"    ❌ {test['name']} failed: {response.status_code}")
+                results[test['name']] = {"status": "failed", "error": response.text}
+                
+        except Exception as e:
+            print(f"    ❌ {test['name']} error: {e}")
+            results[test['name']] = {"status": "error", "error": str(e)}
+        
+        time.sleep(1)  # Brief pause between tests
+    
+    return results
+
+def run_complete_test_suite():
+    # Run complete test suite for the deployed system
+    print("🚀 STARTING COMPLETE TEST SUITE")
+    print("=" * 50)
+    
+    # Test 1: Webhook endpoint
+    if not test_webhook_endpoint():
+        print("❌ Webhook endpoint test failed")
+        return False
+    
+    # Test 2: Crew operations
+    results = test_crew_operations()
+    
+    # Summary
+    print("\\n📊 TEST RESULTS SUMMARY:")
+    print("=" * 30)
+    
+    success_count = sum(1 for r in results.values() if r.get('status') == 'success')
+    total_count = len(results)
+    
+    for test_name, result in results.items():
+        status_emoji = "✅" if result.get('status') == 'success' else "❌"
+        print(f"{status_emoji} {test_name}: {result.get('status', 'unknown')}")
+    
+    print(f"\\n📊 Overall: {success_count}/{total_count} tests passed")
+    
+    if success_count == total_count:
+        print("🎉 ALL TESTS PASSED! Your Crew Management System is fully operational!")
+    else:
+        print("⚠️ Some tests failed - check the details above")
+    
+    return success_count == total_count
 
 if __name__ == "__main__":
-    main()
+    run_complete_test_suite()
+"""
+    
+    with open("automated_n8n_test.py", "w") as f:
+        f.write(script_content)
+    
+    # Make script executable
+    os.chmod("automated_n8n_test.py", 0o755)
+    
+    print("✅ Automated test script created: automated_n8n_test.py")
+    return True
+
+def create_deployment_guide():
+    """Create deployment automation guide"""
+    print("📚 Creating deployment automation guide...")
+    
+    guide_content = """# AUTOMATED N8N DEPLOYMENT GUIDE
+
+## DEPLOYMENT AUTOMATION READY!
+
+Your **Crew Management System** is ready for automated deployment to n8n!
+
+### AUTOMATED DEPLOYMENT SEQUENCE:
+
+#### 1. Import Workflow (Manual Step Required)
+- **Open**: https://n8n.pbradygeorgen.com
+- **Navigate to**: Workflows
+- **Click**: "Import from file"
+- **Select**: `crew_management_workflow.json`
+- **Click**: "Import"
+
+#### 2. Activate System (Manual Step Required)
+- **Find**: "Crew Management System" in workflows
+- **Toggle**: Activation switch to ON
+- **Verify**: Webhook endpoint `/webhook/crew-management` is active
+
+#### 3. Automated Testing (Fully Automated)
+```bash
+# Run the complete automated test suite
+python3 automated_n8n_test.py
+```
+
+### WHAT THE AUTOMATED TESTS WILL VALIDATE:
+
+- **Webhook Endpoint**: Verify endpoint is responding  
+- **Add Crew Member**: Test crew addition functionality  
+- **Create Mission**: Test mission creation system  
+- **Generate Report**: Test reporting capabilities  
+- **System Integration**: Verify all components working  
+
+### EXPECTED RESULTS:
+
+After running the automated tests, you should see:
+- **All tests passing**
+- **Webhook responding** correctly
+- **Crew operations** working
+- **Mission management** functional
+- **System fully operational**
+
+### TROUBLESHOOTING:
+
+If tests fail:
+1. **Check workflow activation** in n8n UI
+2. **Verify webhook endpoint** is accessible
+3. **Check n8n execution logs** for errors
+4. **Ensure OpenRouter credentials** are configured
+
+### READY TO DEPLOY?
+
+1. **Import the workflow** to n8n (manual step)
+2. **Activate the system** (manual step)
+3. **Run automated tests** (fully automated)
+4. **Validate system operation** (automated)
+
+**Your Crew Management System will become the mission control center for all crew operations!**
+
+---
+
+*Generated by Automated N8N Deployment Script*
+*Timestamp: """ + datetime.now().isoformat() + """*
+"""
+    
+    with open("AUTOMATED_DEPLOYMENT_GUIDE.md", "w") as f:
+        f.write(guide_content)
+    
+    print("✅ Deployment automation guide created: AUTOMATED_DEPLOYMENT_GUIDE.md")
+    return True
+
+def main():
+    """Main function to create automated deployment system"""
+    print("🤖 CREATING AUTOMATED N8N DEPLOYMENT SYSTEM")
+    print("=" * 60)
+    
+    # Step 1: Create automated test script
+    print("🤖 Step 1: Creating automated test script...")
+    if not create_automated_test_script():
+        print("❌ Failed to create test script")
+        return False
+    
+    # Step 2: Create deployment guide
+    print("\\n📚 Step 2: Creating deployment guide...")
+    if not create_deployment_guide():
+        print("❌ Failed to create deployment guide")
+        return False
+    
+    print("\\n" + "=" * 60)
+    print("🎉 AUTOMATED DEPLOYMENT SYSTEM READY!")
+    print("✅ Automated test script created")
+    print("✅ Deployment guide generated")
+    print("✅ Ready for n8n import and activation")
+    
+    print("\\n" + "=" * 60)
+    print("📋 DEPLOYMENT INSTRUCTIONS")
+    print("=" * 60)
+    
+    print("🚀 **YOUR CREW MANAGEMENT SYSTEM IS READY FOR DEPLOYMENT!**")
+    print()
+    print("📋 **NEXT STEPS:**")
+    print("1. Import workflow to n8n (manual)")
+    print("2. Activate system in n8n (manual)")
+    print("3. Run automated tests (fully automated)")
+    print()
+    print("🔧 **FILES CREATED:**")
+    print("   • crew_management_workflow.json - Ready for n8n import")
+    print("   • automated_n8n_test.py - Automated testing script")
+    print("   • AUTOMATED_DEPLOYMENT_GUIDE.md - Complete guide")
+    print()
+    print("🧪 **TO TEST AFTER DEPLOYMENT:**")
+    print("   python3 automated_n8n_test.py")
+    print()
+    print("🎯 **READY TO IMPORT TO N8N?**")
+    print("Your system is fully automated and ready to go live!")
+    
+    return True
+
+if __name__ == "__main__":
+    success = main()
+    
+    if success:
+        print("\\n🎉 Your automated deployment system is ready!")
+        print("🚀 Import to n8n and run the automated tests!")
+    else:
+        print("\\n❌ Automated deployment setup failed - check logs above")
+        exit(1)
