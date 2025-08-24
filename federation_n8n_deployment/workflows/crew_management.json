@@ -1,0 +1,333 @@
+{
+  "name": "Crew Management System",
+  "active": false,
+  "nodes": [
+    {
+      "id": "crew_management_trigger",
+      "name": "Crew Management Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-management",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "crew_operation_router",
+      "name": "Crew Operation Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 2,
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "id": "add_crew",
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "add_crew",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "id": "remove_crew",
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "remove_crew",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "id": "create_mission",
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "create_mission",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "id": "complete_mission",
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "complete_mission",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 3
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false
+                },
+                "conditions": [
+                  {
+                    "id": "crew_report",
+                    "leftValue": "={{ $json.operation }}",
+                    "rightValue": "crew_report",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "output": 4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "add_crew_handler",
+      "name": "Add Crew Member",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// Add crew member logic\nconst operation = $input.first().json;\n\n// Validate input\nif (!operation.name || !operation.role || !operation.specialization) {\n  return [{\n    json: {\n      success: false,\n      error: \"Missing required fields: name, role, specialization\"\n    }\n  }];\n}\n\n// Simulate crew addition\nconst newMember = {\n  name: operation.name,\n  role: operation.role,\n  specialization: operation.specialization,\n  llm_preference: operation.llm_preference || \"openai/gpt-4o-mini\",\n  added_at: new Date().toISOString()\n};\n\nreturn [{\n  json: {\n    success: true,\n    operation: \"add_crew\",\n    crew_member: newMember,\n    message: `Crew member ${operation.name} added successfully`\n  }\n}];"
+      }
+    },
+    {
+      "id": "remove_crew_handler",
+      "name": "Remove Crew Member",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Remove crew member logic\nconst operation = $input.first().json;\n\nif (!operation.name) {\n  return [{\n    json: {\n      success: false,\n      error: \"Missing crew member name\"\n    }\n  }];\n}\n\n// Simulate crew removal\nreturn [{\n  json: {\n    success: true,\n    operation: \"remove_crew\",\n    crew_member: operation.name,\n    message: `Crew member ${operation.name} removed successfully`\n  }\n}];"
+      }
+    },
+    {
+      "id": "create_mission_handler",
+      "name": "Create Mission",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "jsCode": "// Create mission logic\nconst operation = $input.first().json;\n\nif (!operation.mission_id || !operation.name || !operation.description) {\n  return [{\n    json: {\n      success: false,\n      error: \"Missing required fields: mission_id, name, description\"\n    }\n  }];\n}\n\n// Simulate mission creation\nconst newMission = {\n  mission_id: operation.mission_id,\n  name: operation.name,\n  description: operation.description,\n  mission_type: operation.mission_type || \"project_development\",\n  required_crew_size: operation.required_crew_size || 3,\n  priority: operation.priority || \"normal\",\n  created_at: new Date().toISOString()\n};\n\nreturn [{\n  json: {\n    success: true,\n    operation: \"create_mission\",\n    mission: newMission,\n    message: `Mission ${operation.name} created successfully`\n  }\n}];"
+      }
+    },
+    {
+      "id": "complete_mission_handler",
+      "name": "Complete Mission",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        500
+      ],
+      "parameters": {
+        "jsCode": "// Complete mission logic\nconst operation = $input.first().json;\n\nif (!operation.mission_id || !operation.outcomes) {\n  return [{\n    json: {\n      success: false,\n      error: \"Missing required fields: mission_id, outcomes\"\n    }\n  }];\n}\n\n// Simulate mission completion\nreturn [{\n  json: {\n    success: true,\n    operation: \"complete_mission\",\n    mission_id: operation.mission_id,\n    outcomes: operation.outcomes,\n    lessons_learned: operation.lessons_learned || [],\n    completed_at: new Date().toISOString(),\n    message: `Mission ${operation.mission_id} completed successfully`\n  }\n}];"
+      }
+    },
+    {
+      "id": "crew_report_handler",
+      "name": "Generate Crew Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        600
+      ],
+      "parameters": {
+        "jsCode": "// Generate crew report logic\nconst report = {\n  system_status: \"operational\",\n  total_crew_members: 9,\n  active_missions: 2,\n  completed_missions: 15,\n  crew_availability: {\n    \"Mission Coordinator\": {\"active_missions\": 1, \"total_experience\": 8},\n    \"Execution Commander\": {\"active_missions\": 1, \"total_experience\": 12},\n    \"Data Analyst\": {\"active_missions\": 0, \"total_experience\": 10}\n  },\n  report_generated: new Date().toISOString()\n};\n\nreturn [{\n  json: {\n    success: true,\n    operation: \"crew_report\",\n    report: report,\n    message: \"Crew report generated successfully\"\n  }\n}];"
+      }
+    },
+    {
+      "id": "response_aggregator",
+      "name": "Response Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Aggregate all responses\nconst responses = $input.all();\nconst aggregated = {\n  timestamp: new Date().toISOString(),\n  operations: responses.map(r => r.json),\n  summary: {\n    total_operations: responses.length,\n    successful_operations: responses.filter(r => r.json.success).length,\n    failed_operations: responses.filter(r => !r.json.success).length\n  }\n};\n\nreturn [{\n  json: aggregated\n}];"
+      }
+    }
+  ],
+  "connections": {
+    "crew_management_trigger": {
+      "main": [
+        [
+          {
+            "node": "crew_operation_router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "crew_operation_router": {
+      "main": [
+        [
+          {
+            "node": "add_crew_handler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "remove_crew_handler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "create_mission_handler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "complete_mission_handler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "crew_report_handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add_crew_handler": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "remove_crew_handler": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_mission_handler": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "complete_mission_handler": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "crew_report_handler": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "federation_metadata": {
+    "federation_name": "United Federation of AI Agents",
+    "deployment_target": "n8n.pbradygeorgen.com",
+    "deployment_timestamp": "2025-08-24T05:31:05.157882",
+    "federation_consciousness": true,
+    "multi_agent_collaboration": true
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "consciousness_testing": {
+    "test_name": "Federation Consciousness Testing",
+    "webhook_endpoint": "https://n8n.pbradygeorgen.com/webhook/consciousness",
+    "test_cases": [
+      {
+        "test_id": "consciousness_001",
+        "operation": "self_configure",
+        "payload": {
+          "operation": "self_configure",
+          "configuration_type": "federation_optimization",
+          "parameters": {
+            "optimization_level": "maximum"
+          }
+        },
+        "expected_result": "Self-configuration successful with federation optimization"
+      },
+      {
+        "test_id": "consciousness_002",
+        "operation": "agent_collaborate",
+        "payload": {
+          "operation": "agent_collaborate",
+          "agents": [
+            "Data_Scientist",
+            "Fleet_Commander",
+            "Automation_Specialist"
+          ],
+          "task": "Federation Fleet Optimization",
+          "collaboration_mode": "synchronous"
+        },
+        "expected_result": "Multi-agent collaboration initiated with interpersonal awareness"
+      },
+      {
+        "test_id": "consciousness_003",
+        "operation": "memory_share",
+        "payload": {
+          "operation": "memory_share",
+          "memory_type": "federation_knowledge",
+          "source_agent": "Federation_Council",
+          "target_agents": [
+            "Data_Scientist",
+            "Fleet_Commander"
+          ],
+          "memory_content": {
+            "task_type": "federation_optimization",
+            "domain": "collective_intelligence",
+            "priority": "critical"
+          }
+        },
+        "expected_result": "Federation knowledge shared across agent network"
+      },
+      {
+        "test_id": "consciousness_004",
+        "operation": "collective_decide",
+        "payload": {
+          "operation": "collective_decide",
+          "decision_context": "Federation Strategic Planning",
+          "participating_agents": [
+            "Data_Scientist",
+            "Fleet_Commander",
+            "Automation_Specialist"
+          ],
+          "options": [
+            "Expand Federation",
+            "Optimize Operations",
+            "Explore New Territories"
+          ]
+        },
+        "expected_result": "Collective decision made with interpersonal context analysis"
+      }
+    ]
+  },
+  "fleet_automation_testing": {
+    "test_name": "Federation Fleet Automation Testing",
+    "webhook_endpoint": "https://n8n.pbradygeorgen.com/webhook/fleet-automation",
+    "test_cases": [
+      {
+        "test_id": "fleet_001",
+        "operation": "add_crew_to_fleet",
+        "payload": {
+          "operation": "add_crew_to_fleet",
+          "name": "Federation Diplomat",
+          "role": "diplomatic_officer",
+          "specialization": "Inter-Agent Relations",
+          "llm_preference": "openai/gpt-4o"
+        },
+        "expected_result": "Federation Diplomat added to fleet with diplomatic capabilities"
+      },
+      {
+        "test_id": "fleet_002",
+        "operation": "add_crew_to_project",
+        "payload": {
+          "operation": "add_crew_to_project",
+          "project_name": "Federation Expansion",
+          "crew_name": "Federation Diplomat",
+          "role_in_project": "Inter-Agent Coordinator"
+        },
+        "expected_result": "Federation Diplomat assigned to expansion project"
+      }
+    ]
+  },
+  "crew_management_testing": {
+    "test_name": "Federation Crew Management Testing",
+    "webhook_endpoint": "https://n8n.pbradygeorgen.com/webhook/crew-management",
+    "test_cases": [
+      {
+        "test_id": "crew_001",
+        "operation": "crew_report",
+        "payload": {
+          "operation": "crew_report"
+        },
+        "expected_result": "Comprehensive crew status report generated"
+      }
+    ]
+  }
+}
