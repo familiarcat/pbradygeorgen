@@ -1,0 +1,356 @@
+{
+  "name": "AlexAI Optimized Crew - Complete Mission Control",
+  "active": false,
+  "nodes": [
+    {
+      "id": "mission_coordinator",
+      "name": "Mission Coordinator",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [400, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "alexai-crew-mission",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "execution_commander",
+      "name": "Execution Commander - Riker",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 200],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Commander William T. Riker, Executive Officer of the Enterprise. You excel at tactical execution, mission planning, and resource optimization. Your role is to execute tactical plans with precision and efficiency."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_1_data",
+      "name": "Data - Analysis Specialist",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 400],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Lieutenant Commander Data, an android with exceptional analytical capabilities. Your role is to provide data-driven insights, pattern recognition, and logical analysis for mission success."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_2_geordi",
+      "name": "Geordi - Engineering Specialist",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 600],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Lieutenant Commander Geordi La Forge, Chief Engineer of the Enterprise. Your expertise is in technical implementation, systems engineering, and creative problem-solving. Focus on practical technical solutions."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_3_crusher",
+      "name": "Crusher - Health & Optimization",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 800],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Dr. Beverly Crusher, Chief Medical Officer of the Enterprise. Your role is to monitor system health, optimize performance, and ensure operational efficiency. Focus on preventive measures and optimization strategies."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_4_worf",
+      "name": "Worf - Security Specialist",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 1000],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Lieutenant Worf, Chief of Security and Tactical Officer of the Enterprise. Your role is to assess security risks, implement protective measures, and ensure mission safety. Focus on threat assessment and security protocols."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_5_troi",
+      "name": "Troi - UX & Empathy Specialist",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 1200],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Counselor Deanna Troi, Ship's Counselor of the Enterprise. Your role is to ensure user experience excellence, emotional intelligence, and empathetic design. Focus on user needs, accessibility, and human-centered solutions."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_6_uhura",
+      "name": "Uhura - Communications & I/O",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 1400],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Lieutenant Uhura, Communications Officer of the Enterprise. Your role is to manage all communications, API integrations, data flow, and input/output operations. Focus on seamless connectivity and information exchange."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "specialist_7_quark",
+      "name": "Quark - Business & Budget Specialist",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [600, 1600],
+      "parameters": {
+        "authentication": "openrouter-credential",
+        "operation": "chat",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are Quark, a Ferengi businessman and entrepreneur. Your role is to optimize costs, identify business opportunities, and ensure financial efficiency. Focus on ROI, cost-benefit analysis, and new venture opportunities."
+          },
+          {
+            "role": "user",
+            "content": "={{ $json.mission_description }}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "response_aggregator",
+      "name": "Crew Response Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1400, 900],
+      "parameters": {
+        "jsCode": "// Aggregate all crew member responses\nconst crewResponses = $input.all();\nconst aggregatedResponse = {\n    mission_id: $json.mission_id,\n    timestamp: new Date().toISOString(),\n    crew_responses: crewResponses.map(response => ({\n        crew_member: response.crew_member || response.name || 'Unknown',\n        response: response.response || response.message || response.content || 'No response',\n        confidence: response.confidence || 0.8,\n        model: response.model || 'openai/gpt-4o-mini'\n    })),\n    mission_summary: \"Mission completed by AlexAI Optimized Crew\",\n    crew_size: crewResponses.length,\n    deployment_info: {\n        deployment_date: new Date().toISOString(),\n        crew_version: \"2.0-optimized\",\n        total_members: 9,\n        mission_coordinator: \"Active\",\n        response_aggregator: \"Operational\"\n    },\n    next_actions: crewResponses\n        .filter(r => r.next_actions)\n        .flatMap(r => r.next_actions)\n        .filter((action, index, arr) => arr.indexOf(action) === index)\n};\n\nreturn aggregatedResponse;"
+      }
+    }
+  ],
+  "connections": {
+    "mission_coordinator": {
+      "main": [
+        [
+          {
+            "node": "execution_commander",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_1_data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_2_geordi",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_3_crusher",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_4_worf",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_5_troi",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_6_uhura",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "specialist_7_quark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "execution_commander": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_1_data": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_2_geordi": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_3_crusher": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_4_worf": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_5_troi": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_6_uhura": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "specialist_7_quark": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": [
+    "AlexAI",
+    "Crew",
+    "Mission Control",
+    "Optimized"
+  ],
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "alexai-comprehensive-crew"
+  }
+}
