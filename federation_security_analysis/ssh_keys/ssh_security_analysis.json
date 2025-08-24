@@ -1,0 +1,87 @@
+{
+  "ssh_directory": "/Users/bradygeorgen/.ssh",
+  "total_files": 12,
+  "private_keys": [
+    {
+      "filename": "id_ed25519",
+      "type": "private",
+      "path": "/Users/bradygeorgen/.ssh/id_ed25519",
+      "size_bytes": 411,
+      "permissions": "600",
+      "last_modified": "2024-11-13T02:16:45.860279",
+      "federation_access": true,
+      "security_level": "high"
+    },
+    {
+      "filename": "connections.pem",
+      "type": "private",
+      "path": "/Users/bradygeorgen/.ssh/connections.pem",
+      "size_bytes": 1678,
+      "permissions": "400",
+      "last_modified": "2025-07-01T09:00:57.536506",
+      "federation_access": true,
+      "security_level": "high"
+    },
+    {
+      "filename": "id_rsa",
+      "type": "private",
+      "path": "/Users/bradygeorgen/.ssh/id_rsa",
+      "size_bytes": 3389,
+      "permissions": "600",
+      "last_modified": "2025-06-28T04:45:31.198108",
+      "federation_access": true,
+      "security_level": "high"
+    },
+    {
+      "filename": "n8n.pem",
+      "type": "private",
+      "path": "/Users/bradygeorgen/.ssh/n8n.pem",
+      "size_bytes": 1674,
+      "permissions": "600",
+      "last_modified": "2025-07-20T19:19:42.606605",
+      "federation_access": true,
+      "security_level": "high"
+    },
+    {
+      "filename": "AlexKeyPair.pem",
+      "type": "private",
+      "path": "/Users/bradygeorgen/.ssh/AlexKeyPair.pem",
+      "size_bytes": 3434,
+      "permissions": "600",
+      "last_modified": "2025-06-01T23:03:17.633060",
+      "federation_access": true,
+      "security_level": "high"
+    }
+  ],
+  "public_keys": [],
+  "config_files": [
+    {
+      "filename": "config",
+      "path": "/Users/bradygeorgen/.ssh/config",
+      "size_bytes": 465,
+      "lines": 23,
+      "federation_access": true,
+      "security_level": "medium"
+    }
+  ],
+  "known_hosts": [
+    {
+      "filename": "known_hosts",
+      "path": "/Users/bradygeorgen/.ssh/known_hosts",
+      "size_bytes": 7707,
+      "total_hosts": 44,
+      "federation_access": true,
+      "security_level": "medium"
+    }
+  ],
+  "security_assessment": {
+    "overall_security_level": "high",
+    "key_types": [
+      "private"
+    ],
+    "federation_ready": true,
+    "authentication_methods": [
+      "ssh_key_based"
+    ]
+  }
+}
