@@ -1,0 +1,18 @@
+{
+  "crew_members": [
+    {
+      "name": "Fleet Automation Specialist",
+      "role": "automation_engineer",
+      "specialization": "Fleet Operations and Automation",
+      "llm_preference": "openai/gpt-4o",
+      "added_to_fleet": "2025-08-24T05:11:33.079861",
+      "status": "active",
+      "assigned_projects": [],
+      "assigned_missions": []
+    }
+  ],
+  "fleet_info": {
+    "name": "AlexAI Fleet",
+    "created": "2025-08-24T05:11:33.079836"
+  }
+}

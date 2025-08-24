@@ -1,0 +1,14 @@
+{
+  "project_name": "Data Pipeline",
+  "project_id": "data-pipeline-20250824",
+  "created_at": "2025-08-24T05:11:33.079865",
+  "crew_members": [
+    {
+      "name": "Fleet Automation Specialist",
+      "role_in_project": "Pipeline Automation Lead",
+      "assigned_at": "2025-08-24T05:11:33.079866",
+      "status": "active"
+    }
+  ],
+  "status": "active"
+}

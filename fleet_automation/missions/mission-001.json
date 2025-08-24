@@ -1,0 +1,15 @@
+{
+  "mission_id": "mission-001",
+  "mission_name": "Mission mission-001",
+  "created_at": "2025-08-24T05:11:33.079869",
+  "crew_members": [
+    {
+      "name": "Fleet Automation Specialist",
+      "mission_role": "Mission Automation Coordinator",
+      "assigned_at": "2025-08-24T05:11:33.079870",
+      "status": "active"
+    }
+  ],
+  "status": "active",
+  "mission_type": "crew_assignment"
+}
