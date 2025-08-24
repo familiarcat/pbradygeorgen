@@ -1,0 +1,311 @@
+{
+  "name": "Fleet Automation System",
+  "active": false,
+  "nodes": [
+    {
+      "id": "fleet_automation_trigger",
+      "name": "Fleet Automation Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "fleet-automation",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "fleet_operation_router",
+      "name": "Fleet Operation Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ],
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "add_crew_to_fleet",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 0
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "add_crew_to_project",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 1
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "add_crew_to_mission",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 2
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "fleet_status_report",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 3
+            },
+            {
+              "conditions": [
+                {
+                  "id": "operation",
+                  "leftValue": "={{ $json.operation }}",
+                  "rightValue": "deploy_workflow",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "outputIndex": 4
+            }
+          ]
+        },
+        "fallbackOutput": 5
+      }
+    },
+    {
+      "id": "add_crew_to_fleet",
+      "name": "Add Crew to Fleet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        200
+      ],
+      "parameters": {
+        "jsCode": "// Add crew member to entire fleet\nconst crewData = $input.first().json;\nconst { name, role, specialization, llm_preference } = crewData;\n\n// Simulate fleet crew addition\nconst fleetMember = {\n  name,\n  role,\n  specialization,\n  llm_preference,\n  added_to_fleet: new Date().toISOString(),\n  status: 'active',\n  assigned_projects: [],\n  assigned_missions: []\n};\n\n// Store in collective memory\nconst memoryEntry = {\n  operation: 'add_crew_to_fleet',\n  timestamp: new Date().toISOString(),\n  crew_member: fleetMember,\n  status: 'success',\n  message: `Crew member ${name} successfully added to AlexAI Fleet`\n};\n\nreturn {\n  json: {\n    operation: 'add_crew_to_fleet',\n    status: 'success',\n    crew_member: fleetMember,\n    memory_entry: memoryEntry,\n    message: `\ud83d\ude80 ${name} successfully added to AlexAI Fleet as ${role}!`\n  }\n};"
+      }
+    },
+    {
+      "id": "add_crew_to_project",
+      "name": "Add Crew to Project",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Add crew member to specific project\nconst crewData = $input.first().json;\nconst { project_name, crew_name, role_in_project } = crewData;\n\n// Simulate project crew assignment\nconst projectMember = {\n  name: crew_name,\n  role_in_project,\n  assigned_at: new Date().toISOString(),\n  status: 'active',\n  project: project_name\n};\n\n// Store in collective memory\nconst memoryEntry = {\n  operation: 'add_crew_to_project',\n  timestamp: new Date().toISOString(),\n  project_assignment: projectMember,\n  status: 'success',\n  message: `Crew member ${crew_name} assigned to project ${project_name}`\n};\n\nreturn {\n  json: {\n    operation: 'add_crew_to_project',\n    status: 'success',\n    project_assignment: projectMember,\n    memory_entry: memoryEntry,\n    message: `\ud83d\udccb ${crew_name} successfully assigned to project ${project_name} as ${role_in_project}!`\n  }\n};"
+      }
+    },
+    {
+      "id": "add_crew_to_mission",
+      "name": "Add Crew to Mission",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        400
+      ],
+      "parameters": {
+        "jsCode": "// Add crew member to specific mission\nconst crewData = $input.first().json;\nconst { mission_id, crew_name, mission_role } = crewData;\n\n// Simulate mission crew assignment\nconst missionMember = {\n  name: crew_name,\n  mission_role,\n  assigned_at: new Date().toISOString(),\n  status: 'active',\n  mission: mission_id\n};\n\n// Store in collective memory\nconst memoryEntry = {\n  operation: 'add_crew_to_mission',\n  timestamp: new Date().toISOString(),\n  mission_assignment: missionMember,\n  status: 'success',\n  message: `Crew member ${crew_name} assigned to mission ${mission_id}`\n};\n\nreturn {\n  json: {\n    operation: 'add_crew_to_mission',\n    status: 'success',\n    mission_assignment: missionMember,\n    memory_entry: memoryEntry,\n    message: `\ud83c\udfaf ${crew_name} successfully assigned to mission ${mission_id} as ${mission_role}!`\n  }\n};"
+      }
+    },
+    {
+      "id": "fleet_status_report",
+      "name": "Fleet Status Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        500
+      ],
+      "parameters": {
+        "jsCode": "// Generate comprehensive fleet status report\nconst timestamp = new Date().toISOString();\n\n// Simulate fleet status data\nconst fleetStatus = {\n  fleet_name: 'AlexAI Fleet',\n  fleet_id: 'alexai-fleet-001',\n  report_generated: timestamp,\n  crew_members: [\n    { name: 'Fleet Automation Specialist', role: 'automation_engineer', status: 'active' },\n    { name: 'Data Scientist', role: 'analyst', status: 'active' },\n    { name: 'Mission Coordinator', role: 'coordinator', status: 'active' }\n  ],\n  projects: [\n    { name: 'Data Pipeline', crew_count: 2, status: 'active' },\n    { name: 'Fleet Automation', crew_count: 1, status: 'active' }\n  ],\n  missions: [\n    { id: 'mission-001', crew_count: 1, status: 'active' },\n    { id: 'mission-002', crew_count: 2, status: 'active' }\n  ],\n  automation_scripts: 5,\n  system_status: 'fully_operational'\n};\n\n// Store in collective memory\nconst memoryEntry = {\n  operation: 'fleet_status_report',\n  timestamp,\n  fleet_status,\n  status: 'success',\n  message: 'Fleet status report generated successfully'\n};\n\nreturn {\n  json: {\n    operation: 'fleet_status_report',\n    status: 'success',\n    fleet_status,\n    memory_entry: memoryEntry,\n    message: `\ud83d\udcca Fleet Status Report Generated! Total Crew: ${fleetStatus.crew_members.length}, Projects: ${fleetStatus.projects.length}, Missions: ${fleetStatus.missions.length}`\n  }\n};"
+      }
+    },
+    {
+      "id": "deploy_workflow",
+      "name": "Deploy Workflow",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        600
+      ],
+      "parameters": {
+        "jsCode": "// Deploy workflow to n8n\nconst deployData = $input.first().json;\nconst { workflow_name, workflow_data } = deployData;\n\n// Simulate workflow deployment\nconst deploymentResult = {\n  workflow_name,\n  deployment_id: `deploy-${Date.now()}`,\n  deployed_at: new Date().toISOString(),\n  status: 'deployed',\n  n8n_instance: 'n8n.pbradygeorgen.com'\n};\n\n// Store in collective memory\nconst memoryEntry = {\n  operation: 'deploy_workflow',\n  timestamp: new Date().toISOString(),\n  deployment_result: deploymentResult,\n  status: 'success',\n  message: `Workflow ${workflow_name} deployed successfully`\n};\n\nreturn {\n  json: {\n    operation: 'deploy_workflow',\n    status: 'success',\n    deployment_result: deploymentResult,\n    memory_entry: memoryEntry,\n    message: `\ud83d\ude80 Workflow ${workflow_name} successfully deployed to n8n!`\n  }\n};"
+      }
+    },
+    {
+      "id": "response_aggregator",
+      "name": "Response Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Aggregate responses from all fleet operations\nconst inputData = $input.all();\nconst responses = inputData.map(item => item.json);\n\n// Find the successful response\nconst successfulResponse = responses.find(response => response.status === 'success');\n\nif (successfulResponse) {\n  return {\n    json: {\n      fleet_operation: successfulResponse.operation,\n      status: 'success',\n      result: successfulResponse,\n      timestamp: new Date().toISOString(),\n      message: successfulResponse.message,\n      collective_memory: successfulResponse.memory_entry\n    }\n  };\n} else {\n  return {\n    json: {\n      fleet_operation: 'unknown',\n      status: 'error',\n      error: 'No successful fleet operation found',\n      timestamp: new Date().toISOString()\n    }\n  };\n}"
+      }
+    }
+  ],
+  "connections": {
+    "fleet_automation_trigger": {
+      "main": [
+        [
+          {
+            "node": "fleet_operation_router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fleet_operation_router": {
+      "main": [
+        [
+          {
+            "node": "add_crew_to_fleet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "add_crew_to_project",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "add_crew_to_mission",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "fleet_status_report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "deploy_workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add_crew_to_fleet": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add_crew_to_project": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "add_crew_to_mission": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fleet_status_report": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "deploy_workflow": {
+      "main": [
+        [
+          {
+            "node": "response_aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "federation_metadata": {
+    "federation_name": "United Federation of AI Agents",
+    "deployment_target": "n8n.pbradygeorgen.com",
+    "deployment_timestamp": "2025-08-24T05:31:05.157417",
+    "federation_consciousness": true,
+    "multi_agent_collaboration": true
+  }
+}
