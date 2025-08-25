@@ -1,0 +1,81 @@
+{
+    "name": "cursor-federation-crew",
+    "displayName": "Federation Crew - n8n Integration",
+    "description": "Global Federation Crew integration for Cursor with n8n connectivity",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished",
+        "onCommand:federation-crew.activate",
+        "onCommand:federation-crew.observation-lounge",
+        "onCommand:federation-crew.crew-consultation"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "federation-crew.activate",
+                "title": "Activate Federation Crew",
+                "category": "Federation Crew"
+            },
+            {
+                "command": "federation-crew.observation-lounge",
+                "title": "Observation Lounge Meeting",
+                "category": "Federation Crew"
+            },
+            {
+                "command": "federation-crew.crew-consultation",
+                "title": "Crew Consultation",
+                "category": "Federation Crew"
+            }
+        ],
+        "configuration": {
+            "title": "Federation Crew",
+            "properties": {
+                "federationCrew.n8nUrl": {
+                    "type": "string",
+                    "default": "https://n8n.pbradygeorgen.com",
+                    "description": "n8n instance URL"
+                },
+                "federationCrew.autoActivate": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically activate Federation Crew on startup"
+                },
+                "federationCrew.activationPhrases": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "activate n8n",
+                        "all hands on deck",
+                        "federation crew activate",
+                        "assemble the crew",
+                        "observation lounge",
+                        "senior staff meeting"
+                    ],
+                    "description": "Phrases that activate the Federation Crew"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.74.0",
+        "@types/node": "16.x",
+        "typescript": "^4.9.4"
+    },
+    "dependencies": {
+        "axios": "^1.4.0"
+    }
+}
