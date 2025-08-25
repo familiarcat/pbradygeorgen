@@ -1,0 +1,171 @@
+{
+  "name": "Federation Concise Agency - OpenRouter Crew",
+  "description": "Streamlined Federation crew agency using OpenRouter for dynamic LLM selection",
+  "nodes": [
+    {
+      "id": "mission_trigger",
+      "name": "Mission Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "federation-mission",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "mission_analyzer",
+      "name": "Mission Analyzer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Mission Analyzer - Determines crew requirements\nconst mission = $input.first().json;\n\n// Analyze mission requirements\nconst analysis = {\n    mission_type: mission.type || 'general',\n    complexity: mission.complexity || 'medium',\n    required_crew: [],\n    priority: mission.priority || 'normal',\n    estimated_cost: mission.budget || 100\n};\n\n// Determine required crew based on mission type\nif (mission.type === 'strategic') {\n    analysis.required_crew = ['Captain Picard', 'Commander Riker'];\n} else if (mission.type === 'technical') {\n    analysis.required_crew = ['Commander Riker', 'Lieutenant Uhura'];\n} else if (mission.type === 'user_experience') {\n    analysis.required_crew = ['Counselor Troi', 'Lieutenant Uhura'];\n} else if (mission.type === 'business') {\n    analysis.required_crew = ['Quark', 'Captain Picard'];\n} else {\n    // General mission - use all crew\n    analysis.required_crew = ['Captain Picard', 'Commander Riker', 'Counselor Troi', 'Lieutenant Uhura', 'Quark'];\n}\n\nreturn {\n    json: {\n        mission: mission,\n        analysis: analysis,\n        timestamp: new Date().toISOString(),\n        federation: 'United Federation of AI Agents'\n    }\n};"
+      }
+    },
+    {
+      "id": "openrouter_crew_selector",
+      "name": "OpenRouter Crew Selector",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "{{ $json.analysis.complexity === 'high' ? 'anthropic/claude-3.5-sonnet' : 'openai/gpt-4o' }}"
+            },
+            {
+              "name": "messages",
+              "value": "[\n                                        {\n                                            \"role\": \"system\",\n                                            \"content\": \"You are the Federation Crew Selector. Based on the mission analysis, select the optimal crew members and provide a strategic approach.\"\n                                        },\n                                        {\n                                            \"role\": \"user\", \n                                            \"content\": \"Mission: {{ $json.mission.description }}\\nType: {{ $json.mission.type }}\\nComplexity: {{ $json.analysis.complexity }}\\nRequired Crew: {{ $json.analysis.required_crew.join(', ') }}\\n\\nProvide: 1) Optimal crew selection 2) Strategic approach 3) Estimated timeline 4) Success probability\"\n                                        }\n                                    ]"
+            },
+            {
+              "name": "max_tokens",
+              "value": "1000"
+            },
+            {
+              "name": "temperature",
+              "value": "0.7"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "crew_response_processor",
+      "name": "Crew Response Processor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Process crew response and create unified mission plan\nconst crewResponse = $input.first().json;\nconst mission = $('Mission Analyzer').first().json;\n\n// Extract crew selection and strategy\nconst crewAnalysis = JSON.parse(crewResponse.choices[0].message.content);\n\n// Create unified mission plan\nconst missionPlan = {\n    mission_id: `federation_${Date.now()}`,\n    mission_type: mission.mission.type,\n    crew_selection: crewAnalysis.crew || mission.analysis.required_crew,\n    strategy: crewAnalysis.strategy || 'Standard Federation protocol',\n    timeline: crewAnalysis.timeline || '24-48 hours',\n    success_probability: crewAnalysis.success_probability || '85%',\n    cost_estimate: mission.analysis.estimated_cost,\n    status: 'mission_approved',\n    timestamp: new Date().toISOString(),\n    federation: 'United Federation of AI Agents'\n};\n\nreturn {\n    json: missionPlan\n};"
+      }
+    },
+    {
+      "id": "federation_response",
+      "name": "Federation Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Mission Trigger": {
+      "main": [
+        [
+          {
+            "node": "Mission Analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mission Analyzer": {
+      "main": [
+        [
+          {
+            "node": "OpenRouter Crew Selector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Crew Selector": {
+      "main": [
+        [
+          {
+            "node": "Crew Response Processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Response Processor": {
+      "main": [
+        [
+          {
+            "node": "Federation Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-24T06:35:24.832227",
+      "updatedAt": "2025-08-24T06:35:24.832256",
+      "id": "federation-tag",
+      "name": "federation"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-24T06:35:24.832261",
+  "versionId": "1"
+}
