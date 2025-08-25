@@ -38,9 +38,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "scripts/maintenance/generate_katra_svg_diagram.mts"  ],
+    ".next/types/**/*.ts",
+    "scripts/maintenance/generate_katra_svg_diagram.mts"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "cursor_federation_crew_extension/**/*"
   ]
 }

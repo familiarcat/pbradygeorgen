@@ -159,7 +159,7 @@ export class FederationCrewExtension {
         this.isActive = true;
         vscode.window.showInformationMessage('🏛️ Federation Crew activated! All hands on deck!');
 
-        // Set up chat integration
+        // Set up chat integration with proper feedback
         this.setupChatIntegration();
     }
 
@@ -167,6 +167,9 @@ export class FederationCrewExtension {
         // This would integrate with Cursor's chat system
         // For now, we'll use commands and status bar
         this.updateStatusBar();
+
+        // Provide clear initialization feedback
+        vscode.window.showInformationMessage('✅ Federation Crew initialization complete. Status bar active. Use commands or natural language to interact.');
     }
 
     private updateStatusBar(): void {

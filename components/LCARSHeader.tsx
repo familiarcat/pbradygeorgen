@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useLcarsTheme } from '@/context/LcarsThemeContext';
+import { useLcarsTheme } from '@/contexts/LcarsThemeContext';
 
 export default function LCARSHeader({ registry = "02-262000", siteName = "TheLCARS.com" }) {
   const { colors } = useLcarsTheme();
