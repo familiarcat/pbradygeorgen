@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "N8N_BASE_URL=https://n8n.pbradygeorgen.com next dev",
+    "dev": "N8N_BASE_URL=https://n8n.pbradygeorgen.com NODE_OPTIONS='--max-old-space-size=4096' next dev",
     "dev:unified": "chmod +x scripts/docker-unified-dev.sh && ./scripts/docker-unified-dev.sh",
     "crew:evaluate": "chmod +x scripts/crew-file-system-evaluation.sh && ./scripts/crew-file-system-evaluation.sh",
     "n8n:activate": "chmod +x scripts/activate-n8n-workflows.sh && ./scripts/activate-n8n-workflows.sh",
     "dev:smart": "./dev-with-build.sh",
     "prebuild": "./amplify-prebuild.sh",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "start": "next start",
     "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
@@ -37,10 +37,11 @@
     "html-to-pdf": "^0.1.11",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
-    "next": "15.3.1",
+    "next": "15.5.0",
     "openai": "^4.95.1",
+    "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^3.11.174",
+    "pdfjs-dist": "^5.4.54",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -55,25 +56,19 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/react-pdf": "^6.2.0",
+    "@types/react-pdf": "^5.0.7",
     "@types/react-syntax-highlighter": "^15.5.13",
     "add": "^2.0.6",
     "dotenv": "^16.5.0",
     "eslint": "^9",
-    "eslint-config-next": "15.3.1",
-    "serve": "^14.2.4",
+    "eslint-config-next": "15.5.0",
+    "serve": "^10.0.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
   },
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
-  },
-  "overrides": {
-    "pdfjs-dist": "^3.11.174"
-  },
-  "resolutions": {
-    "pdfjs-dist": "^3.11.174"
   },
   "bin": {
     "alex": "scripts/alex.js"

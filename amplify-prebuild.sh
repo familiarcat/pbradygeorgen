@@ -17,9 +17,9 @@ if [ -f "public/pbradygeorgen_resume.pdf" ]; then
     echo "PDF file found: public/pbradygeorgen_resume.pdf"
     echo "Last modified: $(stat -c %y public/pbradygeorgen_resume.pdf 2>/dev/null || stat -f "%Sm" public/pbradygeorgen_resume.pdf)"
 
-    # Run the comprehensive PDF extraction process
+    # Run the comprehensive PDF extraction process with increased memory
     echo "Running PDF extraction process..."
-    node scripts/prebuild-pdf-extraction.js
+    NODE_OPTIONS='--max-old-space-size=8192' node scripts/prebuild-pdf-extraction.js
 
     if [ $? -eq 0 ]; then
         echo "PDF extraction process completed successfully"

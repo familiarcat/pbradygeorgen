@@ -86,6 +86,7 @@ export async function extractTextFromPDF(url: string): Promise<string> {
           canvas.height = viewport.height;
 
           await page.render({
+            canvas: canvas,
             canvasContext: context,
             viewport: viewport
           }).promise;
