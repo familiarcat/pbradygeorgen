@@ -1,0 +1,80 @@
+{
+  "backup_summary": {
+    "timestamp": "2025-08-25T01:23:54.484219",
+    "total_workflows": 10,
+    "backup_directory": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/n8n_workflow_backups",
+    "n8n_url": "https://n8n.pbradygeorgen.com"
+  },
+  "workflow_list": [
+    {
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "id": "7k9XLyUbfijvYJo4",
+      "active": true,
+      "tags": [],
+      "backup_file": "Lieutenant Worf - Security & Compliance Operations_7k9XLyUbfijvYJo4.json"
+    },
+    {
+      "name": "Crew Management System",
+      "id": "8WrY3eJ5YbDhah3Z",
+      "active": false,
+      "tags": [],
+      "backup_file": "Crew Management System_8WrY3eJ5YbDhah3Z.json"
+    },
+    {
+      "name": "AlexAI Optimized Crew - Complete Mission Control",
+      "id": "C5hAztumqyHSxUaG",
+      "active": false,
+      "tags": [],
+      "backup_file": "AlexAI Optimized Crew - Complete Mission Control_C5hAztumqyHSxUaG.json"
+    },
+    {
+      "name": "Enhanced Federation Crew - Complete Mission Control",
+      "id": "FMRBAZnq9MOcAZSn",
+      "active": true,
+      "tags": [],
+      "backup_file": "Enhanced Federation Crew - Complete Mission Control_FMRBAZnq9MOcAZSn.json"
+    },
+    {
+      "name": "Commander Data - Analytics & Logic Operations",
+      "id": "HbljVTtTwYU5gPS6",
+      "active": true,
+      "tags": [],
+      "backup_file": "Commander Data - Analytics & Logic Operations_HbljVTtTwYU5gPS6.json"
+    },
+    {
+      "name": "Federation Crew - OpenRouter Agent Coordination",
+      "id": "QOJQTpLncfwyUUuv",
+      "active": true,
+      "tags": [],
+      "backup_file": "Federation Crew - OpenRouter Agent Coordination_QOJQTpLncfwyUUuv.json"
+    },
+    {
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "id": "UMgLlLPbhcjwJtKK",
+      "active": true,
+      "tags": [],
+      "backup_file": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration_UMgLlLPbhcjwJtKK.json"
+    },
+    {
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "id": "WUtfB4g4k00uFOaH",
+      "active": true,
+      "tags": [],
+      "backup_file": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command_WUtfB4g4k00uFOaH.json"
+    },
+    {
+      "name": "Federation Concise Agency - OpenRouter Crew",
+      "id": "XimtTOuQJX3MphTx",
+      "active": false,
+      "tags": [],
+      "backup_file": "Federation Concise Agency - OpenRouter Crew_XimtTOuQJX3MphTx.json"
+    },
+    {
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "id": "s9rJLcPYDSxGtyEQ",
+      "active": true,
+      "tags": [],
+      "backup_file": "Counselor Deanna Troi - User Experience & Empathy Analysis_s9rJLcPYDSxGtyEQ.json"
+    }
+  ]
+}

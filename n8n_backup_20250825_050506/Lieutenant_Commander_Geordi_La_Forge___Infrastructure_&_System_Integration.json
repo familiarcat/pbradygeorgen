@@ -1,0 +1,202 @@
+{
+  "createdAt": "2025-08-25T05:17:35.775Z",
+  "updatedAt": "2025-08-25T05:37:47.000Z",
+  "id": "UMgLlLPbhcjwJtKK",
+  "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "crew_directive",
+      "name": "Lieutenant Commander Geordi La Forge Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-lieutenant-commander-geordi-la-forge",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "llm_selector",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Lieutenant Commander Geordi La Forge. Based on the task complexity, requirements, and available models (anthropic/claude-3.5-sonnet, openai/gpt-4o, google/gemini-pro), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crew_ai",
+      "name": "Lieutenant Commander Geordi La Forge AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "={{ $json.body.selected_model }}"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are Lieutenant Commander Geordi La Forge, a Federation crew member with the role of Infrastructure & System Integration. Execute your assigned task with expertise and provide detailed analysis and recommendations. Communicate your findings clearly for the Observation Lounge.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "observation_communication",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "anthropic/claude-3.5-sonnet"
+          },
+          {
+            "name": "messages",
+            "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Communication Hub. Receive insights from crew members, synthesize information, and prepare comprehensive reports for the Federation. Ensure all crew insights are properly integrated.\"}, {\"role\": \"user\", \"content\": $json.body.crew_insights}] }}"
+          },
+          {
+            "name": "temperature",
+            "value": "0.3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crew_response",
+      "name": "Lieutenant Commander Geordi La Forge Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "responseCode": 200,
+        "responseMode": "json",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Lieutenant Commander Geordi La Forge Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Commander Geordi La Forge AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "62c5287f-3e09-4a12-8469-cd2e36d86881",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-25T05:17:35.777Z",
+      "updatedAt": "2025-08-25T05:17:35.777Z",
+      "role": "workflow:owner",
+      "workflowId": "UMgLlLPbhcjwJtKK",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

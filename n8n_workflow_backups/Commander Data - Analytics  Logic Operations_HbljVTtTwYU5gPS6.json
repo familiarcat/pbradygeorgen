@@ -1,0 +1,210 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-25T01:23:54.483173",
+    "original_workflow_id": "HbljVTtTwYU5gPS6",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-25T05:17:33.621Z",
+    "updatedAt": "2025-08-25T05:37:48.000Z",
+    "id": "HbljVTtTwYU5gPS6",
+    "name": "Commander Data - Analytics & Logic Operations",
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "id": "crew_directive",
+        "name": "Commander Data Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-commander-data",
+          "responseMode": "responseNode",
+          "options": {}
+        }
+      },
+      {
+        "id": "llm_selector",
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          200
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Commander Data. Based on the task complexity, requirements, and available models (openai/gpt-4o, anthropic/claude-3.5-sonnet, meta-llama/llama-3.1-70b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_ai",
+        "name": "Commander Data AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          680,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "={{ $json.body.selected_model }}"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are Commander Data, a Federation crew member with the role of Analytics & Logic Operations. Execute your assigned task with expertise and provide detailed analysis and recommendations. Communicate your findings clearly for the Observation Lounge.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.4"
+            }
+          ]
+        }
+      },
+      {
+        "id": "observation_communication",
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Communication Hub. Receive insights from crew members, synthesize information, and prepare comprehensive reports for the Federation. Ensure all crew insights are properly integrated.\"}, {\"role\": \"user\", \"content\": $json.body.crew_insights}] }}"
+            },
+            {
+              "name": "temperature",
+              "value": "0.3"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_response",
+        "name": "Commander Data Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1120,
+          300
+        ],
+        "parameters": {
+          "responseCode": 200,
+          "responseMode": "json",
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "Commander Data Directive": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Commander Data AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commander Data AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Observation Lounge Communication": {
+        "main": [
+          [
+            {
+              "node": "Commander Data Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "bdbb6e3f-ff39-4bde-aebd-87f94f6db278",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-08-25T05:17:33.623Z",
+        "updatedAt": "2025-08-25T05:17:33.623Z",
+        "role": "workflow:owner",
+        "workflowId": "HbljVTtTwYU5gPS6",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

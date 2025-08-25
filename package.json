@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "N8N_BASE_URL=https://n8n.pbradygeorgen.com next dev",
+    "dev:unified": "chmod +x scripts/docker-unified-dev.sh && ./scripts/docker-unified-dev.sh",
+    "crew:evaluate": "chmod +x scripts/crew-file-system-evaluation.sh && ./scripts/crew-file-system-evaluation.sh",
+    "n8n:activate": "chmod +x scripts/activate-n8n-workflows.sh && ./scripts/activate-n8n-workflows.sh",
     "dev:smart": "./dev-with-build.sh",
     "prebuild": "./amplify-prebuild.sh",
     "build": "next build",

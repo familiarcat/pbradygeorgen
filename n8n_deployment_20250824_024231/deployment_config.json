@@ -1,0 +1,29 @@
+{
+  "deployment_info": {
+    "timestamp": "2025-08-24T07:42:31Z",
+    "crew_version": "2.0.0",
+    "deployment_target": "n8n_openrouter",
+    "crew_size": 8
+  },
+  "n8n_config": {
+    "api_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZTVmMmJmOC1lM2Y3LTQ3ZWQtOTcxNS05NWY5MTQyYWNmZjMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU0MDc1ODg1fQ.pXKH1LeqgifzEP5cSUaZhYFDwJLfeLVSVS0XjiS8NOE",
+    "base_url": "https://n8n.pbradygeorgen.com",
+    "openrouter_api_key": "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"
+  },
+  "aws_config": {
+    "profile": "AmplifyUser",
+    "region": "us-east-2",
+    "access_key_id": "AKIA4QTAGEWRPEIRHLQC"
+  },
+  "crew_members": [
+    "picard",
+    "riker", 
+    "data",
+    "geordi",
+    "crusher",
+    "worf",
+    "troi",
+    "uhura",
+    "quark"
+  ]
+}
