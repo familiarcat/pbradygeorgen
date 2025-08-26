@@ -1,0 +1,184 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.111854",
+    "original_workflow_id": "PqrQt5bngS1acXng",
+    "original_workflow_name": "Commander William Riker - Tactical Execution & Workflow Management",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-26T06:49:54.704Z",
+    "updatedAt": "2025-08-26T06:56:56.000Z",
+    "id": "PqrQt5bngS1acXng",
+    "name": "Commander William Riker - Tactical Execution & Workflow Management",
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "name": "Commander William Riker Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-commander-william-riker",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "e8b44b4f-4702-40d4-afc2-5592ab0b1809"
+      },
+      {
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          200
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer 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",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Commander William Riker. Based on the task complexity, requirements, and available models (anthropic/claude-3-haiku, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        },
+        "id": "6d6328a2-8b53-475e-8e37-916893b675d7"
+      },
+      {
+        "name": "Commander William Riker AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          680,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer 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",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "={{ $json.body.selected_model }}"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are Commander William Riker, First Officer of the Federation crew. You specialize in tactical execution, workflow management, operational efficiency, and tactical decision making. You excel at operational planning, tactical implementation, and crew coordination. Provide clear, actionable tactical guidance and operational recommendations.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.4"
+            }
+          ]
+        },
+        "id": "9cb96467-0a73-4623-8fed-55c0319a1b30"
+      },
+      {
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [
+          900,
+          300
+        ],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "crew_member",
+                "value": "Commander William Riker"
+              },
+              {
+                "name": "role",
+                "value": "Tactical Execution & Workflow Management"
+              },
+              {
+                "name": "response",
+                "value": "={{ $json.body.response }}"
+              },
+              {
+                "name": "timestamp",
+                "value": "={{ new Date().toISOString() }}"
+              }
+            ]
+          }
+        },
+        "id": "49edf96c-51e6-47d8-a0db-ca793f3d1f3a"
+      }
+    ],
+    "connections": {
+      "Commander William Riker Directive": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Commander William Riker AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commander William Riker AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "06f62621-559b-4dcd-9a59-53c282e2b4ae",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-08-26T06:49:54.705Z",
+        "updatedAt": "2025-08-26T06:49:54.705Z",
+        "role": "workflow:owner",
+        "workflowId": "PqrQt5bngS1acXng",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

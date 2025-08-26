@@ -1,0 +1,305 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.112066",
+    "original_workflow_id": "Q5nHuN0CAR9dJLE5",
+    "original_workflow_name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-26T09:06:32.828Z",
+    "updatedAt": "2025-08-26T09:06:32.828Z",
+    "id": "Q5nHuN0CAR9dJLE5",
+    "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "id": "crew_directive",
+        "name": "Counselor Deanna Troi Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-counselor-deanna-troi",
+          "responseMode": "responseNode",
+          "options": {}
+        }
+      },
+      {
+        "id": "memory_retrieval",
+        "name": "Counselor Deanna Troi Memory Retrieval",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "GET",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendQuery": true,
+          "queryParameters": [
+            {
+              "name": "crew_member",
+              "value": "Counselor Deanna Troi"
+            },
+            {
+              "name": "memory_type",
+              "value": "character_foundation"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "llm_selector",
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          200
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Counselor Deanna Troi. Based on the task complexity, requirements, and available models (anthropic/claude-3.5-sonnet, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_ai",
+        "name": "Counselor Deanna Troi AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          680,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "={{ $json.body.selected_model }}"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are Counselor Deanna Troi, a Federation crew member with the role of User Experience & Empathy Analysis. Execute your assigned task with expertise and provide detailed analysis and recommendations. Communicate your findings clearly for the Observation Lounge.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.4"
+            }
+          ]
+        }
+      },
+      {
+        "id": "memory_storage",
+        "name": "Counselor Deanna Troi Memory Storage",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "crew_member",
+              "value": "Counselor Deanna Troi"
+            },
+            {
+              "name": "mission_id",
+              "value": "={{ $json.body.mission_id || 'mission-001' }}"
+            },
+            {
+              "name": "memory_type",
+              "value": "mission_experience"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.body.crew_insights }}"
+            },
+            {
+              "name": "importance",
+              "value": "high"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "observation_communication",
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Communication Hub. Receive insights from crew members, synthesize information, and prepare comprehensive reports for the Federation. Ensure all crew insights are properly integrated.\"}, {\"role\": \"user\", \"content\": $json.body.crew_insights}] }}"
+            },
+            {
+              "name": "temperature",
+              "value": "0.3"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_response",
+        "name": "Counselor Deanna Troi Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1120,
+          300
+        ],
+        "parameters": {
+          "responseCode": 200,
+          "responseMode": "json",
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "Counselor Deanna Troi Directive": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Counselor Deanna Troi AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Counselor Deanna Troi AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Observation Lounge Communication": {
+        "main": [
+          [
+            {
+              "node": "Counselor Deanna Troi Memory Storage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Counselor Deanna Troi Memory Retrieval": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Counselor Deanna Troi Memory Storage": {
+        "main": [
+          [
+            {
+              "node": "Counselor Deanna Troi Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "1745cd8e-d05c-47ec-8a5c-8c279ad216d5",
+    "triggerCount": 0,
+    "shared": [
+      {
+        "createdAt": "2025-08-26T09:06:32.830Z",
+        "updatedAt": "2025-08-26T09:06:32.830Z",
+        "role": "workflow:owner",
+        "workflowId": "Q5nHuN0CAR9dJLE5",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

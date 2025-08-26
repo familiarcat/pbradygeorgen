@@ -1,0 +1,171 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.113033",
+    "original_workflow_id": "WUtfB4g4k00uFOaH",
+    "original_workflow_name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-25T05:17:31.494Z",
+    "updatedAt": "2025-08-25T10:18:57.000Z",
+    "id": "WUtfB4g4k00uFOaH",
+    "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-captain-jean-luc-picard",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "crew_directive",
+        "name": "Captain Jean-Luc Picard Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          304
+        ],
+        "webhookId": "b72f4072-7161-4843-a8f9-ff1cfa1ace2c"
+      },
+      {
+        "parameters": {
+          "authentication": "genericCredentialType",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "options": {}
+        },
+        "id": "llm_selector",
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          464,
+          208
+        ]
+      },
+      {
+        "parameters": {
+          "authentication": "genericCredentialType",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "options": {}
+        },
+        "id": "crew_ai",
+        "name": "Captain Jean-Luc Picard AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          688,
+          304
+        ]
+      },
+      {
+        "parameters": {
+          "authentication": "genericCredentialType",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "options": {}
+        },
+        "id": "observation_communication",
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          912,
+          304
+        ]
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "id": "crew_response",
+        "name": "Captain Jean-Luc Picard Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1120,
+          304
+        ]
+      }
+    ],
+    "connections": {
+      "Captain Jean-Luc Picard Directive": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Captain Jean-Luc Picard AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Observation Lounge Communication": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": {
+      "Captain Jean-Luc Picard Directive": [
+        {
+          "json": {
+            "name": "First item",
+            "code": 1
+          }
+        },
+        {
+          "json": {
+            "name": "Second item",
+            "code": 2
+          }
+        }
+      ]
+    },
+    "versionId": "56eed6f0-40a2-4026-8050-08a364d24710",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-08-25T05:17:31.496Z",
+        "updatedAt": "2025-08-25T05:17:31.496Z",
+        "role": "workflow:owner",
+        "workflowId": "WUtfB4g4k00uFOaH",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

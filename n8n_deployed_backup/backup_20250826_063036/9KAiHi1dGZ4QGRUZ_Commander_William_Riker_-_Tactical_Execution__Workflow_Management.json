@@ -1,0 +1,278 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.109109",
+    "original_workflow_id": "9KAiHi1dGZ4QGRUZ",
+    "original_workflow_name": "Commander William Riker - Tactical Execution & Workflow Management",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-26T09:06:33.031Z",
+    "updatedAt": "2025-08-26T09:06:33.031Z",
+    "id": "9KAiHi1dGZ4QGRUZ",
+    "name": "Commander William Riker - Tactical Execution & Workflow Management",
+    "active": false,
+    "isArchived": false,
+    "nodes": [
+      {
+        "id": "crew_directive",
+        "name": "Commander William Riker Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-commander-william-riker",
+          "responseMode": "responseNode",
+          "options": {}
+        }
+      },
+      {
+        "id": "memory_retrieval",
+        "name": "Commander William Riker Memory Retrieval",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "GET",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendQuery": true,
+          "queryParameters": [
+            {
+              "name": "crew_member",
+              "value": "Commander William Riker"
+            },
+            {
+              "name": "memory_type",
+              "value": "character_foundation"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "llm_selector",
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          200
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Commander William Riker. Based on the task complexity, requirements, and available models (anthropic/claude-3-haiku, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "memory_storage",
+        "name": "Commander William Riker Memory Storage",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "crew_member",
+              "value": "Commander William Riker"
+            },
+            {
+              "name": "mission_id",
+              "value": "={{ $json.body.mission_id || 'mission-001' }}"
+            },
+            {
+              "name": "memory_type",
+              "value": "mission_experience"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.body.crew_insights }}"
+            },
+            {
+              "name": "importance",
+              "value": "high"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "crew_ai",
+        "name": "Commander William Riker AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          680,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "={{ $json.body.selected_model }}"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are Commander William Riker, First Officer of the Federation crew. You specialize in tactical execution, workflow management, operational efficiency, and tactical decision making. You excel at operational planning, tactical implementation, and crew coordination. Provide clear, actionable tactical guidance and operational recommendations.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.4"
+            }
+          ]
+        }
+      },
+      {
+        "id": "observation_communication",
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [
+          900,
+          300
+        ],
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "crew_member",
+                "value": "Commander William Riker"
+              },
+              {
+                "name": "role",
+                "value": "Tactical Execution & Workflow Management"
+              },
+              {
+                "name": "response",
+                "value": "={{ $json.body.response }}"
+              },
+              {
+                "name": "timestamp",
+                "value": "={{ new Date().toISOString() }}"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Commander William Riker Directive": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Commander William Riker AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commander William Riker AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commander William Riker Memory Retrieval": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commander William Riker Memory Storage": {
+        "main": [
+          [
+            {
+              "node": "Commander William Riker Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "67c0f996-a5ba-4306-ab05-5dbd897518bb",
+    "triggerCount": 0,
+    "shared": [
+      {
+        "createdAt": "2025-08-26T09:06:33.033Z",
+        "updatedAt": "2025-08-26T09:06:33.033Z",
+        "role": "workflow:owner",
+        "workflowId": "9KAiHi1dGZ4QGRUZ",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

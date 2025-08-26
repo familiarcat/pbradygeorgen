@@ -1,0 +1,70 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.108917",
+    "original_workflow_id": "8WrY3eJ5YbDhah3Z",
+    "original_workflow_name": "Crew Management System",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-25T05:10:21.173Z",
+    "updatedAt": "2025-08-25T05:37:14.000Z",
+    "id": "8WrY3eJ5YbDhah3Z",
+    "name": "Crew Management System",
+    "active": false,
+    "isArchived": true,
+    "nodes": [
+      {
+        "id": "crew_request",
+        "name": "Crew Request",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {}
+      },
+      {
+        "id": "crew_response",
+        "name": "Crew Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          460,
+          300
+        ],
+        "parameters": {}
+      }
+    ],
+    "connections": {
+      "Crew Request": {
+        "main": [
+          [
+            {
+              "node": "Crew Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "51100717-81ac-4158-8001-cd1fe8c2885a",
+    "triggerCount": 0,
+    "shared": [
+      {
+        "createdAt": "2025-08-25T05:10:21.176Z",
+        "updatedAt": "2025-08-25T05:10:21.176Z",
+        "role": "workflow:owner",
+        "workflowId": "8WrY3eJ5YbDhah3Z",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}

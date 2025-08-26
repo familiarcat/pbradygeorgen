@@ -1,0 +1,70 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-26T06:30:37.113229",
+    "original_workflow_id": "XimtTOuQJX3MphTx",
+    "original_workflow_name": "Federation Concise Agency - OpenRouter Crew",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-25T05:10:16.691Z",
+    "updatedAt": "2025-08-25T05:37:07.000Z",
+    "id": "XimtTOuQJX3MphTx",
+    "name": "Federation Concise Agency - OpenRouter Crew",
+    "active": false,
+    "isArchived": true,
+    "nodes": [
+      {
+        "id": "federation_directive",
+        "name": "Federation Directive Receiver",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {}
+      },
+      {
+        "id": "response_handler",
+        "name": "Response Handler",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          460,
+          300
+        ],
+        "parameters": {}
+      }
+    ],
+    "connections": {
+      "Federation Directive Receiver": {
+        "main": [
+          [
+            {
+              "node": "Response Handler",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "faac4f3a-6233-4804-aaf7-f93dc5e4461d",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-08-25T05:10:16.696Z",
+        "updatedAt": "2025-08-25T05:10:16.696Z",
+        "role": "workflow:owner",
+        "workflowId": "XimtTOuQJX3MphTx",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}
