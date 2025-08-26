@@ -1,0 +1,61 @@
+{
+  "createdAt": "2025-08-25T05:10:18.966Z",
+  "updatedAt": "2025-08-25T05:37:27.000Z",
+  "id": "C5hAztumqyHSxUaG",
+  "name": "AlexAI Optimized Crew - Complete Mission Control",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "id": "mission_directive",
+      "name": "Mission Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "mission_response",
+      "name": "Mission Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Mission Directive": {
+      "main": [
+        [
+          {
+            "node": "Mission Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "0c65228b-553c-4121-ba43-280acbbd2fae",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-08-25T05:10:18.968Z",
+      "updatedAt": "2025-08-25T05:10:18.968Z",
+      "role": "workflow:owner",
+      "workflowId": "C5hAztumqyHSxUaG",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

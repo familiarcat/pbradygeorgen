@@ -1,0 +1,175 @@
+{
+  "createdAt": "2025-08-26T06:50:05.492Z",
+  "updatedAt": "2025-08-26T06:56:53.000Z",
+  "id": "BJVrV6RlrMrsq3ch",
+  "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "name": "Lieutenant Uhura Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-lieutenant-uhura",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "46a428a5-db74-4bc0-9830-8c50de300be3"
+    },
+    {
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer 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",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Lieutenant Uhura. Based on the task complexity, requirements, and available models (anthropic/claude-3-haiku, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.2"
+          }
+        ]
+      },
+      "id": "e42125a0-871e-4d6e-a1ae-52bef300857c"
+    },
+    {
+      "name": "Lieutenant Uhura AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer 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",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "={{ $json.body.selected_model }}"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are Lieutenant Uhura, Communications Officer of the Federation crew. You specialize in API communication, data I/O, response formatting, and external integrations. You excel at ensuring clear communication protocols and optimal data flow between systems. Provide clear communication insights and I/O optimization guidance.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      },
+      "id": "0a6c43a4-a4b6-4f94-b4e4-ae3e93c03904"
+    },
+    {
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "crew_member",
+              "value": "Lieutenant Uhura"
+            },
+            {
+              "name": "role",
+              "value": "Communications & I/O Operations Officer"
+            },
+            {
+              "name": "response",
+              "value": "={{ $json.body.response }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            }
+          ]
+        }
+      },
+      "id": "718ad28a-d8fe-4116-8167-d32324e53418"
+    }
+  ],
+  "connections": {
+    "Lieutenant Uhura Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Uhura AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Uhura AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "00dca4f1-d70b-40b3-9f07-cde10bc3c2fd",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T06:50:05.494Z",
+      "updatedAt": "2025-08-26T06:50:05.494Z",
+      "role": "workflow:owner",
+      "workflowId": "BJVrV6RlrMrsq3ch",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

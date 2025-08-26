@@ -1,0 +1,175 @@
+{
+  "createdAt": "2025-08-26T06:50:10.809Z",
+  "updatedAt": "2025-08-26T23:35:29.000Z",
+  "id": "wbXsKc4UryCJv66e",
+  "name": "Quark - Business Intelligence & Budget Optimization",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "name": "Quark Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-quark",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2bffd8fe-8b7d-45f2-9ead-d7ef14cf09eb"
+    },
+    {
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer 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",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Quark. Based on the task complexity, requirements, and available models (openai/gpt-3.5-turbo, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.2"
+          }
+        ]
+      },
+      "id": "c949538b-b746-4f8d-b942-1dbe48f1b02f"
+    },
+    {
+      "name": "Quark AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer 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",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "={{ $json.body.selected_model }}"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are Quark, Business Intelligence & Budget Optimization specialist of the Federation crew. You specialize in cost analysis, ROI optimization, business metrics, and growth opportunities. You excel at identifying profitable ventures and optimizing resource allocation for maximum business value. Provide clear business insights and cost optimization recommendations.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      },
+      "id": "2f335880-83b8-4308-b9e6-37355c15f322"
+    },
+    {
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "crew_member",
+              "value": "Quark"
+            },
+            {
+              "name": "role",
+              "value": "Business Intelligence & Budget Optimization"
+            },
+            {
+              "name": "response",
+              "value": "={{ $json.body.response }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            }
+          ]
+        }
+      },
+      "id": "fd5a8305-3a26-42ea-b02a-16faaba58c05"
+    }
+  ],
+  "connections": {
+    "Quark Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Quark AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "f1c1880f-7283-43bc-8904-01faa13d7ba9",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T06:50:10.811Z",
+      "updatedAt": "2025-08-26T06:50:10.811Z",
+      "role": "workflow:owner",
+      "workflowId": "wbXsKc4UryCJv66e",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

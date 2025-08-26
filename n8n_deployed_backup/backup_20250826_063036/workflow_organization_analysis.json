@@ -1,0 +1,603 @@
+{
+  "analysis_metadata": {
+    "total_workflows": 38,
+    "total_nodes": 231,
+    "workflows_with_memory": 24,
+    "workflows_with_llm": 10,
+    "workflows_with_webhooks": 13,
+    "total_loose_nodes": 84
+  },
+  "workflow_analyses": {
+    "8WrY3eJ5YbDhah3Z": {
+      "node_count": 2,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Crew Request",
+        "Crew Response"
+      ],
+      "connection_count": 1,
+      "loose_nodes": [
+        "Crew Request",
+        "Crew Response"
+      ],
+      "has_memory_nodes": false,
+      "memory_node_count": 0,
+      "has_llm_nodes": false,
+      "llm_node_count": 0,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Crew Request"
+      ]
+    },
+    "C5hAztumqyHSxUaG": {
+      "node_count": 2,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Directive",
+        "Mission Response"
+      ],
+      "connection_count": 1,
+      "loose_nodes": [
+        "Mission Directive",
+        "Mission Response"
+      ],
+      "has_memory_nodes": false,
+      "memory_node_count": 0,
+      "has_llm_nodes": false,
+      "llm_node_count": 0,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Mission Directive"
+      ]
+    },
+    "DMsFt1H6ljE6sgsq": {
+      "node_count": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Directive",
+        "AlexAI Optimized Crew Memory Storage",
+        "AlexAI Optimized Crew Memory Retrieval",
+        "Mission Response"
+      ],
+      "connection_count": 2,
+      "loose_nodes": [
+        "Mission Directive",
+        "AlexAI Optimized Crew Memory Storage",
+        "AlexAI Optimized Crew Memory Retrieval",
+        "Mission Response"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 2,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Mission Directive"
+      ]
+    },
+    "FMRBAZnq9MOcAZSn": {
+      "node_count": 13,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 10,
+        "n8n-nodes-base.code": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Coordinator - Picard",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "connection_count": 12,
+      "loose_nodes": [
+        "Mission Coordinator - Picard",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": false,
+      "memory_node_count": 0,
+      "has_llm_nodes": true,
+      "llm_node_count": 10,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    },
+    "QOJQTpLncfwyUUuv": {
+      "node_count": 5,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 3,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "connection_count": 4,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": false,
+      "memory_node_count": 0,
+      "has_llm_nodes": true,
+      "llm_node_count": 3,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    },
+    "THmx9pore9iUMvmI": {
+      "node_count": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Federation Crew Memory Retrieval",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Federation Crew Memory Storage",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "connection_count": 5,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Federation Crew Memory Retrieval",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Federation Crew Memory Storage",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 5,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    },
+    "XimtTOuQJX3MphTx": {
+      "node_count": 2,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Response Handler"
+      ],
+      "connection_count": 1,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Response Handler"
+      ],
+      "has_memory_nodes": false,
+      "memory_node_count": 0,
+      "has_llm_nodes": false,
+      "llm_node_count": 0,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Federation Directive Receiver"
+      ]
+    },
+    "btAdk6vmu9e0Z9Lc": {
+      "node_count": 15,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 12,
+        "n8n-nodes-base.code": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Coordinator - Picard",
+        "Enhanced Federation Crew Memory Retrieval",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Enhanced Federation Crew Memory Storage",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "connection_count": 13,
+      "loose_nodes": [
+        "Mission Coordinator - Picard",
+        "Enhanced Federation Crew Memory Retrieval",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Enhanced Federation Crew Memory Storage",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 12,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    },
+    "cBeaN0Eh6TTEx7bd": {
+      "node_count": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Directive",
+        "AlexAI Optimized Crew Memory Storage",
+        "AlexAI Optimized Crew Memory Retrieval",
+        "Mission Response"
+      ],
+      "connection_count": 2,
+      "loose_nodes": [
+        "Mission Directive",
+        "AlexAI Optimized Crew Memory Storage",
+        "AlexAI Optimized Crew Memory Retrieval",
+        "Mission Response"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 2,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Mission Directive"
+      ]
+    },
+    "fd0Wm0ZGvrWKSmix": {
+      "node_count": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Federation Concise Agency Memory Storage",
+        "Federation Concise Agency Memory Retrieval",
+        "Response Handler"
+      ],
+      "connection_count": 2,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Federation Concise Agency Memory Storage",
+        "Federation Concise Agency Memory Retrieval",
+        "Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 2,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Federation Directive Receiver"
+      ]
+    },
+    "xBk0s4lAD2ng7Tcg": {
+      "node_count": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Federation Crew Memory Retrieval",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Federation Crew Memory Storage",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "connection_count": 5,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Federation Crew Memory Retrieval",
+        "Mission Analysis Agent",
+        "Crew Coordinator Agent",
+        "Federation Crew Memory Storage",
+        "Observation Lounge Hub",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 5,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    },
+    "ykPv0NZ5c7K6B5Pp": {
+      "node_count": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Federation Directive Receiver",
+        "Federation Concise Agency Memory Storage",
+        "Federation Concise Agency Memory Retrieval",
+        "Response Handler"
+      ],
+      "connection_count": 2,
+      "loose_nodes": [
+        "Federation Directive Receiver",
+        "Federation Concise Agency Memory Storage",
+        "Federation Concise Agency Memory Retrieval",
+        "Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 2,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": [
+        "Webhook without path: Federation Directive Receiver"
+      ]
+    },
+    "z3vu3SnucPmePsQx": {
+      "node_count": 15,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 12,
+        "n8n-nodes-base.code": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "node_names": [
+        "Mission Coordinator - Picard",
+        "Enhanced Federation Crew Memory Retrieval",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Enhanced Federation Crew Memory Storage",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "connection_count": 13,
+      "loose_nodes": [
+        "Mission Coordinator - Picard",
+        "Enhanced Federation Crew Memory Retrieval",
+        "Mission Analysis & Planning",
+        "Execution Commander - Riker",
+        "Data - Analytics & Logic Specialist",
+        "Geordi - Engineering Specialist",
+        "Crusher - Health & Optimization Specialist",
+        "Worf - Security Specialist",
+        "Troi - UX & Empathy Specialist",
+        "Uhura - Communications & I/O Specialist",
+        "Quark - Business & Budget Specialist",
+        "Observation Lounge - Crew Coordination Hub",
+        "Enhanced Federation Crew Memory Storage",
+        "Response Aggregator & Synthesizer",
+        "Federation Response Handler"
+      ],
+      "has_memory_nodes": true,
+      "memory_node_count": 2,
+      "has_llm_nodes": true,
+      "llm_node_count": 12,
+      "has_webhook": true,
+      "is_linear": false,
+      "has_branches": true,
+      "error_prone_patterns": []
+    }
+  },
+  "crew_consistency": {
+    "Lieutenant Commander Geordi La Forge": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "351hi9YnKoZ8fFIq",
+        "UMgLlLPbhcjwJtKK",
+        "xzf43LWpUpcoTAwD"
+      ]
+    },
+    "Commander William Riker": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "4xHgewymk21FraDJ",
+        "9KAiHi1dGZ4QGRUZ",
+        "PqrQt5bngS1acXng"
+      ]
+    },
+    "Dr. Beverly Crusher": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "7D4EEFAWo9jIhFnV",
+        "rS6mdFQlxT5GwXdY",
+        "zQ9gX0CCdWXFKNev"
+      ]
+    },
+    "Lieutenant Worf": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "7k9XLyUbfijvYJo4",
+        "CSGrhztb5AWln7DN",
+        "PdedVribejWKwNts"
+      ]
+    },
+    "Lieutenant Uhura": {
+      "workflow_count": 1,
+      "node_count_variance": 0,
+      "memory_integration_consistent": true,
+      "llm_integration_consistent": true,
+      "has_duplicates": false,
+      "duplicate_workflows": [
+        "BJVrV6RlrMrsq3ch"
+      ]
+    },
+    "Captain Jean-Luc Picard": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "C2GfdkxsmCj8JkHK",
+        "WUtfB4g4k00uFOaH",
+        "lJ8dRxtVZcxgC6ck"
+      ]
+    },
+    "Commander Data": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "HbljVTtTwYU5gPS6",
+        "LIdu6eRVCRyBG1WA",
+        "oNw3SN59YnGk2cW3"
+      ]
+    },
+    "Counselor Deanna Troi": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "Q5nHuN0CAR9dJLE5",
+        "s9rJLcPYDSxGtyEQ",
+        "xHaps3vKbMMCg2Rb"
+      ]
+    },
+    "Quark": {
+      "workflow_count": 3,
+      "node_count_variance": 2,
+      "memory_integration_consistent": false,
+      "llm_integration_consistent": true,
+      "has_duplicates": true,
+      "duplicate_workflows": [
+        "aFNOULWT261Qkccg",
+        "ly2f6PmCojumkQxu",
+        "wbXsKc4UryCJv66e"
+      ]
+    }
+  },
+  "systemic_issues": [
+    "Systemic issue: Webhook without path: Mission Directive (affects 3 workflows)",
+    "Systemic issue: Webhook without path: Federation Directive Receiver (affects 3 workflows)",
+    "Memory integration inconsistency: 24 workflows have memory, 14 don't"
+  ],
+  "recommendations": [
+    "CRITICAL: Address systemic issues before proceeding with any changes",
+    "  - Systemic issue: Webhook without path: Mission Directive (affects 3 workflows)",
+    "  - Systemic issue: Webhook without path: Federation Directive Receiver (affects 3 workflows)",
+    "  - Memory integration inconsistency: 24 workflows have memory, 14 don't",
+    "  - Lieutenant Commander Geordi La Forge: Remove duplicate workflows to maintain consistency",
+    "  - Lieutenant Commander Geordi La Forge: Standardize memory integration across workflows",
+    "  - Commander William Riker: Remove duplicate workflows to maintain consistency",
+    "  - Commander William Riker: Standardize memory integration across workflows",
+    "  - Dr. Beverly Crusher: Remove duplicate workflows to maintain consistency",
+    "  - Dr. Beverly Crusher: Standardize memory integration across workflows",
+    "  - Lieutenant Worf: Remove duplicate workflows to maintain consistency",
+    "  - Lieutenant Worf: Standardize memory integration across workflows",
+    "  - Captain Jean-Luc Picard: Remove duplicate workflows to maintain consistency",
+    "  - Captain Jean-Luc Picard: Standardize memory integration across workflows",
+    "  - Commander Data: Remove duplicate workflows to maintain consistency",
+    "  - Commander Data: Standardize memory integration across workflows",
+    "  - Counselor Deanna Troi: Remove duplicate workflows to maintain consistency",
+    "  - Counselor Deanna Troi: Standardize memory integration across workflows",
+    "  - Quark: Remove duplicate workflows to maintain consistency",
+    "  - Quark: Standardize memory integration across workflows",
+    "  - Remove or connect 84 loose nodes across workflows"
+  ]
+}

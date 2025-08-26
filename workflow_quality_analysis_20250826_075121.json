@@ -1,0 +1,1834 @@
+{
+  "best_of_breed": {
+    "Lieutenant Commander Geordi La Forge": {
+      "id": "351hi9YnKoZ8fFIq",
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "active": true,
+      "archived": false,
+      "node_count": 7,
+      "connection_count": 6,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": true,
+      "memory_nodes": [
+        {
+          "name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Lieutenant Commander Geordi La Forge Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Lieutenant Commander Geordi La Forge AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Lieutenant Commander Geordi La Forge Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [
+        {
+          "name": "Lieutenant Commander Geordi La Forge Response",
+          "type": "n8n-nodes-base.respondToWebhook"
+        }
+      ],
+      "quality_score": 110,
+      "missing_components": [],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Commander William Riker": {
+      "id": "4xHgewymk21FraDJ",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management",
+      "active": true,
+      "archived": false,
+      "node_count": 6,
+      "connection_count": 5,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": false,
+      "memory_nodes": [
+        {
+          "name": "Commander William Riker Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Commander William Riker Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Commander William Riker AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Commander William Riker Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [],
+      "quality_score": 95,
+      "missing_components": [
+        "Response handler"
+      ],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Dr. Beverly Crusher": {
+      "id": "7D4EEFAWo9jIhFnV",
+      "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "active": true,
+      "archived": false,
+      "node_count": 6,
+      "connection_count": 5,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": false,
+      "memory_nodes": [
+        {
+          "name": "Dr. Beverly Crusher Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Dr. Beverly Crusher Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Dr. Beverly Crusher AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Dr. Beverly Crusher Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [],
+      "quality_score": 95,
+      "missing_components": [
+        "Response handler"
+      ],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Lieutenant Worf": {
+      "id": "CSGrhztb5AWln7DN",
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "active": true,
+      "archived": false,
+      "node_count": 7,
+      "connection_count": 6,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": true,
+      "memory_nodes": [
+        {
+          "name": "Lieutenant Worf Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Lieutenant Worf Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Lieutenant Worf AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Lieutenant Worf Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [
+        {
+          "name": "Lieutenant Worf Response",
+          "type": "n8n-nodes-base.respondToWebhook"
+        }
+      ],
+      "quality_score": 110,
+      "missing_components": [],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Lieutenant Uhura": {
+      "id": "BJVrV6RlrMrsq3ch",
+      "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+      "active": true,
+      "archived": false,
+      "node_count": 4,
+      "connection_count": 3,
+      "has_memory_integration": false,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": false,
+      "memory_nodes": [],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Lieutenant Uhura AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Lieutenant Uhura Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [],
+      "quality_score": 55,
+      "missing_components": [
+        "Memory integration",
+        "Response handler",
+        "Sufficient node count"
+      ],
+      "recommendations": [
+        "Low quality - Candidate for removal"
+      ]
+    },
+    "Captain Jean-Luc Picard": {
+      "id": "C2GfdkxsmCj8JkHK",
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "active": true,
+      "archived": false,
+      "node_count": 7,
+      "connection_count": 6,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": true,
+      "memory_nodes": [
+        {
+          "name": "Captain Jean-Luc Picard Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Captain Jean-Luc Picard Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Captain Jean-Luc Picard AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Captain Jean-Luc Picard Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [
+        {
+          "name": "Captain Jean-Luc Picard Response",
+          "type": "n8n-nodes-base.respondToWebhook"
+        }
+      ],
+      "quality_score": 110,
+      "missing_components": [],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Commander Data": {
+      "id": "LIdu6eRVCRyBG1WA",
+      "name": "Commander Data - Analytics & Logic Operations",
+      "active": true,
+      "archived": false,
+      "node_count": 7,
+      "connection_count": 6,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": true,
+      "memory_nodes": [
+        {
+          "name": "Commander Data Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Commander Data Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Commander Data AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Commander Data Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [
+        {
+          "name": "Commander Data Response",
+          "type": "n8n-nodes-base.respondToWebhook"
+        }
+      ],
+      "quality_score": 110,
+      "missing_components": [],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Counselor Deanna Troi": {
+      "id": "Q5nHuN0CAR9dJLE5",
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "active": true,
+      "archived": false,
+      "node_count": 7,
+      "connection_count": 6,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": true,
+      "memory_nodes": [
+        {
+          "name": "Counselor Deanna Troi Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Counselor Deanna Troi Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Counselor Deanna Troi AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Counselor Deanna Troi Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [
+        {
+          "name": "Counselor Deanna Troi Response",
+          "type": "n8n-nodes-base.respondToWebhook"
+        }
+      ],
+      "quality_score": 110,
+      "missing_components": [],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    },
+    "Quark": {
+      "id": "aFNOULWT261Qkccg",
+      "name": "Quark - Business Intelligence & Budget Optimization",
+      "active": true,
+      "archived": false,
+      "node_count": 6,
+      "connection_count": 5,
+      "has_memory_integration": true,
+      "has_llm_integration": true,
+      "has_webhook": true,
+      "has_response_handler": false,
+      "memory_nodes": [
+        {
+          "name": "Quark Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        },
+        {
+          "name": "Quark Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        },
+        {
+          "name": "Quark AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "url": "https://api.openrouter.ai/api/v1/chat/completions"
+        }
+      ],
+      "webhook_nodes": [
+        {
+          "name": "Quark Directive",
+          "type": "n8n-nodes-base.webhook"
+        }
+      ],
+      "response_nodes": [],
+      "quality_score": 95,
+      "missing_components": [
+        "Response handler"
+      ],
+      "recommendations": [
+        "High quality - Keep this workflow"
+      ]
+    }
+  },
+  "comparison_results": {
+    "Lieutenant Commander Geordi La Forge": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "351hi9YnKoZ8fFIq",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "active": true,
+        "archived": false,
+        "node_count": 7,
+        "connection_count": 6,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": true,
+        "memory_nodes": [
+          {
+            "name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Lieutenant Commander Geordi La Forge Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Lieutenant Commander Geordi La Forge AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Observation Lounge Communication",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Lieutenant Commander Geordi La Forge Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [
+          {
+            "name": "Lieutenant Commander Geordi La Forge Response",
+            "type": "n8n-nodes-base.respondToWebhook"
+          }
+        ],
+        "quality_score": 110,
+        "missing_components": [],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "xzf43LWpUpcoTAwD",
+          "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "active": true,
+          "archived": false,
+          "node_count": 7,
+          "connection_count": 6,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [
+            {
+              "name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Lieutenant Commander Geordi La Forge Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Lieutenant Commander Geordi La Forge AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Lieutenant Commander Geordi La Forge Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Lieutenant Commander Geordi La Forge Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 110,
+          "missing_components": [],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "UMgLlLPbhcjwJtKK",
+          "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "active": true,
+          "archived": false,
+          "node_count": 5,
+          "connection_count": 4,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Lieutenant Commander Geordi La Forge AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Lieutenant Commander Geordi La Forge Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Lieutenant Commander Geordi La Forge Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 80,
+          "missing_components": [
+            "Memory integration"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: 351hi9YnKoZ8fFIq), deactivate 2 duplicates"
+    },
+    "Commander William Riker": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "4xHgewymk21FraDJ",
+        "name": "Commander William Riker - Tactical Execution & Workflow Management",
+        "active": true,
+        "archived": false,
+        "node_count": 6,
+        "connection_count": 5,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": false,
+        "memory_nodes": [
+          {
+            "name": "Commander William Riker Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Commander William Riker Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Commander William Riker AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Commander William Riker Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [],
+        "quality_score": 95,
+        "missing_components": [
+          "Response handler"
+        ],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "9KAiHi1dGZ4QGRUZ",
+          "name": "Commander William Riker - Tactical Execution & Workflow Management",
+          "active": true,
+          "archived": false,
+          "node_count": 6,
+          "connection_count": 5,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [
+            {
+              "name": "Commander William Riker Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Commander William Riker Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Commander William Riker AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Commander William Riker Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 95,
+          "missing_components": [
+            "Response handler"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "PqrQt5bngS1acXng",
+          "name": "Commander William Riker - Tactical Execution & Workflow Management",
+          "active": true,
+          "archived": false,
+          "node_count": 4,
+          "connection_count": 3,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Commander William Riker AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Commander William Riker Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 55,
+          "missing_components": [
+            "Memory integration",
+            "Response handler",
+            "Sufficient node count"
+          ],
+          "recommendations": [
+            "Low quality - Candidate for removal"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: 4xHgewymk21FraDJ), deactivate 2 duplicates"
+    },
+    "Dr. Beverly Crusher": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "7D4EEFAWo9jIhFnV",
+        "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "active": true,
+        "archived": false,
+        "node_count": 6,
+        "connection_count": 5,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": false,
+        "memory_nodes": [
+          {
+            "name": "Dr. Beverly Crusher Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Dr. Beverly Crusher Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Dr. Beverly Crusher AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Dr. Beverly Crusher Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [],
+        "quality_score": 95,
+        "missing_components": [
+          "Response handler"
+        ],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "zQ9gX0CCdWXFKNev",
+          "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "active": true,
+          "archived": false,
+          "node_count": 6,
+          "connection_count": 5,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [
+            {
+              "name": "Dr. Beverly Crusher Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Dr. Beverly Crusher Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Dr. Beverly Crusher AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Dr. Beverly Crusher Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 95,
+          "missing_components": [
+            "Response handler"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "rS6mdFQlxT5GwXdY",
+          "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "active": true,
+          "archived": false,
+          "node_count": 4,
+          "connection_count": 3,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Dr. Beverly Crusher AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Dr. Beverly Crusher Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 55,
+          "missing_components": [
+            "Memory integration",
+            "Response handler",
+            "Sufficient node count"
+          ],
+          "recommendations": [
+            "Low quality - Candidate for removal"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: 7D4EEFAWo9jIhFnV), deactivate 2 duplicates"
+    },
+    "Lieutenant Worf": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "CSGrhztb5AWln7DN",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "active": true,
+        "archived": false,
+        "node_count": 7,
+        "connection_count": 6,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": true,
+        "memory_nodes": [
+          {
+            "name": "Lieutenant Worf Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Lieutenant Worf Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Lieutenant Worf AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Observation Lounge Communication",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Lieutenant Worf Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [
+          {
+            "name": "Lieutenant Worf Response",
+            "type": "n8n-nodes-base.respondToWebhook"
+          }
+        ],
+        "quality_score": 110,
+        "missing_components": [],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "PdedVribejWKwNts",
+          "name": "Lieutenant Worf - Security & Compliance Operations",
+          "active": true,
+          "archived": false,
+          "node_count": 7,
+          "connection_count": 6,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [
+            {
+              "name": "Lieutenant Worf Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Lieutenant Worf Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Lieutenant Worf AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Lieutenant Worf Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Lieutenant Worf Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 110,
+          "missing_components": [],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "7k9XLyUbfijvYJo4",
+          "name": "Lieutenant Worf - Security & Compliance Operations",
+          "active": true,
+          "archived": false,
+          "node_count": 5,
+          "connection_count": 4,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Lieutenant Worf AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Lieutenant Worf Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Lieutenant Worf Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 80,
+          "missing_components": [
+            "Memory integration"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: CSGrhztb5AWln7DN), deactivate 2 duplicates"
+    },
+    "Lieutenant Uhura": {
+      "workflow_count": 1,
+      "best_workflow": {
+        "id": "BJVrV6RlrMrsq3ch",
+        "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+        "active": true,
+        "archived": false,
+        "node_count": 4,
+        "connection_count": 3,
+        "has_memory_integration": false,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": false,
+        "memory_nodes": [],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Lieutenant Uhura AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Lieutenant Uhura Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [],
+        "quality_score": 55,
+        "missing_components": [
+          "Memory integration",
+          "Response handler",
+          "Sufficient node count"
+        ],
+        "recommendations": [
+          "Low quality - Candidate for removal"
+        ]
+      },
+      "duplicates": [],
+      "recommendation": "Keep single workflow"
+    },
+    "Captain Jean-Luc Picard": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "C2GfdkxsmCj8JkHK",
+        "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+        "active": true,
+        "archived": false,
+        "node_count": 7,
+        "connection_count": 6,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": true,
+        "memory_nodes": [
+          {
+            "name": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Captain Jean-Luc Picard Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Captain Jean-Luc Picard AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Observation Lounge Communication",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Captain Jean-Luc Picard Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [
+          {
+            "name": "Captain Jean-Luc Picard Response",
+            "type": "n8n-nodes-base.respondToWebhook"
+          }
+        ],
+        "quality_score": 110,
+        "missing_components": [],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "lJ8dRxtVZcxgC6ck",
+          "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "active": true,
+          "archived": false,
+          "node_count": 7,
+          "connection_count": 6,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [
+            {
+              "name": "Captain Jean-Luc Picard Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Captain Jean-Luc Picard Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Captain Jean-Luc Picard AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Captain Jean-Luc Picard Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Captain Jean-Luc Picard Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 110,
+          "missing_components": [],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "WUtfB4g4k00uFOaH",
+          "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "active": true,
+          "archived": false,
+          "node_count": 5,
+          "connection_count": 4,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Captain Jean-Luc Picard AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Captain Jean-Luc Picard Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Captain Jean-Luc Picard Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 80,
+          "missing_components": [
+            "Memory integration"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: C2GfdkxsmCj8JkHK), deactivate 2 duplicates"
+    },
+    "Commander Data": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "LIdu6eRVCRyBG1WA",
+        "name": "Commander Data - Analytics & Logic Operations",
+        "active": true,
+        "archived": false,
+        "node_count": 7,
+        "connection_count": 6,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": true,
+        "memory_nodes": [
+          {
+            "name": "Commander Data Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Commander Data Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Commander Data AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Observation Lounge Communication",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Commander Data Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [
+          {
+            "name": "Commander Data Response",
+            "type": "n8n-nodes-base.respondToWebhook"
+          }
+        ],
+        "quality_score": 110,
+        "missing_components": [],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "oNw3SN59YnGk2cW3",
+          "name": "Commander Data - Analytics & Logic Operations",
+          "active": true,
+          "archived": false,
+          "node_count": 7,
+          "connection_count": 6,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [
+            {
+              "name": "Commander Data Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Commander Data Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Commander Data AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Commander Data Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Commander Data Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 110,
+          "missing_components": [],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "HbljVTtTwYU5gPS6",
+          "name": "Commander Data - Analytics & Logic Operations",
+          "active": true,
+          "archived": false,
+          "node_count": 5,
+          "connection_count": 4,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Commander Data AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Commander Data Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Commander Data Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 80,
+          "missing_components": [
+            "Memory integration"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: LIdu6eRVCRyBG1WA), deactivate 2 duplicates"
+    },
+    "Counselor Deanna Troi": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "Q5nHuN0CAR9dJLE5",
+        "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "active": true,
+        "archived": false,
+        "node_count": 7,
+        "connection_count": 6,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": true,
+        "memory_nodes": [
+          {
+            "name": "Counselor Deanna Troi Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Counselor Deanna Troi Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Counselor Deanna Troi AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Observation Lounge Communication",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Counselor Deanna Troi Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [
+          {
+            "name": "Counselor Deanna Troi Response",
+            "type": "n8n-nodes-base.respondToWebhook"
+          }
+        ],
+        "quality_score": 110,
+        "missing_components": [],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "xHaps3vKbMMCg2Rb",
+          "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "active": true,
+          "archived": false,
+          "node_count": 7,
+          "connection_count": 6,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [
+            {
+              "name": "Counselor Deanna Troi Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Counselor Deanna Troi Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Counselor Deanna Troi AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Counselor Deanna Troi Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Counselor Deanna Troi Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 110,
+          "missing_components": [],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "s9rJLcPYDSxGtyEQ",
+          "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "active": true,
+          "archived": false,
+          "node_count": 5,
+          "connection_count": 4,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": true,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Counselor Deanna Troi AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Counselor Deanna Troi Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [
+            {
+              "name": "Counselor Deanna Troi Response",
+              "type": "n8n-nodes-base.respondToWebhook"
+            }
+          ],
+          "quality_score": 80,
+          "missing_components": [
+            "Memory integration"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: Q5nHuN0CAR9dJLE5), deactivate 2 duplicates"
+    },
+    "Quark": {
+      "workflow_count": 3,
+      "best_workflow": {
+        "id": "aFNOULWT261Qkccg",
+        "name": "Quark - Business Intelligence & Budget Optimization",
+        "active": true,
+        "archived": false,
+        "node_count": 6,
+        "connection_count": 5,
+        "has_memory_integration": true,
+        "has_llm_integration": true,
+        "has_webhook": true,
+        "has_response_handler": false,
+        "memory_nodes": [
+          {
+            "name": "Quark Memory Retrieval",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          },
+          {
+            "name": "Quark Memory Storage",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+          }
+        ],
+        "llm_nodes": [
+          {
+            "name": "LLM Selection Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          },
+          {
+            "name": "Quark AI Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions"
+          }
+        ],
+        "webhook_nodes": [
+          {
+            "name": "Quark Directive",
+            "type": "n8n-nodes-base.webhook"
+          }
+        ],
+        "response_nodes": [],
+        "quality_score": 95,
+        "missing_components": [
+          "Response handler"
+        ],
+        "recommendations": [
+          "High quality - Keep this workflow"
+        ]
+      },
+      "duplicates": [
+        {
+          "id": "ly2f6PmCojumkQxu",
+          "name": "Quark - Business Intelligence & Budget Optimization",
+          "active": true,
+          "archived": false,
+          "node_count": 6,
+          "connection_count": 5,
+          "has_memory_integration": true,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [
+            {
+              "name": "Quark Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "name": "Quark Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Quark AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Quark Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 95,
+          "missing_components": [
+            "Response handler"
+          ],
+          "recommendations": [
+            "High quality - Keep this workflow"
+          ]
+        },
+        {
+          "id": "wbXsKc4UryCJv66e",
+          "name": "Quark - Business Intelligence & Budget Optimization",
+          "active": true,
+          "archived": false,
+          "node_count": 4,
+          "connection_count": 3,
+          "has_memory_integration": false,
+          "has_llm_integration": true,
+          "has_webhook": true,
+          "has_response_handler": false,
+          "memory_nodes": [],
+          "llm_nodes": [
+            {
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "name": "Quark AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ],
+          "webhook_nodes": [
+            {
+              "name": "Quark Directive",
+              "type": "n8n-nodes-base.webhook"
+            }
+          ],
+          "response_nodes": [],
+          "quality_score": 55,
+          "missing_components": [
+            "Memory integration",
+            "Response handler",
+            "Sufficient node count"
+          ],
+          "recommendations": [
+            "Low quality - Candidate for removal"
+          ]
+        }
+      ],
+      "recommendation": "Keep best workflow (ID: aFNOULWT261Qkccg), deactivate 2 duplicates"
+    }
+  },
+  "summary": {
+    "total_crew_members": 9,
+    "crew_with_duplicates": 8,
+    "total_duplicates": 16
+  }
+}

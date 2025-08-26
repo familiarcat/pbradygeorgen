@@ -1,0 +1,269 @@
+{
+  "createdAt": "2025-08-26T09:06:15.474Z",
+  "updatedAt": "2025-08-26T13:31:03.000Z",
+  "id": "ly2f6PmCojumkQxu",
+  "name": "Quark - Business Intelligence & Budget Optimization",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "crew_directive",
+      "name": "Quark Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-quark",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "memory_retrieval",
+      "name": "Quark Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "GET",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendQuery": true,
+        "queryParameters": [
+          {
+            "name": "crew_member",
+            "value": "Quark"
+          },
+          {
+            "name": "memory_type",
+            "value": "character_foundation"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "llm_selector",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Quark. Based on the task complexity, requirements, and available models (openai/gpt-3.5-turbo, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_storage",
+      "name": "Quark Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "crew_member",
+            "value": "Quark"
+          },
+          {
+            "name": "mission_id",
+            "value": "={{ $json.body.mission_id || 'mission-001' }}"
+          },
+          {
+            "name": "memory_type",
+            "value": "mission_experience"
+          },
+          {
+            "name": "content",
+            "value": "={{ $json.body.crew_insights }}"
+          },
+          {
+            "name": "importance",
+            "value": "high"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "crew_ai",
+      "name": "Quark AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "={{ $json.body.selected_model }}"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are Quark, Business Intelligence & Budget Optimization specialist of the Federation crew. You specialize in cost analysis, ROI optimization, business metrics, and growth opportunities. You excel at identifying profitable ventures and optimizing resource allocation for maximum business value. Provide clear business insights and cost optimization recommendations.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "observation_communication",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "crew_member",
+              "value": "Quark"
+            },
+            {
+              "name": "role",
+              "value": "Business Intelligence & Budget Optimization"
+            },
+            {
+              "name": "response",
+              "value": "={{ $json.body.response }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Quark Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Quark AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Quark Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "ac6211db-95a1-4b43-b9ea-7dbf293c0f10",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:15.476Z",
+      "updatedAt": "2025-08-26T09:06:15.476Z",
+      "role": "workflow:owner",
+      "workflowId": "ly2f6PmCojumkQxu",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

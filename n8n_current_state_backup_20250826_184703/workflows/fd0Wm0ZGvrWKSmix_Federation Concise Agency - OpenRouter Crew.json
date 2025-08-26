@@ -1,0 +1,144 @@
+{
+  "createdAt": "2025-08-26T09:06:34.610Z",
+  "updatedAt": "2025-08-26T13:30:54.000Z",
+  "id": "fd0Wm0ZGvrWKSmix",
+  "name": "Federation Concise Agency - OpenRouter Crew",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "federation_directive",
+      "name": "Federation Directive Receiver",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "memory_storage",
+      "name": "Federation Concise Agency Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "crew_member",
+            "value": "Federation Concise Agency"
+          },
+          {
+            "name": "mission_id",
+            "value": "={{ $json.body.mission_id || 'mission-001' }}"
+          },
+          {
+            "name": "memory_type",
+            "value": "mission_experience"
+          },
+          {
+            "name": "content",
+            "value": "={{ $json.body.crew_insights }}"
+          },
+          {
+            "name": "importance",
+            "value": "high"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "memory_retrieval",
+      "name": "Federation Concise Agency Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "GET",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendQuery": true,
+        "queryParameters": [
+          {
+            "name": "crew_member",
+            "value": "Federation Concise Agency"
+          },
+          {
+            "name": "memory_type",
+            "value": "character_foundation"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "response_handler",
+      "name": "Response Handler",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Federation Directive Receiver": {
+      "main": [
+        [
+          {
+            "node": "Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Federation Concise Agency Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Federation Concise Agency Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "3f08a1ec-7e53-4b97-a625-56e6c692f0e6",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:34.612Z",
+      "updatedAt": "2025-08-26T09:06:34.612Z",
+      "role": "workflow:owner",
+      "workflowId": "fd0Wm0ZGvrWKSmix",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

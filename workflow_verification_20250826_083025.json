@@ -1,0 +1,114 @@
+{
+  "timestamp": "20250826_083025",
+  "total_workflows": 38,
+  "crew_workflows": {
+    "Lieutenant Commander Geordi La Forge": [
+      {
+        "id": "351hi9YnKoZ8fFIq",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-26T09:06:16.371Z",
+        "updatedAt": "2025-08-26T13:09:25.000Z"
+      },
+      {
+        "id": "UMgLlLPbhcjwJtKK",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-25T05:17:35.775Z",
+        "updatedAt": "2025-08-25T05:37:47.000Z"
+      },
+      {
+        "id": "xzf43LWpUpcoTAwD",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-26T09:06:33.245Z",
+        "updatedAt": "2025-08-26T13:17:45.000Z"
+      }
+    ],
+    "Commander William Riker": [
+      {
+        "id": "4xHgewymk21FraDJ",
+        "name": "Commander William Riker - Tactical Execution & Workflow Management",
+        "createdAt": "2025-08-26T09:06:16.167Z",
+        "updatedAt": "2025-08-26T13:25:34.000Z"
+      }
+    ],
+    "Lieutenant Worf": [
+      {
+        "id": "7k9XLyUbfijvYJo4",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-25T05:17:40.022Z",
+        "updatedAt": "2025-08-25T05:37:44.000Z"
+      },
+      {
+        "id": "CSGrhztb5AWln7DN",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-26T09:06:34.139Z",
+        "updatedAt": "2025-08-26T12:27:29.000Z"
+      },
+      {
+        "id": "PdedVribejWKwNts",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-26T09:06:17.248Z",
+        "updatedAt": "2025-08-26T13:20:11.000Z"
+      }
+    ],
+    "Lieutenant Uhura": [
+      {
+        "id": "BJVrV6RlrMrsq3ch",
+        "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+        "createdAt": "2025-08-26T06:50:05.492Z",
+        "updatedAt": "2025-08-26T06:56:53.000Z"
+      }
+    ],
+    "Captain Jean-Luc Picard": [
+      {
+        "id": "C2GfdkxsmCj8JkHK",
+        "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+        "createdAt": "2025-08-26T09:06:17.541Z",
+        "updatedAt": "2025-08-26T13:10:48.000Z"
+      }
+    ],
+    "Commander Data": [
+      {
+        "id": "LIdu6eRVCRyBG1WA",
+        "name": "Commander Data - Analytics & Logic Operations",
+        "createdAt": "2025-08-26T09:06:33.740Z",
+        "updatedAt": "2025-08-26T13:14:08.000Z"
+      }
+    ],
+    "Counselor Deanna Troi": [
+      {
+        "id": "Q5nHuN0CAR9dJLE5",
+        "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "createdAt": "2025-08-26T09:06:32.828Z",
+        "updatedAt": "2025-08-26T13:13:11.000Z"
+      },
+      {
+        "id": "s9rJLcPYDSxGtyEQ",
+        "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "createdAt": "2025-08-25T05:17:37.904Z",
+        "updatedAt": "2025-08-25T05:37:45.000Z"
+      },
+      {
+        "id": "xHaps3vKbMMCg2Rb",
+        "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "createdAt": "2025-08-26T09:06:15.890Z",
+        "updatedAt": "2025-08-26T13:09:10.000Z"
+      }
+    ],
+    "Dr. Beverly Crusher": [
+      {
+        "id": "rS6mdFQlxT5GwXdY",
+        "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "createdAt": "2025-08-26T06:50:00.122Z",
+        "updatedAt": "2025-08-26T06:56:55.000Z"
+      }
+    ],
+    "Quark": [
+      {
+        "id": "wbXsKc4UryCJv66e",
+        "name": "Quark - Business Intelligence & Budget Optimization",
+        "createdAt": "2025-08-26T06:50:10.809Z",
+        "updatedAt": "2025-08-26T06:56:52.000Z"
+      }
+    ]
+  }
+}

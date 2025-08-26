@@ -1,0 +1,147 @@
+{
+  "createdAt": "2025-08-25T05:17:31.374Z",
+  "updatedAt": "2025-08-25T10:17:20.000Z",
+  "id": "QOJQTpLncfwyUUuv",
+  "name": "Federation Crew - OpenRouter Agent Coordination",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "federation-directive",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "federation_directive",
+      "name": "Federation Directive Receiver",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "08fc09d2-d623-4c8b-bde7-8432e50ec086"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "mission_analysis",
+      "name": "Mission Analysis Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "crew_coordinator",
+      "name": "Crew Coordinator Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "observation_lounge",
+      "name": "Observation Lounge Hub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "response_handler",
+      "name": "Federation Response Handler",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Federation Directive Receiver": {
+      "main": [
+        [
+          {
+            "node": "Mission Analysis Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mission Analysis Agent": {
+      "main": [
+        [
+          {
+            "node": "Crew Coordinator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Coordinator Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Hub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Hub": {
+      "main": [
+        [
+          {
+            "node": "Federation Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "0e5679f9-766e-4174-bef3-8c63df441aab",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-25T05:17:31.376Z",
+      "updatedAt": "2025-08-25T05:17:31.376Z",
+      "role": "workflow:owner",
+      "workflowId": "QOJQTpLncfwyUUuv",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

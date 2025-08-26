@@ -1,0 +1,285 @@
+{
+  "createdAt": "2025-08-26T09:06:17.019Z",
+  "updatedAt": "2025-08-26T13:30:58.000Z",
+  "id": "THmx9pore9iUMvmI",
+  "name": "Federation Crew - OpenRouter Agent Coordination",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "federation_directive",
+      "name": "Federation Directive Receiver",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "federation-directive",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "memory_retrieval",
+      "name": "Federation Crew Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "GET",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendQuery": true,
+        "queryParameters": [
+          {
+            "name": "crew_member",
+            "value": "Federation Crew"
+          },
+          {
+            "name": "memory_type",
+            "value": "character_foundation"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "mission_analysis",
+      "name": "Mission Analysis Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "anthropic/claude-3.5-sonnet"
+          },
+          {
+            "name": "messages",
+            "value": "={{ [{\"role\": \"system\", \"content\": \"You are a Federation Mission Analysis Agent. Analyze the incoming directive and determine: 1) Mission type and complexity, 2) Required crew members, 3) Optimal LLM models for each crew member, 4) Communication flow structure. Respond with structured JSON.\"}, {\"role\": \"user\", \"content\": $json.body.directive}] }}"
+          },
+          {
+            "name": "temperature",
+            "value": "0.3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crew_coordinator",
+      "name": "Crew Coordinator Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Federation Crew Coordinator. Based on the mission analysis, coordinate the crew members and establish the Observation Lounge communication flow. Assign tasks and ensure optimal LLM model selection for each crew member.\"}, {\"role\": \"user\", \"content\": $json.body.directive}] }}"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_storage",
+      "name": "Federation Crew Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ],
+      "parameters": {
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "crew_member",
+            "value": "Federation Crew"
+          },
+          {
+            "name": "mission_id",
+            "value": "={{ $json.body.mission_id || 'mission-001' }}"
+          },
+          {
+            "name": "memory_type",
+            "value": "mission_experience"
+          },
+          {
+            "name": "content",
+            "value": "={{ $json.body.crew_insights }}"
+          },
+          {
+            "name": "importance",
+            "value": "high"
+          }
+        ],
+        "options": {}
+      }
+    },
+    {
+      "id": "observation_lounge",
+      "name": "Observation Lounge Hub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "anthropic/claude-3.5-sonnet"
+          },
+          {
+            "name": "messages",
+            "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Hub, the central coordination point for Federation crew collaboration. Facilitate communication between crew members, synthesize their insights, and build comprehensive resolutions. Maintain the collaborative context and ensure optimal information flow.\"}, {\"role\": \"user\", \"content\": $json.body.directive}] }}"
+          },
+          {
+            "name": "temperature",
+            "value": "0.3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "response_handler",
+      "name": "Federation Response Handler",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "responseCode": 200,
+        "responseMode": "json",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Federation Directive Receiver": {
+      "main": [
+        [
+          {
+            "node": "Mission Analysis Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mission Analysis Agent": {
+      "main": [
+        [
+          {
+            "node": "Crew Coordinator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crew Coordinator Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Hub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Hub": {
+      "main": [
+        [
+          {
+            "node": "Federation Response Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Federation Crew Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Federation Crew Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "222ef4c5-d79d-4de8-aad7-21f63d8e4f2f",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:17.021Z",
+      "updatedAt": "2025-08-26T09:06:17.021Z",
+      "role": "workflow:owner",
+      "workflowId": "THmx9pore9iUMvmI",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

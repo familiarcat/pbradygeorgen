@@ -1,0 +1,193 @@
+{
+  "timestamp": "20250826_074012",
+  "total_active_workflows": 35,
+  "crew_counts": {
+    "Lieutenant Commander Geordi La Forge": 3,
+    "Commander William Riker": 3,
+    "Dr. Beverly Crusher": 3,
+    "Lieutenant Worf": 3,
+    "Lieutenant Uhura": 1,
+    "Captain Jean-Luc Picard": 3,
+    "System Workflow": 10,
+    "Commander Data": 3,
+    "Counselor Deanna Troi": 3,
+    "Quark": 3
+  },
+  "active_workflows": [
+    {
+      "id": "351hi9YnKoZ8fFIq",
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "crew_member": "Lieutenant Commander Geordi La Forge"
+    },
+    {
+      "id": "4xHgewymk21FraDJ",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management",
+      "crew_member": "Commander William Riker"
+    },
+    {
+      "id": "7D4EEFAWo9jIhFnV",
+      "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "crew_member": "Dr. Beverly Crusher"
+    },
+    {
+      "id": "7k9XLyUbfijvYJo4",
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "crew_member": "Lieutenant Worf"
+    },
+    {
+      "id": "9KAiHi1dGZ4QGRUZ",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management",
+      "crew_member": "Commander William Riker"
+    },
+    {
+      "id": "BJVrV6RlrMrsq3ch",
+      "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+      "crew_member": "Lieutenant Uhura"
+    },
+    {
+      "id": "C2GfdkxsmCj8JkHK",
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "crew_member": "Captain Jean-Luc Picard"
+    },
+    {
+      "id": "CSGrhztb5AWln7DN",
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "crew_member": "Lieutenant Worf"
+    },
+    {
+      "id": "DMsFt1H6ljE6sgsq",
+      "name": "AlexAI Optimized Crew - Complete Mission Control",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "FMRBAZnq9MOcAZSn",
+      "name": "Enhanced Federation Crew - Complete Mission Control",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "HbljVTtTwYU5gPS6",
+      "name": "Commander Data - Analytics & Logic Operations",
+      "crew_member": "Commander Data"
+    },
+    {
+      "id": "LIdu6eRVCRyBG1WA",
+      "name": "Commander Data - Analytics & Logic Operations",
+      "crew_member": "Commander Data"
+    },
+    {
+      "id": "PdedVribejWKwNts",
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "crew_member": "Lieutenant Worf"
+    },
+    {
+      "id": "PqrQt5bngS1acXng",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management",
+      "crew_member": "Commander William Riker"
+    },
+    {
+      "id": "Q5nHuN0CAR9dJLE5",
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "crew_member": "Counselor Deanna Troi"
+    },
+    {
+      "id": "QOJQTpLncfwyUUuv",
+      "name": "Federation Crew - OpenRouter Agent Coordination",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "THmx9pore9iUMvmI",
+      "name": "Federation Crew - OpenRouter Agent Coordination",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "UMgLlLPbhcjwJtKK",
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "crew_member": "Lieutenant Commander Geordi La Forge"
+    },
+    {
+      "id": "WUtfB4g4k00uFOaH",
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "crew_member": "Captain Jean-Luc Picard"
+    },
+    {
+      "id": "aFNOULWT261Qkccg",
+      "name": "Quark - Business Intelligence & Budget Optimization",
+      "crew_member": "Quark"
+    },
+    {
+      "id": "btAdk6vmu9e0Z9Lc",
+      "name": "Enhanced Federation Crew - Complete Mission Control",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "cBeaN0Eh6TTEx7bd",
+      "name": "AlexAI Optimized Crew - Complete Mission Control",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "fd0Wm0ZGvrWKSmix",
+      "name": "Federation Concise Agency - OpenRouter Crew",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "lJ8dRxtVZcxgC6ck",
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "crew_member": "Captain Jean-Luc Picard"
+    },
+    {
+      "id": "ly2f6PmCojumkQxu",
+      "name": "Quark - Business Intelligence & Budget Optimization",
+      "crew_member": "Quark"
+    },
+    {
+      "id": "oNw3SN59YnGk2cW3",
+      "name": "Commander Data - Analytics & Logic Operations",
+      "crew_member": "Commander Data"
+    },
+    {
+      "id": "rS6mdFQlxT5GwXdY",
+      "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "crew_member": "Dr. Beverly Crusher"
+    },
+    {
+      "id": "s9rJLcPYDSxGtyEQ",
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "crew_member": "Counselor Deanna Troi"
+    },
+    {
+      "id": "wbXsKc4UryCJv66e",
+      "name": "Quark - Business Intelligence & Budget Optimization",
+      "crew_member": "Quark"
+    },
+    {
+      "id": "xBk0s4lAD2ng7Tcg",
+      "name": "Federation Crew - OpenRouter Agent Coordination",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "xHaps3vKbMMCg2Rb",
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "crew_member": "Counselor Deanna Troi"
+    },
+    {
+      "id": "xzf43LWpUpcoTAwD",
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "crew_member": "Lieutenant Commander Geordi La Forge"
+    },
+    {
+      "id": "ykPv0NZ5c7K6B5Pp",
+      "name": "Federation Concise Agency - OpenRouter Crew",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "z3vu3SnucPmePsQx",
+      "name": "Enhanced Federation Crew - Complete Mission Control",
+      "crew_member": "System Workflow"
+    },
+    {
+      "id": "zQ9gX0CCdWXFKNev",
+      "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "crew_member": "Dr. Beverly Crusher"
+    }
+  ]
+}
