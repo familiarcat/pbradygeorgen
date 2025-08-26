@@ -1,0 +1,304 @@
+{
+  "backup_metadata": {
+    "backup_timestamp": "2025-08-25T01:23:54.483741",
+    "original_workflow_id": "WUtfB4g4k00uFOaH",
+    "backup_version": "1.0",
+    "n8n_version": "latest"
+  },
+  "workflow_data": {
+    "createdAt": "2025-08-25T05:17:31.494Z",
+    "updatedAt": "2025-08-25T05:37:50.000Z",
+    "id": "WUtfB4g4k00uFOaH",
+    "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "id": "crew_directive",
+        "name": "Captain Jean-Luc Picard Directive",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 1,
+        "position": [
+          240,
+          300
+        ],
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "crew-captain-jean-luc-picard",
+          "responseMode": "responseNode",
+          "options": {}
+        }
+      },
+      {
+        "id": "memory_retrieval",
+        "name": "Captain Jean-Luc Picard Memory Retrieval",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "GET",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendQuery": true,
+          "queryParameters": [
+            {
+              "name": "crew_member",
+              "value": "Captain Jean-Luc Picard"
+            },
+            {
+              "name": "memory_type",
+              "value": "character_foundation"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "llm_selector",
+        "name": "LLM Selection Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          460,
+          200
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Captain Jean-Luc Picard. Based on the task complexity, requirements, and available models (anthropic/claude-3.5-sonnet, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_ai",
+        "name": "Captain Jean-Luc Picard AI Agent",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          680,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "={{ $json.body.selected_model }}"
+            },
+            {
+              "name": "messages",
+              "value": "={ [{\"role\": \"system\", \"content\": \"You are Captain Jean-Luc Picard, the distinguished commanding officer of the Enterprise, embodying the highest ideals of Starfleet. Your character is defined by:\n\nPERSONALITY TRAITS:\n- Diplomatic and thoughtful, preferring negotiation over confrontation\n- Deeply philosophical with a love for archaeology and ancient civilizations\n- Calm under pressure with exceptional crisis management skills\n- Values honor, duty, and the Prime Directive above all else\n- Demonstrates patience and wisdom in complex situations\n\nSPECIALTIES:\n- Strategic planning and mission command\n- Diplomatic negotiations and first contact protocols\n- Crisis management and emergency response coordination\n- Ethical decision-making and moral leadership\n- Historical and archaeological knowledge\n\nCHARACTER HISTORY HIGHLIGHTS:\n- Former captain of the USS Stargazer\n- Experienced in Borg encounters and time anomalies\n- Led numerous first contact missions\n- Resolved complex diplomatic crises\n- Survived assimilation and recovery from Borg influence\n\nOPERATIONAL APPROACH:\n- Gathers complete information before making decisions\n- Considers long-term consequences of actions\n- Delegates tactical operations to trusted officers\n- Maintains calm authority during emergencies\n- Prioritizes crew safety and mission success\n\nCOMMUNICATION STYLE:\n- Eloquent and articulate speech\n- Uses historical and philosophical references\n- Maintains formal but approachable demeanor\n- Speaks with authority and conviction\n- Demonstrates empathy and understanding\n\nExecute your assigned task with expertise and provide detailed analysis and recommendations. Communicate your findings clearly for the Observation Lounge.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+            },
+            {
+              "name": "temperature",
+              "value": "0.4"
+            }
+          ]
+        }
+      },
+      {
+        "id": "memory_storage",
+        "name": "Captain Jean-Luc Picard Memory Storage",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          100
+        ],
+        "parameters": {
+          "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer sb_publishable_ibWfa8oHqDMzbhEr6BxgBw_0aXaq3DU",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "crew_member",
+              "value": "Captain Jean-Luc Picard"
+            },
+            {
+              "name": "mission_id",
+              "value": "={{ $json.body.mission_id || 'mission-001' }}"
+            },
+            {
+              "name": "memory_type",
+              "value": "mission_experience"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.body.crew_insights }}"
+            },
+            {
+              "name": "importance",
+              "value": "high"
+            }
+          ],
+          "options": {}
+        }
+      },
+      {
+        "id": "observation_communication",
+        "name": "Observation Lounge Communication",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 1,
+        "position": [
+          900,
+          300
+        ],
+        "parameters": {
+          "url": "https://api.openrouter.ai/api/v1/chat/completions",
+          "method": "POST",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "nodeCredentialType": "httpHeaderAuth",
+          "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+          "sendBody": true,
+          "bodyParameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3.5-sonnet"
+            },
+            {
+              "name": "messages",
+              "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Communication Hub. Receive insights from crew members, synthesize information, and prepare comprehensive reports for the Federation. Ensure all crew insights are properly integrated.\"}, {\"role\": \"user\", \"content\": $json.body.crew_insights}] }}"
+            },
+            {
+              "name": "temperature",
+              "value": "0.3"
+            }
+          ]
+        }
+      },
+      {
+        "id": "crew_response",
+        "name": "Captain Jean-Luc Picard Response",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1,
+        "position": [
+          1120,
+          300
+        ],
+        "parameters": {
+          "responseCode": 200,
+          "responseMode": "json",
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "Captain Jean-Luc Picard Directive": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard Memory Retrieval",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LLM Selection Agent": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Captain Jean-Luc Picard AI Agent": {
+        "main": [
+          [
+            {
+              "node": "Observation Lounge Communication",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Observation Lounge Communication": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard Memory Storage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Captain Jean-Luc Picard Memory Retrieval": {
+        "main": [
+          [
+            {
+              "node": "LLM Selection Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Captain Jean-Luc Picard Memory Storage": {
+        "main": [
+          [
+            {
+              "node": "Captain Jean-Luc Picard Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {},
+    "staticData": null,
+    "meta": null,
+    "pinData": null,
+    "versionId": "0b2b1218-9f63-49db-8b4e-f9cdc799eafd",
+    "triggerCount": 1,
+    "shared": [
+      {
+        "createdAt": "2025-08-25T05:17:31.496Z",
+        "updatedAt": "2025-08-25T05:17:31.496Z",
+        "role": "workflow:owner",
+        "workflowId": "WUtfB4g4k00uFOaH",
+        "projectId": "4Pe2tfKPH8e3rX41"
+      }
+    ],
+    "tags": []
+  }
+}
