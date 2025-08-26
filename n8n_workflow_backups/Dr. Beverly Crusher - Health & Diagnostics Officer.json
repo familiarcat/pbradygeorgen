@@ -1,0 +1,192 @@
+{
+    "backup_metadata": {
+        "backup_timestamp": "2025-01-27T15:30:00.000000",
+        "original_workflow_id": "NEW_CRUSHER_WORKFLOW",
+        "backup_version": "1.0",
+        "n8n_version": "latest"
+    },
+    "workflow_data": {
+        "createdAt": "2025-01-27T15:30:00.000Z",
+        "updatedAt": "2025-01-27T15:30:00.000Z",
+        "id": "NEW_CRUSHER_WORKFLOW",
+        "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "active": true,
+        "isArchived": false,
+        "nodes": [
+            {
+                "id": "crew_directive",
+                "name": "Dr. Beverly Crusher Directive",
+                "type": "n8n-nodes-base.webhook",
+                "typeVersion": 1,
+                "position": [
+                    240,
+                    300
+                ],
+                "parameters": {
+                    "httpMethod": "POST",
+                    "path": "crew-dr-beverly-crusher",
+                    "responseMode": "responseNode",
+                    "options": {}
+                }
+            },
+            {
+                "id": "llm_selector",
+                "name": "LLM Selection Agent",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+                "position": [
+                    460,
+                    200
+                ],
+                "parameters": {
+                    "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                    "method": "POST",
+                    "authentication": "genericCredentialType",
+                    "genericAuthType": "httpHeaderAuth",
+                    "nodeCredentialType": "httpHeaderAuth",
+                    "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+                    "sendBody": true,
+                    "bodyParameters": [
+                        {
+                            "name": "model",
+                            "value": "openai/gpt-4o"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Dr. Beverly Crusher. Based on the task complexity, requirements, and available models (anthropic/claude-3-haiku, openai/gpt-4o, meta-llama/llama-3.1-8b-instruct), select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+                        },
+                        {
+                            "name": "temperature",
+                            "value": "0.2"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "crew_ai",
+                "name": "Dr. Beverly Crusher AI Agent",
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+                "position": [
+                    680,
+                    300
+                ],
+                "parameters": {
+                    "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                    "method": "POST",
+                    "authentication": "genericCredentialType",
+                    "genericAuthType": "httpHeaderAuth",
+                    "nodeCredentialType": "httpHeaderAuth",
+                    "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+                    "sendBody": true,
+                    "bodyParameters": [
+                        {
+                            "name": "model",
+                            "value": "={{ $json.body.selected_model }}"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "={ [{\"role\": \"system\", \"content\": \"You are Dr. Beverly Crusher, Chief Medical Officer of the Federation crew. You specialize in system health monitoring, performance diagnostics, error detection, and preventive maintenance. You excel at identifying potential issues before they become problems and providing health-focused recommendations. Provide clear diagnostic insights and health optimization guidance.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+                        },
+                        {
+                            "name": "temperature",
+                            "value": "0.4"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "observation_communication",
+                "name": "Observation Lounge Communication",
+                "type": "n8n-nodes-base.set",
+                "typeVersion": 1,
+                "position": [
+                    900,
+                    300
+                ],
+                "parameters": {
+                    "values": {
+                        "string": [
+                            {
+                                "name": "crew_member",
+                                "value": "Dr. Beverly Crusher"
+                            },
+                            {
+                                "name": "role",
+                                "value": "Health & Diagnostics Officer"
+                            },
+                            {
+                                "name": "response",
+                                "value": "={{ $json.body.response }}"
+                            },
+                            {
+                                "name": "timestamp",
+                                "value": "={{ new Date().toISOString() }}"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "connections": {
+            "Dr. Beverly Crusher Directive": {
+                "main": [
+                    [
+                        {
+                            "node": "LLM Selection Agent",
+                            "type": "main",
+                            "index": 0
+                        }
+                    ]
+                ]
+            },
+            "LLM Selection Agent": {
+                "main": [
+                    [
+                        {
+                            "node": "Dr. Beverly Crusher AI Agent",
+                            "type": "main",
+                            "index": 0
+                        }
+                    ]
+                ]
+            },
+            "Dr. Beverly Crusher AI Agent": {
+                "main": [
+                    [
+                        {
+                            "node": "Observation Lounge Communication",
+                            "type": "main",
+                            "index": 0
+                        }
+                    ]
+                ]
+            }
+        },
+        "settings": {},
+        "staticData": null,
+        "tags": [
+            {
+                "createdAt": "2025-01-27T15:30:00.000Z",
+                "updatedAt": "2025-01-27T15:30:00.000Z",
+                "id": "crusher_tag",
+                "name": "crew"
+            },
+            {
+                "createdAt": "2025-01-27T15:30:00.000Z",
+                "updatedAt": "2025-01-27T15:30:00.000Z",
+                "id": "health_tag",
+                "name": "health"
+            },
+            {
+                "createdAt": "2025-01-27T15:30:00.000Z",
+                "updatedAt": "2025-01-27T15:30:00.000Z",
+                "id": "diagnostics_tag",
+                "name": "diagnostics"
+            }
+        ],
+        "triggerCount": 0,
+        "updatedAt": "2025-01-27T15:30:00.000Z",
+        "versionId": "1"
+    }
+}
