@@ -1,0 +1,148 @@
+{
+  "backup_timestamp": "2025-08-26T23:12:00.356535",
+  "n8n_url": "https://n8n.pbradygeorgen.com",
+  "state_analysis": {
+    "total_workflows": 11,
+    "active_workflows": 11,
+    "inactive_workflows": 0,
+    "crew_members": 7,
+    "system_workflows": 4,
+    "duplicates_found": [],
+    "cleanup_status": "complete",
+    "timestamp": "2025-08-26T23:12:00.352450"
+  },
+  "workflow_details": [
+    {
+      "id": "AeoHsSbJAXbWSs8Y",
+      "name": "System - Federation Concise Agency - OpenRouter Crew",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:45.931Z",
+      "updatedAt": "2025-08-27T04:08:13.000Z",
+      "crew_member": "System Workflow",
+      "has_memory": true,
+      "has_llm": false,
+      "node_count": 4,
+      "connection_count": 2
+    },
+    {
+      "id": "BdNHOluRYUw2JxGW",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:47.297Z",
+      "updatedAt": "2025-08-27T04:08:02.000Z",
+      "crew_member": "Captain Jean-Luc Picard",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "GhSB8EpZWXLU78LM",
+      "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:46.157Z",
+      "updatedAt": "2025-08-27T04:08:10.000Z",
+      "crew_member": "Lieutenant Worf",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "IKckCG6TsUvrZd8P",
+      "name": "Crew Management System",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:47.414Z",
+      "updatedAt": "2025-08-27T04:08:00.000Z",
+      "crew_member": "Unknown",
+      "has_memory": false,
+      "has_llm": false,
+      "node_count": 2,
+      "connection_count": 1
+    },
+    {
+      "id": "Imn7p6pVgi6SRvnF",
+      "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "active": true,
+      "createdAt": "2025-08-27T02:33:04.181Z",
+      "updatedAt": "2025-08-27T04:07:59.000Z",
+      "crew_member": "Commander William Riker",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 10
+    },
+    {
+      "id": "QJnN7ks2KsQTENDc",
+      "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:47.178Z",
+      "updatedAt": "2025-08-27T04:08:03.000Z",
+      "crew_member": "Counselor Deanna Troi",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "VQDH8tqWvVmigWd1",
+      "name": "System - Federation Crew - OpenRouter Agent Coordination",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:46.380Z",
+      "updatedAt": "2025-08-27T04:08:09.000Z",
+      "crew_member": "System Workflow",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 5
+    },
+    {
+      "id": "aNfs26Wlau80ufmh",
+      "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:47.006Z",
+      "updatedAt": "2025-08-27T04:08:05.000Z",
+      "crew_member": "System Workflow",
+      "has_memory": true,
+      "has_llm": false,
+      "node_count": 4,
+      "connection_count": 2
+    },
+    {
+      "id": "e0UEwyVcXJqeePdj",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:46.595Z",
+      "updatedAt": "2025-08-27T04:08:06.000Z",
+      "crew_member": "Lieutenant Commander Geordi La Forge",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "eviPmIvTnoJcnaas",
+      "name": "System - Enhanced Federation Crew - Complete Mission Control",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:46.038Z",
+      "updatedAt": "2025-08-27T04:08:11.000Z",
+      "crew_member": "System Workflow",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 15,
+      "connection_count": 13
+    },
+    {
+      "id": "gIwrQHHArgrVARjL",
+      "name": "Crew - Commander Data - Analytics & Logic Operations",
+      "active": true,
+      "createdAt": "2025-08-27T02:25:46.487Z",
+      "updatedAt": "2025-08-27T04:08:08.000Z",
+      "crew_member": "Commander Data",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    }
+  ]
+}
