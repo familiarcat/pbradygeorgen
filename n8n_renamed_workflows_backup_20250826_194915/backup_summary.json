@@ -1,0 +1,262 @@
+{
+  "backup_timestamp": "2025-08-26T19:49:15.964565",
+  "n8n_url": "https://n8n.pbradygeorgen.com",
+  "naming_convention_implemented": true,
+  "analysis": {
+    "total_workflows": 14,
+    "active_workflows": 13,
+    "crew_workflows": [],
+    "system_workflows": [],
+    "naming_analysis": {
+      "Crew - Commander William Riker - Tactical Execution & Workflow Management": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Lieutenant Uhura - Communications & I/O Operations Officer": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "System - AlexAI Optimized Crew - Complete Mission Control": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Commander Data - Analytics & Logic Operations": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Lieutenant Worf - Security & Compliance Operations": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "System - Enhanced Federation Crew - Complete Mission Control": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Quark - Business Intelligence & Budget Optimization": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "System - Federation Crew - OpenRouter Agent Coordination": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      },
+      "System - Federation Concise Agency - OpenRouter Crew": {
+        "category": "unknown",
+        "follows_convention": false,
+        "old_name": null,
+        "should_be": null
+      }
+    },
+    "timestamp": "2025-08-26T19:49:15.961812"
+  },
+  "workflow_details": [
+    {
+      "id": "4xHgewymk21FraDJ",
+      "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:16.167Z",
+      "updatedAt": "2025-08-27T00:44:53.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 6,
+      "connection_count": 5
+    },
+    {
+      "id": "7D4EEFAWo9jIhFnV",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:34.824Z",
+      "updatedAt": "2025-08-27T00:45:17.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 6,
+      "connection_count": 5
+    },
+    {
+      "id": "8WrY3eJ5YbDhah3Z",
+      "name": "Crew Management System",
+      "active": false,
+      "createdAt": "2025-08-25T05:10:21.173Z",
+      "updatedAt": "2025-08-25T05:37:14.000Z",
+      "category": "unknown",
+      "has_memory": false,
+      "has_llm": false,
+      "node_count": 2,
+      "connection_count": 1
+    },
+    {
+      "id": "BJVrV6RlrMrsq3ch",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "active": true,
+      "createdAt": "2025-08-26T06:50:05.492Z",
+      "updatedAt": "2025-08-27T00:45:51.000Z",
+      "category": "unknown",
+      "has_memory": false,
+      "has_llm": true,
+      "node_count": 4,
+      "connection_count": 3
+    },
+    {
+      "id": "C2GfdkxsmCj8JkHK",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:17.541Z",
+      "updatedAt": "2025-08-27T00:42:47.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "DMsFt1H6ljE6sgsq",
+      "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:15.670Z",
+      "updatedAt": "2025-08-27T00:39:17.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": false,
+      "node_count": 4,
+      "connection_count": 2
+    },
+    {
+      "id": "LIdu6eRVCRyBG1WA",
+      "name": "Crew - Commander Data - Analytics & Logic Operations",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:33.740Z",
+      "updatedAt": "2025-08-27T00:42:56.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "PdedVribejWKwNts",
+      "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:17.248Z",
+      "updatedAt": "2025-08-27T00:45:59.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "Q5nHuN0CAR9dJLE5",
+      "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:32.828Z",
+      "updatedAt": "2025-08-27T00:45:02.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "btAdk6vmu9e0Z9Lc",
+      "name": "System - Enhanced Federation Crew - Complete Mission Control",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:33.486Z",
+      "updatedAt": "2025-08-27T00:40:27.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 15,
+      "connection_count": 13
+    },
+    {
+      "id": "ly2f6PmCojumkQxu",
+      "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:15.474Z",
+      "updatedAt": "2025-08-27T00:46:27.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 6,
+      "connection_count": 5
+    },
+    {
+      "id": "xBk0s4lAD2ng7Tcg",
+      "name": "System - Federation Crew - OpenRouter Agent Coordination",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:33.933Z",
+      "updatedAt": "2025-08-27T00:41:51.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 5
+    },
+    {
+      "id": "xzf43LWpUpcoTAwD",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:33.245Z",
+      "updatedAt": "2025-08-27T00:45:32.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "ykPv0NZ5c7K6B5Pp",
+      "name": "System - Federation Concise Agency - OpenRouter Crew",
+      "active": true,
+      "createdAt": "2025-08-26T09:06:17.761Z",
+      "updatedAt": "2025-08-27T00:40:52.000Z",
+      "category": "unknown",
+      "has_memory": true,
+      "has_llm": false,
+      "node_count": 4,
+      "connection_count": 2
+    }
+  ]
+}
