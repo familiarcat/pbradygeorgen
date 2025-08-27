@@ -1,0 +1,25 @@
+{
+  "basic_fetch": {
+    "status_code": 200,
+    "success": true,
+    "response_size": 61603
+  },
+  "individual_fetch": {
+    "error": "0",
+    "success": false
+  },
+  "workflow_update": {
+    "error": "Individual fetch failed",
+    "success": false
+  },
+  "version_info": {
+    "status_code": 404,
+    "success": false,
+    "version": null
+  },
+  "health_check": {
+    "status_code": 404,
+    "success": false,
+    "response_body": "{\"message\":\"not found\"}"
+  }
+}

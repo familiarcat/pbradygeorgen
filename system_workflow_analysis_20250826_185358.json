@@ -1,0 +1,163 @@
+{
+  "total_workflows": 19,
+  "active_workflows": 18,
+  "inactive_workflows": 1,
+  "crew_workflows": 9,
+  "system_workflows": 9,
+  "system_analysis": {
+    "AlexAI Optimized Crew - Complete Mission Control": {
+      "status": "single",
+      "workflow": {
+        "id": "DMsFt1H6ljE6sgsq",
+        "name": "AlexAI Optimized Crew - Complete Mission Control",
+        "active": true,
+        "createdAt": "2025-08-26T09:06:15.670Z",
+        "updatedAt": "2025-08-26T13:30:42.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": false,
+        "node_count": 4,
+        "connection_count": 2,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/DMsFt1H6ljE6sgsq"
+      },
+      "action": "keep",
+      "reason": "Only workflow with this name"
+    },
+    "Enhanced Federation Crew - Complete Mission Control": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "btAdk6vmu9e0Z9Lc",
+        "name": "Enhanced Federation Crew - Complete Mission Control",
+        "active": true,
+        "createdAt": "2025-08-26T09:06:33.486Z",
+        "updatedAt": "2025-08-26T13:30:52.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 15,
+        "connection_count": 13,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/btAdk6vmu9e0Z9Lc"
+      },
+      "duplicates": [
+        {
+          "id": "z3vu3SnucPmePsQx",
+          "name": "Enhanced Federation Crew - Complete Mission Control",
+          "active": true,
+          "createdAt": "2025-08-26T09:06:16.596Z",
+          "updatedAt": "2025-08-26T13:09:44.000Z",
+          "formatted_created": "14 hour(s) ago",
+          "formatted_updated": "10 hour(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 15,
+          "connection_count": 13,
+          "workflow_url": "https://n8n.pbradygeorgen.com/workflow/z3vu3SnucPmePsQx"
+        },
+        {
+          "id": "FMRBAZnq9MOcAZSn",
+          "name": "Enhanced Federation Crew - Complete Mission Control",
+          "active": true,
+          "createdAt": "2025-08-25T05:28:44.628Z",
+          "updatedAt": "2025-08-25T10:14:52.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "1 day(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 13,
+          "connection_count": 12,
+          "workflow_url": "https://n8n.pbradygeorgen.com/workflow/FMRBAZnq9MOcAZSn"
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 10 hour(s) ago with memory=True, LLM=True"
+    },
+    "Federation Crew - OpenRouter Agent Coordination": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "xBk0s4lAD2ng7Tcg",
+        "name": "Federation Crew - OpenRouter Agent Coordination",
+        "active": true,
+        "createdAt": "2025-08-26T09:06:33.933Z",
+        "updatedAt": "2025-08-26T13:30:59.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 5,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/xBk0s4lAD2ng7Tcg"
+      },
+      "duplicates": [
+        {
+          "id": "THmx9pore9iUMvmI",
+          "name": "Federation Crew - OpenRouter Agent Coordination",
+          "active": true,
+          "createdAt": "2025-08-26T09:06:17.019Z",
+          "updatedAt": "2025-08-26T13:30:58.000Z",
+          "formatted_created": "14 hour(s) ago",
+          "formatted_updated": "10 hour(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 5,
+          "workflow_url": "https://n8n.pbradygeorgen.com/workflow/THmx9pore9iUMvmI"
+        },
+        {
+          "id": "QOJQTpLncfwyUUuv",
+          "name": "Federation Crew - OpenRouter Agent Coordination",
+          "active": true,
+          "createdAt": "2025-08-25T05:17:31.374Z",
+          "updatedAt": "2025-08-25T10:17:20.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "1 day(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4,
+          "workflow_url": "https://n8n.pbradygeorgen.com/workflow/QOJQTpLncfwyUUuv"
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 10 hour(s) ago with memory=True, LLM=True"
+    },
+    "Federation Concise Agency - OpenRouter Crew": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "ykPv0NZ5c7K6B5Pp",
+        "name": "Federation Concise Agency - OpenRouter Crew",
+        "active": true,
+        "createdAt": "2025-08-26T09:06:17.761Z",
+        "updatedAt": "2025-08-26T13:30:55.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": false,
+        "node_count": 4,
+        "connection_count": 2,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/ykPv0NZ5c7K6B5Pp"
+      },
+      "duplicates": [
+        {
+          "id": "fd0Wm0ZGvrWKSmix",
+          "name": "Federation Concise Agency - OpenRouter Crew",
+          "active": true,
+          "createdAt": "2025-08-26T09:06:34.610Z",
+          "updatedAt": "2025-08-26T13:30:54.000Z",
+          "formatted_created": "14 hour(s) ago",
+          "formatted_updated": "10 hour(s) ago",
+          "has_memory": true,
+          "has_llm": false,
+          "node_count": 4,
+          "connection_count": 2,
+          "workflow_url": "https://n8n.pbradygeorgen.com/workflow/fd0Wm0ZGvrWKSmix"
+        }
+      ],
+      "action": "keep_best_deactivate_1",
+      "reason": "Best workflow: 10 hour(s) ago with memory=True, LLM=False"
+    }
+  },
+  "total_system_duplicates": 5,
+  "timestamp": "2025-08-26T18:53:58.997385"
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Crew - [FUNCTION] - [IDENTIFIER]",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "{{ $json.webhookId }}"
+    }
+  ],
+  "connections": {},
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "template"
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-26T19:52:36.225418",
+  "versionId": "1"
+}
