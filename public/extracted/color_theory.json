@@ -1,0 +1,24 @@
+{
+  "primary": "#000000",
+  "secondary": "#FFFFFF",
+  "accent": "#3366CC",
+  "background": "#FFFFFF",
+  "text": "#000000",
+  "textSecondary": "#FFFFFF",
+  "border": "#000000",
+  "success": "#00FF00",
+  "warning": "#FFA500",
+  "error": "#FF0000",
+  "info": "#0099FF",
+  "colorTheory": {
+    "description": "The color palette combines a classic black and white scheme with a touch of blue for contrast and vibrancy.",
+    "mood": "The palette exudes professionalism and clarity, with a modern twist from the blue accent color.",
+    "accessibility": "The high contrast between black text and white background ensures excellent readability. The use of blue for accents provides visual interest without compromising accessibility.",
+    "colorRelationships": "The primary black and secondary white colors create a clean and crisp foundation, while the blue accent color adds a pop of energy and focus. The success green color stands out distinctively, enhancing positive feedback messages."
+  },
+  "allColors": [
+    "#000000",
+    "#3366CC",
+    "#FFFFFF"
+  ]
+}

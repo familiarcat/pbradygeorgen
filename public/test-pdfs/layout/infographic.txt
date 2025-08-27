@@ -1,0 +1,8 @@
+Test PDF: Infographic Style
+Category: layout
+ID: infographic
+
+This is a placeholder PDF for testing purposes.
+In a real implementation, this would be a carefully designed PDF that tests infographic style.
+
+For now, we're using a copy of the sample resume PDF.

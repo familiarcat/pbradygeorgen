@@ -1,0 +1,8 @@
+Test PDF: Image-Heavy Design
+Category: special
+ID: image-heavy
+
+This is a placeholder PDF for testing purposes.
+In a real implementation, this would be a carefully designed PDF that tests image-heavy design.
+
+For now, we're using a copy of the sample resume PDF.
