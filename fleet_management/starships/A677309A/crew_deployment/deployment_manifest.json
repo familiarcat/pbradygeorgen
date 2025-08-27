@@ -1,0 +1,207 @@
+{
+  "starship_id": "A677309A",
+  "project_name": "Enterprise Web Platform",
+  "deployment_date": "2025-08-27T02:40:03.499283",
+  "deployed_crew": [
+    {
+      "instance_id": "A677309A_picard",
+      "original_crew_id": "picard",
+      "rank": "Fleet Admiral",
+      "fleet_duty": "Strategic oversight of all starships",
+      "vibe_coding_responsibility": "Strategic project direction",
+      "command_authority": "Fleet-wide strategic decisions",
+      "specializations": [
+        "Strategic Planning",
+        "Mission Coordination",
+        "Resource Allocation"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498409",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_riker",
+      "original_crew_id": "riker",
+      "rank": "Operations Commander",
+      "fleet_duty": "Mission coordination and execution",
+      "vibe_coding_responsibility": "Sprint coordination",
+      "command_authority": "Mission planning and execution",
+      "specializations": [
+        "Mission Planning",
+        "Workflow Coordination",
+        "Resource Management"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498516",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_data",
+      "original_crew_id": "data",
+      "rank": "Science Officer",
+      "fleet_duty": "Code analysis and optimization",
+      "vibe_coding_responsibility": "Code analysis",
+      "command_authority": "Technical analysis and optimization",
+      "specializations": [
+        "Code Analysis",
+        "Performance Optimization",
+        "Technical Standards"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498609",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_la_forge",
+      "original_crew_id": "la_forge",
+      "rank": "Chief Engineer",
+      "fleet_duty": "Infrastructure and deployment management",
+      "vibe_coding_responsibility": "DevOps & deployment",
+      "command_authority": "Infrastructure and deployment decisions",
+      "specializations": [
+        "DevOps",
+        "Infrastructure",
+        "System Integration"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498698",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_troi",
+      "original_crew_id": "troi",
+      "rank": "Ship's Counselor",
+      "fleet_duty": "User experience and empathy",
+      "vibe_coding_responsibility": "UX optimization",
+      "command_authority": "User experience decisions",
+      "specializations": [
+        "UX Design",
+        "User Research",
+        "Accessibility"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498792",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_quark",
+      "original_crew_id": "quark",
+      "rank": "Business Intelligence Officer",
+      "fleet_duty": "ROI and business metrics",
+      "vibe_coding_responsibility": "ROI analysis",
+      "command_authority": "Business and financial decisions",
+      "specializations": [
+        "Business Analysis",
+        "ROI Optimization",
+        "Cost Management"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498875",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_worf",
+      "original_crew_id": "worf",
+      "rank": "Security Chief",
+      "fleet_duty": "Security and compliance enforcement",
+      "vibe_coding_responsibility": "Security scanning",
+      "command_authority": "Security and compliance decisions",
+      "specializations": [
+        "Security",
+        "Compliance",
+        "Vulnerability Management"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.498956",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_uhura",
+      "original_crew_id": "uhura",
+      "rank": "Communications Officer",
+      "fleet_duty": "External system integration",
+      "vibe_coding_responsibility": "API integration",
+      "command_authority": "Integration and communication decisions",
+      "specializations": [
+        "API Management",
+        "System Integration",
+        "Data Flow"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.499037",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    },
+    {
+      "instance_id": "A677309A_crusher",
+      "original_crew_id": "crusher",
+      "rank": "Chief Medical Officer",
+      "fleet_duty": "Code health and quality assurance",
+      "vibe_coding_responsibility": "Code health",
+      "command_authority": "Quality and health decisions",
+      "specializations": [
+        "Quality Assurance",
+        "Code Health",
+        "Performance Monitoring"
+      ],
+      "deployment_status": "ACTIVE",
+      "deployment_date": "2025-08-27T02:40:03.499130",
+      "current_mission": "Project Initialization",
+      "project_specific_knowledge": [],
+      "performance_metrics": {
+        "tasks_completed": 0,
+        "efficiency_rating": 0.0,
+        "knowledge_contributions": 0
+      }
+    }
+  ],
+  "total_crew_members": 9,
+  "deployment_status": "COMPLETE"
+}

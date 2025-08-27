@@ -1,0 +1,58 @@
+{
+  "subscription_tiers": {
+    "starter": {
+      "name": "Starter Platform",
+      "monthly_price": 1500,
+      "annual_price": 15000,
+      "features": [
+        "Basic AI crew deployment",
+        "Standard development workflows",
+        "Email support",
+        "Basic performance monitoring"
+      ],
+      "ideal_for": "Small projects, startups, MVPs"
+    },
+    "professional": {
+      "name": "Professional Platform",
+      "monthly_price": 3000,
+      "annual_price": 30000,
+      "features": [
+        "Full AI crew with advanced capabilities",
+        "Custom workflow development",
+        "Priority support",
+        "Dedicated account manager",
+        "Advanced performance analytics"
+      ],
+      "ideal_for": "Growing businesses, medium projects"
+    },
+    "enterprise": {
+      "name": "Enterprise Platform",
+      "monthly_price": 7500,
+      "annual_price": 75000,
+      "features": [
+        "Unlimited AI crew instances",
+        "Custom platform integration",
+        "24/7 support",
+        "Strategic consulting",
+        "White-label options",
+        "Custom SLA agreements"
+      ],
+      "ideal_for": "Large enterprises, complex projects"
+    }
+  },
+  "roi_calculations": {
+    "cost_savings": {
+      "development_team": "60-80% reduction",
+      "project_timeline": "3-5x faster delivery",
+      "quality_improvement": "40-60% better outcomes",
+      "maintenance_costs": "50-70% reduction"
+    },
+    "value_generation": {
+      "time_to_market": "3-6 months faster",
+      "competitive_advantage": "Immediate AI capabilities",
+      "scalability": "Unlimited without proportional cost",
+      "innovation_speed": "Continuous optimization"
+    },
+    "payback_period": "3-6 months for most projects"
+  }
+}

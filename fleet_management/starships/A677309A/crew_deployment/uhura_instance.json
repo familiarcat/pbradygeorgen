@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_uhura",
+  "original_crew_id": "uhura",
+  "rank": "Communications Officer",
+  "fleet_duty": "External system integration",
+  "vibe_coding_responsibility": "API integration",
+  "command_authority": "Integration and communication decisions",
+  "specializations": [
+    "API Management",
+    "System Integration",
+    "Data Flow"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.499037",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

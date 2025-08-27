@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_la_forge",
+  "original_crew_id": "la_forge",
+  "rank": "Chief Engineer",
+  "fleet_duty": "Infrastructure and deployment management",
+  "vibe_coding_responsibility": "DevOps & deployment",
+  "command_authority": "Infrastructure and deployment decisions",
+  "specializations": [
+    "DevOps",
+    "Infrastructure",
+    "System Integration"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498698",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

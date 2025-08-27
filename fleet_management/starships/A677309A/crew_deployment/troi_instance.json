@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_troi",
+  "original_crew_id": "troi",
+  "rank": "Ship's Counselor",
+  "fleet_duty": "User experience and empathy",
+  "vibe_coding_responsibility": "UX optimization",
+  "command_authority": "User experience decisions",
+  "specializations": [
+    "UX Design",
+    "User Research",
+    "Accessibility"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498792",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

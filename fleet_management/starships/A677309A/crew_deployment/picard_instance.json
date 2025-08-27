@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_picard",
+  "original_crew_id": "picard",
+  "rank": "Fleet Admiral",
+  "fleet_duty": "Strategic oversight of all starships",
+  "vibe_coding_responsibility": "Strategic project direction",
+  "command_authority": "Fleet-wide strategic decisions",
+  "specializations": [
+    "Strategic Planning",
+    "Mission Coordination",
+    "Resource Allocation"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498409",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

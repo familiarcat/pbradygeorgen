@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_quark",
+  "original_crew_id": "quark",
+  "rank": "Business Intelligence Officer",
+  "fleet_duty": "ROI and business metrics",
+  "vibe_coding_responsibility": "ROI analysis",
+  "command_authority": "Business and financial decisions",
+  "specializations": [
+    "Business Analysis",
+    "ROI Optimization",
+    "Cost Management"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498875",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_worf",
+  "original_crew_id": "worf",
+  "rank": "Security Chief",
+  "fleet_duty": "Security and compliance enforcement",
+  "vibe_coding_responsibility": "Security scanning",
+  "command_authority": "Security and compliance decisions",
+  "specializations": [
+    "Security",
+    "Compliance",
+    "Vulnerability Management"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498956",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

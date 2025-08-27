@@ -1,0 +1,4130 @@
+{
+  "timestamp": "2025-08-27T01:56:38.078025",
+  "summary": {
+    "total_workflows": 14,
+    "crew_workflows": 9,
+    "system_workflows": 4,
+    "other_workflows": 1
+  },
+  "variant_categories": {
+    "crew_workflows": [
+      {
+        "id": "36KPle5mPiMaazG6",
+        "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 12,
+        "workflow": {
+          "createdAt": "2025-08-27T04:27:24.901Z",
+          "updatedAt": "2025-08-27T04:30:08.000Z",
+          "id": "36KPle5mPiMaazG6",
+          "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-lieutenant-uhura",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "82121549-849d-40b7-9e45-4c5e5c0c5d13",
+              "name": "Lieutenant Uhura Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "bf8250ce-9a8a-4ee3-a934-bc41abc8b1dd"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Lieutenant Uhura",
+                "options": {}
+              },
+              "id": "b57a7a71-c27f-4a73-8cfe-d2c6b75ce550",
+              "name": "Lieutenant Uhura Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "8a44b297-dd95-4dae-9f9b-9fe2443439a6",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                336
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "7c527b48-4121-4bcb-90a0-aea8bb5e32b0",
+              "name": "Lieutenant Uhura AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "edc393a1-0a8f-4deb-8c73-e04da860ddb6",
+              "name": "Lieutenant Uhura Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "2234d313-0b86-411a-b6b1-571660626cbc",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { \"crew_member\": \"Lieutenant Uhura\", \"response\": $json.choices[0].message.content, \"timestamp\": new Date().toISOString() } }}",
+                "options": {}
+              },
+              "id": "03b4c2e3-5399-452e-96c5-326e416a06f2",
+              "name": "Lieutenant Uhura Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1136,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "82121549-849d-40b7-9e45-4c5e5c0c5d13": {
+              "main": [
+                [
+                  {
+                    "node": "b57a7a71-c27f-4a73-8cfe-d2c6b75ce550",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "8a44b297-dd95-4dae-9f9b-9fe2443439a6",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "b57a7a71-c27f-4a73-8cfe-d2c6b75ce550": {
+              "main": [
+                [
+                  {
+                    "node": "7c527b48-4121-4bcb-90a0-aea8bb5e32b0",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "8a44b297-dd95-4dae-9f9b-9fe2443439a6": {
+              "main": [
+                [
+                  {
+                    "node": "7c527b48-4121-4bcb-90a0-aea8bb5e32b0",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "7c527b48-4121-4bcb-90a0-aea8bb5e32b0": {
+              "main": [
+                [
+                  {
+                    "node": "edc393a1-0a8f-4deb-8c73-e04da860ddb6",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "2234d313-0b86-411a-b6b1-571660626cbc",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "edc393a1-0a8f-4deb-8c73-e04da860ddb6": {
+              "main": [
+                [
+                  {
+                    "node": "03b4c2e3-5399-452e-96c5-326e416a06f2",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "2234d313-0b86-411a-b6b1-571660626cbc": {
+              "main": [
+                [
+                  {
+                    "node": "03b4c2e3-5399-452e-96c5-326e416a06f2",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Uhura Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Uhura Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Uhura Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Uhura AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Uhura AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Uhura Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Uhura Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Uhura Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": {},
+          "versionId": "637f3fdc-0ad3-4738-842b-519c2b9670f0",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T04:27:24.902Z",
+              "updatedAt": "2025-08-27T04:27:24.902Z",
+              "role": "workflow:owner",
+              "workflowId": "36KPle5mPiMaazG6",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "BdNHOluRYUw2JxGW",
+        "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:47.297Z",
+          "updatedAt": "2025-08-27T04:08:02.000Z",
+          "id": "BdNHOluRYUw2JxGW",
+          "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-captain-jean-luc-picard",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Captain Jean-Luc Picard Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Captain Jean-Luc Picard Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                336
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Captain Jean-Luc Picard AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Captain Jean-Luc Picard Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Captain Jean-Luc Picard Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Captain Jean-Luc Picard Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "aea1d25a-b20d-44ee-8cb7-3a0b4f6a8cb6",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:47.298Z",
+              "updatedAt": "2025-08-27T02:25:47.298Z",
+              "role": "workflow:owner",
+              "workflowId": "BdNHOluRYUw2JxGW",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "GhSB8EpZWXLU78LM",
+        "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:46.157Z",
+          "updatedAt": "2025-08-27T04:08:10.000Z",
+          "id": "GhSB8EpZWXLU78LM",
+          "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-lieutenant-worf",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Lieutenant Worf Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "7955594c-5cd0-43ff-8ec2-447e078fa8a1"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Lieutenant Worf Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                384
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Lieutenant Worf AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Lieutenant Worf Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Lieutenant Worf Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Lieutenant Worf Directive": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Worf AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Worf AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Worf Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Worf Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Worf Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Worf Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "da747dcd-b118-41db-aded-cbb1910a9888",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:46.158Z",
+              "updatedAt": "2025-08-27T02:25:46.158Z",
+              "role": "workflow:owner",
+              "workflowId": "GhSB8EpZWXLU78LM",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "Imn7p6pVgi6SRvnF",
+        "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 10,
+        "workflow": {
+          "createdAt": "2025-08-27T02:33:04.181Z",
+          "updatedAt": "2025-08-27T04:07:59.000Z",
+          "id": "Imn7p6pVgi6SRvnF",
+          "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-commander-william-riker",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Commander William Riker Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Commander William Riker Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                336
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Commander William Riker AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Commander William Riker Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Commander William Riker Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Captain Jean-Luc Picard Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard AI Agent",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Commander William Riker AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Commander William Riker Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Captain Jean-Luc Picard Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Captain Jean-Luc Picard Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander William Riker Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Commander William Riker Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander William Riker Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander William Riker AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander William Riker Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Commander William Riker Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": {},
+          "versionId": "1918b805-b585-4881-b695-b6125ca41e08",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:33:04.182Z",
+              "updatedAt": "2025-08-27T02:33:04.182Z",
+              "role": "workflow:owner",
+              "workflowId": "Imn7p6pVgi6SRvnF",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "L6K4bzSKlGC36ABL",
+        "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 12,
+        "workflow": {
+          "createdAt": "2025-08-27T04:28:32.255Z",
+          "updatedAt": "2025-08-27T04:29:34.000Z",
+          "id": "L6K4bzSKlGC36ABL",
+          "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-quark",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "68430b23-4107-4b75-9eb2-75275daf8b02",
+              "name": "Quark Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "4da245f9-16db-4ada-af5e-df4841ec69af"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Quark",
+                "options": {}
+              },
+              "id": "656dfc0f-650f-4355-a1a7-b453f1cfab48",
+              "name": "Quark Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "eeb932d4-1410-4e95-8c62-38b32585037b",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                336
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+              "name": "Quark AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "2a7a5429-74c6-441d-a3ce-48d11531c7fe",
+              "name": "Quark Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "e13cd4a1-a63f-4831-972e-878e817f3579",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { \"crew_member\": \"Quark\", \"response\": $json.choices[0].message.content, \"timestamp\": new Date().toISOString() } }}",
+                "options": {}
+              },
+              "id": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+              "name": "Quark Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1136,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "68430b23-4107-4b75-9eb2-75275daf8b02": {
+              "main": [
+                [
+                  {
+                    "node": "656dfc0f-650f-4355-a1a7-b453f1cfab48",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "eeb932d4-1410-4e95-8c62-38b32585037b",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "656dfc0f-650f-4355-a1a7-b453f1cfab48": {
+              "main": [
+                [
+                  {
+                    "node": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "eeb932d4-1410-4e95-8c62-38b32585037b": {
+              "main": [
+                [
+                  {
+                    "node": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6": {
+              "main": [
+                [
+                  {
+                    "node": "2a7a5429-74c6-441d-a3ce-48d11531c7fe",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "e13cd4a1-a63f-4831-972e-878e817f3579",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "2a7a5429-74c6-441d-a3ce-48d11531c7fe": {
+              "main": [
+                [
+                  {
+                    "node": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "e13cd4a1-a63f-4831-972e-878e817f3579": {
+              "main": [
+                [
+                  {
+                    "node": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Quark Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Quark Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Quark Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Quark AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Quark AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Quark Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Quark Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Quark Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": {},
+          "versionId": "4fb683c5-c81c-497d-939b-369a0c7980f3",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T04:28:32.258Z",
+              "updatedAt": "2025-08-27T04:28:32.258Z",
+              "role": "workflow:owner",
+              "workflowId": "L6K4bzSKlGC36ABL",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "QJnN7ks2KsQTENDc",
+        "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:47.178Z",
+          "updatedAt": "2025-08-27T04:08:03.000Z",
+          "id": "QJnN7ks2KsQTENDc",
+          "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-counselor-deanna-troi",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Counselor Deanna Troi Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "7bd01b46-f012-43dd-8de7-82e561b7172d"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Counselor Deanna Troi Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                320
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Counselor Deanna Troi AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Counselor Deanna Troi Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Counselor Deanna Troi Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Counselor Deanna Troi Directive": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Counselor Deanna Troi AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Counselor Deanna Troi AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Counselor Deanna Troi Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Counselor Deanna Troi Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Counselor Deanna Troi Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Counselor Deanna Troi Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "03929272-bbe5-45cc-9a30-c99285cd90ef",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:47.180Z",
+              "updatedAt": "2025-08-27T02:25:47.180Z",
+              "role": "workflow:owner",
+              "workflowId": "QJnN7ks2KsQTENDc",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "SXAMupVWdOxZybF6",
+        "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 12,
+        "workflow": {
+          "createdAt": "2025-08-27T04:24:00.120Z",
+          "updatedAt": "2025-08-27T04:25:40.000Z",
+          "id": "SXAMupVWdOxZybF6",
+          "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-dr-beverly-crusher",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "316ec69e-0a14-44fa-9bf9-c980054fede0",
+              "name": "Dr. Beverly Crusher Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "7bf9fcf9-f932-4bf7-b92f-3b7eb7e13a01"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Dr. Beverly Crusher",
+                "options": {}
+              },
+              "id": "b377b87e-ccf9-473e-a2c4-dfc6e4c6182e",
+              "name": "Dr. Beverly Crusher Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "53a8a638-9953-499c-8c46-1b6a17b24be2",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                352
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "da0f4ff1-5366-4b8d-9357-c426f8a8412d",
+              "name": "Dr. Beverly Crusher AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "1175a043-190f-4d06-88b3-7d7557084458",
+              "name": "Dr. Beverly Crusher Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "36cfd0db-07f1-4984-a07e-8ec4ca31244f",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { \"crew_member\": \"Dr. Beverly Crusher\", \"response\": $json.choices[0].message.content, \"timestamp\": new Date().toISOString() } }}",
+                "options": {}
+              },
+              "id": "9c11db66-6680-49cc-b9b5-611f828c44fa",
+              "name": "Dr. Beverly Crusher Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1136,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "316ec69e-0a14-44fa-9bf9-c980054fede0": {
+              "main": [
+                [
+                  {
+                    "node": "b377b87e-ccf9-473e-a2c4-dfc6e4c6182e",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "53a8a638-9953-499c-8c46-1b6a17b24be2",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "b377b87e-ccf9-473e-a2c4-dfc6e4c6182e": {
+              "main": [
+                [
+                  {
+                    "node": "da0f4ff1-5366-4b8d-9357-c426f8a8412d",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "53a8a638-9953-499c-8c46-1b6a17b24be2": {
+              "main": [
+                [
+                  {
+                    "node": "da0f4ff1-5366-4b8d-9357-c426f8a8412d",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "da0f4ff1-5366-4b8d-9357-c426f8a8412d": {
+              "main": [
+                [
+                  {
+                    "node": "1175a043-190f-4d06-88b3-7d7557084458",
+                    "type": "main",
+                    "index": 0
+                  }
+                ],
+                [
+                  {
+                    "node": "36cfd0db-07f1-4984-a07e-8ec4ca31244f",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "1175a043-190f-4d06-88b3-7d7557084458": {
+              "main": [
+                [
+                  {
+                    "node": "9c11db66-6680-49cc-b9b5-611f828c44fa",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "36cfd0db-07f1-4984-a07e-8ec4ca31244f": {
+              "main": [
+                [
+                  {
+                    "node": "9c11db66-6680-49cc-b9b5-611f828c44fa",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Dr. Beverly Crusher Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Dr. Beverly Crusher Memory Retrieval",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Dr. Beverly Crusher Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Dr. Beverly Crusher AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Dr. Beverly Crusher AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Dr. Beverly Crusher Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Dr. Beverly Crusher Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Dr. Beverly Crusher Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": {},
+          "versionId": "d5e8e8ed-fc28-4672-b832-0646aeb58b73",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T04:24:00.128Z",
+              "updatedAt": "2025-08-27T04:24:00.128Z",
+              "role": "workflow:owner",
+              "workflowId": "SXAMupVWdOxZybF6",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "e0UEwyVcXJqeePdj",
+        "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:46.595Z",
+          "updatedAt": "2025-08-27T04:08:06.000Z",
+          "id": "e0UEwyVcXJqeePdj",
+          "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-lieutenant-commander-geordi-la-forge",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Lieutenant Commander Geordi La Forge Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "70c17a41-3e31-43ac-851d-3c490da2891b"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                368
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Lieutenant Commander Geordi La Forge AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Lieutenant Commander Geordi La Forge Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Lieutenant Commander Geordi La Forge Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Lieutenant Commander Geordi La Forge Directive": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Commander Geordi La Forge AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Commander Geordi La Forge AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Commander Geordi La Forge Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Commander Geordi La Forge Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Lieutenant Commander Geordi La Forge Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Lieutenant Commander Geordi La Forge Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "0d9e9e77-49e4-4efb-8b85-04e594cfb902",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:46.596Z",
+              "updatedAt": "2025-08-27T02:25:46.596Z",
+              "role": "workflow:owner",
+              "workflowId": "e0UEwyVcXJqeePdj",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "gIwrQHHArgrVARjL",
+        "name": "Crew - Commander Data - Analytics & Logic Operations",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:46.487Z",
+          "updatedAt": "2025-08-27T04:08:08.000Z",
+          "id": "gIwrQHHArgrVARjL",
+          "name": "Crew - Commander Data - Analytics & Logic Operations",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "crew-commander-data",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "crew_directive",
+              "name": "Commander Data Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "15cf8aa6-e83b-46b6-8e61-f76ca7039abf"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Commander Data Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "llm_selector",
+              "name": "LLM Selection Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                352
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_ai",
+              "name": "Commander Data AI Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Commander Data Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_communication",
+              "name": "Observation Lounge Communication",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "crew_response",
+              "name": "Commander Data Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Commander Data Directive": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "LLM Selection Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Commander Data AI Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander Data AI Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Communication",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Communication": {
+              "main": [
+                [
+                  {
+                    "node": "Commander Data Memory Storage",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander Data Memory Retrieval": {
+              "main": [
+                [
+                  {
+                    "node": "LLM Selection Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Commander Data Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Commander Data Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "ab0c30ce-161b-4eda-b39f-c35e3275ffea",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:46.490Z",
+              "updatedAt": "2025-08-27T02:25:46.490Z",
+              "role": "workflow:owner",
+              "workflowId": "gIwrQHHArgrVARjL",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      }
+    ],
+    "system_workflows": [
+      {
+        "id": "AeoHsSbJAXbWSs8Y",
+        "name": "System - Federation Concise Agency - OpenRouter Crew",
+        "active": true,
+        "node_count": 4,
+        "connection_count": 2,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:45.931Z",
+          "updatedAt": "2025-08-27T04:08:13.000Z",
+          "id": "AeoHsSbJAXbWSs8Y",
+          "name": "System - Federation Concise Agency - OpenRouter Crew",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "path": "082503f8-8939-40c4-9620-81e3eff05d82",
+                "options": {}
+              },
+              "id": "federation_directive",
+              "name": "Federation Directive Receiver",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "082503f8-8939-40c4-9620-81e3eff05d82"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Federation Concise Agency Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Federation Concise Agency Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "response_handler",
+              "name": "Response Handler",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                464,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Federation Directive Receiver": {
+              "main": [
+                [
+                  {
+                    "node": "Response Handler",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Federation Concise Agency Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Federation Concise Agency Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "d1b8b297-b0a1-4f05-a120-74ddede571b1",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:45.933Z",
+              "updatedAt": "2025-08-27T02:25:45.933Z",
+              "role": "workflow:owner",
+              "workflowId": "AeoHsSbJAXbWSs8Y",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "VQDH8tqWvVmigWd1",
+        "name": "System - Federation Crew - OpenRouter Agent Coordination",
+        "active": true,
+        "node_count": 7,
+        "connection_count": 5,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:46.380Z",
+          "updatedAt": "2025-08-27T04:08:09.000Z",
+          "id": "VQDH8tqWvVmigWd1",
+          "name": "System - Federation Crew - OpenRouter Agent Coordination",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "federation-directive",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "federation_directive",
+              "name": "Federation Directive Receiver",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "fce27427-8d66-423d-a527-75766443ebe2"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Federation Crew Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "mission_analysis",
+              "name": "Mission Analysis Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                208
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "crew_coordinator",
+              "name": "Crew Coordinator Agent",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                688,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Federation Crew Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_lounge",
+              "name": "Observation Lounge Hub",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                304
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "response_handler",
+              "name": "Federation Response Handler",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1120,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Federation Directive Receiver": {
+              "main": [
+                [
+                  {
+                    "node": "Mission Analysis Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Mission Analysis Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Crew Coordinator Agent",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Crew Coordinator Agent": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge Hub": {
+              "main": [
+                [
+                  {
+                    "node": "Federation Response Handler",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Federation Crew Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Federation Crew Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "67fe3eb6-2601-405a-bfee-ea24ee88bad1",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:46.381Z",
+              "updatedAt": "2025-08-27T02:25:46.381Z",
+              "role": "workflow:owner",
+              "workflowId": "VQDH8tqWvVmigWd1",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "aNfs26Wlau80ufmh",
+        "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+        "active": true,
+        "node_count": 4,
+        "connection_count": 2,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:47.006Z",
+          "updatedAt": "2025-08-27T04:08:05.000Z",
+          "id": "aNfs26Wlau80ufmh",
+          "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "path": "0283b7ab-c44c-47c2-925a-513054e1105f",
+                "options": {}
+              },
+              "id": "mission_directive",
+              "name": "Mission Directive",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                304
+              ],
+              "webhookId": "0283b7ab-c44c-47c2-925a-513054e1105f"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "AlexAI Optimized Crew Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "AlexAI Optimized Crew Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "mission_response",
+              "name": "Mission Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                464,
+                304
+              ]
+            }
+          ],
+          "connections": {
+            "Mission Directive": {
+              "main": [
+                [
+                  {
+                    "node": "Mission Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "AlexAI Optimized Crew Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "AlexAI Optimized Crew Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "2a0770a0-55b4-40b5-9970-48a01895651d",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:47.008Z",
+              "updatedAt": "2025-08-27T02:25:47.008Z",
+              "role": "workflow:owner",
+              "workflowId": "aNfs26Wlau80ufmh",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      },
+      {
+        "id": "eviPmIvTnoJcnaas",
+        "name": "System - Enhanced Federation Crew - Complete Mission Control",
+        "active": true,
+        "node_count": 15,
+        "connection_count": 13,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:46.038Z",
+          "updatedAt": "2025-08-27T04:08:11.000Z",
+          "id": "eviPmIvTnoJcnaas",
+          "name": "System - Enhanced Federation Crew - Complete Mission Control",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "federation-mission",
+                "responseMode": "responseNode",
+                "options": {}
+              },
+              "id": "mission_coordinator",
+              "name": "Mission Coordinator - Picard",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                400,
+                304
+              ],
+              "webhookId": "5968286c-fdaa-46ef-a1db-9b961cf175ae"
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_retrieval",
+              "name": "Enhanced Federation Crew Memory Retrieval",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                464,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "mission_analysis",
+              "name": "Mission Analysis & Planning",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                208
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "execution_commander",
+              "name": "Execution Commander - Riker",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                400
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_1_data",
+              "name": "Data - Analytics & Logic Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                608
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_2_geordi",
+              "name": "Geordi - Engineering Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                800
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_3_crusher",
+              "name": "Crusher - Health & Optimization Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                1008
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_4_worf",
+              "name": "Worf - Security Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                1200
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_5_troi",
+              "name": "Troi - UX & Empathy Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                1408
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_6_uhura",
+              "name": "Uhura - Communications & I/O Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                1600
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "specialist_7_quark",
+              "name": "Quark - Business & Budget Specialist",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                608,
+                1808
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://api.openrouter.ai/api/v1/chat/completions",
+                "options": {}
+              },
+              "id": "observation_lounge",
+              "name": "Observation Lounge - Crew Coordination Hub",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                800,
+                1008
+              ]
+            },
+            {
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+                "options": {}
+              },
+              "id": "memory_storage",
+              "name": "Enhanced Federation Crew Memory Storage",
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 1,
+              "position": [
+                912,
+                112
+              ]
+            },
+            {
+              "parameters": {
+                "jsCode": "// Federation Crew Response Aggregator\nconst missionAnalysis = $('Mission Analysis & Planning').first().json;\nconst executionCommander = $('Execution Commander - Riker').first().json;\nconst dataSpecialist = $('Data - Analytics & Logic Specialist').first().json;\nconst geordiSpecialist = $('Geordi - Engineering Specialist').first().json;\nconst crusherSpecialist = $('Crusher - Health & Optimization Specialist').first().json;\nconst worfSpecialist = $('Worf - Security Specialist').first().json;\nconst troiSpecialist = $('Troi - UX & Empathy Specialist').first().json;\nconst uhuraSpecialist = $('Uhura - Communications & I/O Specialist').first().json;\nconst quarkSpecialist = $('Quark - Business & Budget Specialist').first().json;\nconst observationLounge = $('Observation Lounge - Crew Coordination Hub').first().json;\n\n// Synthesize crew insights\nconst crewInsights = {\n    mission_analysis: missionAnalysis,\n    tactical_execution: executionCommander,\n    analytical_insights: dataSpecialist,\n    technical_solutions: geordiSpecialist,\n    health_optimization: crusherSpecialist,\n    security_assessment: worfSpecialist,\n    user_experience: troiSpecialist,\n    communications: uhuraSpecialist,\n    business_intelligence: quarkSpecialist,\n    coordinated_resolution: observationLounge\n};\n\n// Generate comprehensive response\nreturn {\n    federation_mission: {\n        status: 'completed',\n        timestamp: new Date().toISOString(),\n        crew_coordination: 'successful',\n        mission_resolution: observationLounge,\n        crew_insights: crewInsights,\n        next_actions: generateNextActions(crewInsights),\n        recommendations: generateRecommendations(crewInsights)\n    }\n};\n\nfunction generateNextActions(insights) {\n    // Generate actionable next steps based on crew insights\n    return {\n        immediate: ['Review security protocols', 'Optimize system performance'],\n        short_term: ['Implement technical solutions', 'Monitor health metrics'],\n        long_term: ['Establish ongoing monitoring', 'Plan future optimizations']\n    };\n}\n\nfunction generateRecommendations(insights) {\n    // Generate strategic recommendations\n    return {\n        priority: 'High',\n        risk_level: 'Low',\n        success_probability: 'Excellent',\n        crew_confidence: 'Unified'\n    };\n}"
+              },
+              "id": "response_aggregator",
+              "name": "Response Aggregator & Synthesizer",
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 1,
+              "position": [
+                1008,
+                1008
+              ]
+            },
+            {
+              "parameters": {
+                "options": {}
+              },
+              "id": "federation_response",
+              "name": "Federation Response Handler",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                1200,
+                1008
+              ]
+            }
+          ],
+          "connections": {
+            "Mission Coordinator - Picard": {
+              "main": [
+                [
+                  {
+                    "node": "Mission Analysis & Planning",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Mission Analysis & Planning": {
+              "main": [
+                [
+                  {
+                    "node": "Execution Commander - Riker",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Data - Analytics & Logic Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Geordi - Engineering Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Crusher - Health & Optimization Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Worf - Security Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Troi - UX & Empathy Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Uhura - Communications & I/O Specialist",
+                    "type": "main",
+                    "index": 0
+                  },
+                  {
+                    "node": "Quark - Business & Budget Specialist",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Execution Commander - Riker": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Data - Analytics & Logic Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Geordi - Engineering Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Crusher - Health & Optimization Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Worf - Security Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Troi - UX & Empathy Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Uhura - Communications & I/O Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Quark - Business & Budget Specialist": {
+              "main": [
+                [
+                  {
+                    "node": "Observation Lounge - Crew Coordination Hub",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Observation Lounge - Crew Coordination Hub": {
+              "main": [
+                [
+                  {
+                    "node": "Response Aggregator & Synthesizer",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Response Aggregator & Synthesizer": {
+              "main": [
+                [
+                  {
+                    "node": "Federation Response Handler",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            },
+            "Enhanced Federation Crew Memory Storage": {
+              "main": [
+                [
+                  {
+                    "node": "Enhanced Federation Crew Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "3f1e822f-a5e6-4279-b284-c482b70118eb",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:46.040Z",
+              "updatedAt": "2025-08-27T02:25:46.040Z",
+              "role": "workflow:owner",
+              "workflowId": "eviPmIvTnoJcnaas",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      }
+    ],
+    "other_workflows": [
+      {
+        "id": "IKckCG6TsUvrZd8P",
+        "name": "Crew Management System",
+        "active": true,
+        "node_count": 2,
+        "connection_count": 1,
+        "workflow": {
+          "createdAt": "2025-08-27T02:25:47.414Z",
+          "updatedAt": "2025-08-27T04:08:00.000Z",
+          "id": "IKckCG6TsUvrZd8P",
+          "name": "Crew Management System",
+          "active": true,
+          "isArchived": false,
+          "nodes": [
+            {
+              "id": "crew_request",
+              "name": "Crew Request",
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 1,
+              "position": [
+                240,
+                300
+              ],
+              "parameters": {}
+            },
+            {
+              "id": "crew_response",
+              "name": "Crew Response",
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1,
+              "position": [
+                460,
+                300
+              ],
+              "parameters": {}
+            }
+          ],
+          "connections": {
+            "Crew Request": {
+              "main": [
+                [
+                  {
+                    "node": "Crew Response",
+                    "type": "main",
+                    "index": 0
+                  }
+                ]
+              ]
+            }
+          },
+          "settings": {},
+          "staticData": null,
+          "meta": null,
+          "pinData": null,
+          "versionId": "aea1d25a-b20d-44ee-8cb7-3a0b4f6a8cb6",
+          "triggerCount": 1,
+          "shared": [
+            {
+              "createdAt": "2025-08-27T02:25:47.416Z",
+              "updatedAt": "2025-08-27T02:25:47.416Z",
+              "role": "workflow:owner",
+              "workflowId": "IKckCG6TsUvrZd8P",
+              "projectId": "4Pe2tfKPH8e3rX41"
+            }
+          ],
+          "tags": []
+        }
+      }
+    ]
+  },
+  "variant_analysis": {
+    "36KPle5mPiMaazG6": {
+      "workflow_id": "36KPle5mPiMaazG6",
+      "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "node_count": 7,
+      "connection_count": 12,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 12 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Lieutenant Uhura Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "bf8250ce-9a8a-4ee3-a934-bc41abc8b1dd",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Lieutenant Uhura Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            336
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Lieutenant Uhura AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Lieutenant Uhura Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Lieutenant Uhura Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1136,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 14,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "BdNHOluRYUw2JxGW": {
+      "workflow_id": "BdNHOluRYUw2JxGW",
+      "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "node_count": 7,
+      "connection_count": 6,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 6 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Captain Jean-Luc Picard Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Captain Jean-Luc Picard Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            336
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Captain Jean-Luc Picard AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Captain Jean-Luc Picard Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Captain Jean-Luc Picard Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 6,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "GhSB8EpZWXLU78LM": {
+      "workflow_id": "GhSB8EpZWXLU78LM",
+      "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "node_count": 7,
+      "connection_count": 6,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 6 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Lieutenant Worf Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "7955594c-5cd0-43ff-8ec2-447e078fa8a1",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Lieutenant Worf Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Lieutenant Worf AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Lieutenant Worf Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Lieutenant Worf Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 6,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "Imn7p6pVgi6SRvnF": {
+      "workflow_id": "Imn7p6pVgi6SRvnF",
+      "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "node_count": 7,
+      "connection_count": 10,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 10 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Commander William Riker Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Commander William Riker Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            336
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Commander William Riker AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Commander William Riker Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Commander William Riker Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 10,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "L6K4bzSKlGC36ABL": {
+      "workflow_id": "L6K4bzSKlGC36ABL",
+      "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "node_count": 7,
+      "connection_count": 12,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 12 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Quark Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "4da245f9-16db-4ada-af5e-df4841ec69af",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Quark Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            336
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Quark AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Quark Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Quark Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1136,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 14,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "QJnN7ks2KsQTENDc": {
+      "workflow_id": "QJnN7ks2KsQTENDc",
+      "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "node_count": 7,
+      "connection_count": 6,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 6 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Counselor Deanna Troi Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "7bd01b46-f012-43dd-8de7-82e561b7172d",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Counselor Deanna Troi Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            320
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Counselor Deanna Troi AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Counselor Deanna Troi Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Counselor Deanna Troi Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 6,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "SXAMupVWdOxZybF6": {
+      "workflow_id": "SXAMupVWdOxZybF6",
+      "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "node_count": 7,
+      "connection_count": 12,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 12 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Dr. Beverly Crusher Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "7bf9fcf9-f932-4bf7-b92f-3b7eb7e13a01",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Dr. Beverly Crusher Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            352
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Dr. Beverly Crusher AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Dr. Beverly Crusher Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Dr. Beverly Crusher Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1136,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 14,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "e0UEwyVcXJqeePdj": {
+      "workflow_id": "e0UEwyVcXJqeePdj",
+      "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "node_count": 7,
+      "connection_count": 6,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 6 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Lieutenant Commander Geordi La Forge Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "70c17a41-3e31-43ac-851d-3c490da2891b",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            368
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Lieutenant Commander Geordi La Forge AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Lieutenant Commander Geordi La Forge Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Lieutenant Commander Geordi La Forge Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 6,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    },
+    "gIwrQHHArgrVARjL": {
+      "workflow_id": "gIwrQHHArgrVARjL",
+      "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+      "node_count": 7,
+      "connection_count": 6,
+      "active": true,
+      "issues": [],
+      "strengths": [
+        "Correct node count (7 nodes)",
+        "Has 6 connections",
+        "All essential node types present",
+        "Memory integration nodes present",
+        "LLM integration nodes present"
+      ],
+      "node_analysis": [
+        {
+          "index": 1,
+          "name": "Commander Data Directive",
+          "type": "n8n-nodes-base.webhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "15cf8aa6-e83b-46b6-8e61-f76ca7039abf",
+          "position": [
+            240,
+            304
+          ]
+        },
+        {
+          "index": 2,
+          "name": "Commander Data Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcda MEMORY RETRIEVAL",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            112
+          ]
+        },
+        {
+          "index": 3,
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udd16 LLM SELECTION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            464,
+            352
+          ]
+        },
+        {
+          "index": 4,
+          "name": "Commander Data AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83e\udde0 AI PROCESSING",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            688,
+            304
+          ]
+        },
+        {
+          "index": 5,
+          "name": "Commander Data Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcbe MEMORY STORAGE",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            112
+          ]
+        },
+        {
+          "index": 6,
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "role": "\ud83d\udcac COMMUNICATION",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            912,
+            304
+          ]
+        },
+        {
+          "index": 7,
+          "name": "Commander Data Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "role": "\ud83d\ude80 INPUT TRIGGER",
+          "has_parameters": true,
+          "webhook_id": "",
+          "position": [
+            1120,
+            304
+          ]
+        }
+      ],
+      "connection_analysis": {
+        "total_connections": 6,
+        "connection_structure": "VALID"
+      },
+      "fix_priority": "LOW",
+      "fix_complexity": "SIMPLE"
+    }
+  },
+  "priority_ranking": [
+    {
+      "workflow_id": "36KPle5mPiMaazG6",
+      "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "BdNHOluRYUw2JxGW",
+      "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "GhSB8EpZWXLU78LM",
+      "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "Imn7p6pVgi6SRvnF",
+      "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "L6K4bzSKlGC36ABL",
+      "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "QJnN7ks2KsQTENDc",
+      "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "SXAMupVWdOxZybF6",
+      "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "e0UEwyVcXJqeePdj",
+      "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    },
+    {
+      "workflow_id": "gIwrQHHArgrVARjL",
+      "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+      "priority_score": 1,
+      "complexity_score": 1,
+      "overall_score": 1
+    }
+  ]
+}

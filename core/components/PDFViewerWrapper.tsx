@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense, useEffect, useState } from 'react';
-import { checkAndRefreshPdfContent } from '@/app/actions';
+import { checkAndRefreshPdfContent } from '../../app/actions';
 import { DanteLogger } from '@/utils/DanteLogger';
 
 // Create a loading component

@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_crusher",
+  "original_crew_id": "crusher",
+  "rank": "Chief Medical Officer",
+  "fleet_duty": "Code health and quality assurance",
+  "vibe_coding_responsibility": "Code health",
+  "command_authority": "Quality and health decisions",
+  "specializations": [
+    "Quality Assurance",
+    "Code Health",
+    "Performance Monitoring"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.499130",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}

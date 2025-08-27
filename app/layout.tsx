@@ -1,8 +1,8 @@
 import { Geist_Mono } from "next/font/google";
 import { inter, roboto, merriweather, sourceSans } from './fonts';
 import "./globals.css";
-import "../styles/pdf-theme.css"; // Import the PDF theme CSS
-import "../styles/pdf-global-styles.css"; // Import the PDF global styles with high specificity
+import "../core/styles/pdf-theme.css"; // Import the PDF theme CSS
+import "../core/styles/pdf-global-styles.css"; // Import the PDF global styles with high specificity
 import DirectStyleInjector from "@/components/DirectStyleInjector"; // Import the direct style injector
 
 const geistMono = Geist_Mono({

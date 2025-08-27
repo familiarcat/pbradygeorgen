@@ -1,0 +1,28 @@
+{
+  "scenario_id": "api_service",
+  "name": "API Integration Service",
+  "description": "Enterprise API development with AI coordination",
+  "project_type": "api_service",
+  "business_domain": "Integration Services",
+  "demo_features": [
+    "API architecture design",
+    "Security implementation",
+    "Performance optimization",
+    "Integration testing"
+  ],
+  "demo_flow": [
+    "Client introduction and requirements",
+    "Instant AI crew deployment",
+    "Live project creation",
+    "Workflow customization",
+    "Performance demonstration",
+    "Results and next steps"
+  ],
+  "estimated_demo_duration": "15-20 minutes",
+  "wow_factors": [
+    "Instant crew deployment",
+    "Real-time project creation",
+    "Live workflow customization",
+    "Immediate value demonstration"
+  ]
+}

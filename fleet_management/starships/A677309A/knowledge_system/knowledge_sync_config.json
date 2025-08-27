@@ -1,0 +1,25 @@
+{
+  "starship_id": "A677309A",
+  "project_name": "Enterprise Web Platform",
+  "sync_enabled": true,
+  "sync_frequency": "REAL_TIME",
+  "knowledge_domains": [
+    "technical_patterns",
+    "business_logic",
+    "user_experience",
+    "deployment_strategies",
+    "security_protocols"
+  ],
+  "learning_algorithms": [
+    "pattern_recognition",
+    "best_practice_extraction",
+    "cross_project_optimization",
+    "predictive_analysis"
+  ],
+  "integration_points": [
+    "central_knowledge_base",
+    "crew_memory_systems",
+    "workflow_optimization",
+    "performance_metrics"
+  ]
+}

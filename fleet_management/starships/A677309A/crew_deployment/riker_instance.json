@@ -1,0 +1,22 @@
+{
+  "instance_id": "A677309A_riker",
+  "original_crew_id": "riker",
+  "rank": "Operations Commander",
+  "fleet_duty": "Mission coordination and execution",
+  "vibe_coding_responsibility": "Sprint coordination",
+  "command_authority": "Mission planning and execution",
+  "specializations": [
+    "Mission Planning",
+    "Workflow Coordination",
+    "Resource Management"
+  ],
+  "deployment_status": "ACTIVE",
+  "deployment_date": "2025-08-27T02:40:03.498516",
+  "current_mission": "Project Initialization",
+  "project_specific_knowledge": [],
+  "performance_metrics": {
+    "tasks_completed": 0,
+    "efficiency_rating": 0.0,
+    "knowledge_contributions": 0
+  }
+}
