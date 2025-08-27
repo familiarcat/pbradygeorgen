@@ -1,0 +1,203 @@
+{
+  "createdAt": "2025-08-26T19:57:31.281447",
+  "updatedAt": "2025-08-26T19:57:31.281455",
+  "id": "ab47d08b-8fc9-4edf-bf75-36f2ec0e62be",
+  "name": "Crew - Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command - Strategic Leadership & Mission Coordination",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-captain-jean-luc-picard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "dd3f275f-5cfd-4637-a9b3-03726ab245cd",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+        "options": {}
+      },
+      "id": "2a3615e1-bf31-4e01-b340-fcc531dd7e0f",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "3425bb65-2213-4444-9f4f-edbf5dbae340",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "490537c9-a268-4564-8608-0e3ae87b2280",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "0e8d7182-4930-4508-9f49-b33f77126162",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "0941d7d0-421d-4301-a595-e56807e6b0e4",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f0f222bf-73e1-445e-9b5a-08f67fb640bd",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Captain Jean-Luc Picard Directive": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "1",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:17.543Z",
+      "updatedAt": "2025-08-26T09:06:17.543Z",
+      "role": "workflow:owner",
+      "workflowId": "C2GfdkxsmCj8JkHK",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": [
+    "crew",
+    "picard",
+    "unified-template"
+  ]
+}

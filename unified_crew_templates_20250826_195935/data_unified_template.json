@@ -1,0 +1,199 @@
+{
+  "createdAt": "2025-08-26T19:59:35.859579",
+  "updatedAt": "2025-08-26T19:59:35.859580",
+  "id": "ebe46113-d9ed-4976-a3ab-2480bef505d8",
+  "name": "Crew - Crew - Commander Data - Analytics & Logic Operations - Analytics & Logic Officer",
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-captain-jean-luc-picard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "33601046-f46a-41de-bdf3-7c30205a72b2",
+      "name": "Crew - Commander Data - Analytics & Logic Operations Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Crew - Commander Data - Analytics & Logic Operations",
+        "options": {}
+      },
+      "id": "2a999757-47c1-46e7-8cb9-ff77e03928ca",
+      "name": "Crew - Commander Data - Analytics & Logic Operations Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "c2b0ee15-decf-466e-8f41-bb74fac97b98",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "a9cf179c-05c0-44ab-bb78-545fddb9cb3a",
+      "name": "Crew - Commander Data - Analytics & Logic Operations AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "e13340ad-d5f5-4839-9090-5c1c4ae5c1cb",
+      "name": "Crew - Commander Data - Analytics & Logic Operations Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "a5e3237e-69f4-4b45-ae01-98b97cac81a8",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "1aba7b49-73bb-43cf-ba71-60bbf91dbf9b",
+      "name": "Crew - Commander Data - Analytics & Logic Operations Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Captain Jean-Luc Picard Directive": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "versionId": "1",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:17.543Z",
+      "updatedAt": "2025-08-26T09:06:17.543Z",
+      "role": "workflow:owner",
+      "workflowId": "C2GfdkxsmCj8JkHK",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": [
+    "crew",
+    "data",
+    "unified-template"
+  ]
+}

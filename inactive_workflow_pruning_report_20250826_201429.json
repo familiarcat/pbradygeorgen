@@ -1,0 +1,59 @@
+{
+  "total_inactive": 10,
+  "successfully_pruned": 10,
+  "failed_prunings": 0,
+  "details": [
+    {
+      "workflow_id": "4bOQ5DkWwWPF4xVt",
+      "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "8WrY3eJ5YbDhah3Z",
+      "workflow_name": "Crew Management System",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "8qq5Rr1buziNajGQ",
+      "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "AZzr7RM6f3Kzc1fT",
+      "workflow_name": "Crew - Crew - Dr. Beverly Crusher - Health & Diagnostics Officer - Health & Diagnostics Officer",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "XYzoc7NSPBnYR6jw",
+      "workflow_name": "Crew - Crew - Counselor Deanna Troi - User Experience & Empathy Analysis - User Experience & Empathy Officer",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "Zh59HBd69cALWjTc",
+      "workflow_name": "Crew - Crew - Commander William Riker - Tactical Execution & Workflow Management - Tactical Execution & Workflow Management",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "ZnbbaKHVwKMCMpjM",
+      "workflow_name": "Crew - Crew - Lieutenant Worf - Security & Compliance Operations - Security & Compliance Officer",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "ecHyYnMfnC9kx2FJ",
+      "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "sZR3WJMsLrBErm5W",
+      "workflow_name": "Crew - Crew - Commander Data - Analytics & Logic Operations - Analytics & Logic Officer",
+      "status": "pruned"
+    },
+    {
+      "workflow_id": "ubIMqoVCnhSypGCS",
+      "workflow_name": "Crew - Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command - Strategic Leadership & Mission Coordination",
+      "status": "pruned"
+    }
+  ],
+  "backup_directory": "pre_pruning_backup_20250826_201428",
+  "pruning_timestamp": "2025-08-26T20:14:27.917639"
+}

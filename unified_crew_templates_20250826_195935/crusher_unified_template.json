@@ -1,0 +1,199 @@
+{
+  "createdAt": "2025-08-26T19:59:35.859689",
+  "updatedAt": "2025-08-26T19:59:35.859690",
+  "id": "f9212bdd-793f-4bcf-8383-d7991e8dc522",
+  "name": "Crew - Crew - Dr. Beverly Crusher - Health & Diagnostics Officer - Health & Diagnostics Officer",
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-captain-jean-luc-picard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d331e046-47f3-470c-bdc8-2da3e5dac2e3",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "options": {}
+      },
+      "id": "9fcdf826-7bb7-4619-bd93-170a0460fe87",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "33e1d4b3-9f68-4d28-94b5-f442e2d50f34",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "e9406602-bab7-4c50-bc91-abfe46b56da5",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "7df0d6ec-e352-4db0-b2cc-6ef11682e645",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "96ddc723-3da3-44cb-8bbd-914eda5b7860",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7987f394-5bf1-4e79-9286-73441370d824",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Captain Jean-Luc Picard Directive": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "versionId": "1",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:17.543Z",
+      "updatedAt": "2025-08-26T09:06:17.543Z",
+      "role": "workflow:owner",
+      "workflowId": "C2GfdkxsmCj8JkHK",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": [
+    "crew",
+    "crusher",
+    "unified-template"
+  ]
+}

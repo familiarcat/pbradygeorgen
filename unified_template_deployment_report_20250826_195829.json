@@ -1,0 +1,64 @@
+{
+  "total_templates": 9,
+  "deployed": 0,
+  "updated": 0,
+  "failed": 9,
+  "details": [
+    {
+      "crew_id": "troi",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "data",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "riker",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "crusher",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "uhura",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "picard",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "quark",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "geordi",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    },
+    {
+      "crew_id": "worf",
+      "action": "deploy_failed",
+      "workflow_id": "failed",
+      "status": "failed"
+    }
+  ],
+  "backup_directory": "pre_unification_backup_20250826_195828",
+  "deployment_timestamp": "2025-08-26T19:58:29.340822"
+}

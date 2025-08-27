@@ -1,0 +1,45 @@
+{
+  "total_workflows": 9,
+  "successfully_restored": 8,
+  "failed_restorations": 1,
+  "details": [
+    {
+      "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+      "status": "restored"
+    },
+    {
+      "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "status": "failed"
+    },
+    {
+      "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "status": "restored"
+    }
+  ],
+  "backup_directory": "pre_unification_backup_20250826_200417",
+  "rollback_timestamp": "2025-08-26T20:10:28.770244"
+}

@@ -1,0 +1,72 @@
+{
+  "total_crew_workflows": 9,
+  "successfully_unified": 9,
+  "failed_unifications": 0,
+  "details": [
+    {
+      "crew_id": "riker",
+      "workflow_id": "4xHgewymk21FraDJ",
+      "status": "unified",
+      "old_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "new_name": "Crew - Crew - Commander William Riker - Tactical Execution & Workflow Management - Tactical Execution & Workflow Management"
+    },
+    {
+      "crew_id": "crusher",
+      "workflow_id": "7D4EEFAWo9jIhFnV",
+      "status": "unified",
+      "old_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "new_name": "Crew - Crew - Dr. Beverly Crusher - Health & Diagnostics Officer - Health & Diagnostics Officer"
+    },
+    {
+      "crew_id": "uhura",
+      "workflow_id": "BJVrV6RlrMrsq3ch",
+      "status": "unified",
+      "old_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "new_name": "Crew - Crew - Lieutenant Uhura - Communications & I/O Operations Officer - Communications & I/O Operations Officer"
+    },
+    {
+      "crew_id": "picard",
+      "workflow_id": "C2GfdkxsmCj8JkHK",
+      "status": "unified",
+      "old_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "new_name": "Crew - Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command - Strategic Leadership & Mission Coordination"
+    },
+    {
+      "crew_id": "data",
+      "workflow_id": "LIdu6eRVCRyBG1WA",
+      "status": "unified",
+      "old_name": "Crew - Commander Data - Analytics & Logic Operations",
+      "new_name": "Crew - Crew - Commander Data - Analytics & Logic Operations - Analytics & Logic Officer"
+    },
+    {
+      "crew_id": "worf",
+      "workflow_id": "PdedVribejWKwNts",
+      "status": "unified",
+      "old_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "new_name": "Crew - Crew - Lieutenant Worf - Security & Compliance Operations - Security & Compliance Officer"
+    },
+    {
+      "crew_id": "troi",
+      "workflow_id": "Q5nHuN0CAR9dJLE5",
+      "status": "unified",
+      "old_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "new_name": "Crew - Crew - Counselor Deanna Troi - User Experience & Empathy Analysis - User Experience & Empathy Officer"
+    },
+    {
+      "crew_id": "quark",
+      "workflow_id": "ly2f6PmCojumkQxu",
+      "status": "unified",
+      "old_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "new_name": "Crew - Crew - Quark - Business Intelligence & Budget Optimization - Business Intelligence & Budget Optimization"
+    },
+    {
+      "crew_id": "geordi",
+      "workflow_id": "xzf43LWpUpcoTAwD",
+      "status": "unified",
+      "old_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "new_name": "Crew - Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration - Infrastructure & System Integration"
+    }
+  ],
+  "backup_directory": "pre_unification_backup_20250826_200417",
+  "unification_timestamp": "2025-08-26T20:04:18.475008"
+}

@@ -1,0 +1,80 @@
+{
+  "template_creation_timestamp": "2025-08-26T19:57:31.283748",
+  "base_workflow": {
+    "id": "ab47d08b-8fc9-4edf-bf75-36f2ec0e62be",
+    "name": "Crew - Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command - Strategic Leadership & Mission Coordination",
+    "structure": "webhook-memory-llm-response"
+  },
+  "crew_templates": {
+    "picard": {
+      "name": "Crew - Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command - Strategic Leadership & Mission Coordination",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "riker": {
+      "name": "Crew - Crew - Commander William Riker - Tactical Execution & Workflow Management - Tactical Execution & Workflow Management",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "data": {
+      "name": "Crew - Crew - Commander Data - Analytics & Logic Operations - Analytics & Logic Officer",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "geordi": {
+      "name": "Crew - Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration - Infrastructure & System Integration",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "crusher": {
+      "name": "Crew - Crew - Dr. Beverly Crusher - Health & Diagnostics Officer - Health & Diagnostics Officer",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "worf": {
+      "name": "Crew - Crew - Lieutenant Worf - Security & Compliance Operations - Security & Compliance Officer",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "troi": {
+      "name": "Crew - Crew - Counselor Deanna Troi - User Experience & Empathy Analysis - User Experience & Empathy Officer",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "uhura": {
+      "name": "Crew - Crew - Lieutenant Uhura - Communications & I/O Operations Officer - Communications & I/O Operations Officer",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    },
+    "quark": {
+      "name": "Crew - Crew - Quark - Business Intelligence & Budget Optimization - Business Intelligence & Budget Optimization",
+      "node_count": 7,
+      "has_memory": true,
+      "has_llm": true,
+      "has_webhook": true
+    }
+  },
+  "deployment_instructions": [
+    "1. Review each template for accuracy",
+    "2. Deploy templates to n8n instance",
+    "3. Activate workflows one by one",
+    "4. Test functionality with each crew member",
+    "5. Verify memory and LLM integration"
+  ]
+}
