@@ -1,0 +1,20 @@
+{
+  "mission_protocols": {
+    "mission_initiation": "Picard (Strategy) \u2192 Riker (Planning) \u2192 Quark (Business Case) \u2192 La Forge (Infrastructure)",
+    "mission_execution": "La Forge (DevOps) \u2192 Data (Code Review) \u2192 Crusher (Quality Check) \u2192 Uhura (Integration)",
+    "mission_completion": "Crusher (Final QA) \u2192 Worf (Security Scan) \u2192 La Forge (Deployment) \u2192 Riker (Mission Report)"
+  },
+  "communication_protocols": {
+    "fleet_wide_announcements": "Fleet Admiral authorization required",
+    "mission_updates": "Operations Commander coordination",
+    "technical_alerts": "Chief Engineer and Science Officer coordination",
+    "security_alerts": "Security Chief immediate notification"
+  },
+  "decision_hierarchy": {
+    "strategic_decisions": "Fleet Admiral (Picard)",
+    "operational_decisions": "Operations Commander (Riker)",
+    "technical_decisions": "Chief Engineer (La Forge) + Science Officer (Data)",
+    "security_decisions": "Security Chief (Worf)",
+    "business_decisions": "Business Intelligence Officer (Quark)"
+  }
+}

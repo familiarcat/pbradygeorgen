@@ -1,0 +1,28 @@
+{
+  "fleet_overview": {
+    "total_starships": 0,
+    "active_missions": 0,
+    "crew_status": "ALL_ACTIVE",
+    "fleet_efficiency": 0.0,
+    "last_updated": "2025-08-27T02:12:15.716887"
+  },
+  "mission_control": {
+    "current_missions": [],
+    "mission_queue": [],
+    "completed_missions": [],
+    "mission_success_rate": 0.0
+  },
+  "crew_operations": {
+    "active_crew": 9,
+    "crew_workloads": {},
+    "crew_performance": {},
+    "crew_coordination": "ESTABLISHING"
+  },
+  "performance_metrics": {
+    "mission_success_rate": 0.0,
+    "fleet_efficiency": 0.0,
+    "crew_utilization": 0.0,
+    "resource_consumption": 0.0,
+    "security_status": "SECURE"
+  }
+}
