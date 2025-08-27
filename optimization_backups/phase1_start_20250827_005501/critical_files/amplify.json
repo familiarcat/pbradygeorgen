@@ -1,0 +1,9 @@
+{
+  "projectType": "javascript",
+  "framework": "next",
+  "frontend": {
+    "hosting": {
+      "type": "ssr"
+    }
+  }
+}

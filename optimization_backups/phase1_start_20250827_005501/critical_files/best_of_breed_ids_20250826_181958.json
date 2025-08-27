@@ -1,0 +1,200 @@
+{
+  "best_of_breed": {
+    "Lieutenant Commander Geordi La Forge": {
+      "id": "xzf43LWpUpcoTAwD",
+      "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "createdAt": "2025-08-26T09:06:33.245Z",
+      "updatedAt": "2025-08-26T13:17:45.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "10 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/xzf43LWpUpcoTAwD"
+    },
+    "Commander William Riker": {
+      "id": "4xHgewymk21FraDJ",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management",
+      "createdAt": "2025-08-26T09:06:16.167Z",
+      "updatedAt": "2025-08-26T13:25:34.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "9 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 6,
+      "connection_count": 5,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/4xHgewymk21FraDJ"
+    },
+    "Lieutenant Worf": {
+      "id": "PdedVribejWKwNts",
+      "name": "Lieutenant Worf - Security & Compliance Operations",
+      "createdAt": "2025-08-26T09:06:17.248Z",
+      "updatedAt": "2025-08-26T13:20:11.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "9 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/PdedVribejWKwNts"
+    },
+    "Lieutenant Uhura": {
+      "id": "BJVrV6RlrMrsq3ch",
+      "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+      "createdAt": "2025-08-26T06:50:05.492Z",
+      "updatedAt": "2025-08-26T06:56:53.000Z",
+      "formatted_created": "16 hour(s) ago",
+      "formatted_updated": "16 hour(s) ago",
+      "has_memory": false,
+      "has_llm": true,
+      "node_count": 4,
+      "connection_count": 3,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/BJVrV6RlrMrsq3ch"
+    },
+    "Captain Jean-Luc Picard": {
+      "id": "C2GfdkxsmCj8JkHK",
+      "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "createdAt": "2025-08-26T09:06:17.541Z",
+      "updatedAt": "2025-08-26T13:10:48.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "10 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/C2GfdkxsmCj8JkHK"
+    },
+    "Commander Data": {
+      "id": "LIdu6eRVCRyBG1WA",
+      "name": "Commander Data - Analytics & Logic Operations",
+      "createdAt": "2025-08-26T09:06:33.740Z",
+      "updatedAt": "2025-08-26T13:14:08.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "10 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/LIdu6eRVCRyBG1WA"
+    },
+    "Counselor Deanna Troi": {
+      "id": "Q5nHuN0CAR9dJLE5",
+      "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "createdAt": "2025-08-26T09:06:32.828Z",
+      "updatedAt": "2025-08-26T13:13:11.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "10 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 7,
+      "connection_count": 6,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/Q5nHuN0CAR9dJLE5"
+    },
+    "Quark": {
+      "id": "ly2f6PmCojumkQxu",
+      "name": "Quark - Business Intelligence & Budget Optimization",
+      "createdAt": "2025-08-26T09:06:15.474Z",
+      "updatedAt": "2025-08-26T13:31:03.000Z",
+      "formatted_created": "14 hour(s) ago",
+      "formatted_updated": "9 hour(s) ago",
+      "has_memory": true,
+      "has_llm": true,
+      "node_count": 6,
+      "connection_count": 5,
+      "workflow_url": "https://n8n.pbradygeorgen.com/workflow/ly2f6PmCojumkQxu"
+    }
+  },
+  "duplicates_to_deactivate": {
+    "Lieutenant Commander Geordi La Forge": [
+      {
+        "id": "351hi9YnKoZ8fFIq",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-26T09:06:16.371Z",
+        "updatedAt": "2025-08-26T13:09:25.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/351hi9YnKoZ8fFIq"
+      },
+      {
+        "id": "UMgLlLPbhcjwJtKK",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-25T05:17:35.775Z",
+        "updatedAt": "2025-08-25T05:37:47.000Z",
+        "formatted_created": "1 day(s) ago",
+        "formatted_updated": "1 day(s) ago",
+        "has_memory": false,
+        "has_llm": true,
+        "node_count": 5,
+        "connection_count": 4,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/UMgLlLPbhcjwJtKK"
+      }
+    ],
+    "Commander William Riker": [],
+    "Lieutenant Worf": [
+      {
+        "id": "CSGrhztb5AWln7DN",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-26T09:06:34.139Z",
+        "updatedAt": "2025-08-26T12:27:29.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "10 hour(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/CSGrhztb5AWln7DN"
+      },
+      {
+        "id": "7k9XLyUbfijvYJo4",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-25T05:17:40.022Z",
+        "updatedAt": "2025-08-25T05:37:44.000Z",
+        "formatted_created": "1 day(s) ago",
+        "formatted_updated": "1 day(s) ago",
+        "has_memory": false,
+        "has_llm": true,
+        "node_count": 5,
+        "connection_count": 4,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/7k9XLyUbfijvYJo4"
+      }
+    ],
+    "Lieutenant Uhura": [],
+    "Captain Jean-Luc Picard": [],
+    "Commander Data": [],
+    "Counselor Deanna Troi": [],
+    "Quark": [
+      {
+        "id": "aFNOULWT261Qkccg",
+        "name": "Quark - Business Intelligence & Budget Optimization",
+        "createdAt": "2025-08-26T09:06:32.407Z",
+        "updatedAt": "2025-08-26T13:31:02.000Z",
+        "formatted_created": "14 hour(s) ago",
+        "formatted_updated": "9 hour(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 6,
+        "connection_count": 5,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/aFNOULWT261Qkccg"
+      },
+      {
+        "id": "wbXsKc4UryCJv66e",
+        "name": "Quark - Business Intelligence & Budget Optimization",
+        "createdAt": "2025-08-26T06:50:10.809Z",
+        "updatedAt": "2025-08-26T06:56:52.000Z",
+        "formatted_created": "16 hour(s) ago",
+        "formatted_updated": "16 hour(s) ago",
+        "has_memory": false,
+        "has_llm": true,
+        "node_count": 4,
+        "connection_count": 3,
+        "workflow_url": "https://n8n.pbradygeorgen.com/workflow/wbXsKc4UryCJv66e"
+      }
+    ]
+  },
+  "timestamp": "2025-08-26T18:19:58.094881"
+}

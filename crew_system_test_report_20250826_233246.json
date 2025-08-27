@@ -1,0 +1,697 @@
+{
+  "test_timestamp": "2025-08-26T23:32:46.688458",
+  "n8n_url": "https://n8n.pbradygeorgen.com",
+  "test_summary": {
+    "naming_convention_compliance": {
+      "total_workflows": 14,
+      "crew_workflows": [
+        {
+          "id": "36KPle5mPiMaazG6",
+          "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+          "active": true
+        },
+        {
+          "id": "BdNHOluRYUw2JxGW",
+          "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "active": true
+        },
+        {
+          "id": "GhSB8EpZWXLU78LM",
+          "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+          "active": true
+        },
+        {
+          "id": "Imn7p6pVgi6SRvnF",
+          "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+          "active": true
+        },
+        {
+          "id": "L6K4bzSKlGC36ABL",
+          "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+          "active": true
+        },
+        {
+          "id": "QJnN7ks2KsQTENDc",
+          "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "active": true
+        },
+        {
+          "id": "SXAMupVWdOxZybF6",
+          "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "active": true
+        },
+        {
+          "id": "e0UEwyVcXJqeePdj",
+          "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "active": true
+        },
+        {
+          "id": "gIwrQHHArgrVARjL",
+          "name": "Crew - Commander Data - Analytics & Logic Operations",
+          "active": true
+        }
+      ],
+      "system_workflows": [
+        {
+          "id": "AeoHsSbJAXbWSs8Y",
+          "name": "System - Federation Concise Agency - OpenRouter Crew",
+          "active": true
+        },
+        {
+          "id": "VQDH8tqWvVmigWd1",
+          "name": "System - Federation Crew - OpenRouter Agent Coordination",
+          "active": true
+        },
+        {
+          "id": "aNfs26Wlau80ufmh",
+          "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+          "active": true
+        },
+        {
+          "id": "eviPmIvTnoJcnaas",
+          "name": "System - Enhanced Federation Crew - Complete Mission Control",
+          "active": true
+        }
+      ],
+      "non_compliant": [
+        {
+          "id": "IKckCG6TsUvrZd8P",
+          "name": "Crew Management System",
+          "active": true
+        }
+      ],
+      "compliance_rate": 92.85714285714286
+    },
+    "webhook_functionality": {
+      "total_crew_workflows": 9,
+      "webhook_nodes_found": 9,
+      "webhook_configurations": [
+        {
+          "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+          "workflow_id": "36KPle5mPiMaazG6",
+          "webhook_id": "",
+          "webhook_path": "crew-lieutenant-uhura",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "workflow_id": "BdNHOluRYUw2JxGW",
+          "webhook_id": "",
+          "webhook_path": "crew-captain-jean-luc-picard",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+          "workflow_id": "GhSB8EpZWXLU78LM",
+          "webhook_id": "",
+          "webhook_path": "crew-lieutenant-worf",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+          "workflow_id": "Imn7p6pVgi6SRvnF",
+          "webhook_id": "",
+          "webhook_path": "crew-commander-william-riker",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+          "workflow_id": "L6K4bzSKlGC36ABL",
+          "webhook_id": "",
+          "webhook_path": "crew-quark",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "workflow_id": "QJnN7ks2KsQTENDc",
+          "webhook_id": "",
+          "webhook_path": "crew-counselor-deanna-troi",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "workflow_id": "SXAMupVWdOxZybF6",
+          "webhook_id": "",
+          "webhook_path": "crew-dr-beverly-crusher",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "workflow_id": "e0UEwyVcXJqeePdj",
+          "webhook_id": "",
+          "webhook_path": "crew-lieutenant-commander-geordi-la-forge",
+          "http_method": "POST"
+        },
+        {
+          "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+          "workflow_id": "gIwrQHHArgrVARjL",
+          "webhook_id": "",
+          "webhook_path": "crew-commander-data",
+          "http_method": "POST"
+        }
+      ]
+    },
+    "memory_integration": {
+      "total_workflows": 14,
+      "memory_enabled": 13,
+      "memory_disabled": 1,
+      "memory_details": [
+        {
+          "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+          "workflow_id": "36KPle5mPiMaazG6",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Lieutenant Uhura Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Lieutenant Uhura"
+            },
+            {
+              "node_name": "Lieutenant Uhura Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Federation Concise Agency - OpenRouter Crew",
+          "workflow_id": "AeoHsSbJAXbWSs8Y",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Federation Concise Agency Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Federation Concise Agency Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "workflow_id": "BdNHOluRYUw2JxGW",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Captain Jean-Luc Picard Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Captain Jean-Luc Picard Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+          "workflow_id": "GhSB8EpZWXLU78LM",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Lieutenant Worf Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Lieutenant Worf Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew Management System",
+          "workflow_id": "IKckCG6TsUvrZd8P",
+          "has_memory": false,
+          "memory_nodes": []
+        },
+        {
+          "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+          "workflow_id": "Imn7p6pVgi6SRvnF",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Commander William Riker Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Commander William Riker Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+          "workflow_id": "L6K4bzSKlGC36ABL",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Quark Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Quark"
+            },
+            {
+              "node_name": "Quark Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "workflow_id": "QJnN7ks2KsQTENDc",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Counselor Deanna Troi Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Counselor Deanna Troi Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "workflow_id": "SXAMupVWdOxZybF6",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Dr. Beverly Crusher Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Dr. Beverly Crusher"
+            },
+            {
+              "node_name": "Dr. Beverly Crusher Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Federation Crew - OpenRouter Agent Coordination",
+          "workflow_id": "VQDH8tqWvVmigWd1",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Federation Crew Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Federation Crew Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - AlexAI Optimized Crew - Complete Mission Control",
+          "workflow_id": "aNfs26Wlau80ufmh",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "AlexAI Optimized Crew Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "AlexAI Optimized Crew Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "workflow_id": "e0UEwyVcXJqeePdj",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Lieutenant Commander Geordi La Forge Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Enhanced Federation Crew - Complete Mission Control",
+          "workflow_id": "eviPmIvTnoJcnaas",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Enhanced Federation Crew Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Enhanced Federation Crew Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+          "workflow_id": "gIwrQHHArgrVARjL",
+          "has_memory": true,
+          "memory_nodes": [
+            {
+              "node_name": "Commander Data Memory Retrieval",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            },
+            {
+              "node_name": "Commander Data Memory Storage",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories"
+            }
+          ]
+        }
+      ]
+    },
+    "llm_integration": {
+      "total_workflows": 14,
+      "llm_enabled": 11,
+      "llm_disabled": 3,
+      "llm_details": [
+        {
+          "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+          "workflow_id": "36KPle5mPiMaazG6",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Lieutenant Uhura AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Federation Concise Agency - OpenRouter Crew",
+          "workflow_id": "AeoHsSbJAXbWSs8Y",
+          "has_llm": false,
+          "llm_nodes": []
+        },
+        {
+          "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "workflow_id": "BdNHOluRYUw2JxGW",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Captain Jean-Luc Picard AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+          "workflow_id": "GhSB8EpZWXLU78LM",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Lieutenant Worf AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew Management System",
+          "workflow_id": "IKckCG6TsUvrZd8P",
+          "has_llm": false,
+          "llm_nodes": []
+        },
+        {
+          "workflow_name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+          "workflow_id": "Imn7p6pVgi6SRvnF",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Commander William Riker AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+          "workflow_id": "L6K4bzSKlGC36ABL",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Quark AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "workflow_id": "QJnN7ks2KsQTENDc",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Counselor Deanna Troi AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "workflow_id": "SXAMupVWdOxZybF6",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Dr. Beverly Crusher AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Federation Crew - OpenRouter Agent Coordination",
+          "workflow_id": "VQDH8tqWvVmigWd1",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "Mission Analysis Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Crew Coordinator Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Hub",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - AlexAI Optimized Crew - Complete Mission Control",
+          "workflow_id": "aNfs26Wlau80ufmh",
+          "has_llm": false,
+          "llm_nodes": []
+        },
+        {
+          "workflow_name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "workflow_id": "e0UEwyVcXJqeePdj",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Lieutenant Commander Geordi La Forge AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "System - Enhanced Federation Crew - Complete Mission Control",
+          "workflow_id": "eviPmIvTnoJcnaas",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "Mission Analysis & Planning",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Execution Commander - Riker",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Data - Analytics & Logic Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Geordi - Engineering Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Crusher - Health & Optimization Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Worf - Security Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Troi - UX & Empathy Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Uhura - Communications & I/O Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Quark - Business & Budget Specialist",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge - Crew Coordination Hub",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        },
+        {
+          "workflow_name": "Crew - Commander Data - Analytics & Logic Operations",
+          "workflow_id": "gIwrQHHArgrVARjL",
+          "has_llm": true,
+          "llm_nodes": [
+            {
+              "node_name": "LLM Selection Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Commander Data AI Agent",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            },
+            {
+              "node_name": "Observation Lounge Communication",
+              "node_type": "n8n-nodes-base.httpRequest",
+              "url": "https://api.openrouter.ai/api/v1/chat/completions"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "overall_status": "PARTIAL",
+  "recommendations": [
+    "Some workflows do not follow naming conventions",
+    "Some workflows do not have memory integration",
+    "Some workflows do not have LLM integration"
+  ]
+}

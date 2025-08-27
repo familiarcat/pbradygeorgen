@@ -1,0 +1,17 @@
+{
+  "appId": "d2gv0gd3awxys0",
+  "branch": "pdf-nextjs",
+  "profile": "default",
+  "region": "us-east-1",
+  "environments": {
+    "dev": {
+      "branch": "pdf-nextjs"
+    },
+    "staging": {
+      "branch": "staging"
+    },
+    "prod": {
+      "branch": "main"
+    }
+  }
+}

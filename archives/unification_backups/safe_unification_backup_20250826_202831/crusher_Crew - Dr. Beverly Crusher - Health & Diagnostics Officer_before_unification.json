@@ -1,0 +1,193 @@
+{
+  "createdAt": "2025-08-26T09:06:34.824Z",
+  "updatedAt": "2025-08-27T01:10:29.354Z",
+  "id": "7D4EEFAWo9jIhFnV",
+  "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-dr-beverly-crusher",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "crew_directive",
+      "name": "Dr. Beverly Crusher Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c9203718-3cdc-41be-b86b-393be54f04c3"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "memory_retrieval",
+      "name": "Dr. Beverly Crusher Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "llm_selector",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "memory_storage",
+      "name": "Dr. Beverly Crusher Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "crew_ai",
+      "name": "Dr. Beverly Crusher AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "crew_member",
+              "value": "Dr. Beverly Crusher"
+            },
+            {
+              "name": "role",
+              "value": "Health & Diagnostics Officer"
+            },
+            {
+              "name": "response",
+              "value": "={{ $json.body.response }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "observation_communication",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Dr. Beverly Crusher Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dr. Beverly Crusher AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dr. Beverly Crusher Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dr. Beverly Crusher Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "ffc59a01-e6e0-4e33-a50a-8ef7d561e466",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:34.827Z",
+      "updatedAt": "2025-08-26T09:06:34.827Z",
+      "role": "workflow:owner",
+      "workflowId": "7D4EEFAWo9jIhFnV",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,199 @@
+{
+  "createdAt": "2025-08-26T09:06:33.245Z",
+  "updatedAt": "2025-08-27T01:04:18.428Z",
+  "id": "xzf43LWpUpcoTAwD",
+  "name": "Crew - Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration - Infrastructure & System Integration",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-geordi",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "6c08cab4-0a88-4c57-a49e-bc156b3de13e",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "options": {}
+      },
+      "id": "16753d0e-1d63-49cd-8301-fa619948cf0d",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "c47331b3-5440-469a-a4cd-cb07beb16257",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "5f1c77e0-4de3-4085-b7ee-0c51f85c44ca",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "8bc8792e-a565-49cb-966a-0b7a449e1f8e",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "ad028117-9da2-4a8e-8033-06d5eda637d2",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ba934b6c-35b3-4822-8aa9-b08e399421b7",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Captain Jean-Luc Picard Directive": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "8bc608ce-7deb-43dc-b39a-067939dfec82",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T09:06:33.248Z",
+      "updatedAt": "2025-08-26T09:06:33.248Z",
+      "role": "workflow:owner",
+      "workflowId": "xzf43LWpUpcoTAwD",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

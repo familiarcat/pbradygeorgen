@@ -1,0 +1,158 @@
+{
+  "createdAt": "2025-01-27T00:00:00.000Z",
+  "updatedAt": "2025-01-27T00:00:00.000Z",
+  "id": "standardized_riker",
+  "name": "Commander William Riker - Tactical Execution & Workflow Management",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "crew_directive",
+      "name": "Tactical Execution & Workflow Management Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-riker",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "llm_selector",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "openai/gpt-4o"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are the LLM Selection Agent for Commander William Riker - Tactical Execution & Workflow Management. Based on the task complexity, requirements, and available models, select the optimal LLM model. Consider factors like reasoning ability, context length, speed, and cost.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crew_ai",
+      "name": "Commander William Riker - Tactical Execution & Workflow Management AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "={{ $json.body.selected_model }}"
+          },
+          {
+            "name": "messages",
+            "value": "={ [{\"role\": \"system\", \"content\": \"You are Commander William Riker - Tactical Execution & Workflow Management, a Federation crew member with the role of Tactical Execution & Workflow Management. Operational efficiency, workflow optimization, tactical decision making. Execute your assigned task with expertise and provide detailed analysis and recommendations. Communicate your findings clearly for the Observation Lounge.\"}, {\"role\": \"user\", \"content\": $json.body.task}] }"
+          },
+          {
+            "name": "temperature",
+            "value": "0.4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "observation_communication",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "nodeCredentialType": "httpHeaderAuth",
+        "httpHeaderAuth": "Bearer {{ $env.OPENROUTER_API_KEY }}",
+        "sendBody": true,
+        "bodyParameters": [
+          {
+            "name": "model",
+            "value": "anthropic/claude-3-haiku"
+          },
+          {
+            "name": "messages",
+            "value": "={{ [{\"role\": \"system\", \"content\": \"You are the Observation Lounge Communication Agent. Format the crew member's response for clear communication to the Observation Lounge. Ensure the response is well-structured, professional, and includes the crew member's role and recommendations.\"}, {\"role\": \"user\", \"content\": $json.body.response}] }}"
+          },
+          {
+            "name": "temperature",
+            "value": "0.3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "response_formatter",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "crew_member",
+              "value": "Commander William Riker - Tactical Execution & Workflow Management"
+            },
+            {
+              "name": "role",
+              "value": "Tactical Execution & Workflow Management"
+            },
+            {
+              "name": "response",
+              "value": "={{ $json.content }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ]
+}

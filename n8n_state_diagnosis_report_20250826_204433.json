@@ -1,0 +1,237 @@
+{
+  "diagnosis_timestamp": "2025-08-26T20:44:33.072206",
+  "summary": {
+    "total_workflows": 13,
+    "active_workflows": 13,
+    "inactive_workflows": 0,
+    "broken_workflows": 0,
+    "workflows_with_duplicates": 0,
+    "crew_workflows": 12
+  },
+  "workflow_analyses": [
+    {
+      "workflow_id": "4xHgewymk21FraDJ",
+      "workflow_name": "Crew - Crew - Commander William Riker - Tactical Execution & Workflow Management - Tactical Execution & Workflow Management",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "7D4EEFAWo9jIhFnV",
+      "workflow_name": "Crew - Crew - Dr. Beverly Crusher - Health & Diagnostics Officer - Health & Diagnostics Officer",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "BJVrV6RlrMrsq3ch",
+      "workflow_name": "Crew - Crew - Lieutenant Uhura - Communications & I/O Operations Officer - Communications & I/O Operations Officer",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "C2GfdkxsmCj8JkHK",
+      "workflow_name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "DMsFt1H6ljE6sgsq",
+      "workflow_name": "System - AlexAI Optimized Crew - Complete Mission Control",
+      "active": true,
+      "total_nodes": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 2,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": false,
+      "has_response": true
+    },
+    {
+      "workflow_id": "LIdu6eRVCRyBG1WA",
+      "workflow_name": "Crew - Crew - Commander Data - Analytics & Logic Operations - Analytics & Logic Officer",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "PdedVribejWKwNts",
+      "workflow_name": "Crew - Crew - Lieutenant Worf - Security & Compliance Operations - Security & Compliance Officer",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "Q5nHuN0CAR9dJLE5",
+      "workflow_name": "Crew - Crew - Counselor Deanna Troi - User Experience & Empathy Analysis - User Experience & Empathy Officer",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "btAdk6vmu9e0Z9Lc",
+      "workflow_name": "System - Enhanced Federation Crew - Complete Mission Control",
+      "active": true,
+      "total_nodes": 15,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 12,
+        "n8n-nodes-base.code": 1,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 13,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "ly2f6PmCojumkQxu",
+      "workflow_name": "Crew - Crew - Quark - Business Intelligence & Budget Optimization - Business Intelligence & Budget Optimization",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "xBk0s4lAD2ng7Tcg",
+      "workflow_name": "System - Federation Crew - OpenRouter Agent Coordination",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 5,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "xzf43LWpUpcoTAwD",
+      "workflow_name": "Crew - Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration - Infrastructure & System Integration",
+      "active": true,
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 6,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": true,
+      "has_response": true
+    },
+    {
+      "workflow_id": "ykPv0NZ5c7K6B5Pp",
+      "workflow_name": "System - Federation Concise Agency - OpenRouter Crew",
+      "active": true,
+      "total_nodes": 4,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 2,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "duplicate_node_names": [],
+      "total_connections": 2,
+      "has_webhook": true,
+      "has_memory": true,
+      "has_llm": false,
+      "has_response": true
+    }
+  ],
+  "broken_workflows": [],
+  "workflows_with_duplicates": []
+}

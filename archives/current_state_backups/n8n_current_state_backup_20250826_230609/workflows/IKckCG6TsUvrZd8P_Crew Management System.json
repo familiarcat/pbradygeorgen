@@ -1,0 +1,61 @@
+{
+  "createdAt": "2025-08-27T02:25:47.414Z",
+  "updatedAt": "2025-08-27T02:25:47.414Z",
+  "id": "IKckCG6TsUvrZd8P",
+  "name": "Crew Management System",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "id": "crew_request",
+      "name": "Crew Request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "crew_response",
+      "name": "Crew Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Crew Request": {
+      "main": [
+        [
+          {
+            "node": "Crew Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "aea1d25a-b20d-44ee-8cb7-3a0b4f6a8cb6",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "createdAt": "2025-08-27T02:25:47.416Z",
+      "updatedAt": "2025-08-27T02:25:47.416Z",
+      "role": "workflow:owner",
+      "workflowId": "IKckCG6TsUvrZd8P",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

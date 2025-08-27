@@ -1,0 +1,90 @@
+GIT STATUS BACKUP
+==============================
+Generated: 2025-08-27T00:55:02.421892
+
+Current Branch: n8n-workflow-optimization
+
+Git Status:
+On branch n8n-workflow-optimization
+Your branch is up to date with 'origin/n8n-workflow-optimization'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	broken_workflow_diagnosis_report_20250826_223033.json
+	crew_system_test_report_20250826_202901.json
+	crew_system_test_report_20250826_230839.json
+	crew_system_test_report_20250826_231941.json
+	crew_system_test_report_20250826_233246.json
+	n8n_current_state_backup_20250826_230609/
+	n8n_state_diagnosis_report_20250826_204433.json
+	n8n_state_diagnosis_report_20250826_230553.json
+	n8n_state_diagnosis_report_20250826_230855.json
+	n8n_state_diagnosis_report_20250826_231428.json
+	n8n_state_diagnosis_report_20250826_231927.json
+	optimization_backups/
+	picard_vs_riker_comparison_report_20250826_202328.json
+	restoration_verification_report_20250826_204644.json
+	riker_clean_template.json
+	riker_corrected_template.json
+	riker_minimal_test_workflow.json
+	safe_gradual_unification_report_20250826_202844.json
+	safe_unification_backup_20250826_202821/
+	safe_unification_backup_20250826_202824/
+	safe_unification_backup_20250826_202828/
+	safe_unification_backup_20250826_202831/
+	safe_unification_backup_20250826_202834/
+	safe_unification_backup_20250826_202837/
+	safe_unification_backup_20250826_202841/
+	safe_unification_backup_20250826_202844/
+	scripts/analyze_picard_complete_template.py
+	scripts/automated_crew_workflow_patcher_20250826_214948.py
+	scripts/clean_riker_template.py
+	scripts/compare_picard_vs_riker.py
+	scripts/compare_workflow_formats.py
+	scripts/complete_system_restoration.py
+	scripts/comprehensive_emergency_rollback.py
+	scripts/comprehensive_workflow_patch_analyzer.py
+	scripts/create_dr_crusher_optimal_workflow.py
+	scripts/create_lieutenant_uhura_optimal_workflow.py
+	scripts/create_quark_optimal_workflow.py
+	scripts/deep_riker_analysis.py
+	scripts/deploy_clean_riker_workflow.py
+	scripts/deploy_corrected_riker_workflow.py
+	scripts/diagnose_broken_workflows.py
+	scripts/diagnose_current_n8n_state.py
+	scripts/emergency_rollback_from_backup.py
+	scripts/fix_riker_workflow_restoration.py
+	scripts/isolate_workflow_variants.py
+	scripts/minimal_workflow_patcher.py
+	scripts/n8n_compatible_workflow_patcher.py
+	scripts/patch_three_variant_crew_members.py
+	scripts/phase1_backup_creator.py
+	scripts/project_structure_analysis_and_optimization.py
+	scripts/restore_missing_crew_members_proper_format.py
+	scripts/restore_n8n_from_backup.py
+	scripts/safe_gradual_unification.py
+	scripts/standardize_crew_workflows.py
+	scripts/test_minimal_riker_workflow.py
+	scripts/verify_restoration_state.py
+	scripts/verify_riker_picard_workflow_identity.py
+	standardized_crew_workflows/
+	test-results/pre-commit-test-20250826_202057.log
+	test-results/pre-commit-test-20250826_231238.log
+	test-results/pre-commit-test-20250826_233339.log
+	test-results/pre-commit-test-20250826_234336.log
+	test-results/pre-commit-test-20250827_005200.log
+	workflow_variant_analysis_report_20250826_215441.json
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Recent Commits:
+67ef0bb 🎯 PROJECT STRUCTURE OPTIMIZATION: Comprehensive analysis and restructuring plan - Commander Data (Technical) + Counselor Troi (UX) analysis complete - 6 critical optimization opportunities identified - 3-phase implementation strategy (Immediate, Short-term, Long-term) - Directory depth reduction: 11→4 levels - Root organization: 174→15 items - Backup management system design - Script and config consolidation strategy - Ready for implementation on n8n-workflow-optimization branch
+122e7b4 📚 DOCUMENTATION: System-Crew Workflow Interaction Architecture - Comprehensive explanation of 13-workflow orchestration system - Hypothetical mission scenario: Enterprise Crisis Response - Complete interaction flow and technical mechanisms - Memory integration and LLM coordination details - Ready for real-world mission testing and optimization
+fa6c16c 🎉 MILESTONE: Complete Crew System Restoration - All 9 Crew Members Operational with Optimal Template Structure - Dr. Beverly Crusher, Lieutenant Uhura, and Quark successfully restored - All workflows use identical 7-node template structure - Complete crew complement: 9/9 active workflows - System status: FULLY OPERATIONAL - Ready for mission deployment and crew operations
+200236e 🎉 MILESTONE: N8N System Fully Restored - Complete Recovery from Inactive State - All 11 workflows now active and operational - Crew system fully functional with memory and LLM integration - Recovery documentation and backup preserved - System ready for mission deployment
+455d722 Revert "MILESTONE: Workflow Unification Failure, Emergency Recovery, and System Optimization"
+e0d42e8 MILESTONE: Workflow Unification Failure, Emergency Recovery, and System Optimization
+beb580e 🧪 TEST: Crew System Functionality Verified - 100% naming convention compliance achieved - All 13 workflows operational (9 crew + 4 system) - Webhook functionality: 9/9 crew workflows - Memory integration: 12/13 workflows - LLM integration: 11/13 workflows - Crew system fully operational and ready for mission deployment
+e7495f2 🔄 UPDATE: Local Configurations Synchronized with New Naming Conventions - Updated crew configuration with new CREW/SYSTEM prefixes - Created comprehensive naming convention documentation - Generated deployment template using new naming structure - Updated 12 enhanced workflow files to match remote naming - All local configurations now synchronized with deployed n8n instance
+8cfca09 🎯 MILESTONE: Naming Conventions Successfully Implemented - Backup of renamed workflows with Crew/System prefixes - All 13 active workflows now follow standardized naming - 9 Crew workflows: Leadership, Tactical, Medical, Analytics, Engineering, Security, Counseling, Communications, Business Intelligence - 4 System workflows: Orchestration, Coordination, Agent Management - Ready for local configuration updates and crew system testing
+2eeeba6 🎯 MILESTONE: Crew System Cleanup Complete - N8N Duplicate Elimination

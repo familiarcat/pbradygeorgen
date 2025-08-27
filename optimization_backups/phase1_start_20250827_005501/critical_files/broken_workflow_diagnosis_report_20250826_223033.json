@@ -1,0 +1,125 @@
+{
+  "timestamp": "2025-08-26T22:30:33.945659",
+  "diagnostic_results": {
+    "Crew - Quark - Business Intelligence & Budget Optimization": {
+      "analysis": {
+        "workflow_name": "Crew - Quark - Business Intelligence & Budget Optimization",
+        "workflow_id": "CZQt3C08PhBAXqJK",
+        "active": false,
+        "issues": [],
+        "warnings": [],
+        "structure_analysis": {
+          "required_fields": "\u2705 All required fields present",
+          "node_count": 7,
+          "node_types": [
+            "Quark Directive (n8n-nodes-base.webhook)",
+            "Quark Memory Retrieval (n8n-nodes-base.httpRequest)",
+            "LLM Selection Agent (n8n-nodes-base.httpRequest)",
+            "Quark AI Agent (n8n-nodes-base.httpRequest)",
+            "Quark Memory Storage (n8n-nodes-base.httpRequest)",
+            "Observation Lounge Communication (n8n-nodes-base.httpRequest)",
+            "Quark Response (n8n-nodes-base.respondToWebhook)"
+          ],
+          "connection_count": 6
+        },
+        "recommendations": []
+      },
+      "comparison": {
+        "structural_differences": [
+          "Connection count mismatch: 6 vs 10"
+        ],
+        "missing_elements": [],
+        "format_differences": []
+      },
+      "recommendations": [
+        "STRUCTURAL: Align workflow structure with working reference",
+        "Fix: Ensure correct connection structure",
+        "VALIDATION: Test workflow structure against n8n schema",
+        "REFERENCE: Use Riker's workflow as exact template",
+        "TESTING: Validate workflow in n8n editor before deployment"
+      ]
+    },
+    "Crew - Lieutenant Uhura - Communications & I/O Operations Officer": {
+      "analysis": {
+        "workflow_name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+        "workflow_id": "Y7pmgmAQOYSF77ym",
+        "active": false,
+        "issues": [],
+        "warnings": [],
+        "structure_analysis": {
+          "required_fields": "\u2705 All required fields present",
+          "node_count": 7,
+          "node_types": [
+            "Lieutenant Uhura Directive (n8n-nodes-base.webhook)",
+            "Lieutenant Uhura Memory Retrieval (n8n-nodes-base.httpRequest)",
+            "LLM Selection Agent (n8n-nodes-base.httpRequest)",
+            "Lieutenant Uhura AI Agent (n8n-nodes-base.httpRequest)",
+            "Lieutenant Uhura Memory Storage (n8n-nodes-base.httpRequest)",
+            "Observation Lounge Communication (n8n-nodes-base.httpRequest)",
+            "Lieutenant Uhura Response (n8n-nodes-base.respondToWebhook)"
+          ],
+          "connection_count": 6
+        },
+        "recommendations": []
+      },
+      "comparison": {
+        "structural_differences": [
+          "Connection count mismatch: 6 vs 10"
+        ],
+        "missing_elements": [],
+        "format_differences": []
+      },
+      "recommendations": [
+        "STRUCTURAL: Align workflow structure with working reference",
+        "Fix: Ensure correct connection structure",
+        "VALIDATION: Test workflow structure against n8n schema",
+        "REFERENCE: Use Riker's workflow as exact template",
+        "TESTING: Validate workflow in n8n editor before deployment"
+      ]
+    },
+    "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer": {
+      "analysis": {
+        "workflow_name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "workflow_id": "aQDJZrgx3QYGTLIi",
+        "active": false,
+        "issues": [],
+        "warnings": [],
+        "structure_analysis": {
+          "required_fields": "\u2705 All required fields present",
+          "node_count": 7,
+          "node_types": [
+            "Dr. Beverly Crusher Directive (n8n-nodes-base.webhook)",
+            "Dr. Beverly Crusher Memory Retrieval (n8n-nodes-base.httpRequest)",
+            "LLM Selection Agent (n8n-nodes-base.httpRequest)",
+            "Dr. Beverly Crusher AI Agent (n8n-nodes-base.httpRequest)",
+            "Dr. Beverly Crusher Memory Storage (n8n-nodes-base.httpRequest)",
+            "Observation Lounge Communication (n8n-nodes-base.httpRequest)",
+            "Dr. Beverly Crusher Response (n8n-nodes-base.respondToWebhook)"
+          ],
+          "connection_count": 6
+        },
+        "recommendations": []
+      },
+      "comparison": {
+        "structural_differences": [
+          "Connection count mismatch: 6 vs 10"
+        ],
+        "missing_elements": [],
+        "format_differences": []
+      },
+      "recommendations": [
+        "STRUCTURAL: Align workflow structure with working reference",
+        "Fix: Ensure correct connection structure",
+        "VALIDATION: Test workflow structure against n8n schema",
+        "REFERENCE: Use Riker's workflow as exact template",
+        "TESTING: Validate workflow in n8n editor before deployment"
+      ]
+    }
+  },
+  "riker_reference_id": "Imn7p6pVgi6SRvnF",
+  "summary": {
+    "total_workflows": 14,
+    "broken_workflows": 3,
+    "critical_issues_found": 0
+  }
+}

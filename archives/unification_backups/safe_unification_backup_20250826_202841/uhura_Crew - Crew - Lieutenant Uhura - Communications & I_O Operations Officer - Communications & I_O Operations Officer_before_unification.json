@@ -1,0 +1,199 @@
+{
+  "createdAt": "2025-08-26T06:50:05.492Z",
+  "updatedAt": "2025-08-27T01:04:17.550Z",
+  "id": "BJVrV6RlrMrsq3ch",
+  "name": "Crew - Crew - Lieutenant Uhura - Communications & I/O Operations Officer - Communications & I/O Operations Officer",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-uhura",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "94c04739-f793-400e-b376-ef7720714d99",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "c5ec3bfb-001d-45d5-a6c3-9115c0b0cc0d"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+        "options": {}
+      },
+      "id": "9e9a582f-449f-430c-a70b-ad75d7cd8468",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "848ba2cb-f4a3-42ce-9f5e-a1522de12b07",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "896e36d1-e32f-426a-9553-a7afdfb2a73c",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "7d4f2271-42d3-4d9c-beb0-c48bb4aee8b3",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "cf0f535e-b030-4266-918f-886bed0c1574",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3d21b835-7140-4259-9178-421fb8bd9750",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "Captain Jean-Luc Picard Directive": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "88cab3d4-e0fb-4b7b-a057-31569e19b080",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-26T06:50:05.494Z",
+      "updatedAt": "2025-08-26T06:50:05.494Z",
+      "role": "workflow:owner",
+      "workflowId": "BJVrV6RlrMrsq3ch",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

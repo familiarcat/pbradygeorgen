@@ -1,0 +1,368 @@
+{
+  "analysis_results": {
+    "Lieutenant Commander Geordi La Forge": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "xzf43LWpUpcoTAwD",
+        "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+        "createdAt": "2025-08-26T09:06:33.245Z",
+        "updatedAt": "2025-08-26T13:17:45.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "49 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6
+      },
+      "duplicates": [
+        {
+          "id": "351hi9YnKoZ8fFIq",
+          "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "createdAt": "2025-08-26T09:06:16.371Z",
+          "updatedAt": "2025-08-26T13:09:25.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "57 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 6
+        },
+        {
+          "id": "UMgLlLPbhcjwJtKK",
+          "name": "Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+          "createdAt": "2025-08-25T05:17:35.775Z",
+          "updatedAt": "2025-08-25T05:37:47.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "1 day(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 49 minute(s) ago with memory=True, LLM=True"
+    },
+    "Commander William Riker": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "9KAiHi1dGZ4QGRUZ",
+        "name": "Commander William Riker - Tactical Execution & Workflow Management",
+        "createdAt": "2025-08-26T09:06:33.031Z",
+        "updatedAt": "2025-08-26T13:30:44.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "36 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 6,
+        "connection_count": 5
+      },
+      "duplicates": [
+        {
+          "id": "4xHgewymk21FraDJ",
+          "name": "Commander William Riker - Tactical Execution & Workflow Management",
+          "createdAt": "2025-08-26T09:06:16.167Z",
+          "updatedAt": "2025-08-26T13:25:34.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "41 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 6,
+          "connection_count": 5
+        },
+        {
+          "id": "PqrQt5bngS1acXng",
+          "name": "Commander William Riker - Tactical Execution & Workflow Management",
+          "createdAt": "2025-08-26T06:49:54.704Z",
+          "updatedAt": "2025-08-26T13:30:45.000Z",
+          "formatted_created": "7 hour(s) ago",
+          "formatted_updated": "36 minute(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 4,
+          "connection_count": 3
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 36 minute(s) ago with memory=True, LLM=True"
+    },
+    "Dr. Beverly Crusher": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "zQ9gX0CCdWXFKNev",
+        "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+        "createdAt": "2025-08-26T09:06:17.999Z",
+        "updatedAt": "2025-08-26T13:30:49.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "36 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 6,
+        "connection_count": 5
+      },
+      "duplicates": [
+        {
+          "id": "7D4EEFAWo9jIhFnV",
+          "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "createdAt": "2025-08-26T09:06:34.824Z",
+          "updatedAt": "2025-08-26T13:30:47.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "36 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 6,
+          "connection_count": 5
+        },
+        {
+          "id": "rS6mdFQlxT5GwXdY",
+          "name": "Dr. Beverly Crusher - Health & Diagnostics Officer",
+          "createdAt": "2025-08-26T06:50:00.122Z",
+          "updatedAt": "2025-08-26T06:56:55.000Z",
+          "formatted_created": "7 hour(s) ago",
+          "formatted_updated": "7 hour(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 4,
+          "connection_count": 3
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 36 minute(s) ago with memory=True, LLM=True"
+    },
+    "Lieutenant Worf": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "PdedVribejWKwNts",
+        "name": "Lieutenant Worf - Security & Compliance Operations",
+        "createdAt": "2025-08-26T09:06:17.248Z",
+        "updatedAt": "2025-08-26T13:20:11.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "47 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6
+      },
+      "duplicates": [
+        {
+          "id": "CSGrhztb5AWln7DN",
+          "name": "Lieutenant Worf - Security & Compliance Operations",
+          "createdAt": "2025-08-26T09:06:34.139Z",
+          "updatedAt": "2025-08-26T12:27:29.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "1 hour(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 6
+        },
+        {
+          "id": "7k9XLyUbfijvYJo4",
+          "name": "Lieutenant Worf - Security & Compliance Operations",
+          "createdAt": "2025-08-25T05:17:40.022Z",
+          "updatedAt": "2025-08-25T05:37:44.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "1 day(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 47 minute(s) ago with memory=True, LLM=True"
+    },
+    "Lieutenant Uhura": {
+      "status": "single",
+      "workflow": {
+        "id": "BJVrV6RlrMrsq3ch",
+        "name": "Lieutenant Uhura - Communications & I/O Operations Officer",
+        "createdAt": "2025-08-26T06:50:05.492Z",
+        "updatedAt": "2025-08-26T06:56:53.000Z",
+        "formatted_created": "7 hour(s) ago",
+        "formatted_updated": "7 hour(s) ago",
+        "has_memory": false,
+        "has_llm": true,
+        "node_count": 4,
+        "connection_count": 3
+      },
+      "action": "keep",
+      "reason": "Only workflow for this crew member"
+    },
+    "Captain Jean-Luc Picard": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "lJ8dRxtVZcxgC6ck",
+        "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+        "createdAt": "2025-08-26T09:06:34.332Z",
+        "updatedAt": "2025-08-26T13:30:37.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "36 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6
+      },
+      "duplicates": [
+        {
+          "id": "C2GfdkxsmCj8JkHK",
+          "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "createdAt": "2025-08-26T09:06:17.541Z",
+          "updatedAt": "2025-08-26T13:10:48.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "56 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 6
+        },
+        {
+          "id": "WUtfB4g4k00uFOaH",
+          "name": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+          "createdAt": "2025-08-25T05:17:31.494Z",
+          "updatedAt": "2025-08-26T13:30:39.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "36 minute(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 36 minute(s) ago with memory=True, LLM=True"
+    },
+    "Commander Data": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "oNw3SN59YnGk2cW3",
+        "name": "Commander Data - Analytics & Logic Operations",
+        "createdAt": "2025-08-26T09:06:16.816Z",
+        "updatedAt": "2025-08-26T13:30:33.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "36 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6
+      },
+      "duplicates": [
+        {
+          "id": "LIdu6eRVCRyBG1WA",
+          "name": "Commander Data - Analytics & Logic Operations",
+          "createdAt": "2025-08-26T09:06:33.740Z",
+          "updatedAt": "2025-08-26T13:14:08.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "53 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 6
+        },
+        {
+          "id": "HbljVTtTwYU5gPS6",
+          "name": "Commander Data - Analytics & Logic Operations",
+          "createdAt": "2025-08-25T05:17:33.621Z",
+          "updatedAt": "2025-08-26T13:30:35.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "36 minute(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 36 minute(s) ago with memory=True, LLM=True"
+    },
+    "Counselor Deanna Troi": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "Q5nHuN0CAR9dJLE5",
+        "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+        "createdAt": "2025-08-26T09:06:32.828Z",
+        "updatedAt": "2025-08-26T13:13:11.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "54 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 7,
+        "connection_count": 6
+      },
+      "duplicates": [
+        {
+          "id": "xHaps3vKbMMCg2Rb",
+          "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "createdAt": "2025-08-26T09:06:15.890Z",
+          "updatedAt": "2025-08-26T13:09:10.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "58 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 7,
+          "connection_count": 6
+        },
+        {
+          "id": "s9rJLcPYDSxGtyEQ",
+          "name": "Counselor Deanna Troi - User Experience & Empathy Analysis",
+          "createdAt": "2025-08-25T05:17:37.904Z",
+          "updatedAt": "2025-08-25T05:37:45.000Z",
+          "formatted_created": "1 day(s) ago",
+          "formatted_updated": "1 day(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 5,
+          "connection_count": 4
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 54 minute(s) ago with memory=True, LLM=True"
+    },
+    "Quark": {
+      "status": "duplicate",
+      "best_workflow": {
+        "id": "ly2f6PmCojumkQxu",
+        "name": "Quark - Business Intelligence & Budget Optimization",
+        "createdAt": "2025-08-26T09:06:15.474Z",
+        "updatedAt": "2025-08-26T13:31:03.000Z",
+        "formatted_created": "5 hour(s) ago",
+        "formatted_updated": "36 minute(s) ago",
+        "has_memory": true,
+        "has_llm": true,
+        "node_count": 6,
+        "connection_count": 5
+      },
+      "duplicates": [
+        {
+          "id": "aFNOULWT261Qkccg",
+          "name": "Quark - Business Intelligence & Budget Optimization",
+          "createdAt": "2025-08-26T09:06:32.407Z",
+          "updatedAt": "2025-08-26T13:31:02.000Z",
+          "formatted_created": "5 hour(s) ago",
+          "formatted_updated": "36 minute(s) ago",
+          "has_memory": true,
+          "has_llm": true,
+          "node_count": 6,
+          "connection_count": 5
+        },
+        {
+          "id": "wbXsKc4UryCJv66e",
+          "name": "Quark - Business Intelligence & Budget Optimization",
+          "createdAt": "2025-08-26T06:50:10.809Z",
+          "updatedAt": "2025-08-26T06:56:52.000Z",
+          "formatted_created": "7 hour(s) ago",
+          "formatted_updated": "7 hour(s) ago",
+          "has_memory": false,
+          "has_llm": true,
+          "node_count": 4,
+          "connection_count": 3
+        }
+      ],
+      "action": "keep_best_deactivate_2",
+      "reason": "Best workflow: 36 minute(s) ago with memory=True, LLM=True"
+    }
+  },
+  "total_duplicates": 16,
+  "crew_members": 9,
+  "timestamp": "2025-08-26T09:07:18.257139"
+}

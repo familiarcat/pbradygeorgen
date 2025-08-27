@@ -1,0 +1,80 @@
+{
+  "total_crew_members": 9,
+  "successful_unifications": 8,
+  "failed_unifications": 0,
+  "crew_results": [
+    {
+      "crew_id": "riker",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202821",
+      "error_message": ""
+    },
+    {
+      "crew_id": "data",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202824",
+      "error_message": ""
+    },
+    {
+      "crew_id": "geordi",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202828",
+      "error_message": ""
+    },
+    {
+      "crew_id": "crusher",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202831",
+      "error_message": ""
+    },
+    {
+      "crew_id": "worf",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202834",
+      "error_message": ""
+    },
+    {
+      "crew_id": "troi",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202837",
+      "error_message": ""
+    },
+    {
+      "crew_id": "uhura",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202841",
+      "error_message": ""
+    },
+    {
+      "crew_id": "quark",
+      "status": "success",
+      "backup_created": true,
+      "update_successful": true,
+      "validation_passed": true,
+      "backup_directory": "safe_unification_backup_20250826_202844",
+      "error_message": ""
+    }
+  ],
+  "unification_timestamp": "2025-08-26T20:28:21.600945"
+}

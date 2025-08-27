@@ -1,0 +1,234 @@
+{
+  "comparison_timestamp": "2025-08-26T20:23:28.480222",
+  "picard_workflow": {
+    "name": "Captain Jean-Luc Picard",
+    "node_analysis": {
+      "total_nodes": 7,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 5,
+        "n8n-nodes-base.respondToWebhook": 1
+      },
+      "webhook_nodes": [
+        {
+          "name": "Captain Jean-Luc Picard Directive",
+          "type": "n8n-nodes-base.webhook",
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "crew-captain-jean-luc-picard",
+            "responseMode": "responseNode",
+            "options": {}
+          }
+        },
+        {
+          "name": "Captain Jean-Luc Picard Response",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "parameters": {
+            "options": {}
+          }
+        }
+      ],
+      "memory_nodes": [
+        {
+          "name": "Captain Jean-Luc Picard Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+            "options": {}
+          }
+        },
+        {
+          "name": "Captain Jean-Luc Picard Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+            "options": {}
+          }
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions",
+            "options": {}
+          }
+        },
+        {
+          "name": "Captain Jean-Luc Picard AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions",
+            "options": {}
+          }
+        },
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions",
+            "options": {}
+          }
+        }
+      ],
+      "response_nodes": [],
+      "other_nodes": [],
+      "flow_pattern": "custom"
+    },
+    "connection_analysis": {
+      "total_connections": 0,
+      "connection_details": []
+    },
+    "workflow_id": "C2GfdkxsmCj8JkHK",
+    "active": true,
+    "created_at": "2025-08-26T09:06:17.541Z",
+    "updated_at": "2025-08-27T01:10:29.136Z"
+  },
+  "riker_workflow": {
+    "name": "Commander William Riker",
+    "node_analysis": {
+      "total_nodes": 6,
+      "node_types": {
+        "n8n-nodes-base.webhook": 1,
+        "n8n-nodes-base.httpRequest": 4,
+        "n8n-nodes-base.set": 1
+      },
+      "webhook_nodes": [
+        {
+          "name": "Commander William Riker Directive",
+          "type": "n8n-nodes-base.webhook",
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "crew-commander-william-riker",
+            "responseMode": "responseNode",
+            "options": {}
+          }
+        }
+      ],
+      "memory_nodes": [
+        {
+          "name": "Commander William Riker Memory Retrieval",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+            "options": {}
+          }
+        },
+        {
+          "name": "Commander William Riker Memory Storage",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+            "options": {}
+          }
+        }
+      ],
+      "llm_nodes": [
+        {
+          "name": "LLM Selection Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions",
+            "options": {}
+          }
+        },
+        {
+          "name": "Commander William Riker AI Agent",
+          "type": "n8n-nodes-base.httpRequest",
+          "parameters": {
+            "authentication": "genericCredentialType",
+            "url": "https://api.openrouter.ai/api/v1/chat/completions",
+            "options": {}
+          }
+        }
+      ],
+      "response_nodes": [],
+      "other_nodes": [
+        {
+          "name": "Observation Lounge Communication",
+          "type": "n8n-nodes-base.set",
+          "parameters": {
+            "values": {
+              "string": [
+                {
+                  "name": "crew_member",
+                  "value": "Commander William Riker"
+                },
+                {
+                  "name": "role",
+                  "value": "Tactical Execution & Workflow Management"
+                },
+                {
+                  "name": "response",
+                  "value": "={{ $json.body.response }}"
+                },
+                {
+                  "name": "timestamp",
+                  "value": "={{ new Date().toISOString() }}"
+                }
+              ]
+            },
+            "options": {}
+          }
+        }
+      ],
+      "flow_pattern": "custom"
+    },
+    "connection_analysis": {
+      "total_connections": 0,
+      "connection_details": []
+    },
+    "workflow_id": "4xHgewymk21FraDJ",
+    "active": true,
+    "created_at": "2025-08-26T09:06:16.167Z",
+    "updated_at": "2025-08-27T01:11:18.307Z"
+  },
+  "comparison_analysis": {
+    "structural_differences": {},
+    "node_count_comparison": {
+      "picard": 7,
+      "riker": 6,
+      "difference": 1
+    },
+    "flow_pattern_comparison": {
+      "picard": "custom",
+      "riker": "custom",
+      "patterns_match": true
+    },
+    "memory_integration_comparison": {
+      "picard": 2,
+      "riker": 2,
+      "picard_has_more": false,
+      "riker_has_more": false
+    },
+    "llm_integration_comparison": {
+      "picard": 3,
+      "riker": 2,
+      "picard_has_more": true,
+      "riker_has_more": false
+    },
+    "webhook_configuration_comparison": {
+      "picard": 2,
+      "riker": 1,
+      "both_have_webhooks": true
+    },
+    "recommendations": [
+      "Picard's workflow has more comprehensive LLM integration",
+      "Riker's workflow may be missing LLM processing nodes"
+    ]
+  },
+  "summary": {
+    "picard_optimal": false,
+    "riker_needs_update": false,
+    "structural_differences": true
+  }
+}
