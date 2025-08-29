@@ -45,6 +45,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
     { href: '/', label: 'Home' },
     { href: '/business-plan-designer', label: '💼 AI Business Plan Designer', hideOnHome: false }, // Revolutionary business empire creator
     { href: '/test-n8n', label: '🧪 N8N Testing Console', hideOnHome: false }, // Comprehensive n8n workflow testing
+    { href: '/theme-demo', label: '🎨 Theme Demo', hideOnHome: false }, // Revolutionary business empire creator
     { href: '/pdf-styles', label: 'PDF Styles', hideOnHome: true },
     { href: '/upload', label: 'Upload PDF', hideOnHome: true },
     { href: '/view', label: 'View Resume', hideOnHome: true },

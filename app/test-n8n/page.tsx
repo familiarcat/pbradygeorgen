@@ -1,15 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useTheme } from '@/theme/ThemeProvider';
+import { Card, Text, Flex, Grid } from '@/theme/ComponentLibrary';
 import { TestCrewMember } from '@/components/TestCrewMember';
 import { TestMissionScenario } from '@/components/TestMissionScenario';
 import { TestObservationLounge } from '@/components/TestObservationLounge';
 import { TestResults } from '@/components/TestResults';
 
+interface TestResult {
+    type: string;
+    crewMember?: string;
+    status: string;
+    response?: any;
+    error?: string;
+    timestamp: string;
+    note?: string;
+    testMetrics?: any;
+}
+
 export default function TestN8NPage() {
-    const [activeTests, setActiveTests] = useState<string[]>([]);
-    const [testResults, setTestResults] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const theme = useTheme();
+    const [testResults, setTestResults] = useState<TestResult[]>([]);
+    const [activeCrewMembers, setActiveCrewMembers] = useState<string[]>([]);
 
     const crewMembers = [
         {
@@ -17,7 +30,7 @@ export default function TestN8NPage() {
             name: 'Captain Jean-Luc Picard',
             abbreviation: 'CJP',
             role: 'Strategic Leadership & Mission Command',
-            description: 'High-level strategy, cost-benefit analysis, mission optimization',
+            description: 'Commander of the Enterprise, expert in diplomacy and strategic planning',
             webhookPath: 'crew-captain-jean-luc-picard'
         },
         {
@@ -25,7 +38,7 @@ export default function TestN8NPage() {
             name: 'Commander William Riker',
             abbreviation: 'CWR',
             role: 'Tactical Execution & Workflow Management',
-            description: 'Operational efficiency, workflow optimization, tactical decisions',
+            description: 'First Officer, tactical specialist and mission execution expert',
             webhookPath: 'crew-commander-william-riker'
         },
         {
@@ -33,23 +46,15 @@ export default function TestN8NPage() {
             name: 'Commander Data',
             abbreviation: 'CD',
             role: 'Analytics & Logic Operations',
-            description: 'Data analysis, logical validation, performance metrics',
+            description: 'Android officer with exceptional analytical and computational abilities',
             webhookPath: 'crew-commander-data'
-        },
-        {
-            id: 'geordi',
-            name: 'Lieutenant Commander Geordi La Forge',
-            abbreviation: 'GCLF',
-            role: 'Infrastructure & System Integration',
-            description: 'Technical architecture, system optimization, integration',
-            webhookPath: 'crew-lieutenant-commander-geordi-la-forge'
         },
         {
             id: 'crusher',
             name: 'Dr. Beverly Crusher',
             abbreviation: 'DBC',
             role: 'Health & Diagnostics Officer',
-            description: 'System health monitoring, performance diagnostics',
+            description: 'Chief Medical Officer, expert in medical analysis and health systems',
             webhookPath: 'crew-dr-beverly-crusher'
         },
         {
@@ -57,7 +62,7 @@ export default function TestN8NPage() {
             name: 'Lieutenant Worf',
             abbreviation: 'LW',
             role: 'Security & Compliance Operations',
-            description: 'Security protocols, compliance monitoring, access control',
+            description: 'Security Chief, expert in threat assessment and security protocols',
             webhookPath: 'crew-lieutenant-worf'
         },
         {
@@ -65,360 +70,159 @@ export default function TestN8NPage() {
             name: 'Counselor Deanna Troi',
             abbreviation: 'CDT',
             role: 'User Experience & Empathy Analysis',
-            description: 'Empathy analysis, UX optimization, user satisfaction',
+            description: 'Ship\'s Counselor, expert in emotional intelligence and user needs',
             webhookPath: 'crew-counselor-deanna-troi'
-        },
-        {
-            id: 'uhura',
-            name: 'Lieutenant Uhura',
-            abbreviation: 'LU',
-            role: 'Communications & I/O Operations',
-            description: 'Communication systems, data transfer, API management',
-            webhookPath: 'crew-lieutenant-uhura'
         },
         {
             id: 'quark',
             name: 'Quark',
             abbreviation: 'Q',
             role: 'Business Intelligence & Budget Optimization',
-            description: 'Cost analysis, ROI optimization, business strategy',
+            description: 'Business strategist, expert in market analysis and resource optimization',
             webhookPath: 'crew-quark'
+        },
+        {
+            id: 'laforge',
+            name: 'Lieutenant Commander Geordi La Forge',
+            abbreviation: 'CGL',
+            role: 'Infrastructure & System Integration',
+            description: 'Chief Engineer, expert in technical systems and infrastructure',
+            webhookPath: 'crew-lieutenant-commander-geordi-la-forge'
+        },
+        {
+            id: 'uhura',
+            name: 'Lieutenant Uhura',
+            abbreviation: 'LU',
+            role: 'Communications & I/O Operations',
+            description: 'Communications Officer, expert in data transmission and protocols',
+            webhookPath: 'crew-lieutenant-uhura'
         }
     ];
 
-    const missionScenarios = [
-        { id: 'crisis_response', name: 'Enterprise Crisis Response', description: 'Test full crew coordination during a critical mission scenario', complexity: 'High', crewRequired: 'All 9 members' },
-        { id: 'technical_audit', name: 'Technical System Audit', description: 'Test technical crew members (Data, Geordi, Crusher)', complexity: 'Medium', crewRequired: 'Data, Geordi, Crusher' },
-        { id: 'business_analysis', name: 'Business Strategy Analysis', description: 'Test business and strategic crew members (Picard, Quark, Troi)', complexity: 'Medium', crewRequired: 'Picard, Quark, Troi' },
-        { id: 'security_incident', name: 'Security Incident Response', description: 'Test security and tactical crew members (Worf, Riker, Uhura)', complexity: 'Medium', crewRequired: 'Worf, Riker, Uhura' },
-        { id: 'user_experience', name: 'User Experience Optimization', description: 'Test UX and empathy crew members (Troi, Uhura, Data)', complexity: 'Low', crewRequired: 'Troi, Uhura, Data' }
-    ];
-
-    const handleTestResult = (result: any) => {
-        setTestResults(prev => [...prev, { ...result, timestamp: new Date().toISOString() }]);
+    const handleTestResult = (result: TestResult) => {
+        setTestResults(prev => [result, ...prev]);
     };
 
-    const clearResults = () => {
-        setTestResults([]);
+    const handleCrewToggle = (crewId: string) => {
+        setActiveCrewMembers(prev =>
+            prev.includes(crewId)
+                ? prev.filter(id => id !== crewId)
+                : [...prev, crewId]
+        );
     };
 
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 50%, #CBD5E1 100%)',
-            padding: '24px'
+            background: `linear-gradient(135deg, ${theme.colors.background.primary} 0%, ${theme.colors.background.secondary} 50%, ${theme.colors.background.tertiary} 100%)`,
+            padding: theme.spacing.xl,
         }}>
             <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
                 {/* Hero Header */}
-                <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-                    <div style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '80px',
-                        height: '80px',
-                        background: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-                        borderRadius: '24px',
-                        marginBottom: '24px',
-                        boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)'
-                    }}>
-                        <span style={{ fontSize: '48px' }}>🚀</span>
-                    </div>
-                    <h1 style={{
-                        fontSize: '48px',
-                        fontWeight: 'bold',
-                        background: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        marginBottom: '16px',
-                        margin: '0 0 16px 0'
-                    }}>
-                        N8N Workflow Testing Console
-                    </h1>
-                    <p style={{
-                        fontSize: '20px',
-                        color: '#475569',
-                        maxWidth: '600px',
-                        margin: '0 auto 16px auto',
-                        lineHeight: '1.6'
-                    }}>
-                        Comprehensive testing interface for the AlexAI Crew n8n workflow system
-                    </p>
-                    <div style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        padding: '8px 16px',
-                        backgroundColor: '#D1FAE5',
-                        border: '1px solid #10B981',
-                        borderRadius: '20px',
-                        color: '#065F46',
-                        fontSize: '14px'
-                    }}>
-                        <span style={{
-                            width: '8px',
-                            height: '8px',
-                            backgroundColor: '#10B981',
-                            borderRadius: '50%',
-                            marginRight: '8px'
-                        }}></span>
-                        Connected to: n8n.pbradygeorgen.com
-                    </div>
-                </div>
+                <Card variant="primary" style={{ marginBottom: theme.spacing.xxl, textAlign: 'center' }}>
+                    <Flex direction="column" align="center" gap={theme.spacing.md}>
+                        <div style={{
+                            width: '80px',
+                            height: '80px',
+                            background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)',
+                            borderRadius: theme.borderRadius.full,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginBottom: theme.spacing.md,
+                            boxShadow: theme.shadows.glow,
+                        }}>
+                            <span style={{ fontSize: '48px' }}>🚀</span>
+                        </div>
+
+                        <Text variant="h1" color="primary">
+                            N8N Workflow Testing Console
+                        </Text>
+
+                        <Text variant="body" color="secondary" style={{ textAlign: 'center', maxWidth: '600px' }}>
+                            Comprehensive testing interface for the AlexAI Crew n8n workflow system
+                        </Text>
+
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: theme.spacing.sm,
+                            padding: `${theme.spacing.sm} ${theme.spacing.md}`,
+                            background: 'rgba(59, 130, 246, 0.1)',
+                            borderRadius: theme.borderRadius.lg,
+                            border: `1px solid ${theme.colors.border.primary}`,
+                        }}>
+                            <div style={{
+                                width: '8px',
+                                height: '8px',
+                                background: '#10B981',
+                                borderRadius: theme.borderRadius.full,
+                                animation: 'pulse 2s infinite'
+                            }}></div>
+                            <Text variant="caption" color="primary">
+                                Connected to: n8n.pbradygeorgen.com
+                            </Text>
+                        </div>
+                    </Flex>
+                </Card>
 
                 {/* Bento Grid Layout */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(12, 1fr)',
-                    gap: '24px',
-                    marginBottom: '32px'
-                }}>
+                <Grid columns={12} gap={theme.spacing.xl} style={{ marginBottom: theme.spacing.xl }}>
                     {/* Individual Crew Member Testing - Large Card */}
-                    <div style={{ gridColumn: 'span 12', lg: { gridColumn: 'span 8' } }}>
-                        <div style={{
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            backdropFilter: 'blur(8px)',
-                            borderRadius: '24px',
-                            border: '1px solid rgba(59, 130, 246, 0.2)',
-                            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                            padding: '32px',
-                            height: '100%',
-                            transition: 'all 0.3s ease'
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
-                                <div style={{
-                                    width: '48px',
-                                    height: '48px',
-                                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                                    borderRadius: '16px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginRight: '16px'
-                                }}>
-                                    <span style={{ fontSize: '24px' }}>🧪</span>
+                    <div style={{ gridColumn: 'span 12' }}>
+                        <Card variant="primary">
+                            <Flex direction="column" gap={theme.spacing.lg}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <Text variant="h2" color="primary">
+                                        🧑‍🚀 Individual Crew Member Testing
+                                    </Text>
+                                    <Text variant="body" color="secondary">
+                                        Test individual crew members with custom tasks and quick tests
+                                    </Text>
                                 </div>
-                                <div>
-                                    <h2 style={{
-                                        fontSize: '32px',
-                                        fontWeight: 'bold',
-                                        color: '#1F2937',
-                                        margin: '0 0 8px 0'
-                                    }}>
-                                        Individual Crew Member Testing
-                                    </h2>
-                                    <p style={{
-                                        color: '#6B7280',
-                                        fontSize: '16px',
-                                        margin: 0
-                                    }}>
-                                        Test each crew member's workflow individually
-                                    </p>
-                                </div>
-                            </div>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                                gap: '16px'
-                            }}>
-                                {crewMembers.map((member, index) => (
-                                    <div key={member.id} style={{ animationDelay: `${index * 0.1}s` }}>
+
+                                <Grid columns={3} gap={theme.spacing.lg}>
+                                    {crewMembers.map((member) => (
                                         <TestCrewMember
+                                            key={member.id}
                                             member={member}
                                             onTestResult={handleTestResult}
-                                            isActive={activeTests.includes(member.id)}
-                                            onToggleActive={(id) => {
-                                                setActiveTests(prev =>
-                                                    prev.includes(id)
-                                                        ? prev.filter(t => t !== id)
-                                                        : [...prev, id]
-                                                );
-                                            }}
+                                            isActive={activeCrewMembers.includes(member.id)}
+                                            onToggleActive={handleCrewToggle}
                                         />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                                    ))}
+                                </Grid>
+                            </Flex>
+                        </Card>
                     </div>
 
                     {/* Mission Scenario Testing - Medium Card */}
-                    <div style={{ gridColumn: 'span 12', lg: { gridColumn: 'span 4' } }}>
-                        <div style={{
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            backdropFilter: 'blur(8px)',
-                            borderRadius: '24px',
-                            border: '1px solid rgba(59, 130, 246, 0.2)',
-                            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                            padding: '24px',
-                            height: '100%',
-                            transition: 'all 0.3s ease'
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
-                                <div style={{
-                                    width: '40px',
-                                    height: '40px',
-                                    background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-                                    borderRadius: '12px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginRight: '12px'
-                                }}>
-                                    <span style={{ fontSize: '20px' }}>🎯</span>
-                                </div>
-                                <div>
-                                    <h2 style={{
-                                        fontSize: '24px',
-                                        fontWeight: 'bold',
-                                        color: '#1F2937',
-                                        margin: '0 0 8px 0'
-                                    }}>
-                                        Mission Scenarios
-                                    </h2>
-                                    <p style={{
-                                        color: '#6B7280',
-                                        fontSize: '16px',
-                                        margin: 0
-                                    }}>
-                                        Test coordinated mission workflows
-                                    </p>
-                                </div>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                {missionScenarios.map((scenario, index) => (
-                                    <div key={scenario.id} style={{ animationDelay: `${index * 0.2}s` }}>
-                                        <TestMissionScenario
-                                            scenario={scenario}
-                                            onTestResult={handleTestResult}
-                                            crewMembers={crewMembers}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                    <div style={{ gridColumn: 'span 12' }}>
+                        <TestMissionScenario
+                            crewMembers={crewMembers.filter(m => activeCrewMembers.includes(m.id))}
+                            onTestResult={handleTestResult}
+                        />
                     </div>
-                </div>
 
-                {/* Observation Lounge Testing - Full Width */}
-                <div style={{ marginBottom: '32px' }}>
-                    <div style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '24px',
-                        border: '1px solid rgba(59, 130, 246, 0.2)',
-                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                        padding: '32px',
-                        transition: 'all 0.3s ease'
-                    }}>
-                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '24px' }}>
-                            <div style={{
-                                width: '56px',
-                                height: '56px',
-                                background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
-                                borderRadius: '16px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginRight: '16px'
-                            }}>
-                                <span style={{ fontSize: '32px' }}>🏛️</span>
-                            </div>
-                            <div>
-                                <h2 style={{
-                                    fontSize: '32px',
-                                    fontWeight: 'bold',
-                                    color: '#1F2937',
-                                    margin: '0 0 8px 0'
-                                }}>
-                                    Observation Lounge Integration Testing
-                                </h2>
-                                <p style={{
-                                    color: '#6B7280',
-                                    fontSize: '16px',
-                                    margin: 0
-                                }}>
-                                    Test full crew coordination and workflow integration
-                                </p>
-                            </div>
-                        </div>
+                    {/* Observation Lounge Integration Testing - Large Card */}
+                    <div style={{ gridColumn: 'span 12' }}>
                         <TestObservationLounge
                             crewMembers={crewMembers}
                             onTestResult={handleTestResult}
                         />
                     </div>
-                </div>
+                </Grid>
 
-                {/* Test Results - Full Width */}
-                <div>
-                    <div style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '24px',
-                        border: '1px solid rgba(59, 130, 246, 0.2)',
-                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                        padding: '32px',
-                        transition: 'all 0.3s ease'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div style={{
-                                    width: '48px',
-                                    height: '48px',
-                                    background: 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)',
-                                    borderRadius: '16px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginRight: '16px'
-                                }}>
-                                    <span style={{ fontSize: '24px' }}>📊</span>
-                                </div>
-                                <div>
-                                    <h2 style={{
-                                        fontSize: '32px',
-                                        fontWeight: 'bold',
-                                        color: '#1F2937',
-                                        margin: '0 0 8px 0'
-                                    }}>
-                                        Test Results & Analytics
-                                    </h2>
-                                    <p style={{
-                                        color: '#6B7280',
-                                        fontSize: '16px',
-                                        margin: 0
-                                    }}>
-                                        Monitor and analyze test performance
-                                    </p>
-                                </div>
-                            </div>
-                            <button
-                                onClick={clearResults}
-                                style={{
-                                    padding: '12px 24px',
-                                    background: 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)',
-                                    color: 'white',
-                                    fontWeight: '600',
-                                    borderRadius: '12px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(239, 68, 68, 0.3)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                                }}
-                            >
-                                Clear Results
-                            </button>
-                        </div>
-                        <TestResults results={testResults} />
-                    </div>
-                </div>
+                {/* Test Results */}
+                <TestResults results={testResults} />
             </div>
+
+            <style jsx>{`
+                @keyframes pulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.5; }
+                }
+            `}</style>
         </div>
     );
 }

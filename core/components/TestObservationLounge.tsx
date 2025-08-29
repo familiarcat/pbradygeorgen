@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTheme } from '@/theme/ThemeProvider';
+import { Card, Button, Input, Text, Flex, Grid, Badge, Icon } from '@/theme/ComponentLibrary';
 
 interface CrewMember {
     id: string;
@@ -16,40 +18,45 @@ interface TestObservationLoungeProps {
 }
 
 export function TestObservationLounge({ crewMembers, onTestResult }: TestObservationLoungeProps) {
-    const [isLoading, setIsLoading] = useState(false);
-    const [missionDirective, setMissionDirective] = useState('');
+    const theme = useTheme();
     const [selectedCrew, setSelectedCrew] = useState<string[]>([]);
-    const [lastResponse, setLastResponse] = useState<any>(null);
     const [testMode, setTestMode] = useState<'full_crew' | 'core_crew' | 'specialist_team'>('full_crew');
+    const [missionDirective, setMissionDirective] = useState('');
+    const [quickDirectives, setQuickDirectives] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [lastResponse, setLastResponse] = useState<any>(null);
 
-    const defaultDirectives = [
-        "The Enterprise has detected a spatial anomaly that requires immediate investigation. Coordinate all crew members to assess the situation, develop a comprehensive response strategy, and execute coordinated actions to resolve the threat.",
-        "A diplomatic crisis has emerged with a new alien species. We need strategic analysis, security assessment, and communication protocols to establish peaceful relations while protecting Federation interests.",
-        "Critical system failures have been detected across multiple ship systems. Implement emergency protocols, coordinate repair efforts, and ensure mission continuity while maintaining crew safety.",
-        "We've received intelligence about a potential security threat in the sector. Conduct comprehensive threat assessment, implement security measures, and develop contingency plans for various scenarios.",
-        "The ship's performance metrics indicate suboptimal efficiency. Conduct a full system audit, identify optimization opportunities, and implement improvements to restore peak operational status."
-    ];
-
-    const testModes = {
-        full_crew: {
-            name: 'Full Crew Coordination',
+    const testModes = [
+        {
+            mode: 'full_crew',
+            title: 'Full Crew Coordination',
             description: 'All 9 crew members working together on complex missions',
-            crewCount: 9,
+            crew: 9,
             complexity: 'High'
         },
-        core_crew: {
-            name: 'Core Crew Operations',
+        {
+            mode: 'core_crew',
+            title: 'Core Crew Operations',
             description: 'Picard + Riker + 2 specialists for standard missions',
-            crewCount: 4,
+            crew: 4,
             complexity: 'Medium'
         },
-        specialist_team: {
-            name: 'Specialist Team Focus',
+        {
+            mode: 'specialist_team',
+            title: 'Specialist Team Focus',
             description: '2-3 specialists for focused technical or business tasks',
-            crewCount: 3,
+            crew: 3,
             complexity: 'Low'
         }
-    };
+    ];
+
+    const quickDirectiveOptions = [
+        'Strategic business analysis and market positioning',
+        'Technical infrastructure audit and optimization',
+        'User experience research and empathy mapping',
+        'Security protocol review and threat assessment',
+        'Communication system optimization and data flow analysis'
+    ];
 
     const handleCrewSelection = (crewId: string) => {
         setSelectedCrew(prev =>
@@ -59,67 +66,67 @@ export function TestObservationLounge({ crewMembers, onTestResult }: TestObserva
         );
     };
 
-    const handleQuickDirective = (directive: string) => {
-        setMissionDirective(directive);
-        setTimeout(() => handleTest(), 100);
-    };
-
     const handleTestModeChange = (mode: 'full_crew' | 'core_crew' | 'specialist_team') => {
         setTestMode(mode);
         // Auto-select crew based on mode
         if (mode === 'full_crew') {
             setSelectedCrew(crewMembers.map(m => m.id));
         } else if (mode === 'core_crew') {
-            setSelectedCrew(['picard', 'riker', 'data', 'geordi']);
-        } else if (mode === 'specialist_team') {
-            setSelectedCrew(['data', 'geordi', 'troi']);
+            setSelectedCrew(['picard', 'riker', 'data', 'crusher']);
+        } else {
+            setSelectedCrew(['data', 'laforge', 'uhura']);
         }
     };
 
+    const addQuickDirective = (directive: string) => {
+        if (!quickDirectives.includes(directive)) {
+            setQuickDirectives(prev => [...prev, directive]);
+        }
+    };
+
+    const removeQuickDirective = (directive: string) => {
+        setQuickDirectives(prev => prev.filter(d => d !== directive));
+    };
+
     const handleTest = async () => {
-        if (!missionDirective.trim() || selectedCrew.length === 0) return;
+        if (selectedCrew.length === 0) return;
 
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/test-n8n/observation-lounge`, {
+            const response = await fetch('/api/test-n8n/observation-lounge', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    missionDirective,
-                    selectedCrew,
                     testMode,
-                    complexity: testModes[testMode].complexity,
-                    testType: 'observation_lounge'
+                    selectedCrew,
+                    missionDirective: missionDirective || 'Comprehensive crew coordination test',
+                    quickDirectives,
+                    complexity: testMode === 'full_crew' ? 'High' : testMode === 'core_crew' ? 'Medium' : 'Low'
                 }),
             });
 
             const result = await response.json();
-
-            if (response.ok) {
-                setLastResponse(result);
-                onTestResult({
-                    type: 'observation_lounge_test',
-                    testMode: testModes[testMode].name,
-                    status: 'success',
-                    crewInvolved: selectedCrew.length,
-                    response: result,
-                    timestamp: new Date().toISOString()
-                });
-            } else {
-                throw new Error(result.error || 'Observation Lounge test failed');
-            }
-        } catch (error) {
-            const errorResult = {
+            setLastResponse(result);
+            onTestResult({
                 type: 'observation_lounge_test',
-                testMode: testModes[testMode].name,
-                status: 'error',
+                testMode,
+                crewCount: selectedCrew.length,
+                success: response.ok,
+                response: result,
+                timestamp: new Date().toISOString(),
+            });
+        } catch (error) {
+            console.error('Test failed:', error);
+            onTestResult({
+                type: 'observation_lounge_test',
+                testMode,
+                crewCount: selectedCrew.length,
+                success: false,
                 error: error instanceof Error ? error.message : 'Unknown error',
-                timestamp: new Date().toISOString()
-            };
-            setLastResponse(errorResult);
-            onTestResult(errorResult);
+                timestamp: new Date().toISOString(),
+            });
         } finally {
             setIsLoading(false);
         }
@@ -127,123 +134,263 @@ export function TestObservationLounge({ crewMembers, onTestResult }: TestObserva
 
     const getTestModeColor = (mode: string) => {
         switch (mode) {
-            case 'full_crew': return 'text-red-400';
-            case 'core_crew': return 'text-yellow-400';
-            case 'specialist_team': return 'text-green-400';
-            default: return 'text-gray-400';
+            case 'full_crew': return theme.colors.error;
+            case 'core_crew': return theme.colors.warning;
+            case 'specialist_team': return theme.colors.success;
+            default: return theme.colors.text.tertiary;
         }
     };
 
     return (
-        <div className="space-y-6">
-            {/* Test Mode Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Object.entries(testModes).map(([mode, config]) => (
-                    <div
-                        key={mode}
-                        className={`border rounded-lg p-4 cursor-pointer transition-all ${testMode === mode
-                                ? 'border-purple-500 bg-purple-900/20'
-                                : 'border-gray-600 bg-gray-700/50 hover:border-gray-500'
-                            }`}
-                        onClick={() => handleTestModeChange(mode as any)}
-                    >
-                        <h4 className={`font-semibold ${getTestModeColor(mode)}`}>
-                            {config.name}
-                        </h4>
-                        <p className="text-sm text-gray-300">{config.description}</p>
-                        <div className="flex justify-between items-center mt-2 text-sm">
-                            <span className="text-blue-400">Crew: {config.crewCount}</span>
-                            <span className={`${getTestModeColor(mode)}`}>
-                                {config.complexity} Complexity
-                            </span>
-                        </div>
-                    </div>
-                ))}
-            </div>
+        <Card variant="secondary">
+            <Flex direction="column" gap={theme.spacing.lg}>
+                {/* Header */}
+                <div style={{ textAlign: 'center' }}>
+                    <Text variant="h2" color="primary">
+                        🏛️ Observation Lounge Integration Testing
+                    </Text>
+                    <Text variant="body" color="secondary">
+                        Test full crew coordination and workflow integration
+                    </Text>
+                </div>
 
-            {/* Mission Directive */}
-            <div>
-                <label className="block text-sm text-gray-300 mb-2">Mission Directive:</label>
-                <textarea
-                    value={missionDirective}
-                    onChange={(e) => setMissionDirective(e.target.value)}
-                    placeholder="Enter the mission directive for the Observation Lounge..."
-                    className="w-full p-3 bg-gray-600 border border-gray-500 rounded text-white text-sm"
-                    rows={4}
-                />
-            </div>
-
-            {/* Crew Selection */}
-            <div>
-                <label className="block text-sm text-gray-300 mb-2">
-                    Selected Crew Members ({selectedCrew.length}/{crewMembers.length}):
-                </label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {crewMembers.map((member) => (
-                        <label key={member.id} className="flex items-center space-x-2 cursor-pointer p-2 rounded hover:bg-gray-600">
-                            <input
-                                type="checkbox"
-                                checked={selectedCrew.includes(member.id)}
-                                onChange={() => handleCrewSelection(member.id)}
-                                className="rounded border-gray-500 bg-gray-600 text-purple-500 focus:ring-purple-500"
-                            />
-                            <div>
-                                <span className="text-sm text-white font-medium">{member.name}</span>
-                                <p className="text-xs text-gray-400">{member.role}</p>
+                {/* Test Mode Selection */}
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.md }}>
+                        Test Mode:
+                    </Text>
+                    <Grid columns={3} gap={theme.spacing.md}>
+                        {testModes.map((mode) => (
+                            <div
+                                key={mode.mode}
+                                style={{
+                                    cursor: 'pointer',
+                                    border: testMode === mode.mode ? `2px solid ${getTestModeColor(mode.mode)}` : undefined,
+                                    background: testMode === mode.mode ? `${getTestModeColor(mode.mode)}10` : undefined,
+                                }}
+                                onClick={() => handleTestModeChange(mode.mode as any)}
+                            >
+                                <Card variant="primary">
+                                    <Flex direction="column" align="center" gap={theme.spacing.sm}>
+                                        <Text variant="h4" color="primary">
+                                            {mode.title}
+                                        </Text>
+                                        <Text variant="caption" color="secondary" style={{ textAlign: 'center' }}>
+                                            {mode.description}
+                                        </Text>
+                                        <div style={{
+                                            display: 'flex',
+                                            gap: theme.spacing.sm,
+                                            alignItems: 'center'
+                                        }}>
+                                            <Badge variant="primary" size="sm">
+                                                Crew: {mode.crew}
+                                            </Badge>
+                                            <Badge variant="accent" size="sm">
+                                                {mode.complexity} Complexity
+                                            </Badge>
+                                        </div>
+                                    </Flex>
+                                </Card>
                             </div>
-                        </label>
-                    ))}
+                        ))}
+                    </Grid>
                 </div>
-            </div>
 
-            {/* Quick Directives */}
-            <div className="text-xs text-gray-400">
-                <p className="mb-2">Quick Mission Directives:</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {defaultDirectives.map((directive, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleQuickDirective(directive)}
-                            className="p-2 bg-gray-600 hover:bg-gray-700 rounded text-xs transition-colors text-left"
-                        >
-                            <span className="font-medium">Directive {index + 1}:</span> {directive.substring(0, 80)}...
-                        </button>
-                    ))}
+                {/* Mission Directive */}
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.sm }}>
+                        Mission Directive:
+                    </Text>
+                    <Input
+                        value={missionDirective}
+                        onChange={setMissionDirective}
+                        placeholder="Enter the mission directive for the Observation Lounge..."
+                        type="textarea"
+                        rows={3}
+                    />
                 </div>
-            </div>
 
-            {/* Test Controls */}
-            <div className="flex flex-wrap gap-3">
-                <button
-                    onClick={handleTest}
-                    disabled={isLoading || !missionDirective.trim() || selectedCrew.length === 0}
-                    className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg transition-colors font-medium"
-                >
-                    {isLoading ? 'Coordinating Crew...' : 'Execute Observation Lounge Test'}
-                </button>
-
-                <button
-                    onClick={() => {
-                        setMissionDirective('');
-                        setSelectedCrew([]);
-                    }}
-                    className="px-4 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors"
-                >
-                    Clear All
-                </button>
-            </div>
-
-            {/* Test Results */}
-            {lastResponse && (
-                <div className="mt-6 p-4 bg-gray-600 rounded-lg">
-                    <h4 className="text-lg font-semibold text-white mb-3">Observation Lounge Results:</h4>
-                    <div className="text-sm text-gray-300">
-                        <pre className="whitespace-pre-wrap overflow-x-auto bg-gray-700 p-3 rounded">
-                            {JSON.stringify(lastResponse, null, 2)}
-                        </pre>
-                    </div>
+                {/* Quick Directives */}
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.sm }}>
+                        Quick Directives:
+                    </Text>
+                    <Grid columns={2} gap={theme.spacing.sm}>
+                        {quickDirectiveOptions.map((directive) => (
+                            <Button
+                                key={directive}
+                                variant={quickDirectives.includes(directive) ? 'primary' : 'secondary'}
+                                size="sm"
+                                onClick={() => quickDirectives.includes(directive)
+                                    ? removeQuickDirective(directive)
+                                    : addQuickDirective(directive)
+                                }
+                                style={{ width: '100%', textAlign: 'left' }}
+                            >
+                                <Flex align="center" justify="space-between">
+                                    <span style={{ fontSize: theme.typography.fontSize.sm }}>
+                                        {directive}
+                                    </span>
+                                    {quickDirectives.includes(directive) && (
+                                        <Icon icon="✓" size="sm" />
+                                    )}
+                                </Flex>
+                            </Button>
+                        ))}
+                    </Grid>
                 </div>
-            )}
-        </div>
+
+                {/* Crew Member Selection */}
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.md, textAlign: 'center' }}>
+                        Selected Crew Members ({selectedCrew.length}/{crewMembers.length}):
+                    </Text>
+                    <Grid columns={3} gap={theme.spacing.md}>
+                        {crewMembers.map((member) => (
+                            <div
+                                key={member.id}
+                                style={{
+                                    cursor: 'pointer',
+                                    border: selectedCrew.includes(member.id) ? `2px solid ${theme.colors.secondary}` : undefined,
+                                    background: selectedCrew.includes(member.id) ? `${theme.colors.secondary}10` : undefined,
+                                    transform: selectedCrew.includes(member.id) ? 'scale(1.02)' : 'scale(1)',
+                                    transition: theme.transitions.normal,
+                                }}
+                                onClick={() => handleCrewSelection(member.id)}
+                            >
+                                <Card variant="primary">
+                                    <Flex align="center" gap={theme.spacing.sm}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedCrew.includes(member.id)}
+                                            onChange={() => handleCrewSelection(member.id)}
+                                            style={{
+                                                width: '20px',
+                                                height: '20px',
+                                                borderRadius: theme.borderRadius.sm,
+                                                border: `2px solid ${theme.colors.secondary}`,
+                                                background: selectedCrew.includes(member.id) ? theme.colors.secondary : 'white',
+                                                accentColor: theme.colors.secondary,
+                                                cursor: 'pointer'
+                                            }}
+                                        />
+                                        <div style={{ flex: 1 }}>
+                                            <Text variant="body" color="primary" style={{ marginBottom: theme.spacing.xs }}>
+                                                {member.name}
+                                            </Text>
+                                            <Text variant="caption" color="secondary">
+                                                {member.role}
+                                            </Text>
+                                        </div>
+                                        <div style={{
+                                            width: '32px',
+                                            height: '32px',
+                                            borderRadius: theme.borderRadius.md,
+                                            background: selectedCrew.includes(member.id)
+                                                ? `linear-gradient(135deg, ${theme.colors.secondary} 0%, ${theme.colors.secondary}dd 100%)`
+                                                : `linear-gradient(135deg, ${theme.colors.background.tertiary} 0%, ${theme.colors.background.tertiary}dd 100%)`,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            fontSize: theme.typography.fontSize.sm,
+                                            fontWeight: theme.typography.fontWeight.bold,
+                                        }}>
+                                            {member.name.split(' ').map(n => n[0]).join('')}
+                                        </div>
+                                    </Flex>
+                                </Card>
+                            </div>
+                        ))}
+                    </Grid>
+                </div>
+
+                {/* Test Controls */}
+                <div style={{ textAlign: 'center' }}>
+                    <Button
+                        variant="secondary"
+                        size="lg"
+                        onClick={handleTest}
+                        disabled={isLoading || selectedCrew.length === 0}
+                        style={{ minWidth: '200px' }}
+                    >
+                        {isLoading ? (
+                            <Flex align="center" gap={theme.spacing.sm}>
+                                <div style={{
+                                    width: '16px',
+                                    height: '16px',
+                                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                                    borderTop: '2px solid white',
+                                    borderRadius: '50%',
+                                    animation: 'spin 1s linear infinite'
+                                }} />
+                                Testing...
+                            </Flex>
+                        ) : (
+                            <Flex align="center" gap={theme.spacing.sm}>
+                                <Icon icon="🚀" size="md" />
+                                Execute Observation Lounge Test
+                            </Flex>
+                        )}
+                    </Button>
+                </div>
+
+                {/* Test Results */}
+                {lastResponse && (
+                    <Card variant="primary">
+                        <Flex direction="column" gap={theme.spacing.sm}>
+                            <Text variant="h4" color="primary">
+                                Test Results:
+                            </Text>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: theme.spacing.sm,
+                                fontSize: theme.typography.fontSize.sm,
+                            }}>
+                                <div>
+                                    <strong>Status:</strong>
+                                    <Badge
+                                        variant={lastResponse.success ? 'success' : 'error'}
+                                        size="sm"
+                                        style={{ marginLeft: theme.spacing.xs }}
+                                    >
+                                        {lastResponse.success ? 'Success' : 'Failed'}
+                                    </Badge>
+                                </div>
+                                <div>
+                                    <strong>Test Mode:</strong>
+                                    <span style={{ marginLeft: theme.spacing.xs, color: theme.colors.info }}>
+                                        {testMode.replace('_', ' ')}
+                                    </span>
+                                </div>
+                                <div>
+                                    <strong>Crew Count:</strong>
+                                    <span style={{ marginLeft: theme.spacing.xs, color: theme.colors.accent }}>
+                                        {selectedCrew.length}
+                                    </span>
+                                </div>
+                                {lastResponse.response?.testMetrics?.responseTime && (
+                                    <div>
+                                        <strong>Response Time:</strong>
+                                        <span style={{ marginLeft: theme.spacing.xs, color: theme.colors.info }}>
+                                            {lastResponse.response.testMetrics.responseTime}ms
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        </Flex>
+                    </Card>
+                )}
+            </Flex>
+
+            <style jsx>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
+        </Card>
     );
 }

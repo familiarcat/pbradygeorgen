@@ -1,14 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-
-interface MissionScenario {
-    id: string;
-    name: string;
-    description: string;
-    complexity: string;
-    crewRequired: string;
-}
+import { useTheme } from '@/theme/ThemeProvider';
+import { Card, Button, Input, Text, Flex, Grid, Badge } from '@/theme/ComponentLibrary';
 
 interface CrewMember {
     id: string;
@@ -19,34 +13,16 @@ interface CrewMember {
 }
 
 interface TestMissionScenarioProps {
-    scenario: MissionScenario;
-    onTestResult: (result: any) => void;
     crewMembers: CrewMember[];
+    onTestResult: (result: any) => void;
 }
 
-export function TestMissionScenario({ scenario, onTestResult, crewMembers }: TestMissionScenarioProps) {
+export function TestMissionScenario({ crewMembers, onTestResult }: TestMissionScenarioProps) {
+    const theme = useTheme();
     const [selectedCrew, setSelectedCrew] = useState<string[]>([]);
     const [missionDescription, setMissionDescription] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [lastResponse, setLastResponse] = useState<any>(null);
-
-    const getComplexityColor = (complexity: string) => {
-        switch (complexity.toLowerCase()) {
-            case 'high': return 'from-red-500 to-pink-500';
-            case 'medium': return 'from-amber-500 to-orange-500';
-            case 'low': return 'from-green-500 to-emerald-500';
-            default: return 'from-gray-500 to-slate-500';
-        }
-    };
-
-    const getComplexityIcon = (complexity: string) => {
-        switch (complexity.toLowerCase()) {
-            case 'high': return '🚨';
-            case 'medium': return '⚡';
-            case 'low': return '✅';
-            default: return '📋';
-        }
-    };
 
     const handleTest = async () => {
         if (selectedCrew.length === 0) return;
@@ -59,10 +35,10 @@ export function TestMissionScenario({ scenario, onTestResult, crewMembers }: Tes
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    scenarioId: scenario.id,
-                    missionDescription: missionDescription || `Test ${scenario.name} scenario`,
+                    scenarioId: 'custom_mission',
+                    missionDescription: missionDescription || 'Custom mission scenario test',
                     selectedCrew: selectedCrew,
-                    complexity: scenario.complexity,
+                    complexity: selectedCrew.length > 6 ? 'High' : selectedCrew.length > 3 ? 'Medium' : 'Low',
                 }),
             });
 
@@ -70,7 +46,7 @@ export function TestMissionScenario({ scenario, onTestResult, crewMembers }: Tes
             setLastResponse(result);
             onTestResult({
                 type: 'mission_scenario',
-                scenario: scenario.id,
+                scenario: 'custom_mission',
                 success: response.ok,
                 response: result,
                 timestamp: new Date().toISOString(),
@@ -79,9 +55,9 @@ export function TestMissionScenario({ scenario, onTestResult, crewMembers }: Tes
             console.error('Test failed:', error);
             onTestResult({
                 type: 'mission_scenario',
-                scenario: scenario.id,
+                scenario: 'custom_mission',
                 success: false,
-                error: error.message,
+                error: error instanceof Error ? error.message : 'Unknown error',
                 timestamp: new Date().toISOString(),
             });
         } finally {
@@ -98,125 +74,131 @@ export function TestMissionScenario({ scenario, onTestResult, crewMembers }: Tes
     };
 
     return (
-        <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/60 to-white/20 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-50" />
-
-            <div className="relative z-10 p-5">
+        <Card variant="accent">
+            <Flex direction="column" gap={theme.spacing.lg}>
                 {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                        <div className="flex items-center mb-2">
-                            <div className={`w-8 h-8 bg-gradient-to-r ${getComplexityColor(scenario.complexity)} rounded-lg flex items-center justify-center mr-3 shadow-md`}>
-                                <span className="text-white text-sm">{getComplexityIcon(scenario.complexity)}</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-slate-800 dark:text-slate-200 text-base leading-tight">
-                                    {scenario.name}
-                                </h3>
-                                <div className="flex items-center space-x-2">
-                                    <span className={`px-2 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${getComplexityColor(scenario.complexity)} text-white`}>
-                                        {scenario.complexity}
-                                    </span>
-                                    <span className="text-xs text-slate-500 dark:text-slate-400">
-                                        {scenario.crewRequired}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                            {scenario.description}
-                        </p>
-                    </div>
+                <div style={{ textAlign: 'center' }}>
+                    <Text variant="h2" color="primary">
+                        🎯 Mission Scenario Testing
+                    </Text>
+                    <Text variant="body" color="secondary">
+                        Test coordinated mission workflows with selected crew members
+                    </Text>
                 </div>
 
                 {/* Crew Selection */}
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                        Select Crew Members:
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.sm }}>
+                        Select Crew Members ({selectedCrew.length}/{crewMembers.length}):
+                    </Text>
+                    <Grid columns={3} gap={theme.spacing.sm}>
                         {crewMembers.map((crew) => (
-                            <button
+                            <Button
                                 key={crew.id}
+                                variant={selectedCrew.includes(crew.id) ? 'primary' : 'secondary'}
+                                size="sm"
                                 onClick={() => toggleCrewMember(crew.id)}
-                                className={`p-2 text-xs rounded-lg transition-all duration-200 ${selectedCrew.includes(crew.id)
-                                        ? 'bg-gradient-to-r from-primary to-primary/80 text-white shadow-md'
-                                        : 'bg-white/40 text-slate-600 hover:bg-white/60 hover:text-slate-800'
-                                    }`}
+                                style={{ width: '100%' }}
                             >
                                 {crew.name.split(' ')[0]}
-                            </button>
+                            </Button>
                         ))}
-                    </div>
+                    </Grid>
                 </div>
 
                 {/* Mission Description */}
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <div>
+                    <Text variant="h4" color="primary" style={{ marginBottom: theme.spacing.sm }}>
                         Mission Description:
-                    </label>
-                    <textarea
+                    </Text>
+                    <Input
                         value={missionDescription}
-                        onChange={(e) => setMissionDescription(e.target.value)}
-                        placeholder={`Describe the ${scenario.name.toLowerCase()} mission...`}
-                        className="w-full p-3 bg-white/60 border border-white/30 rounded-xl text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 text-sm resize-none"
-                        rows={2}
+                        onChange={setMissionDescription}
+                        placeholder="Describe the mission scenario..."
+                        type="textarea"
+                        rows={3}
                     />
                 </div>
 
                 {/* Test Button */}
-                <button
+                <Button
+                    variant="accent"
+                    size="lg"
                     onClick={handleTest}
                     disabled={isLoading || selectedCrew.length === 0}
-                    className="w-full px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] disabled:scale-100 shadow-lg hover:shadow-xl disabled:shadow-md disabled:cursor-not-allowed"
+                    style={{ width: '100%' }}
                 >
                     {isLoading ? (
-                        <div className="flex items-center justify-center">
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        <Flex align="center" gap={theme.spacing.sm}>
+                            <div style={{
+                                width: '16px',
+                                height: '16px',
+                                border: '2px solid rgba(255, 255, 255, 0.3)',
+                                borderTop: '2px solid white',
+                                borderRadius: '50%',
+                                animation: 'spin 1s linear infinite'
+                            }} />
                             Testing...
-                        </div>
+                        </Flex>
                     ) : (
-                        <div className="flex items-center justify-center">
-                            <span className="mr-2">🎯</span>
+                        <Flex align="center" gap={theme.spacing.sm}>
+                            <span>🎯</span>
                             Test Mission
-                        </div>
+                        </Flex>
                     )}
-                </button>
+                </Button>
 
                 {/* Last Response Display */}
                 {lastResponse && (
-                    <div className="mt-4 p-3 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-xl border border-slate-200/50 dark:border-slate-600/50">
-                        <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-xs">
-                            Last Response:
-                        </h4>
-                        <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
-                            <div className="flex justify-between">
-                                <span>Status:</span>
-                                <span className={`font-medium ${lastResponse.success ? 'text-green-600' : 'text-red-600'}`}>
-                                    {lastResponse.success ? '✅ Success' : '❌ Failed'}
-                                </span>
+                    <Card variant="secondary">
+                        <Flex direction="column" gap={theme.spacing.sm}>
+                            <Text variant="h4" color="primary">
+                                Last Response:
+                            </Text>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: theme.spacing.sm,
+                                fontSize: theme.typography.fontSize.sm,
+                            }}>
+                                <div>
+                                    <strong>Status:</strong>
+                                    <Badge
+                                        variant={lastResponse.success ? 'success' : 'error'}
+                                        size="sm"
+                                        style={{ marginLeft: theme.spacing.xs }}
+                                    >
+                                        {lastResponse.success ? 'Success' : 'Failed'}
+                                    </Badge>
+                                </div>
+                                {lastResponse.response?.testMetrics?.responseTime && (
+                                    <div>
+                                        <strong>Response Time:</strong>
+                                        <span style={{ marginLeft: theme.spacing.xs, color: theme.colors.info }}>
+                                            {lastResponse.response.testMetrics.responseTime}ms
+                                        </span>
+                                    </div>
+                                )}
+                                {lastResponse.response?.response?.coordination_summary && (
+                                    <div>
+                                        <strong>Efficiency:</strong>
+                                        <span style={{ marginLeft: theme.spacing.xs, color: theme.colors.accent }}>
+                                            {lastResponse.response.response.coordination_summary.coordination_efficiency}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
-                            {lastResponse.response?.testMetrics?.responseTime && (
-                                <div className="flex justify-between">
-                                    <span>Response Time:</span>
-                                    <span className="font-medium text-blue-600">
-                                        {lastResponse.response.testMetrics.responseTime}ms
-                                    </span>
-                                </div>
-                            )}
-                            {lastResponse.response?.response?.coordination_summary && (
-                                <div className="flex justify-between">
-                                    <span>Efficiency:</span>
-                                    <span className="font-medium text-amber-600">
-                                        {lastResponse.response.response.coordination_summary.coordination_efficiency}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                        </Flex>
+                    </Card>
                 )}
-            </div>
-        </div>
+            </Flex>
+
+            <style jsx>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
+        </Card>
     );
 }

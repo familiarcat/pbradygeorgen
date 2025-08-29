@@ -1,30 +1,30 @@
-import { Geist_Mono } from "next/font/google";
-import { inter, roboto, merriweather, sourceSans } from './fonts';
-import "./globals.css";
-import "../core/styles/pdf-theme.css"; // Import the PDF theme CSS
-import "../core/styles/pdf-global-styles.css"; // Import the PDF global styles with high specificity
-import DirectStyleInjector from "@/components/DirectStyleInjector"; // Import the direct style injector
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Navigation from '@/components/Navigation';
+import ThemeProvider from '@/theme/ThemeProvider';
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'AlexAI Crew System',
+  description: 'Advanced AI crew coordination and workflow management system',
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${roboto.variable} ${merriweather.variable} ${sourceSans.variable} ${geistMono.variable} antialiased m-0 p-0`}
-      >
-        {/* Inject PDF styles directly into the document head */}
-        <DirectStyleInjector />
-
-        {/* Navigation is hidden on the home page since it has its own Salinger header */}
-        {children}
+      <body className={inter.className}>
+        <ThemeProvider>
+          <Navigation />
+          <main>
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
