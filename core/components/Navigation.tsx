@@ -43,6 +43,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
 
   const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/business-plan-designer', label: '💼 AI Business Plan Designer', hideOnHome: false }, // Revolutionary business empire creator
     { href: '/pdf-styles', label: 'PDF Styles', hideOnHome: true },
     { href: '/upload', label: 'Upload PDF', hideOnHome: true },
     { href: '/view', label: 'View Resume', hideOnHome: true },

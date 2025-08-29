@@ -1,0 +1,89 @@
+{
+  "color_trends": {
+    "0 0 #0000": 3,
+    "2rem": 2,
+    "28rem": 2,
+    "#ffffff": 2,
+    "pointer": 2,
+    "transparent": 2,
+    "#09e48d": 1,
+    "none": 1,
+    "#09E48D !important": 1,
+    "#09E48D": 1,
+    "#0ce48d": 1,
+    "0.5s": 1,
+    "rotate(0)}100%{transform:rotate(360deg)}}": 1,
+    "1em}small{font-size:80%}sub,sup{vertical-align:baseline": 1,
+    "nowrap}.text-blue-400{color:var(--color-blue-400)}.text-blue-600{color:var(--color-blue-600)}.text-blue-700{color:var(--color-blue-700)}.text-gray-100{color:var(--color-gray-100)}.text-gray-300{color:var(--color-gray-300)}.text-gray-400{color:var(--color-gray-400)}.text-gray-500{color:var(--color-gray-500)}.text-gray-600{color:var(--color-gray-600)}.text-gray-700{color:var(--color-gray-700)}.text-gray-900{color:var(--color-gray-900)}.text-green-500{color:var(--color-green-500)}.text-green-600{color:var(--color-green-600)}.text-green-700{color:var(--color-green-700)}.text-indigo-600{color:var(--color-indigo-600)}.text-katana-primary{color:var(--color-katana-primary)}.text-katana-text-light{color:var(--color-katana-text-light)}.text-katana-text-primary{color:var(--color-katana-text-primary)}.text-purple-600{color:var(--color-purple-600)}.text-purple-700{color:var(--color-purple-700)}.text-red-600{color:var(--color-red-600)}.text-red-700{color:var(--color-red-700)}.text-white{color:var(--color-white)}.text-white\\/90{color:#ffffffe6}@supports (color:color-mix(in lab, red, red)){.text-white\\/90{color:#ffffffe6}@supports (color:color-mix(in lab, red, red)){.text-white\\/90{color:color-mix(in oklab,var(--color-white)90%,transparent)}}}.capitalize{text-transform:capitalize}.uppercase{text-transform:uppercase}.no-underline{text-decoration-line:none}.underline{text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased": 1,
+    ".75rem": 1,
+    "-.025em": 1,
+    "calc(2/1.5)": 1,
+    "scale-105:is(:where(.group):hover *){--tw-scale-x:105%": 1,
+    "oklch(62.3% .214 259.815)": 1
+  },
+  "typography_trends": {
+    "monospace": 3,
+    "ui-monospace": 2,
+    "Consolas": 2,
+    "Monaco": 2,
+    "inherit": 2,
+    "sans-serif}*{-webkit-font-smoothing:antialiased": 1,
+    "Noto Color Emoji\")": 1,
+    "var(--default-font-family": 1,
+    "Oxygen": 1,
+    "var(--font-mono)": 1,
+    "Segoe UI Symbol": 1,
+    "Ubuntu": 1,
+    "Cantarell": 1,
+    "monospace)": 1,
+    "Poppins": 1
+  },
+  "layout_trends": {},
+  "modern_elements": {
+    "glassmorphism": 3,
+    "neumorphism": 4,
+    "gradients": 4,
+    "animations": 5,
+    "dark_mode": 4,
+    "micro_interactions": 11
+  },
+  "tailwind_recommendations": {
+    "color_palette": [
+      "0 0 #0000",
+      "2rem",
+      "28rem",
+      "#ffffff",
+      "pointer",
+      "transparent",
+      "#09e48d",
+      "none",
+      "#09E48D !important",
+      "#09E48D"
+    ],
+    "typography": {
+      "primary_font": "monospace",
+      "secondary_font": "ui-monospace",
+      "mono_font": "JetBrains Mono"
+    },
+    "spacing_system": {},
+    "component_classes": {},
+    "modern_effects": {
+      "glassmorphism": "backdrop-blur-md bg-white/10 border border-white/20",
+      "neumorphism": "shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.8)]",
+      "gradients": "bg-gradient-to-r from-blue-500 to-purple-600",
+      "animations": "transition-all duration-300 ease-in-out",
+      "micro_interactions": "hover:scale-105 active:scale-95"
+    },
+    "responsive_design": {},
+    "implementation_priority": [
+      "1. Modern color palette with semantic naming",
+      "2. Consistent spacing scale (4px base unit)",
+      "3. Glassmorphism effects for cards and modals",
+      "4. Smooth micro-interactions and hover states",
+      "5. Responsive grid system with CSS Grid",
+      "6. Modern typography hierarchy",
+      "7. Subtle shadows and depth",
+      "8. Gradient accents for CTAs"
+    ]
+  }
+}

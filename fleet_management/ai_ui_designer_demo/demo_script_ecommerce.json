@@ -1,0 +1,68 @@
+{
+  "scenario_id": "ecommerce",
+  "name": "E-commerce Interface",
+  "description": "Generate a full e-commerce product interface",
+  "demo_prompt": "Design an e-commerce product page with product images, description, pricing, add to cart button, and related products grid",
+  "expected_components": [
+    "header",
+    "card",
+    "button",
+    "grid",
+    "form"
+  ],
+  "demo_duration": "4-6 minutes",
+  "wow_factor": "Complex interface in seconds",
+  "step_by_step_script": [
+    {
+      "step": 1,
+      "action": "Introduce the scenario",
+      "script": "Now let me show you how our AI can generate a e-commerce interface. This will demonstrate the power of natural language to UI conversion.",
+      "duration": "30 seconds"
+    },
+    {
+      "step": 2,
+      "action": "Enter the prompt",
+      "script": "I'll type this prompt: 'Design an e-commerce product page with product images, description, pricing, add to cart button, and related products grid'",
+      "duration": "15 seconds"
+    },
+    {
+      "step": 3,
+      "action": "Watch AI generation",
+      "script": "Watch as our AI analyzes the prompt and generates the appropriate components in real-time. Notice how it understands the context and creates a professional layout.",
+      "duration": "2 minutes"
+    },
+    {
+      "step": 4,
+      "action": "Review generated components",
+      "script": "Perfect! We now have a complete e-commerce interface with 5 components. Each component is fully functional and professionally styled.",
+      "duration": "1 minute"
+    },
+    {
+      "step": 5,
+      "action": "Demonstrate customization",
+      "script": "Let me show you how easy it is to customize any component. I can change colors, text, positioning, and properties in real-time.",
+      "duration": "1-2 minutes"
+    }
+  ],
+  "key_talking_points": [
+    "Natural language understanding",
+    "Professional design quality",
+    "Instant generation speed",
+    "Real-time customization",
+    "Component reusability"
+  ],
+  "client_questions_to_anticipate": [
+    "How does the AI understand design requirements?",
+    "Can we integrate this with our existing design system?",
+    "What about responsive design and accessibility?",
+    "How does this affect our development timeline?",
+    "Can we export the generated code?"
+  ],
+  "answers_to_client_questions": [
+    "Our AI analyzes prompt context and generates appropriate components based on design patterns and best practices.",
+    "Absolutely! The generated components follow standard design systems and can be easily integrated with existing frameworks.",
+    "All generated components are responsive by default and follow accessibility guidelines. We can customize these aspects as needed.",
+    "This reduces UI development time by 90% - what used to take days now takes minutes.",
+    "Yes! You can export the generated components as React code, CSS, or integrate them directly into your projects."
+  ]
+}
