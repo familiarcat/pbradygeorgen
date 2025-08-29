@@ -1,0 +1,982 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-28T23:25:47.934025",
+    "version": "1.0.0",
+    "description": "Comprehensive N8N Workflow Testing Suite for AlexAI Crew System",
+    "total_tests": 0
+  },
+  "crew_member_tests": [
+    {
+      "id": "crew_test_001",
+      "crew_member_id": "worf",
+      "crew_member_name": "Security & Compliance Operations",
+      "task": "Generate detailed report on system optimization opportunities",
+      "webhook_path": "crew-worf",
+      "test_type": "individual",
+      "expected_response_time": 216,
+      "complexity": "High",
+      "priority": "Medium",
+      "created_at": "2025-08-28T00:25:47.934038"
+    },
+    {
+      "id": "crew_test_002",
+      "crew_member_id": "uhura",
+      "crew_member_name": "Communications & I/O Operations",
+      "task": "Assess current challenges and propose solutions",
+      "webhook_path": "crew-uhura",
+      "test_type": "individual",
+      "expected_response_time": 444,
+      "complexity": "Low",
+      "priority": "Critical",
+      "created_at": "2025-08-28T09:25:47.934047"
+    },
+    {
+      "id": "crew_test_003",
+      "crew_member_id": "quark",
+      "crew_member_name": "Business Intelligence & Budget Optimization",
+      "task": "Generate detailed report on system optimization opportunities",
+      "webhook_path": "crew-quark",
+      "test_type": "individual",
+      "expected_response_time": 477,
+      "complexity": "Low",
+      "priority": "High",
+      "created_at": "2025-08-28T01:25:47.934051"
+    },
+    {
+      "id": "crew_test_004",
+      "crew_member_id": "data",
+      "crew_member_name": "Analytics & Logic Operations",
+      "task": "Assess user experience and accessibility compliance",
+      "webhook_path": "crew-data",
+      "test_type": "individual",
+      "expected_response_time": 193,
+      "complexity": "High",
+      "priority": "High",
+      "created_at": "2025-08-28T15:25:47.934055"
+    },
+    {
+      "id": "crew_test_005",
+      "crew_member_id": "riker",
+      "crew_member_name": "Tactical Execution & Workflow Management",
+      "task": "Develop contingency plans for emergency scenarios",
+      "webhook_path": "crew-riker",
+      "test_type": "individual",
+      "expected_response_time": 131,
+      "complexity": "High",
+      "priority": "Low",
+      "created_at": "2025-08-28T05:25:47.934059"
+    },
+    {
+      "id": "crew_test_006",
+      "crew_member_id": "crusher",
+      "crew_member_name": "Health & Diagnostics Officer",
+      "task": "Assess current challenges and propose solutions",
+      "webhook_path": "crew-crusher",
+      "test_type": "individual",
+      "expected_response_time": 102,
+      "complexity": "High",
+      "priority": "Low",
+      "created_at": "2025-08-28T19:25:47.934062"
+    },
+    {
+      "id": "crew_test_007",
+      "crew_member_id": "data",
+      "crew_member_name": "Analytics & Logic Operations",
+      "task": "Analyze current mission status and provide strategic recommendations",
+      "webhook_path": "crew-data",
+      "test_type": "individual",
+      "expected_response_time": 313,
+      "complexity": "Medium",
+      "priority": "Low",
+      "created_at": "2025-08-28T06:25:47.934065"
+    },
+    {
+      "id": "crew_test_008",
+      "crew_member_id": "uhura",
+      "crew_member_name": "Communications & I/O Operations",
+      "task": "Create action plan for improving operational efficiency",
+      "webhook_path": "crew-uhura",
+      "test_type": "individual",
+      "expected_response_time": 222,
+      "complexity": "Medium",
+      "priority": "Critical",
+      "created_at": "2025-08-28T19:25:47.934068"
+    },
+    {
+      "id": "crew_test_009",
+      "crew_member_id": "picard",
+      "crew_member_name": "Strategic Leadership & Mission Command",
+      "task": "Conduct performance review of operational responsibilities",
+      "webhook_path": "crew-picard",
+      "test_type": "individual",
+      "expected_response_time": 232,
+      "complexity": "Low",
+      "priority": "Critical",
+      "created_at": "2025-08-28T12:25:47.934071"
+    },
+    {
+      "id": "crew_test_010",
+      "crew_member_id": "uhura",
+      "crew_member_name": "Communications & I/O Operations",
+      "task": "Create action plan for improving operational efficiency",
+      "webhook_path": "crew-uhura",
+      "test_type": "individual",
+      "expected_response_time": 497,
+      "complexity": "High",
+      "priority": "Medium",
+      "created_at": "2025-08-28T00:25:47.934074"
+    },
+    {
+      "id": "crew_test_011",
+      "crew_member_id": "geordi",
+      "crew_member_name": "Infrastructure & System Integration",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-geordi",
+      "test_type": "individual",
+      "expected_response_time": 220,
+      "complexity": "Low",
+      "priority": "High",
+      "created_at": "2025-08-28T06:25:47.934077"
+    },
+    {
+      "id": "crew_test_012",
+      "crew_member_id": "geordi",
+      "crew_member_name": "Infrastructure & System Integration",
+      "task": "Assess user experience and accessibility compliance",
+      "webhook_path": "crew-geordi",
+      "test_type": "individual",
+      "expected_response_time": 385,
+      "complexity": "High",
+      "priority": "Critical",
+      "created_at": "2025-08-27T23:25:47.934079"
+    },
+    {
+      "id": "crew_test_013",
+      "crew_member_id": "crusher",
+      "crew_member_name": "Health & Diagnostics Officer",
+      "task": "Conduct performance review of operational responsibilities",
+      "webhook_path": "crew-crusher",
+      "test_type": "individual",
+      "expected_response_time": 155,
+      "complexity": "High",
+      "priority": "Critical",
+      "created_at": "2025-08-28T12:25:47.934082"
+    },
+    {
+      "id": "crew_test_014",
+      "crew_member_id": "data",
+      "crew_member_name": "Analytics & Logic Operations",
+      "task": "Assess current challenges and propose solutions",
+      "webhook_path": "crew-data",
+      "test_type": "individual",
+      "expected_response_time": 480,
+      "complexity": "Low",
+      "priority": "Low",
+      "created_at": "2025-08-27T23:25:47.934085"
+    },
+    {
+      "id": "crew_test_015",
+      "crew_member_id": "worf",
+      "crew_member_name": "Security & Compliance Operations",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-worf",
+      "test_type": "individual",
+      "expected_response_time": 385,
+      "complexity": "Medium",
+      "priority": "High",
+      "created_at": "2025-08-28T08:25:47.934088"
+    },
+    {
+      "id": "crew_test_016",
+      "crew_member_id": "troi",
+      "crew_member_name": "User Experience & Empathy Analysis",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-troi",
+      "test_type": "individual",
+      "expected_response_time": 118,
+      "complexity": "Medium",
+      "priority": "Medium",
+      "created_at": "2025-08-28T00:25:47.934090"
+    },
+    {
+      "id": "crew_test_017",
+      "crew_member_id": "troi",
+      "crew_member_name": "User Experience & Empathy Analysis",
+      "task": "Create action plan for improving operational efficiency",
+      "webhook_path": "crew-troi",
+      "test_type": "individual",
+      "expected_response_time": 419,
+      "complexity": "Medium",
+      "priority": "Low",
+      "created_at": "2025-08-27T23:25:47.934093"
+    },
+    {
+      "id": "crew_test_018",
+      "crew_member_id": "geordi",
+      "crew_member_name": "Infrastructure & System Integration",
+      "task": "Evaluate system performance metrics and identify bottlenecks",
+      "webhook_path": "crew-geordi",
+      "test_type": "individual",
+      "expected_response_time": 161,
+      "complexity": "Medium",
+      "priority": "High",
+      "created_at": "2025-08-28T14:25:47.934095"
+    },
+    {
+      "id": "crew_test_019",
+      "crew_member_id": "worf",
+      "crew_member_name": "Security & Compliance Operations",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-worf",
+      "test_type": "individual",
+      "expected_response_time": 185,
+      "complexity": "High",
+      "priority": "Critical",
+      "created_at": "2025-08-28T23:25:47.934098"
+    },
+    {
+      "id": "crew_test_020",
+      "crew_member_id": "quark",
+      "crew_member_name": "Business Intelligence & Budget Optimization",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-quark",
+      "test_type": "individual",
+      "expected_response_time": 455,
+      "complexity": "High",
+      "priority": "High",
+      "created_at": "2025-08-27T23:25:47.934101"
+    },
+    {
+      "id": "crew_test_021",
+      "crew_member_id": "troi",
+      "crew_member_name": "User Experience & Empathy Analysis",
+      "task": "Assess current challenges and propose solutions",
+      "webhook_path": "crew-troi",
+      "test_type": "individual",
+      "expected_response_time": 294,
+      "complexity": "High",
+      "priority": "Low",
+      "created_at": "2025-08-28T08:25:47.934103"
+    },
+    {
+      "id": "crew_test_022",
+      "crew_member_id": "picard",
+      "crew_member_name": "Strategic Leadership & Mission Command",
+      "task": "Assess current challenges and propose solutions",
+      "webhook_path": "crew-picard",
+      "test_type": "individual",
+      "expected_response_time": 489,
+      "complexity": "Medium",
+      "priority": "Critical",
+      "created_at": "2025-08-28T04:25:47.934106"
+    },
+    {
+      "id": "crew_test_023",
+      "crew_member_id": "troi",
+      "crew_member_name": "User Experience & Empathy Analysis",
+      "task": "Review security protocols and recommend improvements",
+      "webhook_path": "crew-troi",
+      "test_type": "individual",
+      "expected_response_time": 423,
+      "complexity": "Low",
+      "priority": "High",
+      "created_at": "2025-08-28T18:25:47.934109"
+    },
+    {
+      "id": "crew_test_024",
+      "crew_member_id": "worf",
+      "crew_member_name": "Security & Compliance Operations",
+      "task": "Create action plan for improving operational efficiency",
+      "webhook_path": "crew-worf",
+      "test_type": "individual",
+      "expected_response_time": 374,
+      "complexity": "Low",
+      "priority": "Low",
+      "created_at": "2025-08-28T00:25:47.934111"
+    },
+    {
+      "id": "crew_test_025",
+      "crew_member_id": "riker",
+      "crew_member_name": "Tactical Execution & Workflow Management",
+      "task": "Create action plan for improving operational efficiency",
+      "webhook_path": "crew-riker",
+      "test_type": "individual",
+      "expected_response_time": 251,
+      "complexity": "Medium",
+      "priority": "Critical",
+      "created_at": "2025-08-28T03:25:47.934114"
+    }
+  ],
+  "mission_scenario_tests": [
+    {
+      "id": "mission_test_001",
+      "scenario_id": "technical_audit",
+      "scenario_name": "Technical System Audit",
+      "mission_description": "The Enterprise has detected a spatial anomaly requiring immediate investigation and response coordination.",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 755,
+      "priority": "Medium",
+      "created_at": "2025-08-27T10:25:47.934119"
+    },
+    {
+      "id": "mission_test_002",
+      "scenario_id": "crisis_response",
+      "scenario_name": "Enterprise Crisis Response",
+      "mission_description": "Communication systems experiencing intermittent failures requiring diagnostic analysis and repair coordination.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "mission_scenario",
+      "expected_response_time": 534,
+      "priority": "Critical",
+      "created_at": "2025-08-27T00:25:47.934124"
+    },
+    {
+      "id": "mission_test_003",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Hostile alien species detected requiring tactical response and security protocol implementation.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 483,
+      "priority": "Critical",
+      "created_at": "2025-08-27T01:25:47.934127"
+    },
+    {
+      "id": "mission_test_004",
+      "scenario_id": "security_incident",
+      "scenario_name": "Security Incident Response",
+      "mission_description": "Intelligence received about potential security threats requiring comprehensive assessment and response planning.",
+      "selected_crew": [
+        "worf",
+        "riker",
+        "uhura"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 238,
+      "priority": "Medium",
+      "created_at": "2025-08-28T20:25:47.934132"
+    },
+    {
+      "id": "mission_test_005",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Hostile alien species detected requiring tactical response and security protocol implementation.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 707,
+      "priority": "High",
+      "created_at": "2025-08-28T08:25:47.934135"
+    },
+    {
+      "id": "mission_test_006",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Critical system failures detected across multiple ship systems requiring emergency protocols and repair coordination.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 558,
+      "priority": "Medium",
+      "created_at": "2025-08-28T11:25:47.934138"
+    },
+    {
+      "id": "mission_test_007",
+      "scenario_id": "crisis_response",
+      "scenario_name": "Enterprise Crisis Response",
+      "mission_description": "The Enterprise has detected a spatial anomaly requiring immediate investigation and response coordination.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "mission_scenario",
+      "expected_response_time": 747,
+      "priority": "Critical",
+      "created_at": "2025-08-28T19:25:47.934140"
+    },
+    {
+      "id": "mission_test_008",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Critical system failures detected across multiple ship systems requiring emergency protocols and repair coordination.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 497,
+      "priority": "Medium",
+      "created_at": "2025-08-27T09:25:47.934143"
+    },
+    {
+      "id": "mission_test_009",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Critical system failures detected across multiple ship systems requiring emergency protocols and repair coordination.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 490,
+      "priority": "Critical",
+      "created_at": "2025-08-27T22:25:47.934145"
+    },
+    {
+      "id": "mission_test_010",
+      "scenario_id": "security_incident",
+      "scenario_name": "Security Incident Response",
+      "mission_description": "Ship performance metrics indicate suboptimal efficiency requiring full system audit and optimization.",
+      "selected_crew": [
+        "worf",
+        "riker",
+        "uhura"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 367,
+      "priority": "Critical",
+      "created_at": "2025-08-27T23:25:47.934148"
+    },
+    {
+      "id": "mission_test_011",
+      "scenario_id": "technical_audit",
+      "scenario_name": "Technical System Audit",
+      "mission_description": "Intelligence received about potential security threats requiring comprehensive assessment and response planning.",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 224,
+      "priority": "Medium",
+      "created_at": "2025-08-28T09:25:47.934151"
+    },
+    {
+      "id": "mission_test_012",
+      "scenario_id": "technical_audit",
+      "scenario_name": "Technical System Audit",
+      "mission_description": "Communication systems experiencing intermittent failures requiring diagnostic analysis and repair coordination.",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 738,
+      "priority": "Medium",
+      "created_at": "2025-08-27T20:25:47.934153"
+    },
+    {
+      "id": "mission_test_013",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Resource allocation optimization required for upcoming extended mission requiring strategic planning.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 681,
+      "priority": "Medium",
+      "created_at": "2025-08-27T22:25:47.934156"
+    },
+    {
+      "id": "mission_test_014",
+      "scenario_id": "crisis_response",
+      "scenario_name": "Enterprise Crisis Response",
+      "mission_description": "Hostile alien species detected requiring tactical response and security protocol implementation.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "mission_scenario",
+      "expected_response_time": 315,
+      "priority": "High",
+      "created_at": "2025-08-27T08:25:47.934159"
+    },
+    {
+      "id": "mission_test_015",
+      "scenario_id": "technical_audit",
+      "scenario_name": "Technical System Audit",
+      "mission_description": "Critical system failures detected across multiple ship systems requiring emergency protocols and repair coordination.",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 521,
+      "priority": "High",
+      "created_at": "2025-08-28T18:25:47.934161"
+    },
+    {
+      "id": "mission_test_016",
+      "scenario_id": "crisis_response",
+      "scenario_name": "Enterprise Crisis Response",
+      "mission_description": "A diplomatic crisis has emerged with a new alien species requiring strategic analysis and communication protocols.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "mission_scenario",
+      "expected_response_time": 638,
+      "priority": "Medium",
+      "created_at": "2025-08-27T17:25:47.934164"
+    },
+    {
+      "id": "mission_test_017",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "Ship performance metrics indicate suboptimal efficiency requiring full system audit and optimization.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 413,
+      "priority": "High",
+      "created_at": "2025-08-27T06:25:47.934166"
+    },
+    {
+      "id": "mission_test_018",
+      "scenario_id": "crisis_response",
+      "scenario_name": "Enterprise Crisis Response",
+      "mission_description": "Critical system failures detected across multiple ship systems requiring emergency protocols and repair coordination.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "mission_scenario",
+      "expected_response_time": 533,
+      "priority": "Medium",
+      "created_at": "2025-08-28T14:25:47.934169"
+    },
+    {
+      "id": "mission_test_019",
+      "scenario_id": "technical_audit",
+      "scenario_name": "Technical System Audit",
+      "mission_description": "Resource allocation optimization required for upcoming extended mission requiring strategic planning.",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 759,
+      "priority": "High",
+      "created_at": "2025-08-27T09:25:47.934171"
+    },
+    {
+      "id": "mission_test_020",
+      "scenario_id": "business_analysis",
+      "scenario_name": "Business Strategy Analysis",
+      "mission_description": "A diplomatic crisis has emerged with a new alien species requiring strategic analysis and communication protocols.",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Medium",
+      "test_type": "mission_scenario",
+      "expected_response_time": 229,
+      "priority": "Critical",
+      "created_at": "2025-08-28T22:25:47.934174"
+    }
+  ],
+  "observation_lounge_tests": [
+    {
+      "id": "observation_test_001",
+      "test_mode": "full_crew",
+      "mission_directive": "Implement comprehensive security protocols and user experience optimization across all systems.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 451,
+      "priority": "Critical",
+      "created_at": "2025-08-26T09:25:47.934178"
+    },
+    {
+      "id": "observation_test_002",
+      "test_mode": "core_crew",
+      "mission_directive": "Implement strategic planning and tactical execution protocols for extended mission operations.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "crew_count": 4,
+      "complexity": "Medium",
+      "test_type": "observation_lounge",
+      "expected_response_time": 785,
+      "priority": "High",
+      "created_at": "2025-08-26T23:25:47.934182"
+    },
+    {
+      "id": "observation_test_003",
+      "test_mode": "full_crew",
+      "mission_directive": "Coordinate all crew members for comprehensive mission planning and execution strategy development.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 604,
+      "priority": "Critical",
+      "created_at": "2025-08-26T23:25:47.934185"
+    },
+    {
+      "id": "observation_test_004",
+      "test_mode": "full_crew",
+      "mission_directive": "Establish comprehensive monitoring and diagnostic protocols for system health and performance.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 941,
+      "priority": "High",
+      "created_at": "2025-08-28T23:25:47.934188"
+    },
+    {
+      "id": "observation_test_005",
+      "test_mode": "full_crew",
+      "mission_directive": "Establish comprehensive monitoring and diagnostic protocols for system health and performance.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 814,
+      "priority": "High",
+      "created_at": "2025-08-27T17:25:47.934190"
+    },
+    {
+      "id": "observation_test_006",
+      "test_mode": "full_crew",
+      "mission_directive": "Implement full crew coordination protocols for critical system optimization and performance enhancement.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 848,
+      "priority": "Critical",
+      "created_at": "2025-08-27T03:25:47.934193"
+    },
+    {
+      "id": "observation_test_007",
+      "test_mode": "core_crew",
+      "mission_directive": "Establish emergency response coordination and resource allocation optimization for crisis scenarios.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "crew_count": 4,
+      "complexity": "Medium",
+      "test_type": "observation_lounge",
+      "expected_response_time": 505,
+      "priority": "Critical",
+      "created_at": "2025-08-26T12:25:47.934196"
+    },
+    {
+      "id": "observation_test_008",
+      "test_mode": "full_crew",
+      "mission_directive": "Coordinate technical analysis and business intelligence gathering for strategic decision making.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 360,
+      "priority": "Critical",
+      "created_at": "2025-08-28T05:25:47.934198"
+    },
+    {
+      "id": "observation_test_009",
+      "test_mode": "core_crew",
+      "mission_directive": "Establish comprehensive monitoring and diagnostic protocols for system health and performance.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "crew_count": 4,
+      "complexity": "Medium",
+      "test_type": "observation_lounge",
+      "expected_response_time": 500,
+      "priority": "High",
+      "created_at": "2025-08-27T22:25:47.934202"
+    },
+    {
+      "id": "observation_test_010",
+      "test_mode": "specialist_team",
+      "mission_directive": "Coordinate technical analysis and business intelligence gathering for strategic decision making.",
+      "selected_crew": [
+        "quark",
+        "geordi",
+        "troi"
+      ],
+      "crew_count": 3,
+      "complexity": "Low",
+      "test_type": "observation_lounge",
+      "expected_response_time": 317,
+      "priority": "High",
+      "created_at": "2025-08-28T11:25:47.934215"
+    },
+    {
+      "id": "observation_test_011",
+      "test_mode": "specialist_team",
+      "mission_directive": "Implement full crew coordination protocols for critical system optimization and performance enhancement.",
+      "selected_crew": [
+        "data",
+        "troi",
+        "geordi"
+      ],
+      "crew_count": 3,
+      "complexity": "Low",
+      "test_type": "observation_lounge",
+      "expected_response_time": 894,
+      "priority": "High",
+      "created_at": "2025-08-26T14:25:47.934220"
+    },
+    {
+      "id": "observation_test_012",
+      "test_mode": "specialist_team",
+      "mission_directive": "Establish comprehensive monitoring and diagnostic protocols for system health and performance.",
+      "selected_crew": [
+        "troi",
+        "geordi",
+        "quark"
+      ],
+      "crew_count": 3,
+      "complexity": "Low",
+      "test_type": "observation_lounge",
+      "expected_response_time": 359,
+      "priority": "Critical",
+      "created_at": "2025-08-28T14:25:47.934225"
+    },
+    {
+      "id": "observation_test_013",
+      "test_mode": "specialist_team",
+      "mission_directive": "Coordinate technical analysis and business intelligence gathering for strategic decision making.",
+      "selected_crew": [
+        "quark",
+        "troi",
+        "geordi"
+      ],
+      "crew_count": 3,
+      "complexity": "Low",
+      "test_type": "observation_lounge",
+      "expected_response_time": 672,
+      "priority": "High",
+      "created_at": "2025-08-27T13:25:47.934229"
+    },
+    {
+      "id": "observation_test_014",
+      "test_mode": "core_crew",
+      "mission_directive": "Establish strategic communication channels and tactical response protocols for sector-wide operations.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "crew_count": 4,
+      "complexity": "Medium",
+      "test_type": "observation_lounge",
+      "expected_response_time": 727,
+      "priority": "High",
+      "created_at": "2025-08-27T21:25:47.934231"
+    },
+    {
+      "id": "observation_test_015",
+      "test_mode": "full_crew",
+      "mission_directive": "Implement strategic planning and tactical execution protocols for extended mission operations.",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "crew_count": 9,
+      "complexity": "High",
+      "test_type": "observation_lounge",
+      "expected_response_time": 420,
+      "priority": "High",
+      "created_at": "2025-08-26T09:25:47.934234"
+    }
+  ],
+  "test_scenarios": {
+    "scenario_id": "comprehensive_test_suite",
+    "name": "Complete System Validation",
+    "description": "Full validation of all n8n workflow components and crew coordination",
+    "execution_order": [
+      "crew_member_tests",
+      "mission_scenario_tests",
+      "observation_lounge_tests"
+    ],
+    "expected_duration": "15-30 minutes",
+    "success_criteria": "All tests pass with >95% success rate"
+  }
+}

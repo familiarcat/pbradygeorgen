@@ -2,820 +2,148 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Dynamic theme variables - updated by DynamicThemeProvider */
-  --dynamic-primary: #7E6233;
-  /* Default coyote */
-  --dynamic-secondary: #5F6B54;
-  /* Default ebony */
-  --dynamic-accent: #7E4E2D;
-  /* Default terracotta */
-  --dynamic-background: #F5F1E0;
-  /* Default parchment */
-  --dynamic-text: #3A4535;
-  /* Default dark forest */
-  --dynamic-border: #D5CDB5;
-  /* Default light border */
-
-  /* Font families */
-  --dynamic-primary-font: var(--font-source-sans);
-  --dynamic-secondary-font: var(--font-merriweather);
-  --dynamic-heading-font: var(--font-roboto);
-  --dynamic-mono-font: var(--font-geist-mono);
-
-  --font-sans: var(--dynamic-primary-font), var(--font-inter), var(--font-source-sans), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  --font-serif: var(--dynamic-secondary-font), var(--font-merriweather), Georgia, Cambria, Times New Roman, Times, serif;
-  --font-heading: var(--dynamic-heading-font), var(--font-roboto), var(--font-sans);
-  --font-mono: var(--dynamic-mono-font), var(--font-geist-mono), SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-
-  /* Earth Tones Color Palette */
-  --battleship-gray: #798D8E;
-  --coyote: #7E6233;
-  --ebony: #5F6B54;
-  --ecru: #C6BB85;
-  --sage: #B3AD79;
-  --ecru-2: #AF9F6B;
-  --reseda-green: #6D826F;
-  --sage-2: #B1AA7A;
-  --reseda-green-2: #82896A;
-  --lion: #9D8856;
-
-  /* Background Hierarchy - Dynamic theme with Salinger-inspired flow */
-  --bg-primary: var(--dynamic-background);
-  /* Adapts to PDF background */
-  --bg-secondary: color-mix(in srgb, var(--dynamic-background) 90%, var(--dynamic-primary) 10%);
-  /* Subtle blend */
-  --bg-tertiary: color-mix(in srgb, var(--dynamic-background) 80%, var(--dynamic-primary) 20%);
-  /* Slightly stronger blend */
-  --bg-accent: color-mix(in srgb, var(--dynamic-background) 70%, var(--dynamic-primary) 30%);
-  /* Noticeable accent */
-  --bg-inverse: var(--dynamic-text);
-  /* Inverse for contrast */
-
-  /* Text Hierarchy - Dynamic theme with Salinger-inspired natural reading */
-  --text-primary: var(--dynamic-text);
-  /* Adapts to PDF text color */
-  --text-secondary: color-mix(in srgb, var(--dynamic-text) 80%, var(--dynamic-background) 20%);
-  /* Softer text */
-  --text-tertiary: color-mix(in srgb, var(--dynamic-text) 60%, var(--dynamic-background) 40%);
-  /* Even softer */
-  --text-muted: color-mix(in srgb, var(--dynamic-text) 40%, var(--dynamic-background) 60%);
-  /* Barely there */
-  --text-inverse: var(--dynamic-background);
-  /* Inverse for contrast */
-
-  /* Border Hierarchy - Dynamic theme with subtle distinctions */
-  --border-subtle: color-mix(in srgb, var(--dynamic-border) 30%, transparent 70%);
-  /* Nearly invisible */
-  --border-light: var(--dynamic-border);
-  /* Adapts to PDF */
-  --border-medium: color-mix(in srgb, var(--dynamic-border) 70%, var(--dynamic-primary) 30%);
-  /* Noticeable */
-  --border-strong: var(--dynamic-primary);
-  /* Stronger for divisions */
-  --border-focus: var(--dynamic-accent);
-  /* Distinctive for focus */
-
-  /* CTA Colors - Hesse mathematical approach with Salinger visual hierarchy */
-  /* Primary CTA - Most important actions */
-  --cta-primary: var(--dynamic-accent);
-  /* Base color adapts to PDF */
-  --cta-primary-hover: color-mix(in srgb, var(--dynamic-accent) 80%, white 20%);
-  /* Lighter for hover */
-  --cta-primary-active: color-mix(in srgb, var(--dynamic-accent) 80%, black 20%);
-  /* Darker for active */
-  --cta-primary-bg: color-mix(in srgb, var(--dynamic-accent) 90%, var(--dynamic-background) 10%);
-  /* Subtle background */
-
-  /* Secondary CTA - Supporting actions */
-  --cta-secondary: var(--dynamic-secondary);
-  /* Base color adapts to PDF */
-  --cta-secondary-hover: color-mix(in srgb, var(--dynamic-secondary) 80%, white 20%);
-  /* Lighter for hover */
-  --cta-secondary-active: color-mix(in srgb, var(--dynamic-secondary) 80%, black 20%);
-  /* Darker for active */
-  --cta-secondary-bg: color-mix(in srgb, var(--dynamic-secondary) 90%, var(--dynamic-background) 10%);
-  /* Subtle background */
-
-  /* Tertiary CTA - Optional actions */
-  --cta-tertiary: var(--dynamic-primary);
-  /* Base color adapts to PDF */
-  --cta-tertiary-hover: color-mix(in srgb, var(--dynamic-primary) 80%, white 20%);
-  /* Lighter for hover */
-  --cta-tertiary-active: color-mix(in srgb, var(--dynamic-primary) 80%, black 20%);
-  /* Darker for active */
-  --cta-tertiary-bg: color-mix(in srgb, var(--dynamic-primary) 90%, var(--dynamic-background) 10%);
-  /* Subtle background */
-
-  /* UI Element Colors - Dynamic theme with subtle elements */
-  --ui-primary: color-mix(in srgb, var(--dynamic-primary) 70%, var(--dynamic-background) 30%);
-  /* Muted primary */
-  --ui-primary-hover: color-mix(in srgb, var(--dynamic-primary) 80%, var(--dynamic-background) 20%);
-  /* Lighter for hover */
-  --ui-primary-active: color-mix(in srgb, var(--dynamic-primary) 90%, var(--dynamic-background) 10%);
-  /* Darker for active */
-
-  --ui-secondary: color-mix(in srgb, var(--dynamic-secondary) 70%, var(--dynamic-background) 30%);
-  /* Muted secondary */
-  --ui-secondary-hover: color-mix(in srgb, var(--dynamic-secondary) 80%, var(--dynamic-background) 20%);
-  /* Lighter for hover */
-  --ui-secondary-active: color-mix(in srgb, var(--dynamic-secondary) 90%, var(--dynamic-background) 10%);
-  /* Darker for active */
-
-  --ui-tertiary: color-mix(in srgb, var(--dynamic-text) 30%, var(--dynamic-background) 70%);
-  /* Very muted - neutral */
-  --ui-tertiary-hover: color-mix(in srgb, var(--dynamic-text) 40%, var(--dynamic-background) 60%);
-  /* Lighter for hover */
-  --ui-tertiary-active: color-mix(in srgb, var(--dynamic-text) 50%, var(--dynamic-background) 50%);
-  /* Darker for active */
-
-  --ui-disabled: color-mix(in srgb, var(--dynamic-text) 20%, var(--dynamic-background) 80%, 0.4);
-  /* Very subtle */
-
-  /* State Colors - Dynamic theme with clear but not jarring states */
-  --state-success: color-mix(in srgb, green 50%, var(--dynamic-primary) 50%);
-  /* Success - adapts to theme */
-  --state-warning: color-mix(in srgb, orange 50%, var(--dynamic-primary) 50%);
-  /* Warning - adapts to theme */
-  --state-error: color-mix(in srgb, red 50%, var(--dynamic-accent) 50%);
-  /* Error - adapts to theme */
-  --state-info: color-mix(in srgb, blue 50%, var(--dynamic-secondary) 50%);
-  /* Info - adapts to theme */
-
-  /* Shadow Colors - Dynamic theme with appropriate shadows */
-  --shadow-light: color-mix(in srgb, var(--dynamic-text) 10%, transparent 90%);
-  /* Light shadow */
-  --shadow-medium: color-mix(in srgb, var(--dynamic-text) 20%, transparent 80%);
-  /* Medium shadow */
-  --shadow-strong: color-mix(in srgb, var(--dynamic-text) 30%, transparent 70%);
-  /* Strong shadow */
-
-  /* PDF Specific */
-  --pdf-background: var(--bg-primary);
-
-  /* Component-specific mappings */
-  --panel-bg: var(--bg-secondary);
-  --content-bg: var(--bg-primary);
-  --content-section-bg: var(--bg-tertiary);
-
-  --analyzer-header-bg: var(--bg-secondary);
-  --analyzer-header-text: var(--text-primary);
-  --analyzer-border: var(--border-light);
-  --analyzer-shadow: var(--shadow-light);
-
-  /* Tab styles */
-  --tab-active: var(--cta-secondary);
-  --tab-active-text: var(--text-inverse);
-  --tab-inactive-text: var(--text-secondary);
-  --tab-hover-text: var(--text-primary);
-
-  /* Section styles - Salinger-inspired for seamless reading */
-  --section-header-bg: transparent;
-  /* No background - seamless with content */
-  --section-header-text: var(--text-primary);
-  --section-content-bg: transparent;
-  /* No background - seamless with content */
-  --section-content-text: var(--text-primary);
-  --section-border: var(--border-subtle);
-
-  /* Button styles - Salinger hierarchy with Hesse mathematical backgrounds */
-  /* Primary buttons - Most important actions */
-  --button-primary-bg: var(--cta-primary);
-  /* High contrast for primary actions */
-  --button-primary-hover: var(--cta-primary-hover);
-  --button-primary-active: var(--cta-primary-active);
-  --button-primary-text: #FFFFFF;
-  /* Pure white for maximum visibility */
-  --button-primary-container-bg: var(--cta-primary-bg);
-  /* Subtle background for container */
-
-  /* Secondary buttons - Supporting actions */
-  --button-secondary-bg: var(--cta-secondary);
-  /* Medium contrast for secondary actions */
-  --button-secondary-hover: var(--cta-secondary-hover);
-  --button-secondary-active: var(--cta-secondary-active);
-  --button-secondary-text: #FFFFFF;
-  /* Pure white for maximum visibility */
-  --button-secondary-container-bg: var(--cta-secondary-bg);
-  /* Subtle background for container */
-
-  /* Tertiary buttons - Optional actions */
-  --button-tertiary-bg: var(--cta-tertiary);
-  /* Low contrast for tertiary actions */
-  --button-tertiary-hover: var(--cta-tertiary-hover);
-  --button-tertiary-active: var(--cta-tertiary-active);
-  --button-tertiary-text: #FFFFFF;
-  /* Pure white for maximum visibility */
-  --button-tertiary-container-bg: var(--cta-tertiary-bg);
-  /* Subtle background for container */
-
-  /* Interactive elements */
-  --interactive-hover: var(--cta-primary-hover);
-  --interactive-focus: var(--cta-primary-active);
-  --interactive-active: var(--cta-secondary);
-
-  /* Accessibility variants */
-  --text-high-contrast: var(--text-primary);
-  --text-medium-contrast: var(--text-secondary);
-  --text-low-contrast: var(--text-tertiary);
-  --bg-high-contrast: var(--bg-primary);
-  --bg-medium-contrast: var(--bg-secondary);
-  --bg-low-contrast: var(--bg-tertiary);
-}
-
-@theme inline {
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--text-primary);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    /* Dark mode adjustments - Salinger-inspired for night reading */
-    --bg-primary: #2A3028;
-    /* Dark but not black - like reading by lamplight */
-    --bg-secondary: #343C31;
-    /* Slightly lighter - subtle distinction */
-    --bg-tertiary: #3E473A;
-    /* Even lighter - gentle distinction */
-    --bg-accent: #4A5448;
-    /* Subtle accent - doesn't interrupt the flow */
-    --bg-inverse: #F5F1E0;
-    /* Light background for contrast when needed */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
 
-    --text-primary: #E6E2D1;
-    /* Light but not harsh - easy on the eyes */
-    --text-secondary: #C5C1B2;
-    /* Softer secondary text - present but not demanding */
-    --text-tertiary: #A5A194;
-    /* Even softer - whispers rather than speaks */
-    --text-muted: #858277;
-    /* Barely there - like marginalia */
-    --text-inverse: #2A3028;
-    /* Dark text for light backgrounds */
-
-    /* CTA colors remain vibrant in dark mode */
-    --cta-primary: #A05A35;
-    /* Brighter terracotta for dark mode */
-    --cta-secondary: #5A7682;
-    /* Brighter slate blue for dark mode */
-
-    /* Keep PDF background consistent for readability */
-    --pdf-background: #F5F1E0;
-    /* Light background for PDF content */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
   }
 }
 
-html,
-body {
-  background: #d4d1be;
-  /* Explicit ecru background color from header */
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  /* iOS Safari fix */
-  transition:
-    font-family 0.5s ease,
-    background-color 0.8s ease,
-    color 0.8s ease;
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-/* Fix for mobile viewport height issues */
-@supports (-webkit-touch-callout: none) {
-
-  html,
   body {
-    height: -webkit-fill-available;
+    @apply bg-background text-foreground;
   }
 }
 
-/* Theme transition container */
-.theme-transition-container {
-  transition: all 0.8s ease;
+@layer components {
+  .bento-card {
+    @apply relative overflow-hidden rounded-2xl border bg-gradient-to-br from-white/50 to-white/10 backdrop-blur-xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-primary/20;
+  }
+
+  .bento-card-dark {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-primary/40;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-effect-dark {
+    @apply bg-gray-900/20 backdrop-blur-md border border-gray-700/30;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    @apply relative before:absolute before:inset-0 before:rounded-2xl before:p-[1px] before:bg-gradient-to-r before:from-blue-500 before:via-purple-500 before:to-pink-500 before:content-[''] before:z-0;
+  }
+
+  .gradient-border>* {
+    @apply relative z-10 bg-background rounded-2xl;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .animate-float-more-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 4s;
+  }
 }
 
-/* Theme loading transitions */
-body:not(.theme-loaded) {
-  /* Subtle loading state */
-  opacity: 0.98;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-body.theme-loaded {
-  opacity: 1;
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
-/* Dark theme adaptations */
-.pdf-dark-theme {
-  /* Invert some colors for better dark mode readability */
-  --shadow-light: color-mix(in srgb, var(--dynamic-text) 5%, transparent 95%);
-  --shadow-medium: color-mix(in srgb, var(--dynamic-text) 10%, transparent 90%);
-  --shadow-strong: color-mix(in srgb, var(--dynamic-text) 15%, transparent 85%);
-
-  /* Ensure PDF background remains light for readability */
-  --pdf-background: #F5F1E0;
-}
-
-/* Remove default margins and padding */
-* {
-  box-sizing: border-box;
-}
-
-/* Custom scrollbar styling */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
-  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  @apply bg-gray-100 dark:bg-gray-800;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  @apply bg-gray-400 dark:bg-gray-500;
 }
 
-/* Hide scrollbars by default but show them on hover/scroll */
-.pdf-container {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  transition: scrollbar-color 0.3s ease;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden;
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
 }
 
-.pdf-container:hover,
-.pdf-container:focus,
-.pdf-container:active {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
-
-/* Ensure PDF object fills the entire width and has correct background */
-.pdf-container object,
-.pdf-object {
-  display: block !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-  background-color: var(--pdf-background) !important;
-  width: 100vw !important;
-  max-width: 100vw !important;
-}
-
-/* Remove any potential gray bars or borders */
-.pdf-container object,
-.pdf-container iframe {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Ensure the PDF viewer doesn't add its own background */
-:root {
-  --viewer-container-height: 100% !important;
-  --viewer-pdf-background-color: var(--pdf-background) !important;
-}
-
-/* Universal iframe styling for PDF viewer */
-.pdf-iframe {
-  background-color: #d4d1be !important;
-  /* Explicit ecru background color from header */
-  border: none !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  position: relative !important;
-  /* Changed from absolute to relative for better scaling */
-}
-
-/* PDF container responsive styling */
-.pdf-container {
-  max-width: 1000px !important;
-  /* Maximum width constraint */
-  min-width: 320px !important;
-  /* Minimum width constraint */
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Media queries for responsive PDF display */
-@media (max-width: 768px) {
-  .pdf-container {
-    width: 95% !important;
-    /* Use more screen space on mobile */
-    min-width: 300px !important;
-  }
-}
-
-@media (min-width: 1600px) {
-  .pdf-container {
-    max-width: 1200px !important;
-    /* Slightly larger on very large screens */
-  }
-}
-
-/* PDF container styling */
-.pdf-container {
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  background-color: #d4d1be !important;
-  /* Explicit ecru background color from header */
-}
-
-/* Universal fixes for all browsers */
-iframe[src*=".pdf"],
-iframe {
-  background-color: #d4d1be !important;
-  /* Explicit ecru background color from header */
-}
-
-/* Radial gradient for debug visualization */
-.bg-gradient-radial {
-  background-image: radial-gradient(var(--tw-gradient-stops));
-}
-
-/* Target the PDF.js viewer specifically */
-#viewer,
-.pdfViewer,
-.page,
-.canvasWrapper,
-.textLayer {
-  background-color: #d4d1be !important;
-  /* Explicit ecru background color from header */
-}
-
-/* Fix for mobile portrait mode black space */
-@media (max-width: 768px) and (orientation: portrait) {
-
-  html,
-  body,
-  #__next,
-  main,
-  .pdf-container,
-  .pdf-iframe,
-  iframe {
-    background-color: #d4d1be !important;
-    /* Explicit ecru background color from header */
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-
-  /* Add a full-height background element */
-  body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    /* Full viewport height */
-    background-color: #d4d1be;
-    /* Explicit ecru background color from header */
-    z-index: -1;
-    /* Behind all content */
-  }
-}
-
-/* PDF viewer toolbar styling */
-.pdf-toolbar {
-  background-color: var(--pdf-background) !important;
-}
-
-/* Ensure PDF controls have the right background */
-[class*="toolbar"],
-[class*="controls"],
-[class*="buttons"] {
-  background-color: var(--pdf-background) !important;
-}
-
-/* Salinger CTA Container Styles */
-.cta-container {
-  background-color: rgba(212, 209, 190, 0.3);
-  /* Subtle ecru background */
-  border-radius: 8px;
-  padding: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.cta-container-primary {
-  background-color: var(--button-primary-container-bg);
-}
-
-.cta-container-secondary {
-  background-color: var(--button-secondary-container-bg);
-}
-
-.cta-container-tertiary {
-  background-color: var(--button-tertiary-container-bg);
-}
-
-/* Hover effect for CTA containers */
-.cta-container:hover {
-  background-color: rgba(212, 209, 190, 0.5);
-  /* Slightly darker on hover */
-}
-
-/* Book-like typography for content */
-.book-content {
-  font-family: var(--font-serif);
-  line-height: 1.5;
-  /* Tighter leading */
-  padding: 0 1rem;
-  letter-spacing: -0.01em;
-  /* Slightly tighter kerning */
-  max-width: 100%;
-}
-
-.book-content p {
-  margin-bottom: 1.2rem;
-  /* Reduced paragraph spacing */
-  text-align: justify;
-  hyphens: auto;
-  font-size: 1rem;
-  /* Slightly smaller font size */
-}
-
-.book-content h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--border-subtle);
-  font-family: var(--font-heading);
-  letter-spacing: -0.02em;
-}
-
-.book-content h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 1.6rem;
-  margin-bottom: 0.8rem;
-  font-family: var(--font-heading);
-  letter-spacing: -0.01em;
-}
-
-/* Company and job title pairing */
-.book-content h3+p.font-semibold {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  line-height: 1.3;
-  font-family: var(--font-heading);
-  letter-spacing: -0.01em;
-}
-
-/* Education years styling */
-.book-content .education-years {
-  color: var(--text-tertiary);
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  margin-left: 0.25rem;
-}
-
-.book-content h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 1.2rem;
-  margin-bottom: 0.6rem;
-  font-family: var(--font-heading);
-  letter-spacing: -0.01em;
-}
-
-.book-content h5 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  font-style: italic;
-  font-family: var(--font-heading);
-}
-
-.book-content ul {
-  margin-bottom: 1.2rem;
-  padding-left: 1.25rem;
-}
-
-.book-content li {
-  margin-bottom: 0.3rem;
-  line-height: 1.4;
-}
-
-.book-content a {
-  text-decoration: none;
-  color: var(--cta-primary);
-  transition: all 0.2s ease;
-  border-bottom: 1px solid transparent;
-}
-
-.book-content a:hover {
-  border-bottom: 1px solid var(--cta-primary);
-}
-
-/* PDF Content Analyzer Styles */
-.analyzer-panel {
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-light);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px var(--shadow-light);
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-.analyzer-header {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--font-heading);
-  position: relative;
-}
-
-.analyzer-content {
-  background-color: var(--bg-primary);
-  padding: 1.25rem 1.5rem;
-}
-
-.analyzer-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border-subtle);
-  margin-bottom: 1.5rem;
-}
-
-.analyzer-tab {
-  padding: 0.75rem 1.25rem;
-  margin-right: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  position: relative;
-  border-radius: 0.25rem 0.25rem 0 0;
-  font-family: var(--font-heading);
-}
-
-.analyzer-tab-active {
-  color: #FFFFFF;
-  /* White text for contrast */
-  font-weight: 600;
-  background-color: var(--cta-secondary);
-  /* Use the CTA secondary color */
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
-
-.analyzer-tab-active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--tab-active);
-  border-radius: 1px;
-}
-
-.analyzer-tab-inactive {
-  color: var(--text-secondary);
-}
-
-.analyzer-tab-inactive:hover {
-  color: var(--text-primary);
-  background-color: rgba(138, 129, 81, 0.15);
-  /* Light Reseda green background */
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
-
-.analyzer-section {
-  margin-bottom: 1.5rem;
-}
-
-.analyzer-section-header {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  padding: 0.75rem 0;
-  position: sticky;
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-medium);
-  color: var(--text-primary);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  letter-spacing: -0.02em;
-  box-shadow: 0 1px 4px var(--shadow-light);
-  width: 100%;
-  text-align: center;
-}
-
-.analyzer-section-content {
-  background-color: var(--section-content-bg);
-  padding: 0 1rem 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--section-content-text);
-  border: none;
-  line-height: 1.7;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.05rem;
-}
-
-.analyzer-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  letter-spacing: 0.01em;
-  font-family: var(--font-heading);
-}
-
-.analyzer-button-primary {
-  background-color: var(--button-primary-bg);
-  color: var(--button-primary-text);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button-primary:hover {
-  background-color: var(--button-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--shadow-medium);
-}
-
-.analyzer-button-primary:active {
-  background-color: var(--button-primary-active);
-  transform: translateY(0);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button-secondary {
-  background-color: var(--button-secondary-bg);
-  color: var(--button-secondary-text);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button-secondary:hover {
-  background-color: var(--button-secondary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--shadow-medium);
-}
-
-.analyzer-button-secondary:active {
-  background-color: var(--button-secondary-active);
-  transform: translateY(0);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button-tertiary {
-  background-color: var(--button-tertiary-bg);
-  color: var(--button-tertiary-text);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button-tertiary:hover {
-  background-color: var(--button-tertiary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--shadow-medium);
-}
-
-.analyzer-button-tertiary:active {
-  background-color: var(--button-tertiary-active);
-  transform: translateY(0);
-  box-shadow: 0 1px 2px var(--shadow-light);
-}
-
-.analyzer-button:disabled {
-  background-color: var(--ui-disabled);
-  color: var(--text-muted);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-  opacity: 0.7;
+/* Focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-gray-900;
 }

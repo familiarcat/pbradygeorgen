@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-28T23:50:38.040959",
+    "version": "1.0.0",
+    "description": "Simple test data for N8N workflow testing"
+  },
+  "crew_test_data": {
+    "picard": {
+      "task": "Strategic analysis",
+      "expected_response": "Strategic analysis complete. 23% ROI potential identified.",
+      "complexity": "High"
+    },
+    "riker": {
+      "task": "Workflow optimization",
+      "expected_response": "Workflow optimized. 54% efficiency improvement achieved.",
+      "complexity": "Medium"
+    },
+    "data": {
+      "task": "Performance analysis",
+      "expected_response": "Performance analysis complete. 3 bottlenecks identified.",
+      "complexity": "High"
+    },
+    "geordi": {
+      "task": "System architecture",
+      "expected_response": "Architecture optimized. 40% performance increase achieved.",
+      "complexity": "High"
+    },
+    "crusher": {
+      "task": "Health monitoring",
+      "expected_response": "Health monitoring active. 99.7% system health maintained.",
+      "complexity": "Medium"
+    },
+    "worf": {
+      "task": "Security audit",
+      "expected_response": "Security audit complete. 3 vulnerabilities patched.",
+      "complexity": "High"
+    },
+    "troi": {
+      "task": "UX analysis",
+      "expected_response": "UX analysis complete. 5 pain points identified.",
+      "complexity": "Medium"
+    },
+    "uhura": {
+      "task": "API optimization",
+      "expected_response": "API optimized. 35% response time improvement.",
+      "complexity": "Medium"
+    },
+    "quark": {
+      "task": "Cost analysis",
+      "expected_response": "Cost analysis complete. 18% reduction identified.",
+      "complexity": "High"
+    }
+  },
+  "mission_scenarios": {
+    "crisis_response": {
+      "name": "Enterprise Crisis Response",
+      "crew_required": [
+        "picard",
+        "riker",
+        "worf"
+      ],
+      "expected_outcomes": {
+        "coordination_efficiency": "95%",
+        "response_time": "2.3 minutes"
+      }
+    },
+    "technical_audit": {
+      "name": "Technical System Audit",
+      "crew_required": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "expected_outcomes": {
+        "coordination_efficiency": "88%",
+        "response_time": "4.7 minutes"
+      }
+    },
+    "business_analysis": {
+      "name": "Business Strategy Analysis",
+      "crew_required": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "expected_outcomes": {
+        "coordination_efficiency": "92%",
+        "response_time": "5.2 minutes"
+      }
+    }
+  },
+  "test_commands": {
+    "individual_crew": [
+      "curl -X POST http://localhost:3000/api/test-n8n/crew-member -H 'Content-Type: application/json' -d '{\"crewMemberId\":\"picard\",\"webhookPath\":\"crew-picard\",\"task\":\"Test strategic analysis\"}'",
+      "curl -X POST http://localhost:3000/api/test-n8n/crew-member -H 'Content-Type: application/json' -d '{\"crewMemberId\":\"data\",\"webhookPath\":\"crew-data\",\"task\":\"Analyze performance metrics\"}'"
+    ],
+    "mission_scenarios": [
+      "curl -X POST http://localhost:3000/api/test-n8n/mission-scenario -H 'Content-Type: application/json' -d '{\"scenarioId\":\"crisis_response\",\"missionDescription\":\"Emergency response\",\"selectedCrew\":[\"picard\",\"riker\",\"worf\"],\"complexity\":\"High\"}'"
+    ],
+    "observation_lounge": [
+      "curl -X POST http://localhost:3000/api/test-n8n/observation-lounge -H 'Content-Type: application/json' -d '{\"missionDirective\":\"Coordinate crisis response\",\"selectedCrew\":[\"picard\",\"riker\",\"data\"],\"testMode\":\"core_crew\",\"complexity\":\"High\"}'"
+    ]
+  },
+  "summary": {
+    "total_crew_members": 9,
+    "total_mission_scenarios": 3,
+    "total_test_commands": 4
+  }
+}

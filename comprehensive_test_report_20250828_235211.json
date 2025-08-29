@@ -1,0 +1,1211 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-28T23:52:11.164894",
+    "total_duration": 14.51,
+    "total_tests": 15,
+    "success_rate": 100.0,
+    "average_response_time": 459.08
+  },
+  "test_results": [
+    {
+      "test_type": "individual_crew",
+      "crew_member": "picard",
+      "webhook_path": "crew-picard",
+      "task": "Strategic analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 322.39,
+      "timestamp": "2025-08-28T23:51:56.980455",
+      "response_data": {
+        "success": true,
+        "crewMember": "picard",
+        "task": "Strategic analysis",
+        "response": {
+          "crewMember": "picard",
+          "role": "Strategic Leadership & Mission Command",
+          "task": "Strategic analysis",
+          "analysis": {
+            "role": "Strategic Leadership & Mission Command",
+            "analysis": "Strategic analysis of: \"Strategic analysis\"",
+            "recommendations": [
+              "Implement comprehensive mission planning protocols",
+              "Establish clear communication channels with all stakeholders",
+              "Develop contingency plans for multiple scenarios",
+              "Coordinate with Starfleet Command for resource allocation"
+            ],
+            "priority": "High",
+            "timeline": "Immediate action required",
+            "crewCoordination": "All hands on deck for strategic implementation"
+          },
+          "timestamp": "2025-08-29T04:51:56.978Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:51:56.978Z",
+        "testMetrics": {
+          "responseTime": 291,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "riker",
+      "webhook_path": "crew-riker",
+      "task": "Workflow optimization",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 135.74,
+      "timestamp": "2025-08-28T23:51:57.620687",
+      "response_data": {
+        "success": true,
+        "crewMember": "riker",
+        "task": "Workflow optimization",
+        "response": {
+          "crewMember": "riker",
+          "role": "Tactical Execution & Workflow Management",
+          "task": "Workflow optimization",
+          "analysis": {
+            "role": "Tactical Execution & Workflow Management",
+            "tacticalPlan": "Tactical execution plan for: \"Workflow optimization\"",
+            "operationalSteps": [
+              "Deploy tactical teams to key positions",
+              "Establish command and control protocols",
+              "Implement real-time monitoring systems",
+              "Coordinate cross-functional team operations"
+            ],
+            "resourceAllocation": "Optimal distribution of available resources",
+            "executionTimeline": "Phase 1: Immediate, Phase 2: 24h, Phase 3: 72h"
+          },
+          "timestamp": "2025-08-29T04:51:57.618Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:51:57.618Z",
+        "testMetrics": {
+          "responseTime": 126,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "data",
+      "webhook_path": "crew-data",
+      "task": "Performance analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 162.07,
+      "timestamp": "2025-08-28T23:51:58.292861",
+      "response_data": {
+        "success": true,
+        "crewMember": "data",
+        "task": "Performance analysis",
+        "response": {
+          "crewMember": "data",
+          "role": "Analytics & Logic Operations",
+          "task": "Performance analysis",
+          "analysis": {
+            "role": "Analytics & Logic Operations",
+            "dataAnalysis": "Logical analysis of: \"Performance analysis\"",
+            "patterns": [
+              "Identified recurring patterns in system behavior",
+              "Statistical analysis shows 87% correlation with previous incidents",
+              "Performance metrics indicate optimal efficiency thresholds",
+              "Predictive modeling suggests 92% success probability"
+            ],
+            "recommendations": "Implement data-driven decision making protocols",
+            "monitoring": "Continuous real-time monitoring recommended"
+          },
+          "timestamp": "2025-08-29T04:51:58.291Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:51:58.291Z",
+        "testMetrics": {
+          "responseTime": 154,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "geordi",
+      "webhook_path": "crew-geordi",
+      "task": "System architecture",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 129.83,
+      "timestamp": "2025-08-28T23:51:58.931530",
+      "response_data": {
+        "success": true,
+        "crewMember": "geordi",
+        "task": "System architecture",
+        "response": {
+          "crewMember": "geordi",
+          "role": "Infrastructure & System Integration",
+          "task": "System architecture",
+          "analysis": {
+            "role": "Infrastructure & System Integration",
+            "technicalAssessment": "Technical assessment of: \"System architecture\"",
+            "systemStatus": "All systems operating within normal parameters",
+            "integrationPoints": [
+              "Warp core integration: Optimal",
+              "Shield systems: 98% efficiency",
+              "Life support: 100% operational",
+              "Communications: Enhanced protocols active"
+            ],
+            "optimization": "System performance at peak efficiency",
+            "maintenance": "Preventive maintenance schedule optimized"
+          },
+          "timestamp": "2025-08-29T04:51:58.929Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:51:58.929Z",
+        "testMetrics": {
+          "responseTime": 120,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "crusher",
+      "webhook_path": "crew-crusher",
+      "task": "Health monitoring",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 154.14,
+      "timestamp": "2025-08-28T23:51:59.588365",
+      "response_data": {
+        "success": true,
+        "crewMember": "crusher",
+        "task": "Health monitoring",
+        "response": {
+          "crewMember": "crusher",
+          "role": "Health & Diagnostics Officer",
+          "task": "Health monitoring",
+          "analysis": {
+            "role": "Health & Diagnostics Officer",
+            "healthAssessment": "Health and diagnostics analysis of: \"Health monitoring\"",
+            "systemHealth": "All critical systems showing excellent health metrics",
+            "diagnostics": [
+              "Core systems: 100% operational",
+              "Backup systems: 100% operational",
+              "Emergency protocols: Active and tested",
+              "Crew safety systems: Optimal performance"
+            ],
+            "recommendations": "Continue current maintenance protocols",
+            "alerts": "No critical alerts at this time"
+          },
+          "timestamp": "2025-08-29T04:51:59.587Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:51:59.587Z",
+        "testMetrics": {
+          "responseTime": 144,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "worf",
+      "webhook_path": "crew-worf",
+      "task": "Security audit",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 146.24,
+      "timestamp": "2025-08-28T23:52:00.243453",
+      "response_data": {
+        "success": true,
+        "crewMember": "worf",
+        "task": "Security audit",
+        "response": {
+          "crewMember": "worf",
+          "role": "Security & Compliance Operations",
+          "task": "Security audit",
+          "analysis": {
+            "role": "Security & Compliance Operations",
+            "securityAssessment": "Security and compliance analysis of: \"Security audit\"",
+            "threatLevel": "Minimal - all security protocols active",
+            "securityStatus": [
+              "Perimeter security: 100% active",
+              "Access control: Enhanced protocols enabled",
+              "Threat detection: Advanced sensors operational",
+              "Emergency response: Ready and tested"
+            ],
+            "compliance": "All Federation security protocols compliant",
+            "recommendations": "Maintain current security posture"
+          },
+          "timestamp": "2025-08-29T04:52:00.241Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:52:00.242Z",
+        "testMetrics": {
+          "responseTime": 135,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "troi",
+      "webhook_path": "crew-troi",
+      "task": "UX analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 281.16,
+      "timestamp": "2025-08-28T23:52:01.032097",
+      "response_data": {
+        "success": true,
+        "crewMember": "troi",
+        "task": "UX analysis",
+        "response": {
+          "crewMember": "troi",
+          "role": "User Experience & Empathy Analysis",
+          "task": "UX analysis",
+          "analysis": {
+            "role": "User Experience & Empathy Analysis",
+            "empathyAnalysis": "Empathy and UX analysis of: \"UX analysis\"",
+            "userExperience": "Excellent user satisfaction metrics",
+            "accessibility": [
+              "Interface accessibility: 100% compliant",
+              "User feedback: 94% positive rating",
+              "Ease of use: Intuitive design confirmed",
+              "Accessibility features: All active and tested"
+            ],
+            "recommendations": "Continue current UX optimization efforts",
+            "improvements": "Minor interface refinements suggested"
+          },
+          "timestamp": "2025-08-29T04:52:01.031Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:52:01.031Z",
+        "testMetrics": {
+          "responseTime": 273,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "uhura",
+      "webhook_path": "crew-uhura",
+      "task": "API optimization",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 263.01,
+      "timestamp": "2025-08-28T23:52:01.798051",
+      "response_data": {
+        "success": true,
+        "crewMember": "uhura",
+        "task": "API optimization",
+        "response": {
+          "crewMember": "uhura",
+          "role": "Communications & I/O Operations",
+          "task": "API optimization",
+          "analysis": {
+            "role": "Communications & I/O Operations",
+            "communicationStatus": "Communication systems analysis of: \"API optimization\"",
+            "systemStatus": "All communication systems operational",
+            "protocols": [
+              "Internal communications: 100% operational",
+              "External communications: Enhanced protocols active",
+              "Data transfer: Optimal bandwidth utilization",
+              "Emergency communications: Redundant systems active"
+            ],
+            "recommendations": "Maintain current communication protocols",
+            "monitoring": "Continuous monitoring active"
+          },
+          "timestamp": "2025-08-29T04:52:01.796Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:52:01.796Z",
+        "testMetrics": {
+          "responseTime": 254,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "quark",
+      "webhook_path": "crew-quark",
+      "task": "Cost analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 268.41,
+      "timestamp": "2025-08-28T23:52:02.580232",
+      "response_data": {
+        "success": true,
+        "crewMember": "quark",
+        "task": "Cost analysis",
+        "response": {
+          "crewMember": "quark",
+          "role": "Business Intelligence & Budget Optimization",
+          "task": "Cost analysis",
+          "analysis": {
+            "role": "Business Intelligence & Budget Optimization",
+            "businessAnalysis": "Business intelligence analysis of: \"Cost analysis\"",
+            "costAnalysis": "All operations within budget parameters",
+            "roi": [
+              "Current ROI: 127% of projected targets",
+              "Cost efficiency: 23% improvement over baseline",
+              "Resource utilization: Optimal allocation confirmed",
+              "Growth opportunities: 3 new revenue streams identified"
+            ],
+            "recommendations": "Continue current optimization strategies",
+            "projections": "Projected 15% improvement in next quarter"
+          },
+          "timestamp": "2025-08-29T04:52:02.579Z",
+          "workflowExecution": "successful",
+          "llmModel": "simulated-response",
+          "confidence": 0.95
+        },
+        "timestamp": "2025-08-29T04:52:02.579Z",
+        "testMetrics": {
+          "responseTime": 214,
+          "status": "completed",
+          "workflowExecution": "successful"
+        }
+      }
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "crisis_response",
+      "mission_description": "Enterprise Crisis Response",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "worf"
+      ],
+      "complexity": "95%",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 521.84,
+      "timestamp": "2025-08-28T23:52:03.608288",
+      "response_data": {
+        "success": true,
+        "scenario": "crisis_response",
+        "missionDescription": "Enterprise Crisis Response",
+        "crewInvolved": 3,
+        "response": {
+          "scenario": "crisis_response",
+          "missionDescription": "Enterprise Crisis Response",
+          "complexity": "95%",
+          "crewInvolved": [
+            "picard",
+            "riker",
+            "worf"
+          ],
+          "analysis": {
+            "scenarioType": "Enterprise Crisis Response",
+            "threatAssessment": "Critical - Immediate response required",
+            "crewCoordination": {
+              "strategic": "Captain Picard coordinating strategic response",
+              "tactical": "Commander Riker executing tactical operations",
+              "technical": [],
+              "security": "Lieutenant Worf ensuring security protocols"
+            },
+            "responseProtocol": "Emergency protocols activated",
+            "timeline": "Immediate response required, full crew coordination essential",
+            "successProbability": "85% with current crew configuration"
+          },
+          "coordination": {
+            "efficiency": "optimal",
+            "communication": "excellent",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal"
+          },
+          "outcomes": {
+            "primary": "Mission objectives achieved",
+            "secondary": "Crew coordination enhanced",
+            "longTerm": "Operational efficiency improved"
+          },
+          "timestamp": "2025-08-29T04:52:03.607Z",
+          "workflowExecution": "successful",
+          "crewSynergy": 85
+        },
+        "timestamp": "2025-08-29T04:52:03.607Z",
+        "testMetrics": {
+          "responseTime": 262,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 85
+        }
+      }
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "technical_audit",
+      "mission_description": "Technical System Audit",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "complexity": "88%",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 245.04,
+      "timestamp": "2025-08-28T23:52:04.363167",
+      "response_data": {
+        "success": true,
+        "scenario": "technical_audit",
+        "missionDescription": "Technical System Audit",
+        "crewInvolved": 3,
+        "response": {
+          "scenario": "technical_audit",
+          "missionDescription": "Technical System Audit",
+          "complexity": "88%",
+          "crewInvolved": [
+            "data",
+            "geordi",
+            "crusher"
+          ],
+          "analysis": {
+            "scenarioType": "Technical System Audit",
+            "auditScope": "Comprehensive system evaluation",
+            "crewRoles": {
+              "data": "Commander Data analyzing system patterns",
+              "geordi": "Lieutenant Commander La Forge assessing infrastructure",
+              "crusher": "Dr. Crusher monitoring system health"
+            },
+            "auditResults": "All systems within operational parameters",
+            "recommendations": "Continue current maintenance protocols",
+            "optimization": "Minor efficiency improvements identified"
+          },
+          "coordination": {
+            "efficiency": "optimal",
+            "communication": "excellent",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal"
+          },
+          "outcomes": {
+            "primary": "Mission objectives achieved",
+            "secondary": "Crew coordination enhanced",
+            "longTerm": "Operational efficiency improved"
+          },
+          "timestamp": "2025-08-29T04:52:04.361Z",
+          "workflowExecution": "successful",
+          "crewSynergy": 75
+        },
+        "timestamp": "2025-08-29T04:52:04.361Z",
+        "testMetrics": {
+          "responseTime": 236,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 75
+        }
+      }
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "business_analysis",
+      "mission_description": "Business Strategy Analysis",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "complexity": "92%",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 144.59,
+      "timestamp": "2025-08-28T23:52:05.017871",
+      "response_data": {
+        "success": true,
+        "scenario": "business_analysis",
+        "missionDescription": "Business Strategy Analysis",
+        "crewInvolved": 3,
+        "response": {
+          "scenario": "business_analysis",
+          "missionDescription": "Business Strategy Analysis",
+          "complexity": "92%",
+          "crewInvolved": [
+            "picard",
+            "quark",
+            "troi"
+          ],
+          "analysis": {
+            "scenarioType": "Business Strategy Analysis",
+            "analysisFocus": "Strategic business optimization",
+            "crewContributions": {
+              "picard": "Captain Picard providing strategic leadership",
+              "quark": "Quark analyzing cost-benefit scenarios",
+              "troi": "Counselor Troi assessing user experience impact"
+            },
+            "businessMetrics": "All operations within budget parameters",
+            "growthOpportunities": "3 new revenue streams identified",
+            "roiProjection": "Projected 15% improvement in next quarter"
+          },
+          "coordination": {
+            "efficiency": "optimal",
+            "communication": "excellent",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal"
+          },
+          "outcomes": {
+            "primary": "Mission objectives achieved",
+            "secondary": "Crew coordination enhanced",
+            "longTerm": "Operational efficiency improved"
+          },
+          "timestamp": "2025-08-29T04:52:05.016Z",
+          "workflowExecution": "successful",
+          "crewSynergy": 80
+        },
+        "timestamp": "2025-08-29T04:52:05.016Z",
+        "testMetrics": {
+          "responseTime": 138,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 80
+        }
+      }
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test core_crew coordination",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "test_mode": "core_crew",
+      "complexity": "Medium",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 1198.73,
+      "timestamp": "2025-08-28T23:52:06.719565",
+      "response_data": {
+        "success": true,
+        "testMode": "core_crew",
+        "missionDirective": "Test core_crew coordination",
+        "crewInvolved": 4,
+        "response": {
+          "missionDirective": "Test core_crew coordination",
+          "testMode": "core_crew",
+          "complexity": "Medium",
+          "crewInvolved": [
+            "picard",
+            "riker",
+            "data",
+            "geordi"
+          ],
+          "crewResponses": {
+            "picard": {
+              "crewMember": "picard",
+              "role": "Strategic Leadership & Mission Command",
+              "response": "Strategic analysis of mission directive: \"Test core_crew coordination\"",
+              "recommendations": [
+                "Implement comprehensive mission planning protocols",
+                "Establish clear communication channels with all stakeholders",
+                "Develop contingency plans for multiple scenarios",
+                "Coordinate with Starfleet Command for resource allocation"
+              ],
+              "additionalData": {
+                "role": "Strategic Leadership & Mission Command",
+                "response": "Strategic analysis of mission directive: \"Test core_crew coordination\"",
+                "recommendations": [
+                  "Implement comprehensive mission planning protocols",
+                  "Establish clear communication channels with all stakeholders",
+                  "Develop contingency plans for multiple scenarios",
+                  "Coordinate with Starfleet Command for resource allocation"
+                ],
+                "priority": "High",
+                "timeline": "Immediate action required",
+                "strategicValue": "Critical for mission success"
+              },
+              "timestamp": "2025-08-29T04:52:06.439Z",
+              "confidence": 0.95
+            },
+            "riker": {
+              "crewMember": "riker",
+              "role": "Tactical Execution & Workflow Management",
+              "response": "Tactical execution plan for: \"Test core_crew coordination\"",
+              "additionalData": {
+                "role": "Tactical Execution & Workflow Management",
+                "response": "Tactical execution plan for: \"Test core_crew coordination\"",
+                "operationalSteps": [
+                  "Deploy tactical teams to key positions",
+                  "Establish command and control protocols",
+                  "Implement real-time monitoring systems",
+                  "Coordinate cross-functional team operations"
+                ],
+                "resourceAllocation": "Optimal distribution of available resources",
+                "executionTimeline": "Phase 1: Immediate, Phase 2: 24h, Phase 3: 72h"
+              },
+              "timestamp": "2025-08-29T04:52:06.576Z",
+              "confidence": 0.95
+            },
+            "data": {
+              "crewMember": "data",
+              "role": "Analytics & Logic Operations",
+              "response": "Logical analysis of: \"Test core_crew coordination\"",
+              "recommendations": "Implement data-driven decision making protocols",
+              "additionalData": {
+                "role": "Analytics & Logic Operations",
+                "response": "Logical analysis of: \"Test core_crew coordination\"",
+                "patterns": [
+                  "Identified recurring patterns in mission requirements",
+                  "Statistical analysis shows 87% correlation with previous missions",
+                  "Performance metrics indicate optimal efficiency thresholds",
+                  "Predictive modeling suggests 92% success probability"
+                ],
+                "recommendations": "Implement data-driven decision making protocols",
+                "monitoring": "Continuous real-time monitoring recommended"
+              },
+              "timestamp": "2025-08-29T04:52:06.648Z",
+              "confidence": 0.95
+            },
+            "geordi": {
+              "crewMember": "geordi",
+              "role": "Infrastructure & System Integration",
+              "response": "Technical assessment of: \"Test core_crew coordination\"",
+              "additionalData": {
+                "role": "Infrastructure & System Integration",
+                "response": "Technical assessment of: \"Test core_crew coordination\"",
+                "systemRequirements": "All systems capable of supporting mission objectives",
+                "integrationPoints": [
+                  "Warp core integration: Optimal for mission requirements",
+                  "Shield systems: 98% efficiency for mission safety",
+                  "Life support: 100% operational for extended missions",
+                  "Communications: Enhanced protocols for mission coordination"
+                ],
+                "optimization": "System performance optimized for mission success",
+                "maintenance": "Preventive maintenance schedule aligned with mission timeline"
+              },
+              "timestamp": "2025-08-29T04:52:06.717Z",
+              "confidence": 0.95
+            }
+          },
+          "coordination": {
+            "mode": "core_crew",
+            "complexity": "Medium",
+            "crewSize": 4,
+            "coordinationEfficiency": "optimal",
+            "communicationProtocols": "active",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal",
+            "timeline": "on-schedule",
+            "riskAssessment": "minimal",
+            "successProbability": "95%"
+          },
+          "outcomes": {
+            "primary": "Mission objectives clearly defined and achievable",
+            "secondary": "Crew coordination optimized for mission success",
+            "longTerm": "Operational efficiency improved through enhanced coordination",
+            "metrics": {
+              "efficiency": "95%",
+              "coordination": "excellent",
+              "communication": "optimal",
+              "resourceUtilization": "optimal"
+            },
+            "recommendations": [
+              "Proceed with mission execution as planned",
+              "Maintain current crew coordination protocols",
+              "Monitor performance metrics throughout mission",
+              "Document lessons learned for future missions"
+            ]
+          },
+          "timestamp": "2025-08-29T04:52:06.717Z",
+          "workflowExecution": "successful",
+          "observationLoungeStatus": "active",
+          "crewSynergy": 100
+        },
+        "timestamp": "2025-08-29T04:52:06.717Z",
+        "testMetrics": {
+          "responseTime": 1025,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 100,
+          "missionSuccess": "high"
+        }
+      }
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test specialist_team coordination",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher",
+        "worf"
+      ],
+      "test_mode": "specialist_team",
+      "complexity": "Medium",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 992.05,
+      "timestamp": "2025-08-28T23:52:08.221745",
+      "response_data": {
+        "success": true,
+        "testMode": "specialist_team",
+        "missionDirective": "Test specialist_team coordination",
+        "crewInvolved": 4,
+        "response": {
+          "missionDirective": "Test specialist_team coordination",
+          "testMode": "specialist_team",
+          "complexity": "Medium",
+          "crewInvolved": [
+            "data",
+            "geordi",
+            "crusher",
+            "worf"
+          ],
+          "crewResponses": {
+            "data": {
+              "crewMember": "data",
+              "role": "Analytics & Logic Operations",
+              "response": "Logical analysis of: \"Test specialist_team coordination\"",
+              "recommendations": "Implement data-driven decision making protocols",
+              "additionalData": {
+                "role": "Analytics & Logic Operations",
+                "response": "Logical analysis of: \"Test specialist_team coordination\"",
+                "patterns": [
+                  "Identified recurring patterns in mission requirements",
+                  "Statistical analysis shows 87% correlation with previous missions",
+                  "Performance metrics indicate optimal efficiency thresholds",
+                  "Predictive modeling suggests 92% success probability"
+                ],
+                "recommendations": "Implement data-driven decision making protocols",
+                "monitoring": "Continuous real-time monitoring recommended"
+              },
+              "timestamp": "2025-08-29T04:52:07.952Z",
+              "confidence": 0.95
+            },
+            "geordi": {
+              "crewMember": "geordi",
+              "role": "Infrastructure & System Integration",
+              "response": "Technical assessment of: \"Test specialist_team coordination\"",
+              "additionalData": {
+                "role": "Infrastructure & System Integration",
+                "response": "Technical assessment of: \"Test specialist_team coordination\"",
+                "systemRequirements": "All systems capable of supporting mission objectives",
+                "integrationPoints": [
+                  "Warp core integration: Optimal for mission requirements",
+                  "Shield systems: 98% efficiency for mission safety",
+                  "Life support: 100% operational for extended missions",
+                  "Communications: Enhanced protocols for mission coordination"
+                ],
+                "optimization": "System performance optimized for mission success",
+                "maintenance": "Preventive maintenance schedule aligned with mission timeline"
+              },
+              "timestamp": "2025-08-29T04:52:08.051Z",
+              "confidence": 0.95
+            },
+            "crusher": {
+              "crewMember": "crusher",
+              "role": "Health & Diagnostics Officer",
+              "response": "Health and diagnostics analysis of: \"Test specialist_team coordination\"",
+              "recommendations": "Continue current health and safety protocols",
+              "additionalData": {
+                "role": "Health & Diagnostics Officer",
+                "response": "Health and diagnostics analysis of: \"Test specialist_team coordination\"",
+                "crewHealth": "All crew members in optimal health for mission execution",
+                "systemHealth": "All critical systems showing excellent health metrics",
+                "diagnostics": [
+                  "Core systems: 100% operational",
+                  "Backup systems: 100% operational",
+                  "Emergency protocols: Active and tested",
+                  "Crew safety systems: Optimal performance"
+                ],
+                "recommendations": "Continue current health and safety protocols",
+                "alerts": "No critical alerts at this time"
+              },
+              "timestamp": "2025-08-29T04:52:08.105Z",
+              "confidence": 0.95
+            },
+            "worf": {
+              "crewMember": "worf",
+              "role": "Security & Compliance Operations",
+              "response": "Security and compliance analysis of: \"Test specialist_team coordination\"",
+              "recommendations": "Maintain current security posture for mission execution",
+              "additionalData": {
+                "role": "Security & Compliance Operations",
+                "response": "Security and compliance analysis of: \"Test specialist_team coordination\"",
+                "threatAssessment": "Current threat level: Minimal",
+                "securityStatus": [
+                  "Perimeter security: 100% active",
+                  "Access control: Enhanced protocols enabled",
+                  "Threat detection: Advanced sensors operational",
+                  "Emergency response: Ready and tested"
+                ],
+                "compliance": "All Federation security protocols compliant",
+                "recommendations": "Maintain current security posture for mission execution"
+              },
+              "timestamp": "2025-08-29T04:52:08.220Z",
+              "confidence": 0.95
+            }
+          },
+          "coordination": {
+            "mode": "specialist_team",
+            "complexity": "Medium",
+            "crewSize": 4,
+            "coordinationEfficiency": "optimal",
+            "communicationProtocols": "active",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal",
+            "timeline": "on-schedule",
+            "riskAssessment": "minimal",
+            "successProbability": "95%"
+          },
+          "outcomes": {
+            "primary": "Mission objectives clearly defined and achievable",
+            "secondary": "Crew coordination optimized for mission success",
+            "longTerm": "Operational efficiency improved through enhanced coordination",
+            "metrics": {
+              "efficiency": "95%",
+              "coordination": "excellent",
+              "communication": "optimal",
+              "resourceUtilization": "optimal"
+            },
+            "recommendations": [
+              "Proceed with mission execution as planned",
+              "Maintain current crew coordination protocols",
+              "Monitor performance metrics throughout mission",
+              "Document lessons learned for future missions"
+            ]
+          },
+          "timestamp": "2025-08-29T04:52:08.220Z",
+          "workflowExecution": "successful",
+          "observationLoungeStatus": "active",
+          "crewSynergy": 90
+        },
+        "timestamp": "2025-08-29T04:52:08.220Z",
+        "testMetrics": {
+          "responseTime": 984,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 90,
+          "missionSuccess": "high"
+        }
+      }
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test full_crew coordination",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "test_mode": "full_crew",
+      "complexity": "High",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 1920.92,
+      "timestamp": "2025-08-28T23:52:10.652825",
+      "response_data": {
+        "success": true,
+        "testMode": "full_crew",
+        "missionDirective": "Test full_crew coordination",
+        "crewInvolved": 9,
+        "response": {
+          "missionDirective": "Test full_crew coordination",
+          "testMode": "full_crew",
+          "complexity": "High",
+          "crewInvolved": [
+            "picard",
+            "riker",
+            "data",
+            "geordi",
+            "crusher",
+            "worf",
+            "troi",
+            "uhura",
+            "quark"
+          ],
+          "crewResponses": {
+            "picard": {
+              "crewMember": "picard",
+              "role": "Strategic Leadership & Mission Command",
+              "response": "Strategic analysis of mission directive: \"Test full_crew coordination\"",
+              "recommendations": [
+                "Implement comprehensive mission planning protocols",
+                "Establish clear communication channels with all stakeholders",
+                "Develop contingency plans for multiple scenarios",
+                "Coordinate with Starfleet Command for resource allocation"
+              ],
+              "additionalData": {
+                "role": "Strategic Leadership & Mission Command",
+                "response": "Strategic analysis of mission directive: \"Test full_crew coordination\"",
+                "recommendations": [
+                  "Implement comprehensive mission planning protocols",
+                  "Establish clear communication channels with all stakeholders",
+                  "Develop contingency plans for multiple scenarios",
+                  "Coordinate with Starfleet Command for resource allocation"
+                ],
+                "priority": "High",
+                "timeline": "Immediate action required",
+                "strategicValue": "Critical for mission success"
+              },
+              "timestamp": "2025-08-29T04:52:09.776Z",
+              "confidence": 0.95
+            },
+            "riker": {
+              "crewMember": "riker",
+              "role": "Tactical Execution & Workflow Management",
+              "response": "Tactical execution plan for: \"Test full_crew coordination\"",
+              "additionalData": {
+                "role": "Tactical Execution & Workflow Management",
+                "response": "Tactical execution plan for: \"Test full_crew coordination\"",
+                "operationalSteps": [
+                  "Deploy tactical teams to key positions",
+                  "Establish command and control protocols",
+                  "Implement real-time monitoring systems",
+                  "Coordinate cross-functional team operations"
+                ],
+                "resourceAllocation": "Optimal distribution of available resources",
+                "executionTimeline": "Phase 1: Immediate, Phase 2: 24h, Phase 3: 72h"
+              },
+              "timestamp": "2025-08-29T04:52:09.906Z",
+              "confidence": 0.95
+            },
+            "data": {
+              "crewMember": "data",
+              "role": "Analytics & Logic Operations",
+              "response": "Logical analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Implement data-driven decision making protocols",
+              "additionalData": {
+                "role": "Analytics & Logic Operations",
+                "response": "Logical analysis of: \"Test full_crew coordination\"",
+                "patterns": [
+                  "Identified recurring patterns in mission requirements",
+                  "Statistical analysis shows 87% correlation with previous missions",
+                  "Performance metrics indicate optimal efficiency thresholds",
+                  "Predictive modeling suggests 92% success probability"
+                ],
+                "recommendations": "Implement data-driven decision making protocols",
+                "monitoring": "Continuous real-time monitoring recommended"
+              },
+              "timestamp": "2025-08-29T04:52:10.034Z",
+              "confidence": 0.95
+            },
+            "geordi": {
+              "crewMember": "geordi",
+              "role": "Infrastructure & System Integration",
+              "response": "Technical assessment of: \"Test full_crew coordination\"",
+              "additionalData": {
+                "role": "Infrastructure & System Integration",
+                "response": "Technical assessment of: \"Test full_crew coordination\"",
+                "systemRequirements": "All systems capable of supporting mission objectives",
+                "integrationPoints": [
+                  "Warp core integration: Optimal for mission requirements",
+                  "Shield systems: 98% efficiency for mission safety",
+                  "Life support: 100% operational for extended missions",
+                  "Communications: Enhanced protocols for mission coordination"
+                ],
+                "optimization": "System performance optimized for mission success",
+                "maintenance": "Preventive maintenance schedule aligned with mission timeline"
+              },
+              "timestamp": "2025-08-29T04:52:10.170Z",
+              "confidence": 0.95
+            },
+            "crusher": {
+              "crewMember": "crusher",
+              "role": "Health & Diagnostics Officer",
+              "response": "Health and diagnostics analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Continue current health and safety protocols",
+              "additionalData": {
+                "role": "Health & Diagnostics Officer",
+                "response": "Health and diagnostics analysis of: \"Test full_crew coordination\"",
+                "crewHealth": "All crew members in optimal health for mission execution",
+                "systemHealth": "All critical systems showing excellent health metrics",
+                "diagnostics": [
+                  "Core systems: 100% operational",
+                  "Backup systems: 100% operational",
+                  "Emergency protocols: Active and tested",
+                  "Crew safety systems: Optimal performance"
+                ],
+                "recommendations": "Continue current health and safety protocols",
+                "alerts": "No critical alerts at this time"
+              },
+              "timestamp": "2025-08-29T04:52:10.243Z",
+              "confidence": 0.95
+            },
+            "worf": {
+              "crewMember": "worf",
+              "role": "Security & Compliance Operations",
+              "response": "Security and compliance analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Maintain current security posture for mission execution",
+              "additionalData": {
+                "role": "Security & Compliance Operations",
+                "response": "Security and compliance analysis of: \"Test full_crew coordination\"",
+                "threatAssessment": "Current threat level: Minimal",
+                "securityStatus": [
+                  "Perimeter security: 100% active",
+                  "Access control: Enhanced protocols enabled",
+                  "Threat detection: Advanced sensors operational",
+                  "Emergency response: Ready and tested"
+                ],
+                "compliance": "All Federation security protocols compliant",
+                "recommendations": "Maintain current security posture for mission execution"
+              },
+              "timestamp": "2025-08-29T04:52:10.296Z",
+              "confidence": 0.95
+            },
+            "troi": {
+              "crewMember": "troi",
+              "role": "User Experience & Empathy Analysis",
+              "response": "Empathy and UX analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Continue current UX optimization efforts",
+              "additionalData": {
+                "role": "User Experience & Empathy Analysis",
+                "response": "Empathy and UX analysis of: \"Test full_crew coordination\"",
+                "userExperience": "Excellent user satisfaction metrics for mission interface",
+                "accessibility": [
+                  "Interface accessibility: 100% compliant",
+                  "User feedback: 94% positive rating",
+                  "Ease of use: Intuitive design confirmed",
+                  "Accessibility features: All active and tested"
+                ],
+                "recommendations": "Continue current UX optimization efforts",
+                "improvements": "Minor interface refinements suggested for mission efficiency"
+              },
+              "timestamp": "2025-08-29T04:52:10.437Z",
+              "confidence": 0.95
+            },
+            "uhura": {
+              "crewMember": "uhura",
+              "role": "Communications & I/O Operations",
+              "response": "Communication systems analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Maintain current communication protocols",
+              "additionalData": {
+                "role": "Communications & I/O Operations",
+                "response": "Communication systems analysis of: \"Test full_crew coordination\"",
+                "communicationStatus": "All communication systems operational for mission",
+                "protocols": [
+                  "Internal communications: 100% operational",
+                  "External communications: Enhanced protocols active",
+                  "Data transfer: Optimal bandwidth utilization",
+                  "Emergency communications: Redundant systems active"
+                ],
+                "recommendations": "Maintain current communication protocols",
+                "monitoring": "Continuous monitoring active for mission duration"
+              },
+              "timestamp": "2025-08-29T04:52:10.569Z",
+              "confidence": 0.95
+            },
+            "quark": {
+              "crewMember": "quark",
+              "role": "Business Intelligence & Budget Optimization",
+              "response": "Business intelligence analysis of: \"Test full_crew coordination\"",
+              "recommendations": "Continue current optimization strategies",
+              "additionalData": {
+                "role": "Business Intelligence & Budget Optimization",
+                "response": "Business intelligence analysis of: \"Test full_crew coordination\"",
+                "costAnalysis": "All operations within budget parameters for mission",
+                "roi": [
+                  "Current ROI: 127% of projected targets",
+                  "Cost efficiency: 23% improvement over baseline",
+                  "Resource utilization: Optimal allocation confirmed",
+                  "Growth opportunities: 3 new revenue streams identified"
+                ],
+                "recommendations": "Continue current optimization strategies",
+                "projections": "Projected 15% improvement in next quarter"
+              },
+              "timestamp": "2025-08-29T04:52:10.646Z",
+              "confidence": 0.95
+            }
+          },
+          "coordination": {
+            "mode": "full_crew",
+            "complexity": "High",
+            "crewSize": 9,
+            "coordinationEfficiency": "optimal",
+            "communicationProtocols": "active",
+            "decisionMaking": "streamlined",
+            "resourceAllocation": "optimal",
+            "timeline": "on-schedule",
+            "riskAssessment": "minimal",
+            "successProbability": "95%"
+          },
+          "outcomes": {
+            "primary": "Mission objectives clearly defined and achievable",
+            "secondary": "Crew coordination optimized for mission success",
+            "longTerm": "Operational efficiency improved through enhanced coordination",
+            "metrics": {
+              "efficiency": "95%",
+              "coordination": "excellent",
+              "communication": "optimal",
+              "resourceUtilization": "optimal"
+            },
+            "recommendations": [
+              "Proceed with mission execution as planned",
+              "Maintain current crew coordination protocols",
+              "Monitor performance metrics throughout mission",
+              "Document lessons learned for future missions"
+            ]
+          },
+          "timestamp": "2025-08-29T04:52:10.647Z",
+          "workflowExecution": "successful",
+          "observationLoungeStatus": "active",
+          "crewSynergy": 100
+        },
+        "timestamp": "2025-08-29T04:52:10.647Z",
+        "testMetrics": {
+          "responseTime": 1908,
+          "status": "completed",
+          "coordinationEfficiency": "optimal",
+          "crewSynergy": 100,
+          "missionSuccess": "high"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "successful": 15,
+    "failed": 0,
+    "errors": 0,
+    "test_type_breakdown": {
+      "individual_crew": {
+        "total": 9,
+        "success": 9,
+        "failed": 0,
+        "error": 0
+      },
+      "mission_scenario": {
+        "total": 3,
+        "success": 3,
+        "failed": 0,
+        "error": 0
+      },
+      "observation_lounge": {
+        "total": 3,
+        "success": 3,
+        "failed": 0,
+        "error": 0
+      }
+    }
+  }
+}
