@@ -7,6 +7,7 @@ import { TestCrewMember } from '@/components/TestCrewMember';
 import { TestMissionScenario } from '@/components/TestMissionScenario';
 import { TestObservationLounge } from '@/components/TestObservationLounge';
 import { TestResults } from '@/components/TestResults';
+import { AutomatedN8NTesting } from '@/components/AutomatedN8NTesting';
 
 interface TestResult {
     type: string;
@@ -207,6 +208,14 @@ export default function TestN8NPage() {
                     {/* Observation Lounge Integration Testing - Large Card */}
                     <div style={{ gridColumn: 'span 12' }}>
                         <TestObservationLounge
+                            crewMembers={crewMembers}
+                            onTestResult={handleTestResult}
+                        />
+                    </div>
+
+                    {/* Automated N8N Testing Suite - Large Card */}
+                    <div style={{ gridColumn: 'span 12' }}>
+                        <AutomatedN8NTesting
                             crewMembers={crewMembers}
                             onTestResult={handleTestResult}
                         />

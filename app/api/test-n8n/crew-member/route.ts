@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
     try {
-        const { crewMemberId, webhookPath, task } = await request.json();
+        const { crewMemberId, webhookPath, task, scenario, expectedOutcome, complexity } = await request.json();
 
         if (!crewMemberId || !webhookPath || !task) {
             return NextResponse.json(
@@ -45,12 +45,13 @@ export async function POST(request: NextRequest) {
             if (n8nResponse.ok) {
                 // Success! Get the actual response from n8n
                 let n8nData;
+                const responseText = await n8nResponse.text();
+
                 try {
-                    n8nData = await n8nResponse.json();
+                    n8nData = JSON.parse(responseText);
                     console.log(`✅ Successfully parsed n8n response:`, JSON.stringify(n8nData, null, 2));
                 } catch (parseError) {
                     // If n8n returns non-JSON, create a structured response
-                    const responseText = await n8nResponse.text();
                     console.log(`⚠️ n8n returned non-JSON response: ${responseText}`);
                     n8nData = {
                         message: responseText,
@@ -67,10 +68,13 @@ export async function POST(request: NextRequest) {
                     crewMemberId,
                     webhookPath,
                     task,
+                    scenario,
+                    expectedOutcome,
+                    complexity,
                     response: {
                         analysis: {
                             priority: n8nData.priority || 'Medium',
-                            complexity: n8nData.complexity || 'Standard',
+                            complexity: n8nData.complexity || complexity || 'Standard',
                             estimatedDuration: n8nData.estimatedDuration || '2-4 hours'
                         },
                         recommendations: n8nData.recommendations || [
@@ -95,7 +99,12 @@ export async function POST(request: NextRequest) {
                 });
             } else {
                 // n8n webhook failed, fall back to mock data
-                const errorText = await n8nResponse.text();
+                let errorText = '';
+                try {
+                    errorText = await n8nResponse.text();
+                } catch (e) {
+                    errorText = 'Unable to read error response';
+                }
                 console.log(`⚠️ n8n webhook failed (${n8nResponse.status}): ${errorText}`);
                 console.log(`🔄 Falling back to mock data for ${crewMemberId}`);
 
@@ -138,6 +147,9 @@ export async function POST(request: NextRequest) {
                 crewMemberId,
                 webhookPath,
                 task,
+                scenario,
+                expectedOutcome,
+                complexity,
                 response: mockResponse,
                 testMetrics: {
                     responseTime: mockResponseTime,

@@ -135,7 +135,7 @@ export const ThemedText: React.FC<ThemedTextProps> = ({
 }) => {
     const baseStyle = createTextStyle(variant, color);
 
-    const Component = variant.startsWith('h') ? variant as keyof JSX.IntrinsicElements : 'p';
+    const Component = variant.startsWith('h') ? variant as 'h1' | 'h2' | 'h3' | 'h4' : 'p';
 
     return (
         <Component style={{ ...baseStyle, ...style }} className={className}>

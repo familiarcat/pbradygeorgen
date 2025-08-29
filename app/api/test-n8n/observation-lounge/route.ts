@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
                 testMode,
                 complexity: complexity || 'High',
                 timestamp: new Date().toISOString(),
-                testMode: true,
                 source: 'n8n-testing-console',
                 missionType: 'observation_lounge_test',
                 coordinationLevel: testMode === 'full_crew' ? 'maximum' : testMode === 'core_crew' ? 'high' : 'medium'
