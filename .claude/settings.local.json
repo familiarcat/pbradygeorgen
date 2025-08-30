@@ -19,7 +19,9 @@
       "Bash(alias cmode=\"source $HOME/Documents/workspace/pbradygeorgen/claude-prompt-activate.sh\")",
       "Bash(alias nmode=\"source $HOME/Documents/workspace/pbradygeorgen/claude-prompt-restore.sh\")",
       "Bash(normal-mode)",
-      "Bash(export PROMPT=$'%{\\033[48;2;255;243;230m\\033[38;2;51;51;51m%}🤖 Claude Work → %{\\033[38;2;59;130;246m%}%~%{\\033[38;2;51;51;51m%} %# %{\\033[0m%}')"
+      "Bash(export PROMPT=$'%{\\033[48;2;255;243;230m\\033[38;2;51;51;51m%}🤖 Claude Work → %{\\033[38;2;59;130;246m%}%~%{\\033[38;2;51;51;51m%} %# %{\\033[0m%}')",
+      "Bash(npm run test:*)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []
