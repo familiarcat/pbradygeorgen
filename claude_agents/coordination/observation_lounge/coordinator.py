@@ -15,6 +15,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from claude_agents.core import (
     CaptainPicardAgent,
     CommanderDataAgent,
+    CommanderRikerAgent,
     LieutenantWorfAgent,
     GeordiLaForgeAgent,
     CounselorTroiAgent,
@@ -30,6 +31,7 @@ class ObservationLoungeCoordinator:
         self.crew_members = {
             "picard": CaptainPicardAgent(),
             "data": CommanderDataAgent(),
+            "riker": CommanderRikerAgent(),
             "worf": LieutenantWorfAgent(),
             "geordi": GeordiLaForgeAgent(),
             "troi": CounselorTroiAgent(),

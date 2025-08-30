@@ -35,6 +35,13 @@ const crewMembers: CrewMember[] = [
         description: 'Data analysis and logical reasoning'
     },
     {
+        id: 'riker',
+        name: 'Commander William Riker',
+        role: 'Tactical Execution',
+        webhookPath: 'crew-commander-william-riker',
+        description: 'Tactical execution and workflow management'
+    },
+    {
         id: 'geordi',
         name: 'Lieutenant Commander Geordi La Forge',
         role: 'Technical Engineering',
@@ -97,7 +104,7 @@ const testScenarios: TestScenario[] = [
         expectedOutcome: 'Structured execution plan with timelines and milestones',
         complexity: 'Medium',
         category: 'Tactical Execution',
-        crewMembers: ['geordi']
+        crewMembers: ['riker', 'geordi']
     },
     {
         id: 'data_analysis',

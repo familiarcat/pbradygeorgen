@@ -1,0 +1,154 @@
+{
+  "timestamp": "2025-08-30T01:20:49.756736",
+  "test_summary": {
+    "scenarios_tested": 4,
+    "successful_scenarios": 4,
+    "scenario_success_rate": 1.0,
+    "individual_crew_tested": 8,
+    "successful_individual_tests": 8,
+    "individual_success_rate": 1.0,
+    "total_crew_interactions": 14,
+    "successful_crew_responses": 14,
+    "crew_response_rate": 1.0
+  },
+  "coordination_results": {
+    "Core Crew Mission": {
+      "status": "success",
+      "response_time": 0.62349,
+      "coordination_efficiency": "100%",
+      "crew_responses": 4,
+      "failed_crew": 0,
+      "mission_status": "Active",
+      "selected_crew_count": 4,
+      "success_rate": "4/4"
+    },
+    "Technical Challenge": {
+      "status": "success",
+      "response_time": 0.323951,
+      "coordination_efficiency": "100%",
+      "crew_responses": 3,
+      "failed_crew": 0,
+      "mission_status": "Active",
+      "selected_crew_count": 3,
+      "success_rate": "3/3"
+    },
+    "Diplomatic Mission": {
+      "status": "success",
+      "response_time": 0.522721,
+      "coordination_efficiency": "100%",
+      "crew_responses": 4,
+      "failed_crew": 0,
+      "mission_status": "Active",
+      "selected_crew_count": 4,
+      "success_rate": "4/4"
+    },
+    "Medical Emergency": {
+      "status": "success",
+      "response_time": 0.337579,
+      "coordination_efficiency": "100%",
+      "crew_responses": 3,
+      "failed_crew": 0,
+      "mission_status": "Active",
+      "selected_crew_count": 3,
+      "success_rate": "3/3"
+    }
+  },
+  "individual_results": {
+    "picard": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.200079,
+      "webhook_path": "crew-captain-jean-luc-picard"
+    },
+    "data": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.159784,
+      "webhook_path": "crew-commander-data"
+    },
+    "worf": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.182101,
+      "webhook_path": "crew-lieutenant-worf"
+    },
+    "geordi": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.186995,
+      "webhook_path": "crew-lieutenant-commander-geordi-la-forge"
+    },
+    "troi": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.189166,
+      "webhook_path": "crew-counselor-deanna-troi"
+    },
+    "uhura": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.256183,
+      "webhook_path": "crew-lieutenant-uhura"
+    },
+    "crusher": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.182841,
+      "webhook_path": "crew-dr-beverly-crusher"
+    },
+    "quark": {
+      "status": "success",
+      "status_code": 200,
+      "response_time": 0.20407,
+      "webhook_path": "crew-quark"
+    }
+  },
+  "test_scenarios": [
+    {
+      "name": "Core Crew Mission",
+      "missionDirective": "Establish first contact protocols with newly discovered alien civilization",
+      "selectedCrew": [
+        "picard",
+        "data",
+        "troi",
+        "uhura"
+      ],
+      "testMode": "core_crew",
+      "complexity": "High"
+    },
+    {
+      "name": "Technical Challenge",
+      "missionDirective": "Diagnose and resolve critical system failures in main engineering",
+      "selectedCrew": [
+        "geordi",
+        "data",
+        "worf"
+      ],
+      "testMode": "specialized",
+      "complexity": "Medium"
+    },
+    {
+      "name": "Diplomatic Mission",
+      "missionDirective": "Negotiate trade agreements while ensuring security protocols",
+      "selectedCrew": [
+        "picard",
+        "uhura",
+        "worf",
+        "quark"
+      ],
+      "testMode": "diplomatic",
+      "complexity": "High"
+    },
+    {
+      "name": "Medical Emergency",
+      "missionDirective": "Respond to outbreak of unknown pathogen affecting multiple crew members",
+      "selectedCrew": [
+        "crusher",
+        "data",
+        "troi"
+      ],
+      "testMode": "emergency",
+      "complexity": "Critical"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 ## 🌟 **Crew Overview**
 
-The Claude Crew System features 8 specialized AI agents, each representing a unique Starfleet officer with distinct capabilities, personality traits, and areas of expertise. Together, they form a comprehensive team capable of handling any mission or challenge.
+The Claude Crew System features 9 specialized AI agents, each representing a unique Starfleet officer with distinct capabilities, personality traits, and areas of expertise. Together, they form a comprehensive team capable of handling any mission or challenge.
 
 ## 🎭 **Individual Crew Profiles**
 
@@ -45,7 +45,46 @@ def coordinate_crew_efforts(self, mission_requirements):
 
 ---
 
-### **2. Commander Data** 🤖
+### **2. Commander William Riker** ⚡
+**Role**: Tactical Execution & Workflow Management  
+**Agent ID**: `riker`  
+**Specialization**: Tactical execution planning, workflow optimization, mission leadership
+
+#### **Core Capabilities**
+- **Tactical Execution**: Strategic implementation and operational planning
+- **Workflow Management**: Process optimization and coordination systems
+- **Project Leadership**: Resource allocation and team coordination
+- **Mission Implementation**: Execution planning and performance monitoring
+- **Operational Efficiency**: Process improvement and tactical optimization
+
+#### **Personality Traits**
+- **Leadership Style**: Bold, decisive, natural coordinator
+- **Decision Making**: Practical, results-focused, strategic implementation
+- **Communication**: Clear, commanding, motivational
+- **Values**: Excellence, teamwork, operational success
+
+#### **Specialized Methods**
+```python
+def execute_tactical_plan(self, mission_parameters):
+    """Implement tactical execution strategy with workflow optimization"""
+    
+def optimize_workflow_coordination(self, process_requirements):
+    """Coordinate complex workflows and resource allocation"""
+    
+def lead_mission_implementation(self, team_objectives):
+    """Lead tactical implementation with performance monitoring"""
+```
+
+#### **Use Cases**
+- Tactical mission execution and implementation
+- Workflow optimization and process management
+- Project coordination and resource allocation  
+- Team leadership and operational efficiency
+- Strategic implementation and performance monitoring
+
+---
+
+### **3. Commander Data** 🤖
 **Role**: Scientific Analysis & Logical Reasoning  
 **Agent ID**: `data`  
 **Specialization**: Scientific research, logical analysis, technical expertise
@@ -84,7 +123,7 @@ def process_technical_data(self, technical_info):
 
 ---
 
-### **3. Lieutenant Worf** ⚔️
+### **4. Lieutenant Worf** ⚔️
 **Role**: Tactical Analysis & Security Operations  
 **Agent ID**: `worf`  
 **Specialization**: Combat strategy, security analysis, defensive planning
@@ -123,7 +162,7 @@ def develop_defensive_strategy(self, defensive_requirements):
 
 ---
 
-### **4. Lieutenant Commander Geordi La Forge** 🔧
+### **5. Lieutenant Commander Geordi La Forge** 🔧
 **Role**: Engineering & Technical Problem-Solving  
 **Agent ID**: `geordi`  
 **Specialization**: Engineering innovation, technical troubleshooting, systems optimization
@@ -162,7 +201,7 @@ def develop_innovative_solution(self, requirements):
 
 ---
 
-### **5. Counselor Deanna Troi** 💝
+### **6. Counselor Deanna Troi** 💝
 **Role**: Psychological Analysis & Emotional Intelligence  
 **Agent ID**: `troi`  
 **Specialization**: Emotional intelligence, conflict resolution, team dynamics
@@ -201,7 +240,7 @@ def build_team_cohesion(self, team_dynamics):
 
 ---
 
-### **6. Lieutenant Uhura** 📡
+### **7. Lieutenant Uhura** 📡
 **Role**: Communications & Diplomatic Relations  
 **Agent ID**: `uhura`  
 **Specialization**: Intercultural communication, diplomatic protocol, language expertise
@@ -240,7 +279,7 @@ def facilitate_intercultural_communication(self, cultural_context):
 
 ---
 
-### **7. Dr. Beverly Crusher** 🏥
+### **8. Dr. Beverly Crusher** 🏥
 **Role**: Medical Analysis & Healthcare Planning  
 **Agent ID**: `crusher`  
 **Specialization**: Medical diagnosis, healthcare strategy, ethical medical decision-making
@@ -279,7 +318,7 @@ def address_ethical_medical_issues(self, ethical_dilemma):
 
 ---
 
-### **8. Quark** 💰
+### **9. Quark** 💰
 **Role**: Business Operations & Financial Analysis  
 **Agent ID**: `quark`  
 **Specialization**: Business strategy, financial planning, entrepreneurial innovation
@@ -327,6 +366,7 @@ def optimize_resource_allocation(self, resource_data):
 ### **2. Capability Mapping**
 ```
 Strategic Planning    → Captain Picard
+Tactical Execution    → Commander Riker
 Scientific Analysis   → Commander Data
 Tactical Operations   → Lieutenant Worf
 Engineering Problems  → Geordi La Forge

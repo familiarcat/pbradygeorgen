@@ -233,6 +233,7 @@ export function AutomatedN8NTesting({ crewMembers, onTestResult }: AutomatedN8NT
     // Map crew members to their scenario categories
     const crewScenarioMap: { [key: string]: string[] } = {
         'picard': ['strategic_leadership'],
+        'riker': ['tactical_execution'],
         'data': ['analytics'],
         'crusher': ['health_diagnostics'],
         'worf': ['security_compliance'],

@@ -1,0 +1,345 @@
+{
+  "timestamp": "2025-08-30T01:29:43.319935",
+  "test_summary": {
+    "total_crew_expected": 9,
+    "claude_operational": false,
+    "n8n_active_webhooks": 8,
+    "integration_working": true
+  },
+  "crew_mappings": {
+    "picard": {
+      "claude_name": "Captain Jean-Luc Picard",
+      "claude_role": "Strategic Leadership & Mission Command",
+      "n8n_webhook": "crew-captain-jean-luc-picard",
+      "specialization": "strategic_leadership"
+    },
+    "data": {
+      "claude_name": "Commander Data",
+      "claude_role": "Scientific Analysis & Logical Reasoning",
+      "n8n_webhook": "crew-commander-data",
+      "specialization": "scientific_analysis"
+    },
+    "riker": {
+      "claude_name": "Commander William Riker",
+      "claude_role": "Tactical Execution & Workflow Management",
+      "n8n_webhook": "crew-commander-william-riker",
+      "specialization": "tactical_execution"
+    },
+    "worf": {
+      "claude_name": "Lieutenant Worf",
+      "claude_role": "Tactical Analysis & Security Operations",
+      "n8n_webhook": "crew-lieutenant-worf",
+      "specialization": "tactical_analysis"
+    },
+    "geordi": {
+      "claude_name": "Lieutenant Commander Geordi La Forge",
+      "claude_role": "Engineering & Technical Problem-Solving",
+      "n8n_webhook": "crew-lieutenant-commander-geordi-la-forge",
+      "specialization": "engineering"
+    },
+    "troi": {
+      "claude_name": "Counselor Deanna Troi",
+      "claude_role": "Psychological Analysis & Emotional Intelligence",
+      "n8n_webhook": "crew-counselor-deanna-troi",
+      "specialization": "psychological_analysis"
+    },
+    "uhura": {
+      "claude_name": "Lieutenant Uhura",
+      "claude_role": "Communications & Diplomatic Relations",
+      "n8n_webhook": "crew-lieutenant-uhura",
+      "specialization": "communications"
+    },
+    "crusher": {
+      "claude_name": "Dr. Beverly Crusher",
+      "claude_role": "Medical Analysis & Healthcare Planning",
+      "n8n_webhook": "crew-dr-beverly-crusher",
+      "specialization": "medical_analysis"
+    },
+    "quark": {
+      "claude_name": "Quark",
+      "claude_role": "Business Operations & Financial Analysis",
+      "n8n_webhook": "crew-quark",
+      "specialization": "business_operations"
+    }
+  },
+  "claude_results": {
+    "status": "success",
+    "total_crew": 9,
+    "crew_members": {
+      "picard": {
+        "name": "Captain Jean-Luc Picard",
+        "role": "Strategic Leadership & Mission Command",
+        "capabilities": [
+          "strategic_planning",
+          "mission_coordination",
+          "crew_management",
+          "risk_assessment",
+          "resource_allocation",
+          "decision_making",
+          "diplomatic_relations",
+          "crisis_management",
+          "long_term_planning",
+          "crew_assignment"
+        ],
+        "status": "active"
+      },
+      "data": {
+        "name": "Commander Data",
+        "role": "Scientific Analysis & Logical Reasoning",
+        "capabilities": [
+          "scientific_analysis",
+          "logical_reasoning",
+          "data_processing",
+          "technical_expertise",
+          "pattern_recognition",
+          "research_methodology"
+        ],
+        "status": "active"
+      },
+      "riker": {
+        "name": "Commander William Riker",
+        "role": "Tactical Execution & Workflow Management",
+        "capabilities": [
+          "tactical_execution",
+          "workflow_management",
+          "project_coordination",
+          "resource_allocation",
+          "operational_efficiency",
+          "process_optimization",
+          "mission_leadership",
+          "crew_coordination",
+          "strategic_implementation",
+          "performance_optimization"
+        ],
+        "status": "active"
+      },
+      "worf": {
+        "name": "Lieutenant Worf",
+        "role": "Tactical Analysis & Security Operations",
+        "capabilities": [
+          "tactical_analysis",
+          "security_operations",
+          "threat_assessment",
+          "combat_strategy",
+          "defensive_planning",
+          "risk_mitigation"
+        ],
+        "status": "active"
+      },
+      "geordi": {
+        "name": "Lieutenant Commander Geordi La Forge",
+        "role": "Engineering & Technical Problem-Solving",
+        "capabilities": [
+          "engineering_analysis",
+          "technical_troubleshooting",
+          "systems_optimization",
+          "problem_solving",
+          "innovation_engineering",
+          "team_leadership"
+        ],
+        "status": "active"
+      },
+      "troi": {
+        "name": "Counselor Deanna Troi",
+        "role": "Psychological Analysis & Emotional Intelligence",
+        "capabilities": [
+          "psychological_analysis",
+          "emotional_intelligence",
+          "conflict_resolution",
+          "interpersonal_dynamics",
+          "behavioral_analysis",
+          "team_cohesion"
+        ],
+        "status": "active"
+      },
+      "uhura": {
+        "name": "Lieutenant Uhura",
+        "role": "Communications & Diplomatic Relations",
+        "capabilities": [
+          "communications_analysis",
+          "diplomatic_relations",
+          "cultural_understanding",
+          "language_translation",
+          "protocol_guidance",
+          "intercultural_communication"
+        ],
+        "status": "active"
+      },
+      "crusher": {
+        "name": "Dr. Beverly Crusher",
+        "role": "Medical Analysis & Healthcare Planning",
+        "capabilities": [
+          "medical_analysis",
+          "healthcare_planning",
+          "ethical_decision_making",
+          "treatment_planning",
+          "medical_research",
+          "patient_care"
+        ],
+        "status": "active"
+      },
+      "quark": {
+        "name": "Quark",
+        "role": "Business Operations & Financial Analysis",
+        "capabilities": [
+          "business_analysis",
+          "financial_planning",
+          "entrepreneurial_strategy",
+          "risk_assessment",
+          "negotiation_strategy",
+          "resource_optimization"
+        ],
+        "status": "active"
+      }
+    },
+    "operational": false
+  },
+  "n8n_results": {
+    "picard": {
+      "webhook_path": "crew-captain-jean-luc-picard",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.194343,
+      "error": null
+    },
+    "data": {
+      "webhook_path": "crew-commander-data",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.160892,
+      "error": null
+    },
+    "riker": {
+      "webhook_path": "crew-commander-william-riker",
+      "status_code": 500,
+      "active": false,
+      "response_time": 0.15841,
+      "error": null
+    },
+    "worf": {
+      "webhook_path": "crew-lieutenant-worf",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.160387,
+      "error": null
+    },
+    "geordi": {
+      "webhook_path": "crew-lieutenant-commander-geordi-la-forge",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.164435,
+      "error": null
+    },
+    "troi": {
+      "webhook_path": "crew-counselor-deanna-troi",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.165899,
+      "error": null
+    },
+    "uhura": {
+      "webhook_path": "crew-lieutenant-uhura",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.186168,
+      "error": null
+    },
+    "crusher": {
+      "webhook_path": "crew-dr-beverly-crusher",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.174534,
+      "error": null
+    },
+    "quark": {
+      "webhook_path": "crew-quark",
+      "status_code": 200,
+      "active": true,
+      "response_time": 0.18222,
+      "error": null
+    }
+  },
+  "integration_results": {
+    "observation_lounge": {
+      "status": "success",
+      "response_time": 0.560446,
+      "crew_responses": 3,
+      "failed_crew": 1,
+      "coordination_efficiency": "75%"
+    }
+  },
+  "alignment_analysis": {
+    "picard": {
+      "claude_name": "Captain Jean-Luc Picard",
+      "claude_active": true,
+      "n8n_webhook": "crew-captain-jean-luc-picard",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.194343
+    },
+    "data": {
+      "claude_name": "Commander Data",
+      "claude_active": true,
+      "n8n_webhook": "crew-commander-data",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.160892
+    },
+    "riker": {
+      "claude_name": "Commander William Riker",
+      "claude_active": true,
+      "n8n_webhook": "crew-commander-william-riker",
+      "n8n_active": false,
+      "alignment_status": "partial",
+      "response_time": 0.15841
+    },
+    "worf": {
+      "claude_name": "Lieutenant Worf",
+      "claude_active": true,
+      "n8n_webhook": "crew-lieutenant-worf",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.160387
+    },
+    "geordi": {
+      "claude_name": "Lieutenant Commander Geordi La Forge",
+      "claude_active": true,
+      "n8n_webhook": "crew-lieutenant-commander-geordi-la-forge",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.164435
+    },
+    "troi": {
+      "claude_name": "Counselor Deanna Troi",
+      "claude_active": true,
+      "n8n_webhook": "crew-counselor-deanna-troi",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.165899
+    },
+    "uhura": {
+      "claude_name": "Lieutenant Uhura",
+      "claude_active": true,
+      "n8n_webhook": "crew-lieutenant-uhura",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.186168
+    },
+    "crusher": {
+      "claude_name": "Dr. Beverly Crusher",
+      "claude_active": true,
+      "n8n_webhook": "crew-dr-beverly-crusher",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.174534
+    },
+    "quark": {
+      "claude_name": "Quark",
+      "claude_active": true,
+      "n8n_webhook": "crew-quark",
+      "n8n_active": true,
+      "alignment_status": "perfect",
+      "response_time": 0.18222
+    }
+  }
+}

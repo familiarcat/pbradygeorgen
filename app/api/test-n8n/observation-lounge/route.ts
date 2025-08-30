@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
                 const webhookPathMap: Record<string, string> = {
                     'picard': 'crew-captain-jean-luc-picard',
                     'data': 'crew-commander-data',
+                    'riker': 'crew-commander-william-riker',
                     'geordi': 'crew-lieutenant-commander-geordi-la-forge',
                     'crusher': 'crew-dr-beverly-crusher',
                     'worf': 'crew-lieutenant-worf',

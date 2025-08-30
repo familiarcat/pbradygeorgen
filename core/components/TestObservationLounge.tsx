@@ -72,9 +72,9 @@ export function TestObservationLounge({ crewMembers, onTestResult }: TestObserva
         if (mode === 'full_crew') {
             setSelectedCrew(crewMembers.map(m => m.id));
         } else if (mode === 'core_crew') {
-            setSelectedCrew(['picard', 'data', 'crusher']);
+            setSelectedCrew(['picard', 'riker', 'data', 'crusher']);
         } else {
-            setSelectedCrew(['data', 'geordi', 'uhura']);
+            setSelectedCrew(['data', 'riker', 'geordi', 'uhura']);
         }
     };
 

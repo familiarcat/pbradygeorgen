@@ -117,7 +117,7 @@ def test_full_crew_system():
         print("\n📊 Test Summary:")
         print(f"   • Total crew members: {crew_status['total_crew']}")
         print(f"   • Mission history entries: {len(coordinator.get_mission_history())}")
-        print(f"   • System status: {'✅ Operational' if crew_status['total_crew'] == 8 else '⚠️ Partially Operational'}")
+        print(f"   • System status: {'✅ Operational' if crew_status['total_crew'] == 9 else '⚠️ Partially Operational'}")
         
         return True
         
@@ -134,6 +134,7 @@ def test_individual_crew_members():
         from claude_agents.core import (
             CaptainPicardAgent,
             CommanderDataAgent,
+            CommanderRikerAgent,
             LieutenantWorfAgent,
             GeordiLaForgeAgent,
             CounselorTroiAgent,
@@ -145,6 +146,7 @@ def test_individual_crew_members():
         crew_members = [
             ("Captain Picard", CaptainPicardAgent()),
             ("Commander Data", CommanderDataAgent()),
+            ("Commander Riker", CommanderRikerAgent()),
             ("Lieutenant Worf", LieutenantWorfAgent()),
             ("Geordi La Forge", GeordiLaForgeAgent()),
             ("Counselor Troi", CounselorTroiAgent()),

@@ -1,0 +1,291 @@
+{
+  "timestamp": "2025-08-30T01:19:58.048774",
+  "summary": {
+    "total_crew_tested": 8,
+    "successful_alignments": 0,
+    "success_rate": 0.0,
+    "average_alignment_score": 0.5
+  },
+  "detailed_results": {
+    "picard": {
+      "scenario": {
+        "name": "Captain Jean-Luc Picard",
+        "specialization": "Strategic Leadership",
+        "test_task": "Develop a strategic plan for establishing diplomatic relations with a newly discovered alien civilization",
+        "expected_keywords": [
+          "diplomatic",
+          "strategic",
+          "cultural",
+          "protocol",
+          "long-term"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Captain Jean-Luc Picard",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.241021,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "data": {
+      "scenario": {
+        "name": "Commander Data",
+        "specialization": "Scientific Analysis",
+        "test_task": "Analyze anomalous sensor readings from a stellar phenomenon and provide scientific conclusions",
+        "expected_keywords": [
+          "analysis",
+          "data",
+          "scientific",
+          "pattern",
+          "hypothesis"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Commander Data",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.162427,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "worf": {
+      "scenario": {
+        "name": "Lieutenant Worf",
+        "specialization": "Tactical Analysis",
+        "test_task": "Assess security threats and develop defensive strategies for an upcoming peace negotiation",
+        "expected_keywords": [
+          "security",
+          "tactical",
+          "defensive",
+          "threat",
+          "protection"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Lieutenant Worf",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.162762,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "geordi": {
+      "scenario": {
+        "name": "Lieutenant Commander Geordi La Forge",
+        "specialization": "Engineering",
+        "test_task": "Diagnose and solve a critical system malfunction in the warp core containment field",
+        "expected_keywords": [
+          "engineering",
+          "technical",
+          "system",
+          "solution",
+          "optimization"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Lieutenant Commander Geordi La Forge",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.162837,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "troi": {
+      "scenario": {
+        "name": "Counselor Deanna Troi",
+        "specialization": "Psychological Analysis",
+        "test_task": "Analyze team dynamics and recommend strategies to improve crew morale during extended missions",
+        "expected_keywords": [
+          "psychological",
+          "emotional",
+          "team",
+          "morale",
+          "interpersonal"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Counselor Deanna Troi",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.156788,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "uhura": {
+      "scenario": {
+        "name": "Lieutenant Uhura",
+        "specialization": "Communications",
+        "test_task": "Establish communication protocols with an alien species using unknown linguistic patterns",
+        "expected_keywords": [
+          "communication",
+          "diplomatic",
+          "linguistic",
+          "protocol",
+          "cultural"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Lieutenant Uhura",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.201973,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "crusher": {
+      "scenario": {
+        "name": "Dr. Beverly Crusher",
+        "specialization": "Medical Analysis",
+        "test_task": "Diagnose and treat a crew member exhibiting symptoms of an unknown alien pathogen",
+        "expected_keywords": [
+          "medical",
+          "diagnosis",
+          "treatment",
+          "health",
+          "clinical"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Dr. Beverly Crusher",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.176682,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    },
+    "quark": {
+      "scenario": {
+        "name": "Quark",
+        "specialization": "Business Operations",
+        "test_task": "Evaluate the profitability and risks of establishing a trade route through hostile territory",
+        "expected_keywords": [
+          "business",
+          "profit",
+          "risk",
+          "trade",
+          "financial"
+        ]
+      },
+      "claude_result": {
+        "status": "success",
+        "response": "No response",
+        "agent": "Quark",
+        "keywords_found": 0
+      },
+      "n8n_result": {
+        "status": "success",
+        "response": {},
+        "response_time": 0.18948,
+        "keywords_found": 0
+      },
+      "comparison": {
+        "claude_success": true,
+        "n8n_success": true,
+        "claude_keywords": 0,
+        "n8n_keywords": 0,
+        "expected_keywords": 5,
+        "alignment_score": 0.5,
+        "status": "good"
+      }
+    }
+  }
+}

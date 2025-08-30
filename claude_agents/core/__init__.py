@@ -6,6 +6,7 @@ Individual AI agents representing different crew members and their capabilities
 from .base_agent import BaseAgent
 from .captain_picard.agent import CaptainPicardAgent
 from .commander_data.agent import CommanderDataAgent
+from .commander_riker.agent import CommanderRikerAgent
 from .lieutenant_worf.agent import LieutenantWorfAgent
 from .geordi_la_forge.agent import GeordiLaForgeAgent
 from .counselor_troi.agent import CounselorTroiAgent
@@ -16,7 +17,8 @@ from .quark.agent import QuarkAgent
 __all__ = [
     'BaseAgent',
     'CaptainPicardAgent',
-    'CommanderDataAgent', 
+    'CommanderDataAgent',
+    'CommanderRikerAgent',
     'LieutenantWorfAgent',
     'GeordiLaForgeAgent',
     'CounselorTroiAgent',
