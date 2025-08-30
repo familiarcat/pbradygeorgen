@@ -29,7 +29,14 @@
     "test:pdf-conversion": "chmod +x scripts/pdf-conversion-e2e-test.sh && ./scripts/pdf-conversion-e2e-test.sh",
     "test:pdf-extraction": "chmod +x scripts/test-pdf-extraction.sh && ./scripts/test-pdf-extraction.sh",
     "deploy:aws": "chmod +x scripts/deploy-to-aws.sh && ./scripts/deploy-to-aws.sh",
-    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh"
+    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "test:codegen": "playwright codegen"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",
@@ -54,6 +61,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20",
     "@types/react": "^19",

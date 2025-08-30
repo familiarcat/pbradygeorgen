@@ -1,0 +1,12 @@
+current_environment: production
+environments:
+  local:
+    n8n_base_url: http://localhost:5678
+    retry_attempts: 3
+    retry_delay: 1.0
+    timeout: 30
+  production:
+    n8n_base_url: https://n8n.pbradygeorgen.com
+    retry_attempts: 5
+    retry_delay: 2.0
+    timeout: 60

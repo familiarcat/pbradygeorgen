@@ -17,7 +17,7 @@
       ],
       "parameters": {
         "httpMethod": "POST",
-        "path": "crew-picard",
+        "path": "crew-captain-jean-luc-picard",
         "responseMode": "responseNode",
         "options": {}
       }
@@ -154,5 +154,64 @@
         "options": {}
       }
     }
-  ]
+  ],
+  "connections": {
+    "Strategic Leadership & Mission Coordination Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Captain Jean-Luc Picard - Strategic Leadership & Mission Command AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Captain Jean-Luc Picard - Strategic Leadership & Mission Command AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "picard",
+    "strategic",
+    "leadership"
+  ],
+  "triggerCount": 0,
+  "versionId": "1"
 }

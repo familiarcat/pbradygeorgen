@@ -17,7 +17,7 @@
       ],
       "parameters": {
         "httpMethod": "POST",
-        "path": "crew-riker",
+        "path": "crew-commander-william-riker",
         "responseMode": "responseNode",
         "options": {}
       }
@@ -154,5 +154,64 @@
         "options": {}
       }
     }
-  ]
+  ],
+  "connections": {
+    "Tactical Execution & Workflow Management Directive": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Commander William Riker - Tactical Execution & Workflow Management AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commander William Riker - Tactical Execution & Workflow Management AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "riker",
+    "tactical",
+    "execution"
+  ],
+  "triggerCount": 0,
+  "versionId": "1"
 }

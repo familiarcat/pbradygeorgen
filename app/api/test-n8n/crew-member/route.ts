@@ -47,16 +47,41 @@ export async function POST(request: NextRequest) {
                 let n8nData;
                 const responseText = await n8nResponse.text();
 
+                console.log(`📊 Raw n8n response: ${responseText.substring(0, 500)}${responseText.length > 500 ? '...' : ''}`);
+
                 try {
                     n8nData = JSON.parse(responseText);
                     console.log(`✅ Successfully parsed n8n response:`, JSON.stringify(n8nData, null, 2));
                 } catch (parseError) {
-                    // If n8n returns non-JSON, create a structured response
+                    // If n8n returns non-JSON, try to extract useful information
                     console.log(`⚠️ n8n returned non-JSON response: ${responseText}`);
+
+                    // Try to extract structured data from the response
+                    let extractedData = {};
+                    try {
+                        // Look for common patterns in the response
+                        if (responseText.includes('crew_member') || responseText.includes('role') || responseText.includes('response')) {
+                            // Try to extract key-value pairs
+                            const lines = responseText.split('\n');
+                            lines.forEach(line => {
+                                const match = line.match(/^([^:]+):\s*(.+)$/);
+                                if (match) {
+                                    const key = match[1].trim().toLowerCase().replace(/\s+/g, '_');
+                                    const value = match[2].trim();
+                                    extractedData[key] = value;
+                                }
+                            });
+                        }
+                    } catch (extractError) {
+                        console.log(`⚠️ Could not extract structured data: ${extractError}`);
+                    }
+
                     n8nData = {
                         message: responseText,
                         status: 'success',
-                        timestamp: new Date().toISOString()
+                        timestamp: new Date().toISOString(),
+                        extracted_data: extractedData,
+                        raw_response: responseText
                     };
                 }
 
@@ -100,12 +125,26 @@ export async function POST(request: NextRequest) {
             } else {
                 // n8n webhook failed, fall back to mock data
                 let errorText = '';
+                let errorDetails = {};
+
                 try {
                     errorText = await n8nResponse.text();
+
+                    // Try to parse error response as JSON for more details
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorDetails = errorJson;
+                    } catch (parseError) {
+                        // If not JSON, keep as text
+                        errorDetails = { message: errorText };
+                    }
                 } catch (e) {
                     errorText = 'Unable to read error response';
+                    errorDetails = { message: errorText };
                 }
+
                 console.log(`⚠️ n8n webhook failed (${n8nResponse.status}): ${errorText}`);
+                console.log(`🔍 Error details:`, JSON.stringify(errorDetails, null, 2));
                 console.log(`🔄 Falling back to mock data for ${crewMemberId}`);
 
                 // Fall back to mock data
@@ -126,9 +165,10 @@ export async function POST(request: NextRequest) {
                         webhookUrl,
                         timestamp: new Date().toISOString(),
                         mode: 'mock_fallback',
-                        n8nError: errorText
+                        n8nError: errorText,
+                        errorDetails: errorDetails
                     },
-                    note: 'Using mock data - n8n webhook not available. Activate workflows in n8n editor.'
+                    note: 'Using mock data - n8n webhook failed. Check workflow execution and webhook configuration.'
                 });
             }
 

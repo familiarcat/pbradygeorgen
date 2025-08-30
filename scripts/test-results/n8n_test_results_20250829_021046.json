@@ -1,0 +1,138 @@
+[
+  {
+    "status": "success",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-captain-jean-luc-picard",
+    "status_code": 200,
+    "response_time": 0.20424604415893555,
+    "attempt": 1,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:33 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": "",
+    "crew_member": "picard",
+    "webhook_path": "crew-captain-jean-luc-picard",
+    "task": "Conduct comprehensive strategic analysis of market positioning",
+    "timestamp": "2025-08-29T02:10:33.261391",
+    "scenario": "Strategic Business Analysis",
+    "scenario_id": "strategic_analysis"
+  },
+  {
+    "status": "success",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-quark",
+    "status_code": 200,
+    "response_time": 0.14217710494995117,
+    "attempt": 1,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:34 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": "",
+    "crew_member": "quark",
+    "webhook_path": "crew-quark",
+    "task": "Conduct comprehensive strategic analysis of market positioning",
+    "timestamp": "2025-08-29T02:10:34.411523",
+    "scenario": "Strategic Business Analysis",
+    "scenario_id": "strategic_analysis"
+  },
+  {
+    "status": "error",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-commander-william-riker",
+    "status_code": 500,
+    "response_time": 0.09469199180603027,
+    "attempt": 5,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:43 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Content-Length": "65",
+      "Connection": "keep-alive",
+      "ETag": "W/\"41-MSH2594K1q0lZbgO5p1BjR5/m4U\"",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": {
+      "code": 0,
+      "message": "There was a problem executing the workflow"
+    },
+    "crew_member": "riker",
+    "webhook_path": "crew-commander-william-riker",
+    "task": "Develop tactical execution plan for technical implementation",
+    "timestamp": "2025-08-29T02:10:43.930927",
+    "scenario": "Tactical Execution Planning",
+    "scenario_id": "tactical_execution"
+  },
+  {
+    "status": "success",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-lieutenant-commander-geordi-la-forge",
+    "status_code": 200,
+    "response_time": 0.14118194580078125,
+    "attempt": 1,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:45 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": "",
+    "crew_member": "laforge",
+    "webhook_path": "crew-lieutenant-commander-geordi-la-forge",
+    "task": "Develop tactical execution plan for technical implementation",
+    "timestamp": "2025-08-29T02:10:45.078715",
+    "scenario": "Tactical Execution Planning",
+    "scenario_id": "tactical_execution"
+  },
+  {
+    "status": "success",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-commander-data",
+    "status_code": 200,
+    "response_time": 0.11314988136291504,
+    "attempt": 1,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:46 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": "",
+    "crew_member": "data",
+    "webhook_path": "crew-commander-data",
+    "task": "Perform comprehensive data analysis and pattern recognition",
+    "timestamp": "2025-08-29T02:10:46.199687",
+    "scenario": "Data Analysis & Logic",
+    "scenario_id": "data_analysis"
+  },
+  {
+    "status": "success",
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-dr-beverly-crusher",
+    "status_code": 200,
+    "response_time": 0.13562417030334473,
+    "attempt": 1,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Fri, 29 Aug 2025 07:10:46 GMT",
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding"
+    },
+    "response_body": "",
+    "crew_member": "crusher",
+    "webhook_path": "crew-dr-beverly-crusher",
+    "task": "Perform comprehensive data analysis and pattern recognition",
+    "timestamp": "2025-08-29T02:10:46.335369",
+    "scenario": "Data Analysis & Logic",
+    "scenario_id": "data_analysis"
+  }
+]

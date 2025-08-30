@@ -1,0 +1,104 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "AlexAI" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - button "Toggle menu" [ref=e6] [cursor=pointer]
+      - generic [ref=e10]: "Current PDF: pbradygeorgen_resume.pdf"
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - heading "🤖 Unified N8N Testing Console" [level=2] [ref=e14]
+      - generic [ref=e15]:
+        - heading "🌍 Environment Management" [level=3] [ref=e16]
+        - generic [ref=e17]:
+          - button "📍 local" [ref=e18] [cursor=pointer]
+          - button "production" [ref=e19] [cursor=pointer]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: "Current: local"
+          - paragraph [ref=e22]: "Base URL: http://localhost:5678"
+          - button "🔍 Test Connection" [ref=e23] [cursor=pointer]
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: "Status:"
+          - generic [ref=e26]: ❌ Error
+          - paragraph [ref=e27]: Connection refused
+      - generic [ref=e28]:
+        - heading "🧪 Quick Testing" [level=3] [ref=e29]
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - heading "Captain Jean-Luc Picard" [level=4] [ref=e32]
+            - paragraph [ref=e33]: Strategic Leadership
+            - button "🚀 Test" [ref=e34] [cursor=pointer]
+          - generic [ref=e35]:
+            - heading "Commander William Riker" [level=4] [ref=e36]
+            - paragraph [ref=e37]: Tactical Execution
+            - button "🚀 Test" [ref=e38] [cursor=pointer]
+          - generic [ref=e39]:
+            - heading "Commander Data" [level=4] [ref=e40]
+            - paragraph [ref=e41]: Data Analysis
+            - button "🚀 Test" [ref=e42] [cursor=pointer]
+          - generic [ref=e43]:
+            - heading "Lieutenant Commander Geordi La Forge" [level=4] [ref=e44]
+            - paragraph [ref=e45]: Technical Engineering
+            - button "🚀 Test" [ref=e46] [cursor=pointer]
+          - generic [ref=e47]:
+            - heading "Dr. Beverly Crusher" [level=4] [ref=e48]
+            - paragraph [ref=e49]: Medical & Research
+            - button "🚀 Test" [ref=e50] [cursor=pointer]
+          - generic [ref=e51]:
+            - heading "Counselor Deanna Troi" [level=4] [ref=e52]
+            - paragraph [ref=e53]: Psychological Analysis
+            - button "🚀 Test" [ref=e54] [cursor=pointer]
+      - generic [ref=e55]:
+        - heading "🤖 Automated Test Suite" [level=3] [ref=e56]
+        - paragraph [ref=e57]: Run comprehensive tests across all crew members and scenarios
+        - button "🚀 Run Full Test Suite" [ref=e59] [cursor=pointer]
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - heading "Strategic Business Analysis" [level=4] [ref=e62]
+            - paragraph [ref=e63]: Comprehensive strategic analysis of market positioning and competitive landscape
+            - generic [ref=e64]:
+              - generic [ref=e65]: High
+              - generic [ref=e66]: Strategic Leadership
+            - paragraph [ref=e67]: "Crew: picard, quark"
+          - generic [ref=e68]:
+            - heading "Tactical Execution Planning" [level=4] [ref=e69]
+            - paragraph [ref=e70]: Development of tactical execution plans for technical implementation
+            - generic [ref=e71]:
+              - generic [ref=e72]: Medium
+              - generic [ref=e73]: Tactical Execution
+            - paragraph [ref=e74]: "Crew: riker, laforge"
+          - generic [ref=e75]:
+            - heading "Data Analysis & Logic" [level=4] [ref=e76]
+            - paragraph [ref=e77]: Comprehensive data analysis and pattern recognition
+            - generic [ref=e78]:
+              - generic [ref=e79]: High
+              - generic [ref=e80]: Data Analysis
+            - paragraph [ref=e81]: "Crew: data, crusher"
+          - generic [ref=e82]:
+            - heading "Psychological Insights" [level=4] [ref=e83]
+            - paragraph [ref=e84]: Analysis of human behavior and psychological factors
+            - generic [ref=e85]:
+              - generic [ref=e86]: Medium
+              - generic [ref=e87]: Psychological Analysis
+            - paragraph [ref=e88]: "Crew: troi, crusher"
+          - generic [ref=e89]:
+            - heading "Security & Tactical Analysis" [level=4] [ref=e90]
+            - paragraph [ref=e91]: Security assessment and tactical planning
+            - generic [ref=e92]:
+              - generic [ref=e93]: Medium
+              - generic [ref=e94]: Security & Tactics
+            - paragraph [ref=e95]: "Crew: worf, obrien"
+          - generic [ref=e96]:
+            - heading "Technical Implementation" [level=4] [ref=e97]
+            - paragraph [ref=e98]: Technical system design and implementation planning
+            - generic [ref=e99]:
+              - generic [ref=e100]: High
+              - generic [ref=e101]: Technical Engineering
+            - paragraph [ref=e102]: "Crew: laforge, obrien"
+  - button "Open Next.js Dev Tools" [ref=e108] [cursor=pointer]:
+    - img [ref=e109] [cursor=pointer]
+  - alert [ref=e112]
+```

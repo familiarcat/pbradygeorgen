@@ -51,7 +51,8 @@ export function TestResults({ results }: TestResultsProps) {
         }
     });
 
-    const getStatusColor = (status: string) => {
+    const getStatusColor = (status: string | undefined) => {
+        if (!status) return theme.colors.text.tertiary;
         switch (status.toLowerCase()) {
             case 'success': return theme.colors.success;
             case 'error': return theme.colors.error;

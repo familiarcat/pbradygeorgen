@@ -1,0 +1,2461 @@
+<testsuites id="" name="" tests="145" failures="51" skipped="0" errors="0" time="168.43422499999997">
+<testsuite name="api/n8n-endpoints.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="chromium" tests="9" failures="1" skipped="0" time="22.418" errors="0">
+<testcase name="N8N API Endpoints › should test crew member endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="2.15">
+</testcase>
+<testcase name="N8N API Endpoints › should test crew member endpoint with invalid data" classname="api/n8n-endpoints.spec.ts" time="1.696">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="3.017">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with missing required fields" classname="api/n8n-endpoints.spec.ts" time="1.657">
+</testcase>
+<testcase name="N8N API Endpoints › should test mission scenario endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="4.297">
+<failure message="n8n-endpoints.spec.ts:77:9 should test mission scenario endpoint with valid data" type="FAILURE">
+<![CDATA[  [chromium] › api/n8n-endpoints.spec.ts:77:9 › N8N API Endpoints › should test mission scenario endpoint with valid data 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      85 |         });
+      86 |
+    > 87 |         expect(response.status()).toBe(200);
+         |                                   ^
+      88 |
+      89 |         const data = await response.json();
+      90 |         expect(data.success).toBe(true);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/api/n8n-endpoints.spec.ts:87:35
+]]>
+</failure>
+</testcase>
+<testcase name="N8N API Endpoints › should handle n8n webhook failures gracefully" classname="api/n8n-endpoints.spec.ts" time="4.557">
+</testcase>
+<testcase name="N8N API Endpoints › should validate request payload structure" classname="api/n8n-endpoints.spec.ts" time="3.853">
+</testcase>
+<testcase name="N8N API Endpoints › should handle malformed JSON gracefully" classname="api/n8n-endpoints.spec.ts" time="0.971">
+</testcase>
+<testcase name="N8N API Endpoints › should test response time performance" classname="api/n8n-endpoints.spec.ts" time="0.22">
+</testcase>
+</testsuite>
+<testsuite name="components/theme-system.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="chromium" tests="10" failures="6" skipped="0" time="65.246" errors="0">
+<testcase name="Theme System Components › should display all theme components correctly" classname="components/theme-system.spec.ts" time="7.794">
+<failure message="theme-system.spec.ts:16:9 should display all theme components correctly" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:16:9 › Theme System Components › should display all theme components correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      16 |     test('should display all theme components correctly', async ({ page }) => {
+      17 |         // Verify all component sections are present
+    > 18 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+         |                                                                           ^
+      19 |         await expect(page.locator('h3:has-text("Buttons")')).toBeVisible();
+      20 |         await expect(page.locator('h3:has-text("Cards")')).toBeVisible();
+      21 |         await expect(page.locator('h3:has-text("Inputs")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:18:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed buttons with correct styling" classname="components/theme-system.spec.ts" time="4.166">
+</testcase>
+<testcase name="Theme System Components › should render themed cards with proper layout" classname="components/theme-system.spec.ts" time="9.388">
+<failure message="theme-system.spec.ts:39:9 should render themed cards with proper layout" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:39:9 › Theme System Components › should render themed cards with proper layout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('div').filter({ hasText: 'Primary Card' }).first()
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Primary Card' }).first()
+
+
+      40 |         // Check primary card
+      41 |         const primaryCard = page.locator('div').filter({ hasText: 'Primary Card' }).first();
+    > 42 |         await expect(primaryCard).toBeVisible();
+         |                                   ^
+      43 |
+      44 |         // Check secondary card
+      45 |         const secondaryCard = page.locator('div').filter({ hasText: 'Secondary Card' }).first();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:42:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed inputs with proper styling" classname="components/theme-system.spec.ts" time="9.357">
+<failure message="theme-system.spec.ts:53:9 should render themed inputs with proper styling" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:53:9 › Theme System Components › should render themed inputs with proper styling 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('input[placeholder="Enter text..."]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('input[placeholder="Enter text..."]')
+
+
+      54 |         // Check text input
+      55 |         const textInput = page.locator('input[placeholder="Enter text..."]');
+    > 56 |         await expect(textInput).toBeVisible();
+         |                                 ^
+      57 |
+      58 |         // Check textarea
+      59 |         const textarea = page.locator('textarea[placeholder="Enter long text..."]');
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:56:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render text elements with correct variants" classname="components/theme-system.spec.ts" time="0.946">
+</testcase>
+<testcase name="Theme System Components › should display color palette correctly" classname="components/theme-system.spec.ts" time="6.657">
+<failure message="theme-system.spec.ts:77:9 should display color palette correctly" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:77:9 › Theme System Components › should display color palette correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎨 Color Palette")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎨 Color Palette")')
+
+
+      77 |     test('should display color palette correctly', async ({ page }) => {
+      78 |         // Check color palette section
+    > 79 |         await expect(page.locator('h2:has-text("🎨 Color Palette")')).toBeVisible();
+         |                                                                       ^
+      80 |
+      81 |         // Check primary colors
+      82 |         await expect(page.locator('div').filter({ hasText: 'Primary' }).first()).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:79:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should display spacing and typography scales" classname="components/theme-system.spec.ts" time="9.163">
+<failure message="theme-system.spec.ts:92:9 should display spacing and typography scales" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:92:9 › Theme System Components › should display spacing and typography scales 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("📏 Spacing Scale")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("📏 Spacing Scale")')
+
+
+      92 |     test('should display spacing and typography scales', async ({ page }) => {
+      93 |         // Check spacing section
+    > 94 |         await expect(page.locator('h2:has-text("📏 Spacing Scale")')).toBeVisible();
+         |                                                                       ^
+      95 |
+      96 |         // Check typography section
+      97 |         await expect(page.locator('h2:has-text("🔤 Typography Scale")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:94:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should be responsive on different screen sizes" classname="components/theme-system.spec.ts" time="9.21">
+<failure message="theme-system.spec.ts:100:9 should be responsive on different screen sizes" type="FAILURE">
+<![CDATA[  [chromium] › components/theme-system.spec.ts:100:9 › Theme System Components › should be responsive on different screen sizes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      104 |         // Verify components are still visible and usable
+      105 |         await expect(page.locator('h1:has-text("🎨 Theme System Demo")')).toBeVisible();
+    > 106 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+          |                                                                           ^
+      107 |
+      108 |         // Test tablet viewport
+      109 |         await page.setViewportSize({ width: 768, height: 1024 });
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:106:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should maintain theme consistency across navigation" classname="components/theme-system.spec.ts" time="6.817">
+</testcase>
+<testcase name="Theme System Components › should handle theme switching if implemented" classname="components/theme-system.spec.ts" time="1.748">
+<system-out>
+<![CDATA[Theme switching not implemented in this version
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/unified-testing.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="chromium" tests="10" failures="4" skipped="0" time="41.764" errors="0">
+<testcase name="Unified N8N Testing Interface › should display the unified testing console with all sections" classname="e2e/unified-testing.spec.ts" time="1.374">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow environment switching between local and production" classname="e2e/unified-testing.spec.ts" time="1.637">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display all crew member cards in quick testing section" classname="e2e/unified-testing.spec.ts" time="1.985">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow testing individual crew members" classname="e2e/unified-testing.spec.ts" time="1.659">
+<failure message="unified-testing.spec.ts:51:9 should allow testing individual crew members" type="FAILURE">
+<![CDATA[  [chromium] › e2e/unified-testing.spec.ts:51:9 › Unified N8N Testing Interface › should allow testing individual crew members 
+
+    Error: expect.toBeVisible: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      54 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+      55 |
+    > 56 |         await expect(testButton).toBeVisible();
+         |                                  ^
+      57 |         await testButton.click();
+      58 |
+      59 |         // Wait for test to complete (this might take a moment)
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:56:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display automated test suite scenarios" classname="e2e/unified-testing.spec.ts" time="2.407">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow running the full automated test suite" classname="e2e/unified-testing.spec.ts" time="10.556">
+<failure message="unified-testing.spec.ts:76:9 should allow running the full automated test suite" type="FAILURE">
+<![CDATA[  [chromium] › e2e/unified-testing.spec.ts:76:9 › Unified N8N Testing Interface › should allow running the full automated test suite 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h3:has-text("📊 Test Results")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h3:has-text("📊 Test Results")')
+
+
+      85 |
+      86 |         // Verify test execution is in progress
+    > 87 |         await expect(page.locator('h3:has-text("📊 Test Results")')).toBeVisible();
+         |                                                                      ^
+      88 |     });
+      89 |
+      90 |     test('should display test results with proper formatting', async ({ page }) => {
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:87:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display test results with proper formatting" classname="e2e/unified-testing.spec.ts" time="2.367">
+<failure message="unified-testing.spec.ts:90:9 should display test results with proper formatting" type="FAILURE">
+<![CDATA[  [chromium] › e2e/unified-testing.spec.ts:90:9 › Unified N8N Testing Interface › should display test results with proper formatting 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      92 |         const picardCard = page.locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first();
+      93 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+    > 94 |         await testButton.click();
+         |                          ^
+      95 |
+      96 |         // Wait for results
+      97 |         await page.waitForTimeout(3000);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:94:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should handle connection testing functionality" classname="e2e/unified-testing.spec.ts" time="5.678">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should be responsive on mobile devices" classname="e2e/unified-testing.spec.ts" time="3.384">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should maintain state during navigation" classname="e2e/unified-testing.spec.ts" time="10.717">
+<failure message="unified-testing.spec.ts:132:9 should maintain state during navigation" type="FAILURE">
+<![CDATA[  [chromium] › e2e/unified-testing.spec.ts:132:9 › Unified N8N Testing Interface › should maintain state during navigation 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('p:has-text("Current: production")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('p:has-text("Current: production")')
+
+
+      140 |
+      141 |         // Verify environment selection is maintained
+    > 142 |         await expect(page.locator('p:has-text("Current: production")')).toBeVisible();
+          |                                                                         ^
+      143 |     });
+      144 | });
+      145 |
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:142:73
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-473b0-ain-state-during-navigation-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="api/n8n-endpoints.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="firefox" tests="9" failures="1" skipped="0" time="1.645" errors="0">
+<testcase name="N8N API Endpoints › should test crew member endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.364">
+</testcase>
+<testcase name="N8N API Endpoints › should test crew member endpoint with invalid data" classname="api/n8n-endpoints.spec.ts" time="0.153">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.359">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with missing required fields" classname="api/n8n-endpoints.spec.ts" time="0.03">
+</testcase>
+<testcase name="N8N API Endpoints › should test mission scenario endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.043">
+<failure message="n8n-endpoints.spec.ts:77:9 should test mission scenario endpoint with valid data" type="FAILURE">
+<![CDATA[  [firefox] › api/n8n-endpoints.spec.ts:77:9 › N8N API Endpoints › should test mission scenario endpoint with valid data 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      85 |         });
+      86 |
+    > 87 |         expect(response.status()).toBe(200);
+         |                                   ^
+      88 |
+      89 |         const data = await response.json();
+      90 |         expect(data.success).toBe(true);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/api/n8n-endpoints.spec.ts:87:35
+]]>
+</failure>
+</testcase>
+<testcase name="N8N API Endpoints › should handle n8n webhook failures gracefully" classname="api/n8n-endpoints.spec.ts" time="0.338">
+</testcase>
+<testcase name="N8N API Endpoints › should validate request payload structure" classname="api/n8n-endpoints.spec.ts" time="0.18">
+</testcase>
+<testcase name="N8N API Endpoints › should handle malformed JSON gracefully" classname="api/n8n-endpoints.spec.ts" time="0.035">
+</testcase>
+<testcase name="N8N API Endpoints › should test response time performance" classname="api/n8n-endpoints.spec.ts" time="0.143">
+</testcase>
+</testsuite>
+<testsuite name="components/theme-system.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="firefox" tests="10" failures="6" skipped="0" time="75.884" errors="0">
+<testcase name="Theme System Components › should display all theme components correctly" classname="components/theme-system.spec.ts" time="13.057">
+<failure message="theme-system.spec.ts:16:9 should display all theme components correctly" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:16:9 › Theme System Components › should display all theme components correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      16 |     test('should display all theme components correctly', async ({ page }) => {
+      17 |         // Verify all component sections are present
+    > 18 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+         |                                                                           ^
+      19 |         await expect(page.locator('h3:has-text("Buttons")')).toBeVisible();
+      20 |         await expect(page.locator('h3:has-text("Cards")')).toBeVisible();
+      21 |         await expect(page.locator('h3:has-text("Inputs")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:18:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed buttons with correct styling" classname="components/theme-system.spec.ts" time="8.169">
+</testcase>
+<testcase name="Theme System Components › should render themed cards with proper layout" classname="components/theme-system.spec.ts" time="12.023">
+<failure message="theme-system.spec.ts:39:9 should render themed cards with proper layout" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:39:9 › Theme System Components › should render themed cards with proper layout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('div').filter({ hasText: 'Primary Card' }).first()
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Primary Card' }).first()
+
+
+      40 |         // Check primary card
+      41 |         const primaryCard = page.locator('div').filter({ hasText: 'Primary Card' }).first();
+    > 42 |         await expect(primaryCard).toBeVisible();
+         |                                   ^
+      43 |
+      44 |         // Check secondary card
+      45 |         const secondaryCard = page.locator('div').filter({ hasText: 'Secondary Card' }).first();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:42:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed inputs with proper styling" classname="components/theme-system.spec.ts" time="9.469">
+<failure message="theme-system.spec.ts:53:9 should render themed inputs with proper styling" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:53:9 › Theme System Components › should render themed inputs with proper styling 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('input[placeholder="Enter text..."]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('input[placeholder="Enter text..."]')
+
+
+      54 |         // Check text input
+      55 |         const textInput = page.locator('input[placeholder="Enter text..."]');
+    > 56 |         await expect(textInput).toBeVisible();
+         |                                 ^
+      57 |
+      58 |         // Check textarea
+      59 |         const textarea = page.locator('textarea[placeholder="Enter long text..."]');
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:56:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render text elements with correct variants" classname="components/theme-system.spec.ts" time="2.646">
+</testcase>
+<testcase name="Theme System Components › should display color palette correctly" classname="components/theme-system.spec.ts" time="6.292">
+<failure message="theme-system.spec.ts:77:9 should display color palette correctly" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:77:9 › Theme System Components › should display color palette correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎨 Color Palette")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎨 Color Palette")')
+
+
+      77 |     test('should display color palette correctly', async ({ page }) => {
+      78 |         // Check color palette section
+    > 79 |         await expect(page.locator('h2:has-text("🎨 Color Palette")')).toBeVisible();
+         |                                                                       ^
+      80 |
+      81 |         // Check primary colors
+      82 |         await expect(page.locator('div').filter({ hasText: 'Primary' }).first()).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:79:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should display spacing and typography scales" classname="components/theme-system.spec.ts" time="7.816">
+<failure message="theme-system.spec.ts:92:9 should display spacing and typography scales" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:92:9 › Theme System Components › should display spacing and typography scales 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("📏 Spacing Scale")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("📏 Spacing Scale")')
+
+
+      92 |     test('should display spacing and typography scales', async ({ page }) => {
+      93 |         // Check spacing section
+    > 94 |         await expect(page.locator('h2:has-text("📏 Spacing Scale")')).toBeVisible();
+         |                                                                       ^
+      95 |
+      96 |         // Check typography section
+      97 |         await expect(page.locator('h2:has-text("🔤 Typography Scale")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:94:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should be responsive on different screen sizes" classname="components/theme-system.spec.ts" time="8.638">
+<failure message="theme-system.spec.ts:100:9 should be responsive on different screen sizes" type="FAILURE">
+<![CDATA[  [firefox] › components/theme-system.spec.ts:100:9 › Theme System Components › should be responsive on different screen sizes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      104 |         // Verify components are still visible and usable
+      105 |         await expect(page.locator('h1:has-text("🎨 Theme System Demo")')).toBeVisible();
+    > 106 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+          |                                                                           ^
+      107 |
+      108 |         // Test tablet viewport
+      109 |         await page.setViewportSize({ width: 768, height: 1024 });
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:106:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should maintain theme consistency across navigation" classname="components/theme-system.spec.ts" time="4.866">
+</testcase>
+<testcase name="Theme System Components › should handle theme switching if implemented" classname="components/theme-system.spec.ts" time="2.908">
+<system-out>
+<![CDATA[Theme switching not implemented in this version
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/unified-testing.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="firefox" tests="10" failures="3" skipped="0" time="44.886" errors="0">
+<testcase name="Unified N8N Testing Interface › should display the unified testing console with all sections" classname="e2e/unified-testing.spec.ts" time="1.914">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow environment switching between local and production" classname="e2e/unified-testing.spec.ts" time="2.416">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display all crew member cards in quick testing section" classname="e2e/unified-testing.spec.ts" time="3.846">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow testing individual crew members" classname="e2e/unified-testing.spec.ts" time="2.805">
+<failure message="unified-testing.spec.ts:51:9 should allow testing individual crew members" type="FAILURE">
+<![CDATA[  [firefox] › e2e/unified-testing.spec.ts:51:9 › Unified N8N Testing Interface › should allow testing individual crew members 
+
+    Error: expect.toBeVisible: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      54 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+      55 |
+    > 56 |         await expect(testButton).toBeVisible();
+         |                                  ^
+      57 |         await testButton.click();
+      58 |
+      59 |         // Wait for test to complete (this might take a moment)
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:56:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display automated test suite scenarios" classname="e2e/unified-testing.spec.ts" time="2.009">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow running the full automated test suite" classname="e2e/unified-testing.spec.ts" time="14.897">
+<failure message="unified-testing.spec.ts:76:9 should allow running the full automated test suite" type="FAILURE">
+<![CDATA[  [firefox] › e2e/unified-testing.spec.ts:76:9 › Unified N8N Testing Interface › should allow running the full automated test suite 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h3:has-text("📊 Test Results")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h3:has-text("📊 Test Results")')
+
+
+      85 |
+      86 |         // Verify test execution is in progress
+    > 87 |         await expect(page.locator('h3:has-text("📊 Test Results")')).toBeVisible();
+         |                                                                      ^
+      88 |     });
+      89 |
+      90 |     test('should display test results with proper formatting', async ({ page }) => {
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:87:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display test results with proper formatting" classname="e2e/unified-testing.spec.ts" time="3.138">
+<failure message="unified-testing.spec.ts:90:9 should display test results with proper formatting" type="FAILURE">
+<![CDATA[  [firefox] › e2e/unified-testing.spec.ts:90:9 › Unified N8N Testing Interface › should display test results with proper formatting 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      92 |         const picardCard = page.locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first();
+      93 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+    > 94 |         await testButton.click();
+         |                          ^
+      95 |
+      96 |         // Wait for results
+      97 |         await page.waitForTimeout(3000);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:94:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should handle connection testing functionality" classname="e2e/unified-testing.spec.ts" time="5.939">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should be responsive on mobile devices" classname="e2e/unified-testing.spec.ts" time="2.444">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should maintain state during navigation" classname="e2e/unified-testing.spec.ts" time="5.478">
+</testcase>
+</testsuite>
+<testsuite name="api/n8n-endpoints.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="webkit" tests="9" failures="1" skipped="0" time="1.972" errors="0">
+<testcase name="N8N API Endpoints › should test crew member endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.308">
+</testcase>
+<testcase name="N8N API Endpoints › should test crew member endpoint with invalid data" classname="api/n8n-endpoints.spec.ts" time="0.036">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.347">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with missing required fields" classname="api/n8n-endpoints.spec.ts" time="0.034">
+</testcase>
+<testcase name="N8N API Endpoints › should test mission scenario endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.083">
+<failure message="n8n-endpoints.spec.ts:77:9 should test mission scenario endpoint with valid data" type="FAILURE">
+<![CDATA[  [webkit] › api/n8n-endpoints.spec.ts:77:9 › N8N API Endpoints › should test mission scenario endpoint with valid data 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      85 |         });
+      86 |
+    > 87 |         expect(response.status()).toBe(200);
+         |                                   ^
+      88 |
+      89 |         const data = await response.json();
+      90 |         expect(data.success).toBe(true);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/api/n8n-endpoints.spec.ts:87:35
+]]>
+</failure>
+</testcase>
+<testcase name="N8N API Endpoints › should handle n8n webhook failures gracefully" classname="api/n8n-endpoints.spec.ts" time="0.52">
+</testcase>
+<testcase name="N8N API Endpoints › should validate request payload structure" classname="api/n8n-endpoints.spec.ts" time="0.158">
+</testcase>
+<testcase name="N8N API Endpoints › should handle malformed JSON gracefully" classname="api/n8n-endpoints.spec.ts" time="0.185">
+</testcase>
+<testcase name="N8N API Endpoints › should test response time performance" classname="api/n8n-endpoints.spec.ts" time="0.301">
+</testcase>
+</testsuite>
+<testsuite name="components/theme-system.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="webkit" tests="10" failures="6" skipped="0" time="67.157" errors="0">
+<testcase name="Theme System Components › should display all theme components correctly" classname="components/theme-system.spec.ts" time="10.197">
+<failure message="theme-system.spec.ts:16:9 should display all theme components correctly" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:16:9 › Theme System Components › should display all theme components correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      16 |     test('should display all theme components correctly', async ({ page }) => {
+      17 |         // Verify all component sections are present
+    > 18 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+         |                                                                           ^
+      19 |         await expect(page.locator('h3:has-text("Buttons")')).toBeVisible();
+      20 |         await expect(page.locator('h3:has-text("Cards")')).toBeVisible();
+      21 |         await expect(page.locator('h3:has-text("Inputs")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:18:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed buttons with correct styling" classname="components/theme-system.spec.ts" time="5.017">
+</testcase>
+<testcase name="Theme System Components › should render themed cards with proper layout" classname="components/theme-system.spec.ts" time="8.268">
+<failure message="theme-system.spec.ts:39:9 should render themed cards with proper layout" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:39:9 › Theme System Components › should render themed cards with proper layout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('div').filter({ hasText: 'Primary Card' }).first()
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Primary Card' }).first()
+
+
+      40 |         // Check primary card
+      41 |         const primaryCard = page.locator('div').filter({ hasText: 'Primary Card' }).first();
+    > 42 |         await expect(primaryCard).toBeVisible();
+         |                                   ^
+      43 |
+      44 |         // Check secondary card
+      45 |         const secondaryCard = page.locator('div').filter({ hasText: 'Secondary Card' }).first();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:42:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed inputs with proper styling" classname="components/theme-system.spec.ts" time="7.995">
+<failure message="theme-system.spec.ts:53:9 should render themed inputs with proper styling" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:53:9 › Theme System Components › should render themed inputs with proper styling 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('input[placeholder="Enter text..."]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('input[placeholder="Enter text..."]')
+
+
+      54 |         // Check text input
+      55 |         const textInput = page.locator('input[placeholder="Enter text..."]');
+    > 56 |         await expect(textInput).toBeVisible();
+         |                                 ^
+      57 |
+      58 |         // Check textarea
+      59 |         const textarea = page.locator('textarea[placeholder="Enter long text..."]');
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:56:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render text elements with correct variants" classname="components/theme-system.spec.ts" time="3.703">
+</testcase>
+<testcase name="Theme System Components › should display color palette correctly" classname="components/theme-system.spec.ts" time="8.169">
+<failure message="theme-system.spec.ts:77:9 should display color palette correctly" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:77:9 › Theme System Components › should display color palette correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎨 Color Palette")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎨 Color Palette")')
+
+
+      77 |     test('should display color palette correctly', async ({ page }) => {
+      78 |         // Check color palette section
+    > 79 |         await expect(page.locator('h2:has-text("🎨 Color Palette")')).toBeVisible();
+         |                                                                       ^
+      80 |
+      81 |         // Check primary colors
+      82 |         await expect(page.locator('div').filter({ hasText: 'Primary' }).first()).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:79:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should display spacing and typography scales" classname="components/theme-system.spec.ts" time="7.93">
+<failure message="theme-system.spec.ts:92:9 should display spacing and typography scales" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:92:9 › Theme System Components › should display spacing and typography scales 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("📏 Spacing Scale")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("📏 Spacing Scale")')
+
+
+      92 |     test('should display spacing and typography scales', async ({ page }) => {
+      93 |         // Check spacing section
+    > 94 |         await expect(page.locator('h2:has-text("📏 Spacing Scale")')).toBeVisible();
+         |                                                                       ^
+      95 |
+      96 |         // Check typography section
+      97 |         await expect(page.locator('h2:has-text("🔤 Typography Scale")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:94:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should be responsive on different screen sizes" classname="components/theme-system.spec.ts" time="9.102">
+<failure message="theme-system.spec.ts:100:9 should be responsive on different screen sizes" type="FAILURE">
+<![CDATA[  [webkit] › components/theme-system.spec.ts:100:9 › Theme System Components › should be responsive on different screen sizes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      104 |         // Verify components are still visible and usable
+      105 |         await expect(page.locator('h1:has-text("🎨 Theme System Demo")')).toBeVisible();
+    > 106 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+          |                                                                           ^
+      107 |
+      108 |         // Test tablet viewport
+      109 |         await page.setViewportSize({ width: 768, height: 1024 });
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:106:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should maintain theme consistency across navigation" classname="components/theme-system.spec.ts" time="4.696">
+</testcase>
+<testcase name="Theme System Components › should handle theme switching if implemented" classname="components/theme-system.spec.ts" time="2.08">
+<system-out>
+<![CDATA[Theme switching not implemented in this version
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/unified-testing.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="webkit" tests="10" failures="3" skipped="0" time="44.743" errors="0">
+<testcase name="Unified N8N Testing Interface › should display the unified testing console with all sections" classname="e2e/unified-testing.spec.ts" time="4.666">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow environment switching between local and production" classname="e2e/unified-testing.spec.ts" time="3.966">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display all crew member cards in quick testing section" classname="e2e/unified-testing.spec.ts" time="3.671">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow testing individual crew members" classname="e2e/unified-testing.spec.ts" time="4.775">
+<failure message="unified-testing.spec.ts:51:9 should allow testing individual crew members" type="FAILURE">
+<![CDATA[  [webkit] › e2e/unified-testing.spec.ts:51:9 › Unified N8N Testing Interface › should allow testing individual crew members 
+
+    Error: expect.toBeVisible: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      54 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+      55 |
+    > 56 |         await expect(testButton).toBeVisible();
+         |                                  ^
+      57 |         await testButton.click();
+      58 |
+      59 |         // Wait for test to complete (this might take a moment)
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:56:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display automated test suite scenarios" classname="e2e/unified-testing.spec.ts" time="3.54">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow running the full automated test suite" classname="e2e/unified-testing.spec.ts" time="10.99">
+<failure message="unified-testing.spec.ts:76:9 should allow running the full automated test suite" type="FAILURE">
+<![CDATA[  [webkit] › e2e/unified-testing.spec.ts:76:9 › Unified N8N Testing Interface › should allow running the full automated test suite 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h3:has-text("📊 Test Results")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h3:has-text("📊 Test Results")')
+
+
+      85 |
+      86 |         // Verify test execution is in progress
+    > 87 |         await expect(page.locator('h3:has-text("📊 Test Results")')).toBeVisible();
+         |                                                                      ^
+      88 |     });
+      89 |
+      90 |     test('should display test results with proper formatting', async ({ page }) => {
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:87:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display test results with proper formatting" classname="e2e/unified-testing.spec.ts" time="3.35">
+<failure message="unified-testing.spec.ts:90:9 should display test results with proper formatting" type="FAILURE">
+<![CDATA[  [webkit] › e2e/unified-testing.spec.ts:90:9 › Unified N8N Testing Interface › should display test results with proper formatting 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      92 |         const picardCard = page.locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first();
+      93 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+    > 94 |         await testButton.click();
+         |                          ^
+      95 |
+      96 |         // Wait for results
+      97 |         await page.waitForTimeout(3000);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:94:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should handle connection testing functionality" classname="e2e/unified-testing.spec.ts" time="4.54">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should be responsive on mobile devices" classname="e2e/unified-testing.spec.ts" time="1.803">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should maintain state during navigation" classname="e2e/unified-testing.spec.ts" time="3.442">
+</testcase>
+</testsuite>
+<testsuite name="api/n8n-endpoints.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Chrome" tests="9" failures="1" skipped="0" time="1.854" errors="0">
+<testcase name="N8N API Endpoints › should test crew member endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.636">
+</testcase>
+<testcase name="N8N API Endpoints › should test crew member endpoint with invalid data" classname="api/n8n-endpoints.spec.ts" time="0.021">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.364">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with missing required fields" classname="api/n8n-endpoints.spec.ts" time="0.041">
+</testcase>
+<testcase name="N8N API Endpoints › should test mission scenario endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.024">
+<failure message="n8n-endpoints.spec.ts:77:9 should test mission scenario endpoint with valid data" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › api/n8n-endpoints.spec.ts:77:9 › N8N API Endpoints › should test mission scenario endpoint with valid data 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      85 |         });
+      86 |
+    > 87 |         expect(response.status()).toBe(200);
+         |                                   ^
+      88 |
+      89 |         const data = await response.json();
+      90 |         expect(data.success).toBe(true);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/api/n8n-endpoints.spec.ts:87:35
+]]>
+</failure>
+</testcase>
+<testcase name="N8N API Endpoints › should handle n8n webhook failures gracefully" classname="api/n8n-endpoints.spec.ts" time="0.384">
+</testcase>
+<testcase name="N8N API Endpoints › should validate request payload structure" classname="api/n8n-endpoints.spec.ts" time="0.199">
+</testcase>
+<testcase name="N8N API Endpoints › should handle malformed JSON gracefully" classname="api/n8n-endpoints.spec.ts" time="0.018">
+</testcase>
+<testcase name="N8N API Endpoints › should test response time performance" classname="api/n8n-endpoints.spec.ts" time="0.167">
+</testcase>
+</testsuite>
+<testsuite name="components/theme-system.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Chrome" tests="10" failures="6" skipped="0" time="47.651" errors="0">
+<testcase name="Theme System Components › should display all theme components correctly" classname="components/theme-system.spec.ts" time="7.087">
+<failure message="theme-system.spec.ts:16:9 should display all theme components correctly" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:16:9 › Theme System Components › should display all theme components correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      16 |     test('should display all theme components correctly', async ({ page }) => {
+      17 |         // Verify all component sections are present
+    > 18 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+         |                                                                           ^
+      19 |         await expect(page.locator('h3:has-text("Buttons")')).toBeVisible();
+      20 |         await expect(page.locator('h3:has-text("Cards")')).toBeVisible();
+      21 |         await expect(page.locator('h3:has-text("Inputs")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:18:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed buttons with correct styling" classname="components/theme-system.spec.ts" time="2.084">
+</testcase>
+<testcase name="Theme System Components › should render themed cards with proper layout" classname="components/theme-system.spec.ts" time="7.1">
+<failure message="theme-system.spec.ts:39:9 should render themed cards with proper layout" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:39:9 › Theme System Components › should render themed cards with proper layout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('div').filter({ hasText: 'Primary Card' }).first()
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Primary Card' }).first()
+
+
+      40 |         // Check primary card
+      41 |         const primaryCard = page.locator('div').filter({ hasText: 'Primary Card' }).first();
+    > 42 |         await expect(primaryCard).toBeVisible();
+         |                                   ^
+      43 |
+      44 |         // Check secondary card
+      45 |         const secondaryCard = page.locator('div').filter({ hasText: 'Secondary Card' }).first();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:42:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed inputs with proper styling" classname="components/theme-system.spec.ts" time="6.8">
+<failure message="theme-system.spec.ts:53:9 should render themed inputs with proper styling" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:53:9 › Theme System Components › should render themed inputs with proper styling 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('input[placeholder="Enter text..."]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('input[placeholder="Enter text..."]')
+
+
+      54 |         // Check text input
+      55 |         const textInput = page.locator('input[placeholder="Enter text..."]');
+    > 56 |         await expect(textInput).toBeVisible();
+         |                                 ^
+      57 |
+      58 |         // Check textarea
+      59 |         const textarea = page.locator('textarea[placeholder="Enter long text..."]');
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:56:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render text elements with correct variants" classname="components/theme-system.spec.ts" time="0.782">
+</testcase>
+<testcase name="Theme System Components › should display color palette correctly" classname="components/theme-system.spec.ts" time="6.252">
+<failure message="theme-system.spec.ts:77:9 should display color palette correctly" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:77:9 › Theme System Components › should display color palette correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎨 Color Palette")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎨 Color Palette")')
+
+
+      77 |     test('should display color palette correctly', async ({ page }) => {
+      78 |         // Check color palette section
+    > 79 |         await expect(page.locator('h2:has-text("🎨 Color Palette")')).toBeVisible();
+         |                                                                       ^
+      80 |
+      81 |         // Check primary colors
+      82 |         await expect(page.locator('div').filter({ hasText: 'Primary' }).first()).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:79:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should display spacing and typography scales" classname="components/theme-system.spec.ts" time="6.785">
+<failure message="theme-system.spec.ts:92:9 should display spacing and typography scales" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:92:9 › Theme System Components › should display spacing and typography scales 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("📏 Spacing Scale")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("📏 Spacing Scale")')
+
+
+      92 |     test('should display spacing and typography scales', async ({ page }) => {
+      93 |         // Check spacing section
+    > 94 |         await expect(page.locator('h2:has-text("📏 Spacing Scale")')).toBeVisible();
+         |                                                                       ^
+      95 |
+      96 |         // Check typography section
+      97 |         await expect(page.locator('h2:has-text("🔤 Typography Scale")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:94:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should be responsive on different screen sizes" classname="components/theme-system.spec.ts" time="6.85">
+<failure message="theme-system.spec.ts:100:9 should be responsive on different screen sizes" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › components/theme-system.spec.ts:100:9 › Theme System Components › should be responsive on different screen sizes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      104 |         // Verify components are still visible and usable
+      105 |         await expect(page.locator('h1:has-text("🎨 Theme System Demo")')).toBeVisible();
+    > 106 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+          |                                                                           ^
+      107 |
+      108 |         // Test tablet viewport
+      109 |         await page.setViewportSize({ width: 768, height: 1024 });
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:106:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should maintain theme consistency across navigation" classname="components/theme-system.spec.ts" time="2.69">
+</testcase>
+<testcase name="Theme System Components › should handle theme switching if implemented" classname="components/theme-system.spec.ts" time="1.221">
+<system-out>
+<![CDATA[Theme switching not implemented in this version
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/unified-testing.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Chrome" tests="10" failures="3" skipped="0" time="26.607" errors="0">
+<testcase name="Unified N8N Testing Interface › should display the unified testing console with all sections" classname="e2e/unified-testing.spec.ts" time="1.166">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow environment switching between local and production" classname="e2e/unified-testing.spec.ts" time="1.994">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display all crew member cards in quick testing section" classname="e2e/unified-testing.spec.ts" time="0.933">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow testing individual crew members" classname="e2e/unified-testing.spec.ts" time="0.976">
+<failure message="unified-testing.spec.ts:51:9 should allow testing individual crew members" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › e2e/unified-testing.spec.ts:51:9 › Unified N8N Testing Interface › should allow testing individual crew members 
+
+    Error: expect.toBeVisible: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      54 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+      55 |
+    > 56 |         await expect(testButton).toBeVisible();
+         |                                  ^
+      57 |         await testButton.click();
+      58 |
+      59 |         // Wait for test to complete (this might take a moment)
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:56:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display automated test suite scenarios" classname="e2e/unified-testing.spec.ts" time="1.115">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow running the full automated test suite" classname="e2e/unified-testing.spec.ts" time="10.92">
+<failure message="unified-testing.spec.ts:76:9 should allow running the full automated test suite" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › e2e/unified-testing.spec.ts:76:9 › Unified N8N Testing Interface › should allow running the full automated test suite 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h3:has-text("📊 Test Results")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h3:has-text("📊 Test Results")')
+
+
+      85 |
+      86 |         // Verify test execution is in progress
+    > 87 |         await expect(page.locator('h3:has-text("📊 Test Results")')).toBeVisible();
+         |                                                                      ^
+      88 |     });
+      89 |
+      90 |     test('should display test results with proper formatting', async ({ page }) => {
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:87:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display test results with proper formatting" classname="e2e/unified-testing.spec.ts" time="1.308">
+<failure message="unified-testing.spec.ts:90:9 should display test results with proper formatting" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › e2e/unified-testing.spec.ts:90:9 › Unified N8N Testing Interface › should display test results with proper formatting 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      92 |         const picardCard = page.locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first();
+      93 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+    > 94 |         await testButton.click();
+         |                          ^
+      95 |
+      96 |         // Wait for results
+      97 |         await page.waitForTimeout(3000);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:94:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should handle connection testing functionality" classname="e2e/unified-testing.spec.ts" time="3.796">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should be responsive on mobile devices" classname="e2e/unified-testing.spec.ts" time="1.549">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should maintain state during navigation" classname="e2e/unified-testing.spec.ts" time="2.85">
+</testcase>
+</testsuite>
+<testsuite name="api/n8n-endpoints.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Safari" tests="9" failures="1" skipped="0" time="1.525" errors="0">
+<testcase name="N8N API Endpoints › should test crew member endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.262">
+</testcase>
+<testcase name="N8N API Endpoints › should test crew member endpoint with invalid data" classname="api/n8n-endpoints.spec.ts" time="0.018">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.314">
+</testcase>
+<testcase name="N8N API Endpoints › should test observation lounge endpoint with missing required fields" classname="api/n8n-endpoints.spec.ts" time="0.025">
+</testcase>
+<testcase name="N8N API Endpoints › should test mission scenario endpoint with valid data" classname="api/n8n-endpoints.spec.ts" time="0.012">
+<failure message="n8n-endpoints.spec.ts:77:9 should test mission scenario endpoint with valid data" type="FAILURE">
+<![CDATA[  [Mobile Safari] › api/n8n-endpoints.spec.ts:77:9 › N8N API Endpoints › should test mission scenario endpoint with valid data 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 400
+
+      85 |         });
+      86 |
+    > 87 |         expect(response.status()).toBe(200);
+         |                                   ^
+      88 |
+      89 |         const data = await response.json();
+      90 |         expect(data.success).toBe(true);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/api/n8n-endpoints.spec.ts:87:35
+]]>
+</failure>
+</testcase>
+<testcase name="N8N API Endpoints › should handle n8n webhook failures gracefully" classname="api/n8n-endpoints.spec.ts" time="0.49">
+</testcase>
+<testcase name="N8N API Endpoints › should validate request payload structure" classname="api/n8n-endpoints.spec.ts" time="0.194">
+</testcase>
+<testcase name="N8N API Endpoints › should handle malformed JSON gracefully" classname="api/n8n-endpoints.spec.ts" time="0.064">
+</testcase>
+<testcase name="N8N API Endpoints › should test response time performance" classname="api/n8n-endpoints.spec.ts" time="0.146">
+</testcase>
+</testsuite>
+<testsuite name="components/theme-system.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Safari" tests="10" failures="6" skipped="0" time="50.204" errors="0">
+<testcase name="Theme System Components › should display all theme components correctly" classname="components/theme-system.spec.ts" time="7.604">
+<failure message="theme-system.spec.ts:16:9 should display all theme components correctly" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:16:9 › Theme System Components › should display all theme components correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      16 |     test('should display all theme components correctly', async ({ page }) => {
+      17 |         // Verify all component sections are present
+    > 18 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+         |                                                                           ^
+      19 |         await expect(page.locator('h3:has-text("Buttons")')).toBeVisible();
+      20 |         await expect(page.locator('h3:has-text("Cards")')).toBeVisible();
+      21 |         await expect(page.locator('h3:has-text("Inputs")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:18:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-f8ceb--theme-components-correctly-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed buttons with correct styling" classname="components/theme-system.spec.ts" time="2.416">
+</testcase>
+<testcase name="Theme System Components › should render themed cards with proper layout" classname="components/theme-system.spec.ts" time="7.081">
+<failure message="theme-system.spec.ts:39:9 should render themed cards with proper layout" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:39:9 › Theme System Components › should render themed cards with proper layout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('div').filter({ hasText: 'Primary Card' }).first()
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Primary Card' }).first()
+
+
+      40 |         // Check primary card
+      41 |         const primaryCard = page.locator('div').filter({ hasText: 'Primary Card' }).first();
+    > 42 |         await expect(primaryCard).toBeVisible();
+         |                                   ^
+      43 |
+      44 |         // Check secondary card
+      45 |         const secondaryCard = page.locator('div').filter({ hasText: 'Secondary Card' }).first();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:42:35
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-14d41-ed-cards-with-proper-layout-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render themed inputs with proper styling" classname="components/theme-system.spec.ts" time="6.335">
+<failure message="theme-system.spec.ts:53:9 should render themed inputs with proper styling" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:53:9 › Theme System Components › should render themed inputs with proper styling 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('input[placeholder="Enter text..."]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('input[placeholder="Enter text..."]')
+
+
+      54 |         // Check text input
+      55 |         const textInput = page.locator('input[placeholder="Enter text..."]');
+    > 56 |         await expect(textInput).toBeVisible();
+         |                                 ^
+      57 |
+      58 |         // Check textarea
+      59 |         const textarea = page.locator('textarea[placeholder="Enter long text..."]');
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:56:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-72c15--inputs-with-proper-styling-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should render text elements with correct variants" classname="components/theme-system.spec.ts" time="1.951">
+</testcase>
+<testcase name="Theme System Components › should display color palette correctly" classname="components/theme-system.spec.ts" time="7.216">
+<failure message="theme-system.spec.ts:77:9 should display color palette correctly" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:77:9 › Theme System Components › should display color palette correctly 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎨 Color Palette")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎨 Color Palette")')
+
+
+      77 |     test('should display color palette correctly', async ({ page }) => {
+      78 |         // Check color palette section
+    > 79 |         await expect(page.locator('h2:has-text("🎨 Color Palette")')).toBeVisible();
+         |                                                                       ^
+      80 |
+      81 |         // Check primary colors
+      82 |         await expect(page.locator('div').filter({ hasText: 'Primary' }).first()).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:79:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-9b4c5-lay-color-palette-correctly-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should display spacing and typography scales" classname="components/theme-system.spec.ts" time="6.704">
+<failure message="theme-system.spec.ts:92:9 should display spacing and typography scales" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:92:9 › Theme System Components › should display spacing and typography scales 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("📏 Spacing Scale")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("📏 Spacing Scale")')
+
+
+      92 |     test('should display spacing and typography scales', async ({ page }) => {
+      93 |         // Check spacing section
+    > 94 |         await expect(page.locator('h2:has-text("📏 Spacing Scale")')).toBeVisible();
+         |                                                                       ^
+      95 |
+      96 |         // Check typography section
+      97 |         await expect(page.locator('h2:has-text("🔤 Typography Scale")')).toBeVisible();
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:94:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-e15d4-acing-and-typography-scales-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should be responsive on different screen sizes" classname="components/theme-system.spec.ts" time="7.203">
+<failure message="theme-system.spec.ts:100:9 should be responsive on different screen sizes" type="FAILURE">
+<![CDATA[  [Mobile Safari] › components/theme-system.spec.ts:100:9 › Theme System Components › should be responsive on different screen sizes 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h2:has-text("🎯 Component Library")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h2:has-text("🎯 Component Library")')
+
+
+      104 |         // Verify components are still visible and usable
+      105 |         await expect(page.locator('h1:has-text("🎨 Theme System Demo")')).toBeVisible();
+    > 106 |         await expect(page.locator('h2:has-text("🎯 Component Library")')).toBeVisible();
+          |                                                                           ^
+      107 |
+      108 |         // Test tablet viewport
+      109 |         await page.setViewportSize({ width: 768, height: 1024 });
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/components/theme-system.spec.ts:106:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|components-theme-system-Th-50af2-e-on-different-screen-sizes-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Theme System Components › should maintain theme consistency across navigation" classname="components/theme-system.spec.ts" time="2.936">
+</testcase>
+<testcase name="Theme System Components › should handle theme switching if implemented" classname="components/theme-system.spec.ts" time="0.758">
+<system-out>
+<![CDATA[Theme switching not implemented in this version
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/unified-testing.spec.ts" timestamp="2025-08-30T00:14:17.282Z" hostname="Mobile Safari" tests="10" failures="3" skipped="0" time="34.788" errors="0">
+<testcase name="Unified N8N Testing Interface › should display the unified testing console with all sections" classname="e2e/unified-testing.spec.ts" time="0.769">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow environment switching between local and production" classname="e2e/unified-testing.spec.ts" time="2.033">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display all crew member cards in quick testing section" classname="e2e/unified-testing.spec.ts" time="1.852">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow testing individual crew members" classname="e2e/unified-testing.spec.ts" time="3.386">
+<failure message="unified-testing.spec.ts:51:9 should allow testing individual crew members" type="FAILURE">
+<![CDATA[  [Mobile Safari] › e2e/unified-testing.spec.ts:51:9 › Unified N8N Testing Interface › should allow testing individual crew members 
+
+    Error: expect.toBeVisible: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      54 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+      55 |
+    > 56 |         await expect(testButton).toBeVisible();
+         |                                  ^
+      57 |         await testButton.click();
+      58 |
+      59 |         // Wait for test to complete (this might take a moment)
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:56:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a5f7-ing-individual-crew-members-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display automated test suite scenarios" classname="e2e/unified-testing.spec.ts" time="1.902">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should allow running the full automated test suite" classname="e2e/unified-testing.spec.ts" time="11.203">
+<failure message="unified-testing.spec.ts:76:9 should allow running the full automated test suite" type="FAILURE">
+<![CDATA[  [Mobile Safari] › e2e/unified-testing.spec.ts:76:9 › Unified N8N Testing Interface › should allow running the full automated test suite 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('h3:has-text("📊 Test Results")')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('h3:has-text("📊 Test Results")')
+
+
+      85 |
+      86 |         // Verify test execution is in progress
+    > 87 |         await expect(page.locator('h3:has-text("📊 Test Results")')).toBeVisible();
+         |                                                                      ^
+      88 |     });
+      89 |
+      90 |     test('should display test results with proper formatting', async ({ page }) => {
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:87:70
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-67121-e-full-automated-test-suite-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should display test results with proper formatting" classname="e2e/unified-testing.spec.ts" time="2.943">
+<failure message="unified-testing.spec.ts:90:9 should display test results with proper formatting" type="FAILURE">
+<![CDATA[  [Mobile Safari] › e2e/unified-testing.spec.ts:90:9 › Unified N8N Testing Interface › should display test results with proper formatting 
+
+    Error: locator.click: Error: strict mode violation: locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")') resolved to 6 elements:
+        1) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Captain Jean-Luc PicardStrategic Leadership🚀 Test$/ }).getByRole('button')
+        2) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander William RikerTactical Execution🚀 Test$/ }).getByRole('button')
+        3) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Commander DataData Analysis🚀 Test$/ }).getByRole('button')
+        4) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Lieutenant Commander Geordi La ForgeTechnical Engineering🚀 Test$/ }).getByRole('button')
+        5) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Dr\. Beverly CrusherMedical & Research🚀 Test$/ }).getByRole('button')
+        6) <button class="">🚀 Test</button> aka locator('div').filter({ hasText: /^Counselor Deanna TroiPsychological Analysis🚀 Test$/ }).getByRole('button')
+
+    Call log:
+      - waiting for locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first().locator('button:has-text("🚀 Test")')
+
+
+      92 |         const picardCard = page.locator('div').filter({ hasText: 'Captain Jean-Luc Picard' }).first();
+      93 |         const testButton = picardCard.locator('button:has-text("🚀 Test")');
+    > 94 |         await testButton.click();
+         |                          ^
+      95 |
+      96 |         // Wait for results
+      97 |         await page.waitForTimeout(3000);
+        at /Users/bradygeorgen/Documents/workspace/pbradygeorgen/tests/e2e/unified-testing.spec.ts:94:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|e2e-unified-testing-Unifie-5a767-ults-with-proper-formatting-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Unified N8N Testing Interface › should handle connection testing functionality" classname="e2e/unified-testing.spec.ts" time="5.618">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should be responsive on mobile devices" classname="e2e/unified-testing.spec.ts" time="1.874">
+</testcase>
+<testcase name="Unified N8N Testing Interface › should maintain state during navigation" classname="e2e/unified-testing.spec.ts" time="3.208">
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,0 +1,281 @@
+{
+  "createdAt": "2025-08-27T04:28:32.255Z",
+  "updatedAt": "2025-08-27T04:29:34.000Z",
+  "id": "L6K4bzSKlGC36ABL",
+  "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crew-quark",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "68430b23-4107-4b75-9eb2-75275daf8b02",
+      "name": "Quark Directive",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "4da245f9-16db-4ada-af5e-df4841ec69af"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories?crew_member=eq.Quark",
+        "options": {}
+      },
+      "id": "656dfc0f-650f-4355-a1a7-b453f1cfab48",
+      "name": "Quark Memory Retrieval",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "eeb932d4-1410-4e95-8c62-38b32585037b",
+      "name": "LLM Selection Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        464,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+      "name": "Quark AI Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://rpkkkbufdwxmjaerbhbn.supabase.co/rest/v1/crew_memories",
+        "options": {}
+      },
+      "id": "2a7a5429-74c6-441d-a3ce-48d11531c7fe",
+      "name": "Quark Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "url": "https://api.openrouter.ai/api/v1/chat/completions",
+        "options": {}
+      },
+      "id": "e13cd4a1-a63f-4831-972e-878e817f3579",
+      "name": "Observation Lounge Communication",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"crew_member\": \"Quark\", \"response\": $json.choices[0].message.content, \"timestamp\": new Date().toISOString() } }}",
+        "options": {}
+      },
+      "id": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+      "name": "Quark Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        304
+      ]
+    }
+  ],
+  "connections": {
+    "68430b23-4107-4b75-9eb2-75275daf8b02": {
+      "main": [
+        [
+          {
+            "node": "656dfc0f-650f-4355-a1a7-b453f1cfab48",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "eeb932d4-1410-4e95-8c62-38b32585037b",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "656dfc0f-650f-4355-a1a7-b453f1cfab48": {
+      "main": [
+        [
+          {
+            "node": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "eeb932d4-1410-4e95-8c62-38b32585037b": {
+      "main": [
+        [
+          {
+            "node": "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3fba944c-6b6d-4e0a-8469-cfe2bf8d0ed6": {
+      "main": [
+        [
+          {
+            "node": "2a7a5429-74c6-441d-a3ce-48d11531c7fe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "e13cd4a1-a63f-4831-972e-878e817f3579",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2a7a5429-74c6-441d-a3ce-48d11531c7fe": {
+      "main": [
+        [
+          {
+            "node": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "e13cd4a1-a63f-4831-972e-878e817f3579": {
+      "main": [
+        [
+          {
+            "node": "84e911d2-ab07-4aee-8e61-14c0db1dd081",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark Directive": {
+      "main": [
+        [
+          {
+            "node": "Quark Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Quark AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Quark Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quark Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Quark Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "4fb683c5-c81c-497d-939b-369a0c7980f3",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-27T04:28:32.258Z",
+      "updatedAt": "2025-08-27T04:28:32.258Z",
+      "role": "workflow:owner",
+      "workflowId": "L6K4bzSKlGC36ABL",
+      "projectId": "4Pe2tfKPH8e3rX41"
+    }
+  ],
+  "tags": []
+}

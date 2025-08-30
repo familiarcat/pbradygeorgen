@@ -16,50 +16,93 @@ export async function POST(request: NextRequest) {
         // Get n8n base URL from environment
         const n8nBaseUrl = process.env.N8N_BASE_URL || 'https://n8n.pbradygeorgen.com';
 
-        // Use the comprehensive crew workflow webhook for Observation Lounge testing
-        const webhookUrl = `${n8nBaseUrl}/webhook/alexai-crew-mission`;
-
         const startTime = Date.now();
+        const crewResponses: any[] = [];
+        const failedCrew: any[] = [];
 
-        // Call the real n8n webhook for full crew coordination
-        const n8nResponse = await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                missionDirective,
-                selectedCrew,
-                testMode,
-                complexity: complexity || 'High',
-                timestamp: new Date().toISOString(),
-                source: 'n8n-testing-console',
-                missionType: 'observation_lounge_test',
-                coordinationLevel: testMode === 'full_crew' ? 'maximum' : testMode === 'core_crew' ? 'high' : 'medium'
-            }),
-        });
+        // Coordinate individual crew members since there's no comprehensive workflow
+        for (const crewMember of selectedCrew) {
+            try {
+                // Map crew member IDs to their actual webhook paths on the n8n server
+                const webhookPathMap: Record<string, string> = {
+                    'picard': 'crew-captain-jean-luc-picard',
+                    'riker': 'crew-commander-william-riker',
+                    'data': 'crew-commander-data',
+                    'geordi': 'crew-lieutenant-commander-geordi-la-forge',
+                    'crusher': 'crew-dr-beverly-crusher',
+                    'worf': 'crew-lieutenant-worf',
+                    'troi': 'crew-counselor-deanna-troi',
+                    'uhura': 'crew-lieutenant-uhura',
+                    'quark': 'crew-quark'
+                };
+
+                const webhookPath = webhookPathMap[crewMember] || `crew-${crewMember}`;
+                const webhookUrl = `${n8nBaseUrl}/webhook/${webhookPath}`;
+
+                console.log(`🧑‍🚀 Coordinating ${crewMember} via ${webhookPath}`);
+
+                // Call individual crew member webhook
+                const crewResponse = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        crewMemberId: crewMember,
+                        task: `Observation Lounge Mission: ${missionDirective}`,
+                        missionDirective,
+                        testMode,
+                        complexity: complexity || 'High',
+                        timestamp: new Date().toISOString(),
+                        source: 'observation-lounge-coordinator',
+                        missionType: 'observation_lounge_test',
+                        coordinationLevel: testMode === 'full_crew' ? 'maximum' : testMode === 'core_crew' ? 'high' : 'medium'
+                    }),
+                });
+
+                if (crewResponse.ok) {
+                    let crewData;
+                    try {
+                        crewData = await crewResponse.json();
+                    } catch {
+                        crewData = { message: 'Response received', status: 'success' };
+                    }
+
+                    crewResponses.push({
+                        crew_member: crewMember,
+                        response: crewData.message || 'Mission participation confirmed',
+                        status: 'Engaged',
+                        contribution: crewData.contribution || 'Mission objectives aligned',
+                        webhook_status: crewResponse.status,
+                        response_time: Date.now() - startTime
+                    });
+                } else {
+                    failedCrew.push({
+                        crew_member: crewMember,
+                        error: `HTTP ${crewResponse.status}`,
+                        status: 'Failed'
+                    });
+                }
+            } catch (error) {
+                console.error(`❌ Failed to coordinate ${crewMember}:`, error);
+                failedCrew.push({
+                    crew_member: crewMember,
+                    error: error instanceof Error ? error.message : 'Unknown error',
+                    status: 'Failed'
+                });
+            }
+        }
 
         const responseTime = Date.now() - startTime;
+        const successCount = crewResponses.length;
+        const failureCount = failedCrew.length;
 
-        if (!n8nResponse.ok) {
-            throw new Error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`);
-        }
+        console.log(`✅ Observation Lounge coordination completed: ${successCount} successful, ${failureCount} failed`);
 
-        // Get the actual response from n8n
-        let n8nData;
-        try {
-            n8nData = await n8nResponse.json();
-        } catch (parseError) {
-            // If n8n returns non-JSON, create a structured response
-            const responseText = await n8nResponse.text();
-            n8nData = {
-                message: responseText,
-                status: 'success',
-                timestamp: new Date().toISOString()
-            };
-        }
-
-        console.log(`✅ Observation Lounge test completed for ${testMode} mode in ${responseTime}ms`);
+        // Calculate coordination metrics
+        const coordinationEfficiency = successCount > 0 ? `${Math.round((successCount / selectedCrew.length) * 100)}%` : '0%';
+        const crewSynergy = successCount === selectedCrew.length ? 'Exceptional' :
+            successCount > selectedCrew.length / 2 ? 'Good' : 'Needs Improvement';
 
         // Return structured response compatible with existing test interface
         return NextResponse.json({
@@ -70,52 +113,45 @@ export async function POST(request: NextRequest) {
             complexity,
             response: {
                 coordination_summary: {
-                    coordination_efficiency: n8nData.coordinationEfficiency || '90%',
+                    coordination_efficiency: coordinationEfficiency,
                     response_time: `${responseTime}ms`,
-                    crew_synergy: n8nData.crewSynergy || 'Exceptional',
-                    mission_status: n8nData.missionStatus || 'Active'
+                    crew_synergy: crewSynergy,
+                    mission_status: failureCount === 0 ? 'Active' : 'Partial Success'
                 },
-                individual_crew_responses: n8nData.individualResponses || selectedCrew.map(crew => ({
-                    crew_member: crew,
-                    response: 'Active participation confirmed',
-                    status: 'Engaged',
-                    contribution: 'Mission objectives aligned'
-                })),
-                mission_outcomes: n8nData.missionOutcomes || [
-                    'Full crew coordination established',
-                    'Mission objectives clearly defined',
-                    'Resource allocation optimized',
-                    'Timeline and protocols established',
-                    'Communication channels activated'
+                individual_crew_responses: crewResponses,
+                failed_crew_members: failedCrew,
+                mission_outcomes: [
+                    'Crew coordination attempted via individual webhooks',
+                    `Mission directive: ${missionDirective}`,
+                    `Success rate: ${coordinationEfficiency}`,
+                    `Response time: ${responseTime}ms`,
+                    failureCount > 0 ? `${failureCount} crew member(s) failed to respond` : 'All crew members responded successfully'
                 ],
                 coordination_metrics: {
-                    decision_making_speed: n8nData.decisionMakingSpeed || 'Optimal',
-                    communication_efficiency: n8nData.communicationEfficiency || 'Excellent',
-                    resource_utilization: n8nData.resourceUtilization || '95%',
-                    team_cohesion: n8nData.teamCohesion || 'Maximum'
+                    decision_making_speed: responseTime < 1000 ? 'Optimal' : responseTime < 3000 ? 'Good' : 'Slow',
+                    communication_efficiency: coordinationEfficiency,
+                    resource_utilization: `${Math.round((successCount / selectedCrew.length) * 100)}%`,
+                    team_cohesion: crewSynergy
                 }
             },
             testMetrics: {
                 responseTime,
-                n8nStatus: n8nResponse.status,
-                webhookUrl,
-                timestamp: new Date().toISOString()
-            },
-            rawN8nResponse: n8nData // Include raw response for debugging
+                successCount,
+                failureCount,
+                totalCrew: selectedCrew.length,
+                coordinationEfficiency
+            }
         });
 
     } catch (error) {
         console.error('❌ Observation Lounge test failed:', error);
-
-        return NextResponse.json({
-            success: false,
-            error: error instanceof Error ? error.message : 'Unknown error occurred',
-            timestamp: new Date().toISOString(),
-            testMetrics: {
-                responseTime: 0,
-                n8nStatus: 'error',
-                webhookUrl: 'N/A'
-            }
-        }, { status: 500 });
+        return NextResponse.json(
+            {
+                error: 'Observation Lounge test failed',
+                details: error instanceof Error ? error.message : 'Unknown error',
+                timestamp: new Date().toISOString()
+            },
+            { status: 500 }
+        );
     }
 }

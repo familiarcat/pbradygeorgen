@@ -1,0 +1,150 @@
+{
+  "backup_timestamp": "2025-08-29T19:30:37.850085",
+  "n8n_instance": "https://n8n.pbradygeorgen.com",
+  "total_workflows": 14,
+  "active_workflows": 14,
+  "crew_workflows": 14,
+  "federation_workflows": 3,
+  "workflow_details": [
+    {
+      "id": "36KPle5mPiMaazG6",
+      "name": "Crew - Lieutenant Uhura - Communications & I/O Operations Officer",
+      "active": true,
+      "created_at": "2025-08-27T04:27:24.901Z",
+      "updated_at": "2025-08-28T07:56:42.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 12
+    },
+    {
+      "id": "AeoHsSbJAXbWSs8Y",
+      "name": "System - Federation Concise Agency - OpenRouter Crew",
+      "active": true,
+      "created_at": "2025-08-27T02:25:45.931Z",
+      "updated_at": "2025-08-27T04:08:13.000Z",
+      "tags": [],
+      "node_count": 4,
+      "connection_count": 2
+    },
+    {
+      "id": "BdNHOluRYUw2JxGW",
+      "name": "Crew - Captain Jean-Luc Picard - Strategic Leadership & Mission Command",
+      "active": true,
+      "created_at": "2025-08-27T02:25:47.297Z",
+      "updated_at": "2025-08-27T04:08:02.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "GhSB8EpZWXLU78LM",
+      "name": "Crew - Lieutenant Worf - Security & Compliance Operations",
+      "active": true,
+      "created_at": "2025-08-27T02:25:46.157Z",
+      "updated_at": "2025-08-27T04:08:10.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "IKckCG6TsUvrZd8P",
+      "name": "Crew Management System",
+      "active": true,
+      "created_at": "2025-08-27T02:25:47.414Z",
+      "updated_at": "2025-08-27T04:08:00.000Z",
+      "tags": [],
+      "node_count": 2,
+      "connection_count": 1
+    },
+    {
+      "id": "Imn7p6pVgi6SRvnF",
+      "name": "Crew - Commander William Riker - Tactical Execution & Workflow Management",
+      "active": true,
+      "created_at": "2025-08-27T02:33:04.181Z",
+      "updated_at": "2025-08-27T04:07:59.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 10
+    },
+    {
+      "id": "L6K4bzSKlGC36ABL",
+      "name": "Crew - Quark - Business Intelligence & Budget Optimization",
+      "active": true,
+      "created_at": "2025-08-27T04:28:32.255Z",
+      "updated_at": "2025-08-27T04:29:34.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 12
+    },
+    {
+      "id": "QJnN7ks2KsQTENDc",
+      "name": "Crew - Counselor Deanna Troi - User Experience & Empathy Analysis",
+      "active": true,
+      "created_at": "2025-08-27T02:25:47.178Z",
+      "updated_at": "2025-08-27T04:08:03.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "SXAMupVWdOxZybF6",
+      "name": "Crew - Dr. Beverly Crusher - Health & Diagnostics Officer",
+      "active": true,
+      "created_at": "2025-08-27T04:24:00.120Z",
+      "updated_at": "2025-08-27T04:25:40.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 12
+    },
+    {
+      "id": "VQDH8tqWvVmigWd1",
+      "name": "System - Federation Crew - OpenRouter Agent Coordination",
+      "active": true,
+      "created_at": "2025-08-27T02:25:46.380Z",
+      "updated_at": "2025-08-27T04:08:09.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 5
+    },
+    {
+      "id": "aNfs26Wlau80ufmh",
+      "name": "System - AlexAI Optimized Crew - Complete Mission Control",
+      "active": true,
+      "created_at": "2025-08-27T02:25:47.006Z",
+      "updated_at": "2025-08-27T04:08:05.000Z",
+      "tags": [],
+      "node_count": 4,
+      "connection_count": 2
+    },
+    {
+      "id": "e0UEwyVcXJqeePdj",
+      "name": "Crew - Lieutenant Commander Geordi La Forge - Infrastructure & System Integration",
+      "active": true,
+      "created_at": "2025-08-27T02:25:46.595Z",
+      "updated_at": "2025-08-27T04:08:06.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 6
+    },
+    {
+      "id": "eviPmIvTnoJcnaas",
+      "name": "System - Enhanced Federation Crew - Complete Mission Control",
+      "active": true,
+      "created_at": "2025-08-27T02:25:46.038Z",
+      "updated_at": "2025-08-27T04:08:11.000Z",
+      "tags": [],
+      "node_count": 15,
+      "connection_count": 13
+    },
+    {
+      "id": "gIwrQHHArgrVARjL",
+      "name": "Crew - Commander Data - Analytics & Logic Operations",
+      "active": true,
+      "created_at": "2025-08-27T02:25:46.487Z",
+      "updated_at": "2025-08-27T04:08:08.000Z",
+      "tags": [],
+      "node_count": 7,
+      "connection_count": 6
+    }
+  ]
+}

@@ -152,8 +152,8 @@ def generate_crew_test_data():
                 "complexity": "Medium",
                 "llm_model": "claude-3.5-sonnet",
                 "execution_time": "2.1s"
-            }
         }
+        ]
     }
     
     return crew_test_cases

@@ -17,7 +17,7 @@
       ],
       "parameters": {
         "httpMethod": "POST",
-        "path": "crew-geordi",
+        "path": "crew-lieutenant-commander-geordi-la-forge",
         "responseMode": "responseNode",
         "options": {}
       }
@@ -154,5 +154,93 @@
         "options": {}
       }
     }
-  ]
+  ],
+  "connections": {
+    "Lieutenant Commander Geordi La Forge Directive": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Commander Geordi La Forge Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Commander Geordi La Forge AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response Formatter": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Commander Geordi La Forge Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "geordi",
+    "engineering",
+    "infrastructure"
+  ],
+  "triggerCount": 0,
+  "versionId": "1"
 }

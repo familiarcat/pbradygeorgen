@@ -17,7 +17,7 @@
       ],
       "parameters": {
         "httpMethod": "POST",
-        "path": "crew-crusher",
+        "path": "crew-dr-beverly-crusher",
         "responseMode": "responseNode",
         "options": {}
       }
@@ -154,5 +154,93 @@
         "options": {}
       }
     }
-  ]
+  ],
+  "connections": {
+    "Dr. Beverly Crusher Directive": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dr. Beverly Crusher Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dr. Beverly Crusher AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response Formatter": {
+      "main": [
+        [
+          {
+            "node": "Dr. Beverly Crusher Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "crusher",
+    "health",
+    "diagnostics"
+  ],
+  "triggerCount": 0,
+  "versionId": "1"
 }

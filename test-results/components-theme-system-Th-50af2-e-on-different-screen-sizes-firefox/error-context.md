@@ -1,0 +1,102 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "AlexAI" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - button "Toggle menu" [ref=e6] [cursor=pointer]
+      - generic [ref=e10]: "Current PDF: pbradygeorgen_resume.pdf"
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - generic [ref=e15]:
+        - heading "🎨 Theme System Demo" [level=1] [ref=e16]
+        - paragraph [ref=e17]: Universal styling system for consistent UI across the entire application
+      - generic [ref=e18]:
+        - generic [ref=e20]:
+          - heading "Buttons" [level=3] [ref=e21]
+          - generic [ref=e22]:
+            - button "🚀 Primary Button" [ref=e23] [cursor=pointer]:
+              - generic [ref=e24] [cursor=pointer]: 🚀
+              - text: Primary Button
+            - button "⚡ Secondary Button" [ref=e25] [cursor=pointer]:
+              - generic [ref=e26] [cursor=pointer]: ⚡
+              - text: Secondary Button
+            - button "🎯 Accent Button" [ref=e27] [cursor=pointer]:
+              - generic [ref=e28] [cursor=pointer]: 🎯
+              - text: Accent Button
+            - button "✅ Success Button" [ref=e29] [cursor=pointer]:
+              - generic [ref=e30] [cursor=pointer]: ✅
+              - text: Success Button
+            - button "⚠️ Warning Button" [ref=e31] [cursor=pointer]:
+              - generic [ref=e32] [cursor=pointer]: ⚠️
+              - text: Warning Button
+            - button "❌ Error Button" [ref=e33] [cursor=pointer]:
+              - generic [ref=e34] [cursor=pointer]: ❌
+              - text: Error Button
+        - generic [ref=e36]:
+          - heading "Inputs" [level=3] [ref=e37]
+          - generic [ref=e38]:
+            - textbox "Text input placeholder" [ref=e39]
+            - textbox "Textarea placeholder" [ref=e40]
+            - textbox "Email input" [ref=e41]
+        - generic [ref=e43]:
+          - heading "Typography" [level=3] [ref=e44]
+          - generic [ref=e45]:
+            - heading "Heading 1" [level=1] [ref=e46]
+            - heading "Heading 2" [level=2] [ref=e47]
+            - heading "Heading 3" [level=3] [ref=e48]
+            - heading "Heading 4" [level=4] [ref=e49]
+            - paragraph [ref=e50]: Body text with normal weight
+            - paragraph [ref=e51]: Caption text for smaller details
+        - generic [ref=e53]:
+          - heading "Badges" [level=3] [ref=e54]
+          - generic [ref=e55]:
+            - generic [ref=e56]: Primary
+            - generic [ref=e57]: Secondary
+            - generic [ref=e58]: Accent
+            - generic [ref=e59]: Success
+            - generic [ref=e60]: Warning
+            - generic [ref=e61]: Error
+        - generic [ref=e63]:
+          - heading "Layout Components" [level=3] [ref=e64]
+          - generic [ref=e65]:
+            - generic [ref=e66]: Grid Item 1
+            - generic [ref=e67]: Grid Item 2
+          - generic [ref=e68]:
+            - generic [ref=e69]: Flex Item 1
+            - generic [ref=e70]: Flex Item 2
+        - generic [ref=e72]:
+          - heading "Theme Information" [level=3] [ref=e73]
+          - generic [ref=e74]:
+            - paragraph [ref=e75]:
+              - strong [ref=e76]: "Primary Color:"
+              - text: "#3B82F6"
+            - paragraph [ref=e77]:
+              - strong [ref=e78]: "Secondary Color:"
+              - text: "#8B5CF6"
+            - paragraph [ref=e79]:
+              - strong [ref=e80]: "Accent Color:"
+              - text: "#F59E0B"
+            - paragraph [ref=e81]:
+              - strong [ref=e82]: "Font Family:"
+              - text: "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif"
+            - paragraph [ref=e83]:
+              - strong [ref=e84]: "Base Spacing:"
+              - text: 16px
+      - generic [ref=e86]:
+        - heading "How to Use" [level=3] [ref=e87]
+        - paragraph [ref=e88]:
+          - text: 1. Import components from
+          - code [ref=e89]: "@/theme/ComponentLibrary"
+        - paragraph [ref=e90]:
+          - text: 2. Use the
+          - code [ref=e91]: useTheme()
+          - text: hook to access theme values
+        - paragraph [ref=e92]: 3. All components automatically use consistent styling
+        - paragraph [ref=e93]: 4. Customize with additional style props when needed
+  - button "Open Next.js Dev Tools" [ref=e99] [cursor=pointer]:
+    - img [ref=e100] [cursor=pointer]
+  - alert [ref=e104]
+```

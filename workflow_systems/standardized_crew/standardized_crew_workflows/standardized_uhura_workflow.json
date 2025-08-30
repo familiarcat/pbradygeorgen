@@ -17,7 +17,7 @@
       ],
       "parameters": {
         "httpMethod": "POST",
-        "path": "crew-uhura",
+        "path": "crew-lieutenant-uhura",
         "responseMode": "responseNode",
         "options": {}
       }
@@ -154,5 +154,93 @@
         "options": {}
       }
     }
-  ]
+  ],
+  "connections": {
+    "Lieutenant Uhura Directive": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Uhura Memory Retrieval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LLM Selection Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Uhura Memory Retrieval": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Uhura AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Selection Agent": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Uhura AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lieutenant Uhura AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Observation Lounge Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Observation Lounge Communication": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response Formatter": {
+      "main": [
+        [
+          {
+            "node": "Lieutenant Uhura Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "tags": [
+    "crew",
+    "uhura",
+    "communications",
+    "io"
+  ],
+  "triggerCount": 0,
+  "versionId": "1"
 }
