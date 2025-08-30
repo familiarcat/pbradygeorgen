@@ -1,0 +1,39 @@
+# Claude Agents Requirements
+# Core dependencies for the Claude crew member system
+
+# Anthropic Claude API client
+anthropic>=0.18.1
+
+# HTTP requests for n8n integration
+requests>=2.31.0
+
+# Data handling and serialization
+pydantic>=2.5.0
+
+# Logging and monitoring
+structlog>=23.2.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Async support (optional, for future enhancements)
+aiohttp>=3.9.0
+asyncio-mqtt>=0.16.0
+
+# Data storage and caching
+redis>=5.0.0
+sqlalchemy>=2.0.0
+
+# Testing and development
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Documentation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.3.0
+
+# Development tools
+ipython>=8.0.0
+jupyter>=1.0.0
