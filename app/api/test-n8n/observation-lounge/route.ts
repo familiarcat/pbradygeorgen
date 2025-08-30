@@ -26,7 +26,6 @@ export async function POST(request: NextRequest) {
                 // Map crew member IDs to their actual webhook paths on the n8n server
                 const webhookPathMap: Record<string, string> = {
                     'picard': 'crew-captain-jean-luc-picard',
-                    'riker': 'crew-commander-william-riker',
                     'data': 'crew-commander-data',
                     'geordi': 'crew-lieutenant-commander-geordi-la-forge',
                     'crusher': 'crew-dr-beverly-crusher',

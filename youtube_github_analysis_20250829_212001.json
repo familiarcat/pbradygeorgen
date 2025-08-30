@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-08-29T21:20:01.139069",
+  "input": {
+    "youtube_url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+    "github_repo_url": "https://github.com/microsoft/vscode"
+  },
+  "youtube_content": {
+    "video_id": "rfscVS0vtbw",
+    "title": "Learn Python - Full Course for Beginners [Tutorial]",
+    "channel": "freeCodeCamp.org",
+    "description_length": 2294,
+    "transcript_length": 259429,
+    "code_snippets_count": 0,
+    "tags": [
+      "python",
+      "python tutorial",
+      "python language",
+      "python full course",
+      "python course",
+      "learn python",
+      "learn python programming",
+      "python tutorial for beginners",
+      "python tutorial 2018",
+      "python programming tutorial",
+      "python programming language",
+      "software development",
+      "programming tutorial",
+      "freecodecamp"
+    ]
+  },
+  "github_content": {
+    "repo_url": "https://github.com/microsoft/vscode",
+    "description": "",
+    "readme_length": 0,
+    "documentation_files": 0,
+    "code_files_count": 0,
+    "languages": {},
+    "topics": []
+  },
+  "comparison_result": {
+    "similarity_score": 0.0,
+    "content_gaps": [
+      "Video discusses installation but repository missing dependency files"
+    ],
+    "code_matches": [],
+    "recommendations": [
+      "Add documentation sections covering topics mentioned in video",
+      "Add example files or demo code referenced in tutorial video"
+    ],
+    "detailed_analysis": {
+      "youtube_stats": {
+        "title_length": 51,
+        "description_length": 2294,
+        "transcript_length": 259429,
+        "code_snippets_count": 0,
+        "channel": "freeCodeCamp.org",
+        "tags_count": 14
+      },
+      "github_stats": {
+        "readme_length": 0,
+        "documentation_files": 0,
+        "code_files_count": 0,
+        "file_structure_size": 0,
+        "languages_count": 0,
+        "topics_count": 0
+      },
+      "comparison_metrics": {
+        "text_similarity": 0.0,
+        "code_matches_count": 0,
+        "content_gaps_count": 1,
+        "recommendations_count": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,941 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-29T21:56:09.353181",
+    "total_duration": 14.03,
+    "total_tests": 15,
+    "success_rate": 80.0,
+    "average_response_time": 430.28
+  },
+  "test_results": [
+    {
+      "test_type": "individual_crew",
+      "crew_member": "picard",
+      "webhook_path": "crew-picard",
+      "task": "Strategic analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 1533.38,
+      "timestamp": "2025-08-29T21:55:56.860709",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "picard",
+        "webhookPath": "crew-picard",
+        "task": "Strategic analysis",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": [
+            "Implement comprehensive mission planning protocols",
+            "Establish clear communication channels with all stakeholders",
+            "Develop contingency plans for multiple scenarios",
+            "Coordinate with Starfleet Command for resource allocation"
+          ],
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Strategic Leadership & Mission Command",
+            "analysis": "Strategic analysis of: \"Strategic analysis\"",
+            "additionalData": {
+              "role": "Strategic Leadership & Mission Command",
+              "analysis": "Strategic analysis of: \"Strategic analysis\"",
+              "recommendations": [
+                "Implement comprehensive mission planning protocols",
+                "Establish clear communication channels with all stakeholders",
+                "Develop contingency plans for multiple scenarios",
+                "Coordinate with Starfleet Command for resource allocation"
+              ],
+              "priority": "High",
+              "timeline": "Immediate action required",
+              "crewCoordination": "All hands on deck for strategic implementation"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 384,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-picard",
+          "timestamp": "2025-08-30T02:55:56.856Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-picard\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-picard\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "riker",
+      "webhook_path": "crew-riker",
+      "task": "Workflow optimization",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 306.26,
+      "timestamp": "2025-08-29T21:55:57.669859",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "riker",
+        "webhookPath": "crew-riker",
+        "task": "Workflow optimization",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": [
+            "Proceed with standard protocols",
+            "Monitor system performance",
+            "Document any anomalies"
+          ],
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Tactical Execution & Workflow Management",
+            "analysis": "Tactical execution plan for: \"Workflow optimization\"",
+            "additionalData": {
+              "role": "Tactical Execution & Workflow Management",
+              "tacticalPlan": "Tactical execution plan for: \"Workflow optimization\"",
+              "operationalSteps": [
+                "Deploy tactical teams to key positions",
+                "Establish command and control protocols",
+                "Implement real-time monitoring systems",
+                "Coordinate cross-functional team operations"
+              ],
+              "resourceAllocation": "Optimal distribution of available resources",
+              "executionTimeline": "Phase 1: Immediate, Phase 2: 24h, Phase 3: 72h"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 294,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-riker",
+          "timestamp": "2025-08-30T02:55:57.668Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-riker\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-riker\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "data",
+      "webhook_path": "crew-data",
+      "task": "Performance analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 213.91,
+      "timestamp": "2025-08-29T21:55:58.388272",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "data",
+        "webhookPath": "crew-data",
+        "task": "Performance analysis",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": "Implement data-driven decision making protocols",
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Analytics & Logic Operations",
+            "analysis": "Logical analysis of: \"Performance analysis\"",
+            "additionalData": {
+              "role": "Analytics & Logic Operations",
+              "dataAnalysis": "Logical analysis of: \"Performance analysis\"",
+              "patterns": [
+                "Identified recurring patterns in system behavior",
+                "Statistical analysis shows 87% correlation with previous incidents",
+                "Performance metrics indicate optimal efficiency thresholds",
+                "Predictive modeling suggests 92% success probability"
+              ],
+              "recommendations": "Implement data-driven decision making protocols",
+              "monitoring": "Continuous real-time monitoring recommended"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 203,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-data",
+          "timestamp": "2025-08-30T02:55:58.385Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-data\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-data\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "geordi",
+      "webhook_path": "crew-geordi",
+      "task": "System architecture",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 160.32,
+      "timestamp": "2025-08-29T21:55:59.053727",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "geordi",
+        "webhookPath": "crew-geordi",
+        "task": "System architecture",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": [
+            "Proceed with standard protocols",
+            "Monitor system performance",
+            "Document any anomalies"
+          ],
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Infrastructure & System Integration",
+            "analysis": "Technical assessment of: \"System architecture\"",
+            "additionalData": {
+              "role": "Infrastructure & System Integration",
+              "technicalAssessment": "Technical assessment of: \"System architecture\"",
+              "systemStatus": "All systems operating within normal parameters",
+              "integrationPoints": [
+                "Warp core integration: Optimal",
+                "Shield systems: 98% efficiency",
+                "Life support: 100% operational",
+                "Communications: Enhanced protocols active"
+              ],
+              "optimization": "System performance at peak efficiency",
+              "maintenance": "Preventive maintenance schedule optimized"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 149,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-geordi",
+          "timestamp": "2025-08-30T02:55:59.052Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-geordi\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-geordi\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "crusher",
+      "webhook_path": "crew-crusher",
+      "task": "Health monitoring",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 248.49,
+      "timestamp": "2025-08-29T21:55:59.807345",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "crusher",
+        "webhookPath": "crew-crusher",
+        "task": "Health monitoring",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": "Continue current maintenance protocols",
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Health & Diagnostics Officer",
+            "analysis": "Health and diagnostics analysis of: \"Health monitoring\"",
+            "additionalData": {
+              "role": "Health & Diagnostics Officer",
+              "healthAssessment": "Health and diagnostics analysis of: \"Health monitoring\"",
+              "systemHealth": "All critical systems showing excellent health metrics",
+              "diagnostics": [
+                "Core systems: 100% operational",
+                "Backup systems: 100% operational",
+                "Emergency protocols: Active and tested",
+                "Crew safety systems: Optimal performance"
+              ],
+              "recommendations": "Continue current maintenance protocols",
+              "alerts": "No critical alerts at this time"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 240,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-crusher",
+          "timestamp": "2025-08-30T02:55:59.806Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-crusher\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-crusher\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "worf",
+      "webhook_path": "crew-worf",
+      "task": "Security audit",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 337.45,
+      "timestamp": "2025-08-29T21:56:00.647950",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "worf",
+        "webhookPath": "crew-worf",
+        "task": "Security audit",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": "Maintain current security posture",
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Security & Compliance Operations",
+            "analysis": "Security and compliance analysis of: \"Security audit\"",
+            "additionalData": {
+              "role": "Security & Compliance Operations",
+              "securityAssessment": "Security and compliance analysis of: \"Security audit\"",
+              "threatLevel": "Minimal - all security protocols active",
+              "securityStatus": [
+                "Perimeter security: 100% active",
+                "Access control: Enhanced protocols enabled",
+                "Threat detection: Advanced sensors operational",
+                "Emergency response: Ready and tested"
+              ],
+              "compliance": "All Federation security protocols compliant",
+              "recommendations": "Maintain current security posture"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 323,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-worf",
+          "timestamp": "2025-08-30T02:56:00.646Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-worf\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-worf\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "troi",
+      "webhook_path": "crew-troi",
+      "task": "UX analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 464.77,
+      "timestamp": "2025-08-29T21:56:01.620849",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "troi",
+        "webhookPath": "crew-troi",
+        "task": "UX analysis",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": "Continue current UX optimization efforts",
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "User Experience & Empathy Analysis",
+            "analysis": "Empathy and UX analysis of: \"UX analysis\"",
+            "additionalData": {
+              "role": "User Experience & Empathy Analysis",
+              "empathyAnalysis": "Empathy and UX analysis of: \"UX analysis\"",
+              "userExperience": "Excellent user satisfaction metrics",
+              "accessibility": [
+                "Interface accessibility: 100% compliant",
+                "User feedback: 94% positive rating",
+                "Ease of use: Intuitive design confirmed",
+                "Accessibility features: All active and tested"
+              ],
+              "recommendations": "Continue current UX optimization efforts",
+              "improvements": "Minor interface refinements suggested"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 227,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-troi",
+          "timestamp": "2025-08-30T02:56:01.619Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-troi\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-troi\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "uhura",
+      "webhook_path": "crew-uhura",
+      "task": "API optimization",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 214.19,
+      "timestamp": "2025-08-29T21:56:02.340238",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "uhura",
+        "webhookPath": "crew-uhura",
+        "task": "API optimization",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": "Maintain current communication protocols",
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ],
+          "crewDetails": {
+            "role": "Communications & I/O Operations",
+            "analysis": "Communication systems analysis of: \"API optimization\"",
+            "additionalData": {
+              "role": "Communications & I/O Operations",
+              "communicationStatus": "Communication systems analysis of: \"API optimization\"",
+              "systemStatus": "All communication systems operational",
+              "protocols": [
+                "Internal communications: 100% operational",
+                "External communications: Enhanced protocols active",
+                "Data transfer: Optimal bandwidth utilization",
+                "Emergency communications: Redundant systems active"
+              ],
+              "recommendations": "Maintain current communication protocols",
+              "monitoring": "Continuous monitoring active"
+            }
+          }
+        },
+        "testMetrics": {
+          "responseTime": 198,
+          "n8nStatus": 404,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-uhura",
+          "timestamp": "2025-08-30T02:56:02.339Z",
+          "mode": "mock_fallback",
+          "n8nError": "{\"code\":404,\"message\":\"The requested webhook \\\"POST crew-uhura\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\"}",
+          "errorDetails": {
+            "code": 404,
+            "message": "The requested webhook \"POST crew-uhura\" is not registered.",
+            "hint": "The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)"
+          }
+        },
+        "note": "Using mock data - n8n webhook failed. Check workflow execution and webhook configuration."
+      }
+    },
+    {
+      "test_type": "individual_crew",
+      "crew_member": "quark",
+      "webhook_path": "crew-quark",
+      "task": "Cost analysis",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 210.74,
+      "timestamp": "2025-08-29T21:56:03.056079",
+      "response_data": {
+        "success": true,
+        "crewMemberId": "quark",
+        "webhookPath": "crew-quark",
+        "task": "Cost analysis",
+        "response": {
+          "analysis": {
+            "priority": "Medium",
+            "complexity": "Standard",
+            "estimatedDuration": "2-4 hours"
+          },
+          "recommendations": [
+            "Proceed with standard protocols",
+            "Monitor system performance",
+            "Document any anomalies"
+          ],
+          "nextSteps": [
+            "Review analysis results",
+            "Coordinate with relevant departments",
+            "Schedule follow-up assessment"
+          ]
+        },
+        "testMetrics": {
+          "responseTime": 192,
+          "n8nStatus": 200,
+          "webhookUrl": "https://n8n.pbradygeorgen.com/webhook/crew-quark",
+          "timestamp": "2025-08-30T02:56:03.055Z",
+          "mode": "live_n8n"
+        },
+        "rawN8nResponse": {
+          "message": "",
+          "status": "success",
+          "timestamp": "2025-08-30T02:56:03.055Z",
+          "extracted_data": {},
+          "raw_response": ""
+        }
+      }
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "crisis_response",
+      "mission_description": "Enterprise Crisis Response",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "worf"
+      ],
+      "complexity": "95%",
+      "status": "failed",
+      "status_code": 500,
+      "response_time": 425.58,
+      "timestamp": "2025-08-29T21:56:03.986773",
+      "response_data": null
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "technical_audit",
+      "mission_description": "Technical System Audit",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher"
+      ],
+      "complexity": "88%",
+      "status": "failed",
+      "status_code": 500,
+      "response_time": 72.51,
+      "timestamp": "2025-08-29T21:56:04.564429",
+      "response_data": null
+    },
+    {
+      "test_type": "mission_scenario",
+      "scenario_id": "business_analysis",
+      "mission_description": "Business Strategy Analysis",
+      "selected_crew": [
+        "picard",
+        "quark",
+        "troi"
+      ],
+      "complexity": "92%",
+      "status": "failed",
+      "status_code": 500,
+      "response_time": 86.29,
+      "timestamp": "2025-08-29T21:56:05.155142",
+      "response_data": null
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test core_crew coordination",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi"
+      ],
+      "test_mode": "core_crew",
+      "complexity": "Medium",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 662.91,
+      "timestamp": "2025-08-29T21:56:06.323168",
+      "response_data": {
+        "success": true,
+        "missionDirective": "Test core_crew coordination",
+        "selectedCrew": [
+          "picard",
+          "riker",
+          "data",
+          "geordi"
+        ],
+        "testMode": "core_crew",
+        "complexity": "Medium",
+        "response": {
+          "coordination_summary": {
+            "coordination_efficiency": "75%",
+            "response_time": "492ms",
+            "crew_synergy": "Good",
+            "mission_status": "Partial Success"
+          },
+          "individual_crew_responses": [
+            {
+              "crew_member": "picard",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 127
+            },
+            {
+              "crew_member": "data",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 387
+            },
+            {
+              "crew_member": "geordi",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 492
+            }
+          ],
+          "failed_crew_members": [
+            {
+              "crew_member": "riker",
+              "error": "HTTP 500",
+              "status": "Failed"
+            }
+          ],
+          "mission_outcomes": [
+            "Crew coordination attempted via individual webhooks",
+            "Mission directive: Test core_crew coordination",
+            "Success rate: 75%",
+            "Response time: 492ms",
+            "1 crew member(s) failed to respond"
+          ],
+          "coordination_metrics": {
+            "decision_making_speed": "Optimal",
+            "communication_efficiency": "75%",
+            "resource_utilization": "75%",
+            "team_cohesion": "Good"
+          }
+        },
+        "testMetrics": {
+          "responseTime": 492,
+          "successCount": 3,
+          "failureCount": 1,
+          "totalCrew": 4,
+          "coordinationEfficiency": "75%"
+        }
+      }
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test specialist_team coordination",
+      "selected_crew": [
+        "data",
+        "geordi",
+        "crusher",
+        "worf"
+      ],
+      "test_mode": "specialist_team",
+      "complexity": "Medium",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 463.71,
+      "timestamp": "2025-08-29T21:56:07.288868",
+      "response_data": {
+        "success": true,
+        "missionDirective": "Test specialist_team coordination",
+        "selectedCrew": [
+          "data",
+          "geordi",
+          "crusher",
+          "worf"
+        ],
+        "testMode": "specialist_team",
+        "complexity": "Medium",
+        "response": {
+          "coordination_summary": {
+            "coordination_efficiency": "100%",
+            "response_time": "450ms",
+            "crew_synergy": "Exceptional",
+            "mission_status": "Active"
+          },
+          "individual_crew_responses": [
+            {
+              "crew_member": "data",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 96
+            },
+            {
+              "crew_member": "geordi",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 209
+            },
+            {
+              "crew_member": "crusher",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 346
+            },
+            {
+              "crew_member": "worf",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 450
+            }
+          ],
+          "failed_crew_members": [],
+          "mission_outcomes": [
+            "Crew coordination attempted via individual webhooks",
+            "Mission directive: Test specialist_team coordination",
+            "Success rate: 100%",
+            "Response time: 450ms",
+            "All crew members responded successfully"
+          ],
+          "coordination_metrics": {
+            "decision_making_speed": "Optimal",
+            "communication_efficiency": "100%",
+            "resource_utilization": "100%",
+            "team_cohesion": "Exceptional"
+          }
+        },
+        "testMetrics": {
+          "responseTime": 450,
+          "successCount": 4,
+          "failureCount": 0,
+          "totalCrew": 4,
+          "coordinationEfficiency": "100%"
+        }
+      }
+    },
+    {
+      "test_type": "observation_lounge",
+      "mission_directive": "Test full_crew coordination",
+      "selected_crew": [
+        "picard",
+        "riker",
+        "data",
+        "geordi",
+        "crusher",
+        "worf",
+        "troi",
+        "uhura",
+        "quark"
+      ],
+      "test_mode": "full_crew",
+      "complexity": "High",
+      "status": "success",
+      "status_code": 200,
+      "response_time": 1053.7,
+      "timestamp": "2025-08-29T21:56:08.847709",
+      "response_data": {
+        "success": true,
+        "missionDirective": "Test full_crew coordination",
+        "selectedCrew": [
+          "picard",
+          "riker",
+          "data",
+          "geordi",
+          "crusher",
+          "worf",
+          "troi",
+          "uhura",
+          "quark"
+        ],
+        "testMode": "full_crew",
+        "complexity": "High",
+        "response": {
+          "coordination_summary": {
+            "coordination_efficiency": "89%",
+            "response_time": "1036ms",
+            "crew_synergy": "Good",
+            "mission_status": "Partial Success"
+          },
+          "individual_crew_responses": [
+            {
+              "crew_member": "picard",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 123
+            },
+            {
+              "crew_member": "data",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 324
+            },
+            {
+              "crew_member": "geordi",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 423
+            },
+            {
+              "crew_member": "crusher",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 556
+            },
+            {
+              "crew_member": "worf",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 656
+            },
+            {
+              "crew_member": "troi",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 766
+            },
+            {
+              "crew_member": "uhura",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 910
+            },
+            {
+              "crew_member": "quark",
+              "response": "Response received",
+              "status": "Engaged",
+              "contribution": "Mission objectives aligned",
+              "webhook_status": 200,
+              "response_time": 1036
+            }
+          ],
+          "failed_crew_members": [
+            {
+              "crew_member": "riker",
+              "error": "HTTP 500",
+              "status": "Failed"
+            }
+          ],
+          "mission_outcomes": [
+            "Crew coordination attempted via individual webhooks",
+            "Mission directive: Test full_crew coordination",
+            "Success rate: 89%",
+            "Response time: 1036ms",
+            "1 crew member(s) failed to respond"
+          ],
+          "coordination_metrics": {
+            "decision_making_speed": "Good",
+            "communication_efficiency": "89%",
+            "resource_utilization": "89%",
+            "team_cohesion": "Good"
+          }
+        },
+        "testMetrics": {
+          "responseTime": 1036,
+          "successCount": 8,
+          "failureCount": 1,
+          "totalCrew": 9,
+          "coordinationEfficiency": "89%"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "successful": 12,
+    "failed": 3,
+    "errors": 0,
+    "test_type_breakdown": {
+      "individual_crew": {
+        "total": 9,
+        "success": 9,
+        "failed": 0,
+        "error": 0
+      },
+      "mission_scenario": {
+        "total": 3,
+        "success": 0,
+        "failed": 3,
+        "error": 0
+      },
+      "observation_lounge": {
+        "total": 3,
+        "success": 3,
+        "failed": 0,
+        "error": 0
+      }
+    }
+  }
+}

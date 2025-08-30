@@ -1,0 +1,87 @@
+{
+  "timestamp": "2025-08-29T21:20:41.954483",
+  "input": {
+    "youtube_url": "https://www.youtube.com/watch?v=_uQrJ0TkZlc",
+    "github_repo_url": "https://github.com/pbradygeorgen/pbradygeorgen"
+  },
+  "youtube_content": {
+    "video_id": "_uQrJ0TkZlc",
+    "title": "Python Full Course for Beginners",
+    "channel": "Programming with Mosh",
+    "description_length": 2851,
+    "transcript_length": 263362,
+    "code_snippets_count": 0,
+    "tags": [
+      "python tutorial",
+      "python",
+      "python for beginners",
+      "python tutorial for beginners",
+      "learn python",
+      "python crash course",
+      "python 2019",
+      "python tutorial for beginners full",
+      "python (programming language)",
+      "python basics",
+      "python course",
+      "python from scratch",
+      "python full course",
+      "python language",
+      "python programming",
+      "python programming language",
+      "python programming tutorial",
+      "getting started with python",
+      "learn python programming",
+      "web development",
+      "mosh hamedani",
+      "machine learning",
+      "python 2020"
+    ]
+  },
+  "github_content": {
+    "repo_url": "https://github.com/pbradygeorgen/pbradygeorgen",
+    "description": "",
+    "readme_length": 0,
+    "documentation_files": 0,
+    "code_files_count": 0,
+    "languages": {},
+    "topics": []
+  },
+  "comparison_result": {
+    "similarity_score": 0.0,
+    "content_gaps": [
+      "Video mentions 'testing' but it's not documented in repository",
+      "Video mentions 'framework' but it's not documented in repository",
+      "Video mentions 'library' but it's not documented in repository",
+      "Video mentions 'database' but it's not documented in repository",
+      "Video discusses installation but repository missing dependency files"
+    ],
+    "code_matches": [],
+    "recommendations": [
+      "Add documentation sections covering topics mentioned in video"
+    ],
+    "detailed_analysis": {
+      "youtube_stats": {
+        "title_length": 32,
+        "description_length": 2851,
+        "transcript_length": 263362,
+        "code_snippets_count": 0,
+        "channel": "Programming with Mosh",
+        "tags_count": 23
+      },
+      "github_stats": {
+        "readme_length": 0,
+        "documentation_files": 0,
+        "code_files_count": 0,
+        "file_structure_size": 0,
+        "languages_count": 0,
+        "topics_count": 0
+      },
+      "comparison_metrics": {
+        "text_similarity": 0.0,
+        "code_matches_count": 0,
+        "content_gaps_count": 5,
+        "recommendations_count": 1
+      }
+    }
+  }
+}

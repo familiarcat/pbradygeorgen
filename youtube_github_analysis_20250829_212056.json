@@ -1,0 +1,80 @@
+{
+  "timestamp": "2025-08-29T21:20:56.629071",
+  "input": {
+    "youtube_url": "https://www.youtube.com/watch?v=kqtD5dpn9C8",
+    "github_repo_url": "https://github.com/torvalds/linux"
+  },
+  "youtube_content": {
+    "video_id": "kqtD5dpn9C8",
+    "title": "Python for Beginners - Learn Coding with Python in 1 Hour",
+    "channel": "Programming with Mosh",
+    "description_length": 1471,
+    "transcript_length": 48589,
+    "code_snippets_count": 0,
+    "tags": [
+      "code with mosh",
+      "introduction to python",
+      "learn python",
+      "learn python programming",
+      "mosh hamedani",
+      "programming",
+      "programming with mosh",
+      "python",
+      "python 2020",
+      "python 3",
+      "python basics",
+      "python course",
+      "python crash course",
+      "python for beginners",
+      "python from scratch",
+      "python programming",
+      "python tutorial",
+      "python tutorial for beginners",
+      "web development"
+    ]
+  },
+  "github_content": {
+    "repo_url": "https://github.com/torvalds/linux",
+    "description": "",
+    "readme_length": 0,
+    "documentation_files": 0,
+    "code_files_count": 0,
+    "languages": {},
+    "topics": []
+  },
+  "comparison_result": {
+    "similarity_score": 0.0,
+    "content_gaps": [
+      "Video mentions 'framework' but it's not documented in repository",
+      "Video discusses installation but repository missing dependency files"
+    ],
+    "code_matches": [],
+    "recommendations": [
+      "Add documentation sections covering topics mentioned in video"
+    ],
+    "detailed_analysis": {
+      "youtube_stats": {
+        "title_length": 57,
+        "description_length": 1471,
+        "transcript_length": 48589,
+        "code_snippets_count": 0,
+        "channel": "Programming with Mosh",
+        "tags_count": 19
+      },
+      "github_stats": {
+        "readme_length": 0,
+        "documentation_files": 0,
+        "code_files_count": 0,
+        "file_structure_size": 0,
+        "languages_count": 0,
+        "topics_count": 0
+      },
+      "comparison_metrics": {
+        "text_similarity": 0.0,
+        "code_matches_count": 0,
+        "content_gaps_count": 2,
+        "recommendations_count": 1
+      }
+    }
+  }
+}

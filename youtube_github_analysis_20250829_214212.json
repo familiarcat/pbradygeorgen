@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-08-29T21:42:12.887963",
+  "input": {
+    "youtube_url": "https://youtube.com/watch?v=test",
+    "github_repo_url": "https://github.com/test/repo"
+  },
+  "youtube_content": {
+    "video_id": "test",
+    "title": "Video test",
+    "channel": "Unknown",
+    "description_length": 0,
+    "transcript_length": 0,
+    "code_snippets_count": 0,
+    "tags": []
+  },
+  "github_content": {
+    "repo_url": "https://github.com/test/repo",
+    "description": "",
+    "readme_length": 0,
+    "documentation_files": 0,
+    "code_files_count": 0,
+    "languages": {},
+    "topics": []
+  },
+  "comparison_result": {
+    "similarity_score": 0.0,
+    "content_gaps": [],
+    "code_matches": [],
+    "recommendations": [],
+    "detailed_analysis": {
+      "youtube_stats": {
+        "title_length": 10,
+        "description_length": 0,
+        "transcript_length": 0,
+        "code_snippets_count": 0,
+        "channel": "Unknown",
+        "tags_count": 0
+      },
+      "github_stats": {
+        "readme_length": 0,
+        "documentation_files": 0,
+        "code_files_count": 0,
+        "file_structure_size": 0,
+        "languages_count": 0,
+        "topics_count": 0
+      },
+      "comparison_metrics": {
+        "text_similarity": 0.0,
+        "code_matches_count": 0,
+        "content_gaps_count": 0,
+        "recommendations_count": 0
+      }
+    }
+  }
+}

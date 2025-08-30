@@ -1,0 +1,81 @@
+{
+  "total_workflows": 14,
+  "active_webhooks": 8,
+  "inactive_webhooks": 2,
+  "error_webhooks": 0,
+  "workflow_details": [
+    {
+      "path": "crew-captain-jean-luc-picard",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-commander-william-riker",
+      "status_code": 500,
+      "active": false,
+      "response": "{\"code\":0,\"message\":\"There was a problem executing the workflow\"}",
+      "error": null
+    },
+    {
+      "path": "crew-commander-data",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-lieutenant-worf",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-lieutenant-commander-geordi-la-forge",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-counselor-deanna-troi",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-lieutenant-uhura",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-dr-beverly-crusher",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "crew-quark",
+      "status_code": 200,
+      "active": true,
+      "response": "No response body",
+      "error": null
+    },
+    {
+      "path": "alexai-crew-mission",
+      "status_code": 404,
+      "active": false,
+      "response": "{\"code\":404,\"message\":\"The requested webhook \\\"POST alexai-crew-mission\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflo",
+      "error": null
+    }
+  ],
+  "recommendations": [
+    "Activate 2 inactive workflows in n8n UI"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(chmod:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)",
+      "Bash(cp:*)",
+      "Bash(npm test)",
+      "Bash(npm run build:*)",
+      "Bash(npx:*)",
+      "Bash(lsof:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "outputStyle": "detailed"
+}

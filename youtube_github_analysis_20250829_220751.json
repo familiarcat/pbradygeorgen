@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-08-29T22:07:51.081023",
+  "error": "list index out of range",
+  "input": {
+    "youtube_url": "test",
+    "github_repo_url": "test"
+  }
+}

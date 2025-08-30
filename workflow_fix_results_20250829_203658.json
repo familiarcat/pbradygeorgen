@@ -1,0 +1,147 @@
+{
+  "initial_diagnosis": {
+    "total_workflows": 14,
+    "working_webhooks": 8,
+    "broken_webhooks": 1,
+    "unknown_webhooks": 0,
+    "workflow_status": {
+      "crew-captain-jean-luc-picard": {
+        "path": "crew-captain-jean-luc-picard",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-commander-william-riker": {
+        "path": "crew-commander-william-riker",
+        "status_code": 500,
+        "working": false,
+        "response": "{\"code\":0,\"message\":\"There was a problem executing the workflow\"}",
+        "error": null
+      },
+      "crew-commander-data": {
+        "path": "crew-commander-data",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-worf": {
+        "path": "crew-lieutenant-worf",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-commander-geordi-la-forge": {
+        "path": "crew-lieutenant-commander-geordi-la-forge",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-counselor-deanna-troi": {
+        "path": "crew-counselor-deanna-troi",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-uhura": {
+        "path": "crew-lieutenant-uhura",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-dr-beverly-crusher": {
+        "path": "crew-dr-beverly-crusher",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-quark": {
+        "path": "crew-quark",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      }
+    }
+  },
+  "final_diagnosis": {
+    "total_workflows": 14,
+    "working_webhooks": 8,
+    "broken_webhooks": 1,
+    "unknown_webhooks": 0,
+    "workflow_status": {
+      "crew-captain-jean-luc-picard": {
+        "path": "crew-captain-jean-luc-picard",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-commander-william-riker": {
+        "path": "crew-commander-william-riker",
+        "status_code": 500,
+        "working": false,
+        "response": "{\"code\":0,\"message\":\"There was a problem executing the workflow\"}",
+        "error": null
+      },
+      "crew-commander-data": {
+        "path": "crew-commander-data",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-worf": {
+        "path": "crew-lieutenant-worf",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-commander-geordi-la-forge": {
+        "path": "crew-lieutenant-commander-geordi-la-forge",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-counselor-deanna-troi": {
+        "path": "crew-counselor-deanna-troi",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-lieutenant-uhura": {
+        "path": "crew-lieutenant-uhura",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-dr-beverly-crusher": {
+        "path": "crew-dr-beverly-crusher",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      },
+      "crew-quark": {
+        "path": "crew-quark",
+        "status_code": 200,
+        "working": true,
+        "response": "No response",
+        "error": null
+      }
+    }
+  },
+  "fixed_count": 0,
+  "failed_count": 1,
+  "success_rate": 0.0
+}
