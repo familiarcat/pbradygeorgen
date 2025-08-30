@@ -44,6 +44,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/business-plan-designer', label: '💼 AI Business Plan Designer', hideOnHome: false }, // Revolutionary business empire creator
+    { href: '/content-analyzer', label: '🎬 Content Analyzer', hideOnHome: false }, // YouTube to GitHub content comparison
     { href: '/test-n8n', label: '🧪 N8N Testing Console', hideOnHome: false }, // Comprehensive n8n workflow testing
     { href: '/theme-demo', label: '🎨 Theme Demo', hideOnHome: false },
     { href: '/unified-testing', label: '🤖 Unified Testing', hideOnHome: false }, // Revolutionary business empire creator

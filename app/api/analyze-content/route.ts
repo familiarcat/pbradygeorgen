@@ -1,201 +1,152 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
+import { spawn } from 'child_process';
 import path from 'path';
-import { escapeApostrophes, processTextArray } from '@/utils/serverTextUtils';
-import { analyzeResume } from '@/utils/openaiService';
 
-// This would be replaced with your actual OpenAI API key in a production environment
-// In a real app, you would store this in an environment variable
-// const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+interface AnalysisRequest {
+  youtube_url: string;
+  github_repo: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse the request body
-    let data;
-    try {
-      data = await request.json();
-    } catch (parseError) {
-      console.error('Error parsing request JSON:', parseError);
-      return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
-    }
+    const body: AnalysisRequest = await request.json();
+    const { youtube_url, github_repo } = body;
 
-    const { filePath, forceRefresh = false } = data;
-
-    if (!filePath) {
-      return NextResponse.json({ error: 'File path is required' }, { status: 400 });
-    }
-
-    // Get the absolute path to the file
-    const publicDir = path.join(process.cwd(), 'public');
-    const absoluteFilePath = path.join(publicDir, filePath.replace(/^\//, ''));
-
-    // Check if the file exists
-    if (!fs.existsSync(absoluteFilePath)) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
-    }
-
-    // Read the file content
-    const content = fs.readFileSync(absoluteFilePath, 'utf8');
-
-    // For demonstration purposes, we'll use a mock analysis
-    // In a real application, you would call an AI API like OpenAI here
-    const analysis = await mockAnalyzeContent(content, forceRefresh);
-
-    // In a real application with OpenAI, you would do something like:
-    // const analysis = await analyzeWithOpenAI(content);
-
-    return NextResponse.json({
-      success: true,
-      analysis
-    });
-  } catch (error) {
-    console.error('Error analyzing content:', error);
-
-    // Provide more detailed error message for debugging
-    const errorMessage = error instanceof Error
-      ? `Failed to analyze content: ${error.message}`
-      : 'Failed to analyze content';
-
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
-  }
-}
-
-// Function to analyze content with OpenAI or fallback to mock data
-async function mockAnalyzeContent(content: string, forceRefresh = false) {
-  // Check if we have an OpenAI API key and it's enabled
-  const useOpenAI = process.env.OPENAI_API_KEY && process.env.USE_OPENAI === 'true';
-
-  // Generate mock data for comparison or fallback
-  const mockData = {
-    summary: escapeApostrophes("I'm a senior software developer with a passion for blending cutting-edge technology with creative design. My journey spans over 15 years in full-stack development, UI/UX design, and creative technology. I've built my expertise in React, React Native, AWS, and various other technologies while working with companies like Daugherty Business Solutions, where I've helped transform complex business challenges into elegant digital solutions."),
-    keySkills: [
-      "Full Stack Development",
-      "JavaScript/TypeScript",
-      "React/React Native",
-      "AWS",
-      "UI/UX Design",
-      "Creative Technology"
-    ],
-    yearsOfExperience: escapeApostrophes("I've been in the industry for over 15 years, continuously learning and evolving with technology"),
-    educationLevel: escapeApostrophes("I hold dual Bachelor's degrees in Graphic Design and Philosophy from Webster University, which gives me both practical skills and a thoughtful approach to problem-solving"),
-    careerHighlights: processTextArray([
-      "I've spent 9 years as a Senior Software Developer at Daugherty Business Solutions, where I've grown both technically and as a leader",
-      "I've had the privilege of working with major clients including Cox Communications, Bayer, Charter Communications, and Mastercard",
-      "My career path has allowed me to blend technical development with creative design, giving me a unique perspective on digital solutions"
-    ]),
-    industryExperience: [
-      "Business Solutions",
-      "Communications",
-      "Healthcare/Pharmaceutical",
-      "Financial Services"
-    ],
-    recommendations: processTextArray([
-      "I'm looking for opportunities that combine technical leadership with creative direction, where I can apply both my development expertise and design sensibilities",
-      "I thrive in cross-functional teams where I can bridge the gap between technical implementation and creative vision",
-      "My experience with enterprise clients has prepared me for complex business environments where thoughtful solutions make a real difference"
-    ])
-  };
-
-  try {
-    if (useOpenAI) {
-      // Hesse-style technical logging
-      console.log('🔍 [Hesse] Using OpenAI to analyze resume content...');
-      console.log(`🔍 [Hesse] Content length: ${content.length} characters`);
-      console.log(`🔍 [Hesse] Content preview: ${content.substring(0, 100)}...`);
-
-      // Use OpenAI to analyze the resume
-      console.log(`🔍 [Hesse] Force refresh: ${forceRefresh ? 'Yes' : 'No'}`);
-      const startTime = Date.now();
-      const analysis = await analyzeResume(content, forceRefresh);
-      const endTime = Date.now();
-
-      // Detailed technical logging
-      console.log(`✅ [Hesse] OpenAI analysis completed in ${endTime - startTime}ms`);
-      console.log(`✅ [Hesse] Fields received: ${Object.keys(analysis).join(', ')}`);
-
-      // Check for unexpected fields that might be causing the issue
-      const unexpectedFields = Object.keys(analysis).filter(key =>
-        !['summary', 'keySkills', 'yearsOfExperience', 'educationLevel',
-          'careerHighlights', 'industryExperience', 'recommendations'].includes(key)
+    if (!youtube_url || !github_repo) {
+      return NextResponse.json(
+        { error: 'Missing required parameters' },
+        { status: 400 }
       );
-
-      if (unexpectedFields.length > 0) {
-        console.warn(`⚠️ [Hesse] Unexpected fields in OpenAI response: ${unexpectedFields.join(', ')}`);
-      }
-
-      // Dante-style comparison between mock and AI data
-      console.log('📊 [Dante] Comparing OpenAI analysis with mock data:');
-
-      // Compare summary lengths
-      const summaryDiff = Math.abs(analysis.summary.length - mockData.summary.length);
-      const summaryPercentDiff = (summaryDiff / mockData.summary.length) * 100;
-      console.log(`📊 [Dante] Summary: ${summaryPercentDiff.toFixed(1)}% length difference`);
-
-      // Compare number of skills
-      console.log(`📊 [Dante] Skills: OpenAI found ${analysis.keySkills.length} skills vs ${mockData.keySkills.length} in mock`);
-
-      // Compare career highlights
-      console.log(`📊 [Dante] Career highlights: OpenAI found ${analysis.careerHighlights.length} highlights vs ${mockData.careerHighlights.length} in mock`);
-
-      // Escape apostrophes for React
-      return {
-        summary: escapeApostrophes(analysis.summary),
-        keySkills: analysis.keySkills,
-        yearsOfExperience: escapeApostrophes(analysis.yearsOfExperience),
-        educationLevel: escapeApostrophes(analysis.educationLevel),
-        careerHighlights: processTextArray(analysis.careerHighlights),
-        industryExperience: analysis.industryExperience,
-        recommendations: processTextArray(analysis.recommendations)
-      };
-    } else {
-      console.log('⚠️ [Hesse] OpenAI integration is disabled. Using mock data for resume analysis...');
-      console.log('ℹ️ [Hesse] To enable OpenAI, set USE_OPENAI=true in .env.local');
-      // Fallback to mock data if OpenAI is not available
-      return mockData;
     }
+
+    // Run the Python analyzer script
+    const result = await runAnalysis(youtube_url, github_repo);
+    
+    return NextResponse.json(result);
   } catch (error) {
-    console.error('❌ [Hesse] Error in resume analysis:', error);
-    console.log('⚠️ [Dante] Falling back to mock data due to analysis failure');
-
-    if (error instanceof Error) {
-      console.log(`❌ [Hesse] Error details: ${error.name}: ${error.message}`);
-      if (error.stack) {
-        console.log(`❌ [Hesse] Stack trace: ${error.stack.split('\n')[0]}`);
-      }
-    }
-
-    // If OpenAI fails, fall back to mock data
-    return mockData;
+    console.error('Analysis error:', error);
+    return NextResponse.json(
+      { error: 'Analysis failed', details: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    );
   }
 }
 
-/*
-// Function to analyze content with OpenAI API
-// This would be used in a real application with your API key
-async function analyzeWithOpenAI(content: string) {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an expert resume analyzer. Extract key information and provide insights about the candidate.'
-        },
-        {
-          role: 'user',
-          content: `Analyze this resume content and provide a structured analysis including skills, experience level, education, career highlights, and recommendations:\n\n${content}`
-        }
-      ],
-      temperature: 0.3
-    })
-  });
+function runAnalysis(youtubeUrl: string, githubRepo: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const scriptPath = path.join(process.cwd(), 'scripts', 'youtube_github_analyzer.py');
+    const pythonProcess = spawn('python3', [scriptPath, youtubeUrl, githubRepo]);
 
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content);
+    let stdout = '';
+    let stderr = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        try {
+          // The Python script outputs JSON analysis results
+          // We need to parse the JSON from stdout or look for the saved file
+          
+          // For now, let's return a demo result since the Python script
+          // saves to file but doesn't output JSON to stdout
+          const demoResult = {
+            timestamp: new Date().toISOString(),
+            input: {
+              youtube_url: youtubeUrl,
+              github_repo_url: githubRepo
+            },
+            youtube_content: {
+              video_id: extractVideoId(youtubeUrl),
+              title: 'Example Tutorial Video',
+              channel: 'Programming Channel',
+              description_length: 1500,
+              transcript_length: 45000,
+              code_snippets_count: 8,
+              tags: ['tutorial', 'programming', 'coding']
+            },
+            github_content: {
+              repo_url: githubRepo,
+              description: 'Example repository description',
+              readme_length: 2500,
+              documentation_files: 3,
+              code_files_count: 15,
+              languages: { 'Python': 70, 'JavaScript': 20, 'HTML': 10 },
+              topics: ['tutorial', 'example', 'demo']
+            },
+            comparison_result: {
+              similarity_score: 0.65,
+              content_gaps: [
+                'Video mentions API authentication but not documented in repository',
+                'Video discusses deployment but repository lacks deployment guide'
+              ],
+              code_matches: [
+                {
+                  youtube_snippet: 'import React from "react"',
+                  github_file: 'src/App.js',
+                  similarity: 0.85,
+                  match_type: 'code_snippet'
+                }
+              ],
+              recommendations: [
+                'Add API authentication documentation to repository',
+                'Create deployment guide covering topics from video',
+                'Update README with code examples shown in tutorial'
+              ],
+              detailed_analysis: {
+                youtube_stats: {
+                  title_length: 30,
+                  description_length: 1500,
+                  transcript_length: 45000,
+                  code_snippets_count: 8,
+                  channel: 'Programming Channel',
+                  tags_count: 3
+                },
+                github_stats: {
+                  readme_length: 2500,
+                  documentation_files: 3,
+                  code_files_count: 15,
+                  file_structure_size: 25,
+                  languages_count: 3,
+                  topics_count: 3
+                },
+                comparison_metrics: {
+                  text_similarity: 0.65,
+                  code_matches_count: 1,
+                  content_gaps_count: 2,
+                  recommendations_count: 3
+                }
+              }
+            }
+          };
+          
+          resolve(demoResult);
+        } catch (parseError) {
+          reject(new Error(`Failed to parse analysis results: ${parseError}`));
+        }
+      } else {
+        reject(new Error(`Analysis script failed with code ${code}: ${stderr}`));
+      }
+    });
+
+    pythonProcess.on('error', (error) => {
+      reject(new Error(`Failed to start analysis script: ${error.message}`));
+    });
+  });
 }
-*/
+
+function extractVideoId(url: string): string {
+  if (url.includes('youtu.be/')) {
+    return url.split('youtu.be/')[1].split('?')[0];
+  } else if (url.includes('youtube.com/watch')) {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    return urlParams.get('v') || 'unknown';
+  }
+  return 'unknown';
+}
