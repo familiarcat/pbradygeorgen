@@ -13,16 +13,34 @@ export async function POST(request: NextRequest) {
 
         console.log(`🏛️ Testing Observation Lounge: ${testMode} mode with ${selectedCrew.length} crew members`);
 
-        // Get n8n base URL from environment
+        // Get n8n base URL and development mode from environment
         const n8nBaseUrl = process.env.N8N_BASE_URL || 'https://n8n.pbradygeorgen.com';
+        const developmentMode = process.env.NODE_ENV === 'development' || process.env.DISABLE_N8N_CALLS === 'true';
 
         const startTime = Date.now();
         const crewResponses: any[] = [];
         const failedCrew: any[] = [];
 
-        // Coordinate individual crew members since there's no comprehensive workflow
-        for (const crewMember of selectedCrew) {
-            try {
+        // Check if we should bypass N8N calls to avoid costs during development
+        if (developmentMode) {
+            console.log('🛡️ DEVELOPMENT MODE: Bypassing N8N webhook calls to prevent costs');
+            
+            // Simulate crew responses without calling expensive N8N/OpenRouter APIs
+            for (const crewMember of selectedCrew) {
+                const simulatedResponse = {
+                    crew_member: crewMember,
+                    response: `[DEV MODE] ${crewMember.charAt(0).toUpperCase() + crewMember.slice(1)} ready for mission: ${missionDirective}`,
+                    status: 'Engaged (Simulated)',
+                    contribution: `Mission objectives acknowledged - ${testMode} mode simulation`,
+                    webhook_status: 200,
+                    response_time: Math.random() * 300 + 100 // Simulate 100-400ms response
+                };
+                crewResponses.push(simulatedResponse);
+            }
+        } else {
+            // Coordinate individual crew members since there's no comprehensive workflow
+            for (const crewMember of selectedCrew) {
+                try {
                 // Map crew member IDs to their actual webhook paths on the n8n server
                 const webhookPathMap: Record<string, string> = {
                     'picard': 'crew-captain-jean-luc-picard',
@@ -90,6 +108,7 @@ export async function POST(request: NextRequest) {
                     error: error instanceof Error ? error.message : 'Unknown error',
                     status: 'Failed'
                 });
+            }
             }
         }
 

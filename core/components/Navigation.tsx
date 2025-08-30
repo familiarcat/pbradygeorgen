@@ -46,6 +46,7 @@ export default function Navigation({ showPDFInfo = true }: NavigationProps) {
     { href: '/business-plan-designer', label: '💼 AI Business Plan Designer', hideOnHome: false }, // Revolutionary business empire creator
     { href: '/content-analyzer', label: '🎬 Content Analyzer', hideOnHome: false }, // YouTube to GitHub content comparison
     { href: '/test-n8n', label: '🧪 N8N Testing Console', hideOnHome: false }, // Comprehensive n8n workflow testing
+    { href: '/playwright-runner', label: '🎭 Playwright Tests', hideOnHome: false }, // Visual browser testing with real-time feedback
     { href: '/theme-demo', label: '🎨 Theme Demo', hideOnHome: false },
     { href: '/unified-testing', label: '🤖 Unified Testing', hideOnHome: false }, // Revolutionary business empire creator
     { href: '/pdf-styles', label: 'PDF Styles', hideOnHome: true },
