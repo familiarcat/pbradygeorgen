@@ -32,27 +32,27 @@
   "contributes": {
     "commands": [
       {
-        "command": "cursor-claude.startLLMCollaboration",
+        "command": "cursor-claude-llm-collaboration.startLLMCollaboration",
         "title": "🚀 Start LLM Collaboration",
         "category": "Claude-Cursor"
       },
       {
-        "command": "cursor-claude.democraticSelection",
+        "command": "cursor-claude-llm-collaboration.democraticSelection",
         "title": "🗳️ Democratic LLM Selection",
         "category": "Claude-Cursor"
       },
       {
-        "command": "cursor-claude.showModelScores",
+        "command": "cursor-claude-llm-collaboration.showModelScores",
         "title": "📊 Show Model Confidence Scores",
         "category": "Claude-Cursor"
       },
       {
-        "command": "cursor-claude.deployN8NWorkflow",
+        "command": "cursor-claude-llm-collaboration.deployN8NWorkflow",
         "title": "🚀 Deploy N8N Workflow",
         "category": "Claude-Cursor"
       },
       {
-        "command": "cursor-claude.showConfiguration",
+        "command": "cursor-claude-llm-collaboration.showConfiguration",
         "title": "🔧 Show Configuration",
         "category": "Claude-Cursor"
       }
