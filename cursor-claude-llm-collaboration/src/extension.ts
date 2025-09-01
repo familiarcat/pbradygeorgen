@@ -75,46 +75,64 @@ class LLMCollaborationSystem {
                     // Skip comments and empty lines
                     if (trimmedLine.startsWith('#') || !trimmedLine) continue;
                     
-                    // Look for export statements
+                    // Look for export statements - handle both quoted and unquoted values
                     if (trimmedLine.startsWith('export ')) {
                         const match = trimmedLine.match(/export\s+([^=]+)=(.*)/);
                         if (match) {
                             const key = match[1].trim();
                             let value = match[2].trim();
                             
-                            // Remove quotes if present
+                            // Remove quotes if present (both single and double quotes)
                             if ((value.startsWith('"') && value.endsWith('"')) || 
                                 (value.startsWith("'") && value.endsWith("'"))) {
                                 value = value.slice(1, -1);
                             }
                             
-                            // Map to our config keys
+                            // Map to our config keys with more variations
                             switch (key) {
                                 case 'N8N_BASE_URL':
                                 case 'N8N_URL':
                                     config.n8nBaseUrl = value;
+                                    console.log(`✅ Found N8N URL: ${key} = ${value}`);
                                     break;
                                 case 'OPENROUTER_API_KEY':
                                 case 'OPENROUTER_KEY':
                                     config.openRouterApiKey = value;
+                                    console.log(`✅ Found OpenRouter API Key: ${key} = ${value.substring(0, 12)}...`);
                                     break;
                                 case 'CLAUDE_API_KEY':
                                 case 'ANTHROPIC_API_KEY':
                                     config.claudeApiKey = value;
+                                    console.log(`✅ Found Claude API Key: ${key} = ${value.substring(0, 12)}...`);
                                     break;
                                 case 'N8N_API_KEY':
                                     config.n8nApiKey = value;
+                                    console.log(`✅ Found N8N API Key: ${key} = ${value.substring(0, 12)}...`);
                                     break;
                             }
                         }
                     }
                 }
                 
-                console.log('📁 Read configuration from ~/.zshrc');
-                if (config.n8nBaseUrl) console.log(`   N8N URL: ${config.n8nBaseUrl}`);
-                if (config.openRouterApiKey) console.log(`   OpenRouter API Key: ${config.openRouterApiKey.substring(0, 8)}...`);
-                if (config.claudeApiKey) console.log(`   Claude API Key: ${config.claudeApiKey.substring(0, 8)}...`);
-                if (config.n8nApiKey) console.log(`   N8N API Key: ${config.n8nApiKey.substring(0, 8)}...`);
+                // Summary of what we found
+                console.log('\n📁 Configuration Summary from ~/.zshrc:');
+                if (config.n8nBaseUrl) console.log(`   🚀 N8N Base URL: ${config.n8nBaseUrl}`);
+                if (config.openRouterApiKey) console.log(`   🔑 OpenRouter API Key: ${config.openRouterApiKey.substring(0, 12)}...`);
+                if (config.claudeApiKey) console.log(`   🤖 Claude API Key: ${config.claudeApiKey.substring(0, 12)}...`);
+                if (config.n8nApiKey) console.log(`   ⚙️  N8N API Key: ${config.n8nApiKey.substring(0, 12)}...`);
+                
+                // Check for missing configurations
+                const missing = [];
+                if (!config.n8nBaseUrl) missing.push('N8N_BASE_URL or N8N_URL');
+                if (!config.openRouterApiKey) missing.push('OPENROUTER_API_KEY');
+                if (!config.claudeApiKey) missing.push('CLAUDE_API_KEY or ANTHROPIC_API_KEY');
+                if (!config.n8nApiKey) missing.push('N8N_API_KEY');
+                
+                if (missing.length > 0) {
+                    console.log(`⚠️  Missing environment variables: ${missing.join(', ')}`);
+                } else {
+                    console.log('🎉 All required environment variables found in ~/.zshrc!');
+                }
                 
             } else {
                 console.log('⚠️  ~/.zshrc not found, using VS Code settings');
@@ -265,9 +283,9 @@ class LLMCollaborationSystem {
     getConfigurationInfo(): string {
         const config = {
             'N8N Base URL': this.n8nBaseUrl,
-            'OpenRouter API Key': this.openRouterApiKey ? `${this.openRouterApiKey.substring(0, 8)}...` : 'Not set',
-            'Claude API Key': this.claudeApiKey ? `${this.claudeApiKey.substring(0, 8)}...` : 'Not set',
-            'N8N API Key': this.n8nApiKey ? `${this.n8nApiKey.substring(0, 8)}...` : 'Not set'
+            'OpenRouter API Key': this.openRouterApiKey ? `${this.openRouterApiKey.substring(0, 12)}...` : 'Not set',
+            'Claude API Key': this.claudeApiKey ? `${this.claudeApiKey.substring(0, 12)}...` : 'Not set',
+            'N8N API Key': this.n8nApiKey ? `${this.n8nApiKey.substring(0, 12)}...` : 'Not set'
         };
         
         return Object.entries(config)
