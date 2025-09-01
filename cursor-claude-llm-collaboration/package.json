@@ -1,0 +1,116 @@
+{
+  "name": "cursor-claude-llm-collaboration",
+  "displayName": "Cursor-Claude LLM Collaboration",
+  "description": "Revolutionary AI collaboration system with democratic LLM selection and N8N integration",
+  "version": "1.0.0",
+  "publisher": "pbradygeorgen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbradygeorgen/cursor-claude-llm-collaboration.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "AI"
+  ],
+  "keywords": [
+    "ai",
+    "claude",
+    "cursor",
+    "llm",
+    "collaboration",
+    "n8n",
+    "openrouter"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cursor-claude.startLLMCollaboration",
+        "title": "🚀 Start LLM Collaboration",
+        "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.democraticSelection",
+        "title": "🗳️ Democratic LLM Selection",
+        "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.showModelScores",
+        "title": "📊 Show Model Confidence Scores",
+        "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.deployN8NWorkflow",
+        "title": "🚀 Deploy N8N Workflow",
+        "category": "Claude-Cursor"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "llm-collaboration-panel",
+          "name": "🤖 LLM Collaboration",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "llm-collaboration",
+          "title": "LLM Collaboration",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Cursor-Claude LLM Collaboration",
+      "properties": {
+        "cursor-claude.n8nBaseUrl": {
+          "type": "string",
+          "default": "https://n8n.pbradygeorgen.com",
+          "description": "N8N base URL for workflow deployment"
+        },
+        "cursor-claude.openRouterApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenRouter API key for LLM access"
+        },
+        "cursor-claude.claudeApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Claude API key for direct access"
+        },
+        "cursor-claude.autoDeploy": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically deploy N8N workflows"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "build": "npm run compile && npm run package",
+    "dev": "npm run compile && npm run watch"
+  },
+  "devDependencies": {
+    "@types/node": "^16.x",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.11.0"
+  }
+}
