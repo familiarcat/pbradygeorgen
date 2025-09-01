@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
 import axios from 'axios';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 
 // Types based on the working Python system
 interface CollaborationTask {
@@ -24,16 +27,103 @@ interface ModelConfig {
     strengths: string[];
 }
 
+interface ZshrcConfig {
+    n8nBaseUrl?: string;
+    openRouterApiKey?: string;
+    claudeApiKey?: string;
+    n8nApiKey?: string;
+}
+
 class LLMCollaborationSystem {
     private n8nBaseUrl: string;
     private openRouterApiKey: string;
     private claudeApiKey: string;
+    private n8nApiKey: string;
 
     constructor() {
-        const config = vscode.workspace.getConfiguration('cursor-claude');
-        this.n8nBaseUrl = config.get('n8nBaseUrl', 'https://n8n.pbradygeorgen.com');
-        this.openRouterApiKey = config.get('openRouterApiKey', '');
-        this.claudeApiKey = config.get('claudeApiKey', '');
+        // Try to get config from ~/.zshrc first, then fall back to VS Code settings
+        const zshrcConfig = this.readZshrcConfig();
+        const vscodeConfig = vscode.workspace.getConfiguration('cursor-claude');
+        
+        this.n8nBaseUrl = zshrcConfig.n8nBaseUrl || vscodeConfig.get('n8nBaseUrl', 'https://n8n.pbradygeorgen.com');
+        this.openRouterApiKey = zshrcConfig.openRouterApiKey || vscodeConfig.get('openRouterApiKey', '');
+        this.claudeApiKey = zshrcConfig.claudeApiKey || vscodeConfig.get('claudeApiKey', '');
+        this.n8nApiKey = zshrcConfig.n8nApiKey || vscodeConfig.get('n8nApiKey', '');
+
+        // Log configuration source
+        if (zshrcConfig.n8nBaseUrl || zshrcConfig.openRouterApiKey || zshrcConfig.claudeApiKey) {
+            console.log('🔧 Configuration loaded from ~/.zshrc');
+        } else {
+            console.log('🔧 Configuration loaded from VS Code settings');
+        }
+    }
+
+    private readZshrcConfig(): ZshrcConfig {
+        const config: ZshrcConfig = {};
+        const zshrcPath = path.join(os.homedir(), '.zshrc');
+        
+        try {
+            if (fs.existsSync(zshrcPath)) {
+                const zshrcContent = fs.readFileSync(zshrcPath, 'utf8');
+                
+                // Parse environment variables from .zshrc
+                const lines = zshrcContent.split('\n');
+                
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    
+                    // Skip comments and empty lines
+                    if (trimmedLine.startsWith('#') || !trimmedLine) continue;
+                    
+                    // Look for export statements
+                    if (trimmedLine.startsWith('export ')) {
+                        const match = trimmedLine.match(/export\s+([^=]+)=(.*)/);
+                        if (match) {
+                            const key = match[1].trim();
+                            let value = match[2].trim();
+                            
+                            // Remove quotes if present
+                            if ((value.startsWith('"') && value.endsWith('"')) || 
+                                (value.startsWith("'") && value.endsWith("'"))) {
+                                value = value.slice(1, -1);
+                            }
+                            
+                            // Map to our config keys
+                            switch (key) {
+                                case 'N8N_BASE_URL':
+                                case 'N8N_URL':
+                                    config.n8nBaseUrl = value;
+                                    break;
+                                case 'OPENROUTER_API_KEY':
+                                case 'OPENROUTER_KEY':
+                                    config.openRouterApiKey = value;
+                                    break;
+                                case 'CLAUDE_API_KEY':
+                                case 'ANTHROPIC_API_KEY':
+                                    config.claudeApiKey = value;
+                                    break;
+                                case 'N8N_API_KEY':
+                                    config.n8nApiKey = value;
+                                    break;
+                            }
+                        }
+                    }
+                }
+                
+                console.log('📁 Read configuration from ~/.zshrc');
+                if (config.n8nBaseUrl) console.log(`   N8N URL: ${config.n8nBaseUrl}`);
+                if (config.openRouterApiKey) console.log(`   OpenRouter API Key: ${config.openRouterApiKey.substring(0, 8)}...`);
+                if (config.claudeApiKey) console.log(`   Claude API Key: ${config.claudeApiKey.substring(0, 8)}...`);
+                if (config.n8nApiKey) console.log(`   N8N API Key: ${config.n8nApiKey.substring(0, 8)}...`);
+                
+            } else {
+                console.log('⚠️  ~/.zshrc not found, using VS Code settings');
+            }
+        } catch (error) {
+            console.error('❌ Error reading ~/.zshrc:', error);
+        }
+        
+        return config;
     }
 
     // AI model configurations from the working Python system
@@ -144,10 +234,19 @@ class LLMCollaborationSystem {
         try {
             vscode.window.showInformationMessage('🚀 Deploying N8N workflow...');
             
+            if (!this.n8nApiKey) {
+                throw new Error('N8N API key not found. Please set N8N_API_KEY in ~/.zshrc or VS Code settings.');
+            }
+            
             // This would integrate with your existing N8N deployment system
             const response = await axios.post(`${this.n8nBaseUrl}/api/v1/workflows`, {
                 name: "LLM_Democratic_Collaboration",
                 // Add workflow configuration here
+            }, {
+                headers: {
+                    'X-N8N-API-KEY': this.n8nApiKey,
+                    'Content-Type': 'application/json'
+                }
             });
 
             if (response.status === 200 || response.status === 201) {
@@ -160,6 +259,20 @@ class LLMCollaborationSystem {
             vscode.window.showErrorMessage(`❌ N8N deployment failed: ${error}`);
             return false;
         }
+    }
+
+    // Get current configuration for display
+    getConfigurationInfo(): string {
+        const config = {
+            'N8N Base URL': this.n8nBaseUrl,
+            'OpenRouter API Key': this.openRouterApiKey ? `${this.openRouterApiKey.substring(0, 8)}...` : 'Not set',
+            'Claude API Key': this.claudeApiKey ? `${this.claudeApiKey.substring(0, 8)}...` : 'Not set',
+            'N8N API Key': this.n8nApiKey ? `${this.n8nApiKey.substring(0, 8)}...` : 'Not set'
+        };
+        
+        return Object.entries(config)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n');
     }
 }
 
@@ -231,6 +344,14 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
 
+    const showConfigurationCommand = vscode.commands.registerCommand(
+        'cursor-claude.showConfiguration',
+        () => {
+            const configInfo = llmSystem.getConfigurationInfo();
+            vscode.window.showInformationMessage(`🔧 Current Configuration:\n${configInfo}`);
+        }
+    );
+
     // Register webview provider
     const collaborationProvider = vscode.window.registerWebviewViewProvider(
         'llm-collaboration-panel',
@@ -247,13 +368,18 @@ export function activate(context: vscode.ExtensionContext) {
         democraticSelectionCommand,
         showModelScoresCommand,
         deployN8NCommand,
+        showConfigurationCommand,
         collaborationProvider
     );
 
-    // Show activation message
+    // Show activation message with configuration info
+    const configInfo = llmSystem.getConfigurationInfo();
     vscode.window.showInformationMessage(
         '🚀 Cursor-Claude LLM Collaboration activated! Use "Start LLM Collaboration" to begin.'
     );
+    
+    console.log('🔧 Configuration loaded:');
+    console.log(configInfo);
 }
 
 function getCollaborationWebviewContent(selection: AISelection, task: CollaborationTask): string {
@@ -392,6 +518,9 @@ function getPanelWebviewContent(): string {
             <button class="action-button" onclick="deployWorkflow()">
                 🚀 Deploy N8N
             </button>
+            <button class="action-button" onclick="showConfig()">
+                🔧 Show Config
+            </button>
         </div>
         
         <script>
@@ -403,6 +532,9 @@ function getPanelWebviewContent(): string {
             }
             function deployWorkflow() {
                 vscode.postMessage({ command: 'deployWorkflow' });
+            }
+            function showConfig() {
+                vscode.postMessage({ command: 'showConfig' });
             }
         </script>
     </body>

@@ -50,6 +50,11 @@
         "command": "cursor-claude.deployN8NWorkflow",
         "title": "🚀 Deploy N8N Workflow",
         "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.showConfiguration",
+        "title": "🔧 Show Configuration",
+        "category": "Claude-Cursor"
       }
     ],
     "views": {

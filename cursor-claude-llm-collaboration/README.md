@@ -60,13 +60,32 @@ npm run build
 code --install-extension cursor-claude-llm-collaboration-1.0.0.vsix
 ```
 
-### **Configuration**
-Set your API keys in VS Code settings:
+### **🔧 Automatic Configuration from ~/.zshrc**
+
+The extension automatically reads configuration from your `~/.zshrc` file! Just add these environment variables:
+
+```bash
+# Add to your ~/.zshrc file
+export N8N_BASE_URL="https://n8n.pbradygeorgen.com"
+export OPENROUTER_API_KEY="your_openrouter_key_here"
+export CLAUDE_API_KEY="your_claude_key_here"
+export N8N_API_KEY="your_n8n_api_key_here"
+```
+
+**Supported Environment Variables:**
+- `N8N_BASE_URL` or `N8N_URL` - Your N8N instance URL
+- `OPENROUTER_API_KEY` or `OPENROUTER_KEY` - OpenRouter API key
+- `CLAUDE_API_KEY` or `ANTHROPIC_API_KEY` - Claude API key
+- `N8N_API_KEY` - N8N API key for workflow deployment
+
+### **Manual Configuration (Fallback)**
+If you prefer VS Code settings, you can still configure manually:
 ```json
 {
   "cursor-claude.n8nBaseUrl": "https://n8n.pbradygeorgen.com",
   "cursor-claude.openRouterApiKey": "your_openrouter_key",
-  "cursor-claude.claudeApiKey": "your_claude_key"
+  "cursor-claude.claudeApiKey": "your_claude_key",
+  "cursor-claude.n8nApiKey": "your_n8n_api_key"
 }
 ```
 
