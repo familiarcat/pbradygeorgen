@@ -24,13 +24,13 @@
 
 ## 🛠️ Available Scripts
 
-| Script | Purpose | Use Case |
-|--------|---------|----------|
-| `./dev-workflow.sh` | Quick development iteration | Small changes, rapid testing |
-| `./cicd-workflow.sh` | Full CI/CD pipeline | Major changes, deployment |
-| `./auto-fix-and-load.sh` | Fix broken extensions | When extension won't load |
-| `./auto-resolve-conflicts.sh` | Resolve extension conflicts | Multiple versions installed |
-| `./setup-dev-env.sh` | Environment setup | First-time setup |
+| Script                        | Purpose                     | Use Case                     |
+| ----------------------------- | --------------------------- | ---------------------------- |
+| `./dev-workflow.sh`           | Quick development iteration | Small changes, rapid testing |
+| `./cicd-workflow.sh`          | Full CI/CD pipeline         | Major changes, deployment    |
+| `./auto-fix-and-load.sh`      | Fix broken extensions       | When extension won't load    |
+| `./auto-resolve-conflicts.sh` | Resolve extension conflicts | Multiple versions installed  |
+| `./setup-dev-env.sh`          | Environment setup           | First-time setup             |
 
 ## 🔧 Key Features
 
@@ -199,3 +199,14 @@ git push origin claude-integration-aug30
 **The extension automatically reads your configuration from `~/.zshrc`, provides beautiful cost transparency, and uses AI-powered model selection for optimal performance and cost efficiency.**
 
 **Happy coding with your enhanced LLM collaboration system!** 🎉
+
+
+
+
+
+
+
+
+
+
+

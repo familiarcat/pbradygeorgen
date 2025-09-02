@@ -44,3 +44,14 @@ if [[ -n "$VSIX_FILE" ]]; then
 else
     echo -e "${YELLOW}No .vsix file generated${NC}"
 fi
+
+
+
+
+
+
+
+
+
+
+

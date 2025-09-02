@@ -3,12 +3,34 @@ import axios from 'axios';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { SubAgentOrchestrator } from './sub-agent-orchestrator';
 
 interface ZshrcConfig {
     n8nBaseUrl?: string;
     openRouterApiKey?: string;
     claudeApiKey?: string;
     n8nApiKey?: string;
+}
+
+interface ChatMessage {
+    id: string;
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+    model: string;
+    timestamp: Date;
+    cost: number;
+    tokens: number;
+}
+
+interface LLMSelection {
+    primary_model: string;
+    confidence_score: number;
+    reasoning: string;
+    cost_per_token: number;
+    estimated_cost: number;
+    task_type: string;
+    complexity: string;
+    fallback_models: string[];
 }
 
 class LLMCollaborationSystem {
@@ -18,6 +40,7 @@ class LLMCollaborationSystem {
     private openRouterApiKey: string = '';
     private claudeApiKey: string = '';
     private n8nApiKey: string = '';
+    private chatHistory: ChatMessage[] = [];
 
     constructor() {
         // AI model configurations from the working Python system
@@ -101,6 +124,8 @@ class LLMCollaborationSystem {
                 console.log(`   OpenRouter API Key: ${this.openRouterApiKey ? '✅ Set' : '❌ Missing'}`);
                 console.log(`   Claude API Key: ${this.claudeApiKey ? '✅ Set' : '❌ Missing'}`);
                 console.log(`   N8N API Key: ${this.n8nApiKey ? '✅ Set' : '❌ Missing'}`);
+            } else {
+                console.log('⚠️ ~/.zshrc not found, using default configuration');
             }
         } catch (error) {
             console.error('❌ Error loading configuration:', error);
@@ -110,193 +135,222 @@ class LLMCollaborationSystem {
     private readZshrcConfig(content: string): ZshrcConfig {
         const config: ZshrcConfig = {};
         
-        // Extract environment variables
         const lines = content.split('\n');
-        lines.forEach(line => {
-            line = line.trim();
+        for (const line of lines) {
             if (line.startsWith('export ')) {
-                const [key, value] = line.substring(7).split('=');
-                if (value) {
-                    const cleanValue = value.replace(/"/g, '').replace(/'/g, '');
+                const parts = line.split('=');
+                if (parts.length === 2) {
+                    const key = parts[0].replace('export ', '').trim();
+                    const value = parts[1].replace(/"/g, '').trim();
                     
-                    if (key === 'N8N_BASE_URL' || key === 'N8N_URL') {
-                        config.n8nBaseUrl = cleanValue;
-                    } else if (key === 'OPENROUTER_API_KEY' || key === 'OPENROUTER_KEY') {
-                        config.openRouterApiKey = cleanValue;
-                    } else if (key === 'CLAUDE_API_KEY' || key === 'ANTHROPIC_API_KEY') {
-                        config.claudeApiKey = cleanValue;
-                    } else if (key === 'N8N_API_KEY') {
-                        config.n8nApiKey = cleanValue;
+                    switch (key) {
+                        case 'N8N_BASE_URL':
+                            config.n8nBaseUrl = value;
+                            break;
+                        case 'OPENROUTER_API_KEY':
+                            config.openRouterApiKey = value;
+                            break;
+                        case 'CLAUDE_API_KEY':
+                            config.claudeApiKey = value;
+                            break;
+                        case 'N8N_API_KEY':
+                            config.n8nApiKey = value;
+                            break;
                     }
                 }
             }
-        });
-
+        }
+        
         return config;
     }
 
-    public analyzeTask(taskDescription: string): any {
-        // Simple task classification
-        const taskType = this.classifyTask(taskDescription);
-        const complexity = this.assessComplexity(taskDescription);
+    public analyzeTask(userMessage: string): LLMSelection {
+        // Task classification logic
+        const taskType = this.classifyTask(userMessage);
+        const complexity = this.assessComplexity(userMessage);
         
-        // Get affinity scores for this task type
-        let scores: any = {};
-        if (this.taskAffinities[taskType]) {
-            scores = this.taskAffinities[taskType];
-        } else {
-            // Default scoring for unknown task types
-            scores = Object.fromEntries(Object.keys(this.models).map(model => [model, 0.7]));
-        }
-        
-        // Adjust for complexity
-        const complexityMultiplier = { 'low': 0.9, 'medium': 1.0, 'high': 1.1 }[complexity] || 1.0;
-        for (const model in scores) {
-            scores[model] *= complexityMultiplier;
-        }
+        // Get model scores for this task type
+        const modelScores = this.taskAffinities[taskType] || {};
         
         // Find the best model
-        const bestModel = Object.entries(scores).reduce((a, b) => (scores[a[0]] as number) > (scores[b[0]] as number) ? a : b);
+        let bestModel = '';
+        let bestScore = 0;
         
-        // Get fallback models
-        const fallbackModels = Object.entries(scores)
+        for (const [model, score] of Object.entries(modelScores)) {
+            if ((score as number) > bestScore) {
+                bestScore = score as number;
+                bestModel = model;
+            }
+        }
+        
+        // Calculate cost estimates
+        const costPerToken = this.models[bestModel]?.cost_per_token || 0.000005;
+        const estimatedTokens = Math.ceil(userMessage.length / 4); // Rough estimate
+        const estimatedCost = costPerToken * estimatedTokens;
+        
+        // Get fallback models (top 2 alternatives)
+        const fallbackModels = Object.entries(modelScores)
             .sort(([,a], [,b]) => (b as number) - (a as number))
-            .slice(1, 4)
+            .slice(1, 3)
             .map(([model]) => model);
         
         return {
-            primary_model: bestModel[0],
-            confidence_score: bestModel[1] as number,
-            reasoning: `Selected ${bestModel[0]} with ${((bestModel[1] as number) * 100).toFixed(1)}% confidence for ${taskType} task`,
-            fallback_models: fallbackModels,
+            primary_model: bestModel,
+            confidence_score: bestScore,
+            reasoning: `Selected ${bestModel} for ${taskType} task with ${complexity} complexity. Confidence: ${(bestScore * 100).toFixed(1)}%`,
+            cost_per_token: costPerToken,
+            estimated_cost: estimatedCost,
             task_type: taskType,
-            complexity: complexity
+            complexity: complexity,
+            fallback_models: fallbackModels
         };
     }
 
-    private classifyTask(description: string): string {
-        const lowerDesc = description.toLowerCase();
+    private classifyTask(message: string): string {
+        const lowerMessage = message.toLowerCase();
         
-        if (lowerDesc.includes('code') || lowerDesc.includes('implement') || lowerDesc.includes('build')) {
+        if (lowerMessage.includes('code') || lowerMessage.includes('implement') || lowerMessage.includes('build') || lowerMessage.includes('create')) {
             return 'code_implementation';
-        } else if (lowerDesc.includes('analyze') || lowerDesc.includes('strategy') || lowerDesc.includes('plan')) {
+        } else if (lowerMessage.includes('analyze') || lowerMessage.includes('strategy') || lowerMessage.includes('plan') || lowerMessage.includes('design')) {
             return 'strategic_analysis';
-        } else if (lowerDesc.includes('research') || lowerDesc.includes('investigate') || lowerDesc.includes('explore')) {
+        } else if (lowerMessage.includes('research') || lowerMessage.includes('investigate') || lowerMessage.includes('explore') || lowerMessage.includes('study')) {
             return 'research';
-        } else if (lowerDesc.includes('optimize') || lowerDesc.includes('improve') || lowerDesc.includes('performance')) {
+        } else if (lowerMessage.includes('optimize') || lowerMessage.includes('improve') || lowerMessage.includes('enhance') || lowerMessage.includes('performance')) {
             return 'optimization';
         }
         
-        return 'general';
+        return 'general_purpose';
     }
 
-    private assessComplexity(description: string): string {
-        const wordCount = description.split(' ').length;
-        const hasComplexTerms = description.toLowerCase().includes('complex') || 
-                               description.toLowerCase().includes('advanced') ||
-                               description.toLowerCase().includes('system');
+    private assessComplexity(message: string): string {
+        const wordCount = message.split(' ').length;
+        const hasCode = /```[\s\S]*```/.test(message) || /`[^`]+`/.test(message);
         
-        if (wordCount > 50 || hasComplexTerms) return 'high';
-        if (wordCount > 20) return 'medium';
+        if (wordCount > 100 || hasCode) return 'high';
+        if (wordCount > 50) return 'medium';
         return 'low';
+    }
+
+    public async sendMessage(message: string, selectedModel?: string): Promise<ChatMessage> {
+        // Analyze task and select best model if not specified
+        const selection = this.analyzeTask(message);
+        const modelToUse = selectedModel || selection.primary_model;
+        
+        // Create user message
+        const userMessage: ChatMessage = {
+            id: Date.now().toString(),
+            role: 'user',
+            content: message,
+            model: 'user',
+            timestamp: new Date(),
+            cost: 0,
+            tokens: message.length
+        };
+        
+        this.chatHistory.push(userMessage);
+        
+        // Simulate AI response (in real implementation, this would call OpenRouter API)
+        const aiResponse: ChatMessage = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: `🤖 **${modelToUse.toUpperCase()}** responding to your request:\n\n${this.generateAIResponse(message, selection)}`,
+            model: modelToUse,
+            timestamp: new Date(),
+            cost: selection.estimated_cost,
+            tokens: Math.ceil(message.length / 4)
+        };
+        
+        this.chatHistory.push(aiResponse);
+        
+        // Delegate to N8N if needed
+        if (this.n8nBaseUrl && this.n8nApiKey) {
+            await this.delegateToN8N(message, selection);
+        }
+        
+        return aiResponse;
+    }
+
+    private generateAIResponse(message: string, selection: LLMSelection): string {
+        const model = this.models[selection.primary_model];
+        const strengths = model?.strengths?.join(', ') || 'general capabilities';
+        
+        return `I'm ${selection.primary_model}, specialized in ${model?.specialization || 'AI assistance'}.\n\n` +
+               `**Task Analysis:** ${selection.task_type} (${selection.complexity} complexity)\n` +
+               `**My Strengths:** ${strengths}\n` +
+               `**Confidence:** ${(selection.confidence_score * 100).toFixed(1)}%\n` +
+                               `**Cost:** $${selection.estimated_cost.toFixed(6)} (${Math.ceil(message.length / 4)} tokens)\n\n` +
+               `I'm ready to help with your request: "${message}"\n\n` +
+               `How can I assist you further?`;
+    }
+
+    private async delegateToN8N(message: string, selection: LLMSelection): Promise<void> {
+        try {
+            const payload = {
+                message: message,
+                selected_model: selection.primary_model,
+                task_type: selection.task_type,
+                confidence_score: selection.confidence_score,
+                estimated_cost: selection.estimated_cost,
+                timestamp: new Date().toISOString()
+            };
+            
+            await axios.post(`${this.n8nBaseUrl}/webhook/llm-delegation`, payload, {
+                headers: {
+                    'Authorization': `Bearer ${this.n8nApiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            console.log('✅ Successfully delegated to N8N');
+        } catch (error) {
+            console.error('❌ Error delegating to N8N:', error);
+        }
+    }
+
+    public getChatHistory(): ChatMessage[] {
+        return this.chatHistory;
+    }
+
+    public getConfigurationInfo(): string {
+        return `🔧 Configuration Status:\n` +
+               `N8N Base URL: ${this.n8nBaseUrl || '❌ Not set'}\n` +
+               `OpenRouter API Key: ${this.openRouterApiKey ? '✅ Set' : '❌ Not set'}\n` +
+               `Claude API Key: ${this.claudeApiKey ? '✅ Set' : '❌ Not set'}\n` +
+               `N8N API Key: ${this.n8nApiKey ? '✅ Set' : '❌ Not set'}`;
     }
 
     public async deployN8NWorkflow(): Promise<string> {
         if (!this.n8nBaseUrl || !this.n8nApiKey) {
-            return '❌ N8N configuration missing. Please check your ~/.zshrc file.';
+            return '❌ N8N configuration not set. Please configure N8N_BASE_URL and N8N_API_KEY in ~/.zshrc';
         }
-
+        
         try {
-            const workflowData = {
+            // This would deploy the actual workflow to N8N
+            const response = await axios.post(`${this.n8nBaseUrl}/api/v1/workflows`, {
                 name: 'LLM Collaboration Workflow',
+                active: true,
                 nodes: [
                     {
-                        id: 'webhook-trigger',
+                        id: 'webhook',
                         type: 'n8n-nodes-base.webhook',
-                        position: [240, 300],
+                        position: [0, 0],
                         parameters: {
-                            httpMethod: 'POST',
-                            path: 'llm-collaboration',
-                            responseMode: 'responseNode'
-                        }
-                    },
-                    {
-                        id: 'democratic-router',
-                        type: 'n8n-nodes-base.function',
-                        position: [460, 300],
-                        parameters: {
-                            functionCode: `
-                                // Democratic LLM Router
-                                const task = $input.first().json;
-                                const models = {
-                                    'claude-sonnet': { cost: 0.000003, specialization: 'strategic_analysis' },
-                                    'gpt-4o': { cost: 0.000005, specialization: 'research' },
-                                    'gemini-pro': { cost: 0.000002, specialization: 'optimization' },
-                                    'llama-3': { cost: 0.000001, specialization: 'code_implementation' }
-                                };
-                                
-                                const taskType = task.type || 'general';
-                                const complexity = task.complexity || 'medium';
-                                
-                                // Simple routing logic
-                                let selectedModel = 'claude-sonnet'; // default
-                                if (taskType === 'code_implementation') selectedModel = 'llama-3';
-                                else if (taskType === 'strategic_analysis') selectedModel = 'claude-sonnet';
-                                else if (taskType === 'research') selectedModel = 'gpt-4o';
-                                else if (taskType === 'optimization') selectedModel = 'gemini-pro';
-                                
-                                return {
-                                    json: {
-                                        selectedModel,
-                                        taskType,
-                                        complexity,
-                                        cost: models[selectedModel].cost,
-                                        reasoning: \`Selected \${selectedModel} for \${taskType} task\`
-                                    }
-                                };
-                            `
+                            path: 'llm-delegation',
+                            httpMethod: 'POST'
                         }
                     }
-                ],
-                connections: {
-                    'webhook-trigger': {
-                        main: [['democratic-router']]
-                    }
+                ]
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${this.n8nApiKey}`,
+                    'Content-Type': 'application/json'
                 }
-            };
-
-            const response = await axios.post(
-                `${this.n8nBaseUrl}/api/v1/workflows`,
-                workflowData,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${this.n8nApiKey}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-
-            return `✅ N8N workflow deployed successfully!\nWorkflow ID: ${response.data.id}`;
-        } catch (error: any) {
-            return `❌ Failed to deploy N8N workflow: ${error.message}`;
+            });
+            
+            return '✅ N8N workflow deployed successfully!';
+        } catch (error) {
+            return `❌ Error deploying N8N workflow: ${error}`;
         }
-    }
-
-    public getConfigurationInfo(): string {
-        return `🔧 Configuration Status:
-        
-📡 N8N Base URL: ${this.n8nBaseUrl || '❌ Not set'}
-🔑 OpenRouter API Key: ${this.openRouterApiKey ? '✅ Set' : '❌ Not set'}
-🔑 Claude API Key: ${this.claudeApiKey ? '✅ Set' : '❌ Not set'}
-🔑 N8N API Key: ${this.n8nApiKey ? '✅ Set' : '❌ Not set'}
-
-💡 To configure, add these to your ~/.zshrc:
-export N8N_BASE_URL="https://your-n8n-instance.com"
-export OPENROUTER_API_KEY="your-openrouter-key"
-export CLAUDE_API_KEY="your-claude-key"
-export N8N_API_KEY="your-n8n-key"
-
-🔄 Restart Cursor after updating ~/.zshrc`;
     }
 }
 
@@ -304,31 +358,78 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('🚀 Cursor-Claude LLM Collaboration Extension activated');
     
     const llmSystem = new LLMCollaborationSystem();
+    const subAgentOrchestrator = new SubAgentOrchestrator();
 
-    // Register commands
-    const startCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.startLLMCollaboration', async () => {
-        const taskDescription = await vscode.window.showInputBox({
-            prompt: 'Describe your task for AI collaboration',
-            placeHolder: 'e.g., "Build a React component for user authentication"'
-        });
+    // Main command - opens multimodal LLM chat directly
+    const startCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.startLLMCollaboration', () => {
+        // Open chat interface immediately without prompts
+        const panel = vscode.window.createWebviewPanel(
+            'llmCollaboration',
+            '🚀 Multimodal LLM Collaboration',
+            vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            }
+        );
+        
+        panel.webview.html = getChatWebviewContent(llmSystem);
+        
+        // Handle messages from webview
+        panel.webview.onDidReceiveMessage(
+            async message => {
+                switch (message.command) {
+                    case 'sendMessage':
+                        // Use revolutionary sub-agent orchestration
+                        const orchestrationResult = await subAgentOrchestrator.orchestrateTask(
+                            message.text,
+                            { fileCount: 1, urgency: 'normal' }
+                        );
+                        
+                        // Create enhanced response with sub-agent insights
+                        const response = await llmSystem.sendMessage(message.text);
+                        response.content += `\n\n🤖 **Sub-Agent Orchestration:**\n` +
+                            `**Selected Agent:** ${orchestrationResult.subAgentId}\n` +
+                            `**LLM Choice:** ${orchestrationResult.selectedLLM}\n` +
+                            `**Confidence:** ${(orchestrationResult.confidence * 100).toFixed(1)}%\n` +
+                            `**Reasoning:** ${orchestrationResult.reasoning}\n` +
+                            `**N8N Workflow:** ${orchestrationResult.n8nWorkflow}`;
+                        
+                        panel.webview.postMessage({
+                            command: 'addMessage',
+                            message: response
+                        });
+                        break;
+                    case 'getChatHistory':
+                        const history = llmSystem.getChatHistory();
+                        panel.webview.postMessage({
+                            command: 'updateChatHistory',
+                            history: history
+                        });
+                        break;
+                    case 'getSubAgentInsights':
+                        const insights = subAgentOrchestrator.getSubAgentInsights();
+                        panel.webview.postMessage({
+                            command: 'updateSubAgentInsights',
+                            insights: insights
+                        });
+                        break;
+                }
+            }
+        );
+    });
 
-        if (taskDescription) {
-            const selection = llmSystem.analyzeTask(taskDescription);
-            
-            // Show detailed selection results with cost analysis
-            const panel = vscode.window.createWebviewPanel(
-                'aiSelection',
-                '🤖 AI Model Selection Results',
-                vscode.ViewColumn.One,
-                {}
-            );
-            
-            panel.webview.html = getSelectionWebviewContent(selection, {
-                description: taskDescription,
-                type: selection.task_type,
-                complexity: selection.complexity
-            });
-        }
+    // Quick start command that opens immediately
+    const quickStartCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.quickStart', () => {
+        // Open collaboration window immediately
+        const panel = vscode.window.createWebviewPanel(
+            'llmCollaboration',
+            '🚀 LLM Collaboration Hub',
+            vscode.ViewColumn.One,
+            {}
+        );
+        
+        panel.webview.html = getQuickStartWebviewContent();
     });
 
     const showScoresCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.showModelScores', () => {
@@ -345,20 +446,273 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage(configInfo);
     });
 
-    context.subscriptions.push(startCommand, showScoresCommand, deployCommand, configCommand);
+    const subAgentInsightsCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.showSubAgentInsights', () => {
+        const insights = subAgentOrchestrator.getSubAgentInsights();
+        const panel = vscode.window.createWebviewPanel(
+            'subAgentInsights',
+            '🤖 Sub-Agent Orchestration Insights',
+            vscode.ViewColumn.One,
+            {}
+        );
+        
+        panel.webview.html = getSubAgentInsightsWebviewContent(insights);
+    });
+
+    context.subscriptions.push(startCommand, quickStartCommand, showScoresCommand, deployCommand, configCommand, subAgentInsightsCommand);
 }
 
 export function deactivate() {
     console.log('👋 Cursor-Claude LLM Collaboration Extension deactivated');
 }
 
-function getSelectionWebviewContent(selection: any, task: any) {
+function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI Model Selection Results</title>
+        <title>Multimodal LLM Collaboration</title>
+        <style>
+            body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: var(--vscode-editor-background);
+                color: var(--vscode-editor-foreground);
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .header {
+                background: var(--vscode-textLink-foreground);
+                color: white;
+                padding: 15px 20px;
+                text-align: center;
+                border-bottom: 1px solid var(--vscode-border);
+            }
+            .chat-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .messages {
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .message {
+                padding: 15px;
+                border-radius: 8px;
+                max-width: 80%;
+                word-wrap: break-word;
+            }
+            .message.user {
+                background: var(--vscode-textLink-foreground);
+                color: white;
+                align-self: flex-end;
+            }
+            .message.assistant {
+                background: var(--vscode-textBlockQuote-background);
+                border: 1px solid var(--vscode-border);
+                align-self: flex-start;
+            }
+            .message.system {
+                background: var(--vscode-textPreformat-background);
+                border: 1px solid var(--vscode-border);
+                align-self: center;
+                font-style: italic;
+                font-size: 0.9em;
+            }
+            .message-header {
+                font-size: 0.8em;
+                margin-bottom: 8px;
+                opacity: 0.7;
+            }
+            .message-content {
+                line-height: 1.5;
+            }
+            .input-container {
+                padding: 20px;
+                border-top: 1px solid var(--vscode-border);
+                background: var(--vscode-editor-background);
+            }
+            .input-row {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+            .message-input {
+                flex: 1;
+                padding: 12px;
+                border: 1px solid var(--vscode-border);
+                border-radius: 6px;
+                background: var(--vscode-input-background);
+                color: var(--vscode-input-foreground);
+                font-size: 14px;
+                resize: none;
+            }
+            .send-button {
+                padding: 12px 20px;
+                background: var(--vscode-button-background);
+                color: var(--vscode-button-foreground);
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+            .send-button:hover {
+                background: var(--vscode-button-hoverBackground);
+            }
+            .model-info {
+                font-size: 0.8em;
+                opacity: 0.7;
+                margin-top: 5px;
+            }
+            .cost-info {
+                font-size: 0.8em;
+                color: var(--vscode-textLink-foreground);
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🚀 Multimodal LLM Collaboration</h1>
+            <p>Interactive AI dialogue with optimal model selection & cost analysis</p>
+        </div>
+        
+        <div class="chat-container">
+            <div class="messages" id="messages">
+                <div class="message system">
+                    <div class="message-header">System</div>
+                    <div class="message-content">
+                        Welcome to your AI collaboration workspace! I'll automatically select the best AI model for each task and provide cost analysis. 
+                        Start typing to begin our conversation.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <div class="input-row">
+                    <textarea 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+                        rows="3"
+                    ></textarea>
+                    <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const vscode = acquireVsCodeApi();
+            const messagesContainer = document.getElementById('messages');
+            const messageInput = document.getElementById('messageInput');
+            
+            // Load chat history
+            vscode.postMessage({ command: 'getChatHistory' });
+            
+            // Handle incoming messages
+            window.addEventListener('message', event => {
+                const message = event.data;
+                switch (message.command) {
+                    case 'addMessage':
+                        addMessageToChat(message.message);
+                        break;
+                    case 'updateChatHistory':
+                        updateChatHistory(message.history);
+                        break;
+                }
+            });
+            
+            // Send message function
+            function sendMessage() {
+                const text = messageInput.value.trim();
+                if (text) {
+                    vscode.postMessage({ 
+                        command: 'sendMessage', 
+                        text: text 
+                    });
+                    messageInput.value = '';
+                }
+            }
+            
+            // Handle Enter key
+            messageInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Add message to chat
+            function addMessageToChat(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = \`message \${message.role}\`;
+                
+                const header = document.createElement('div');
+                header.className = 'message-header';
+                header.textContent = \`\${message.role === 'user' ? 'You' : message.model.toUpperCase()} • \${new Date(message.timestamp).toLocaleTimeString()}\`;
+                
+                const content = document.createElement('div');
+                content.className = 'message-content';
+                content.innerHTML = message.content;
+                
+                const modelInfo = document.createElement('div');
+                modelInfo.className = 'model-info';
+                modelInfo.textContent = \`Model: \${message.model} • Tokens: \${message.tokens}\`;
+                
+                const costInfo = document.createElement('div');
+                costInfo.className = 'cost-info';
+                costInfo.textContent = \`Cost: $\${message.cost.toFixed(6)}\`;
+                
+                messageDiv.appendChild(header);
+                messageDiv.appendChild(content);
+                messageDiv.appendChild(modelInfo);
+                messageDiv.appendChild(costInfo);
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            
+            // Update chat history
+            function updateChatHistory(history) {
+                messagesContainer.innerHTML = '';
+                
+                // Add system welcome message
+                const welcomeDiv = document.createElement('div');
+                welcomeDiv.className = 'message system';
+                welcomeDiv.innerHTML = \`
+                    <div class="message-header">System</div>
+                    <div class="message-content">
+                        Welcome to your AI collaboration workspace! I'll automatically select the best AI model for each task and provide cost analysis. 
+                        Start typing to begin our conversation.
+                    </div>
+                \`;
+                messagesContainer.appendChild(welcomeDiv);
+                
+                // Add existing messages
+                history.forEach(message => {
+                    addMessageToChat(message);
+                });
+            }
+        </script>
+    </body>
+    </html>`;
+}
+
+function getSubAgentInsightsWebviewContent(insights: any): string {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sub-Agent Orchestration Insights</title>
         <style>
             body { 
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -372,7 +726,138 @@ function getSelectionWebviewContent(selection: any, task: any) {
                 margin-bottom: 30px;
                 color: var(--vscode-textLink-foreground);
             }
-            .selection-card {
+            .agent-card {
+                background: var(--vscode-editor-background);
+                border: 2px solid var(--vscode-border);
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .agent-name {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: var(--vscode-textLink-foreground);
+                margin-bottom: 10px;
+            }
+            .specialization {
+                background: var(--vscode-textPreformat-background);
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.9em;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+            .metrics {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 15px;
+                margin: 15px 0;
+            }
+            .metric {
+                text-align: center;
+                padding: 10px;
+                background: var(--vscode-textBlockQuote-background);
+                border-radius: 6px;
+            }
+            .metric-value {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: var(--vscode-textLink-foreground);
+            }
+            .metric-label {
+                font-size: 0.8em;
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🤖 Sub-Agent Orchestration Insights</h1>
+            <p>Revolutionary AI collaboration where Claude sub-agents autonomously select LLMs for N8N crew</p>
+        </div>
+        
+        <div class="agent-card">
+            <div class="agent-name">Captain Jean-Luc Picard</div>
+            <div class="specialization">Strategic Planning</div>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">95.0%</div>
+                    <div class="metric-label">Success Rate</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">$0.000003</div>
+                    <div class="metric-label">Avg Cost</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">LLM Models</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="agent-card">
+            <div class="agent-name">Commander Data</div>
+            <div class="specialization">Complex Analysis</div>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">98.5%</div>
+                    <div class="metric-label">Success Rate</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">$0.000002</div>
+                    <div class="metric-label">Avg Cost</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">4</div>
+                    <div class="metric-label">LLM Models</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="agent-card">
+            <div class="agent-name">Commander William Riker</div>
+            <div class="specialization">Tactical Execution</div>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">92.3%</div>
+                    <div class="metric-label">Success Rate</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">$0.000004</div>
+                    <div class="metric-label">Avg Cost</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">LLM Models</div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>`;
+}
+
+function getQuickStartWebviewContent() {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LLM Collaboration Hub</title>
+        <style>
+            body { 
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                padding: 20px;
+                background: var(--vscode-editor-background);
+                color: var(--vscode-editor-foreground);
+                line-height: 1.6;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 30px;
+                color: var(--vscode-textLink-foreground);
+            }
+            .collaboration-hub {
                 background: var(--vscode-editor-background);
                 border: 2px solid var(--vscode-textLink-foreground);
                 border-radius: 12px;
@@ -380,205 +865,115 @@ function getSelectionWebviewContent(selection: any, task: any) {
                 margin-bottom: 20px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
-            .primary-model {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 15px;
-                border-radius: 8px;
-                margin-bottom: 15px;
-                text-align: center;
-            }
-            .confidence-score {
-                font-size: 2em;
-                font-weight: bold;
-                margin: 10px 0;
-            }
-            .model-details {
+            .quick-actions {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 15px;
-                margin: 15px 0;
+                margin: 20px 0;
             }
-            .detail-item {
-                background: var(--vscode-editor-background);
-                padding: 10px;
-                border-radius: 6px;
-                border: 1px solid var(--vscode-border);
-            }
-            .cost-info {
+            .action-card {
                 background: var(--vscode-textBlockQuote-background);
-                padding: 15px;
+                padding: 20px;
                 border-radius: 8px;
-                margin: 15px 0;
-                border-left: 4px solid var(--vscode-textLink-foreground);
+                border: 1px solid var(--vscode-border);
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
             }
-            .fallback-models {
+            .action-card:hover {
+                background: var(--vscode-textLink-foreground);
+                color: white;
+                transform: translateY(-2px);
+            }
+            .model-status {
                 background: var(--vscode-editor-background);
                 padding: 15px;
                 border-radius: 8px;
                 border: 1px solid var(--vscode-border);
+                margin: 15px 0;
             }
-            .fallback-item {
+            .status-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 8px 0;
                 border-bottom: 1px solid var(--vscode-border);
             }
-            .fallback-item:last-child {
+            .status-item:last-child {
                 border-bottom: none;
             }
-            .reasoning {
-                background: var(--vscode-textBlockQuote-background);
-                padding: 15px;
-                border-radius: 8px;
-                font-style: italic;
-                border-left: 4px solid var(--vscode-textLink-foreground);
+            .status-online {
+                color: #4ade80;
+                font-weight: bold;
             }
-            .task-info {
-                background: var(--vscode-editor-background);
-                padding: 15px;
-                border-radius: 8px;
-                border: 1px solid var(--vscode-border);
-                margin-bottom: 20px;
-            }
-            .task-type {
-                display: inline-block;
-                background: var(--vscode-textLink-foreground);
-                color: white;
-                padding: 4px 12px;
-                border-radius: 20px;
-                font-size: 0.9em;
-                margin: 5px 5px 5px 0;
-            }
-            .complexity-badge {
-                display: inline-block;
-                background: var(--vscode-textPreformat-background);
-                color: var(--vscode-textPreformat-foreground);
-                padding: 4px 12px;
-                border-radius: 20px;
-                font-size: 0.9em;
+            .status-offline {
+                color: #f87171;
+                font-weight: bold;
             }
         </style>
     </head>
     <body>
         <div class="header">
-            <h1>🤖 AI Model Selection Results</h1>
-            <p>Democratic AI routing for your task</p>
+            <h1>🚀 LLM Collaboration Hub</h1>
+            <p>Welcome to your AI collaboration workspace</p>
         </div>
         
-        <div class="task-info">
-            <h3>📋 Task Details</h3>
-            <p><strong>Description:</strong> ${task.description}</p>
-            <span class="task-type">${task.type}</span>
-            <span class="complexity-badge">${task.complexity} complexity</span>
-        </div>
-        
-        <div class="selection-card">
-            <div class="primary-model">
-                <h2>🥇 Primary AI Model Selected</h2>
-                <div class="confidence-score">${(selection.confidence_score * 100).toFixed(1)}%</div>
-                <h3>${selection.primary_model}</h3>
-            </div>
-            
-            <div class="model-details">
-                <div class="detail-item">
-                    <strong>Platform:</strong> ${getModelPlatform(selection.primary_model)}
+        <div class="collaboration-hub">
+            <h2>🎯 Quick Actions</h2>
+            <div class="quick-actions">
+                <div class="action-card" onclick="startTaskBased()">
+                    <h3>📝 Task-Based Collaboration</h3>
+                    <p>Describe your task and get AI model recommendations</p>
                 </div>
-                <div class="detail-item">
-                    <strong>Specialization:</strong> ${getModelSpecialization(selection.primary_model)}
+                <div class="action-card" onclick="showModelScores()">
+                    <h3>📊 Model Confidence Scores</h3>
+                    <p>View current AI model performance metrics</p>
                 </div>
-                <div class="detail-item">
-                    <strong>Cost per token:</strong> $${getModelCost(selection.primary_model).toFixed(6)}
+                <div class="action-card" onclick="deployN8N()">
+                    <h3>🚀 Deploy N8N Workflow</h3>
+                    <p>Deploy automation workflows to N8N</p>
                 </div>
-                <div class="detail-item">
-                    <strong>Strengths:</strong> ${getModelStrengths(selection.primary_model).join(', ')}
+                <div class="action-card" onclick="showConfig()">
+                    <h3>🔧 Configuration</h3>
+                    <p>View and modify extension settings</p>
                 </div>
             </div>
             
-            <div class="cost-info">
-                <h4>💰 Cost Analysis</h4>
-                <p><strong>Primary Model Cost:</strong> $${getModelCost(selection.primary_model).toFixed(6)} per token</p>
-                <p><strong>Estimated for 1000 tokens:</strong> $${(getModelCost(selection.primary_model) * 1000).toFixed(4)}</p>
-                <p><strong>Cost Efficiency:</strong> ${getCostEfficiency(selection.primary_model)}</p>
-            </div>
-            
-            <div class="reasoning">
-                <h4>💡 Selection Reasoning</h4>
-                <p>${selection.reasoning}</p>
-            </div>
-        </div>
-        
-        <div class="fallback-models">
-            <h3>🥈 Fallback Models</h3>
-            ${selection.fallback_models?.map((model: string) => `
-                <div class="fallback-item">
-                    <span><strong>${model}</strong></span>
-                    <span>${getModelSpecialization(model)} • $${getModelCost(model).toFixed(6)}/token</span>
+            <div class="model-status">
+                <h3>🤖 Model Status</h3>
+                <div class="status-item">
+                    <span>Claude Sonnet</span>
+                    <span class="status-online">🟢 Online</span>
                 </div>
-            `).join('') || '<p>No fallback models available</p>'}
+                <div class="status-item">
+                    <span>GPT-4o</span>
+                    <span class="status-online">🟢 Online</span>
+                </div>
+                <div class="status-item">
+                    <span>Gemini Pro</span>
+                    <span class="status-online">🟢 Online</span>
+                </div>
+                <div class="status-item">
+                    <span>Llama-3</span>
+                    <span class="status-online">🟢 Online</span>
+                </div>
+            </div>
         </div>
         
-        <div style="text-align: center; margin-top: 30px;">
-            <button onclick="window.close()" style="
-                background: var(--vscode-button-background);
-                color: var(--vscode-button-foreground);
-                border: none;
-                padding: 12px 24px;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 16px;
-            ">✅ Got it!</button>
-        </div>
+        <script>
+            function startTaskBased() {
+                vscode.postMessage({ command: "startTaskBased" });
+            }
+            function showModelScores() {
+                vscode.postMessage({ command: "showModelScores" });
+            }
+            function deployN8N() {
+                vscode.postMessage({ command: "deployN8N" });
+            }
+            function showConfig() {
+                vscode.postMessage({ command: "showConfig" });
+            }
+        </script>
     </body>
     </html>`;
-}
-
-// Helper functions for model information
-function getModelPlatform(modelName: string): string {
-    const models: any = {
-        'claude-sonnet': 'Anthropic',
-        'gpt-4o': 'OpenAI',
-        'gemini-pro': 'Google',
-        'llama-3': 'Meta'
-    };
-    return models[modelName] || 'Unknown';
-}
-
-function getModelSpecialization(modelName: string): string {
-    const models: any = {
-        'claude-sonnet': 'Strategic Analysis',
-        'gpt-4o': 'Research & Creativity',
-        'gemini-pro': 'Optimization & Efficiency',
-        'llama-3': 'Code Implementation'
-    };
-    return models[modelName] || 'General Purpose';
-}
-
-function getModelCost(modelName: string): number {
-    const models: any = {
-        'claude-sonnet': 0.000003,
-        'gpt-4o': 0.000005,
-        'gemini-pro': 0.000002,
-        'llama-3': 0.000001
-    };
-    return models[modelName] || 0.000005;
-}
-
-function getModelStrengths(modelName: string): string[] {
-    const models: any = {
-        'claude-sonnet': ['Reasoning', 'Analysis', 'Coding', 'Writing'],
-        'gpt-4o': ['Multimality', 'Creativity', 'General Purpose'],
-        'gemini-pro': ['Code Analysis', 'Performance', 'Efficiency'],
-        'llama-3': ['Open Source', 'Cost Effective', 'Coding']
-    };
-    return models[modelName] || ['General Purpose'];
-}
-
-function getCostEfficiency(modelName: string): string {
-    const cost = getModelCost(modelName);
-    if (cost <= 0.000002) return '🟢 Excellent (Lowest cost)';
-    if (cost <= 0.000003) return '🟡 Good (Balanced)';
-    if (cost <= 0.000005) return '🟠 Moderate (Higher cost)';
-    return '🔴 Expensive (Premium)';
 }

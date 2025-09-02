@@ -174,3 +174,14 @@ echo "2. Test with Cmd+Shift+P → 'Start LLM'"
 echo "3. Verify the enhanced UI is working"
 echo ""
 echo -e "${BLUE}🚀 Your extension is ready for testing!${NC}"
+
+
+
+
+
+
+
+
+
+
+
