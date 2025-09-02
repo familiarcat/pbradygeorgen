@@ -307,3 +307,4 @@ cursor --uninstall-extension pbradygeorgen.cursor-claude-llm-collaboration
 
 
 
+

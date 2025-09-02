@@ -354,18 +354,108 @@ class LLMCollaborationSystem {
     }
 }
 
+// Get workspace context for grounding the AI system
+async function getWorkspaceContext(): Promise<any> {
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    const context: any = {
+        timestamp: new Date().toISOString(),
+        workspace: {
+            name: workspaceFolders?.[0]?.name || 'Unknown',
+            path: workspaceFolders?.[0]?.uri.fsPath || '',
+            fileCount: 0,
+            languageDistribution: {},
+            framework: 'unknown',
+            gitBranch: 'unknown'
+        },
+        openFiles: [],
+        activeEditor: null,
+        projectType: 'unknown',
+        complexity: 'medium',
+        urgency: 'normal'
+    };
+
+    try {
+        // Analyze workspace structure
+        if (workspaceFolders?.[0]) {
+            const workspacePath = workspaceFolders[0].uri.fsPath;
+            
+            // Get file count and language distribution
+            const files = await vscode.workspace.findFiles('**/*', '**/node_modules/**');
+            context.workspace.fileCount = files.length;
+            
+            // Analyze file types
+            const extensions = files.map(f => f.path.split('.').pop() || 'unknown');
+            context.workspace.languageDistribution = extensions.reduce((acc: any, ext) => {
+                acc[ext] = (acc[ext] || 0) + 1;
+                return acc;
+            }, {});
+            
+            // Detect project type
+            if (files.some(f => f.path.includes('package.json'))) context.projectType = 'node';
+            else if (files.some(f => f.path.includes('requirements.txt'))) context.projectType = 'python';
+            else if (files.some(f => f.path.includes('pom.xml'))) context.projectType = 'java';
+            else if (files.some(f => f.path.includes('Cargo.toml'))) context.projectType = 'rust';
+            else if (files.some(f => f.path.includes('go.mod'))) context.projectType = 'go';
+            
+            // Detect framework
+            if (files.some(f => f.path.includes('next.config'))) context.workspace.framework = 'nextjs';
+            else if (files.some(f => f.path.includes('angular.json'))) context.workspace.framework = 'angular';
+            else if (files.some(f => f.path.includes('vue.config'))) context.workspace.framework = 'vue';
+            else if (files.some(f => f.path.includes('django'))) context.workspace.framework = 'django';
+            else if (files.some(f => f.path.includes('flask'))) context.workspace.framework = 'flask';
+        }
+        
+        // Get open files
+        const openDocuments = vscode.workspace.textDocuments;
+        context.openFiles = openDocuments.map(doc => ({
+            name: doc.fileName.split('/').pop() || doc.fileName,
+            path: doc.fileName,
+            language: doc.languageId,
+            lineCount: doc.lineCount
+        }));
+        
+        // Get active editor
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor) {
+            context.activeEditor = {
+                name: activeEditor.document.fileName.split('/').pop() || activeEditor.document.fileName,
+                path: activeEditor.document.fileName,
+                language: activeEditor.document.languageId,
+                lineCount: activeEditor.document.lineCount,
+                selection: activeEditor.selection ? {
+                    start: activeEditor.selection.start.line,
+                    end: activeEditor.selection.end.line
+                } : null
+            };
+        }
+        
+        // Assess complexity based on workspace
+        if (context.workspace.fileCount > 1000) context.complexity = 'high';
+        else if (context.workspace.fileCount > 100) context.complexity = 'medium';
+        else context.complexity = 'low';
+        
+    } catch (error) {
+        console.error('Error getting workspace context:', error);
+    }
+    
+    return context;
+}
+
 export function activate(context: vscode.ExtensionContext) {
     console.log('🚀 Cursor-Claude LLM Collaboration Extension activated');
     
     const llmSystem = new LLMCollaborationSystem();
     const subAgentOrchestrator = new SubAgentOrchestrator();
 
-    // Main command - opens multimodal LLM chat directly
-    const startCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.startLLMCollaboration', () => {
-        // Open chat interface immediately without prompts
+    // Main command - opens expanded collaborative chat environment directly
+    const startCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.startLLMCollaboration', async () => {
+        // Get workspace context for grounding
+        const workspaceContext = await getWorkspaceContext();
+        
+        // Open expanded collaborative chat environment immediately
         const panel = vscode.window.createWebviewPanel(
             'llmCollaboration',
-            '🚀 Multimodal LLM Collaboration',
+            '🚀 Expanded Collaborative AI Environment',
             vscode.ViewColumn.One,
             {
                 enableScripts: true,
@@ -373,7 +463,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
         );
         
-        panel.webview.html = getChatWebviewContent(llmSystem);
+        panel.webview.html = getExpandedCollaborativeChatContent(workspaceContext, llmSystem, subAgentOrchestrator);
         
         // Handle messages from webview
         panel.webview.onDidReceiveMessage(
@@ -383,7 +473,7 @@ export function activate(context: vscode.ExtensionContext) {
                         // Use revolutionary sub-agent orchestration
                         const orchestrationResult = await subAgentOrchestrator.orchestrateTask(
                             message.text,
-                            { fileCount: 1, urgency: 'normal' }
+                            workspaceContext
                         );
                         
                         // Create enhanced response with sub-agent insights
@@ -412,6 +502,12 @@ export function activate(context: vscode.ExtensionContext) {
                         panel.webview.postMessage({
                             command: 'updateSubAgentInsights',
                             insights: insights
+                        });
+                        break;
+                    case 'getWorkspaceContext':
+                        panel.webview.postMessage({
+                            command: 'updateWorkspaceContext',
+                            context: workspaceContext
                         });
                         break;
                 }
@@ -465,13 +561,13 @@ export function deactivate() {
     console.log('👋 Cursor-Claude LLM Collaboration Extension deactivated');
 }
 
-function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
+function getExpandedCollaborativeChatContent(workspaceContext: any, llmSystem: LLMCollaborationSystem, subAgentOrchestrator: any): string {
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Multimodal LLM Collaboration</title>
+        <title>Expanded Collaborative AI Environment</title>
         <style>
             body { 
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -483,13 +579,86 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                 display: flex;
                 flex-direction: column;
             }
+            
+            /* Header with workspace context */
             .header {
-                background: var(--vscode-textLink-foreground);
+                background: linear-gradient(135deg, var(--vscode-textLink-foreground) 0%, #667eea 100%);
                 color: white;
-                padding: 15px 20px;
-                text-align: center;
+                padding: 20px;
                 border-bottom: 1px solid var(--vscode-border);
             }
+            .header h1 {
+                margin: 0 0 10px 0;
+                font-size: 1.8em;
+            }
+            .header p {
+                margin: 0;
+                opacity: 0.9;
+            }
+            
+            /* Workspace context bar */
+            .workspace-context {
+                background: var(--vscode-editor-background);
+                border-bottom: 1px solid var(--vscode-border);
+                padding: 15px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .context-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 0.9em;
+                opacity: 0.8;
+            }
+            .context-badge {
+                background: var(--vscode-textPreformat-background);
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-size: 0.8em;
+                border: 1px solid var(--vscode-border);
+            }
+            
+            /* Hover command and CTA options above chat */
+            .command-cta-bar {
+                background: var(--vscode-textBlockQuote-background);
+                border-bottom: 1px solid var(--vscode-border);
+                padding: 15px 20px;
+                display: flex;
+                gap: 15px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .cta-button {
+                background: var(--vscode-button-background);
+                color: var(--vscode-button-foreground);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.9em;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .cta-button:hover {
+                background: var(--vscode-button-hoverBackground);
+                transform: translateY(-1px);
+            }
+            .cta-button.secondary {
+                background: var(--vscode-textBlockQuote-background);
+                border: 1px solid var(--vscode-border);
+            }
+            .cta-button.secondary:hover {
+                background: var(--vscode-textLink-foreground);
+                color: white;
+            }
+            
+            /* Chat container */
             .chat-container {
                 flex: 1;
                 display: flex;
@@ -535,6 +704,16 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
             .message-content {
                 line-height: 1.5;
             }
+            .sub-agent-info {
+                background: var(--vscode-textPreformat-background);
+                border: 1px solid var(--vscode-border);
+                border-radius: 6px;
+                padding: 10px;
+                margin-top: 10px;
+                font-size: 0.9em;
+            }
+            
+            /* Input container */
             .input-container {
                 padding: 20px;
                 border-top: 1px solid var(--vscode-border);
@@ -577,12 +756,74 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                 color: var(--vscode-textLink-foreground);
                 margin-top: 5px;
             }
+            
+            /* Quick action suggestions */
+            .quick-actions {
+                display: flex;
+                gap: 10px;
+                margin-top: 10px;
+                flex-wrap: wrap;
+            }
+            .quick-action {
+                background: var(--vscode-textPreformat-background);
+                border: 1px solid var(--vscode-border);
+                border-radius: 4px;
+                padding: 6px 12px;
+                font-size: 0.8em;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .quick-action:hover {
+                background: var(--vscode-textLink-foreground);
+                color: white;
+            }
         </style>
     </head>
     <body>
         <div class="header">
-            <h1>🚀 Multimodal LLM Collaboration</h1>
-            <p>Interactive AI dialogue with optimal model selection & cost analysis</p>
+            <h1>🚀 Expanded Collaborative AI Environment</h1>
+            <p>Grounding in workspace context • Autonomous sub-agent orchestration • Seamless N8N integration</p>
+        </div>
+        
+        <div class="workspace-context">
+            <div class="context-item">
+                <span>📁</span>
+                <span>\${workspaceContext.workspace.name}</span>
+                <span class="context-badge">\${workspaceContext.workspace.fileCount} files</span>
+            </div>
+            <div class="context-item">
+                <span>🔧</span>
+                <span>\${workspaceContext.projectType}</span>
+                <span class="context-badge">\${workspaceContext.workspace.framework}</span>
+            </div>
+            <div class="context-item">
+                <span>📊</span>
+                <span>Complexity: \${workspaceContext.complexity}</span>
+                <span class="context-badge">\${Object.keys(workspaceContext.workspace.languageDistribution).length} languages</span>
+            </div>
+            <div class="context-item">
+                <span>📝</span>
+                <span>\${workspaceContext.openFiles.length} open files</span>
+                <span class="context-badge">\${workspaceContext.activeEditor ? workspaceContext.activeEditor.name : 'None'} active</span>
+            </div>
+        </div>
+        
+        <div class="command-cta-bar">
+            <button class="cta-button" onclick="showSubAgentInsights()">
+                🤖 Sub-Agent Insights
+            </button>
+            <button class="cta-button secondary" onclick="showWorkspaceContext()">
+                📊 Workspace Analysis
+            </button>
+            <button class="cta-button secondary" onclick="deployN8NWorkflow()">
+                🚀 Deploy N8N
+            </button>
+            <button class="cta-button secondary" onclick="showConfiguration()">
+                ⚙️ Configuration
+            </button>
+            <button class="cta-button secondary" onclick="clearChat()">
+                🧹 Clear Chat
+            </button>
         </div>
         
         <div class="chat-container">
@@ -590,8 +831,15 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                 <div class="message system">
                     <div class="message-header">System</div>
                     <div class="message-content">
-                        Welcome to your AI collaboration workspace! I'll automatically select the best AI model for each task and provide cost analysis. 
-                        Start typing to begin our conversation.
+                        🎯 **Workspace-Grounded AI Collaboration Ready!**\n\n
+                        I've analyzed your workspace: **\${workspaceContext.workspace.name}** (\${workspaceContext.workspace.fileCount} files, \${workspaceContext.projectType} project)\n\n
+                        **Available Sub-Agents:**\n
+                        • 🧠 **Captain Picard** - Strategic Planning & Architecture\n
+                        • 🔍 **Commander Data** - Complex Analysis & Research\n
+                        • ⚡ **Commander Riker** - Tactical Execution & Implementation\n
+                        • ⚙️ **Lieutenant Commander Geordi** - Engineering Optimization\n
+                        • 💝 **Counselor Troi** - Emotional Intelligence & Team Dynamics\n\n
+                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task!
                     </div>
                 </div>
             </div>
@@ -601,10 +849,18 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                     <textarea 
                         class="message-input" 
                         id="messageInput" 
-                        placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+                        placeholder="Describe your task, ask questions, or request assistance... (Press Enter to send, Shift+Enter for new line)"
                         rows="3"
                     ></textarea>
                     <button class="send-button" onclick="sendMessage()">Send</button>
+                </div>
+                
+                <div class="quick-actions">
+                    <div class="quick-action" onclick="suggestTask('Help me plan a system architecture')">🏗️ Architecture Planning</div>
+                    <div class="quick-action" onclick="suggestTask('Analyze this code for optimizations')">🔍 Code Analysis</div>
+                    <div class="quick-action" onclick="suggestTask('Implement a new feature')">⚡ Feature Implementation</div>
+                    <div class="quick-action" onclick="suggestTask('Debug this issue')">🐛 Debugging</div>
+                    <div class="quick-action" onclick="suggestTask('Optimize performance')">⚙️ Performance</div>
                 </div>
             </div>
         </div>
@@ -626,6 +882,9 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                         break;
                     case 'updateChatHistory':
                         updateChatHistory(message.history);
+                        break;
+                    case 'updateWorkspaceContext':
+                        updateWorkspaceContextDisplay(message.context);
                         break;
                 }
             });
@@ -650,6 +909,33 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                 }
             });
             
+            // CTA button functions
+            function showSubAgentInsights() {
+                vscode.postMessage({ command: 'getSubAgentInsights' });
+            }
+            
+            function showWorkspaceContext() {
+                vscode.postMessage({ command: 'getWorkspaceContext' });
+            }
+            
+            function deployN8NWorkflow() {
+                vscode.postMessage({ command: 'deployN8NWorkflow' });
+            }
+            
+            function showConfiguration() {
+                vscode.postMessage({ command: 'showConfiguration' });
+            }
+            
+            function clearChat() {
+                messagesContainer.innerHTML = '';
+                addSystemWelcomeMessage();
+            }
+            
+            function suggestTask(task) {
+                messageInput.value = task;
+                messageInput.focus();
+            }
+            
             // Add message to chat
             function addMessageToChat(message) {
                 const messageDiv = document.createElement('div');
@@ -662,6 +948,14 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
                 const content = document.createElement('div');
                 content.className = 'message-content';
                 content.innerHTML = message.content;
+                
+                // Add sub-agent orchestration info if present
+                if (message.content.includes('Sub-Agent Orchestration')) {
+                    const subAgentInfo = document.createElement('div');
+                    subAgentInfo.className = 'sub-agent-info';
+                    subAgentInfo.innerHTML = '🤖 <strong>Sub-Agent Decision Made</strong> - Check the orchestration details above!';
+                    content.appendChild(subAgentInfo);
+                }
                 
                 const modelInfo = document.createElement('div');
                 modelInfo.className = 'model-info';
@@ -683,23 +977,37 @@ function getChatWebviewContent(llmSystem: LLMCollaborationSystem): string {
             // Update chat history
             function updateChatHistory(history) {
                 messagesContainer.innerHTML = '';
-                
-                // Add system welcome message
-                const welcomeDiv = document.createElement('div');
-                welcomeDiv.className = 'message system';
-                welcomeDiv.innerHTML = \`
-                    <div class="message-header">System</div>
-                    <div class="message-content">
-                        Welcome to your AI collaboration workspace! I'll automatically select the best AI model for each task and provide cost analysis. 
-                        Start typing to begin our conversation.
-                    </div>
-                \`;
-                messagesContainer.appendChild(welcomeDiv);
+                addSystemWelcomeMessage();
                 
                 // Add existing messages
                 history.forEach(message => {
                     addMessageToChat(message);
                 });
+            }
+            
+            function addSystemWelcomeMessage() {
+                const welcomeDiv = document.createElement('div');
+                welcomeDiv.className = 'message system';
+                welcomeDiv.innerHTML = \`
+                    <div class="message-header">System</div>
+                    <div class="message-content">
+                        🎯 **Workspace-Grounded AI Collaboration Ready!**\n\n
+                        I've analyzed your workspace: **\${workspaceContext.workspace.name}** (\${workspaceContext.workspace.fileCount} files, \${workspaceContext.projectType} project)\n\n
+                        **Available Sub-Agents:**\n
+                        • 🧠 **Captain Picard** - Strategic Planning & Architecture\n
+                        • 🔍 **Commander Data** - Complex Analysis & Research\n
+                        • ⚡ **Commander Riker** - Tactical Execution & Implementation\n
+                        • ⚙️ **Lieutenant Commander Geordi** - Engineering Optimization\n
+                        • 💝 **Counselor Troi** - Emotional Intelligence & Team Dynamics\n\n
+                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task!
+                    </div>
+                \`;
+                messagesContainer.appendChild(welcomeDiv);
+            }
+            
+            function updateWorkspaceContextDisplay(context) {
+                // Update workspace context display if needed
+                console.log('Workspace context updated:', context);
             }
         </script>
     </body>
