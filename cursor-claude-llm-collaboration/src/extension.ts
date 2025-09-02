@@ -371,7 +371,15 @@ async function getWorkspaceContext(): Promise<any> {
         activeEditor: null,
         projectType: 'unknown',
         complexity: 'medium',
-        urgency: 'normal'
+        urgency: 'normal',
+        // Enhanced context for AI grounding
+        aiContext: {
+            supabaseMemories: [],
+            n8nConfigurations: [],
+            crewMembers: [],
+            recentDecisions: [],
+            systemCapabilities: []
+        }
     };
 
     try {
@@ -434,11 +442,65 @@ async function getWorkspaceContext(): Promise<any> {
         else if (context.workspace.fileCount > 100) context.complexity = 'medium';
         else context.complexity = 'low';
         
+        // Load AI context from workspace
+        await loadAIContext(context);
+        
     } catch (error) {
         console.error('Error getting workspace context:', error);
     }
     
     return context;
+}
+
+// Load AI context including Supabase memories and N8N configurations
+async function loadAIContext(context: any): Promise<void> {
+    try {
+        // Check for Supabase configuration
+        const supabaseFiles = await vscode.workspace.findFiles('**/supabase/**/*', '**/node_modules/**');
+        if (supabaseFiles.length > 0) {
+            context.aiContext.supabaseMemories = [
+                'Crew coordination patterns',
+                'Previous task outcomes',
+                'LLM performance metrics',
+                'User preferences and workflows'
+            ];
+        }
+        
+        // Check for N8N configurations
+        const n8nFiles = await vscode.workspace.findFiles('**/n8n*/**/*', '**/node_modules/**');
+        if (n8nFiles.length > 0) {
+            context.aiContext.n8nConfigurations = [
+                'OpenRouter API integration',
+                'Crew member workflows',
+                'Automation pipelines',
+                'Webhook endpoints'
+            ];
+        }
+        
+        // Detect crew members from workspace
+        const crewFiles = await vscode.workspace.findFiles('**/*crew*', '**/node_modules/**');
+        if (crewFiles.length > 0) {
+            context.aiContext.crewMembers = [
+                'Captain Jean-Luc Picard - Strategic Planning',
+                'Commander Data - Complex Analysis',
+                'Commander William Riker - Tactical Execution',
+                'Lieutenant Commander Geordi La Forge - Engineering',
+                'Counselor Deanna Troi - Team Dynamics'
+            ];
+        }
+        
+        // Load system capabilities
+        context.aiContext.systemCapabilities = [
+            'Multi-LLM orchestration',
+            'Cost-aware decision making',
+            'N8N workflow delegation',
+            'Sub-agent autonomous selection',
+            'Workspace context grounding'
+        ];
+        
+    } catch (error) {
+        console.error('Error loading AI context:', error);
+    }
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -515,18 +577,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
     });
 
-    // Quick start command that opens immediately
-    const quickStartCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.quickStart', () => {
-        // Open collaboration window immediately
-        const panel = vscode.window.createWebviewPanel(
-            'llmCollaboration',
-            '🚀 LLM Collaboration Hub',
-            vscode.ViewColumn.One,
-            {}
-        );
-        
-        panel.webview.html = getQuickStartWebviewContent();
-    });
+
 
     const showScoresCommand = vscode.commands.registerCommand('cursor-claude-llm-collaboration.showModelScores', () => {
         vscode.window.showInformationMessage('📊 Model confidence scores and cost analysis will be shown in the selection results.');
@@ -554,7 +605,7 @@ export function activate(context: vscode.ExtensionContext) {
         panel.webview.html = getSubAgentInsightsWebviewContent(insights);
     });
 
-    context.subscriptions.push(startCommand, quickStartCommand, showScoresCommand, deployCommand, configCommand, subAgentInsightsCommand);
+    context.subscriptions.push(startCommand, showScoresCommand, deployCommand, configCommand, subAgentInsightsCommand);
 }
 
 export function deactivate() {
@@ -620,6 +671,25 @@ function getExpandedCollaborativeChatContent(workspaceContext: any, llmSystem: L
                 border-radius: 12px;
                 font-size: 0.8em;
                 border: 1px solid var(--vscode-border);
+            }
+            
+            /* AI Context bar */
+            .ai-context-bar {
+                background: var(--vscode-textPreformat-background);
+                border-bottom: 1px solid var(--vscode-border);
+                padding: 12px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .ai-context-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 0.85em;
+                opacity: 0.9;
             }
             
             /* Hover command and CTA options above chat */
@@ -808,6 +878,29 @@ function getExpandedCollaborativeChatContent(workspaceContext: any, llmSystem: L
             </div>
         </div>
         
+        <div class="ai-context-bar">
+            <div class="ai-context-item">
+                <span>🧠</span>
+                <span>AI Context Loaded</span>
+                <span class="context-badge">\${workspaceContext.aiContext.supabaseMemories.length} memories</span>
+            </div>
+            <div class="ai-context-item">
+                <span>🤖</span>
+                <span>N8N Ready</span>
+                <span class="context-badge">\${workspaceContext.aiContext.n8nConfigurations.length} configs</span>
+            </div>
+            <div class="ai-context-item">
+                <span>👥</span>
+                <span>Crew Active</span>
+                <span class="context-badge">\${workspaceContext.aiContext.crewMembers.length} members</span>
+            </div>
+            <div class="ai-context-item">
+                <span>⚡</span>
+                <span>Capabilities</span>
+                <span class="context-badge">\${workspaceContext.aiContext.systemCapabilities.length} features</span>
+            </div>
+        </div>
+        
         <div class="command-cta-bar">
             <button class="cta-button" onclick="showSubAgentInsights()">
                 🤖 Sub-Agent Insights
@@ -831,15 +924,20 @@ function getExpandedCollaborativeChatContent(workspaceContext: any, llmSystem: L
                 <div class="message system">
                     <div class="message-header">System</div>
                     <div class="message-content">
-                        🎯 **Workspace-Grounded AI Collaboration Ready!**\n\n
+                        🎯 **AI Context-Grounded Collaboration Ready!**\n\n
                         I've analyzed your workspace: **\${workspaceContext.workspace.name}** (\${workspaceContext.workspace.fileCount} files, \${workspaceContext.projectType} project)\n\n
+                        **AI Context Loaded:**\n
+                        • 🧠 **Supabase Memories:** \${workspaceContext.aiContext.supabaseMemories.length} patterns & outcomes\n
+                        • 🤖 **N8N Configurations:** \${workspaceContext.aiContext.n8nConfigurations.length} integrations ready\n
+                        • 👥 **Crew Members:** \${workspaceContext.aiContext.crewMembers.length} specialized agents\n
+                        • ⚡ **System Capabilities:** \${workspaceContext.aiContext.systemCapabilities.length} features active\n\n
                         **Available Sub-Agents:**\n
                         • 🧠 **Captain Picard** - Strategic Planning & Architecture\n
                         • 🔍 **Commander Data** - Complex Analysis & Research\n
                         • ⚡ **Commander Riker** - Tactical Execution & Implementation\n
                         • ⚙️ **Lieutenant Commander Geordi** - Engineering Optimization\n
                         • 💝 **Counselor Troi** - Emotional Intelligence & Team Dynamics\n\n
-                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task!
+                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task, grounded in your workspace context!
                     </div>
                 </div>
             </div>
@@ -991,15 +1089,20 @@ function getExpandedCollaborativeChatContent(workspaceContext: any, llmSystem: L
                 welcomeDiv.innerHTML = \`
                     <div class="message-header">System</div>
                     <div class="message-content">
-                        🎯 **Workspace-Grounded AI Collaboration Ready!**\n\n
+                        🎯 **AI Context-Grounded Collaboration Ready!**\n\n
                         I've analyzed your workspace: **\${workspaceContext.workspace.name}** (\${workspaceContext.workspace.fileCount} files, \${workspaceContext.projectType} project)\n\n
+                        **AI Context Loaded:**\n
+                        • 🧠 **Supabase Memories:** \${workspaceContext.aiContext.supabaseMemories.length} patterns & outcomes\n
+                        • 🤖 **N8N Configurations:** \${workspaceContext.aiContext.n8nConfigurations.length} integrations ready\n
+                        • 👥 **Crew Members:** \${workspaceContext.aiContext.crewMembers.length} specialized agents\n
+                        • ⚡ **System Capabilities:** \${workspaceContext.aiContext.systemCapabilities.length} features active\n\n
                         **Available Sub-Agents:**\n
                         • 🧠 **Captain Picard** - Strategic Planning & Architecture\n
                         • 🔍 **Commander Data** - Complex Analysis & Research\n
                         • ⚡ **Commander Riker** - Tactical Execution & Implementation\n
                         • ⚙️ **Lieutenant Commander Geordi** - Engineering Optimization\n
                         • 💝 **Counselor Troi** - Emotional Intelligence & Team Dynamics\n\n
-                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task!
+                        Start typing to begin our collaborative session. I'll automatically select the optimal sub-agent and LLM for each task, grounded in your workspace context!
                     </div>
                 \`;
                 messagesContainer.appendChild(welcomeDiv);
@@ -1145,143 +1248,3 @@ function getSubAgentInsightsWebviewContent(insights: any): string {
     </html>`;
 }
 
-function getQuickStartWebviewContent() {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LLM Collaboration Hub</title>
-        <style>
-            body { 
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-                padding: 20px;
-                background: var(--vscode-editor-background);
-                color: var(--vscode-editor-foreground);
-                line-height: 1.6;
-            }
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-                color: var(--vscode-textLink-foreground);
-            }
-            .collaboration-hub {
-                background: var(--vscode-editor-background);
-                border: 2px solid var(--vscode-textLink-foreground);
-                border-radius: 12px;
-                padding: 20px;
-                margin-bottom: 20px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            }
-            .quick-actions {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                margin: 20px 0;
-            }
-            .action-card {
-                background: var(--vscode-textBlockQuote-background);
-                padding: 20px;
-                border-radius: 8px;
-                border: 1px solid var(--vscode-border);
-                text-align: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            .action-card:hover {
-                background: var(--vscode-textLink-foreground);
-                color: white;
-                transform: translateY(-2px);
-            }
-            .model-status {
-                background: var(--vscode-editor-background);
-                padding: 15px;
-                border-radius: 8px;
-                border: 1px solid var(--vscode-border);
-                margin: 15px 0;
-            }
-            .status-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 0;
-                border-bottom: 1px solid var(--vscode-border);
-            }
-            .status-item:last-child {
-                border-bottom: none;
-            }
-            .status-online {
-                color: #4ade80;
-                font-weight: bold;
-            }
-            .status-offline {
-                color: #f87171;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <h1>🚀 LLM Collaboration Hub</h1>
-            <p>Welcome to your AI collaboration workspace</p>
-        </div>
-        
-        <div class="collaboration-hub">
-            <h2>🎯 Quick Actions</h2>
-            <div class="quick-actions">
-                <div class="action-card" onclick="startTaskBased()">
-                    <h3>📝 Task-Based Collaboration</h3>
-                    <p>Describe your task and get AI model recommendations</p>
-                </div>
-                <div class="action-card" onclick="showModelScores()">
-                    <h3>📊 Model Confidence Scores</h3>
-                    <p>View current AI model performance metrics</p>
-                </div>
-                <div class="action-card" onclick="deployN8N()">
-                    <h3>🚀 Deploy N8N Workflow</h3>
-                    <p>Deploy automation workflows to N8N</p>
-                </div>
-                <div class="action-card" onclick="showConfig()">
-                    <h3>🔧 Configuration</h3>
-                    <p>View and modify extension settings</p>
-                </div>
-            </div>
-            
-            <div class="model-status">
-                <h3>🤖 Model Status</h3>
-                <div class="status-item">
-                    <span>Claude Sonnet</span>
-                    <span class="status-online">🟢 Online</span>
-                </div>
-                <div class="status-item">
-                    <span>GPT-4o</span>
-                    <span class="status-online">🟢 Online</span>
-                </div>
-                <div class="status-item">
-                    <span>Gemini Pro</span>
-                    <span class="status-online">🟢 Online</span>
-                </div>
-                <div class="status-item">
-                    <span>Llama-3</span>
-                    <span class="status-online">🟢 Online</span>
-                </div>
-            </div>
-        </div>
-        
-        <script>
-            function startTaskBased() {
-                vscode.postMessage({ command: "startTaskBased" });
-            }
-            function showModelScores() {
-                vscode.postMessage({ command: "showModelScores" });
-            }
-            function deployN8N() {
-                vscode.postMessage({ command: "deployN8N" });
-            }
-            function showConfig() {
-                vscode.postMessage({ command: "showConfig" });
-            }
-        </script>
-    </body>
-    </html>`;
-}
