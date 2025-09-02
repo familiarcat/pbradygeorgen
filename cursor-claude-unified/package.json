@@ -1,7 +1,7 @@
 {
   "name": "cursor-claude-unified",
-  "displayName": "Cursor-Claude Unified Chat",
-  "description": "Revolutionary AI collaboration with democratic selection and cross-referencing",
+  "displayName": "🚀 Cursor-Claude Unified",
+  "description": "Extend Cursor's native AI capabilities with enhanced file analysis, code generation, and multi-AI collaboration",
   "version": "2.0.0",
   "publisher": "pbradygeorgen",
   "repository": {
@@ -13,43 +13,136 @@
   },
   "categories": [
     "Other",
-    "Machine Learning"
+    "Machine Learning",
+    "AI",
+    "Programming Languages"
   ],
   "keywords": [
-    "ai",
-    "claude",
     "cursor",
-    "collaboration",
-    "democratic",
-    "chat"
+    "claude",
+    "ai",
+    "chat",
+    "code generation",
+    "file analysis",
+    "ai collaboration",
+    "enhanced chat",
+    "llm optimization",
+    "n8n integration"
   ],
   "activationEvents": [
-    "onCommand:cursor-claude.startUnifiedChat"
+    "onCommand:cursor-claude.extendChat",
+    "onCommand:cursor-claude.analyzeFile",
+    "onCommand:cursor-claude.generateCode",
+    "onCommand:cursor-claude.enhancedChatWebview",
+    "onCommand:cursor-claude.aiCollaboration",
+    "onCommand:cursor-claude.addFileContext",
+    "onCommand:cursor-claude.workspaceAnalysis",
+    "onCommand:cursor-claude.performanceMetrics",
+    "onCommand:cursor-claude.llmOptimization"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "cursor-claude.startUnifiedChat",
-        "title": "🚀 Start Unified AI Chat",
-        "category": "Claude-Cursor"
+        "command": "cursor-claude.extendChat",
+        "title": "🚀 Extend Cursor Chat",
+        "category": "Cursor-Claude",
+        "description": "Extend Cursor's native chat with enhanced AI capabilities"
       },
       {
-        "command": "cursor-claude.democraticSelection",
-        "title": "🗳️ Democratic AI Selection",
-        "category": "Claude-Cursor"
+        "command": "cursor-claude.analyzeFile",
+        "title": "📊 Analyze Current File",
+        "category": "Cursor-Claude",
+        "description": "Analyze current file for enhanced context and insights"
       },
       {
-        "command": "cursor-claude.showConfidenceScores",
-        "title": "📊 Show AI Confidence Scores",
-        "category": "Claude-Cursor"
+        "command": "cursor-claude.generateCode",
+        "title": "💻 Generate Code",
+        "category": "Cursor-Claude",
+        "description": "Generate code using enhanced AI capabilities"
+      },
+      {
+        "command": "cursor-claude.enhancedChatWebview",
+        "title": "🎯 Open Enhanced Chat",
+        "category": "Cursor-Claude",
+        "description": "Open enhanced AI chat interface with advanced features"
+      },
+      {
+        "command": "cursor-claude.aiCollaboration",
+        "title": "🤖 AI Collaboration",
+        "category": "Cursor-Claude",
+        "description": "Collaborate with multiple AI systems for complex tasks"
+      },
+      {
+        "command": "cursor-claude.addFileContext",
+        "title": "📁 Add File Context",
+        "category": "Cursor-Claude",
+        "description": "Add file context to enhance AI understanding"
+      },
+      {
+        "command": "cursor-claude.workspaceAnalysis",
+        "title": "🏢 Workspace Analysis",
+        "category": "Cursor-Claude",
+        "description": "Analyze workspace structure and dependencies"
+      },
+      {
+        "command": "cursor-claude.performanceMetrics",
+        "title": "📊 Performance Metrics",
+        "category": "Cursor-Claude",
+        "description": "View extension performance metrics and status"
+      },
+      {
+        "command": "cursor-claude.llmOptimization",
+        "title": "🚀 LLM Optimization",
+        "category": "Cursor-Claude",
+        "description": "View LLM model selection optimization and N8N synchronization insights"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "cursor-claude.extendChat",
+          "when": "true"
+        },
+        {
+          "command": "cursor-claude.analyzeFile",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "cursor-claude.generateCode",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "cursor-claude.enhancedChatWebview",
+          "when": "true"
+        },
+        {
+          "command": "cursor-claude.aiCollaboration",
+          "when": "true"
+        },
+        {
+          "command": "cursor-claude.llmOptimization",
+          "when": "true"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "cursor-claude.analyzeFile",
+          "when": "editorTextFocus",
+          "group": "1_modification"
+        },
+        {
+          "command": "cursor-claude.generateCode",
+          "when": "editorTextFocus",
+          "group": "1_modification"
+        }
+      ]
+    },
     "views": {
       "explorer": [
         {
-          "id": "unified-ai-chat",
-          "name": "🤖 Unified AI Chat",
+          "id": "cursor-claude-status",
+          "name": "🚀 Cursor-Claude Status",
           "when": "true"
         }
       ]
@@ -58,8 +151,8 @@
       "activitybar": [
         {
           "id": "cursor-claude-unified",
-          "title": "Claude-Cursor Unified",
-          "icon": "$(comment-discussion)"
+          "title": "Cursor-Claude",
+          "icon": "$(rocket)"
         }
       ]
     },
@@ -69,22 +162,37 @@
         "cursor-claude.autoStart": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically start unified chat on startup"
+          "description": "Automatically start enhanced features on startup"
         },
-        "cursor-claude.democraticMode": {
+        "cursor-claude.fileAnalysis": {
           "type": "boolean",
           "default": true,
-          "description": "Enable democratic AI selection"
+          "description": "Enable enhanced file analysis capabilities"
         },
-        "cursor-claude.showConfidenceScores": {
+        "cursor-claude.codeGeneration": {
           "type": "boolean",
           "default": true,
-          "description": "Display AI confidence scores in chat"
+          "description": "Enable AI-powered code generation"
         },
-        "cursor-claude.maxCostPerQuery": {
-          "type": "number",
-          "default": 0.05,
-          "description": "Maximum cost per query in USD"
+        "cursor-claude.aiCollaboration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable multi-AI collaboration features"
+        },
+        "cursor-claude.performanceMonitoring": {
+          "type": "boolean",
+          "default": true,
+          "description": "Monitor and display performance metrics"
+        },
+        "cursor-claude.llmOptimization": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable intelligent LLM model selection and optimization"
+        },
+        "cursor-claude.n8nIntegration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable N8N workflow integration and sub-agent synchronization"
         }
       }
     }
@@ -99,13 +207,11 @@
   },
   "devDependencies": {
     "@types/node": "16.x",
-    "@types/uuid": "^10.0.0",
     "@types/vscode": "^1.80.0",
     "typescript": "^5.0.0",
     "@vscode/vsce": "^3.0.0"
   },
   "dependencies": {
-    "axios": "^1.5.0",
-    "uuid": "^9.0.0"
+    "axios": "^1.5.0"
   }
 }
