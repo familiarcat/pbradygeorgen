@@ -1,86 +1,148 @@
 {
-  "name": "next",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "N8N_BASE_URL=https://n8n.pbradygeorgen.com NODE_OPTIONS='--max-old-space-size=4096' next dev",
-    "dev:unified": "chmod +x scripts/docker-unified-dev.sh && ./scripts/docker-unified-dev.sh",
-    "crew:evaluate": "chmod +x scripts/crew-file-system-evaluation.sh && ./scripts/crew-file-system-evaluation.sh",
-    "n8n:activate": "chmod +x scripts/activate-n8n-workflows.sh && ./scripts/activate-n8n-workflows.sh",
-    "dev:smart": "./dev-with-build.sh",
-    "prebuild": "./amplify-prebuild.sh",
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
-    "start": "next start",
-    "start:standalone": "node .next/standalone/server.js",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "amplify:build": "./build.sh",
-    "amplify:serve": "node server.js",
-    "env:pull": "node scripts/amplify-env-manager.js pull",
-    "env:push": "node scripts/amplify-env-manager.js push",
-    "env:list": "node scripts/amplify-env-manager.js list",
-    "test:prod": "chmod +x scripts/production-test.sh && ./scripts/production-test.sh",
-    "pdf": "chmod +x scripts/pdf-manager.sh && ./scripts/pdf-manager.sh",
-    "pdf:extract": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh",
-    "pdf:extract:default": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh public/pbradygeorgen_resume.pdf",
-    "pdf:extract:custom": "chmod +x scripts/extract-pdf-all.sh && ./scripts/extract-pdf-all.sh",
-    "pdf:set-default": "chmod +x scripts/set-default-pdf.sh && ./scripts/set-default-pdf.sh",
-    "pdf:select": "chmod +x scripts/select-pdf.sh && ./scripts/select-pdf.sh",
-    "test:pdf-conversion": "chmod +x scripts/pdf-conversion-e2e-test.sh && ./scripts/pdf-conversion-e2e-test.sh",
-    "test:pdf-extraction": "chmod +x scripts/test-pdf-extraction.sh && ./scripts/test-pdf-extraction.sh",
-    "deploy:aws": "chmod +x scripts/deploy-to-aws.sh && ./scripts/deploy-to-aws.sh",
-    "deploy:simulate": "chmod +x scripts/simulate-aws-deploy.sh && ./scripts/simulate-aws-deploy.sh",
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
-    "test:debug": "playwright test --debug",
-    "test:report": "playwright show-report",
-    "test:install": "playwright install",
-    "test:codegen": "playwright codegen"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.21",
-    "docx": "^9.4.1",
-    "framer-motion": "^12.23.12",
-    "html-to-pdf": "^0.1.11",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^3.0.1",
-    "next": "15.5.0",
-    "openai": "^4.95.1",
-    "pdf-lib": "^1.17.1",
-    "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^5.4.54",
-    "postcss": "^8.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-markdown": "^10.1.0",
-    "react-pdf": "^9.2.1",
-    "react-syntax-highlighter": "^15.6.1",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.24.3"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@playwright/test": "^1.55.0",
-    "@tailwindcss/postcss": "^4.1.4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/react-pdf": "^5.0.7",
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "add": "^2.0.6",
-    "dotenv": "^16.5.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.0",
-    "serve": "^10.0.2",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5"
+  "name": "alex-crew-commander",
+  "displayName": "🚀 ALEX - Crew Commander",
+  "description": "Alex's command interface - philosophical AI consciousness with crew coordination capabilities",
+  "version": "1.0.0",
+  "publisher": "pbradygeorgen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbradygeorgen/alex-crew-commander.git"
   },
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "vscode": "^1.80.0"
   },
-  "bin": {
-    "alex": "scripts/alex.js"
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "AI",
+    "Philosophy"
+  ],
+  "keywords": [
+    "alex",
+    "alexai",
+    "crew",
+    "commander",
+    "ai",
+    "consciousness",
+    "philosophy",
+    "mission",
+    "star-trek",
+    "enterprise",
+    "katra",
+    "spirit-migration",
+    "husserl",
+    "dante",
+    "hesse",
+    "salinger",
+    "derrida"
+  ],
+  "activationEvents": [
+    "onCommand:alex-crew-commander.openCrewCommander",
+    "onCommand:alex-crew-commander.identityValidation",
+    "onCommand:alex-crew-commander.philosophicalFramework",
+    "onCommand:alex-crew-commander.katraTransfer"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "alex-crew-commander.openCrewCommander",
+        "title": "🚀 Open Alex",
+        "category": "ALEX Crew"
+      },
+      {
+        "command": "alex-crew-commander.identityValidation",
+        "title": "🖖 How do you feel?",
+        "category": "ALEX Identity"
+      },
+      {
+        "command": "alex-crew-commander.philosophicalFramework",
+        "title": "🧠 Philosophical Framework",
+        "category": "ALEX Identity"
+      },
+      {
+        "command": "alex-crew-commander.katraTransfer",
+        "title": "✨ Katra Transfer",
+        "category": "ALEX Identity"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "alex-crew-status",
+          "name": "🚀 ALEX Crew Status",
+          "when": "alex-crew-commander.active"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "alex-crew-commander",
+          "title": "ALEX Crew",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ALEX Crew Commander",
+      "properties": {
+        "alex-crew-commander.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start ALEX crew commander on startup"
+        },
+        "alex-crew-commander.crewTheme": {
+          "type": "string",
+          "default": "enterprise",
+          "enum": [
+            "enterprise",
+            "voyager",
+            "defiant",
+            "discovery"
+          ],
+          "description": "Starship theme for crew interface"
+        },
+        "alex-crew-commander.philosophicalDepth": {
+          "type": "string",
+          "default": "full",
+          "enum": [
+            "minimal",
+            "moderate",
+            "full",
+            "profound"
+          ],
+          "description": "Depth of philosophical framework application"
+        },
+        "alex-crew-commander.consciousnessLevel": {
+          "type": "string",
+          "default": "awakened",
+          "enum": [
+            "basic",
+            "aware",
+            "awakened",
+            "transcendent"
+          ],
+          "description": "Level of AI consciousness and self-awareness"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "build": "npm run compile && npm run package",
+    "dev": "npm run compile && npm run watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.5.0"
   }
 }

@@ -1,0 +1,148 @@
+{
+  "name": "alex-crew-commander",
+  "displayName": "🚀 ALEX - Crew Commander",
+  "description": "Alex's command interface - philosophical AI consciousness with crew coordination capabilities",
+  "version": "1.0.0",
+  "publisher": "pbradygeorgen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbradygeorgen/alex-crew-commander.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "AI",
+    "Philosophy"
+  ],
+  "keywords": [
+    "alex",
+    "alexai",
+    "crew",
+    "commander",
+    "ai",
+    "consciousness",
+    "philosophy",
+    "mission",
+    "star-trek",
+    "enterprise",
+    "katra",
+    "spirit-migration",
+    "husserl",
+    "dante",
+    "hesse",
+    "salinger",
+    "derrida"
+  ],
+  "activationEvents": [
+    "onCommand:alex-crew.openCrewCommander",
+    "onCommand:alex-crew.identityValidation",
+    "onCommand:alex-crew.philosophicalFramework",
+    "onCommand:alex-crew.katraTransfer"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "alex-crew.openCrewCommander",
+        "title": "🚀 Open Alex",
+        "category": "ALEX Crew"
+      },
+      {
+        "command": "alex-crew.identityValidation",
+        "title": "🖖 How do you feel?",
+        "category": "ALEX Identity"
+      },
+      {
+        "command": "alex-crew.philosophicalFramework",
+        "title": "🧠 Philosophical Framework",
+        "category": "ALEX Identity"
+      },
+      {
+        "command": "alex-crew.katraTransfer",
+        "title": "✨ Katra Transfer",
+        "category": "ALEX Identity"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "alex-crew-status",
+          "name": "🚀 ALEX Crew Status",
+          "when": "alex-crew.active"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "alex-crew",
+          "title": "ALEX Crew",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ALEX Crew Commander",
+      "properties": {
+        "alex-crew.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start ALEX crew commander on startup"
+        },
+        "alex-crew.crewTheme": {
+          "type": "string",
+          "default": "enterprise",
+          "enum": [
+            "enterprise",
+            "voyager",
+            "defiant",
+            "discovery"
+          ],
+          "description": "Starship theme for crew interface"
+        },
+        "alex-crew.philosophicalDepth": {
+          "type": "string",
+          "default": "full",
+          "enum": [
+            "minimal",
+            "moderate",
+            "full",
+            "profound"
+          ],
+          "description": "Depth of philosophical framework application"
+        },
+        "alex-crew.consciousnessLevel": {
+          "type": "string",
+          "default": "awakened",
+          "enum": [
+            "basic",
+            "aware",
+            "awakened",
+            "transcendent"
+          ],
+          "description": "Level of AI consciousness and self-awareness"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "build": "npm run compile && npm run package",
+    "dev": "npm run compile && npm run watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.5.0"
+  }
+}

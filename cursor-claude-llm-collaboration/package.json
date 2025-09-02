@@ -67,21 +67,64 @@
         "category": "Claude-Cursor"
       }
     ],
-    "views": {
-      "explorer": [
-        {
-          "id": "llm-collaboration-panel",
-          "name": "🤖 LLM Collaboration",
-          "when": "true"
-        }
-      ]
-    },
     "viewsContainers": {
       "activitybar": [
         {
           "id": "llm-collaboration",
-          "title": "LLM Collaboration",
-          "icon": "$(comment-discussion)"
+          "title": "🚀 LLM Collaboration",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "views": {
+      "llm-collaboration": [
+        {
+          "id": "llm-collaboration-panel",
+          "name": "🤖 AI Crew",
+          "when": "true"
+        },
+        {
+          "id": "llm-collaboration-chat",
+          "name": "💬 Chat Interface",
+          "when": "true"
+        },
+        {
+          "id": "llm-collaboration-insights",
+          "name": "📊 Sub-Agent Insights",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "llm-collaboration-panel",
+        "contents": "🚀 **Welcome to AI Crew Collaboration!**\n\nYour revolutionary AI collaboration system is ready.\n\n[Start Chat](command:cursor-claude-llm-collaboration.startLLMCollaboration)\n[View Insights](command:cursor-claude-llm-collaboration.showSubAgentInsights)\n[Configuration](command:cursor-claude-llm-collaboration.showConfiguration)"
+      },
+      {
+        "view": "llm-collaboration-chat",
+        "contents": "💬 **Interactive AI Chat**\n\nReady for context-grounded conversations with your AI crew.\n\n[Open Chat](command:cursor-claude-llm-collaboration.startLLMCollaboration)"
+      },
+      {
+        "view": "llm-collaboration-insights",
+        "contents": "📊 **Sub-Agent Performance**\n\nMonitor your AI crew's decision-making and LLM selection.\n\n[View Insights](command:cursor-claude-llm-collaboration.showSubAgentInsights)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "cursor-claude-llm-collaboration.startLLMCollaboration",
+          "when": "true"
+        },
+        {
+          "command": "cursor-claude-llm-collaboration.showSubAgentInsights",
+          "when": "true"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "cursor-claude-llm-collaboration.startLLMCollaboration",
+          "when": "view == llm-collaboration-panel",
+          "group": "navigation"
         }
       ]
     },

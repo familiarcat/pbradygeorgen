@@ -1,0 +1,111 @@
+{
+  "name": "cursor-claude-unified",
+  "displayName": "Cursor-Claude Unified Chat",
+  "description": "Revolutionary AI collaboration with democratic selection and cross-referencing",
+  "version": "2.0.0",
+  "publisher": "pbradygeorgen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbradygeorgen/cursor-claude-unified.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "ai",
+    "claude",
+    "cursor",
+    "collaboration",
+    "democratic",
+    "chat"
+  ],
+  "activationEvents": [
+    "onCommand:cursor-claude.startUnifiedChat"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cursor-claude.startUnifiedChat",
+        "title": "🚀 Start Unified AI Chat",
+        "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.democraticSelection",
+        "title": "🗳️ Democratic AI Selection",
+        "category": "Claude-Cursor"
+      },
+      {
+        "command": "cursor-claude.showConfidenceScores",
+        "title": "📊 Show AI Confidence Scores",
+        "category": "Claude-Cursor"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "unified-ai-chat",
+          "name": "🤖 Unified AI Chat",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cursor-claude-unified",
+          "title": "Claude-Cursor Unified",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Cursor-Claude Unified",
+      "properties": {
+        "cursor-claude.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start unified chat on startup"
+        },
+        "cursor-claude.democraticMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable democratic AI selection"
+        },
+        "cursor-claude.showConfidenceScores": {
+          "type": "boolean",
+          "default": true,
+          "description": "Display AI confidence scores in chat"
+        },
+        "cursor-claude.maxCostPerQuery": {
+          "type": "number",
+          "default": 0.05,
+          "description": "Maximum cost per query in USD"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "build": "npm run compile && npm run package",
+    "dev": "npm run compile && npm run watch"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/uuid": "^10.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "uuid": "^9.0.0"
+  }
+}

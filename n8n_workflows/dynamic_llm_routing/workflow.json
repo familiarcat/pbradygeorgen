@@ -1,0 +1,158 @@
+{
+    "name": "Dynamic LLM Router - Claude Code Integration",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "dynamic-llm-router",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "id": "webhook-trigger",
+            "name": "Webhook Trigger",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                240,
+                300
+            ],
+            "webhookId": "dynamic-llm-router-webhook"
+        },
+        {
+            "parameters": {
+                "jsCode": "// Extract and validate input data\nconst inputData = $input.all()[0].json;\n\n// Validate required fields\nif (!inputData.task_description) {\n  throw new Error('task_description is required');\n}\n\n// Set default values\nconst context = inputData.context || {};\nconst budgetConstraints = inputData.budget_constraints || { max_cost: 0.10 };\n\n// Prepare data for Python node\nreturn {\n  task_description: inputData.task_description,\n  context: context,\n  budget_constraints: budgetConstraints,\n  timestamp: new Date().toISOString(),\n  request_id: $node[\"webhook-trigger\"].json.request_id || Date.now().toString()\n};"
+            },
+            "id": "input-validator",
+            "name": "Input Validator",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                460,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "command": "python3",
+                "arguments": "llm_router.py",
+                "options": {}
+            },
+            "id": "python-llm-router",
+            "name": "Python LLM Router",
+            "type": "n8n-nodes-base.executeCommand",
+            "typeVersion": 1,
+            "position": [
+                680,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Process the Python node output\nconst pythonOutput = $input.all()[0].json;\n\n// Check if Python execution was successful\nif (pythonOutput.error) {\n  return {\n    success: false,\n    error: pythonOutput.error,\n    timestamp: new Date().toISOString()\n  };\n}\n\n// Extract the routing result\nconst routingResult = JSON.parse(pythonOutput.stdout || '{}');\n\n// Format the response for the user\nif (routingResult.success) {\n  return {\n    success: true,\n    routing_summary: {\n      task_type: routingResult.routing_summary.task_type,\n      complexity: routingResult.routing_summary.complexity,\n      selected_model: routingResult.routing_summary.selected_model,\n      reasoning: routingResult.routing_summary.reasoning,\n      total_cost: routingResult.routing_summary.total_cost\n    },\n    ai_response: routingResult.execution_result.response,\n    model_used: routingResult.execution_result.model_used,\n    alternatives: routingResult.llm_selection.alternatives,\n    timestamp: new Date().toISOString()\n  };\n} else {\n  return {\n    success: false,\n    error: routingResult.error || 'Unknown error occurred',\n    timestamp: new Date().toISOString()\n  };\n}"
+            },
+            "id": "response-formatter",
+            "name": "Response Formatter",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                900,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ $json }}",
+                "options": {}
+            },
+            "id": "webhook-response",
+            "name": "Webhook Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1120,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Log the routing decision for monitoring\nconst routingData = $input.all()[0].json;\n\nif (routingData.success) {\n  console.log(`✅ Dynamic LLM Routing Success:`);\n  console.log(`   Task Type: ${routingData.routing_summary.task_type}`);\n  console.log(`   Complexity: ${routingData.routing_summary.complexity}`);\n  console.log(`   Selected Model: ${routingData.routing_summary.selected_model}`);\n  console.log(`   Cost: $${routingData.routing_summary.total_cost}`);\n  console.log(`   Reasoning: ${routingData.routing_summary.reasoning}`);\n} else {\n  console.error(`❌ Dynamic LLM Routing Failed: ${routingData.error}`);\n}\n\n// Pass through the data\nreturn routingData;"
+            },
+            "id": "logging-node",
+            "name": "Logging & Monitoring",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                900,
+                500
+            ]
+        }
+    ],
+    "connections": {
+        "webhook-trigger": {
+            "main": [
+                [
+                    {
+                        "node": "input-validator",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "input-validator": {
+            "main": [
+                [
+                    {
+                        "node": "python-llm-router",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "python-llm-router": {
+            "main": [
+                [
+                    {
+                        "node": "response-formatter",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "response-formatter": {
+            "main": [
+                [
+                    {
+                        "node": "webhook-response",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "logging-node",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "versionId": "1.0.0",
+    "meta": {
+        "instanceId": "claude-code-integration-dynamic-llm-router"
+    },
+    "tags": [
+        "claude",
+        "llm-routing",
+        "openrouter",
+        "ai-integration"
+    ]
+}

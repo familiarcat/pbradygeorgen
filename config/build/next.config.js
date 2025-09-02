@@ -1,28 +1,12 @@
-/** @type {import('next').NextConfig} */
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const nextConfig = {
-  // Webpack configuration
-  webpack: (config) => {
-    // Ignore canvas dependency
-    config.resolve.alias.canvas = false;
-
-    // Ignore express dependency in dante-logger
-    config.resolve.alias.express = false;
-
-    return config;
-  },
-  // React strict mode
-  reactStrictMode: true,
-  // ESLint configuration
-  eslint: {
-    // Ignore ESLint errors during builds to prevent blocking deployment
-    ignoreDuringBuilds: true,
-    dirs: ['pages', 'components', 'app', 'utils', 'hooks'],
-  },
-  // Improve build performance
-  poweredByHeader: false,
-  // Use the default export mode instead of standalone for better static asset handling
-  // output: 'standalone',
-  // outputFileTracingRoot: process.cwd(),
+    // Removed 'output: export' to enable SSR capabilities
+    webpack: (config) => {
+        config.resolve.alias.canvas = false;
+        return config;
+    },
+    reactStrictMode: true,
 };
-
-module.exports = nextConfig;
+exports.default = nextConfig;
+//# sourceMappingURL=next.config.js.map

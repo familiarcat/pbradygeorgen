@@ -1,0 +1,781 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importStar(require("react"));
+const SalingerHeader_module_css_1 = __importDefault(require("@/styles/SalingerHeader.module.css"));
+const PreviewModal_1 = __importDefault(require("./PreviewModal"));
+const SummaryModal_1 = __importDefault(require("./SummaryModal"));
+const DownloadService_1 = __importDefault(require("@/utils/DownloadService"));
+const DanteLogger_1 = require("@/utils/DanteLogger");
+const HesseLogger_1 = require("@/utils/HesseLogger");
+const SalingerHeader = ({ onDownload, onViewSummary, onContact, onUpload, onRefresh, fileName = 'resume' }) => {
+    // Loading states for different download formats
+    const [isLoadingMd, setIsLoadingMd] = (0, react_1.useState)(false);
+    const [isLoadingTxt, setIsLoadingTxt] = (0, react_1.useState)(false);
+    const [isLoadingPdf, setIsLoadingPdf] = (0, react_1.useState)(false);
+    // Resume preview states
+    const [showMdPreview, setShowMdPreview] = (0, react_1.useState)(false);
+    const [showTxtPreview, setShowTxtPreview] = (0, react_1.useState)(false);
+    const [showPdfPreview, setShowPdfPreview] = (0, react_1.useState)(false);
+    // Introduction states
+    const [showSummaryModal, setShowSummaryModal] = (0, react_1.useState)(false);
+    const [showIntroductionPdfPreview, setShowIntroductionPdfPreview] = (0, react_1.useState)(false);
+    const [showIntroductionMdPreview, setShowIntroductionMdPreview] = (0, react_1.useState)(false);
+    const [showIntroductionTxtPreview, setShowIntroductionTxtPreview] = (0, react_1.useState)(false);
+    // Content states
+    const [previewContent, setPreviewContent] = (0, react_1.useState)('');
+    const [summaryContent, setSummaryContent] = (0, react_1.useState)('');
+    const [introductionPdfDataUrl, setIntroductionPdfDataUrl] = (0, react_1.useState)(null);
+    const [introductionTextContent, setIntroductionTextContent] = (0, react_1.useState)('');
+    // Loading states
+    const [isLoadingPreview, setIsLoadingPreview] = (0, react_1.useState)(false);
+    const [isLoadingSummary, setIsLoadingSummary] = (0, react_1.useState)(false);
+    const [isGeneratingIntroductionPdf, setIsGeneratingIntroductionPdf] = (0, react_1.useState)(false);
+    const [isGeneratingIntroductionMd, setIsGeneratingIntroductionMd] = (0, react_1.useState)(false);
+    const [isGeneratingIntroductionTxt, setIsGeneratingIntroductionTxt] = (0, react_1.useState)(false);
+    const contactButtonRef = (0, react_1.useRef)(null);
+    const handleAction = (action, e) => {
+        e.preventDefault();
+        switch (action) {
+            case 'download':
+                if (onDownload)
+                    onDownload();
+                break;
+            case 'summary':
+                // Show the summary modal
+                setIsLoadingSummary(true);
+                // Fetch the summary content with proper error handling
+                fetch('/api/get-summary')
+                    .then(response => {
+                    if (!response.ok) {
+                        console.error(`API responded with status: ${response.status}`);
+                        throw new Error(`API responded with status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                    .then(data => {
+                    if (data.success) {
+                        console.log('Summary loaded successfully');
+                        setSummaryContent(data.summary);
+                        setShowSummaryModal(true);
+                    }
+                    else {
+                        console.error('API returned error:', data.error);
+                        throw new Error(data.error || 'Failed to load summary');
+                    }
+                })
+                    .catch(error => {
+                    console.error('Error loading summary:', error);
+                    // Try the analyze-content API as a fallback
+                    console.log('Attempting to use analyze-content API as fallback...');
+                    fetch('/api/analyze-content', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            filePath: '/extracted/resume_content.md'
+                        }),
+                    })
+                        .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Fallback API responded with status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                        .then(data => {
+                        if (data.success && data.analysis) {
+                            console.log('Successfully loaded summary from fallback API');
+                            // Convert the analysis to markdown format
+                            const analysis = data.analysis;
+                            const markdown = `# P. Brady Georgen - Summary
+
+## Professional Summary
+
+${analysis.summary}
+
+## Key Skills
+
+${analysis.keySkills.map((skill) => `- ${skill}`).join('\n')}
+
+## Experience
+
+${analysis.yearsOfExperience}
+
+## Education
+
+${analysis.educationLevel}
+
+## Career Highlights
+
+${analysis.careerHighlights.map((highlight) => `- ${highlight}`).join('\n')}
+
+## Industry Experience
+
+${analysis.industryExperience.map((industry) => `- ${industry}`).join('\n')}
+
+## Recommendations
+
+${analysis.recommendations.map((rec) => `- ${rec}`).join('\n')}
+`;
+                            setSummaryContent(markdown);
+                            setShowSummaryModal(true);
+                        }
+                        else {
+                            throw new Error(data.error || 'Failed to load summary from fallback API');
+                        }
+                    })
+                        .catch(fallbackError => {
+                        console.error('Error with fallback API:', fallbackError);
+                        // Final fallback to the original behavior
+                        if (onViewSummary) {
+                            onViewSummary();
+                        }
+                        else {
+                            // Scroll to summary section if no handler provided
+                            const summaryElement = document.querySelector('#summary-section');
+                            if (summaryElement) {
+                                summaryElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }
+                    });
+                })
+                    .finally(() => {
+                    setIsLoadingSummary(false);
+                });
+                break;
+            case 'contact':
+                if (onContact) {
+                    // Call the contact handler
+                    onContact();
+                    // Remove focus from the button after a short delay
+                    // This allows the email client to open before removing focus
+                    setTimeout(() => {
+                        if (contactButtonRef.current) {
+                            contactButtonRef.current.blur();
+                        }
+                    }, 100);
+                }
+                else {
+                    // Scroll to contact section if no handler provided
+                    const contactElement = document.querySelector('#contact-section');
+                    if (contactElement) {
+                        contactElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                break;
+            case 'upload':
+                if (onUpload)
+                    onUpload();
+                break;
+            case 'refresh':
+                if (onRefresh)
+                    onRefresh();
+                break;
+            default:
+                break;
+        }
+    };
+    // Function to handle markdown download
+    const handleMarkdownDownload = () => {
+        // Create and download the file
+        const blob = new Blob([previewContent], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${fileName}.md`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    // Function to handle text download
+    const handleTextDownload = () => {
+        // Create and download the file
+        const blob = new Blob([previewContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${fileName}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    // Function to handle PDF download
+    const handlePdfDownload = () => {
+        // Create a link to the PDF file and trigger download
+        const a = document.createElement('a');
+        a.href = `/pbradygeorgen_resume.pdf?v=${Date.now()}`;
+        a.download = `${fileName}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        DanteLogger_1.DanteLogger.success.ux(`Downloaded ${fileName}.pdf`);
+    };
+    // Introduction download handlers
+    // Function to handle Introduction PDF preview
+    const handleIntroductionPdfPreview = async () => {
+        try {
+            setIsGeneratingIntroductionPdf(true);
+            HesseLogger_1.HesseLogger.summary.start('Generating Introduction PDF preview');
+            // If we already have the summary content, use it
+            if (summaryContent) {
+                // Define consistent options for both preview and download
+                // Use PDF-extracted styles for the Introduction
+                const pdfOptions = {
+                    title: 'P. Brady Georgen - Introduction',
+                    fileName: 'pbradygeorgen_introduction.pdf',
+                    headerText: 'P. Brady Georgen - Introduction',
+                    footerText: 'Generated with Salinger Design',
+                    pageSize: 'letter', // Explicitly type as literal 'letter'
+                    margins: { top: 8, right: 8, bottom: 8, left: 8 },
+                    // Don't force dark theme, use PDF-extracted styles instead
+                    isDarkTheme: false
+                };
+                // Generate PDF data URL
+                const dataUrl = await DownloadService_1.default.generatePdfDataUrl(summaryContent, pdfOptions);
+                // Store the data URL and options for later use in download
+                setIntroductionPdfDataUrl(dataUrl);
+                // Show the preview modal
+                setShowIntroductionPdfPreview(true);
+                DanteLogger_1.DanteLogger.success.ux('Opened Introduction PDF preview');
+            }
+            else {
+                // If we don't have the content yet, show the summary modal first
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+            }
+        }
+        catch (error) {
+            console.error('Error generating Introduction PDF preview:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error showing Introduction PDF preview: ${error}`);
+            alert('There was an error generating the PDF preview. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionPdf(false);
+        }
+    };
+    // Function to handle Introduction PDF download
+    const handleIntroductionPdfDownload = async () => {
+        try {
+            setIsGeneratingIntroductionPdf(true);
+            // If we already have a data URL, use it
+            if (introductionPdfDataUrl) {
+                await DownloadService_1.default.downloadPdf('', 'pbradygeorgen_introduction', {
+                    dataUrl: introductionPdfDataUrl
+                });
+            }
+            // If we have content but no data URL
+            else if (summaryContent) {
+                // Define consistent options for both preview and download - same as in preview function
+                // Use PDF-extracted styles for the Introduction
+                const pdfOptions = {
+                    title: 'P. Brady Georgen - Introduction',
+                    fileName: 'pbradygeorgen_introduction.pdf',
+                    headerText: 'P. Brady Georgen - Introduction',
+                    footerText: 'Generated with Salinger Design',
+                    pageSize: 'letter', // Explicitly type as literal 'letter'
+                    margins: { top: 8, right: 8, bottom: 8, left: 8 },
+                    // Don't force dark theme, use PDF-extracted styles instead
+                    isDarkTheme: false
+                };
+                // First generate the data URL to ensure consistency with preview
+                const dataUrl = await DownloadService_1.default.generatePdfDataUrl(summaryContent, pdfOptions);
+                // Then download using the data URL
+                await DownloadService_1.default.downloadPdf('', 'pbradygeorgen_cover_letter', {
+                    dataUrl: dataUrl
+                });
+            }
+            // If we don't have content yet
+            else {
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+                return;
+            }
+            DanteLogger_1.DanteLogger.success.ux('Downloaded Introduction PDF');
+        }
+        catch (error) {
+            console.error('Error downloading Introduction PDF:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error downloading Introduction PDF: ${error}`);
+            alert('There was an error downloading the PDF. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionPdf(false);
+        }
+    };
+    // Function to handle Introduction Markdown preview
+    const handleIntroductionMarkdownPreview = () => {
+        try {
+            setIsGeneratingIntroductionMd(true);
+            // If we have content, show the preview
+            if (summaryContent) {
+                setIntroductionTextContent(summaryContent);
+                setShowIntroductionMdPreview(true);
+                DanteLogger_1.DanteLogger.success.ux('Opened Introduction Markdown preview');
+            }
+            else {
+                // If we don't have content yet, show the summary modal first
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+            }
+        }
+        catch (error) {
+            console.error('Error showing Introduction Markdown preview:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error showing Introduction Markdown preview: ${error}`);
+            alert('There was an error generating the preview. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionMd(false);
+        }
+    };
+    // Function to handle Introduction Markdown download
+    const handleIntroductionMarkdownDownload = async () => {
+        try {
+            setIsGeneratingIntroductionMd(true);
+            // If we have content, download it
+            if (summaryContent) {
+                await DownloadService_1.default.downloadMarkdown(summaryContent, 'pbradygeorgen_introduction');
+                DanteLogger_1.DanteLogger.success.ux('Downloaded Introduction Markdown');
+            }
+            else {
+                // If we don't have content yet, show the summary modal first
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+            }
+        }
+        catch (error) {
+            console.error('Error downloading Introduction Markdown:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error downloading Introduction Markdown: ${error}`);
+            alert('There was an error downloading the file. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionMd(false);
+        }
+    };
+    // Function to handle Introduction Text preview
+    const handleIntroductionTextPreview = () => {
+        try {
+            setIsGeneratingIntroductionTxt(true);
+            // If we have content, convert to plain text and show the preview
+            if (summaryContent) {
+                const plainText = DownloadService_1.default.convertMarkdownToText(summaryContent);
+                setIntroductionTextContent(plainText);
+                setShowIntroductionTxtPreview(true);
+                DanteLogger_1.DanteLogger.success.ux('Opened Introduction Text preview');
+            }
+            else {
+                // If we don't have content yet, show the summary modal first
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+            }
+        }
+        catch (error) {
+            console.error('Error showing Introduction Text preview:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error showing Introduction Text preview: ${error}`);
+            alert('There was an error generating the preview. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionTxt(false);
+        }
+    };
+    // Function to handle Introduction Text download
+    const handleIntroductionTextDownload = async () => {
+        try {
+            setIsGeneratingIntroductionTxt(true);
+            // If we have content, convert to plain text and download
+            if (summaryContent) {
+                const plainText = DownloadService_1.default.convertMarkdownToText(summaryContent);
+                await DownloadService_1.default.downloadText(plainText, 'pbradygeorgen_introduction');
+                DanteLogger_1.DanteLogger.success.ux('Downloaded Introduction Text');
+            }
+            else {
+                // If we don't have content yet, show the summary modal first
+                alert('Please open the Introduction first to generate content.');
+                setShowSummaryModal(true);
+            }
+        }
+        catch (error) {
+            console.error('Error downloading Introduction Text:', error);
+            DanteLogger_1.DanteLogger.error.runtime(`Error downloading Introduction Text: ${error}`);
+            alert('There was an error downloading the file. Please try again.');
+        }
+        finally {
+            setIsGeneratingIntroductionTxt(false);
+        }
+    };
+    return (<>
+      <header className={SalingerHeader_module_css_1.default.salingerHeader}>
+        <div className={SalingerHeader_module_css_1.default.headerLeft}>
+          <h1 className={SalingerHeader_module_css_1.default.siteTitle}>P. Brady Georgen</h1>
+          <a href="#" className={SalingerHeader_module_css_1.default.actionLink} onClick={(e) => handleAction('summary', e)} aria-label="View Summary">
+            {isLoadingSummary ? (<>
+                <svg className={`${SalingerHeader_module_css_1.default.loadingSpinner} ${SalingerHeader_module_css_1.default.actionIcon}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading...
+              </>) : (<>
+                <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Introduction
+              </>)}
+          </a>
+        </div>
+
+        <nav className={SalingerHeader_module_css_1.default.headerActions}>
+        <div className={SalingerHeader_module_css_1.default.downloadContainer}>
+          <a href="#" className={SalingerHeader_module_css_1.default.actionLink} onClick={(e) => e.preventDefault()} // Prevent default to allow dropdown to work
+     aria-label="Download Resume" aria-haspopup="true">
+            <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Resume
+          </a>
+
+          {/* Dropdown menu with Salinger-inspired styling */}
+          <div className={SalingerHeader_module_css_1.default.downloadMenu}>
+            <div className={SalingerHeader_module_css_1.default.downloadOptionGroup}>
+              <a href="#" onClick={(e) => {
+            e.preventDefault();
+            setShowPdfPreview(true);
+        }} className={SalingerHeader_module_css_1.default.previewButton}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Preview
+              </a>
+              <a href="#" onClick={(e) => {
+            e.preventDefault();
+            setIsLoadingPdf(true);
+            try {
+                handlePdfDownload();
+            }
+            catch (error) {
+                console.error('Error downloading PDF:', error);
+                alert('Failed to download PDF. Please try again.');
+            }
+            finally {
+                setIsLoadingPdf(false);
+            }
+        }} className={SalingerHeader_module_css_1.default.downloadOption}>
+                {isLoadingPdf ? (<span className={SalingerHeader_module_css_1.default.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Downloading...
+                  </span>) : (<>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    PDF Format
+                  </>)}
+              </a>
+            </div>
+            <div className={SalingerHeader_module_css_1.default.downloadOptionGroup}>
+              <a href="#" onClick={async (e) => {
+            e.preventDefault();
+            setIsLoadingPreview(true);
+            setShowMdPreview(false); // Reset preview state
+            try {
+                // Call our server-side API to format the content
+                const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'markdown'
+                    }),
+                });
+                if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                }
+                const result = await apiResponse.json();
+                if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                }
+                // Set the preview content and show the preview modal
+                setPreviewContent(result.formattedContent);
+                setShowMdPreview(true);
+            }
+            catch (error) {
+                console.error('Error generating markdown preview:', error);
+                alert('Failed to generate markdown preview. Please try again.');
+            }
+            finally {
+                setIsLoadingPreview(false);
+            }
+        }} className={SalingerHeader_module_css_1.default.previewButton}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Preview
+              </a>
+              <a href="#" onClick={async (e) => {
+            e.preventDefault();
+            setIsLoadingMd(true);
+            try {
+                // Call our server-side API to format the content
+                const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'markdown'
+                    }),
+                });
+                if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                }
+                const result = await apiResponse.json();
+                if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                }
+                // Log the detected content type
+                console.log(`Content type detected: ${result.contentType}`);
+                // Create and download the file
+                const blob = new Blob([result.formattedContent], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${fileName}.md`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            catch (error) {
+                console.error('Error generating markdown:', error);
+                alert('Failed to generate markdown. Please try again.');
+            }
+            finally {
+                setIsLoadingMd(false);
+            }
+        }} className={SalingerHeader_module_css_1.default.downloadOption}>
+                {isLoadingMd ? (<span className={SalingerHeader_module_css_1.default.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </span>) : (<>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Markdown Format
+                  </>)}
+              </a>
+            </div>
+            <div className={SalingerHeader_module_css_1.default.downloadOptionGroup}>
+              <a href="#" onClick={async (e) => {
+            e.preventDefault();
+            setIsLoadingPreview(true);
+            setShowTxtPreview(false); // Reset preview state
+            try {
+                // Call our server-side API to format the content
+                const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'text'
+                    }),
+                });
+                if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                }
+                const result = await apiResponse.json();
+                if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                }
+                // Set the preview content and show the preview modal
+                setPreviewContent(result.formattedContent);
+                setShowTxtPreview(true);
+            }
+            catch (error) {
+                console.error('Error generating text preview:', error);
+                alert('Failed to generate text preview. Please try again.');
+            }
+            finally {
+                setIsLoadingPreview(false);
+            }
+        }} className={SalingerHeader_module_css_1.default.previewButton}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.previewIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Preview
+              </a>
+              <a href="#" onClick={async (e) => {
+            e.preventDefault();
+            setIsLoadingTxt(true);
+            try {
+                // Call our server-side API to format the content
+                const apiResponse = await fetch('/api/format-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        filePath: '/extracted/resume_content.md',
+                        format: 'text'
+                    }),
+                });
+                if (!apiResponse.ok) {
+                    throw new Error(`API responded with status: ${apiResponse.status}`);
+                }
+                const result = await apiResponse.json();
+                if (!result.success) {
+                    throw new Error(result.error || 'Unknown error');
+                }
+                // Log the detected content type
+                console.log(`Content type detected: ${result.contentType}`);
+                // Create and download the file
+                const blob = new Blob([result.formattedContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${fileName}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            catch (error) {
+                console.error('Error generating text format:', error);
+                alert('Failed to generate text format. Please try again.');
+            }
+            finally {
+                setIsLoadingTxt(false);
+            }
+        }} className={SalingerHeader_module_css_1.default.downloadOption}>
+                {isLoadingTxt ? (<span className={SalingerHeader_module_css_1.default.loadingText}>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </span>) : (<>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.downloadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Text Format
+                  </>)}
+              </a>
+            </div>
+
+          </div>
+        </div>
+        <span className={SalingerHeader_module_css_1.default.actionSeparator}>•</span>
+        <a ref={contactButtonRef} href="#" className={SalingerHeader_module_css_1.default.actionLink} onClick={(e) => handleAction('contact', e)} aria-label="Contact">
+          <svg xmlns="http://www.w3.org/2000/svg" className={SalingerHeader_module_css_1.default.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Contact
+        </a>
+        {/* Upload PDF feature temporarily disabled
+        <span className={styles.actionSeparator}>•</span>
+        <a
+          href="#"
+          className={styles.actionLink}
+          onClick={(e) => handleAction('upload', e)}
+          aria-label="Upload PDF"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className={styles.actionIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          Upload PDF
+        </a>
+        */}
+
+      </nav>
+    </header>
+
+    {/* Markdown Preview Modal */}
+    <PreviewModal_1.default isOpen={showMdPreview} onClose={() => setShowMdPreview(false)} content={previewContent} format="markdown" fileName={fileName} onDownload={handleMarkdownDownload} position="right"/>
+
+    {/* Text Preview Modal */}
+    <PreviewModal_1.default isOpen={showTxtPreview} onClose={() => setShowTxtPreview(false)} content={previewContent} format="text" fileName={fileName} onDownload={handleTextDownload} position="right"/>
+
+    {/* PDF Preview Modal */}
+    <PreviewModal_1.default isOpen={showPdfPreview} onClose={() => setShowPdfPreview(false)} content="" format="pdf" fileName={fileName} onDownload={handlePdfDownload} position="right" pdfSource="/pbradygeorgen_resume.pdf" // Explicitly set to resume PDF
+    />
+
+    {/* Summary Modal - Using the new dark-themed SummaryModal */}
+    <SummaryModal_1.default isOpen={showSummaryModal} onClose={() => setShowSummaryModal(false)} content={summaryContent} isLoading={isLoadingSummary} position="left" 
+    // Pass the Introduction download handlers
+    onPdfPreview={handleIntroductionPdfPreview} onPdfDownload={handleIntroductionPdfDownload} onMarkdownPreview={handleIntroductionMarkdownPreview} onMarkdownDownload={handleIntroductionMarkdownDownload} onTextPreview={handleIntroductionTextPreview} onTextDownload={handleIntroductionTextDownload}/>
+
+    {/* Introduction Preview Modals */}
+    {/* PDF Preview Modal */}
+    <PreviewModal_1.default isOpen={showIntroductionPdfPreview} onClose={() => setShowIntroductionPdfPreview(false)} content="" format="pdf" fileName="pbradygeorgen_introduction" onDownload={handleIntroductionPdfDownload} onDownloadWithDataUrl={(dataUrl) => DownloadService_1.default.downloadPdf('', 'pbradygeorgen_introduction', { dataUrl })} position="right" pdfDataUrl={introductionPdfDataUrl || undefined}/>
+
+    {/* Markdown Preview Modal */}
+    <PreviewModal_1.default isOpen={showIntroductionMdPreview} onClose={() => setShowIntroductionMdPreview(false)} content={introductionTextContent} format="markdown" fileName="pbradygeorgen_introduction" onDownload={handleIntroductionMarkdownDownload} position="right"/>
+
+    {/* Text Preview Modal */}
+    <PreviewModal_1.default isOpen={showIntroductionTxtPreview} onClose={() => setShowIntroductionTxtPreview(false)} content={introductionTextContent} format="text" fileName="pbradygeorgen_introduction" onDownload={handleIntroductionTextDownload} position="right"/>
+    </>);
+};
+exports.default = SalingerHeader;
+//# sourceMappingURL=SalingerHeader.js.map
