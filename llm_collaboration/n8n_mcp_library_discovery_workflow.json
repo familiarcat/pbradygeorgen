@@ -1,0 +1,219 @@
+{
+  "name": "MCP Library Discovery and Integration",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "MCP Discovery Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "rule": {
+          "hour": "*/6",
+          "minute": "0"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "GitHub MCP Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [460, 200],
+      "parameters": {
+        "url": "https://api.github.com/search/repositories?q=mcp+library&sort=updated&order=desc",
+        "method": "GET",
+        "headers": {
+          "Accept": "application/vnd.github.v3+json",
+          "User-Agent": "AI-Crew-System/1.0"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "3",
+      "name": "NPM MCP Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "parameters": {
+        "url": "https://registry.npmjs.org/-/v1/search?text=mcp&size=20&from=0",
+        "method": "GET",
+        "options": {}
+      }
+    },
+    {
+      "id": "4",
+      "name": "PyPI MCP Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [460, 400],
+      "parameters": {
+        "url": "https://pypi.org/pypi/mcp/json",
+        "method": "GET",
+        "options": {}
+      }
+    },
+    {
+      "id": "5",
+      "name": "MCP Library Aggregator",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [680, 300],
+      "parameters": {
+        "functionCode": "// Aggregate MCP library discoveries from multiple sources\nconst githubResults = $input.all()[0].json.items || [];\nconst npmResults = $input.all()[1].json.objects || [];\nconst pypiResults = $input.all()[2] || {};\n\nconst aggregatedLibraries = [];\n\n// Process GitHub results\nfor (const repo of githubResults) {\n  if (repo.name.toLowerCase().includes('mcp') && repo.description) {\n    aggregatedLibraries.push({\n      source: 'github',\n      library_id: repo.full_name,\n      name: repo.name,\n      description: repo.description,\n      repository_url: repo.html_url,\n      documentation_url: repo.html_url,\n      last_updated: repo.updated_at,\n      stars: repo.stargazers_count,\n      language: repo.language,\n      capabilities: ['repository_access', 'code_analysis', 'version_control']\n    });\n  }\n}\n\n// Process NPM results\nfor (const pkg of npmResults) {\n  if (pkg.package.name.toLowerCase().includes('mcp')) {\n    aggregatedLibraries.push({\n      source: 'npm',\n      library_id: pkg.package.name,\n      name: pkg.package.name,\n      description: pkg.package.description || 'MCP library package',\n      repository_url: pkg.package.links?.repository || '',\n      documentation_url: pkg.package.links?.homepage || '',\n      last_updated: pkg.package.date,\n      version: pkg.package.version,\n      capabilities: ['package_management', 'dependency_resolution', 'version_control']\n    });\n  }\n}\n\n// Process PyPI results\nif (pypiResults.info) {\n  aggregatedLibraries.push({\n    source: 'pypi',\n    library_id: pypiResults.info.name,\n    name: pypiResults.info.name,\n    description: pypiResults.info.summary || 'MCP library package',\n    repository_url: pypiResults.info.home_page || '',\n    documentation_url: pypiResults.info.home_page || '',\n    last_updated: pypiResults.info.requires_python,\n    version: pypiResults.info.version,\n    capabilities: ['python_integration', 'package_management', 'dependency_resolution']\n  });\n}\n\n// Remove duplicates and sort by relevance\nconst uniqueLibraries = aggregatedLibraries.filter((lib, index, self) =>\n  index === self.findIndex(l => l.library_id === lib.library_id)\n);\n\n// Sort by relevance (GitHub stars, update date, etc.)\nuniqueLibraries.sort((a, b) => {\n  if (a.source === 'github' && b.source !== 'github') return -1;\n  if (a.source !== 'github' && b.source === 'github') return 1;\n  return (b.stars || 0) - (a.stars || 0);\n});\n\nreturn uniqueLibraries.slice(0, 10); // Return top 10 most relevant"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Claude Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "parameters": {
+        "url": "{{ $env.ANTHROPIC_API_URL }}/v1/messages",
+        "method": "POST",
+        "headers": {
+          "x-api-key": "{{ $env.ANTHROPIC_API_KEY }}",
+          "anthropic-version": "2023-06-01",
+          "Content-Type": "application/json"
+        },
+        "body": "{\n  \"model\": \"claude-3-5-sonnet-20241022\",\n  \"max_tokens\": 4000,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze this MCP library for integration into our AI crew system. Provide a comprehensive assessment including:\\n\\n1. Library capabilities and features\\n2. Integration potential with our 22 AI agents\\n3. Decision-making relevance\\n4. Implementation recommendations\\n5. Risk assessment\\n\\nLibrary information: {{ JSON.stringify($json) }}\"\\n    }\n  ]\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "7",
+      "name": "Memory Storage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [1120, 300],
+      "parameters": {
+        "url": "{{ $env.SUPABASE_URL }}/rest/v1/crew_memories",
+        "method": "POST",
+        "headers": {
+          "apikey": "{{ $env.SUPABASE_ANON_KEY }}",
+          "Authorization": "Bearer {{ $env.SUPABASE_ANON_KEY }}",
+          "Content-Type": "application/json"
+        },
+        "body": "{\n  \"crew_member\": \"System-Wide\",\n  \"mission_id\": \"mcp-library-discovery-{{ $now }}\",\n  \"memory_type\": \"mcp_library\",\n  \"content\": \"{{ $json.content }}\",\n  \"importance\": \"high\"\n}",
+        "options": {}
+      }
+    },
+    {
+      "id": "8",
+      "name": "Decision Making Integration",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1340, 300],
+      "parameters": {
+        "functionCode": "// Integrate MCP library into decision-making system\nconst claudeAnalysis = $input.first().json;\nconst originalLibrary = $('MCP Library Aggregator').first().json;\n\n// Create decision-making integration record\nconst integrationRecord = {\n  library_id: originalLibrary.library_id,\n  name: originalLibrary.name,\n  claude_analysis: claudeAnalysis.content,\n  decision_making_relevance: 'High - Available for all 22 AI agents',\n  integration_status: 'completed',\n  timestamp: new Date().toISOString(),\n  crew_access: 'All 22 AI agents can now reference this library',\n  memory_id: $('Memory Storage').first().json.id\n};\n\n// Log integration success\nconsole.log(`MCP Library ${originalLibrary.name} integrated into decision-making system`);\n\nreturn integrationRecord;"
+      }
+    }
+  ],
+  "connections": {
+    "MCP Discovery Trigger": {
+      "main": [
+        [
+          {
+            "node": "GitHub MCP Search",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NPM MCP Search",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PyPI MCP Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub MCP Search": {
+      "main": [
+        [
+          {
+            "node": "MCP Library Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NPM MCP Search": {
+      "main": [
+        [
+          {
+            "node": "MCP Library Aggregator",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "PyPI MCP Search": {
+      "main": [
+        [
+          {
+            "node": "MCP Library Aggregator",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "MCP Library Aggregator": {
+      "main": [
+        [
+          {
+            "node": "Claude Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Analysis": {
+      "main": [
+        [
+          {
+            "node": "Memory Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory Storage": {
+      "main": [
+        [
+          {
+            "node": "Decision Making Integration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-09-03T05:55:00.000Z",
+      "updatedAt": "2025-09-03T05:55:00.000Z",
+      "id": "mcp-discovery",
+      "name": "MCP Discovery"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-03T05:55:00.000Z",
+  "versionId": "1"
+}
