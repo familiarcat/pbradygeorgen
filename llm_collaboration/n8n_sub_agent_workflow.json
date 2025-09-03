@@ -1,0 +1,215 @@
+{
+  "name": "Claude Sub-Agent Execution Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "claude-sub-agent",
+        "options": {}
+      },
+      "id": "sub-agent-webhook",
+      "name": "Sub-Agent Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [120, 300],
+      "webhookId": "claude-sub-agent-webhook"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse and validate sub-agent execution request\nconst payload = $json;\n\n// Validate required fields\nif (!payload.agent_config || !payload.prompt || !payload.assignment) {\n    return [{ json: { error: 'Invalid sub-agent request structure' } }];\n}\n\nconst agent = payload.agent_config;\nconst assignment = payload.assignment;\n\n// Prepare Claude API request\nconst claudeRequest = {\n    model: 'claude-3-5-sonnet-20241022',\n    max_tokens: agent.max_tokens || 4000,\n    temperature: agent.temperature || 0.7,\n    messages: [\n        {\n            role: 'user',\n            content: payload.prompt\n        }\n    ],\n    metadata: {\n        agent_id: agent.agent_id,\n        agent_role: agent.role,\n        agent_name: agent.name,\n        task_id: assignment.task_id,\n        session_id: payload.session_context?.session_id,\n        execution_timestamp: payload.timestamp\n    }\n};\n\n// Add system message if available\nif (agent.prompt_template && agent.prompt_template.includes('You are')) {\n    const systemMessage = agent.prompt_template.split('\\n\\n')[0];\n    claudeRequest.messages.unshift({\n        role: 'system',\n        content: systemMessage\n    });\n}\n\nreturn [{\n    json: {\n        claudeRequest,\n        agentConfig: agent,\n        assignment: assignment,\n        sessionContext: payload.session_context,\n        originalPayload: payload\n    }\n}];"
+      },
+      "id": "prepare-claude-request",
+      "name": "Prepare Claude Request",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [340, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "httpMethod": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{$env.ANTHROPIC_API_KEY}}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "={{$json.claudeRequest.model}}"
+            },
+            {
+              "name": "max_tokens",
+              "value": "={{$json.claudeRequest.max_tokens}}"
+            },
+            {
+              "name": "temperature",
+              "value": "={{$json.claudeRequest.temperature}}"
+            },
+            {
+              "name": "messages",
+              "value": "={{$json.claudeRequest.messages}}"
+            },
+            {
+              "name": "metadata",
+              "value": "={{$json.claudeRequest.metadata}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "claude-api-call",
+      "name": "Claude API Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [560, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Process Claude response and format for sub-agent system\nconst claudeResponse = $json;\nconst originalData = $('Prepare Claude Request').first().json;\nconst agentConfig = originalData.agentConfig;\nconst assignment = originalData.assignment;\n\n// Extract response content\nlet responseContent = '';\nif (claudeResponse.content && claudeResponse.content[0] && claudeResponse.content[0].text) {\n    responseContent = claudeResponse.content[0].text;\n} else if (claudeResponse.text) {\n    responseContent = claudeResponse.text;\n} else {\n    responseContent = 'No response content received';\n}\n\n// Calculate usage and cost\nconst usage = claudeResponse.usage || {};\nconst inputTokens = usage.input_tokens || 0;\nconst outputTokens = usage.output_tokens || 0;\nconst totalTokens = inputTokens + outputTokens;\n\n// Estimate cost (Claude 3.5 Sonnet pricing)\nconst costPerInputToken = 0.000003;\nconst costPerOutputToken = 0.000015;\nconst estimatedCost = (inputTokens * costPerInputToken) + (outputTokens * costPerOutputToken);\n\n// Quality assessment\nconst qualityMetrics = {\n    response_length: responseContent.length,\n    token_usage: {\n        input: inputTokens,\n        output: outputTokens,\n        total: totalTokens\n    },\n    estimated_cost: estimatedCost,\n    response_quality: {\n        has_structure: responseContent.includes('1.') || responseContent.includes('##'),\n        has_recommendations: responseContent.toLowerCase().includes('recommend') || responseContent.toLowerCase().includes('suggest'),\n        has_analysis: responseContent.toLowerCase().includes('analyze') || responseContent.toLowerCase().includes('assessment'),\n        completeness_score: Math.min(1.0, responseContent.length / 1000) // Simple completeness metric\n    }\n};\n\n// Create structured response\nconst subAgentResponse = {\n    success: true,\n    agent_id: agentConfig.agent_id,\n    agent_name: agentConfig.name,\n    agent_role: agentConfig.role,\n    task_id: assignment.task_id,\n    session_id: originalData.sessionContext?.session_id,\n    \n    // Claude response\n    content: responseContent,\n    model: claudeResponse.model || 'claude-3-5-sonnet-20241022',\n    \n    // Usage and cost analytics\n    analytics: {\n        usage: usage,\n        cost_analysis: {\n            estimated_cost: estimatedCost,\n            cost_breakdown: {\n                input_cost: inputTokens * costPerInputToken,\n                output_cost: outputTokens * costPerOutputToken\n            },\n            efficiency_score: totalTokens > 0 ? Math.min(1.0, responseContent.length / totalTokens) : 0\n        },\n        quality_metrics: qualityMetrics.response_quality\n    },\n    \n    // Task metadata\n    task_metadata: {\n        task_description: assignment.task_description,\n        task_context: assignment.context,\n        priority: assignment.priority,\n        completion_time: new Date().toISOString()\n    },\n    \n    // Agent metadata\n    agent_metadata: {\n        capabilities: agentConfig.capabilities,\n        specialization: agentConfig.role,\n        execution_time: new Date().toISOString(),\n        prompt_template_used: agentConfig.prompt_template ? true : false\n    },\n    \n    // System metadata\n    system_metadata: {\n        n8n_workflow: 'Claude Sub-Agent Execution',\n        integration_version: '1.0.0',\n        execution_mode: 'sub_agent',\n        collaboration_ready: true\n    }\n};\n\nreturn [subAgentResponse];"
+      },
+      "id": "process-response",
+      "name": "Process Response",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Store collaboration result in memory/database\nconst response = $json;\nconst originalData = $('Prepare Claude Request').first().json;\n\n// Create collaboration record\nconst collaborationRecord = {\n    record_id: `collab_${Date.now()}`,\n    timestamp: new Date().toISOString(),\n    \n    // Agent execution details\n    agent_execution: {\n        agent_id: response.agent_id,\n        agent_name: response.agent_name,\n        agent_role: response.agent_role,\n        task_id: response.task_id,\n        session_id: response.session_id\n    },\n    \n    // Results and analytics\n    results: {\n        content: response.content,\n        analytics: response.analytics,\n        quality_metrics: response.analytics.quality_metrics\n    },\n    \n    // Context and metadata\n    context: {\n        task_description: response.task_metadata.task_description,\n        task_context: response.task_metadata.task_context,\n        session_context: originalData.sessionContext\n    },\n    \n    // System tracking\n    system_info: {\n        workflow_version: '1.0.0',\n        execution_successful: response.success,\n        collaboration_ready: response.system_metadata.collaboration_ready\n    }\n};\n\n// Log the collaboration (in production, this would go to a database)\nconsole.log('Sub-Agent Collaboration Record:', JSON.stringify(collaborationRecord, null, 2));\n\nreturn [{\n    json: {\n        collaboration_record: collaborationRecord,\n        sub_agent_response: response,\n        storage_success: true,\n        timestamp: new Date().toISOString()\n    }\n}];"
+      },
+      "id": "store-collaboration",
+      "name": "Store Collaboration",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.N8N_BASE_URL }}/webhook/sub-agent-complete",
+        "httpMethod": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Sub-Agent-Source",
+              "value": "claude-sub-agent-workflow"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sub_agent_result",
+              "value": "={{$json.sub_agent_response}}"
+            },
+            {
+              "name": "collaboration_record",
+              "value": "={{$json.collaboration_record}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "notify-completion",
+      "name": "Notify Completion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1220, 300]
+    }
+  ],
+  "connections": {
+    "Sub-Agent Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Claude Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Claude Request": {
+      "main": [
+        [
+          {
+            "node": "Claude API Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude API Call": {
+      "main": [
+        [
+          {
+            "node": "Process Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Response": {
+      "main": [
+        [
+          {
+            "node": "Store Collaboration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Collaboration": {
+      "main": [
+        [
+          {
+            "node": "Notify Completion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "claude-sub-agent-execution",
+  "tags": [
+    {
+      "createdAt": "2025-09-02T23:00:00.000Z",
+      "updatedAt": "2025-09-02T23:00:00.000Z",
+      "id": "claude-sub-agents",
+      "name": "Claude Sub-Agents"
+    }
+  ]
+}

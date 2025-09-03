@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-09-02T23:56:35.379276",
+  "test_suite": "Simple E2E Workflow Test",
+  "results": {
+    "extension_installation": {
+      "status": "PASS",
+      "details": "Extension properly installed: \ud83d\ude80 Cursor AI Supercharger",
+      "timestamp": "2025-09-02T23:56:36.690622"
+    },
+    "extension_commands": {
+      "status": "PASS",
+      "details": "All 14 commands available",
+      "timestamp": "2025-09-02T23:56:36.690692"
+    },
+    "cursor_chat_ui_integration": {
+      "status": "PASS",
+      "details": "Extension properly configured for Cursor chat UI integration",
+      "timestamp": "2025-09-02T23:56:36.690767"
+    },
+    "claude_sub_agents": {
+      "status": "WARN",
+      "details": "Sub-agent system partially available",
+      "timestamp": "2025-09-02T23:56:36.690806"
+    },
+    "workflow_integration": {
+      "status": "WARN",
+      "details": "No valid N8N workflow files found",
+      "timestamp": "2025-09-02T23:56:37.066050"
+    },
+    "cursor_chat_switching": {
+      "status": "PASS",
+      "details": "Easy switching available via: cursor-ai-supercharger.activate, cursor-ai-supercharger.autoEnhanceChat, cursor-ai-supercharger.toggleEnhancement",
+      "timestamp": "2025-09-02T23:56:37.066660"
+    },
+    "end_to_end_workflow": {
+      "status": "FAIL",
+      "details": "Workflow incomplete: 4/6 components",
+      "timestamp": "2025-09-02T23:56:37.066678"
+    }
+  }
+}

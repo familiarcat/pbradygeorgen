@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-09-02T23:01:16.833601",
+  "test_suite": "Comprehensive Extension E2E Test",
+  "results": {
+    "cursor_claude_unified_structure": {
+      "status": "PASS",
+      "details": "All essential files present in cursor-claude-unified",
+      "timestamp": "2025-09-02T23:01:16.833721"
+    },
+    "cursor_claude_unified_package_json": {
+      "status": "PASS",
+      "details": "Package.json valid with 14 commands",
+      "timestamp": "2025-09-02T23:01:16.833947"
+    },
+    "cursor_claude_unified_vsix_package": {
+      "status": "PASS",
+      "details": "VSIX package found: cursor-claude-unified-2.0.0.vsix (71162 bytes)",
+      "timestamp": "2025-09-02T23:01:16.834098"
+    },
+    "alex_extension_structure": {
+      "status": "PASS",
+      "details": "All essential files present in alex-extension",
+      "timestamp": "2025-09-02T23:01:16.834144"
+    },
+    "alex_extension_package_json": {
+      "status": "PASS",
+      "details": "Package.json valid with 4 commands",
+      "timestamp": "2025-09-02T23:01:16.834334"
+    },
+    "alex_extension_vsix_package": {
+      "status": "PASS",
+      "details": "VSIX package found: alex-crew-commander-1.0.0.vsix (6905 bytes)",
+      "timestamp": "2025-09-02T23:01:16.834407"
+    },
+    "command_conflicts": {
+      "status": "PASS",
+      "details": "No conflicts between 14 and 4 commands",
+      "timestamp": "2025-09-02T23:01:16.834520"
+    },
+    "workspace_cleanup": {
+      "status": "PASS",
+      "details": "Workspace cleanup successful, 105 files in root",
+      "timestamp": "2025-09-02T23:01:16.835014"
+    }
+  }
+}

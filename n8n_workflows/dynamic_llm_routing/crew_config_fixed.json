@@ -1,0 +1,132 @@
+{
+  "Captain Jean-Luc Picard": {
+    "department": "Command",
+    "capabilities": [
+      "strategic_planning",
+      "leadership",
+      "diplomacy"
+    ],
+    "specializations": [
+      "starship_command",
+      "interstellar_diplomacy"
+    ],
+    "status": "active"
+  },
+  "Commander Data": {
+    "department": "Operations",
+    "capabilities": [
+      "data_analysis",
+      "logical_reasoning",
+      "computation"
+    ],
+    "specializations": [
+      "artificial_intelligence",
+      "systems_analysis"
+    ],
+    "status": "active"
+  },
+  "Lieutenant Commander Geordi La Forge": {
+    "department": "Engineering",
+    "capabilities": [
+      "technical_analysis",
+      "problem_solving",
+      "innovation"
+    ],
+    "specializations": [
+      "starship_engineering",
+      "technical_optimization"
+    ],
+    "status": "active"
+  },
+  "Lieutenant Worf": {
+    "department": "Security",
+    "capabilities": [
+      "security_analysis",
+      "tactical_planning",
+      "combat_strategy"
+    ],
+    "specializations": [
+      "klingon_warfare",
+      "security_protocols"
+    ],
+    "status": "active"
+  },
+  "Counselor Deanna Troi": {
+    "department": "Counseling",
+    "capabilities": [
+      "emotional_intelligence",
+      "conflict_resolution",
+      "psychological_analysis"
+    ],
+    "specializations": [
+      "betazoid_empathy",
+      "crew_morale"
+    ],
+    "status": "active"
+  },
+  "Dr. Beverly Crusher": {
+    "department": "Medical",
+    "capabilities": [
+      "medical_analysis",
+      "biological_research",
+      "healthcare_management"
+    ],
+    "specializations": [
+      "starship_medicine",
+      "biological_sciences"
+    ],
+    "status": "active"
+  },
+  "Content Analyst": {
+    "department": "Intelligence",
+    "capabilities": [
+      "content_analysis",
+      "pattern_recognition",
+      "intelligence_synthesis"
+    ],
+    "specializations": [
+      "data_interpretation",
+      "trend_analysis"
+    ],
+    "status": "active"
+  },
+  "Commander William Riker": {
+    "department": "Command",
+    "capabilities": [
+      "tactical_command",
+      "mission_planning",
+      "crew_management"
+    ],
+    "specializations": [
+      "away_missions",
+      "tactical_operations"
+    ],
+    "status": "active"
+  },
+  "Lieutenant Uhura": {
+    "department": "Communications",
+    "capabilities": [
+      "communication_systems",
+      "linguistic_analysis",
+      "diplomatic_relations"
+    ],
+    "specializations": [
+      "universal_translator",
+      "interstellar_communications"
+    ],
+    "status": "active"
+  },
+  "Quark": {
+    "department": "Commerce",
+    "capabilities": [
+      "business_analysis",
+      "negotiation",
+      "resource_management"
+    ],
+    "specializations": [
+      "ferengi_commerce",
+      "profit_optimization"
+    ],
+    "status": "active"
+  }
+}

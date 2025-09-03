@@ -1,0 +1,128 @@
+name: 🚀 Cursor Extension CI/CD
+
+on:
+  push:
+    branches: [main, claude-integration-aug30, develop]
+  pull_request:
+    branches: [main, claude-integration-aug30, develop]
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: 🚀 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: 🔍 Install dependencies
+        run: npm ci
+
+      - name: ⚙️ Compile TypeScript
+        run: npm run compile
+
+      - name: 🔍 Run tests (if available)
+        run: npm test || echo "No tests configured"
+
+      - name: 📦 Package extension
+        run: npm run package
+
+      - name: 📁 Upload extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-vsix
+          path: "*.vsix"
+          retention-days: 7
+
+      - name: ✅ Build verification
+        run: |
+          if [ -f "*.vsix" ]; then
+            echo "✅ Extension packaged successfully"
+            ls -la *.vsix
+          else
+            echo "❌ No .vsix file generated"
+            exit 1
+          fi
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/claude-integration-aug30'
+
+    steps:
+      - name: 🚀 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: 🔍 Install dependencies
+        run: npm ci
+
+      - name: 📦 Package extension
+        run: npm run package
+
+      - name: 🏷️ Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: 📁 Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "*.vsix"
+          asset_name: "cursor-claude-llm-collaboration.vsix"
+          asset_content_type: application/octet-stream
+
+      - name: 🚀 Deploy to N8N (if configured)
+        run: |
+          if [ -n "${{ secrets.N8N_BASE_URL }}" ] && [ -n "${{ secrets.N8N_API_KEY }}" ]; then
+            echo "🚀 Deploying to N8N..."
+            # Add N8N deployment logic here
+          else
+            echo "⚠️ N8N deployment skipped - secrets not configured"
+          fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,170 @@
+{
+  "name": "Enhanced Multi-Provider LLM Router - Cost Optimization System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "enhanced-llm-router",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "enhanced-llm-router-trigger",
+      "name": "Enhanced LLM Router Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "enhanced-llm-router-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced input validation for multi-provider LLM routing\nconst inputData = $input.all()[0].json;\n\n// Validate required fields\nif (!inputData.task_description) {\n  throw new Error('task_description is required for LLM routing');\n}\n\n// Extract routing parameters\nconst taskDescription = inputData.task_description;\nconst context = inputData.context || {};\nconst budgetConstraints = inputData.budget_constraints || { max_cost: 0.10, priority: 'balanced' };\nconst routingPreferences = inputData.routing_preferences || {};\n\n// Prepare enhanced routing data\nreturn {\n  request_id: `llm_${Date.now()}`,\n  task_description: taskDescription,\n  context: context,\n  budget_constraints: budgetConstraints,\n  routing_preferences: routingPreferences,\n  \n  // Enhanced routing options\n  routing_options: {\n    enable_cost_optimization: true,\n    enable_provider_selection: true,\n    enable_fallback_routing: true,\n    enable_performance_monitoring: true,\n    \n    // Provider preferences\n    preferred_providers: routingPreferences.preferred_providers || [],\n    excluded_providers: routingPreferences.excluded_providers || [],\n    \n    // Cost optimization\n    max_budget: budgetConstraints.max_cost,\n    priority: budgetConstraints.priority, // 'cost', 'speed', 'quality', 'balanced'\n    \n    // Performance requirements\n    min_reliability: routingPreferences.min_reliability || 'medium',\n    max_response_time: routingPreferences.max_response_time || 30000,\n    \n    // Task-specific preferences\n    task_type: routingPreferences.task_type || 'auto_detect',\n    complexity_level: routingPreferences.complexity_level || 'auto_detect'\n  },\n  \n  // Metadata\n  timestamp: new Date().toISOString(),\n  source: 'enhanced_llm_router'\n};"
+      },
+      "id": "enhanced-input-validator",
+      "name": "Enhanced Input Validator & Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Intelligent routing decision engine for multi-provider LLM selection\nconst routingData = $input.all()[0].json;\nconst { routing_options, task_description, budget_constraints } = routingData;\n\n// Analyze task for optimal routing\nlet routing_strategy = 'intelligent';\nlet provider_priority = 'cost_optimized';\nlet fallback_strategy = 'progressive';\n\n// Determine routing strategy based on preferences\nif (routing_options.priority === 'cost') {\n  routing_strategy = 'cost_optimized';\n  provider_priority = 'lowest_cost_first';\n} else if (routing_options.priority === 'speed') {\n  routing_strategy = 'speed_optimized';\n  provider_priority = 'fastest_first';\n} else if (routing_options.priority === 'quality') {\n  routing_strategy = 'quality_optimized';\n  provider_priority = 'highest_quality_first';\n} else {\n  routing_strategy = 'balanced_optimization';\n  provider_priority = 'intelligent_balance';\n}\n\n// Task-specific routing adjustments\nconst taskLower = task_description.toLowerCase();\nif (taskLower.includes('code') || taskLower.includes('program')) {\n  routing_strategy += '_coding_optimized';\n  provider_priority = 'coding_specialized';\n} else if (taskLower.includes('analyze') || taskLower.includes('research')) {\n  routing_strategy += '_analysis_optimized';\n  provider_priority = 'analysis_specialized';\n} else if (taskLower.includes('creative') || taskLower.includes('write')) {\n  routing_strategy += '_creative_optimized';\n  provider_priority = 'creative_specialized';\n}\n\n// Budget-based routing adjustments\nif (budget_constraints.max_cost < 0.01) {\n  routing_strategy += '_ultra_budget';\n  provider_priority = 'ultra_cost_effective';\n} else if (budget_constraints.max_cost > 0.05) {\n  routing_strategy += '_premium';\n  provider_priority = 'premium_quality';\n}\n\nreturn {\n  ...routingData,\n  routing_strategy: routing_strategy,\n  provider_priority: provider_priority,\n  fallback_strategy: fallback_strategy,\n  \n  // Enhanced routing parameters\n  routing_enhanced: {\n    strategy: routing_strategy,\n    priority: provider_priority,\n    fallback: fallback_strategy,\n    \n    // Provider selection logic\n    provider_selection: {\n      primary: routing_options.preferred_providers[0] || 'auto_select',\n      alternatives: routing_options.preferred_providers.slice(1) || [],\n      excluded: routing_options.excluded_providers || [],\n      fallback_order: ['anthropic', 'openai', 'gemini', 'openrouter']\n    },\n    \n    // Cost optimization\n    cost_optimization: {\n      max_budget: routing_options.max_budget,\n      target_efficiency: routing_options.priority === 'cost' ? 0.95 : 0.80,\n      allow_overage: routing_options.priority === 'quality',\n      cost_thresholds: {\n        ultra_budget: 0.005,\n        budget: 0.02,\n        standard: 0.05,\n        premium: 0.10\n      }\n    },\n    \n    // Performance requirements\n    performance: {\n      min_reliability: routing_options.min_reliability,\n      max_response_time: routing_options.max_response_time,\n      quality_threshold: routing_options.priority === 'quality' ? 0.95 : 0.80\n    }\n  }\n};"
+      },
+      "id": "intelligent-routing-engine",
+      "name": "Intelligent Routing Decision Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "command": "python3",
+        "arguments": "enhanced_llm_router.py",
+        "options": {}
+      },
+      "id": "enhanced-llm-router-executor",
+      "name": "Enhanced LLM Router Executor (Python)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process enhanced LLM router results and format for optimal display\nconst routerOutput = $input.all()[0].json;\nconst routingData = $input.all()[1].json;\n\n// Check if execution was successful\nif (routerOutput.error) {\n  return {\n    success: false,\n    error: routerOutput.error,\n    request_id: routingData.request_id,\n    timestamp: new Date().toISOString(),\n    ui_feedback: {\n      message: 'LLM routing failed - please try again',\n      type: 'error',\n      show_retry: true\n    }\n  };\n}\n\n// Parse the router output\nconst result = JSON.parse(routerOutput.stdout || '{}');\n\nif (result.selected_model) {\n  // Enhanced multi-provider response\n  return {\n    success: true,\n    \n    // Core routing information\n    routing_summary: {\n      selected_model: result.selected_model,\n      provider: result.provider,\n      estimated_cost: result.estimated_cost,\n      suitability_score: result.suitability_score,\n      selection_reasoning: result.selection_reasoning,\n      routing_strategy: routingData.routing_strategy,\n      provider_priority: routingData.provider_priority\n    },\n    \n    // Model capabilities and performance\n    model_details: {\n      capabilities: result.capabilities || [],\n      strengths: result.strengths || [],\n      speed: result.speed || 'unknown',\n      reliability: result.reliability || 'unknown',\n      max_tokens: result.max_tokens || 4096\n    },\n    \n    // Alternative models for comparison\n    alternatives: result.alternatives || [],\n    \n    // Cost optimization details\n    cost_optimization: {\n      selected_cost: result.estimated_cost,\n      cost_efficiency: result.estimated_cost < 0.01 ? 'ultra_cost_effective' : \n                      result.estimated_cost < 0.02 ? 'cost_effective' : \n                      result.estimated_cost < 0.05 ? 'moderate_cost' : 'premium_cost',\n      savings_vs_alternatives: result.alternatives.length > 0 ? \n        result.alternatives[0].estimated_cost - result.estimated_cost : 0,\n      budget_utilization: (result.estimated_cost / routingData.routing_options.max_budget * 100).toFixed(1) + '%'\n    },\n    \n    // Provider performance metrics\n    provider_performance: {\n      provider: result.provider,\n      client_status: 'active',\n      response_time: 'measured',\n      reliability_score: result.reliability === 'very_high' ? 0.99 : \n                         result.reliability === 'high' ? 0.95 : \n                         result.reliability === 'medium' ? 0.85 : 0.75\n    },\n    \n    // UI enhancement data for Cursor\n    ui_enhancements: {\n      // Visual representation of model selection\n      model_visual_cue: {\n        model_name: result.selected_model,\n        provider: result.provider,\n        icon: result.provider === 'anthropic' ? '🤖' : \n              result.provider === 'openai' ? '🧠' : \n              result.provider === 'gemini' ? '🔮' : \n              result.provider === 'openrouter' ? '🌐' : '❓',\n        color: result.provider === 'anthropic' ? '#00ff00' : \n               result.provider === 'openai' ? '#0080ff' : \n               result.provider === 'gemini' ? '#ff8000' : \n               result.provider === 'openrouter' ? '#8000ff' : '#666666'\n      },\n      \n      // Cost display with optimization indicators\n      cost_display: {\n        total_cost: result.estimated_cost,\n        cost_efficiency: result.estimated_cost < 0.01 ? 'ultra_cost_effective' : \n                         result.estimated_cost < 0.02 ? 'cost_effective' : \n                         result.estimated_cost < 0.05 ? 'moderate_cost' : 'premium_cost',\n        savings_indicator: result.alternatives.length > 0 ? \n          `Save $${(result.alternatives[0].estimated_cost - result.estimated_cost).toFixed(6)}` : 'No alternatives',\n        budget_status: result.estimated_cost <= routingData.routing_options.max_budget ? 'within_budget' : 'over_budget'\n      },\n      \n      // Performance metrics\n      performance_metrics: {\n        speed: result.speed || 'unknown',\n        reliability: result.reliability || 'unknown',\n        suitability_score: result.suitability_score,\n        model_confidence: result.reliability === 'very_high' ? 0.99 : \n                          result.reliability === 'high' ? 0.95 : \n                          result.reliability === 'medium' ? 0.85 : 0.75\n      },\n      \n      // Routing strategy visualization\n      routing_visualization: {\n        strategy: routingData.routing_strategy,\n        priority: routingData.provider_priority,\n        provider_count: result.alternatives.length + 1,\n        optimization_level: routingData.routing_enhanced.cost_optimization.target_efficiency * 100 + '%'\n      }\n    },\n    \n    // Metadata\n    metadata: {\n      request_id: routingData.request_id,\n      routing_strategy: routingData.routing_strategy,\n      provider_priority: routingData.provider_priority,\n      timestamp: new Date().toISOString()\n    }\n  };\n} else {\n  return {\n    success: false,\n    error: 'Invalid LLM router response format',\n    request_id: routingData.request_id,\n    timestamp: new Date().toISOString(),\n    ui_feedback: {\n      message: 'LLM router response format error',\n      type: 'error',\n      show_retry: true\n    }\n  };\n}"
+      },
+      "id": "enhanced-response-processor",
+      "name": "Enhanced Response Processor & UI Formatter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "enhanced-llm-router-response",
+      "name": "Enhanced LLM Router Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Enhanced logging and monitoring for multi-provider LLM routing\nconst responseData = $input.all()[0].json;\nconst routingData = $input.all()[1].json;\n\nif (responseData.success) {\n  const { routing_summary, cost_optimization, provider_performance } = responseData;\n  \n  console.log(`🚀 Enhanced LLM Router Success:`);\n  console.log(`   Request ID: ${routingData.request_id}`);\n  console.log(`   Selected Model: ${routing_summary.selected_model}`);\n  console.log(`   Provider: ${routing_summary.provider}`);\n  console.log(`   Cost: $${routing_summary.estimated_cost}`);\n  console.log(`   Suitability Score: ${routing_summary.suitability_score.toFixed(2)}`);\n  console.log(`   Routing Strategy: ${routing_summary.routing_strategy}`);\n  console.log(`   Provider Priority: ${routing_summary.provider_priority}`);\n  \n  // Log cost optimization details\n  console.log(`   Cost Optimization:`);\n  console.log(`     Efficiency: ${cost_optimization.cost_efficiency}`);\n  console.log(`     Budget Utilization: ${cost_optimization.budget_utilization}`);\n  if (cost_optimization.savings_vs_alternatives > 0) {\n    console.log(`     Savings: $${cost_optimization.savings_vs_alternatives.toFixed(6)}`);\n  }\n  \n  // Log provider performance\n  console.log(`   Provider Performance:`);\n  console.log(`     Status: ${provider_performance.client_status}`);\n  console.log(`     Reliability: ${provider_performance.reliability_score * 100}%`);\n  \n  // Log alternatives if available\n  if (responseData.alternatives && responseData.alternatives.length > 0) {\n    console.log(`   Alternatives Considered: ${responseData.alternatives.length}`);\n    responseData.alternatives.forEach((alt, index) => {\n      console.log(`     ${index + 1}. ${alt.model_id} (${alt.provider}) - $${alt.estimated_cost}`);\n    });\n  }\n  \n} else {\n  console.error(`❌ Enhanced LLM Router Failed: ${responseData.error}`);\n  console.error(`   Request ID: ${responseData.request_id}`);\n  console.error(`   Timestamp: ${responseData.timestamp}`);\n}\n\n// Pass through the data for potential further processing\nreturn responseData;"
+      },
+      "id": "enhanced-logging-monitoring",
+      "name": "Enhanced Logging & Monitoring",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Real-time status updates for enhanced LLM router\nconst statusData = $input.all()[0].json;\nconst routingData = $input.all()[1].json;\n\nif (statusData.success) {\n  // Update enhanced LLM router status\n  const routerStatus = {\n    status: 'active',\n    last_request: new Date().toISOString(),\n    request_id: routingData.request_id,\n    routing_strategy: routingData.routing_strategy,\n    provider_priority: routingData.provider_priority,\n    \n    // Performance metrics\n    performance_metrics: {\n      selected_model: statusData.routing_summary.selected_model,\n      provider: statusData.routing_summary.provider,\n      cost_efficiency: statusData.cost_optimization.cost_efficiency,\n      suitability_score: statusData.routing_summary.suitability_score,\n      reliability_score: statusData.provider_performance.reliability_score\n    },\n    \n    // Cost optimization status\n    cost_optimization_status: {\n      total_cost: statusData.routing_summary.estimated_cost,\n      budget_utilization: statusData.cost_optimization.budget_utilization,\n      savings_achieved: statusData.cost_optimization.savings_vs_alternatives > 0,\n      optimization_level: statusData.ui_enhancements.routing_visualization.optimization_level\n    },\n    \n    // Provider status\n    provider_status: {\n      active_providers: ['anthropic', 'openai', 'gemini', 'openrouter'].filter(p => \n        p === statusData.routing_summary.provider || \n        statusData.alternatives.some(alt => alt.provider === p)\n      ),\n      selected_provider: statusData.routing_summary.provider,\n      provider_performance: statusData.provider_performance.reliability_score\n    }\n  };\n  \n  // This could be sent to a status endpoint or stored for Cursor to query\n  console.log('📊 Enhanced LLM Router Status Updated:', routerStatus);\n  \n  // Return status for potential real-time updates\n  return {\n    enhanced_llm_router_status: routerStatus,\n    cursor_ui_update: {\n      routing_summary: statusData.routing_summary,\n      cost_optimization: statusData.cost_optimization,\n      performance_metrics: statusData.performance_metrics,\n      routing_visualization: statusData.ui_enhancements.routing_visualization\n    }\n  };\n}\n\nreturn statusData;"
+      },
+      "id": "enhanced-status-updater",
+      "name": "Enhanced Status Updater",
+      "type": "n8n-nodes-base.code",
+      "position": [1340, 500]
+    }
+  ],
+  "connections": {
+    "enhanced-llm-router-trigger": {
+      "main": [
+        [
+          {
+            "node": "enhanced-input-validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-input-validator": {
+      "main": [
+        [
+          {
+            "node": "intelligent-routing-engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "intelligent-routing-engine": {
+      "main": [
+        [
+          {
+            "node": "enhanced-llm-router-executor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-llm-router-executor": {
+      "main": [
+        [
+          {
+            "node": "enhanced-response-processor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-response-processor": {
+      "main": [
+        [
+          {
+            "node": "enhanced-llm-router-response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "enhanced-logging-monitoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enhanced-logging-monitoring": {
+      "main": [
+        [
+          {
+            "node": "enhanced-status-updater",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

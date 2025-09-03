@@ -1,0 +1,81 @@
+{
+  "enhanced_unified_router": {
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/enhanced-unified-router",
+    "test_payload": {
+      "task": "Create a strategic plan for expanding our AI capabilities",
+      "priority": "balanced",
+      "budget": 0.05,
+      "crew_members": [
+        "Captain Jean-Luc Picard",
+        "Commander Data"
+      ],
+      "specialization": "strategic_planning"
+    },
+    "response_status": 404,
+    "response_data": null,
+    "execution_success": false,
+    "errors": [
+      "Webhook endpoint not found - check configuration"
+    ]
+  },
+  "crew_coordination": {
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/crew-coordination",
+    "test_payload": {
+      "discussion_type": "strategic_planning",
+      "topic": "Expanding AI capabilities across our organization",
+      "crew_members": [
+        "Captain Jean-Luc Picard",
+        "Commander Data",
+        "Lieutenant Commander Geordi La Forge"
+      ],
+      "priority": "high",
+      "expected_outcome": "comprehensive_strategic_plan"
+    },
+    "response_status": 404,
+    "response_data": null,
+    "execution_success": false,
+    "errors": [
+      "Webhook endpoint not found - check configuration"
+    ]
+  },
+  "observation_lounge": {
+    "webhook_url": "https://n8n.pbradygeorgen.com/webhook/observation-lounge",
+    "test_payload": {
+      "session_type": "strategic_planning",
+      "participants": [
+        "Captain Jean-Luc Picard",
+        "Commander Data",
+        "Lieutenant Commander Geordi La Forge"
+      ],
+      "agenda": "Discuss expansion of AI capabilities",
+      "duration_minutes": 30,
+      "expected_outcomes": [
+        "strategic_plan",
+        "implementation_timeline",
+        "resource_requirements"
+      ]
+    },
+    "response_status": 200,
+    "response_data": null,
+    "execution_success": true,
+    "errors": []
+  },
+  "final_report": {
+    "test_execution_time": "0.32 seconds",
+    "total_webhooks_tested": 3,
+    "successful_executions": 1,
+    "authentication_required": 0,
+    "configuration_issues": 2,
+    "execution_status": "\u26a0\ufe0f Partially Executable",
+    "recommendations": [
+      "Some webhooks are executable - review configuration for others"
+    ],
+    "next_steps": [
+      "Test webhooks with proper authentication credentials",
+      "Validate webhook payload formats and requirements",
+      "Test through Cursor AI extension for end-to-end validation",
+      "Monitor webhook execution performance and reliability",
+      "Deploy to production environment"
+    ]
+  }
+}

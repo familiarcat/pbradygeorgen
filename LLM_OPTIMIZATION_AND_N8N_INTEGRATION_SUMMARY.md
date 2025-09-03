@@ -295,3 +295,6 @@ Optimization Recommendations:
 ---
 
 **🎉 Your extension now automatically optimizes LLM model selection and synchronizes with N8N sub-agents behind the scenes, providing significant cost savings, performance improvements, and intelligent AI routing!**
+
+
+

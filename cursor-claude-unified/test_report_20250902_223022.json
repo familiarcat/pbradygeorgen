@@ -1,0 +1,191 @@
+{
+  "suite_name": "Cursor AI Supercharger Extension Test Suite",
+  "timestamp": "2025-09-02T22:30:22.121392",
+  "total_tests": 16,
+  "passed": 15,
+  "failed": 1,
+  "skipped": 0,
+  "errors": 0,
+  "success_rate": 93.75,
+  "duration_seconds": 3.096999168395996,
+  "test_results": [
+    {
+      "test_name": "TypeScript Compilation",
+      "test_category": "Build",
+      "status": "PASS",
+      "duration_ms": 787.9838943481445,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should compile without TypeScript errors",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Dependencies Check",
+      "test_category": "Build",
+      "status": "FAIL",
+      "duration_ms": 0.3578662872314453,
+      "details": "Test failed",
+      "error_message": "",
+      "expected_result": "All required dependencies should be available",
+      "actual_result": "Test failed"
+    },
+    {
+      "test_name": "File Structure Validation",
+      "test_category": "Build",
+      "status": "PASS",
+      "duration_ms": 0.04124641418457031,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should have correct file structure",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "VSIX Packaging",
+      "test_category": "Packaging",
+      "status": "PASS",
+      "duration_ms": 2307.209014892578,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should package into VSIX successfully",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Package Contents Validation",
+      "test_category": "Packaging",
+      "status": "PASS",
+      "duration_ms": 0.41413307189941406,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "VSIX should contain all required files",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Package Size Validation",
+      "test_category": "Packaging",
+      "status": "PASS",
+      "duration_ms": 0.1919269561767578,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "VSIX should be within reasonable size limits",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "File Context Enhancement",
+      "test_category": "Functionality",
+      "status": "PASS",
+      "duration_ms": 0.14495849609375,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should enhance file context for Cursor AI",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Cost Optimization Dashboard",
+      "test_category": "Functionality",
+      "status": "PASS",
+      "duration_ms": 0.04076957702636719,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Cost optimization dashboard should display correctly",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "N8N Integration",
+      "test_category": "Functionality",
+      "status": "PASS",
+      "duration_ms": 0.03314018249511719,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "N8N integration should be functional",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "LLM Status Display",
+      "test_category": "Functionality",
+      "status": "PASS",
+      "duration_ms": 0.03814697265625,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "LLM status should display correctly",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "N8N Connectivity",
+      "test_category": "Integration",
+      "status": "PASS",
+      "duration_ms": 0.032901763916015625,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Should be able to connect to N8N instance",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Crew Coordination",
+      "test_category": "Integration",
+      "status": "PASS",
+      "duration_ms": 0.10228157043457031,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Crew coordination system should be accessible",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Webhook Endpoints",
+      "test_category": "Integration",
+      "status": "PASS",
+      "duration_ms": 0.0019073486328125,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "All webhook endpoints should be accessible",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Command Execution Speed",
+      "test_category": "Performance",
+      "status": "PASS",
+      "duration_ms": 0.00095367431640625,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Commands should execute within reasonable time limits",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Memory Usage",
+      "test_category": "Performance",
+      "status": "PASS",
+      "duration_ms": 0.00095367431640625,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should use reasonable memory",
+      "actual_result": "Test completed successfully"
+    },
+    {
+      "test_name": "Startup Time",
+      "test_category": "Performance",
+      "status": "PASS",
+      "duration_ms": 0.0011920928955078125,
+      "details": "Test completed successfully",
+      "error_message": "",
+      "expected_result": "Extension should start within reasonable time",
+      "actual_result": "Test completed successfully"
+    }
+  ],
+  "environment_info": {
+    "extension": {
+      "name": "cursor-ai-supercharger",
+      "version": "3.0.0",
+      "displayName": "\ud83d\ude80 Cursor AI Supercharger",
+      "description": "Automatically enhances Cursor AI chat with multi-LLM routing, cost optimization, and N8N integration"
+    },
+    "system": {
+      "platform": "darwin",
+      "python_version": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 16.0.0 (clang-1600.0.26.6)]",
+      "extension_path": "/Users/bradygeorgen/Documents/workspace/pbradygeorgen/cursor-claude-unified",
+      "timestamp": "2025-09-02T22:30:19.024498"
+    }
+  },
+  "recommendations": [
+    "Fix 1 failed tests before deployment",
+    "Address build issues to ensure extension compiles correctly"
+  ]
+}

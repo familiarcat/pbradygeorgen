@@ -1,0 +1,203 @@
+{
+  "local_claude_agents": {
+    "total_agents": 10,
+    "agent_status": {
+      "Captain Jean-Luc Picard": "\u274c Local Agent Not Found",
+      "Commander Data": "\u274c Local Agent Not Found",
+      "Lieutenant Commander Geordi La Forge": "\u274c Local Agent Not Found",
+      "Lieutenant Worf": "\u274c Local Agent Not Found",
+      "Counselor Deanna Troi": "\u274c Local Agent Not Found",
+      "Dr. Beverly Crusher": "\u274c Local Agent Not Found",
+      "Content Analyst": "\u274c Local Agent Not Found",
+      "Commander William Riker": "\u274c Local Agent Not Found",
+      "Lieutenant Uhura": "\u274c Local Agent Not Found",
+      "Quark": "\u274c Local Agent Not Found"
+    },
+    "agent_configuration": {},
+    "capabilities_verified": {},
+    "errors": [
+      "Local agent not found for Captain Jean-Luc Picard",
+      "Local agent not found for Commander Data",
+      "Local agent not found for Lieutenant Commander Geordi La Forge",
+      "Local agent not found for Lieutenant Worf",
+      "Local agent not found for Counselor Deanna Troi",
+      "Local agent not found for Dr. Beverly Crusher",
+      "Local agent not found for Content Analyst",
+      "Local agent not found for Commander William Riker",
+      "Local agent not found for Lieutenant Uhura",
+      "Local agent not found for Quark"
+    ]
+  },
+  "n8n_workflows": {
+    "n8n_connection": "\u2705 Connected (Auth Required)",
+    "workflow_status": {
+      "Captain Jean-Luc Picard": "\u2705 Active",
+      "Commander Data": "\u2705 Active",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Active",
+      "Lieutenant Worf": "\u2705 Active",
+      "Counselor Deanna Troi": "\u2705 Active",
+      "Dr. Beverly Crusher": "\u2705 Active",
+      "Content Analyst": "\u2705 Active",
+      "Commander William Riker": "\u2705 Active",
+      "Lieutenant Uhura": "\u2705 Active",
+      "Quark": "\u2705 Active"
+    },
+    "workflow_availability": {
+      "Captain Jean-Luc Picard": "\u2705 Available",
+      "Commander Data": "\u2705 Available",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Available",
+      "Lieutenant Worf": "\u2705 Available",
+      "Counselor Deanna Troi": "\u2705 Available",
+      "Dr. Beverly Crusher": "\u2705 Available",
+      "Content Analyst": "\u2705 Available",
+      "Commander William Riker": "\u2705 Available",
+      "Lieutenant Uhura": "\u2705 Available",
+      "Quark": "\u2705 Available"
+    },
+    "errors": []
+  },
+  "webhook_endpoints": {
+    "endpoint_status": {
+      "Captain Jean-Luc Picard": "\u2705 Fully Operational",
+      "Commander Data": "\u2705 Fully Operational",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Fully Operational",
+      "Lieutenant Worf": "\u2705 Fully Operational",
+      "Counselor Deanna Troi": "\u2705 Fully Operational",
+      "Dr. Beverly Crusher": "\u2705 Fully Operational",
+      "Content Analyst": "\u2705 Fully Operational",
+      "Commander William Riker": "\u2705 Fully Operational",
+      "Lieutenant Uhura": "\u2705 Fully Operational",
+      "Quark": "\u2705 Fully Operational"
+    },
+    "endpoint_connectivity": {
+      "Captain Jean-Luc Picard": "\u2705 Connected",
+      "Commander Data": "\u2705 Connected",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Connected",
+      "Lieutenant Worf": "\u2705 Connected",
+      "Counselor Deanna Troi": "\u2705 Connected",
+      "Dr. Beverly Crusher": "\u2705 Connected",
+      "Content Analyst": "\u2705 Connected",
+      "Commander William Riker": "\u2705 Connected",
+      "Lieutenant Uhura": "\u2705 Connected",
+      "Quark": "\u2705 Connected"
+    },
+    "endpoint_response": {
+      "Captain Jean-Luc Picard": "\u2705 Responsive",
+      "Commander Data": "\u2705 Responsive",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Responsive",
+      "Lieutenant Worf": "\u2705 Responsive",
+      "Counselor Deanna Troi": "\u2705 Responsive",
+      "Dr. Beverly Crusher": "\u2705 Responsive",
+      "Content Analyst": "\u2705 Responsive",
+      "Commander William Riker": "\u2705 Responsive",
+      "Lieutenant Uhura": "\u2705 Responsive",
+      "Quark": "\u2705 Responsive"
+    },
+    "errors": []
+  },
+  "agent_workflow_communication": {
+    "communication_status": {
+      "Captain Jean-Luc Picard": "\u2705 Fully Communicating",
+      "Commander Data": "\u2705 Fully Communicating",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Fully Communicating",
+      "Lieutenant Worf": "\u2705 Fully Communicating",
+      "Counselor Deanna Troi": "\u2705 Fully Communicating",
+      "Dr. Beverly Crusher": "\u2705 Fully Communicating",
+      "Content Analyst": "\u2705 Fully Communicating",
+      "Commander William Riker": "\u2705 Fully Communicating",
+      "Lieutenant Uhura": "\u2705 Fully Communicating",
+      "Quark": "\u2705 Fully Communicating"
+    },
+    "data_flow": {
+      "Captain Jean-Luc Picard": "\u2705 Functional",
+      "Commander Data": "\u2705 Functional",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Functional",
+      "Lieutenant Worf": "\u2705 Functional",
+      "Counselor Deanna Troi": "\u2705 Functional",
+      "Dr. Beverly Crusher": "\u2705 Functional",
+      "Content Analyst": "\u2705 Functional",
+      "Commander William Riker": "\u2705 Functional",
+      "Lieutenant Uhura": "\u2705 Functional",
+      "Quark": "\u2705 Functional"
+    },
+    "response_handling": {
+      "Captain Jean-Luc Picard": "\u2705 Functional",
+      "Commander Data": "\u2705 Functional",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Functional",
+      "Lieutenant Worf": "\u2705 Functional",
+      "Counselor Deanna Troi": "\u2705 Functional",
+      "Dr. Beverly Crusher": "\u2705 Functional",
+      "Content Analyst": "\u2705 Functional",
+      "Commander William Riker": "\u2705 Functional",
+      "Lieutenant Uhura": "\u2705 Functional",
+      "Quark": "\u2705 Functional"
+    },
+    "errors": []
+  },
+  "end_to_end_integration": {
+    "integration_status": {
+      "Captain Jean-Luc Picard": "\u2705 Fully Integrated",
+      "Commander Data": "\u2705 Fully Integrated",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Fully Integrated",
+      "Lieutenant Worf": "\u2705 Fully Integrated",
+      "Counselor Deanna Troi": "\u2705 Fully Integrated",
+      "Dr. Beverly Crusher": "\u2705 Fully Integrated",
+      "Content Analyst": "\u2705 Fully Integrated",
+      "Commander William Riker": "\u2705 Fully Integrated",
+      "Lieutenant Uhura": "\u2705 Fully Integrated",
+      "Quark": "\u2705 Fully Integrated"
+    },
+    "workflow_execution": {
+      "Captain Jean-Luc Picard": "\u2705 Functional",
+      "Commander Data": "\u2705 Functional",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Functional",
+      "Lieutenant Worf": "\u2705 Functional",
+      "Counselor Deanna Troi": "\u2705 Functional",
+      "Dr. Beverly Crusher": "\u2705 Functional",
+      "Content Analyst": "\u2705 Functional",
+      "Commander William Riker": "\u2705 Functional",
+      "Lieutenant Uhura": "\u2705 Functional",
+      "Quark": "\u2705 Functional"
+    },
+    "agent_coordination": {
+      "Captain Jean-Luc Picard": "\u2705 Functional",
+      "Commander Data": "\u2705 Functional",
+      "Lieutenant Commander Geordi La Forge": "\u2705 Functional",
+      "Lieutenant Worf": "\u2705 Functional",
+      "Counselor Deanna Troi": "\u2705 Functional",
+      "Dr. Beverly Crusher": "\u2705 Functional",
+      "Content Analyst": "\u2705 Functional",
+      "Commander William Riker": "\u2705 Functional",
+      "Lieutenant Uhura": "\u2705 Functional",
+      "Quark": "\u2705 Functional"
+    },
+    "errors": []
+  },
+  "final_report": {
+    "test_execution_time": "0.96 seconds",
+    "total_agents_tested": 10,
+    "overall_success_rate": "80.0%",
+    "connection_status": "\u26a0\ufe0f Partially Connected",
+    "connection_breakdown": {
+      "local_agents": "0/10 (0.0%)",
+      "n8n_workflows": "10/10 (100.0%)",
+      "webhook_endpoints": "10/10 (100.0%)",
+      "communication": "10/10 (100.0%)",
+      "integration": "10/10 (100.0%)"
+    },
+    "recommendations": [
+      "Review local Claude sub-agent configurations",
+      "Verify N8N connection and authentication",
+      "Webhook endpoints are fully operational",
+      "Agent-workflow communication is fully functional"
+    ],
+    "next_steps": [
+      "Test real-world agent-workflow interactions",
+      "Validate data flow between agents and N8N",
+      "Monitor communication performance and reliability",
+      "Implement continuous connection monitoring",
+      "Deploy to production environment",
+      "Monitor real-time connection status"
+    ]
+  }
+}

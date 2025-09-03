@@ -1,0 +1,21 @@
+{
+  "extension": "cursor-ai-supercharger",
+  "version": "3.0.0",
+  "vsix_size": "91KB",
+  "commands": 14,
+  "features": [
+    "Enhanced traditional chat interface",
+    "Multi-LLM selection and optimization",
+    "Cost optimization dashboard",
+    "N8N workflow integration",
+    "14 new commands for advanced functionality",
+    "Seamless integration with existing Cursor chat"
+  ],
+  "testing_status": "Ready for testing",
+  "next_steps": [
+    "Verify extension appears in Extensions panel",
+    "Test Command Palette commands",
+    "Validate traditional chat experience",
+    "Test enhanced features and commands"
+  ]
+}
